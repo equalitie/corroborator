@@ -1,0 +1,431 @@
+<div class="Actor in-view">
+  <div class="header">
+    <div class="id">
+      ID <span id="view_actor_id" class="value out">{{ actor_result.id }}</span>
+    </div>
+    <div class="avatar">&nbsp;</div>
+    <div class="infos">
+      <h2 class="title">
+      <span class="i18n with-en with-ar">
+      <span lang="en"><span class="name">{{ actor_result.fullname_en }}</span> (<span class="sex">{{ actor_result.sex_en }}</span>) <span class="age">{{ actor_result.age_en }}</span> yo.</span>
+      <span lang="ar">{{ actor_result.fullname_ar }}</span>
+      <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+      <div class="aka">aka "{{ actor_result.nickname_en}}"</div>
+      <div class="type">{{actor_result.age_en}}, {{actor_result.civilian_en}}</div>
+    </div>
+  </div>
+  <div class="body">
+    <table class="details">
+      <tr>
+        <th>Lives in</th>
+        <td>Damas</td>
+      </tr>
+      <tr>
+        <th>Born in</th>
+        <td>{{ actor_result.POB.name_en}}, {{ actor_result.DOB|date:"Y"}}</td>
+      </tr>
+      <tr>
+        <th>Nationality</th>
+        <td>{{ actor_result.nationality_en }}</td>
+      </tr>
+      <tr>
+        <th>Ethnicity</th>
+        <td>{{ actor_result.ethnicity_en }}</td>
+      </tr>
+      <tr>
+        <th>Speaks</th>
+        <td>{{ actor_result.spoken_dialect_en }}</td>
+      </tr>
+      <tr>
+        <th>Religion</th>
+        <td>{{ actor_result.religion_en }}</td>
+      </tr>
+    </table>
+    <!-- <div class="actors group">
+      <h3>Related actors</h3>
+      <ul class="elements">
+        <li count="5" class="REPEAT">
+          <div class="Actor in-list">
+            <div class="when-hover">
+              <div class="is-selector">
+                <input type="checkbox" />
+              </div>
+            </div>
+            <div class="avatar">&nbsp;</div>
+            <div class="content">
+              <div class="L1">
+                <div class="status">
+                  <span class="value">Victim</span>
+                </div>
+                <span class="name">Jane Doe</span>
+                <span class="sex">(F)</span>
+                <span class="age">24 yo.</span>
+                <div class="L2">
+                  <span class="aka">aka &laquo;Jenny&raquo;</span>
+                </div>
+              </div>
+              <div class="when-not_expanded">
+                <div class="L3">
+                  lives in <span class="location">Damas</span>, works as a <span class="occupation">secretary</span> 
+                  <br>involved in <span class="incidents-count">10 incidents</span>
+                </div>
+              </div>
+              <div class="when-expanded">
+                <table class="details">
+                  <tr>
+                    <th>Lives in</th>
+                    <td>Damas</td>
+                  </tr>
+                  <tr>
+                    <th>Born in</th>
+                    <td>Damas, 1989</td>
+                  </tr>
+                  <tr>
+                    <th>Nationality</th>
+                    <td>Libanese</td>
+                  </tr>
+                  <tr>
+                    <th>Ethnicity</th>
+                    <td>Arab</td>
+                  </tr>
+                  <tr>
+                    <th>Speaks</th>
+                    <td>Arabic, English</td>
+                  </tr>
+                  <tr>
+                    <th>Religion</th>
+                    <td>Muslim</td>
+                  </tr>
+                </table>
+                <div class="stats">
+                  <div class="is-mentions">
+                    <h4 class="title">Mentioned in</h4>
+                    <div class="stat">
+                      <div class="value">10</div>
+                      <div class="label">Bulletins</div>
+                    </div>
+                    <div class="stat">
+                      <div class="value">7</div>
+                      <div class="label">Incidents</div>
+                    </div>
+                  </div>
+                  <div class="is-related">
+                    <h4 class="title">Related to</h4>
+                    <div class="stat">
+                      <div class="value">25</div>
+                      <div class="label">Actors</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="related">
+                  Appears in related bulletins: <a href="#">Phasells ur nunc purus</a>, <a href="#">Vitae loboris nulla</a>, <a href="#">Aliquam erat volutpat</a>, <a href="#">Nam urna erat</a>, <a href="#">Lorem ipsum</a>.
+                </div>
+                <div class="actions">
+                  <div class="button combo is-default">
+                    <span class="T">Add as</span>
+                    <ul class="options">
+                      <li>
+                         
+                        <span class="text T">Witness</span>
+                      </li>
+                      <li>
+                         
+                        <span class="text T">Victim</span>
+                      </li>
+                      <li>
+                         
+                        <span class="text T">Killer</span>
+                      </li>
+                      <li>
+                         
+                        <span class="text T">Torturer</span>
+                      </li>
+                      <li>
+                         
+                        <span class="text T">Kidnapper</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="when-related">
+                <div class="actions">
+                  <div class="left">
+                    <div class="button combo is-default">
+                      <span class="T">
+                        Related as: Victim 
+                        <ul class="options">
+                          <li>
+                             
+                            <span class="text T">Witness</span>
+                          </li>
+                          <li>
+                             
+                            <span class="text T">Victim</span>
+                          </li>
+                          <li>
+                             
+                            <span class="text T">Killer</span>
+                          </li>
+                          <li>
+                             
+                            <span class="text T">Torturer</span>
+                          </li>
+                          <li>
+                             
+                            <span class="text T">Kidnapper</span>
+                          </li>
+                        </ul>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="right">
+                    <button class="do-remove">
+                      <span class="text T">Remove</span>
+                    </button>
+                  </div>
+                  <div class="clearer">&nbsp;</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div> -->
+    <div class="incidents group">
+      <h3>Incidents</h3>
+      <ul class="elements">
+	{% for incident in incidents.all%}
+        <li id="actor_incident_{{incident.id}}">
+          <div class="Incident in-list">
+            <div class="L1">
+              <div class="meta">
+                <div class="score">
+                  <span class="value">{{ incident.confidence_score }}</span>
+                </div>
+                <div class="status">
+                  <span class="value">{{ incident.status }}</span>
+                </div>
+              </div>
+              <div class="title i18n">
+                 
+                <span lang="en">{{ incident.title_en }}</span>
+                <span lang="ar">{{ incident.title_ar}}</span>
+                <span class="toggle">
+                  <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+              </div>
+            </div>
+            <div class="L3">
+              <div class="date-location">
+ {{incident.get_time_length|safe}} in {% for location in incident_result.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
+              </div>
+              <div class="involved">
+                <span class="actors-count">{{incident.count_actors}}</span> actors involved
+              </div>
+
+            </div>
+<div class="when-related">
+                <div class="actions">
+<div class="left">
+                    <button class="do-view">
+                     <span class="text T">View</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </li>
+	{% endfor %}
+      </ul>
+    </div>
+    <div class="bulletins group">
+      <h3>Bulletins</h3>
+      <ul class="elements">
+	{% for bulletin in bulletins.all%}
+        <li id="actor_bulletin_{{bulletin.id}}">
+          <div class="Bulletin in-list">
+            <div class="L1">
+              <div class="meta">
+                <div class="score">
+                  <span class="value">{{ bulletin.confidence_score }}</span>
+                </div>
+                <div class="status">
+                  <span class="value">{{ bulletin.status }}</span>
+                </div>
+              </div>
+              <div class="title i18n">
+                 
+                <span lang="en">{{ bulletin.title_en }}</span>
+                <span lang="ar">{{ bulletin.title_ar }}</span>
+                <span class="toggle">
+                  <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+              </div>
+            </div>
+            <div class="L3">
+              <div class="date-location">
+{{bulletin.get_time_length|safe}} in {% for location in bulletin.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
+              </div>
+              <div class="involved">
+                <span class="actors-count">{{bulletin.count_actors}}</span> actors involved
+              </div>
+            </div>
+<div class="when-related">
+                <div class="actions">
+<div class="left">
+                    <button class="do-view">
+                     <span class="text T">View</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </li>
+	{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="actor_related_element" class="hidden">
+<li id="{{actor_result.id}}">
+                     <div class="Actor in-list">
+                        <div class="when-hover">
+                          <div class="is-selector">
+                            <input type="checkbox" />
+                          </div>
+                        </div>
+                        <div class="avatar">&nbsp;</div>
+                        <div class="content">
+                          <div class="L1">
+                            <div class="status">
+                              <span class="value"></span>
+                            </div>
+                            <span class="name">{{actor_result.fullname_en}}</span>
+                            <span class="sex">{{actor_result.sex_en}}</span>
+                            <span class="age">{{actor_result.age_en}}</span>
+                            <div class="L2">
+                              <span class="aka">aka &laquo;{{actor_result.nickname_en}}&raquo;</span>
+                            </div>
+                          </div>
+                          <div class="when-not_expanded">
+                            <div class="L3">
+                              lives in <span class="location">Damas</span>, works as a <span class="occupation">{{actor_result.occupation_en}}</span>
+                              <br>involved in <span class="incidents-count">10 incidents</span>
+                            </div>
+                          </div>
+                          <div class="when-expanded">
+                            <table class="details">
+                              <tr>
+                                <th>Lives in</th>
+                                <td>Damas</td>
+                              </tr>
+                              <tr>
+                                <th>Born in</th>
+                                <td>Damas, 1989</td>
+                              </tr>
+                              <tr>
+                                <th>Nationality</th>
+                                <td>{{actor_result.nationality_en}}</td>
+                              </tr>
+                              <tr>
+                                <th>Ethnicity</th>
+                                <td>{{actor_result.ethnicity_en}}</td>
+                              </tr>
+                              <tr>
+                               <th>Speaks</th>
+                                <td>{{actor_result.spoken_dialect_en}}</td>
+                            </tr>
+                              <tr>
+                                <th>Religion</th>
+                                <td>{{actor_result.religion_en}}</td>
+                              </tr>
+                            </table>
+                            <div class="stats">
+                              <div class="is-mentions">
+                                <h4 class="title">Mentioned in</h4>
+                                <div class="stat">
+                                  <div class="value">10</div>
+                                  <div class="label">Bulletins</div>
+                                </div>
+                               <div class="stat">
+                                  <div class="value">7</div>
+                                  <div class="label">Incidents</div>
+                                </div>
+                              </div>
+                              <div class="is-related">
+                                <h4 class="title">Related to</h4>
+                                <div class="stat">
+                                  <div class="value">25</div>
+                                  <div class="label">Actors</div>
+                               </div>
+                              </div>
+                            </div>
+                            <div class="related">
+                              Appears in related bulletins: <a href="#">Phasells ur nunc purus</a>, <a href="#">Vitae loboris nulla</a>, 
+				<a href="#">Aliquam erat volutpat</a>, <a href="#">Nam urna erat</a>, <a href="#">Lorem ipsum</a>.
+                            </div>
+                            <div class="actions">
+                             <div class="button combo is-default">
+                                <span class="T">Add as</span>
+                                <ul class="options">
+                                  <li>
+                                    <span class="text T">Witness</span>
+                                  </li>
+                                  <li>
+                                    <span class="text T">Victim</span>
+                                  </li>
+                                  <li>
+                                    <span class="text T">Killer</span>
+                                  </li>
+                                  <li>
+                                    <span class="text T">Torturer</span>
+                                  </li>
+                                  <li>
+                                    <span class="text T">Kidnapper</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="when-related">
+<!--                              <div class="left">
+                                <div class="button combo is-default">
+                                  <span class="T">
+                                    Related as: Victim 
+                                    <ul class="options">
+                                      <li>
+                                        <span class="text T">Witness</span>
+                                      </li>
+                                      <li>
+                                        <span class="text T">Victim</span>
+                                      </li>
+                                      <li>
+                                        <span class="text T">Killer</span>
+                                      </li>
+                                      <li>
+                                        <span class="text T">Torturer</span>
+                                      </li>
+                                      <li>
+                                        <span class="text T">Kidnapper</span>
+                                      </li>
+                                    </ul>
+                                  </span>
+                                </div>
+                              </div> -->
+                              <div class="right">
+                                <button class="do-remove">
+                                  <span class="text T">Remove</span>
+                                </button>
+                              </div>
+                              <div class="clearer">&nbsp;</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+
+
+</div>
+

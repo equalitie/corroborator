@@ -1,0 +1,530 @@
+<div class="Bulletin in-view">
+  <div id="bulletin-view-header-block-ne" class="header">
+    <span class="id">
+      ID <span id="view_bulletin_id" class="value out">{{ bulletin_result.id }}</span>
+    </span>
+    <h2 class="title">
+    <span class="i18n with-en with-ar">
+    <span lang="en">{{bulletin_result.title_en}}</span>
+    <span lang="ar">{{bulletin_result.title_ar}}</span>
+    <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+    <div class="group details">
+      <div class="assigned-to">
+        <span class="value">{{bulletin_result.assigned_user}}</span>
+      </div>
+      <div class="score">
+        <span class="value">{{bulletin_result.confidence_score}}</span>
+      </div>
+      <div class="status">
+        <span class="value">{{bulletin_result.status}}</span>
+      </div>
+      <div class="date-location">
+        {{ bulletin_result.get_time_length|safe}} in {% for location in bulletin_result.locations.all%}<span class="location">{{ location.name_en}}</span>,{% endfor %}
+      </div>
+      <div class="sources">
+        {%for source in bulletin_result.sources.all %}{%if forloop.first%}( {%endif%}<span class="source">{{ source.name_en }}</span> {%if not forloop.last%},{%endif%} {%if forloop.last%} ){%endif%} {% endfor%}
+      </div>
+    </div>
+    <ul class="tags group">
+	{% for label in bulletin_result.labels.all %}
+      <li class="tag">
+        <span class="text">{{ label.name_en }}</span>
+      </li>
+	{% endfor %}
+    </ul>
+  </div>
+  <div id="bulletin-view-body-block-ne" class="body">
+    <div class="media">
+      <div class="placeholder">&nbsp;</div>
+    </div>
+    <div class="description">{{bulletin_result.description_en}}</div>
+    <div class="actors group">
+	{% for role in bulletin_result.actors_role.all %}
+	{%if forloop.first%}
+      <h3>Actors</h3>
+      <ul class="elements">
+	{%endif%}
+        <li  id="bulletin_actor_{{role.actor.id}}">
+          <div class="Actor in-list">
+            <div class="when-hover">
+              <div class="is-selector">
+                <input type="checkbox" />
+              </div>
+            </div>
+            <div class="avatar">&nbsp;</div>
+            <div class="content">
+              <div class="L1">
+                <div class="status">
+                  <span class="value">{{ role.role_status }}</span>
+                </div>
+                <span class="name">{{ role.actor.fullname_en }}</span>
+                <span class="sex">{{ role.actor.sex_en }}</span>
+                <span class="age">{{ role.actor.age_en }}</span>
+                <div class="L2">
+                  <span class="aka">aka &laquo;{{ role.actor.nickname_en }}&raquo;</span>
+                </div>
+              </div>
+              <div class="when-not_expanded">
+                <div class="L3">
+                  lives in <span class="location">{{ role.actor.POB.name_en}}</span>, works as a <span class="occupation">{{ role.actor.occupation_en }}</span> 
+                  <br>involved in <span class="incidents-count">{{ role.actor.incident_set.count}}</span>
+                </div>
+              </div>
+              <div class="when-related">
+                <div class="actions">
+<div class="left">
+                    <button class="do-view">
+                     <span class="text T">View</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+	{% endfor %}
+      </ul>
+    </div>
+<!--    <div class="incidents group">
+      <h3>Incidents</h3>
+      <ul class="elements">
+	
+        <li >
+          <div class="Incident in-list">
+            <div class="L1">
+              <div class="meta">
+                <div class="score">
+                  <span class="value">80</span>
+                </div>
+                <div class="status">
+                  <span class="value">Reviewed</span>
+                </div>
+              </div>
+              <div class="title i18n">
+                 
+                <span lang="en">Incident's title with lots of words to show what a really long title looks like</span>
+                <span lang="ar">يَجِبُ عَلَى الإنْسَانِ أن يَكُونَ أمِيْنَاً وَصَادِقَاً مَعَ نَفْسِهِ وَمَعَ أَهْلِهِ وَجِيْرَانِهِ وَأَنْ يَبْذُلَ كُلَّ جُهْدٍ فِي</span>
+                <span class="toggle">
+                  <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+              </div>
+            </div>
+            <div class="L3">
+              <div class="date-location">
+        {{ incident.get_time_length|safe}} in {% for location in incident.locations.all%}<span class="location">{{ location.name_en}}</span>,{% endfor %}
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div> -->
+  </div>
+
+
+              <div id="bulletin-view-header-expand" class="header hidden">
+                <span class="id">
+                  ID <span class="value out">{{ bulletin_result.id }}</span>
+                </span>
+                <h2 class="title">
+                <span class="i18n with-en with-ar">
+                <span lang="en">{{bulletin_result.title_en}}</span>
+		<span lang="ar">{{bulletin_result.title_ar}}</span>
+                <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+              </div>
+              <div id="bulletin-view-firstcol-expand" class="col first span-66p hidden">
+                <div class="body">
+                  <div class="is-sources group">
+                    <h4>Sources</h4>
+                    <div class="value">
+			 {%for source in bulletin_result.sources.all %}<span class="source">{{ source.name_en }}</span>{%if not forloop.last %},{%endif%} {% endfor%}
+                    </div>
+                  </div>
+                  <div class="is-media group">
+	            <div id="bulletin-video-player" clas="hidden"></div>	
+                    <div class="bulletin-preview preview"> </div>
+
+                    <h4>Media</h4>
+                    <ul class="media">
+			{% for media in bulletin_result.medias.all%}
+                      <li class="medium" >
+			<input type="hidden" value="{{media.uri}}"/>
+                        <span class="type">{{bulletin_result.type}}</span>
+                        <span class="date">{{media.name_en}}</span>
+				<button class="do-play is-small">             
+			            <span class="text">play</span>
+			          </button>
+                      </li>
+			{%endfor%}
+                    </ul>
+                    <div class="clearer">&nbsp;</div>
+                  </div>
+                  <div class="is-description group">
+                    <h4>Description</h4>
+                    <div class="description">{{bulletin_result.description_en}}</div>
+                  </div>
+                  <div class="is-actors group">
+                    <h4>Actors</h4>
+                    <ul class="elements">
+			{% for role in bulletin_result.actors_role.all %}
+
+                      <li >
+                        <div class="Actor in-list">
+                          <div class="when-hover">
+                            <div class="is-selector">
+                              <input type="checkbox">
+                            </div>
+                          </div>
+                          <div class="avatar">&nbsp;</div>
+                          <div class="content">
+                            <div class="L1">
+                              <div class="status">
+                                <span class="value">{{ role.role_status }}</span>
+                              </div>
+                              <span class="name">{{ role.actor.fullname_en }}</span>
+                <span class="sex">{{ role.actor.sex_en }}</span>
+                <span class="age">{{ role.actor.age_en }}</span>
+                <div class="L2">
+                  <span class="aka">aka &laquo;{{ role.actor.nickname_en }}&raquo;</span>
+                </div>
+                            </div>
+                            <div class="when-not_expanded">
+                              <div class="L3">
+                  lives in <span class="location">{{ role.actor.POB.name_en}}</span>, works as a <span class="occupation">{{ role.actor.occupation_en }}</span>
+                  <br>involved in <span class="incidents-count">{{ role.actor.incident_set.count}}</span>
+                </div>
+                            </div>
+                            <div class="when-expanded">
+                              <table class="details">
+                                <tbody><tr>
+                                  <th>Lives in</th>
+                                  <td>Damas</td>
+                                </tr>
+                                <tr>
+                    <th>Lives in</th>
+                    <td>Damas</td>
+                  </tr>
+                  <tr>
+                    <th>Born in</th>
+                    <td>{{ role.actor.POB.name_en}}, {{ role.actor.DOB|date:"Y"}}</td>
+                  </tr>
+                  <tr>
+                    <th>Nationality</th>
+                    <td>{{ role.actor.nationality_en }}</td>
+                  </tr>
+                  <tr>
+                    <th>Ethnicity</th>
+                    <td>{{ role.actor.ethnicity_en }}</td>
+                  </tr>
+                  <tr>
+                    <th>Speaks</th>
+                    <td>{{ role.actor.spoken_dialect_en }}</td>
+                  </tr>
+                  <tr>
+                    <th>Religion</th>
+                    <td>{{ role.actor.religion_en }}</td>
+                  </tr>
+
+                              </tbody></table>
+                              <div class="stats">
+                                <div class="is-mentions">
+                                  <h4 class="title">Mentioned in</h4>
+                                  <div class="stat">
+                                    <div class="value">{{role.actor.count_bulletins}}</div>
+                                    <div class="label">Bulletins</div>
+                                  </div>
+                                  <div class="stat">
+                                    <div class="value">{{role.actor.count_incidents}}</div>
+                                    <div class="label">Incidents</div>
+                                  </div>
+                                </div>
+<!--                                <div class="is-related">
+                                  <h4 class="title">Related to</h4>
+                                  <div class="stat">
+                                    <div class="value">25</div>
+                                    <div class="label">Actors</div>
+                                  </div>
+                                </div> -->
+                              </div>
+<!--                              <div class="related">
+                                Appears in related bulletins: <a href="#">Phasells ur nunc purus</a>, <a href="#">Vitae loboris nulla</a>, <a href="#">Aliquam erat volutpat</a>, <a href="#">Nam urna erat</a>, <a href="#">Lorem ipsum</a>.
+                              </div> -->
+                              <div class="actions">
+                                <div class="button combo is-default">
+                                  <span class="T">Add as</span>
+                                  <ul class="options">
+                                    <li>
+                                       
+                                      <span class="text T">Witness</span>
+                                    </li>
+                                    <li>
+                                       
+                                      <span class="text T">Victim</span>
+                                    </li>
+                                    <li>
+                                       
+                                      <span class="text T">Killer</span>
+                                    </li>
+                                    <li>
+                                       
+                                      <span class="text T">Torturer</span>
+                                    </li>
+                                    <li>
+                                       
+                                      <span class="text T">Kidnapper</span>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="when-related">
+                              <div class="actions">
+                                <div class="left">
+                                  <div class="button combo is-default">
+                                    <span class="T">
+                                      Related as: Victim 
+                                      <ul class="options">
+                                        <li>
+                                           
+                                          <span class="text T">Witness</span>
+                                        </li>
+                                        <li>
+                                           
+                                          <span class="text T">Victim</span>
+                                        </li>
+                                        <li>
+                                           
+                                          <span class="text T">Killer</span>
+                                        </li>
+                                        <li>
+                                           
+                                          <span class="text T">Torturer</span>
+                                        </li>
+                                        <li>
+                                           
+                                          <span class="text T">Kidnapper</span>
+                                        </li>
+                                      </ul>
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="right">
+                                  <button class="do-removeActor">
+                                    <span class="text T">Remove</span>
+                                  </button>
+                                </div>
+                                <div class="clearer">&nbsp;</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+			{%endfor%}
+                    </ul>
+                    <div class="clearer">&nbsp;</div>
+                  </div>
+                <!--  <div class="is-bulletins group">
+                    <h3>Related Bulletins</h3>
+                    <ul class="elements">
+                      <li class="REPEAT" count="5">
+                        <div class="Bulletin in-list">
+                          <div class="L1">
+                            <div class="meta">
+                              <div class="score">
+                                <span class="value">80</span>
+                              </div>
+                              <div class="status">
+                                <span class="value">Reviewed</span>
+                              </div>
+                            </div>
+                            <div class="title i18n">
+                               
+                              <span lang="en">Bulletin's title with lots of words to show what a really long title looks like</span>
+                              <span lang="ar">يَجِبُ عَلَى الإنْسَانِ أن يَكُونَ أمِيْنَاً وَصَادِقَاً مَعَ نَفْسِهِ وَمَعَ أَهْلِهِ وَجِيْرَانِهِ وَأَنْ يَبْذُلَ كُلَّ جُهْدٍ فِي</span>
+                              <span class="toggle">
+                                <span lang="en">EN</span><span lang="ar">AR</span>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="L3">
+                            <div class="date-location">
+{{bulletin.get_time_length|safe}} in {% for location in bulletin.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
+                            </div>
+                            <div class="involved">
+                              <span class="actors-count">10</span> actors involved
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="is-incidents group">
+                    <h3>Related Incidents</h3>
+                    <ul class="elements">
+                      <li class="REPEAT" count="5">
+                        <div class="Incident in-list">
+                          <div class="L1">
+                            <div class="meta">
+                              <div class="score">
+                                <span class="value">80</span>
+                              </div>
+                              <div class="status">
+                                <span class="value">Reviewed</span>
+                              </div>
+                            </div>
+                            <div class="title i18n">
+                               
+                              <span lang="en">Incident's title with lots of words to show what a really long title looks like</span>
+                              <span lang="ar">يَجِبُ عَلَى الإنْسَانِ أن يَكُونَ أمِيْنَاً وَصَادِقَاً مَعَ نَفْسِهِ وَمَعَ أَهْلِهِ وَجِيْرَانِهِ وَأَنْ يَبْذُلَ كُلَّ جُهْدٍ فِي</span>
+                              <span class="toggle">
+                                <span lang="en">EN</span><span lang="ar">AR</span>
+                              </span>
+                            </div>
+                          </div>
+                          <div class="L3">
+                            <div class="date-location">
+{{incident.get_time_length|safe}} in {% for location in incident_result.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div> -->
+              </div>
+		</div>
+              <div id="bulletin-view-lastcol-expand" class="col last span-33p hidden">
+                <div class="body">
+                  <div class="group">
+                    <div class="is-score group">
+                      <h4>Confidence</h4>
+                      <div class="score">
+                        <span class="value">{{bulletin_result.confidence_score}}</span>
+                      </div>
+                    </div>
+                    <div class="is-status group">
+                      <h4>Update status</h4>
+                      <div class="status">
+                        <span class="value">{{bulletin_result.status}}</span>
+                      </div>
+                    </div>
+                    <div class="is-assigned-to group">
+                      <h4>Assigned to</h4>
+                      <div class="assigned-to">
+                        <span class="value">{{bulletin_result.assigned_user}}</span>
+                      </div>
+                    </div>
+                    <div class="clearer">&nbsp;</div>
+                  </div>
+                  <div class="is-events group">
+                    <h4>Events</h4>
+                    <div class="date-duration">
+        {{ bulletin_result.get_time_length|safe}}
+
+                    </div>
+                    <ul class="events">
+			{%for event in bulletin_result.times.all%}
+                      <li class="event">
+                        <div class="content">
+                          <div class="name">{{time.event_name_en}}</div>
+                          <div class="time">
+                            from 
+                            <span class="start">{{time.time_from|date:'Y/m/d'}}</span> to  
+                            <span class="end">{{time.time_to|date:'Y/m/d'}}</span>
+                          </div>
+                        </div>
+                        <div class="clearer">&nbsp;</div>
+                      </li>
+			{%endfor%}
+                    </ul>
+                  </div>
+                  <div class="is-locations group">
+                    <h4>Locations</h4>
+                    <div class="locations">
+                      <div class="map">&nbsp;</div>
+                      {%for location in bulletin_result.locations.all%}
+                      <div class="location">{{location.name_en}}</div>
+			{%endfor%}
+                    </div>
+                  </div>
+                  <div class="is-tags group">
+                    <h4>Labels</h4>
+                    <ul class="tags">
+			{%for label in bulletin_result.labels.all%}
+                      <li class="tag">
+                        <span class="text">{{label.name_en}}</span>
+                      </li>
+			{%endfor%}
+                    </ul>
+                  </div>
+<!--              <div class="is-history group">
+                    <h4>History of edits</h4>
+                    <ul class="edits">
+                      <li class="edit">
+                        <a class="view right" href="#">View</a>
+                        <div class="status">
+                          <span class="value">Created</span>
+                        </div>
+                        <div class="meta-history">
+                          <span class="date">2013-05-03 15:35</span> by <span class="who">Martin Scholls</span>
+                        </div>
+                        <div class="message">Imported from XXXX</div>
+                      </li>
+                      <li class="edit">
+                        <a class="view right" href="#">View</a>
+                        <div class="status">
+                          <span class="value">Reviewed</span>
+                        </div>
+                        <div class="meta-history">
+                          <span class="date">2013-05-03 15:35</span> by <span class="who">Martin Scholls</span>
+                        </div>
+                        <div class="message">There was a rain in the video which confirms the date</div>
+                      </li>
+                    </ul>
+                  </div> -->
+                </div>
+              </div>
+              <div class="clearer">&nbsp;</div>
+          </div>
+<div id="bulletin_related_element" class="hidden">
+<li id="{{bulletin_result.id}}">
+                       <div class="content">
+<div class="Bulletin in-list">
+<div class="L1">
+<div class="meta">
+<div class="score">
+<span class="value">{{bulletin_result.confidence_score}}</span>
+</div>
+<div class="status">
+<span class="value">{{bulletin_result.status}}</span>
+</div>
+</div>
+<div class="title i18n">
+<span lang="en">{{bulletin_result.title_en}}</span>
+<span lang="ar">{{bulletin_result.title_ar}}</span>
+<span class="toggle">
+</div>
+</div>
+<div class="L3">
+<div class="date-location">
+        {{ bulletin_result.get_time_length|safe}} in {% for location in bulletin_result.locations.all%}<span class="location">{{ location.name_en}}</span>,{% endfor %}
+</div>
+<div class="involved">
+<span class="actors-count">{{bulletin_result.actors.count}}</span> actors involved
+</div>
+</div>
+               <div class="when-related">
+                <div class="actions">
+                  <div class="right">
+                    <button class="do-remove">
+                      <span class="text T">Remove</span>
+                    </button>
+                  </div>
+                  <div class="clearer">&nbsp;</div>
+                </div>
+              </div>
+</div>
+</div>
+                  </li>
+
+
+</div>

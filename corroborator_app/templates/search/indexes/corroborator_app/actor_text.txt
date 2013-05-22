@@ -1,0 +1,2 @@
+{{ object.fullname_en }}
+{{ object.nickname_en }}

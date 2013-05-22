@@ -1,0 +1,23 @@
+{{ object.description_en }}
+{{ object.title_en }}
+{{ object.confisence_score }}
+{{ object.type }}
+{% for location in object.locations.all %}
+    {{ location.name_en }}
+{% endfor %}
+
+{% for time in object.times.all %}
+    {{ time.time }}
+{% endfor %}
+
+{% for status in object.status.all %}
+    {{ status.status }}
+{% endfor %}
+{% for label in object.labels.all %}
+    {{ label.name }}
+{% endfor %}
+
+{% for source in object.sources.all %}
+    {{ source.name }}
+    {{ source.source_type.source_type }}
+{% endfor %}
