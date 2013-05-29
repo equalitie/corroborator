@@ -1,4 +1,6 @@
-# Django settings for corroborator project.
+"""
+Django settings for corroborator project.
+"""
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -9,16 +11,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'corroborator',                      # Or path to database file if using sqlite3.
-        'USER': 'django',                      # Not used with sqlite3.
-        'PASSWORD': 'pe2ua8Yahp7fainoop7U',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -103,7 +95,6 @@ ROOT_URLCONF = 'corroborator.urls'
 WSGI_APPLICATION = 'corroborator.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 	'/home/bill/corroborator/corroborator/templates'
@@ -121,7 +112,13 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'django.contrib.gis',
+
+    # contrib apps
     'haystack',
+    'south',
+    'tastypie',
+
+    # custom apps
     'corroborator_app',
 )
 

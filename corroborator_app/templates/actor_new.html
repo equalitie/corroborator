@@ -1,8 +1,21 @@
 
 <script type="text/javascript">
- gl_ac_locations_list = [{%for location in locations_set.all %}{label:"{{location.name_en}}",id:"{{location.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
-    gl_ac_users_list = [{%for user in users_set.all %}{label:"{{user.username}}",id:"{{user.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+ var gl_ac_locations_list = [];
+  {%for location in locations_set.all %}
+    gl_ac_locations_list.push({
+      label:"{{location.name_en}}",
+      id:"{{location.id}}"
+    });
+  {% endfor%};
+    var gl_ac_users_list = [];
+    {%for user in users_set.all %}
+      gl_ac_users_list.push({
+        label:"{{user.username}}",
+        id:"{{user.id}}"
+      });
+    {% endfor%};
 </script>
+
 <form id="actor_form">
 <div class="Actor in-preview is-edited">
   <div class="header">

@@ -11,18 +11,41 @@ might make sense to replace the whole Django WSGI application with a custom one
 that later delegates to the Django one. For example, you could introduce WSGI
 middleware here, or combine a Django application with an application of another
 framework.
-
 """
+
+# -*- coding: utf-8 -*-
 import os
+import site
+import sys
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "corroborator.settings")
 
-# This application object is used by any WSGI server configured to use this
-# file. This includes Django's development server, if the WSGI_APPLICATION
-# setting points here.
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+# Remember original sys.path.
+prev_sys_path = list(sys.path)
 
-# Apply WSGI middleware here.
-# from helloworld.wsgi import HelloWorldApplication
-# application = HelloWorldApplication(application)
+# we add currently directory to path and change to it
+pwd = os.path.dirname(os.path.abspath(__file__))
+os.chdir( pwd )
+sys.path = [pwd] + sys.path
+sys.path  = [pwd + '/../'] + sys.path
+
+# find the site-packages within the local virtualenv
+for python_dir in os.listdir('../env/lib'):
+    site_packages_dir = os.path.join("../env/lib", python_dir, "site-packages")
+    if os.path.exists(site_packages_dir):
+        site.addsitedir(os.path.abspath(site_packages_dir))
+
+# Reorder sys.path so new directories at the front.
+new_sys_path = []
+for item in list(sys.path):
+    if item not in prev_sys_path:
+        print item
+        new_sys_path.append(item)
+        sys.path.remove(item)
+        sys.path[:0] = new_sys_path
+
+
+# now start django
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev'
+
+import django.core.handlers.wsgi
+application = django.core.handlers.wsgi.WSGIHandler()

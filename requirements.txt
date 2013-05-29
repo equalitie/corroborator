@@ -1,0 +1,4 @@
+Django==1.4.1
+South==0.8.1
+django-tastypie==0.9.15
+django-debug-toolbar==0.9.4

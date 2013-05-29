@@ -1,0 +1,14 @@
+*.pyc
+*.sh
+.sass-cache
+env
+sitestatic
+sitestatic/*
+media/*
+apache/*
+*.sublime-project
+*.sublime-workspace
+Gemfile
+Gemfile.lock
+Guardfile
+config.rb

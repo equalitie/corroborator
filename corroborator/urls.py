@@ -22,3 +22,14 @@ urlpatterns = patterns('',
     url(r'^corroborator/incident/(?P<incident_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_incident'),
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_actor'),
 )
+
+# API Resources
+from tastypie.api import Api
+from corroborator_app.api import ActorResource
+
+v1_api = Api(api_name='v1')
+v1_api.register(ActorResource())
+
+urlpatterns += patterns('',
+    (r'^api/', include(v1_api.urls)),
+)

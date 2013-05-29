@@ -30,109 +30,112 @@ var opts = {
   left: 'auto' // Left position relative to parent in px
 };
 
-var corrob_util=corrob_util||{};(function(corrob_util){var self=corrob_util
+var corrob_util=corrob_util||{};
+
+(function(corrob_util){
+  var self=corrob_util;
 
 
-corrob_util.$=jQuery.noConflict()
+corrob_util.$=jQuery.noConflict();
 
-corrob_util.loadVideoPlayer = function(media_data){
-	video_url = 'https://sjac.rightscase.org/static/video/' + media_data;
-var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
+  corrob_util.loadVideoPlayer = function(media_data){
+    video_url = 'https://sjac.rightscase.org/static/video/' + media_data;
+  var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
 
-corrob_util.$('.' + current + '-video-player').empty();
-//Flowplayer
-/*var video_html = '<video id="'+current+'_player" class="video-js vjs-default-skin" controls preload="none" width="640" height="360">'+
- '<source src="'+video_url+'" type="video/mp4" />'+
-'</video>';
-	var player_id = current+'_player';	
-	corrob_util.$('.' + current + '-video-player').append(video_html);
-	_V_(player_id, {}, function(){
-  		// Player (this) is initialized and ready.
-	});*/
-//JWPlayer
-var player_id = current+'-video-player';	
+  corrob_util.$('.' + current + '-video-player').empty();
+  //Flowplayer
+  /*var video_html = '<video id="'+current+'_player" class="video-js vjs-default-skin" controls preload="none" width="640" height="360">'+
+   '<source src="'+video_url+'" type="video/mp4" />'+
+  '</video>';
+    var player_id = current+'_player';	
+    corrob_util.$('.' + current + '-video-player').append(video_html);
+    _V_(player_id, {}, function(){
+  // Player (this) is initialized and ready.
+    });*/
+  //JWPlayer
+  var player_id = current+'-video-player';	
 
-jwplayer("bulletin-video-player").setup({
-	file: video_url
-    });
+  jwplayer("bulletin-video-player").setup({
+    file: video_url
+      });
 
-	corrob_util.$('#' + current + '-video-player').removeClass('hidden');
-	corrob_util.$('.' + current + '-preview').addClass('hidden');
-}
+    corrob_util.$('#' + current + '-video-player').removeClass('hidden');
+    corrob_util.$('.' + current + '-preview').addClass('hidden');
+  };
 
-corrob_util.save_predefined_search = function(name,current,query){
-	var dataToSave = {
-		'name_en' : name,
-		'name_ar' : '',
-		'search_request' : query,
-		'search_type' : current						
-	}
-	var id= 0;
-	var requestURL = 'predefined/search/'+id+'/add/';
-	corrob_util.$('#main_spinner').removeClass('hidden');
-	corrob_util.$.ajax({
-                url:requestURL,
-                type: 'POST',
-                headers: { "X-CSRFToken": corrob_util.getCookie("csrftoken")},
-                data:JSON.stringify(dataToSave),
-                contentType: 'application/json',
-                processData:false,
-                success: function(data){
-			corrob_util.$('#main_spinner').addClass('hidden');
-			var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
-			var node = corrob_util.$('.'+current+'-predefined');
-			if(node.length > 0){
-				node[node.length-1].after(data);
-			}else{
-				corrob_util.$('#show_save_current_search').after(data);
-			}
-                },
-                error: function(textStatus){
-			corrob_util.$('#main_spinner').addClass('hidden');
-                        alert(textStatus);
-                }
-        });
+  corrob_util.save_predefined_search = function(name,current,query){
+    var dataToSave = {
+      'name_en' : name,
+      'name_ar' : '',
+      'search_request' : query,
+      'search_type' : current						
+    };
+    var id= 0;
+    var requestURL = 'predefined/search/'+id+'/add/';
+    corrob_util.$('#main_spinner').removeClass('hidden');
+    corrob_util.$.ajax({
+                  url:requestURL,
+                  type: 'POST',
+                  headers: { "X-CSRFToken": corrob_util.getCookie("csrftoken")},
+                  data:JSON.stringify(dataToSave),
+                  contentType: 'application/json',
+                  processData:false,
+                  success: function(data){
+        corrob_util.$('#main_spinner').addClass('hidden');
+        var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
+        var node = corrob_util.$('.'+current+'-predefined');
+        if(node.length > 0){
+          node[node.length-1].after(data);
+        }else{
+          corrob_util.$('#show_save_current_search').after(data);
+        }
+                  },
+                  error: function(textStatus){
+        corrob_util.$('#main_spinner').addClass('hidden');
+                          alert(textStatus);
+                  }
+          });
 
 
-}
+  };
 
-corrob_util.switchTabs = function(target){
-	if(target == 'Incidents'){
-	 	var current = corrob_util.$('.current > a > span > span').html();
-		corrob_util.$('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
-		corrob_util.$('.Incidents-active').removeClass('Incidents-active').removeClass('hidden');
-		corrob_util.$('.current').removeClass('current');
-		corrob_util.$('.as-2:not(.hidden)').addClass('hidden');
-		corrob_util.$('.is-incidents').addClass('current');
-		corrob_util.$('#incident-content').removeClass('hidden');
-//		corroborator.layout.relayout();
-	}else{
-		corrob_util.$('#'+target.toLowerCase()+'-tab').trigger('click');
-	}
-}
-corrob_util.loadViewEntity = function(id, type){
-	var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
-        var requestURL = type+'/'+id+'/view/';
-                        var tabTarget =  type[0].toUpperCase() + '' +type.slice(1,type.length) + 's';
-                        corrob_util.switchTabs(tabTarget);
-                corrob_util.$.ajax({url:requestURL}).done(function(data){
-			corrob_util.$('#view-placeholder-'+type).empty();
-			corrob_util.$('#view-placeholder-'+type).append(data);
-                        corrob_util.$('.'+type+'-overlay').removeClass('hidden');
-                });	
+  corrob_util.switchTabs = function(target){
+    if(target === 'Incidents'){
+      var current = corrob_util.$('.current > a > span > span').html();
+      corrob_util.$('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
+      corrob_util.$('.Incidents-active').removeClass('Incidents-active').removeClass('hidden');
+      corrob_util.$('.current').removeClass('current');
+      corrob_util.$('.as-2:not(.hidden)').addClass('hidden');
+      corrob_util.$('.is-incidents').addClass('current');
+      corrob_util.$('#incident-content').removeClass('hidden');
+  //		corroborator.layout.relayout();
+    }else{
+      corrob_util.$('#'+target.toLowerCase()+'-tab').trigger('click');
+    }
+  };
+  corrob_util.loadViewEntity = function(id, type){
+    var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
+          var requestURL = type+'/'+id+'/view/';
+                          var tabTarget =  type[0].toUpperCase() + '' +type.slice(1,type.length) + 's';
+                          corrob_util.switchTabs(tabTarget);
+                  corrob_util.$.ajax({url:requestURL}).done(function(data){
+        corrob_util.$('#view-placeholder-'+type).empty();
+        corrob_util.$('#view-placeholder-'+type).append(data);
+                          corrob_util.$('.'+type+'-overlay').removeClass('hidden');
+                  });	
 
-}
-corrob_util.loadCreateNewEntity = function(entity_type){
-	var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
-	corrob_util.$('.'+entity_type+'-overlay').data('related_entity',current);
-        var requestURL = entity_type+'/0/new/';
-                corrob_util.$.ajax({url:requestURL}).done(function(data){
-                        var tabTarget =  entity_type[0].toUpperCase() + '' +entity_type.slice(1,entity_type.length) + 's';
-                        corrob_util.switchTabs(tabTarget);
-                        corrob_util.loadEditableOverlay(data,'saveAndRelate');
-                        corrob_util.$('.'+entity_type+'-overlay').removeClass('hidden');
-                });
-}
+  };
+  corrob_util.loadCreateNewEntity = function(entity_type){
+    var current = corrob_util.$('.current > a > span > span').html().toLowerCase().slice(0,-1);
+    corrob_util.$('.'+entity_type+'-overlay').data('related_entity',current);
+          var requestURL = entity_type+'/0/new/';
+                  corrob_util.$.ajax({url:requestURL}).done(function(data){
+                          var tabTarget =  entity_type[0].toUpperCase() + '' +entity_type.slice(1,entity_type.length) + 's';
+                          corrob_util.switchTabs(tabTarget);
+                          corrob_util.loadEditableOverlay(data,'saveAndRelate');
+                          corrob_util.$('.'+entity_type+'-overlay').removeClass('hidden');
+                  });
+  };
 
 
 corrob_util.delete = function(){

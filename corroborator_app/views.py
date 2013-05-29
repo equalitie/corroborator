@@ -37,6 +37,9 @@ def login_user(request):
 
 
 def index(request, *args, **kwargs):
+        """
+        render the main home view
+        """
         username = 'admin'
         if request.user.is_authenticated():
                 username = request.user.username
@@ -62,6 +65,8 @@ def index(request, *args, **kwargs):
 		return render(request,'search.html',{'sources_set':sources_set,'labels_set':labels_set,'crimes_set':crimes_set,'status_set':status_set,'users_set':users_set,'loc_set':loc_set,'username':username,'ps_incident_list':ps_incident_list,'ps_bulletin_list':ps_bulletin_list,'ps_actor_list':ps_actor_list})
 	else:
 		return render_to_response('auth.html',RequestContext(request))
+
+
 def home(request, *args, **kwargs):
         if request.user.is_authenticated():
 		bulletins = bulletin.objects.filter(assigned_user_id=request.user.id)
@@ -329,7 +334,7 @@ def lookup_incident(request, incident_id,mode):
 
 
 
-def lookup_actor(request, actor_id,mode):
+def lookup_actor(request, actor_id, mode):
 	
 	if 'edit' in mode:
 		locations_set = location.objects.values('id','name_en')
