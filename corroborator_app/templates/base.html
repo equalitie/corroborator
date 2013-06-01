@@ -226,6 +226,7 @@ background-color:#FFFFFF;
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/AbstractFacetWidget.js"></script>
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/AbstractSpatialWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/SearchWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/widgets/CalendarWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/SpatialSearchWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/EmbeddedSearchWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/CurrentFiltersWidget.js"></script>
@@ -234,6 +235,16 @@ background-color:#FFFFFF;
 <script src="{{ STATIC_URL }}js/corroborator-map.js"></script>
 <script src="{{ STATIC_URL }}js/corroborator-hash-link-reader.js"></script>
 
+<script src="{{ STATIC_URL }}js/jquery-file-upload/vendor/jquery.ui.widget.js"></script>
+<script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload.js"></script>
+<!-- The File Upload file processing plugin -->
+<!-- <script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload-fp.js"></script> -->
+<!-- The File Upload user interface plugin -->
+<!-- <script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload-ui.js"></script> -->
+<!-- The File Upload jQuery UI plugin -->
+<!-- <script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload-jui.js"></script> -->
 <script type="text/javascript">
 jQuery(document).ready(function($){
         createFilterSearchMap('filter_map',33.87042, 35.85938);
@@ -264,12 +275,17 @@ jQuery(document).ready(function($){
 
 
 <script type="text/javascript" >
+    gl_s3_aws_media_url = '{{ MEDIA_URL }}';
+    gl_ac_role_list = [{%for role in role_status_set %}{role:"{{role}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_relation_list = [{%for relation in relation_status_set %}{relation:"{{relation}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     gl_ac_labels_list = [{%for label in labels_set.all %}{label:"{{label.name_en}}",id:"{{label.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     gl_ac_users_list = [{%for user in users_set.all %}{label:"{{user.username}}",id:"{{user.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     gl_ac_crimes_list = [{%for crime in crimes_set.all %}{label:"{{crime.category_en}}",id:"{{crime.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     special_global_ac_sources_list = [{%for source in sources_set.all %}{label:"{{source.name_en}}",id:"{{source.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     gl_ac_loc_set = [{%for loc in loc_set.all %}{name:"{{loc.name_en}}",latlng:"{{loc.latitude}},{{loc.longitude}}",count:"{{loc.count}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     gl_ac_loc_ac_set = [{%for loc in loc_set.all %}{label:"{{loc.name_en}}",id:"{{loc.latitude}},{{loc.longitude}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_username = '{{username}}';
+    gl_userid = '{{userid}}';
 </script>
 
 
@@ -277,7 +293,15 @@ jQuery(document).ready(function($){
 	
 
 		jQuery(document).ready(function($){
-
+		$('#media_upload_dialog').dialog({
+			autoOpen : false,
+			model : true,
+			minWidth : 350,
+			minHeight : 250
+		});
+		 $('#media_upload_dialog').bind('dialogclose', function(event) {
+    			$('.file-to-upload').remove();
+		 });
 		$('#confirm_dialog').dialog({
 			autoOpen : false,
 			model : true
@@ -413,5 +437,82 @@ jQuery(document).ready(function($){
     </div>
 <div id="confirm_dialog" title="">
 </div>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+$(function () {
+    $('#fileupload').fileupload({
+	 url: 'bulletin/0/uploadmedia/',
+        dataType: 'json',
+	add: function (e, data) {
+	    var node = '<div class="file-to-upload"><span>'+data.files[0].name+'</span></div>';
+	    //$(node).click(function(){$(this).remove();});
+	    $(node).appendTo('#fileupload');	
+            data.context = $('<button/>').text('Upload')
+                .appendTo('#fileupload')
+                .click(function () {
+                    data.context = $('<p/>').text('').replaceAll($(this));
+			corrob_util.$('#main_spinner').removeClass('hidden');
+                    data.submit();
+                });
+        },
+        done: function (e, data) {
+		
+	    var doc = jQuery.parseJSON(data.jqXHR.responseText);
+	    corrob_util.insert_new_media(doc);
+		corrob_util.$('#main_spinner').addClass('hidden');
+/*            $.each(data.files, function (index, file) {
+		data.context = $('<p/>').text('Done').replaceAll($(this));
+            });*/
+        }
+    });
+});
+});
+</script>
+<div id="media_upload_dialog" title="Upload new media" >
+    <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="span7">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <span>Add files...</span>
+                    <input type="file" name="files" multiple>
+                </span>
+         <!--       <button type="submit" class="btn btn-primary start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>Cancel upload</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <i class="icon-trash icon-white"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" class="toggle"> -->
+            </div>
+            <!-- The global progress information -->
+            <div class="span5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="bar" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress information -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <!-- The loading indicator is shown during file processing -->
+        <div class="fileupload-loading"></div>
+        <br>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    </form>
+	
+</div>
+
   </body>
 </html>

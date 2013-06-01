@@ -853,7 +853,10 @@ ul.media li.medium:hover .do-play {
   height: 6.15384615385em;
   background-color: #d0d0d0;
 }
-
+.avatar > img{
+        width:100%;
+        height:100%;
+}
 .tag,
 .sources.editor .source,
 .crime {
@@ -1068,6 +1071,11 @@ ul.media li.medium:hover .do-play {
   visibility: visible;
 }
 
+.comment.is-new .is-assigned{
+	width: 100%;
+	margin-right: -1.5em;
+}
+
 .locations .location.is-new input,
 .events .location.is-new input,
 .comments .location.is-new input,
@@ -1080,6 +1088,8 @@ ul.media li.medium:hover .do-play {
   width: 90%;
   margin-right: 1.53846153846em;
 }
+
+
 
 .locations .location.is-new label,
 .events .location.is-new label,

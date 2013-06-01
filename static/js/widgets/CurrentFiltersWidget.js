@@ -11,6 +11,28 @@ if($('#main_spinner').hasClass('hidden')){
   var self = this;
   var links = [];
 var current = $('.current > a > span > span').html().toLowerCase().slice(0,-1);
+if(initialLoad){
+ current = initialCurrentGlobal;
+        if(current=="Actors"){
+                   Manager.store.removeByValue('sort', 'actor_created');
+                   Manager.store.addByValue('sort', 'bulletin_created');
+                   Manager.store.addByValue('q', 'django_ct:*bulletin');
+                   initialCurrentGlobal = 'Bulletins';
+                   Manager.doRequest();
+           }else if(current == 'Bulletins'){
+                Manager.store.removeByValue('sort', 'bulletin_created');
+                Manager.store.addByValue('sort', 'incident_created');
+                Manager.store.addByValue('q', 'django_ct:*incident');
+                initialCurrentGlobal = 'Incidents';
+                Manager.doRequest();
+           }else{
+                Manager.store.removeByValue('sort', 'incident_created');
+           }
+ if(current == "Incidents"){
+        initialLoad = false;
+ }
+ current = current.toLowerCase().slice(0,-1);
+}
 current_query = self.manager.store.string();
 $('#'+current+'-content').data(current+'-last-search',current_query);
 
@@ -26,8 +48,17 @@ $('#'+current+'-content').data(current+'-last-search',current_query);
 
   var fq = this.manager.store.values('fq');
   for (var i = 0, l = fq.length; i < l; i++) {
+    if (fq[i].match(/[\[\{]\S+ TO \S+[\]\}]/)) {
+        var field = fq[i].match(/^\w+:/)[0];
+        var value = fq[i].substr(field.length + 1, 10);
+	value += ' - ' + fq[i].substr(field.length+value.length + 1+14, 10);
+        var labelToAdd = this.template_labelSelected(value,0);
+        links.push($(labelToAdd).click(self.removeFacet(fq[i])));
+      }
+      else {
 	var labelToAdd = this.template_labelSelected(fq[i].split(':')[1],0);
-    links.push($(labelToAdd).click(self.removeFacet(fq[i])));
+        links.push($(labelToAdd).click(self.removeFacet(fq[i])));
+      }
   }
 if (links.length > 1) {
   links.unshift($('<li><a href="#"></a></li>').text('remove all').click(function () {

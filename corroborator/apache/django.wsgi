@@ -1,6 +1,6 @@
 import os, sys
 
-path = '/home/bill/corroborator'
+path = '/var/www/corroborator'
 
 if path not in sys.path:
     sys.path.append(path)

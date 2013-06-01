@@ -49,7 +49,7 @@
 
 	</span>
 	<span id="main_spinner" class="hidden">
-		<img style="z-index: 100; width: 24px; height: 24px; vertical-align: middle;" src="/dev/static/images/ajax-loader.gif">
+		<img style="z-index: 100; width: 24px; height: 24px; vertical-align: middle;" src="/static/images/ajax-loader.gif">
 	</span>
           </div>
           <div class="tabs">
@@ -204,7 +204,7 @@
                     </ul>
                   </div>
                   <div class="filter">
-                    <label>Date</label>
+                    <label>Date Range</label>
 <!--                    <ul class="select">
                       <li class="option">
                         <span class="text T">Any</span>
@@ -215,7 +215,7 @@
                     </ul> -->
 		<div class="wrapper" style="position:relative;z-index:1;">
 		   <div id="bulletin-jrange" class="dates">
-		    <input />
+		    <input id="bulletin_date_filter" value="yyyy/mm/dd - yyyy/mm/dd"/>
 		    <div></div>
 		   </div>
 		</div>
@@ -324,16 +324,10 @@
             </div>
           </span>
         </div>
-        <div class="is-status left" >
-          <label>Status</label>
-	<select id="bulletin_status">
-                {% for status in status_set.all %}
-            <option value="{{status.id}}">{{ status.status_en }}</option>
-                {% endfor %}
-          </select>
-        </div>
         <div class="is-assigned-to left">
-          <label>Assigned to</label><input type="text" value="" class=" with-clear" id="user-ac-bulletin_annotate" > 
+          <label>Assigned to</label>
+<input type="text" value="{{username}}" class=" with-clear" id="user-ac-bulletin_annotate_{{userid}}" > 
+
           <button class="do-clear" id="clear-user">
             <span>✓</span>
           </button>
@@ -357,12 +351,52 @@
         </li>
       </ul>
     </div>
-
+<div id="bulletin-actor-list-block" class="field is-actors">
+      <label>Actors</label>
+      <div id="bulletin-actor-search-block" class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded actors">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-bulletin_annotate">
+	</ul>
+	</div>
+<div id="bulletin-bulletin-block" class="field is-bulletins">
+      <label>Related bulletins</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded bulletins">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-bulletins-bulletins_annotate">
+	</ul>
+</div>
     <div class="field is-comments" id="bulletin-comment-block">
       <label>Comments</label>
       <ul class="comments">
 	
         <li class="comment is-new">
+	<div id="incident-status-block" class="add">
+          <label>Status</label>
+	  <br/>
+          <select id="bulletin_status">
+
+            <option value="Select status">Select Status</option>
+                {% for status in status_set.all %}
+            <option value="{{status.id}}">{{ status.status_en }}</option>
+                {% endfor %}
+          </select>
+        </div>
+       <div class="clearer"> </div> 
+
           <div class="add">
             <textarea class="w-100p comment-comment" type="text"></textarea>
           </div>
@@ -506,7 +540,7 @@
 
                   </div>
                   <div class="filter">
-                    <label>Date</label>
+                    <label>Date Range</label>
 <!--                    <ul class="select">
                       <li class="option">
                         <span class="text T">Any</span>
@@ -517,7 +551,7 @@
                     </ul> -->
 <div class="wrapper" style="position:relative;z-index:1;">
    <div id="incident-jrange" class="dates">
-    <input />
+    <input id="incident_date_filter" value="yyyy/mm/dd - yyyy/mm/dd"/>
     <div></div>
    </div>
 </div>
@@ -672,21 +706,8 @@
             </div>
           </span>
         </div>
-        <div class="is-status left" id="incident-status-block">
-          <label>Status</label>
-	<select id="incident_status">
-                {% for status in status_set.all %}
-                {% if status.status_en == incident_result.status.status_en%}
-            <option selected value="{{status.id}}">{{ status.status_en }}</option>
-
-                {%else%}
-            <option value="{{status.id}}">{{ status.status_en }}</option>
-                {%endif%}
-                {% endfor %}
-          </select>
-        </div>
         <div class="is-assigned-to left" id="incident-assignment-block">
-          <label>Assigned to</label><input type="text" value="" class=" with-clear" id="user-ac-incident_annotate" > 
+          <label>Assigned to</label><input type="text" value="{{username}}" class=" with-clear" id="user-ac-incident_annotate_{{userid}}" > 
           <button class="do-clear" id="clear-user">
             <span>✓</span>
           </button>
@@ -711,14 +732,74 @@
         </li>
       </ul>
     </div>
-
-    <div class="field is-comments" id="incident-comment-block">
+    <div id="incident-bulletin-block" class="field is-bulletins">
+      <label>Related bulletins</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded bulletins">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-bulletins-incidents_annotate">
+	</ul>
+	</div>
+<div id="incident-actor-list-block" class="field is-actors">
+      <label>Actors</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded actors">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-incident_annotate">
+	</ul>
+	</div>
+<div id="incident-incident-block" class="field is-incidents">
+      <label>Related incidents</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded incidents">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-incidents-incidents_annotate">
+	</ul>
+	</div>
+    <div id="incident-comment-block" class="field is-comments">
       <label>Comments</label>
       <ul class="comments">
-	
         <li class="comment is-new">
+	<div class="add">
+          <label>Status</label>
+	  <br/>
+          <select id="incident_status">
+
+            <option value="Select status">Select Status</option>
+                {% for status in status_set.all %}
+                {% if status.status_en == bulletin_result.status.status_en%}
+
+            <option selected value="{{status.id}}">{{ status.status_en }}</option>
+                {%else%}
+            <option value="{{status.id}}">{{ status.status_en }}</option>
+                {%endif%} 
+                {% endfor %}
+          </select>
+        </div>
+       <div class="clearer"> </div> 
+
           <div class="add">
-            <textarea class="w-100p comment-comment" type="text"></textarea>
+            <label>Comment</label>
+	    <br/>
+            <textarea type="text" class="w-100p comment-comment"></textarea>
           </div>
           <button class="do-addComment">
             <span class="T">Add comment</span>
@@ -726,6 +807,7 @@
         </li>
       </ul>
     </div>
+
   </div>
 </div>
 
@@ -733,7 +815,7 @@
           </div>
           <div class="footer actions">
            <div class="right">
-		<span id="incident_action_result" class="hidden">
+		<span id="incident-annotate_action_result" class="hidden">
 			Result saved successfully.
 		</span>
               <button id="incident-action_cancel" class="hidden do-hide default">
@@ -919,7 +1001,7 @@
               </div>
             </div>
             <div class="right">
-		<span id="incident_action_result" class="hidden">
+		<span id="actor_action_result" class="hidden">
 			Result saved successfully.
 		</span>
 
@@ -995,7 +1077,7 @@
         {%if actor_result.sex_en %}
           <span id="actor_sex_en" class="T selected-option">{{actor_result.sex_en}}</span>
         {%else%}
-          <span id="actor_sex_en" class="T selected-option">Sex</span>
+          <span id="actor_sex_en" class="T selected-option annotate">Sex</span>
         {%endif%}
           <ul class="options" >
             <li class="option selected">
@@ -1030,7 +1112,7 @@
         <label>Civilian/Non-civilian</label>
         <div class="button combo">
         {%if actor_result.civilian_en %}
-          <span class="T selected-option" id="actor_civilian_en" >{{actor_result.civilian_en}}</span>
+          <span class="T selected-option annotate" id="actor_civilian_en" >{{actor_result.civilian_en}}</span>
         {%else%}
           <span id="actor_civilian_en" class="T selected-option">Civilian</span>
         {%endif%}
@@ -1046,9 +1128,15 @@
         </div>
       </div>
     </div>
+    <div class="field">
+      <label>Lives in</label>
+	<input id="actor_lives_in_hidden" type="hidden" value="{{actor_result.current_location.id}}"/>
+      <input type="text" class="with-select w-50p" id="actor_lives_in" value="{{actor_result.current_location.name_en}}"/>
+    </div>
+
 <div class="field is-occupation">
       <label>Occupation</label>
-      <input type="text" class="with-select w-30p" value="{{actor_result.occupation_en}}" id="actor_occupation_en"/>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.occupation_en}}" id="actor_occupation_en"/>
 <!--      <div class="button combo">
         <span class="T">Occupation</span>
         <ul class="options">
@@ -1061,7 +1149,7 @@
     </div>
     <div class="field is-position">
       <label>Position (rank)</label>
-      <input type="text" class="with-select w-30p" value="{{actor_result.position_en}}" id="actor_position_en"/>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.position_en}}" id="actor_position_en"/>
 <!--
       <div class="button combo">
         <span class="T">rank</span>
@@ -1075,7 +1163,7 @@
     </div>
 <div class="field is-ethnicity">
       <label>Ethnicity</label>
-      <input type="text" class="with-select w-30p" value="{{actor_result.ethnicity_en}}" id="actor_ethnicity_en"/>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.ethnicity_en}}" id="actor_ethnicity_en"/>
 <!--      <div class="button combo">
         <span class="T">Any</span>
         <ul class="options">
@@ -1086,9 +1174,24 @@
       </div>
 -->
     </div>
+    <div class="field is-nationality">
+      <label>Nationality</label>
+      <input type="text" class="with-select w-30p" value="{{actor_result.nationality_en}}" id="actor_nationality_en"/>
+<!--      <div class="button combo">
+        <span class="T">Any</span>
+        <ul class="options">
+          <li class="option">
+            <span class="text T">Any</span>
+          </li>
+        </ul>
+      </div>
+-->
+    </div>
+
+
     <div class="field is-religion">
       <label>Religion</label>
-      <input type="text" class="with-select w-30p" value="{{actor_result.religion_en}}" id="actor_religion_en"/>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.religion_en}}" id="actor_religion_en"/>
 <!--
    <div class="button combo">
         <span class="T">Any</span>
@@ -1102,7 +1205,7 @@
     </div>
 <div class="field is-dialect">
       <label>Spoken dialects</label>
-      <input type="text" class="with-select w-30p" value="{{actor_result.spoken_dialect_en}}" id="actor_spoken_dialect_en"/>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.spoken_dialect_en}}" id="actor_spoken_dialect_en"/>
 <!--
       <div class="button combo">
         <span class="T">Any</span>
@@ -1114,7 +1217,20 @@
       </div>
 -->
     </div>
-
+    <div id="actor-actor-list-block" class="field is-actors">
+      <label>Actors</label>
+      <div id="actor-actor-search-block" class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded actors">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-actor">
+	</ul>
+	</div>
 	             </div>
 		</div>
 
@@ -1122,7 +1238,7 @@
           </div>
           <div class="footer actions">
            <div class="right">
-		<span id="bulletin-annotate_action_result" class="hidden">
+		<span id="actor-annotate_action_result" class="hidden">
 			Result saved successfully.
 		</span>
               <button id="bulletin-action_cancel" class="hidden do-hide default">
@@ -1161,7 +1277,6 @@
 </div>
 <script>
 jQuery(document).ready(function($){
-
 $.datepicker._defaults.onAfterUpdate = null;
 
 var datepicker__updateDatepicker = $.datepicker._updateDatepicker;
@@ -1200,9 +1315,9 @@ var cur = -1, prv = -1;
                      d1 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.min(prv,cur)), {} );
                      d2 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.max(prv,cur)), {} );
                      $('#bulletin-jrange input').val( d1+' - '+d2 );
+		$('#bulletin_date_filter').trigger('change');
                   }
                },
-
             onChangeMonthYear: function ( year, month, inst ) {
                   //prv = cur = -1;
                },
@@ -1267,9 +1382,9 @@ var cur = -1, prv = -1;
                      d1 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.min(prv,cur)), {} );
                      d2 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.max(prv,cur)), {} );
                      $('#incident-jrange input').val( d1+' - '+d2 );
+		     $('#incident_date_filter').trigger('change');
                   }
                },
-
             onChangeMonthYear: function ( year, month, inst ) {
                   //prv = cur = -1;
                },

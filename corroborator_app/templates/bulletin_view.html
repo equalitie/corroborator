@@ -16,7 +16,7 @@
         <span class="value">{{bulletin_result.confidence_score}}</span>
       </div>
       <div class="status">
-        <span class="value">{{bulletin_result.status}}</span>
+        <span class="value">{{bulletin_result.most_recent_status_bulletin}}</span>
       </div>
       <div class="date-location">
         {{ bulletin_result.get_time_length|safe}} in {% for location in bulletin_result.locations.all%}<span class="location">{{ location.name_en}}</span>,{% endfor %}
@@ -34,16 +34,45 @@
     </ul>
   </div>
   <div id="bulletin-view-body-block-ne" class="body">
-    <div class="media">
-      <div class="placeholder">&nbsp;</div>
-    </div>
-    <div class="description">{{bulletin_result.description_en}}</div>
+  <div class="media-block media">
+    <div id="bulletin-video-player" clas="hidden"></div>	
+    <div class="bulletin-preview preview"> </div>
+
+    <h3>Media</h3>
+    <ul class="media">
+	{% for media in bulletin_result.medias.all%}
+      <li class="medium" >
+	<input type="hidden" value="{{media.media_file.name}}"/>
+	<span class="type">{{bulletin_result.type}}</span>
+	<span class="date">{{media.name_en}}</span>
+		<button class="do-play is-small">             
+		    <span class="text">play</span>
+		  </button>
+      </li>
+	{%endfor%}
+    </ul>
+    <div class="clearer">&nbsp;</div>
+  </div>
+    <div class="description"><h3>Description</h3>{{bulletin_result.description_en}}</div>
+<div class="comments">
+                    <h3>Comments</h3>
+                    <div class="comments-list">
+                      {%for comment in bulletin_result.bulletin_comments.all%}
+                      <div class="comment">
+                        <div class="text">{{comment.comments_en}}</div>
+                        <div class="meta-history">
+<span class="date created">{{comment.comment_created|date:'Y-m-d H:i:s'}}</span> by <span class="who incident_comment_user_{{comment.assigned_user__id}}">{{ comment.assigned_user }}</span> <span class="incident_comment_status_{{comment.status__id}}"> - {{ comment.status }}</span>
+                        </div>
+                      </div>
+                     {%endfor%}
+                    </div>
+                  </div>
+
     <div class="actors group">
-	{% for role in bulletin_result.actors_role.all %}
-	{%if forloop.first%}
       <h3>Actors</h3>
       <ul class="elements">
-	{%endif%}
+
+	{% for role in bulletin_result.actors_role.all %}
         <li  id="bulletin_actor_{{role.actor.id}}">
           <div class="Actor in-list">
             <div class="when-hover">
@@ -51,7 +80,12 @@
                 <input type="checkbox" />
               </div>
             </div>
+	    {% if role.actor.media == None %}
             <div class="avatar">&nbsp;</div>
+	    {% else %}
+            <div class="avatar"><img src="{{ MEDIA_URL }}{{role.actor.media.media_file.name }}"/></div>
+
+	    {% endif %}
             <div class="content">
               <div class="L1">
                 <div class="status">
@@ -85,6 +119,54 @@
 	{% endfor %}
       </ul>
     </div>
+<div class="bulletins group">
+      <h3>Bulletins</h3>
+      <ul class="elements">
+	{% for bulletin in bulletin_result.ref_bulletins.all %}
+        <li id="incident_bulletin_{{bulletin.id}}" >
+          <div class="Bulletin in-list">
+            <div class="L1">
+              <div class="meta">
+                <div class="score">
+                  <span class="value">{{bulletin.confidence_score}}</span>
+                </div>
+                <div class="status">
+                  <span class="value">{{bulletin.most_recent_status_bulletin}}</span>
+                </div>
+              </div>
+              <div class="title i18n">
+
+                <span lang="en">{{ bulletin.title_en}}</span>
+                <span lang="ar">{{bulletin.title_ar}}</span>
+                <span class="toggle">
+                  <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+              </div>
+            </div>
+            <div class="L3">
+              <div class="date-location">
+                {{bulletin.get_time_length|safe}} in {% for location in incident_result.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
+              </div>
+              <div class="involved">
+                <span class="actors-count">{{bulletin.actors_role.count}}</span> actors involved
+              </div>
+            </div>
+                <div class="when-related">
+                <div class="actions">
+                <div class="left">
+                    <button class="do-view">
+                     <span class="text T">View</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="clearer">&nbsp;</div>
+               </div>
+          </div>
+        </li>
+        {% endfor %}
+              </ul>
+    </div>
+
 <!--    <div class="incidents group">
       <h3>Incidents</h3>
       <ul class="elements">
@@ -139,29 +221,24 @@
 			 {%for source in bulletin_result.sources.all %}<span class="source">{{ source.name_en }}</span>{%if not forloop.last %},{%endif%} {% endfor%}
                     </div>
                   </div>
-                  <div class="is-media group">
-	            <div id="bulletin-video-player" clas="hidden"></div>	
-                    <div class="bulletin-preview preview"> </div>
-
-                    <h4>Media</h4>
-                    <ul class="media">
-			{% for media in bulletin_result.medias.all%}
-                      <li class="medium" >
-			<input type="hidden" value="{{media.uri}}"/>
-                        <span class="type">{{bulletin_result.type}}</span>
-                        <span class="date">{{media.name_en}}</span>
-				<button class="do-play is-small">             
-			            <span class="text">play</span>
-			          </button>
-                      </li>
-			{%endfor%}
-                    </ul>
-                    <div class="clearer">&nbsp;</div>
-                  </div>
                   <div class="is-description group">
                     <h4>Description</h4>
                     <div class="description">{{bulletin_result.description_en}}</div>
                   </div>
+<div class="comments group">
+                    <h3>Comments</h3>
+                    <div class="comments-list">
+                      {%for comment in bulletin_result.bulletin_comments.all%}
+                      <div class="comment">
+                        <div class="text">{{comment.comments_en}}</div>
+                        <div class="meta-history">
+<span class="date created">{{comment.comment_created|date:'Y-m-d H:i:s'}}</span> by <span class="who incident_comment_user_{{comment.assigned_user__id}}">{{ comment.assigned_user }}</span> <span class="incident_comment_status_{{comment.status__id}}"> - {{ comment.status }}</span>
+                        </div>
+                      </div>
+                     {%endfor%}
+                    </div>
+                  </div>
+
                   <div class="is-actors group">
                     <h4>Actors</h4>
                     <ul class="elements">
@@ -174,7 +251,12 @@
                               <input type="checkbox">
                             </div>
                           </div>
-                          <div class="avatar">&nbsp;</div>
+{% if role.actor.media == None %}
+            <div class="avatar">&nbsp;</div>
+            {% else %}
+            <div class="avatar"><img src="{{ MEDIA_URL }}{{role.actor.media.media_file.name }}"/></div>
+
+            {% endif %}
                           <div class="content">
                             <div class="L1">
                               <div class="status">
@@ -322,6 +404,55 @@
                     </ul>
                     <div class="clearer">&nbsp;</div>
                   </div>
+                  <div class="is-bulletins group">
+                    <h3>Related Bulletins</h3>
+                    <ul class="elements">
+                       {% for bulletin in bulletin_result.ref_bulletins.all %}
+        <li id="incident_bulletin_{{bulletin.id}}">
+          <div class="Bulletin in-list">
+            <div class="L1">
+              <div class="meta">
+                <div class="score">
+                  <span class="value">{{bulletin.confidence_score}}</span>
+                </div>
+                <div class="status">
+                  <span class="value">{{bulletin.most_recent_status_bulletin}}</span>
+                </div>
+              </div>
+              <div class="title i18n">
+
+                <span lang="en">{{ bulletin.title_en}}</span>
+                <span lang="ar">{{bulletin.title_ar}}</span>
+                <span class="toggle">
+                  <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+              </div>
+            </div>
+            <div class="L3">
+              <div class="date-location">
+                {{bulletin.get_time_length|safe}} in {% for location in bulletin.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
+              </div>
+              <div class="involved">
+                <span class="actors-count">{{bulletin.actors_role.count}}</span> actors involved
+              </div>
+            </div>
+<div class="when-related">
+                <div class="actions">
+                <div class="left">
+                    <button class="do-view">
+                     <span class="text T">View</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="clearer">&nbsp;</div>
+               </div>
+          </div>
+        </li>
+        {% endfor %}
+
+                    </ul>
+                  </div>
+
                 <!--  <div class="is-bulletins group">
                     <h3>Related Bulletins</h3>
                     <ul class="elements">
@@ -404,7 +535,7 @@
                     <div class="is-status group">
                       <h4>Update status</h4>
                       <div class="status">
-                        <span class="value">{{bulletin_result.status}}</span>
+                        <span class="value">{{bulletin_result.most_recent_status_bulletin}}</span>
                       </div>
                     </div>
                     <div class="is-assigned-to group">
@@ -495,7 +626,7 @@
 <span class="value">{{bulletin_result.confidence_score}}</span>
 </div>
 <div class="status">
-<span class="value">{{bulletin_result.status}}</span>
+<span class="value">{{bulletin.most_recent_status_bulletin}}</span>
 </div>
 </div>
 <div class="title i18n">

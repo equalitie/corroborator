@@ -71,24 +71,13 @@
             </div>
           </span>
         </div>
-        <div id="bulletin-status-block" class="is-status left">
-          <label>Status</label>
-          <select id="bulletin_status">
-
-            <option selected value="Select status">Select Status</option>
-		{% for status in status_set.all %}
-		{% if status.status_en == bulletin_result.status.status_en%}
-
-            <option selected value="{{status.id}}">{{ status.status_en }}</option>
-		{%else%}
-            <option value="{{status.id}}">{{ status.status_en }}</option>
-		{%endif%}
-		{% endfor %}
-          </select>
-        </div>
         <div id="bulletin-assignment-block" class="is-assigned-to left">
           <label>Assigned to</label>
+	{% if bulletin_result == None %}
+	  <input id="user-ac-bulletin_{{userid}}" type="text" class="validate[required] with-clear" value="{{username}}"/> 
+	{% else %}
 	  <input id="user-ac-bulletin_{{bulletin_result.assigned_user.id}}" type="text" class="validate[required] with-clear" value="{{bulletin_result.assigned_user}}"/> 
+	{% endif %}
           <button id="clear-user" class="do-clear">
             <span>&#x2713;</span>
           </button>
@@ -109,6 +98,75 @@
 	<li class="source is-new">
 		<input class="source-ac with-select" type="text" value="Source">
 	</li>
+      </ul>
+    </div>
+    <div id="bulletin-label-block" class="field is-tags">
+      <label>Labels</label>
+      <ul class="tags editor">
+	{% for label in bulletin_result.labels.all %}
+        <li id="bulletin_tag_{{label.id}}" class="tag">
+          <span class="text">{{ label.name_en}}</span>
+          <button class="do-clear">
+            <span>&#x2713;</span>
+          </button>
+        </li>
+	{% endfor %}
+        <li class="tag is-new">
+          <input type="text" value="Label" class="labels-ac with-select" />
+        </li>
+      </ul>
+    </div>
+
+    <div id="incident-comment-block" class="field is-comments">
+      <label>Comments</label>
+      <ul class="comments">
+        {% for comment in bulletin_result.bulletin_comments.all%}
+        <li class="comment comment-noneditable" id="incident_comment_{{comment.id}}">
+<!--          <div class="actions">
+            <button class="do-edit-comment is-small">
+              <span class="text T">Edit</span>
+            </button>
+            <button class="do-remove is-small">
+              <span class="text T">Remove</span>
+            </button>
+          </div> -->
+          <div class="content">
+            <div class="text">{{comment.comments_en}}</div>
+            <div class="meta">
+              <span class="date created">{{comment.comment_created|date:'Y-m-d H:i:s'}}</span> by <span class="who bulletin_comment_user_{{comment.assigned_user__id}}">{{ comment.assigned_user }}</span> <span class="bulletin_comment_status_{{comment.status__id}}"> - {{ comment.status }}</span>
+            </div>
+          </div>
+          <div class="clearer">&nbsp;</div>
+        </li>
+        {% endfor %}
+        <li class="comment is-new">
+        <div id="incident-status-block" class="add">
+          <label>Status</label>
+          <br/>
+          <select id="bulletin_status">
+
+            <option value="Select status">Select Status</option>
+                {% for status in status_set.all %}
+                {% if status.status_en == bulletin_result.most_recent_status_bulletin %}
+
+            <option selected value="{{status.id}}">{{ status.status_en }}</option>
+                {%else%}
+            <option value="{{status.id}}">{{ status.status_en }}</option>
+                {%endif%} 
+                {% endfor %}
+          </select>
+        </div>
+       <div class="clearer"> </div>
+
+          <div class="add">
+            <label>Comment</label>
+            <br/>
+            <textarea type="text" class="w-100p comment-comment"></textarea>
+          </div>
+          <button class="do-addComment">
+            <span class="T">Add comment</span>
+          </button>
+        </li>
       </ul>
     </div>
     <div id="bulletin-event-block" class="field is-events clear">
@@ -237,22 +295,6 @@
         </li>
       </ul>
     </div>
-    <div id="bulletin-label-block" class="field is-tags">
-      <label>Labels</label>
-      <ul class="tags editor">
-	{% for label in bulletin_result.labels.all %}
-        <li id="bulletin_tag_{{label.id}}" class="tag">
-          <span class="text">{{ label.name_en}}</span>
-          <button class="do-clear">
-            <span>&#x2713;</span>
-          </button>
-        </li>
-	{% endfor %}
-        <li class="tag is-new">
-          <input type="text" value="Label" class="labels-ac with-select" />
-        </li>
-      </ul>
-    </div>
     <div id="bulletin-media-block" class="field is-media">
       <div id="bulletin-video-player" clas="hidden"></div>	
       <div class="bulletin-preview preview"> </div>
@@ -265,12 +307,15 @@
         <button class="do-search do-search-embedded medias">
           <span>Search</span>
         </button>
+	<button class="do-search upload-media">
+	  <span>Upload New Media</span>
+	</button>
       </div>
 
       <ul class="bulletin-media media">
 	{% for media in bulletin_result.medias.all %}
         <li  id="bulletin_media_{{media.id}}" class="medium">
-	 <input type="hidden" value="{{media.uri}}"/>
+	 <input type="hidden" value="{{media.media_file.name}}"/>
           <span class="type">{{bulletin_result.type}}</span>
 <!--          <span class="date">2013/Apr/21</span> -->
           <span class="date">{{media.name_en}}</span>
@@ -327,7 +372,12 @@
                 <input type="checkbox" />
               </div>
             </div>
+{% if role.actor.media == None %}
             <div class="avatar">&nbsp;</div>
+            {% else %}
+            <div class="avatar"><img src="{{ MEDIA_URL }}{{role.actor.media.media_file.name }}"/></div>
+
+            {% endif %}
             <div class="content">
               <div class="L1">
                 <div class="status">
@@ -470,6 +520,68 @@
       </ul>
 <!--      <div class="drop-target">Drag &amp; drop actors here</div> -->
     </div>
+<div id="bulletin-bulletin-block" class="field is-bulletins">
+      <label>Related bulletins</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded bulletins">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-bulletins-bulletins">
+	{% for bulletin in bulletin_result.ref_bulletins.all %}
+        <li id="buletin_bulletin_{{bulletin.id}}">
+          <div class="Bulletin in-list">
+	   <div class="content">
+            <div class="L1">
+              <div class="meta">
+                <div class="score">
+                  <span class="value">{{bulletin.confidence_score}}</span>
+                </div>
+                <div class="status">
+                  <span class="value">{{bulletin.most_recent_status_bulletin }}</span>
+                </div>
+              </div>
+              <div class="title i18n">
+                 
+                <span lang="en">{{bulletin.title_en}}</span>
+                <span lang="ar">{{bulletin.title_ar}}</span>
+                <span class="toggle">
+                  <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+              </div>
+            </div>
+            <div class="L3">
+              <div class="date-location">
+		{{bulletin.get_time_length|safe}} in {% for location in bulletin.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
+              </div>
+              <div class="involved">
+                <span class="actors-count">{{bulletin.actors_role.count}}</span> actors involved
+              </div>
+            </div>
+		<div class="when-related">
+                <div class="actions">
+<div class="left">                    <button class="do-view">                      <span class="text T">View</span>                    </button>                  </div>
+                  <div class="right">
+                    <button class="do-remove">
+                      <span class="text T">Remove</span>
+                    </button>
+                  </div>
+                  <div class="clearer">&nbsp;</div>
+                </div>
+              </div>
+
+          </div>
+	 </div>
+        </li>
+	{% endfor%}
+      </ul>
+<!--      <div class="drop-target">Drag &amp; drop bulletins here</div> -->
+    </div>
+
   </div>
 </div>
 </form>

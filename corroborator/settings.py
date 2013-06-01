@@ -1,7 +1,16 @@
 # Django settings for corroborator project.
-
-DEBUG = True
+import djcelery
+djcelery.setup_loader()
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
+
+AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'sjacvideotest'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+MEDIA_DIRECTORY = '/media/'
+S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = S3_URL + '/'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -45,22 +54,21 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/tmp/corrobdev'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/bill/corroborator/static/'
+STATIC_ROOT = '/var/www/corroborator/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/dev/static/'
+STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -106,8 +114,15 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	'/home/bill/corroborator/corroborator/templates'
+	'/var/www/corroborator/corroborator/templates'
 )
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -121,6 +136,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'django.contrib.gis',
+    'djcelery',
+    'queued_storage',
     'haystack',
     'corroborator_app',
 )
@@ -131,7 +148,7 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'https://sjac.rightscase.org/solr'
+        'URL': 'https://sjac.rightscase.org/solr/collection1/'
         # ...or for multicore...
         # 'URL': 'http://127.0.0.1:8983/solr/mysite',
     },
