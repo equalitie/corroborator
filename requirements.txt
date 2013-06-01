@@ -1,4 +1,15 @@
-Django==1.4.1
+Django==1.5.1
 South==0.8.1
 django-tastypie==0.9.15
 django-debug-toolbar==0.9.4
+django-celery==3.0.17
+django-appconf==0.6
+django-picklefield==0.3.0
+celery==3.0.19
+billiard==2.7.3.28
+kombu>=2.5.10,<3.0
+anyjson==0.3.3
+amqp==1.0.11
+boto==2.9.5
+django-storages==1.1.8
+django-queued-storage==0.6
