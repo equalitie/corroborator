@@ -25,13 +25,18 @@ AjaxSolr.Manager = AjaxSolr.AbstractManager.extend(
     errorHandler = errorHandler || function (jqXHR, textStatus, errorThrown) {
       self.handleError(textStatus + ', ' + errorThrown);
     };
+    //Added by Bill
+    var sortString = '';
+    if(this.store.params['sort'] != undefined){
+      sortString =  '+asc';
+    }
     if (this.proxyUrl) {
       options.url = this.proxyUrl;
       options.data = {query: string};
       options.type = 'POST';
     }
     else {
-      options.url = this.solrUrl + servlet + '?' + string + '&wt=json&json.wrf=?';
+      options.url = this.solrUrl + servlet + '?' + string + sortString + '&wt=json&json.wrf=?';
     }
     jQuery.ajax(options).done(handler).fail(errorHandler);
   }

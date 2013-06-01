@@ -46,7 +46,7 @@
     <div id="incident-group-block"  class="group details">
       <div class="field clear-after">
         <div id="incident-score-block" class="is-score right">
-          <label>Score</label>
+          <label>Reliability Score</label>
           <span class="score">
 	{% if incident_result.confidence_score and incident_result.confidence_score.strip  %}
             <span id="incident_confidence_score" class="value">{{incident_result.confidence_score}}</span>
@@ -73,27 +73,36 @@
             </div>
           </span>
         </div>
-        <div id="incident-status-block" class="is-status left">
-          <label>Status</label>
-          <select id="incident_status">
-		{% for status in status_set.all %}
-		{% if status.status_en == incident_result.status.status_en%}
-            <option selected value="{{status.id}}">{{ status.status_en }}</option>
-
-		{%else%}
-            <option value="{{status.id}}">{{ status.status_en }}</option>
-		{%endif%}
-		{% endfor %}
-          </select>
-        </div>
         <div id="incident-assignment-block" class="is-assigned-to left">
-          <label>Assigned to</label><input type="text" id="user-ac-incident_{{incident_result.assigned_user.id}}" class="validate[required] with-clear" value="{{incident_result.assigned_user}}"/> 
+          <label>Assigned to</label>
+	  <br/>
+	{% if incident_result != None %}
+	  <input type="text" id="user-ac-incident_{{incident_result.assigned_user.id}}" style="margin-right: -1.5em;" class="validate[required] with-clear is-assigned" value="{{incident_result.assigned_user}}"/> 
+	{% else %}
+	  <input type="text" id="user-ac-incident_{{userid}}" style="margin-right: -1.5em;" class="validate[required] with-clear is-assigned" value="{{username}}"/> 
+	{% endif %}
           <button id="clear-user" class="do-clear">
             <span>&#x2713;</span>
           </button>
         </div>
-      </div>
+<div class="clearer">&nbsp;</div>
+    <div id="incident-label-block" class="field is-tags">
+      <label>Labels</label>
+      <ul class="tags editor">
+       {% for label in incident_result.labels.all%} 
+        <li class="tag" id="incident_tag_{{label.id}}">
+          <span class="text">{{label.name_en}}</span>
+          <button class="do-clear">
+            <span>&#x2713;</span>
+          </button>
+        </li>
+	{% endfor %}
+        <li class="tag is-new">
+          <input type="text" value="Label" class="with-select labels-ac" />
+        </li>
+      </ul>
     </div>
+
     <div id="incident-crime-block" class="field is-crimes">
       <label>Crime</label>
       <ul class="crimes editor">
@@ -106,10 +115,65 @@
         </li>
 	{% endfor %}
         <li class="crime is-new">
-          <input type="text" value="" class="with-select crimes-ac" />
+          <input type="text" value="Crime" class="with-select crimes-ac" />
         </li>
       </ul>
     </div>
+      </div>
+    </div>
+    <div id="incident-comment-block" class="field is-comments">
+      <label>Comments</label>
+      <ul class="comments">
+	{% for comment in incident_result.incident_comments.all%}
+        <li class="comment comment-noneditable" id="incident_comment_{{comment.id}}">
+<!--          <div class="actions">
+            <button class="do-edit-comment is-small">
+              <span class="text T">Edit</span>
+            </button>
+            <button class="do-remove is-small">
+              <span class="text T">Remove</span>
+            </button>
+          </div> -->
+          <div class="content">
+            <div class="text">{{comment.comments_en}}</div>
+            <div class="meta">
+	      <span class="date created">{{comment.comment_created|date:'Y-m-d H:i:s'}}</span> by <span class="who incident_comment_user_{{comment.assigned_user__id}}">{{ comment.assigned_user }}</span> <span class="incident_comment_status_{{comment.status__id}}"> - {{ comment.status }}</span>
+            </div>
+          </div>
+          <div class="clearer">&nbsp;</div>
+        </li>
+	{% endfor %}
+        <li class="comment is-new">
+	<div id="incident-status-block" class="add">
+          <label>Status</label>
+	  <br/>
+          <select id="incident_status">
+
+            <option value="Select status">Select Status</option>
+                {% for status in status_set.all %}
+                {% if status.status_en == bulletin_result.status.status_en%}
+
+            <option selected value="{{status.id}}">{{ status.status_en }}</option>
+                {%else%}
+            <option value="{{status.id}}">{{ status.status_en }}</option>
+                {%endif%} 
+                {% endfor %}
+          </select>
+        </div>
+       <div class="clearer"> </div> 
+
+          <div class="add">
+            <label>Comment</label>
+	    <br/>
+            <textarea type="text" class="w-100p comment-comment"></textarea>
+          </div>
+          <button class="do-addComment">
+            <span class="T">Add comment</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
     <div id="incident-event-block" class="field is-events clear">
       <label>Events</label>
       <div class="date-duration">
@@ -237,56 +301,6 @@
       </ul>
     </div>
 
-    <div id="incident-comment-block" class="field is-comments">
-      <label>Comments</label>
-      <ul class="comments">
-	{% for comment in incident_result.comments.all%}
-        <li class="comment" id="incident_comment_{{comment.id}}">
-          <div class="actions">
-            <button class="do-edit-comment is-small">
-              <span class="text T">Edit</span>
-            </button>
-            <button class="do-remove is-small">
-              <span class="text T">Remove</span>
-            </button>
-
-
-          </div>
-          <div class="content">
-            <div class="text">{{comment.comments_en}}</div>
-            <div class="meta">
-	      <span class="date created">{{comment.created|date:'Y-m-d H:i:s'}}</span> by <span class="who">{{ comment.assigned_user }}</span>
-            </div>
-          </div>
-          <div class="clearer">&nbsp;</div>
-        </li>
-	{% endfor %}
-        <li class="comment is-new">
-          <div class="add">
-            <textarea type="text" class="w-100p comment-comment"></textarea>
-          </div>
-          <button class="do-addComment">
-            <span class="T">Add comment</span>
-          </button>
-        </li>
-      </ul>
-    </div>
-    <div id="incident-label-block" class="field is-tags">
-      <label>Labels</label>
-      <ul class="tags editor">
-       {% for label in incident_result.labels.all%} 
-        <li class="tag" id="incident_tag_{{label.id}}">
-          <span class="text">{{label.name_en}}</span>
-          <button class="do-clear">
-            <span>&#x2713;</span>
-          </button>
-        </li>
-	{% endfor %}
-        <li class="tag is-new">
-          <input type="text" value="Label" class="with-select labels-ac" />
-        </li>
-      </ul>
-    </div>
     <div id="incident-description-block" class="field is-description">
       <label>Description</label>
       <div class="i18n with-en with-ar">
@@ -321,7 +335,12 @@
                 <input type="checkbox" />
               </div>
             </div>
+{% if role.actor.media == None %}
             <div class="avatar">&nbsp;</div>
+            {% else %}
+            <div class="avatar"><img src="{{ MEDIA_URL }}{{role.actor.media.media_file.name }}"/></div>
+
+            {% endif %}
             <div class="content">
               <div class="L1">
                 <div class="status">
@@ -487,7 +506,7 @@
                   <span class="value">{{bulletin.confidence_score}}</span>
                 </div>
                 <div class="status">
-                  <span class="value">{{bulletin.status}}</span>
+                  <span class="value">{{bulletin.most_recent_status_bulletin}}</span>
                 </div>
               </div>
               <div class="title i18n">
@@ -548,7 +567,7 @@
                   <span class="value">{{incident.confidence_score}}</span>
                 </div>
                 <div class="status">
-                  <span class="value">{{incident.status}}</span>
+                  <span class="value">{{incident.most_recent_status_incident}}</span>
                 </div>
               </div>
               <div class="title i18n">

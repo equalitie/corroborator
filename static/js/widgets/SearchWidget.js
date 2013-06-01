@@ -1,5 +1,4 @@
 //GLOBALS
-var initialLoad = true;
 
 (function ($) {
 
@@ -46,10 +45,11 @@ AjaxSolr.TextWidget = AjaxSolr.AbstractTextWidget.extend({
     if(orignRequester == 'embbedSearchWidget'){
 	return false;
     }
-    if(initialLoad){
-	    initialLoad = false;
-    }else{
 	    var current = $('.current > a > span > span').html();
+    if(initialLoad){
+	   current = initialCurrentGlobal;
+	    
+    }
 	    //$("#search-bulletin").val('');
 
 	    $("#"+current.toLowerCase()+"-table").empty();
@@ -103,11 +103,11 @@ AjaxSolr.TextWidget = AjaxSolr.AbstractTextWidget.extend({
 	         });
 	    });
 		corrob_util.$('.elements .Actor').hover(function(){ $(this).toggleClass('is-expanded') });
-	}
+	
 
 	$('#main_spinner').addClass('hidden');
-  }
-
+  
+	}
 });
 
 })(jQuery);

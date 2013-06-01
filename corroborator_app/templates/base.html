@@ -1,30 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+#fountainG{
+position:relative;
+width:240px;
+height:29px}
+
+.fountainG{
+position:absolute;
+top:0;
+background-color:#000000;
+width:29px;
+height:29px;
+-moz-animation-name:bounce_fountainG;
+-moz-animation-duration:1s;
+-moz-animation-iteration-count:infinite;
+-moz-animation-direction:linear;
+-moz-transform:scale(.3);
+-moz-border-radius:19px;
+-webkit-animation-name:bounce_fountainG;
+-webkit-animation-duration:1s;
+-webkit-animation-iteration-count:infinite;
+-webkit-animation-direction:linear;
+-webkit-transform:scale(.3);
+-webkit-border-radius:19px;
+-ms-animation-name:bounce_fountainG;
+-ms-animation-duration:1s;
+-ms-animation-iteration-count:infinite;
+-ms-animation-direction:linear;
+-ms-transform:scale(.3);
+-ms-border-radius:19px;
+-o-animation-name:bounce_fountainG;
+-o-animation-duration:1s;
+-o-animation-iteration-count:infinite;
+-o-animation-direction:linear;
+-o-transform:scale(.3);
+-o-border-radius:19px;
+animation-name:bounce_fountainG;
+animation-duration:1s;
+animation-iteration-count:infinite;
+animation-direction:linear;
+transform:scale(.3);
+border-radius:19px;
+}
+
+#fountainG_1{
+left:0;
+-moz-animation-delay:0.4s;
+-webkit-animation-delay:0.4s;
+-ms-animation-delay:0.4s;
+-o-animation-delay:0.4s;
+animation-delay:0.4s;
+}
+
+#fountainG_2{
+left:30px;
+-moz-animation-delay:0.5s;
+-webkit-animation-delay:0.5s;
+-ms-animation-delay:0.5s;
+-o-animation-delay:0.5s;
+animation-delay:0.5s;
+}
+
+#fountainG_3{
+left:60px;
+-moz-animation-delay:0.6s;
+-webkit-animation-delay:0.6s;
+-ms-animation-delay:0.6s;
+-o-animation-delay:0.6s;
+animation-delay:0.6s;
+}
+
+#fountainG_4{
+left:90px;
+-moz-animation-delay:0.7s;
+-webkit-animation-delay:0.7s;
+-ms-animation-delay:0.7s;
+-o-animation-delay:0.7s;
+animation-delay:0.7s;
+}
+
+#fountainG_5{
+left:120px;
+-moz-animation-delay:0.8s;
+-webkit-animation-delay:0.8s;
+-ms-animation-delay:0.8s;
+-o-animation-delay:0.8s;
+animation-delay:0.8s;
+}
+
+#fountainG_6{
+left:150px;
+-moz-animation-delay:0.9s;
+-webkit-animation-delay:0.9s;
+-ms-animation-delay:0.9s;
+-o-animation-delay:0.9s;
+animation-delay:0.9s;
+}
+
+#fountainG_7{
+left:180px;
+-moz-animation-delay:1s;
+-webkit-animation-delay:1s;
+-ms-animation-delay:1s;
+-o-animation-delay:1s;
+animation-delay:1s;
+}
+
+#fountainG_8{
+left:210px;
+-moz-animation-delay:1.1s;
+-webkit-animation-delay:1.1s;
+-ms-animation-delay:1.1s;
+-o-animation-delay:1.1s;
+animation-delay:1.1s;
+}
+
+@-moz-keyframes bounce_fountainG{
+0%{
+-moz-transform:scale(1);
+background-color:#000000;
+}
+
+100%{
+-moz-transform:scale(.3);
+background-color:#FFFFFF;
+}
+
+}
+
+@-webkit-keyframes bounce_fountainG{
+0%{
+-webkit-transform:scale(1);
+background-color:#000000;
+}
+
+100%{
+-webkit-transform:scale(.3);
+background-color:#FFFFFF;
+}
+
+}
+
+@-ms-keyframes bounce_fountainG{
+0%{
+-ms-transform:scale(1);
+background-color:#000000;
+}
+
+100%{
+-ms-transform:scale(.3);
+background-color:#FFFFFF;
+}
+
+}
+
+@-o-keyframes bounce_fountainG{
+0%{
+-o-transform:scale(1);
+background-color:#000000;
+}
+
+100%{
+-o-transform:scale(.3);
+background-color:#FFFFFF;
+}
+
+}
+
+@keyframes bounce_fountainG{
+0%{
+transform:scale(1);
+background-color:#000000;
+}
+
+100%{
+transform:scale(.3);
+background-color:#FFFFFF;
+}
+
+}
+
+</style>
 
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-
-    <!-- custom stylesheets -->
-    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery-ui-1.10.3.custom.min.css" />
-    <link rel="stylesheet" media="all" type="text/css" href="{{ STATIC_URL}}css/timepicker/jquery-ui-timepicker-addon.css" />
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/screen.css" />
-
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fonts/iconic-fill/font.css" />
-    <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" />-->
-    <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css" />-->
-    <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/corroborator.css" />-->
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/corroborator.css" />
     <link rel="stylesheet" href="{{ STATIC_URL }}js/leafletjs/leaflet.css" />
-   <!-- 
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.10.2/ui/jquery-ui.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jwplayer/jwplayer.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jwplayer/jwplayer.js"></script>
 
 
+<link rel="stylesheet" href="{{ STATIC_URL}}css/jquery-ui-1.10.3.custom.min.css" />
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.validationEngine-en.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.validationEngine.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL}}css/validationEngine.jquery.css" />
-    -->
+<link rel="stylesheet" href="{{ STATIC_URL}}css/validationEngine.jquery.css" />
 
 <!-- <link href="{{ STATIC_URL }}js/video-js/video-js.css" rel="stylesheet">
 <script src="{{ STATIC_URL }}js/video-js/video.js"></script>
@@ -32,17 +207,13 @@
   _V_.options.flash.swf = "{{ STATIC_URL }}js/video-js/video-js.swf"
 </script>
 -->
-    <!-- requirejs loader -->
-    <script data-main="{{ STATIC_URL }}js/main/loader" charset="utf-8" src="{{ STATIC_URL}}js/components/requirejs/require.js"> </script>
-<!--
+    <link rel="stylesheet" media="all" type="text/css" href="{{ STATIC_URL}}css/timepicker/jquery-ui-timepicker-addon.css" />
     <script type="text/javascript" src="{{ STATIC_URL }}js/timepicker/jquery-ui-timepicker-addon.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/corroborator.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/spin.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/extend-2.3.21.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/wireshop.js"></script>
--->
 <!--    <script type="text/javascript" src="{{ STATIC_URL }}js/linking.js"></script> -->
-<!--
     <script type="text/javascript" src="{{ STATIC_URL }}js/events.js"></script>
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/Core.js"></script>
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/AbstractManager.js"></script>
@@ -55,6 +226,7 @@
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/AbstractFacetWidget.js"></script>
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/AbstractSpatialWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/SearchWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/widgets/CalendarWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/SpatialSearchWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/EmbeddedSearchWidget.js"></script>
     <script src="{{ STATIC_URL }}js/widgets/CurrentFiltersWidget.js"></script>
@@ -63,6 +235,16 @@
 <script src="{{ STATIC_URL }}js/corroborator-map.js"></script>
 <script src="{{ STATIC_URL }}js/corroborator-hash-link-reader.js"></script>
 
+<script src="{{ STATIC_URL }}js/jquery-file-upload/vendor/jquery.ui.widget.js"></script>
+<script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.iframe-transport.js"></script>
+<!-- The basic File Upload plugin -->
+<script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload.js"></script>
+<!-- The File Upload file processing plugin -->
+<!-- <script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload-fp.js"></script> -->
+<!-- The File Upload user interface plugin -->
+<!-- <script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload-ui.js"></script> -->
+<!-- The File Upload jQuery UI plugin -->
+<!-- <script src="{{ STATIC_URL }}js/jquery-file-upload/jquery.fileupload-jui.js"></script> -->
 <script type="text/javascript">
 jQuery(document).ready(function($){
         createFilterSearchMap('filter_map',33.87042, 35.85938);
@@ -70,122 +252,115 @@ jQuery(document).ready(function($){
 
 
 </script>
--->
+<style>
+.wrapper {
+   height: 30px;
+}
 
-<!-- bootstrap values -->
+#jrange input {
+   width: 200px;
+}
+
+#jrange div {
+   font-size: 9pt;
+}
+
+.date-range-selected > .ui-state-active,
+.date-range-selected > .ui-state-default {
+   background: none;
+   background-color: lightsteelblue;
+}
+</style>
+
+
+
 <script type="text/javascript" >
-  var gl_ac_labels_list = [];
-  {%for label in labels_set.all %}
-    gl_ac_labels_list.push({
-      label:"{{label.name_en}}",
-      id:"{{label.id}}"
-    });
-  {% endfor%};
-
-  var gl_ac_users_list = [];
-  {%for user in users_set.all %}
-    gl_ac_users_list.push({
-      label:"{{user.username}}",
-      id:"{{user.id}}"
-    });
-  {% endfor%}
-  var gl_ac_crimes_list = [];
-  {%for crime in crimes_set.all %}
-    gl_ac_crimes_list.push({
-       label:"{{crime.category_en}}",
-       id:"{{crime.id}}"
-    });
-  {% endfor%}
-  var special_global_ac_sources_list = [];
-  {%for source in sources_set.all %}
-    special_global_ac_sources_list.push({
-      label:"{{source.name_en}}",
-      id:"{{source.id}}"
-    });
-  {% endfor%}
-  var gl_ac_loc_set = [];
-  {%for loc in loc_set.all %}
-    gl_ac_loc_set.push({
-      name:"{{loc.name_en}}",
-      latlng:"{{loc.latitude}},{{loc.longitude}}",
-      count:"{{loc.count}}"
-    }
-  {% endfor%};
-  var gl_ac_loc_ac_set = [];
-  {%for loc in loc_set.all %}
-    gl_ac_loc_ac_set.push({
-      label:"{{loc.name_en}}",
-      id:"{{loc.latitude}},{{loc.longitude}}"
-    });
-  {% endfor%};
+    gl_s3_aws_media_url = '{{ MEDIA_URL }}';
+    gl_ac_role_list = [{%for role in role_status_set %}{role:"{{role}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_relation_list = [{%for relation in relation_status_set %}{relation:"{{relation}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_labels_list = [{%for label in labels_set.all %}{label:"{{label.name_en}}",id:"{{label.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_users_list = [{%for user in users_set.all %}{label:"{{user.username}}",id:"{{user.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_crimes_list = [{%for crime in crimes_set.all %}{label:"{{crime.category_en}}",id:"{{crime.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    special_global_ac_sources_list = [{%for source in sources_set.all %}{label:"{{source.name_en}}",id:"{{source.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_loc_set = [{%for loc in loc_set.all %}{name:"{{loc.name_en}}",latlng:"{{loc.latitude}},{{loc.longitude}}",count:"{{loc.count}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_loc_ac_set = [{%for loc in loc_set.all %}{label:"{{loc.name_en}}",id:"{{loc.latitude}},{{loc.longitude}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_username = '{{username}}';
+    gl_userid = '{{userid}}';
 </script>
 
-<!--
-<script type="text/javascript">
-	
 
-		jQuery(document).ready(function($){
+      <script type="text/javascript">
+  
 
-		$('#confirm_dialog').dialog({
-			autoOpen : false,
-			model : true
-		});
-		corrob_util.loadEditableOverlay('','annotate');
-			//Attach Search Location Filter to Bulletin
-	if(gl_ac_loc_ac_set.length > 0){
-		$('#bulletin-location-ac-filter').autocomplete({source: gl_ac_loc_ac_set,select: function(event, ui){
+    jQuery(document).ready(function($){
+    $('#media_upload_dialog').dialog({
+      autoOpen : false,
+      model : true,
+      minWidth : 350,
+      minHeight : 250
+    });
+     $('#media_upload_dialog').bind('dialogclose', function(event) {
+          $('.file-to-upload').remove();
+     });
+    $('#confirm_dialog').dialog({
+      autoOpen : false,
+      model : true
+    });
+    corrob_util.loadEditableOverlay('','annotate');
+      //Attach Search Location Filter to Bulletin
+  if(gl_ac_loc_ac_set.length > 0){
+    $('#bulletin-location-ac-filter').autocomplete({source: gl_ac_loc_ac_set,select: function(event, ui){
 
-				solrSpatialSearch(ui.item.latlng);
+        solrSpatialSearch(ui.item.latlng);
                         }}).focus(function(){corrob_util.$(this).val('');});
-		$('#bulletin-location-search-container').removeClass('hidden');
-	}
-			$('#bulletins-tab').click(function(){
-				window.location.hash = '#Bulletin/tab';
-				var current = corrob_util.$('.current > a > span > span').html();				
-				$('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
-				$('.Bulletins-active').removeClass('Bulletins-active').removeClass('hidden');
-				$('.current').removeClass('current');
-				$('.as-2:not(.hidden)').addClass('hidden');
-				$('.is-bulletins').addClass('current');
-				$('#bulletin-content').removeClass('hidden');
-				$('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
-				$('.bulletin-predefined').removeClass('hidden');
+    $('#bulletin-location-search-container').removeClass('hidden');
+  }
+      $('#bulletins-tab').click(function(){
+        window.location.hash = '#Bulletin/tab';
+        var current = corrob_util.$('.current > a > span > span').html();       
+        $('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
+        $('.Bulletins-active').removeClass('Bulletins-active').removeClass('hidden');
+        $('.current').removeClass('current');
+        $('.as-2:not(.hidden)').addClass('hidden');
+        $('.is-bulletins').addClass('current');
+        $('#bulletin-content').removeClass('hidden');
+        $('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
+        $('.bulletin-predefined').removeClass('hidden');
 
-				corroborator.layout.relayout();
-			});
-			$('#incidents-tab').click(function(){
-				var current = corrob_util.$('.current > a > span > span').html();				
-				$('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
-				$('.Incidents-active').removeClass('Incidents-active').removeClass('hidden');
+        corroborator.layout.relayout();
+      });
+      $('#incidents-tab').click(function(){
+        var current = corrob_util.$('.current > a > span > span').html();       
+        $('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
+        $('.Incidents-active').removeClass('Incidents-active').removeClass('hidden');
 
-				$('.current').removeClass('current');
-				$('.as-2:not(.hidden)').addClass('hidden');
-				$('.is-incidents').addClass('current');
-				$('#incident-content').removeClass('hidden');
-				$('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
-				$('.incident-predefined').removeClass('hidden');
+        $('.current').removeClass('current');
+        $('.as-2:not(.hidden)').addClass('hidden');
+        $('.is-incidents').addClass('current');
+        $('#incident-content').removeClass('hidden');
+        $('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
+        $('.incident-predefined').removeClass('hidden');
 
-				corroborator.layout.relayout();
-			});
-			$('#actors-tab').click(function(){
-				var current = corrob_util.$('.current > a > span > span').html();				
-				$('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
-				$('.Actors-active').removeClass('Actors-active').removeClass('hidden');
+        corroborator.layout.relayout();
+      });
+      $('#actors-tab').click(function(){
+        var current = corrob_util.$('.current > a > span > span').html();       
+        $('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
+        $('.Actors-active').removeClass('Actors-active').removeClass('hidden');
 
-				$('.current').removeClass('current');
-				$('.as-2:not(.hidden)').addClass('hidden');
-				$('.is-actors').addClass('current');
-				$('#actor-content').removeClass('hidden');
-				$('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
-				$('.actor-predefined').removeClass('hidden');
+        $('.current').removeClass('current');
+        $('.as-2:not(.hidden)').addClass('hidden');
+        $('.is-actors').addClass('current');
+        $('#actor-content').removeClass('hidden');
+        $('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
+        $('.actor-predefined').removeClass('hidden');
 
-				corroborator.layout.relayout();
-			});
+        corroborator.layout.relayout();
+      });
 
-		});
+    });
 
-	</script>
-  -->
+  </script>
   </head>
 
   <body class="use-base">
@@ -244,24 +419,100 @@ jQuery(document).ready(function($){
         <div class="clearer">&nbsp;</div>
       </nav>
       <div class="Content">
-	{% block content %}
-	{% endblock %}
+  {% block content %}
+  {% endblock %}
       </div>
-<!--
 <script language="javascript" src="{{ STATIC_URL }}js/corroborator-util.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
-		if(window.location.hash != ''){
-			link_reader();
-		}
+    if(window.location.hash != ''){
+      link_reader();
+    }
 
 });
 
+
 </script>
--->
 
     </div>
 <div id="confirm_dialog" title="">
 </div>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+$(function () {
+    $('#fileupload').fileupload({
+   url: 'bulletin/0/uploadmedia/',
+        dataType: 'json',
+  add: function (e, data) {
+      var node = '<div class="file-to-upload"><span>'+data.files[0].name+'</span></div>';
+      //$(node).click(function(){$(this).remove();});
+      $(node).appendTo('#fileupload');  
+            data.context = $('<button/>').text('Upload')
+                .appendTo('#fileupload')
+                .click(function () {
+                    data.context = $('<p/>').text('').replaceAll($(this));
+      corrob_util.$('#main_spinner').removeClass('hidden');
+                    data.submit();
+                });
+        },
+        done: function (e, data) {
+    
+      var doc = jQuery.parseJSON(data.jqXHR.responseText);
+      corrob_util.insert_new_media(doc);
+    corrob_util.$('#main_spinner').addClass('hidden');
+/*            $.each(data.files, function (index, file) {
+    data.context = $('<p/>').text('Done').replaceAll($(this));
+            });*/
+        }
+    });
+});
+});
+</script>
+<div id="media_upload_dialog" title="Upload new media" >
+    <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="span7">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <span>Add files...</span>
+                    <input type="file" name="files" multiple>
+                </span>
+         <!--       <button type="submit" class="btn btn-primary start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>Cancel upload</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <i class="icon-trash icon-white"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" class="toggle"> -->
+            </div>
+            <!-- The global progress information -->
+            <div class="span5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="bar" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress information -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <!-- The loading indicator is shown during file processing -->
+        <div class="fileupload-loading"></div>
+        <br>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    </form>
+  
+</div>
+
   </body>
 </html>

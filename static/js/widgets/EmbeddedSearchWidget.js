@@ -1,12 +1,16 @@
 //GLOBALS
 var orignRequester = '';
+var gl_annotate = '';
 (function ($) {
 
 AjaxSolr.EmbeddedSearchWidget = AjaxSolr.AbstractTextWidget.extend({
   init: function () {
     var self = this;
 
-    $('#view-placeholder-bulletin,#view-placeholder-incident,#view-placeholder-actor').on('click','.do-search-embedded',function() {
+    $('#view-placeholder-bulletin,#view-placeholder-incident,#view-placeholder-actor,#view-placeholder-annotate-bulletin,#view-placeholder-annotate-incident,#view-placeholder-annotate-actor').on('click','.do-search-embedded',function() {
+	if($(this).closest('.overlay').attr('class').contains('annotate')){
+		gl_annotate = '-annotate';
+	}
 	var objectType = '*:*';
 	    var current = $(this).attr('class').split(/\s+/)[2];
 	if(current == 'bulletins'){
@@ -80,15 +84,20 @@ self.set(value)
 		     
 	    }
 
-	   $('.do-relate').click(function(){ demo.relateEntity($(this).closest('li')) });
+	   $('.do-relate').click(function(){ corrob_util.relateEntity($(this).closest('li')) });
 	   $('.do-add-embedded-actor, .do-add-embedded-location, .do-add-embedded-media').click(function(){
 	
 		var current = $('.current > a > span > span').html();
+		var annotate = '';
+		if(!corrob_util.$('.'+current.toLowerCase().slice(0,-1)+'-overlay-annotate').hasClass('hidden')){
+                	annotate = '_annotate';
+	        }
 		var currentSearch = $('.embedded-search-'+current.toLowerCase().slice(0,-1)).data('current-search');
 		var master = $(this).closest("[id^='EmbeddedSearchElem']");
 		var copyData = master.data(master.attr('id')+'_data');
 		var copyNode = master.clone();	
-		copyNode.attr('id', current.toLowerCase().slice(0,-1) +'_'+currentSearch.slice(0,-1)+'_'+master.attr('id').split('_')[3]);
+		
+		copyNode.attr('id', current.toLowerCase().slice(0,-1) +'_'+currentSearch.slice(0,-1)+annotate+'_'+master.attr('id').split('_')[3]);
 		var appendClass = '';
 		if(currentSearch == 'actors'){
 			var status = $(this).children('span').html();
@@ -115,12 +124,13 @@ self.set(value)
 			appendClass = 'elements-'+current.toLowerCase().slice(0,-1);
 
 		}
-		$('.is-'+currentSearch+' > .'+appendClass).prepend(copyNode);
+		$('.is-'+currentSearch+' > .'+appendClass+annotate).prepend(copyNode);
 		$(copyNode).data(currentSearch.slice(0,-1)+'-data',copyData);
 	   });
 
 	   var current = $('.current > a > span > span').html();
-	   var overlayHolder = $("."+current.toLowerCase().slice(0,-1)+"-overlay:not(.hidden)")
+	   var overlayHolder = $("."+current.toLowerCase().slice(0,-1)+"-overlay"+gl_annotate+":not(.hidden)")
+	   gl_annotate = '';
 	   if(!overlayHolder.hasClass('is-expanded')){
 		overlayHolder.addClass('is-middle');
 	   }
@@ -130,7 +140,7 @@ self.set(value)
 	   $('.embedded-search-'+currentView +' > .footer').find('.search-entity').html(currentSearch);
 	   $('.search-entity').closest('button').click(function(){
 		var entity = $(this).find('.search-entity').html();
-		demo.loadCreateNewEntity(entity);
+		corrob_util.loadCreateNewEntity(entity);
 	   });	   
 	}else{
 	   $('.embedded-search-'+currentView +' > .footer').find('.search-entity').closest('.left').addClass('hidden');
@@ -139,6 +149,7 @@ self.set(value)
 	   $('.do-hideResults').click(function(){
 	 	$('.embedded-search-'+current.toLowerCase().slice(0,-1)).addClass('hidden');
 	        $("."+current.toLowerCase().slice(0,-1)+"-overlay:not(.hidden)").removeClass('is-middle');
+	        $("."+current.toLowerCase().slice(0,-1)+"-overlay-annotate:not(.hidden)").removeClass('is-middle');
 	   });
 
 
@@ -194,7 +205,7 @@ var output = '<li id="EmbeddedSearchElem_'+current.toLowerCase().slice(0,-1)+'_'
 '                              <span class="value">'+doc.confidence_score+'</span>'+
 '                            </div>'+
 '                           <div class="status">'+
-'                              <span class="value">'+doc[currentSearch.toLowerCase()+'_status']+'</span>'+
+'                              <span class="value">'+doc['most_recent_status_'+currentSearch.toLowerCase()+'_exact']+'</span>'+
 '                            </div>'+
 '                          </div>'+
 '                          <div class="title i18n">'+
@@ -264,51 +275,70 @@ var output = 		'<li id="EmbeddedSearchElem_'+current.toLowerCase().slice(0,-1)+'
 '                          <div class="is-selector">' +
 '                            <input type="checkbox" />' +
 '                          </div>' +
-'                        </div>' +
-'                        <div class="avatar">&nbsp;</div>' +
-'                        <div class="content">' +
+'                        </div>';
+if(doc.media_uri == undefined){
+output += '                        <div class="avatar">&nbsp;</div>';
+}else{
+output +='      <div class="avatar"><img src="'+gl_s3_aws_media_url+doc.media_uri[0]+'"/></div>';
+}
+output += '                        <div class="content">' +
 '                          <div class="L1">' +
 '                            <div class="status">' +
 '                              <span class="value">Victim</span>' +
 '                            </div>' +
 '                            <span class="name">'+doc.fullname_en+'</span>' +
 '                            <span class="sex">'+doc.sex_en+'</span>' +
-'                            <span class="age">'+doc.age_en+' yo.</span>' +
-'                            <div class="L2">' +
-'                              <span class="aka">aka &laquo;'+doc.nickname_en+'&raquo;</span>' +
+'                            <span class="age">'+doc.age_en+'</span>' +
+'                            <div class="L2">';
+
+var localNickName = (doc.nickname_en!=undefined)?doc.nickname_en:'';
+
+output +='                              <span class="aka">aka &laquo;'+localNickName+'&raquo;</span>' +
 '                            </div>' +
 '                          </div>' +
 '                          <div class="when-not_expanded">' +
-'                            <div class="L3">' +
-'                              lives in <span class="location">Damas</span>, works as a <span class="occupation">'+doc.occupation_en+'</span>' + 
-'                              <br>involved in <span class="incidents-count">10 incidents</span>' +
+'                            <div class="L3">';
+if(doc.lives_in != undefined){
+output += '                              lives in <span class="location">'+doc.lives_in+'</span>,';
+}
+output +=' works as a <span class="occupation">'+doc.occupation_en+'</span>' + 
+
+'                              <br>involved in <span class="incidents-count">'+doc.count_incidents+'</span>' +
 '                            </div>' +
 '                          </div>' +
 '                          <div class="when-expanded">' +
 '                            <table class="details">' +
 '                              <tr>' +
-'                                <th>Lives in</th>' +
-'                                <td>Damas</td>' +
+'                                <th>Lives in</th>';
+var localLivesIn = (doc.lives_in!=undefined)?doc.lives_in:'';
+
+output+='                                <td>'+ localLivesIn +'</td>' +
+'                              </tr>' +
+'                              <tr>';
+var localBorn = (doc.pob!=undefined)?doc.pob:''
+output +='                                <th>Born in</th>' +
+'                                <td>'+localBorn+'</td>' +
+'                              </tr>' +
+'                              <tr>';
+var localNat = (doc.nationality_en!=undefined)?doc.nationality_en:''
+output+='                                <th>Nationality</th>' +
+'                                <td>'+localNat+'</td>' +
+'                              </tr>' +
+'                              <tr>';
+var localEth = (doc.ethnicity_en!=undefined)?doc.ethnicity_en:'';
+
+output+='                                <th>Ethnicity</th>' +
+'                                <td>'+localEth+'</td>' +
 '                              </tr>' +
 '                              <tr>' +
-'                                <th>Born in</th>' +
-'                                <td>Damas, 1989</td>' +
-'                              </tr>' +
-'                              <tr>' +
-'                                <th>Nationality</th>' +
-'                                <td>'+doc.nationality_en+'</td>' +
-'                              </tr>' +
-'                              <tr>' +
-'                                <th>Ethnicity</th>' +
-'                                <td>'+doc.ethnicity_en+'</td>' +
-'                              </tr>' +
-'                              <tr>' +
-'                               <th>Speaks</th>' +
-'                                <td>'+doc.spoken_dialect_en+'</td>' +
+'                               <th>Speaks</th>';
+var localSpoken = (doc.spoken_dialect_en!=undefined)?doc.spoken_dialect_en:'';
+output+='                                <td>'+localSpoken+'</td>' +
 '                             </tr>' +
 '                              <tr>' +
-'                                <th>Religion</th>' +
-'                                <td>'+doc.religion_en+'</td>' +
+'                                <th>Religion</th>';
+var localRel = (doc.religion_en!=undefined)?doc.religion_en:'';
+output+='                                <td>'+localRel+'</td>' +
 '                              </tr>' +
 '                            </table>' +
 '                            <div class="stats">' +
@@ -332,37 +362,50 @@ var output = 		'<li id="EmbeddedSearchElem_'+current.toLowerCase().slice(0,-1)+'
 '                               </div>' +
 '                              </div>' +
 */
-'                            </div>' +
+'                            </div>';
+
+
 /*
 '                            <div class="related">' +
 '                              Appears in related bulletins: <a href="#">Phasells ur nunc purus</a>, <a href="#">Vitae loboris nulla</a>, ' +
 '				<a href="#">Aliquam erat volutpat</a>, <a href="#">Nam urna erat</a>, <a href="#">Lorem ipsum</a>.' +
 '                            </div>' +
 */
-'                            <div class="actions">' +
+
+if(current != 'Actors'){
+output += '                            <div class="actions">' +
 '                             <div class="button combo is-default">' +
 '                                <span class="T">Add as</span>' +
-'                                <ul class="options">' +
-'                                  <li class="do-add-embedded-actor">' +
-'                                    <span class="text T">Witness</span>' +
-'                                  </li>' +
-'                                  <li  class="do-add-embedded-actor">' +
-'                                    <span class="text T">Victim</span>' +
-'                                  </li>' +
-'                                  <li  class="do-add-embedded-actor">' +
-'                                    <span class="text T">Killer</span>' +
-'                                  </li>' +
-'                                  <li  class="do-add-embedded-actor">' +
-'                                    <span class="text T">Torturer</span>' +
-'                                  </li>' +
-'                                  <li  class="do-add-embedded-actor">' +
-'                                    <span class="text T">Kidnapper</span>' +
-'                                  </li>' +
-'                                </ul>' +
+
+'                                <ul class="options">';
+for(var i = 0; i <gl_ac_role_list.length;i++ ){
+output+='                                  <li class="do-add-embedded-actor">' +
+'                                    <span class="text T">'+gl_ac_role_list[i].role+'</span>' +
+'                                  </li>';
+}
+
+output += '                                </ul>' +
 '                              </div>' +
 '                            </div>' +
-'                          </div>' +
-'                          <div class="when-related">' +
+'                          </div>';
+}else{
+output += '                            <div class="actions">' +
+'                             <div class="button combo is-default">' +
+'                                <span class="T">Add as</span>' +
+
+'                                <ul class="options">';
+for(var i = 0; i <gl_ac_relation_list.length;i++ ){
+output+='                                  <li class="do-add-embedded-actor">' +
+'                                    <span class="text T">'+gl_ac_relation_list[i].relation+'</span>' +
+'                                  </li>';
+}
+
+output += '                                </ul>' +
+'                              </div>' +
+'                            </div>' +
+'                          </div>';
+}
+output += '                          <div class="when-related">' +
 '                            <div class="actions">' +
 /*'                              <div class="left">' +
 '                                <div class="button combo is-default">' +

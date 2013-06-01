@@ -3,7 +3,12 @@
     <div class="id">
       ID <span id="view_actor_id" class="value out">{{ actor_result.id }}</span>
     </div>
-    <div class="avatar">&nbsp;</div>
+{% if actor_result.media == None %}
+            <div class="avatar">&nbsp;</div>
+            {% else %}
+            <div class="avatar"><img src="{{ MEDIA_URL }}{{actor_result.media.media_file.name }}"/></div>
+
+            {% endif %}
     <div class="infos">
       <h2 class="title">
       <span class="i18n with-en with-ar">
@@ -11,14 +16,14 @@
       <span lang="ar">{{ actor_result.fullname_ar }}</span>
       <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
       <div class="aka">aka "{{ actor_result.nickname_en}}"</div>
-      <div class="type">{{actor_result.age_en}}, {{actor_result.civilian_en}}</div>
+      <div class="type">{{actor_result.age_en}}{%if actor_result.age_en != None%},{%endif%} {{actor_result.civilian_en}}</div>
     </div>
   </div>
   <div class="body">
     <table class="details">
       <tr>
         <th>Lives in</th>
-        <td>Damas</td>
+        <td>{{actor_result.current_location}}</td>
       </tr>
       <tr>
         <th>Born in</th>
@@ -204,7 +209,7 @@
                   <span class="value">{{ incident.confidence_score }}</span>
                 </div>
                 <div class="status">
-                  <span class="value">{{ incident.status }}</span>
+                  <span class="value">{{ incident.most_recent_status_incident }}</span>
                 </div>
               </div>
               <div class="title i18n">
@@ -251,7 +256,7 @@
                   <span class="value">{{ bulletin.confidence_score }}</span>
                 </div>
                 <div class="status">
-                  <span class="value">{{ bulletin.status }}</span>
+                  <span class="value">{{ bulletin.most_recent_status_bulletin }}</span>
                 </div>
               </div>
               <div class="title i18n">
@@ -296,7 +301,12 @@
                             <input type="checkbox" />
                           </div>
                         </div>
-                        <div class="avatar">&nbsp;</div>
+{% if actor_result.media == None %}
+            <div class="avatar">&nbsp;</div>
+            {% else %}
+            <div class="avatar"><img src="{{ MEDIA_URL }}{{actor_result.media.media_file.name }}"/></div>
+
+            {% endif %}
                         <div class="content">
                           <div class="L1">
                             <div class="status">

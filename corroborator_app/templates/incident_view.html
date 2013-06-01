@@ -30,16 +30,16 @@
                   </div>
                   <div class="is-description group">
                     <h4>Description</h4>
-                    <div class="description">{{incident_result.incident_details}}</div>
+                    <div class="description">{{incident_result.incident_details_en}}</div>
                   </div>
                   <div class="comments group">
                     <h3>Comments</h3>
                     <div class="comments-list">
-                      {%for comment in incident_result.comments.all%}
+                      {%for comment in incident_result.incident_comments.all%}
 		      <div class="comment">
                         <div class="text">{{comment.comments_en}}</div>
                         <div class="meta-history">
-                          <span class="date">{{comment.created|date:'Y-m-d H:i:s'}}</span> by <span class="who">{{ comment.assigned_user }}</span>
+<span class="date created">{{comment.comment_created|date:'Y-m-d H:i:s'}}</span> by <span class="who incident_comment_user_{{comment.assigned_user__id}}">{{ comment.assigned_user }}</span> <span class="incident_comment_status_{{comment.status__id}}"> - {{ comment.status }}</span>
                         </div>
                       </div>
                      {%endfor%} 
@@ -56,7 +56,12 @@
                 <input type="checkbox" />
               </div>
             </div>
+{% if role.actor.media == None %}
             <div class="avatar">&nbsp;</div>
+            {% else %}
+            <div class="avatar"><img src="{{ MEDIA_URL }}{{role.actor.media.media_file.name }}"/></div>
+
+            {% endif %}
             <div class="content">
               <div class="L1">
                 <div class="status">
@@ -141,7 +146,6 @@
           </div>
         </li>
         {% endfor %}
-                      </li>
                     </ul>
                     <div class="clearer">&nbsp;</div>
                   </div>
@@ -157,7 +161,7 @@
                   <span class="value">{{bulletin.confidence_score}}</span>
                 </div>
                 <div class="status">
-                  <span class="value">{{bulletin.status}}</span>
+                  <span class="value">{{bulletin.most_recent_status_bulletin}}</span>
                 </div>
               </div>
               <div class="title i18n">
@@ -205,7 +209,7 @@
                               <span class="value">{{incident.confidence_score}}</span>
                             </div>
                             <div class="status">
-                              <span class="value">{{incident.status}}</span>
+                              <span class="value">{{incident_result.most_recent_status_incident}}</span>
                             </div>
                           </div>
                           <div class="title i18n">
@@ -242,7 +246,7 @@
                     <div class="is-status group">
                       <h4>Update status</h4>
                       <div class="status">
-                        <span class="value">{{incident_result.status}}</span>
+                        <span class="value">{{incident_result.most_recent_status_incident}}</span>
                       </div>
                     </div>
                     <div class="is-assigned-to group">
@@ -345,7 +349,7 @@
         <span class="value">{{ incident_result.confidence_score }}</span>
       </div>
       <div class="status">
-        <span class="value">{{ incident_result.status }}</span>
+        <span class="value">{{ incident_result.most_recent_status_incident }}</span>
       </div>
       <div class="date-location">
 		{{incident_result.get_time_length|safe}} in {% for location in incident_result.locations.all%}<span class="location">{{ location.name_en}}</span>{% if not forloop.last%},{%endif%}{% endfor %}
@@ -364,18 +368,17 @@
       <div class="placeholder">&nbsp;</div>
     </div>
     <div class="description">
-      <h3>Description</h3>{{incident_result.description_en}}
+      <h3>Description</h3>{{incident_result.incident_details_en}}
     </div>
     <div class="comments">
       <h3>Comments</h3>
       <div class="comments-list">
-	{% for comment in incident_result.comments.all %}
+	{% for comment in incident_result.incident_comments.all %}
         <div class="comment">
           <div class="text">{{comment.comments_en}}</div>
           <div class="meta">
-            <span class="date">{{comment.created|date:'Y-m-d H:i:s'}}</span> by <span class="who">{{ comment.assigned_user }}</span>
+<span class="date created">{{comment.comment_created|date:'Y-m-d H:i:s'}}</span> by <span class="who incident_comment_user_{{comment.assigned_user__id}}">{{ comment.assigned_user }}</span> <span class="incident_comment_status_{{comment.status__id}}"> - {{ comment.status }}</span>
           </div>
-        </div>
         </div>
 	{% endfor %}
       </div>
@@ -385,45 +388,44 @@
       <ul class="elements">
 {% for role in incident_result.actors_role.all %}
         <li id="incident_actor_{{role.actor.id}}"  >
-          <div class="Actor in-list">
-            <div class="when-hover">
-              <div class="is-selector">
-                <input type="checkbox" />
-              </div>
-            </div>
-            <div class="avatar">&nbsp;</div>
-            <div class="content">
-              <div class="L1">
-                <div class="status">
-                  <span class="value">{{ role.role_status }}</span>
-                </div>
-                <span class="name">{{ role.actor.fullname_en }}</span>
-                <span class="sex">{{ role.actor.sex_en }}</span>
-                <span class="age">{{ role.actor.age_en }}</span>
-                <div class="L2">
-                  <span class="aka">aka &laquo;{{ role.actor.nickname_en }}&raquo;</span>
-                </div>
-              </div>
-              <div class="when-not_expanded">
-                <div class="L3">
-                  lives in <span class="location">{{ role.actor.POB.name_en}}</span>, works as a <span class="occupation">{{ role.actor.occupation_en }}</span> 
-                  <br>involved in <span class="incidents-count">{{role.actor.count_incidents}} incidents</span>
-                </div>
-              </div>
-              <div class="when-related">
-                <div class="actions">
-<div class="left">
-                    <button class="do-view">
-                     <span class="text T">View</span>
-                    </button>
-                  </div>
-                  </div>
-                  <div class="clearer">&nbsp;</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
+	<div class="Actor in-list">
+		<div class="when-hover">
+			<div class="is-selector">
+				<input type="checkbox" />
+			</div>
+		</div>
+		<div class="avatar">&nbsp;</div>
+		<div class="content">
+			<div class="L1">
+				<div class="status">
+					<span class="value">{{ role.role_status }}</span>
+				</div>
+				<span class="name">{{ role.actor.fullname_en }}</span>
+				<span class="sex">{{ role.actor.sex_en }}</span>
+				<span class="age">{{ role.actor.age_en }}</span>
+				<div class="L2">
+					<span class="aka">aka &laquo;{{ role.actor.nickname_en }}&raquo;</span>
+				</div>
+			</div>
+			<div class="when-not_expanded">
+				<div class="L3">
+					lives in <span class="location">{{ role.actor.POB.name_en}}</span>, works as a <span class="occupation">{{ role.actor.occupation_en }}</span> 
+					<br>involved in <span class="incidents-count">{{role.actor.count_incidents}} incidents</span>
+				</div>
+			</div>
+			<div class="when-related">
+				<div class="actions">
+					<div class="left">
+						<button class="do-view">
+							<span class="text T">View</span>
+						</button>
+					</div>
+				</div>
+				<div class="clearer">&nbsp;</div>
+			</div>
+		</div>
+	</div>
+	</li>
 	{% endfor %}
       </ul>
     </div>
@@ -439,7 +441,7 @@
                   <span class="value">{{bulletin.confidence_score}}</span>
                 </div>
                 <div class="status">
-                  <span class="value">{{bulletin.status}}</span>
+                  <span class="value">{{bulletin.most_recent_status_bulletin}}</span>
                 </div>
               </div>
               <div class="title i18n">
@@ -487,7 +489,7 @@
                               <span class="value">{{incident.confidence_score}}</span>
                             </div>
                             <div class="status">
-                              <span class="value">{{incident.status}}</span>
+                              <span class="value">{{incident_result.most_recent_status_incident}}</span>
                             </div>
                           </div>
                           <div class="title i18n">
