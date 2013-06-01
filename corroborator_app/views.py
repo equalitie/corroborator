@@ -62,7 +62,18 @@ def index(request, *args, **kwargs):
 		users_set = User.objects.all()
 		loc_set = location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
 		loc_set = loc_set.values('name_en','latitude','longitude','count')
-		return render(request,'search.html',{'sources_set':sources_set,'labels_set':labels_set,'crimes_set':crimes_set,'status_set':status_set,'users_set':users_set,'loc_set':loc_set,'username':username,'ps_incident_list':ps_incident_list,'ps_bulletin_list':ps_bulletin_list,'ps_actor_list':ps_actor_list})
+		return render(request,'search.html',{
+            'sources_set':sources_set,
+            'labels_set':labels_set,
+            'crimes_set':crimes_set,
+            'status_set':status_set,
+            'users_set':users_set,
+            'loc_set':loc_set,
+            'username':username,
+            'ps_incident_list':ps_incident_list,
+            'ps_bulletin_list':ps_bulletin_list,
+            'ps_actor_list':ps_actor_list
+        })
 	else:
 		return render_to_response('auth.html',RequestContext(request))
 

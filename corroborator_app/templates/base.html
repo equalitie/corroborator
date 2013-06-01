@@ -6,6 +6,8 @@
     <meta charset="utf-8" />
 
     <!-- custom stylesheets -->
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" media="all" type="text/css" href="{{ STATIC_URL}}css/timepicker/jquery-ui-timepicker-addon.css" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/screen.css" />
 
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fonts/iconic-fill/font.css" />
@@ -13,15 +15,16 @@
     <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css" />-->
     <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/corroborator.css" />-->
     <link rel="stylesheet" href="{{ STATIC_URL }}js/leafletjs/leaflet.css" />
+   <!-- 
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.10.2/ui/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jwplayer/jwplayer.js"></script>
 
 
-<link rel="stylesheet" href="{{ STATIC_URL}}css/jquery-ui-1.10.3.custom.min.css" />
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.validationEngine-en.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.validationEngine.js"></script>
-<link rel="stylesheet" href="{{ STATIC_URL}}css/validationEngine.jquery.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/validationEngine.jquery.css" />
+    -->
 
 <!-- <link href="{{ STATIC_URL }}js/video-js/video-js.css" rel="stylesheet">
 <script src="{{ STATIC_URL }}js/video-js/video.js"></script>
@@ -29,13 +32,17 @@
   _V_.options.flash.swf = "{{ STATIC_URL }}js/video-js/video-js.swf"
 </script>
 -->
-    <link rel="stylesheet" media="all" type="text/css" href="{{ STATIC_URL}}css/timepicker/jquery-ui-timepicker-addon.css" />
+    <!-- requirejs loader -->
+    <script data-main="{{ STATIC_URL }}js/main/loader" charset="utf-8" src="{{ STATIC_URL}}js/components/requirejs/require.js"> </script>
+<!--
     <script type="text/javascript" src="{{ STATIC_URL }}js/timepicker/jquery-ui-timepicker-addon.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/corroborator.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/spin.min.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/extend-2.3.21.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/wireshop.js"></script>
+-->
 <!--    <script type="text/javascript" src="{{ STATIC_URL }}js/linking.js"></script> -->
+<!--
     <script type="text/javascript" src="{{ STATIC_URL }}js/events.js"></script>
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/Core.js"></script>
     <script src="{{ STATIC_URL }}js/ajax-solr/lib/core/AbstractManager.js"></script>
@@ -63,7 +70,7 @@ jQuery(document).ready(function($){
 
 
 </script>
-
+-->
 
 <!-- bootstrap values -->
 <script type="text/javascript" >
@@ -113,8 +120,8 @@ jQuery(document).ready(function($){
   {% endfor%};
 </script>
 
-
-    	<script type="text/javascript">
+<!--
+<script type="text/javascript">
 	
 
 		jQuery(document).ready(function($){
@@ -178,6 +185,7 @@ jQuery(document).ready(function($){
 		});
 
 	</script>
+  -->
   </head>
 
   <body class="use-base">
@@ -239,6 +247,7 @@ jQuery(document).ready(function($){
 	{% block content %}
 	{% endblock %}
       </div>
+<!--
 <script language="javascript" src="{{ STATIC_URL }}js/corroborator-util.js"></script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
@@ -248,8 +257,8 @@ jQuery(document).ready(function($){
 
 });
 
-
 </script>
+-->
 
     </div>
 <div id="confirm_dialog" title="">

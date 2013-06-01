@@ -122,17 +122,6 @@ INSTALLED_APPS = (
     'corroborator_app',
 )
 
-#Haystack backend configuration
-HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
-
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'https://sjac.rightscase.org/solr'
-        # ...or for multicore...
-        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
-    },
-}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,11 +1,10 @@
-
 <script type="text/javascript" >
     gl_ac_labels_list = [{%for label in labels_set.all %}{label:"{{label.name_en}}",id:"{{label.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     gl_ac_users_list = [{%for user in users_set.all %}{label:"{{user.username}}",id:"{{user.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     gl_ac_crimes_list = [{%for crime in crimes_set.all %}{label:"{{crime.category_en}}",id:"{{crime.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
     special_global_ac_sources_list = [{%for source in sources_set.all %}{label:"{{source.name_en}}",id:"{{source.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
-
 </script>
+
 <form id="incident_form" onsubmit="return false;">
 <div class="Incident in-preview is-edited">
 	    <div class="Incident is-edited">

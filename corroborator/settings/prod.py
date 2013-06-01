@@ -10,3 +10,15 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+#Haystack backend configuration
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'https://sjac.rightscase.org/solr'
+        # ...or for multicore...
+        # 'URL': 'http://127.0.0.1:8983/solr/mysite',
+    },
+}
