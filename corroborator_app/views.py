@@ -464,3 +464,5 @@ def lookup_actor(request, actor_id, mode):
 		bulletin_result = bulletin.objects.filter(actors_role__in=roles)
 		return render_to_response('actor_view.html', {'actor_result':actor_result,'bulletins':bulletin_result,'incidents':incident_result}) 
 
+def js_tests(request):
+    return render_to_response('auth.html',{'state':state, 'username': username},RequestContext(request))

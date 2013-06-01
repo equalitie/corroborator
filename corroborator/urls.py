@@ -23,6 +23,12 @@ urlpatterns = patterns('',
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_actor'),
 )
 
+#jobs app
+urlpatterns += patterns(
+    '',
+    (r'^interntest/', include('interntest.urls')),
+)
+
 # API Resources
 from tastypie.api import Api
 from corroborator_app.api import ActorResource

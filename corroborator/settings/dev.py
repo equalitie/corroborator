@@ -13,6 +13,7 @@ DATABASES = {
 
 INSTALLED_APPS += (
     'autofixture',
+    'interntest',
 )
 
 #Haystack backend configuration
