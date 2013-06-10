@@ -10,17 +10,17 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
-from corroborator_app.models import Actor
+from corroborator_app.models import ActorRole
 
-__all__ = ('ActorResource', )
+__all__ = ('ActorRoleResource', )
 
-class ActorResource(ModelResource):
+class ActorRoleResource(ModelResource):
     """
     tastypie api implementation
     """
     class Meta:
-        queryset = actor.objects.all()
-        resource_name = 'actor'
+        queryset = ActorRole.objects.all()
+        resource_name = 'actorRole'
         authorization = Authorization()
         #authentication = ApiKeyAuthentication()
         always_return_data = True

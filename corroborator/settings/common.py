@@ -12,6 +12,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# Tastypie configuration parameters
+TASTYPIE_DEFAULT_FORMATS = ['json']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name

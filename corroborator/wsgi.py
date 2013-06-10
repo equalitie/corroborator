@@ -22,7 +22,7 @@ import sys
 # Remember original sys.path.
 prev_sys_path = list(sys.path)
 
-# we add currently directory to path and change to it
+# we add current directory to path and change to it
 pwd = os.path.dirname(os.path.abspath(__file__))
 os.chdir( pwd )
 sys.path = [pwd] + sys.path
@@ -45,7 +45,8 @@ for item in list(sys.path):
 
 
 # now start django
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev'
+#os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.prod'
 
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
