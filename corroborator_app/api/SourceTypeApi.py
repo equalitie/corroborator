@@ -1,7 +1,7 @@
 """
 Author: Cormac McGuire
 Date: 29-05-2013
-Create api for actor model, requires apikey auth
+Create api for sourceType model, requires apikey auth
 tests in tests/api/tests.py
 """
 
@@ -10,17 +10,17 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
-from corroborator_app.models import Actor
+from corroborator_app.models import SourceType
 
-__all__ = ('ActorResource', )
+__all__ = ('SourceTypeResource', )
 
-class ActorResource(ModelResource):
+class SourceTypeResource(ModelResource):
     """
-    tastypie api implementation
+    tastypie api implementation for sourceType model
     """
     class Meta:
-        queryset = actor.objects.all()
-        resource_name = 'actor'
+        queryset = SourceType.objects.all()
+        resource_name = 'sourceType'
         authorization = Authorization()
         #authentication = ApiKeyAuthentication()
         always_return_data = True

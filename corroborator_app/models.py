@@ -5,19 +5,28 @@ from django.contrib.auth.models import User
 from queued_storage.backends import QueuedStorage
 from storages.backends.s3boto import S3BotoStorage
 
-
+#Setup Boto AWS storage access system
 queued_s3storage = QueuedStorage(
     'django.core.files.storage.FileSystemStorage',
     'storages.backends.s3boto.S3BotoStorage')
 
-class predefined_search(models.Model):
+class PredefinedSearch(models.Model):
+    """
+    This object stores past searches for a given user as a URL string
+    that represents all filters applied for a given search type.
+    """
     name_en = models.CharField(max_length=255)
     name_ar = models.CharField(max_length=255)
     search_request = models.TextField(blank=True,null=True)
     user = models.ForeignKey(User,null=True,blank=True)
     search_type = models.CharField(max_length=255)
 
-class status_update(models.Model):
+class StatusUpdate(models.Model):
+    """
+    This object represents a comment status update. It records the 
+    the change in state of a Bulletin or Incident based on a user's
+    actions.
+    """
     status_en = models.CharField(max_length=255)
     status_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.TextField(blank=True,null=True)
@@ -26,7 +35,11 @@ class status_update(models.Model):
     def __unicode__(self):
         return self.status_en
 
-class comment(models.Model):
+class Comment(models.Model):
+    """
+    This object represents a system comment and acts as part of the
+    systems audit trail. It can be related to either Bulletins or Incidents.
+    """
     assigned_user = models.ForeignKey(User,null=True,blank=True)
     status = models.ForeignKey(status_update,blank=True,null=True)
     comments_en = models.TextField(blank=True,null=True)
@@ -37,7 +50,11 @@ class comment(models.Model):
     def __unicode__(self):
         return self.status.status_en
 
-class time_info(models.Model):
+class TimeInfo(models.Model):
+    """
+    This object captures the time aspect of an event for
+    either a Bulletin or Incident/
+    """
     time_from = models.DateTimeField()
     time_to = models.DateTimeField()
     comments_en = models.TextField(blank=True,null=True)
@@ -50,7 +67,12 @@ class time_info(models.Model):
         return self.event_name_en
 
 
-class location(models.Model):
+class Location(models.Model):
+    """
+    This object represents a geographical location. It is possible for 
+    locations to be linked together as a hierarchical chain in order
+    to represent sub regions, provinces, towns, cities, etc.
+    """
     LOC_TYPE = (
             ('Village','village'),
             ('Area','area'),
@@ -75,7 +97,12 @@ class location(models.Model):
     def get_location(self):
         return Point(self.longitude, self.latitude)
 
-class labeling(models.Model):
+class Label(models.Model):
+    """
+    This object represents a label tag. it can be applied to either
+    a Bulletin or Incident. Multiple labels can be interlinked as
+    a chained hierarchy.
+    """
     name_en = models.CharField(max_length=255)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.TextField(blank=True,null=True)
@@ -85,7 +112,11 @@ class labeling(models.Model):
         return self.name_en
 
 
-class crime_category(models.Model):
+class CrimeCategory(models.Model):
+    """
+    This object represents a crime category. Multiple crime categories 
+    can be interlinked as an hierarchical chain.
+    """
     category_en = models.CharField(max_length=255,blank=True,null=True)
     category_ar = models.CharField(max_length=255,blank=True,null=True)
     level = models.IntegerField(blank=True,null=True)
@@ -97,12 +128,19 @@ class crime_category(models.Model):
         return self.category_en
 
 
-class source_type(models.Model):
+class SourceType(models.Model):
+    """
+    This object stores the type of a given source.
+    """
     source_type = models.CharField('source type',max_length=255)
     description = models.TextField(blank=True,null=True)
     def __unicode__(self):
         return self.source_type
-class source(models.Model):
+class Source(models.Model):
+    """
+    This object identifies a Bulletin's source. This can be of multiple types
+    news media, social media, witness statements etc.
+    """
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     reliability_score = models.IntegerField('reliability score',max_length=3)
@@ -113,43 +151,47 @@ class source(models.Model):
     def __unicode__(self):
         return self.name_en
 
-class dialect(models.Model):
+class Dialect(models.Model):
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.CharField(max_length=255,blank=True,null=True)
     description_ar = models.CharField(max_length=255,blank=True,null=True)
 
-class position(models.Model):
+class Position(models.Model):
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.CharField(max_length=255,blank=True,null=True)
     description_ar = models.CharField(max_length=255,blank=True,null=True)
 
-class occupation(models.Model):
+class Occupation(models.Model):
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.CharField(max_length=255,blank=True,null=True)
     description_ar = models.CharField(max_length=255,blank=True,null=True)
 
-class ethnicity(models.Model):
+class Ethnicity(models.Model):
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.CharField(max_length=255,blank=True,null=True)
     description_ar = models.CharField(max_length=255,blank=True,null=True)
 
-class religion(models.Model):
+class Religion(models.Model):
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.CharField(max_length=255,blank=True,null=True)
     description_ar = models.CharField(max_length=255,blank=True,null=True)
 
-class nationality(models.Model):
+class Nationality(models.Model):
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     description_en = models.CharField(max_length=255,blank=True,null=True)
     description_ar = models.CharField(max_length=255,blank=True,null=True)
 
-class media(models.Model):
+class Media(models.Model):
+    """
+    The Media object captures represents and individual piece of
+    media evidence that can be related to Bulletins.
+    """
     TYPE = (
             ('Video','video'),
             ('Picture', 'picture'),
@@ -164,7 +206,10 @@ class media(models.Model):
     def get_uri(self):
         return self.media_file.url
 
-class actor(models.Model):
+class Actor(models.Model):
+    """
+    This object captures the unique properties of an individual Actor
+    """
     fullname_en = models.CharField(max_length=255,blank=True,null=True)
     fullname_ar = models.CharField(max_length=255,blank=True,null=True)
     nickname_en = models.CharField(max_length=255,blank=True,null=True)
@@ -191,7 +236,6 @@ class actor(models.Model):
     spoken_dialect_ar = models.CharField(max_length=255,blank=True,null=True)
     current_location = models.ForeignKey(location,blank=True,null=True,related_name='actor_current')
     media = models.ForeignKey(media,blank=True,null=True)
-    related_actors = models.ManyToManyField('self',through='actor_relationship', symmetrical=False)
     actor_created = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
         return self.fullname_en
@@ -202,7 +246,12 @@ class actor(models.Model):
         roles = self.role_set.all()
         return incident.objects.filter(actors_role__in=roles).count()
 
-class actor_relationship(models.Model):
+class ActorRelationship(models.Model):
+    """
+    The Actor Relationship model cpatures the interrelation between actors.
+    This can include shared events, familial connections, insititutional 
+    relationships or rank.
+    """
     RELATION = (
             ('Parent', 'parent'),
             ('Sibling', 'sibling'),
@@ -218,7 +267,11 @@ class actor_relationship(models.Model):
     def __unicode__(self):
         return self.actor_a.fullname_en + '-' + self.actor_b.fullname_en + ': ' + self.relation_status
 
-class role(models.Model):
+class ActorRole(models.Model):
+    """
+    This object model captures the role of a given actor
+    in relation to either an Incident or a Bulletin.
+    """
     ROLE_STATUS = (
             ('Killed','killed'),
             ('Tortured', 'tortured'),
@@ -237,7 +290,12 @@ class role(models.Model):
 
 
 
-class bulletin(models.Model):
+class Bulletin(models.Model):
+    """
+    This model represents the Bulletin object. It is intended
+    to capture the relationship specifically between Media objects,
+    chronological events and Actors' roles.
+    """
     TYPE = (
             ('Video','video'),
             ('Picture', 'picture'),
@@ -284,7 +342,12 @@ class bulletin(models.Model):
 
 
 
-class incident(models.Model):
+class Incident(models.Model):
+    """
+    This class defined the Incident object Model. The
+    object is intended to capture the meta level relationship between
+    Bulletins, Actors and Events.
+    """
     incident_details_en = models.TextField(blank=True,null=True)
     incident_details_ar = models.TextField(blank=True,null=True)
     incident_comments = models.ManyToManyField(comment,blank=True,null=True)

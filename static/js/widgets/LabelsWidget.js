@@ -97,7 +97,7 @@ if(initialLoad){
 									$(labelToAppend).click(this.clickHandler(k))
 								);
 			}
-		}else if(this.field == 'bulletin_status_exact'){
+		}else if(this.field == 'most_recent_status_bulletin_exact'){
 			$('.'+current.toLowerCase().slice(0,-1)+'_status_filter').remove();
 			var status = this.manager.response.facet_counts.facet_fields.bulletin_status_exact;
 			for(k in status) {
@@ -124,7 +124,7 @@ if(initialLoad){
 									$(labelToAppend).click(this.clickHandler(k))
 								);
 			}
-		}else if(this.field == 'incident_status_exact'){
+		}else if(this.field == 'most_recent_status_incident_exact'){
 			$('.'+current.toLowerCase().slice(0,-1)+'_status_filter').remove();
 			var status = this.manager.response.facet_counts.facet_fields.incident_status_exact;
 			for(k in status) {
