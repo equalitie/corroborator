@@ -1,10 +1,6 @@
 /*global window, document, define */
 'use strict';
-(function(window, document, undefined) {
-  define(
-    ['jquery', 'backbone', 'lib/dispatcher'],
-    function($, Backbone, dispatcher) {
-      console.log(Backbone, dispatcher);
-
-  });
+module.exports = (function(window, document, undefined) {
+  var leaflet = require('components/leaflet/dist/leaflet');
+  console.log(leaflet);
 }(window, document));
