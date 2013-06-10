@@ -41,7 +41,7 @@ class Comment(models.Model):
     systems audit trail. It can be related to either Bulletins or Incidents.
     """
     assigned_user = models.ForeignKey(User,null=True,blank=True)
-    status = models.ForeignKey(status_update,blank=True,null=True)
+    status = models.ForeignKey(StatusUpdate, blank=True,null=True)
     comments_en = models.TextField(blank=True,null=True)
     comments_ar = models.TextField(blank=True,null=True)
     comment_created = models.DateTimeField(auto_now_add=True)
@@ -144,7 +144,7 @@ class Source(models.Model):
     name_en = models.CharField(max_length=255,blank=True,null=True)
     name_ar = models.CharField(max_length=255,blank=True,null=True)
     reliability_score = models.IntegerField('reliability score',max_length=3)
-    source_type = models.ForeignKey(source_type,blank=True,null=True)
+    source_type = models.ForeignKey(SourceType, blank=True,null=True)
     comments_en = models.TextField(blank=True,null=True)
     comments_ar = models.TextField(blank=True,null=True)
     ref_source = models.ForeignKey('self', blank=True, null=True)
@@ -221,7 +221,7 @@ class Actor(models.Model):
     civilian_en = models.CharField(max_length=255,blank=True,null=True)
     civilian_ar = models.CharField(max_length=255,blank=True,null=True)
     DOB = models.DateField('date of birth',blank=True,null=True)
-    POB = models.ForeignKey(location,blank=True,null=True,related_name='POB')
+    POB = models.ForeignKey(Location, blank=True,null=True,related_name='POB')
     occupation_en = models.CharField(max_length=255,blank=True,null=True)
     occupation_ar = models.CharField(max_length=255,blank=True,null=True)
     nationality_en = models.CharField(max_length=255,blank=True,null=True)
@@ -234,7 +234,7 @@ class Actor(models.Model):
     religion_ar = models.CharField(max_length=255,blank=True,null=True)
     spoken_dialect_en = models.CharField(max_length=255,blank=True,null=True)
     spoken_dialect_ar = models.CharField(max_length=255,blank=True,null=True)
-    current_location = models.ForeignKey(location,blank=True,null=True,related_name='actor_current')
+    current_location = models.ForeignKey(Location,blank=True,null=True,related_name='actor_current')
     media = models.ForeignKey(media,blank=True,null=True)
     actor_created = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
@@ -313,7 +313,7 @@ class Bulletin(models.Model):
     confidence_score = models.IntegerField('confidence score')
     times = models.ManyToManyField(time_info,blank=True,null=True)
     medias = models.ManyToManyField(media,blank=True,null=True)
-    locations = models.ManyToManyField(location,blank=True,null=True)
+    locations = models.ManyToManyField(Location,blank=True,null=True)
     labels = models.ManyToManyField(labeling,blank=True,null=True)
     sources = models.ManyToManyField(source,blank=True,null=True)
     ref_bulletins = models.ManyToManyField('self',blank=True,null=True)
@@ -360,7 +360,7 @@ class Incident(models.Model):
     crimes = models.ManyToManyField(crime_category,blank=True,null=True)
     labels = models.ManyToManyField(labeling,blank=True,null=True)
     times = models.ManyToManyField(time_info,blank=True,null=True)
-    locations = models.ManyToManyField(location,blank=True,null=True)
+    locations = models.ManyToManyField(Location,blank=True,null=True)
     assigned_user = models.ForeignKey(User,null=True,blank=True)
     incident_created = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):

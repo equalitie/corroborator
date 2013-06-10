@@ -12,3 +12,4 @@ Gemfile
 Gemfile.lock
 Guardfile
 config.rb
+corroborator/wsgidev.py
