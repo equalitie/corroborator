@@ -8,18 +8,18 @@ tests in tests/api/tests.py
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
-from tastypie import fields
 
 from corroborator_app.models import Actor
 
 __all__ = ('ActorResource', )
+
 
 class ActorResource(ModelResource):
     """
     tastypie api implementation
     """
     class Meta:
-        queryset = actor.objects.all()
+        queryset = Actor.objects.all()
         resource_name = 'actor'
         authorization = Authorization()
         #authentication = ApiKeyAuthentication()

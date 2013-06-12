@@ -55,10 +55,8 @@ define({
       },
       'lib/SolrSearch'
     ],
-    shim: {
-      'jquery': {
-        exports: '$'
-      }
+    map: {
+      'jquery': 'jquery'
     }
 	},
 

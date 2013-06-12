@@ -3,11 +3,10 @@
 define([
   'intern!bdd',
   'intern/chai!expect',
-  '../views',
-  'jquery'
-], function (bdd, expect, views, $) {
-    console.log($('body'));
-    console.log(views);
+  '../views'//,
+  //'jquery!jquery',
+], function (bdd, expect, views/*, $*/) {
+    //console.log($.ajax);
     bdd.describe('my Solr view tests', function () {
       var hello = 'hello';
     
@@ -17,8 +16,6 @@ define([
       bdd.it("should have a hello variable", function() {
         expect(hello==='hello').to.be.true;
       });
-      
-      
     });
     
 });
