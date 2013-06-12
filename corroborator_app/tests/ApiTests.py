@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 from django.test.client import Client
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
-from corroborator_app.models import actor
+from corroborator_app.models import Actor
 
 class ActorTestCase(ResourceTestCase):
     def setUp(self):
         super(ActorTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(actor)
+        fixture = AutoFixture(Actor)
         actors = fixture.create(10)
 
         # Create apikey if user doesn't have one
@@ -22,7 +22,7 @@ class ActorTestCase(ResourceTestCase):
             self.user.username, self.api_key.key)
 
     def tearDown(self):
-        actor.objects.all().delete()
+        Actor.objects.all().delete()
 
     def test_actor_get(self):
         url = '/api/v1/actor/?format=json{}'.format(self.auth_string)

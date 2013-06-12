@@ -17,11 +17,11 @@ Manager.addWidget(new AjaxSolr.CalendarWidget({
   target: '#bulletin_date_filter',
   field: 'bulletin_times_exact'
 }));
-	Manager.addWidget(new AjaxSolr.TextWidget({
-	  id: 'text',
-	  target: '#docs',
-	  fields: ['type','sources']
-	}));
+Manager.addWidget(new AjaxSolr.TextWidget({
+  id: 'text',
+  target: '#docs',
+  fields: ['type','sources']
+}));
 
 	//var fields = [ 'bulletin_labels_exact', 'bulletin_status_exact','bulletin_assigned_exact','incident_labels_exact', 'incident_status_exact','incident_assigned_exact','crimes_exact','sources_exact','civilian_en_exact','age_en_exact','sex_en_exact','nationality_en_exact'];
 	var fields = [ 'bulletin_labels_exact', 'bulletin_assigned_exact','incident_labels_exact', 'incident_assigned_exact','crimes_exact','sources_exact','civilian_en_exact','age_en_exact','sex_en_exact','nationality_en_exact','most_recent_status_bulletin_exact','most_recent_status_incident_exact'];

@@ -10,7 +10,7 @@ class ActorTestCase(ResourceTestCase):
         super(ActorTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(actor)
+        fixture = AutoFixture(Actor)
         actors = fixture.create(10)
 
         try:

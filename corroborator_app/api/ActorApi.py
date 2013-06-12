@@ -22,5 +22,5 @@ class ActorResource(ModelResource):
         queryset = Actor.objects.all()
         resource_name = 'actor'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

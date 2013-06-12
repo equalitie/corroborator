@@ -44,7 +44,8 @@ def index(request, *args, **kwargs):
         username = request.user.username
         userid = request.user.id
 
-        ps_list = PredefinedSearch.objects.filter(user_id = request.user.id).order_by('search_type')
+        ps_list = PredefinedSearch.objects.filter(
+            user_id = request.user.id).order_by('search_type')
         ps_incident_list = []
         ps_bulletin_list = []
         ps_actor_list = []
