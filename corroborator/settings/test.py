@@ -1,3 +1,4 @@
+from settings.common import *
 
 INSTALLED_APPS += (
     'autofixture',
