@@ -3,10 +3,11 @@
 define([
   'intern!bdd',
   'intern/chai!expect',
-  '../views'//,
+  '../views',
+  '../../../components/jquery/jquery'
   //'jquery!jquery',
-], function (bdd, expect, views/*, $*/) {
-    //console.log($.ajax);
+], function (bdd, expect, views, $) {
+    console.log($);
     bdd.describe('my Solr view tests', function () {
       var hello = 'hello';
     

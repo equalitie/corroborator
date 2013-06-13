@@ -95,6 +95,63 @@ def index(request, *args, **kwargs):
         return render_to_response('auth.html', RequestContext(request))
 
 
+def new_index(request, *args, **kwargs):
+    username = 'admin'
+    if request.user.is_authenticated():
+        username = request.user.username
+        userid = request.user.id
+
+        ps_list = PredefinedSearch.objects.filter(
+            user_id = request.user.id).order_by('search_type')
+        ps_incident_list = []
+        ps_bulletin_list = []
+        ps_actor_list = []
+        for ps in ps_list:
+            if ps.search_type == 'incident':
+                ps_incident_list.append(ps)
+            elif ps.search_type == 'bulletin':
+                ps_bulletin_list.append(ps)
+            elif ps.search_type == 'actor':
+                ps_actor_list.append(ps)
+        labels_set = Label.objects.all()
+        role_status_set = []
+        rs = ActorRole.ROLE_STATUS
+        for r in rs:
+            role_status_set.append(r[0])
+
+        relation_status_set = []
+        rls = ActorRelationship.RELATION
+        for r in rls:
+            relation_status_set.append(r[0])
+
+        crimes_set = CrimeCategory.objects.all()
+        status_set = StatusUpdate.objects.all()
+        sources_set = Source.objects.all()
+        users_set = User.objects.all()
+        loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
+        loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
+        return render(
+            request, 'new_search.html',
+            {
+                'role_status_set': role_status_set,
+                'relation_status_set': relation_status_set,
+                'sources_set': sources_set,
+                'labels_set': labels_set,
+                'crimes_set': crimes_set,
+                'status_set': status_set,
+                'users_set': users_set,
+                'loc_set': loc_set,
+                'username': username,
+                'userid': userid,
+                'ps_incident_list': ps_incident_list,
+                'ps_bulletin_list': ps_bulletin_list,
+                'ps_actor_list': ps_actor_list
+            }
+        )
+    else:
+        return render_to_response('auth.html', RequestContext(request))
+
+
 def home(request, *args, **kwargs):
     if request.user.is_authenticated():
         bulletins = Bulletin.objects.filter(assigned_user_id=request.user.id)

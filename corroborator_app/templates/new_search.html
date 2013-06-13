@@ -1,0 +1,282 @@
+{% extends "new_base.html" %}
+
+{% block script %}
+<script type="text/javascript">
+var Bootstrap = Bootstrap || {};
+(function(Bootstrap) {
+  var incidentSearches = [];
+  {%for search in ps_incident_list %}
+  incidentSearches.push({
+    id: {{search.id}},
+    request: "{{search.search_request}}",
+    name_en: "{{search.name_en}}"
+  });
+  {%endfor%}
+
+  var bulletinSearches = [];
+  {%for search in ps_bulletin_list %}
+  bulletinSearches.push({
+    id: {{search.id}},
+    request: "{{search.search_request}}",
+    name_en: "{{search.name_en}}"
+  });
+  {%endfor%}
+
+  var actorSearches = [];
+  {%for search in ps_actor_list %}
+  actorSearches.push({
+    id: {{search.id}},
+    request: "{{search.search_request}}",
+    name_en: "{{search.name_en}}"
+  });
+  {%endfor%}
+  Bootstrap.predefinedSearches = {
+    incidentSearches: incidentSearches,
+    bulletinSearches: bulletinSearches,
+    actorSearches: actorSearches
+  };
+
+}(Bootstrap));
+</script>
+{% endblock %}
+
+{% block content%}
+<nav id="search-navigation">
+  <div class="search">
+    <!--search text field -->
+    <input type="textfield" />
+    <button class="do-clear">
+      <span>&#x2713;</span>
+    </button>
+  </div>
+  <!--end search text field -->
+
+  <!-- dropdown combo box -->
+  <div>
+    <div class="button combo  do-search is-default">
+      <span id="do-search-main" class="T selected-option">Search</span>
+      <ul class="options" id="predefined_options">
+        <li id="show_save_current_search" class="option selected">
+          <span class="text T">Save current seach...</span>
+        </li>
+        {%for search in ps_incident_list %}
+        <li class="option selected incident-predefined">
+          <input type="hidden" value="{{search.search_request}}" />
+          <span class="text T">{{search.name_en}}</span>
+        </li>
+        {%endfor%}
+
+        {%for search in ps_bulletin_list %}
+        <li class="option selected bulletin-predefined hidden">
+          <input type="hidden" value="{{search.search_request}}" />
+          <span class="text T">{{search.name_en}}</span>
+        </li>
+        {%endfor%}
+
+        {%for search in ps_actor_list %}
+        <li class="option selected actor-predefined hidden">
+          <input type="hidden" value="{{search.search_request}}" />
+          <span class="text T">{{search.name_en}}</span>
+        </li>
+        {%endfor%}
+
+      </ul>
+    </div>
+    <!-- end dropdown combo box -->
+
+    <!-- save search -->
+    <span id="predefined-search" class="hidden predefined">
+      <input id="predfiend-search-name"class="w-30p"/>
+
+      <!-- save search buttons -->
+      <button id="save_current_search" class="do-search do-search-main is-default">
+        <span class="text T">Save</span>
+      </button>
+      <button id="cancel_current_search" class="do-search do-search-main is-default">
+        <span class="text T">Cancel</span>
+      </button>
+
+    </span>
+    <!-- end save search -->
+
+    <!-- search spinner -->
+    <span id="main_spinner" class="hidden">
+      <img style="z-index: 100; width: 24px; height: 24px; vertical-align: middle;" src="/static/images/ajax-loader.gif">
+    </span>
+    <!-- end search spinner -->
+  </div>
+  <!-- end search area -->
+
+  <div class="tabs">
+    <ul>
+      <li class="current is-incidents">
+        <a href="#incidents/tab/" id="incidents-tab">
+          <span class="text">
+            <span class="label T">Incidents</span>
+            <span class="incident-count count"></span>
+          </span>
+
+        </a>
+      </li>
+      <li class="is-bulletins">
+        <a id="bulletins-tab" href="#bulletins/tab/">
+          <span class="text">
+            <span class="label T">Bulletins</span>
+            <span class="bulletin-count count"></span>
+          </span>
+        </a>
+      </li>
+
+      <li class="is-actors">
+        <a href="#actors/tab/" id="actors-tab">
+         <span class="text">
+          <span class="label T">Actors</span>
+          <span class="actor-count count"></span>
+        </span>
+
+      </a>
+    </li>
+  </ul>
+  <div class="clearer">&nbsp;</div>
+</div>
+</nav>
+
+
+
+
+
+<!--
+<div id="incident-content" class="columns as-2">
+  <div class="col first has-header">
+    <div class="header">
+      <div class="padding">
+        <div class="Selection">
+          <div class="description">
+            <span class="text T">
+              <em><span id="number-incidents-selected">0</span> incidents</em> selected
+            </span>
+          </div>
+          <div class="actions">
+            <div class="button combo is-default">
+              <span class="T">Actions...</span>
+              <ul class="options">
+                <li> <a href="#archive" id="delete_incidents" class="text T">Delete Incidents</a> </li>
+                <li> <a href="#assign" id="annotate-incidents-selected" class="text T">Update selected</a> </li>
+                <li> <a href="#assign" id="all-incidents-selected" class="text T">Select All</a> </li>
+                <li> <a href="#assign" id="clear-incidents-selected" class="text T">Clear selected</a> </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class="incidents">
+        <thead>
+          <tr>
+            <th class="is-selector">&nbsp;</th>
+            <th class="is-preview">&nbsp;</th>
+            <th class="is-description">
+              <a href="#+mode=date" class="T current is-descending">date</a>
+              <a href="#+mode=location" class="T">location</a>
+              <a href="#+mode=title" class="T">title</a>
+            </th>
+            <th class="is-status">
+              <a href="#+mode=status" class="T">status</a>
+            </th>
+            <th class="is-score">
+              <a href="#+mode=score" class="T">score</a>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="body">
+      <div class="padding">
+        <table class="incidents">
+          <tbody id="incidents-table">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col last has-header">
+  <div class="header">
+    <div class="padding">
+      <div class="group is-creator">
+        <button class="do-create-incident create">
+          <span class="text T">New incident</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="padding">
+      <div class="group is-filters filters">
+        <div class="filter is-labels">
+          <label id="incident-selected-label" class="hidden">Current filters</label>
+          <ul id="incident-selected-tags" class="tags editor">
+          </ul>
+
+        </div>
+        <div class="filter">
+          <label>Date Range</label>
+          <div class="wrapper" style="position:relative;z-index:1;">
+            <div id="incident-jrange" class="dates">
+              <input id="incident_date_filter" value="yyyy/mm/dd - yyyy/mm/dd"/>
+              <div></div>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="filter">
+          <label>Crime</label>
+          <ul class="select" id="incident-crime-filter">
+          </ul>
+        </div>
+        <div class="filter">
+          <label>Assigned to</label>
+          <ul class="select" id="incident-assigned-filter">
+          </ul>
+        </div>
+        <div class="filter">
+          <label>Status</label>
+          <ul class="select" id="incident-status-filter">
+            {% for status in statuses %}	
+            <li class="option">
+              <span class="incident-option text T">{{status.status_en}}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="filter is-labels">
+          <label>Labels</label>
+          <ul id="incidents_tags" class="tags">
+          </ul>
+        </div>
+
+        <div class="filter is-map">
+          <label>Location</label>
+          <div id="bulletin-location-search-container" class="field hidden">
+            <input id="bulletin-location-ac-filter" type="text" class="with-clear" />
+            <button class="do-clear">
+              <span>&#x2713;</span>
+            </button>
+          </div>
+          <div class="map">
+            <div id="filter_map" style="width:100%;height:100%;"></div>
+            <button class="do-filter">
+              <span class="text T">Filter</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+-->
+{% endblock %}

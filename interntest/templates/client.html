@@ -3,8 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>Browser test runner</title>
-<script src="{{STATIC_URL}}js/intern/dojo/dojo.js"></script>
+<script data-main="{{STATIC_URL}}js/lib/SolrSearch/tests/loader" charset="utf-8" src="{{STATIC_URL}}/js/components/requirejs/require.js"></script>
+
+<!--<script src="{{STATIC_URL}}js/intern/dojo/dojo.js"></script>-->
 <script>
+/*
 (function () {
   //var basePath = location.pathname.replace(/[^\/]+$/, '');
   var basePath = '{{STATIC_URL}}js/intern/';
@@ -25,6 +28,7 @@
     }
   }, [ 'intern/client' ]);
 })();
+*/
 </script>
 </head>
 </html>
