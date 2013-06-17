@@ -3,11 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>Browser test runner</title>
-<script data-main="{{STATIC_URL}}js/lib/SolrSearch/tests/loader" charset="utf-8" src="{{STATIC_URL}}/js/components/requirejs/require.js"></script>
+<!--<script data-main="{{STATIC_URL}}js/lib/SolrSearch/tests/loader" charset="utf-8" src="{{STATIC_URL}}/js/components/requirejs/require.js"></script>-->
 
-<!--<script src="{{STATIC_URL}}js/intern/dojo/dojo.js"></script>-->
+<!--
+   -<script src="{{STATIC_URL}}js/components/underscore/underscore.js"></script>
+   -<script src="{{STATIC_URL}}js/components/backbone/backbone.js"></script>
+   -->
+<script src="{{STATIC_URL}}js/intern/dojo/dojo.js"></script>
 <script>
-/*
+
 (function () {
   //var basePath = location.pathname.replace(/[^\/]+$/, '');
   var basePath = '{{STATIC_URL}}js/intern/';
@@ -16,11 +20,6 @@
     baseUrl: basePath + '../',
     packages: [
     { name: 'intern', location: basePath },
-      { 
-        name: 'jquery',
-        location: 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1', 
-        main: 'jquery'
-      },
     { name: 'chai', location: basePath + 'chai', main: 'chai' }
     ],
     map: { 
@@ -28,7 +27,7 @@
     }
   }, [ 'intern/client' ]);
 })();
-*/
+
 </script>
 </head>
 </html>

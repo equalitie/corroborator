@@ -1,0 +1,66 @@
+  // ========================================================================
+  // NAVIGATION
+  // ========================================================================
+nav {
+  border-bottom: 1px solid $COLOR_HEADER_BD;
+  .search {
+    float: left;
+    margin-left: $PAD_UNIT * 3;
+    input {
+      font-size: 120%;
+      min-width: 20em;
+      padding-right: 2em;
+      margin-right: -1.5em;
+    }
+    button.do-search {
+      position: relative;
+      bottom: -1 * $PX;
+    }
+  }
+  .do-search {
+    margin-left: $PAD_UNIT / 2;
+    margin-top: 5px;
+  }
+  .tabs {
+    ul {
+      float: right;
+      margin-right: $PAD_UNIT * 2;
+    }
+    li {
+      float: left;
+      display: block;
+      border-top: 1px solid $COLOR_TAB_BD;
+      margin-bottom: -1px;
+      min-width: 70 * $PX;
+      text-align: center;
+      margin-left: $PAD_UNIT / 2;
+      position: relative;
+      z-index: 1;
+      a {
+        border-left: 1px solid $COLOR_TAB_BD;
+        border-right: 1px solid $COLOR_TAB_BD;
+        display: block;
+      }
+      .text {
+        display: block;
+        padding-top: $PAD_UNIT / 4 / 1.1;
+        padding-left: $PAD_UNIT / 1.1;
+        padding-right: $PAD_UNIT / 1.1;
+        border-top: 4 * $PX solid #e0e0e0;
+        font-size: 110%;
+        font-weight: bold;
+        line-height: 1em;
+      }
+      .count {
+        padding-left: 0.25em;
+        opacity: 0.5;
+      }
+      &:first-child {
+        margin-left: 0em;
+      }
+      &:hover, &.current {
+        background: white;
+      }
+    }
+  }
+}

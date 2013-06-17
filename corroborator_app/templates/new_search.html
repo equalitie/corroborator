@@ -52,36 +52,8 @@ var Bootstrap = Bootstrap || {};
   <!--end search text field -->
 
   <!-- dropdown combo box -->
-  <div>
-    <div class="button combo  do-search is-default">
-      <span id="do-search-main" class="T selected-option">Search</span>
-      <ul class="options" id="predefined_options">
-        <li id="show_save_current_search" class="option selected">
-          <span class="text T">Save current seach...</span>
-        </li>
-        {%for search in ps_incident_list %}
-        <li class="option selected incident-predefined">
-          <input type="hidden" value="{{search.search_request}}" />
-          <span class="text T">{{search.name_en}}</span>
-        </li>
-        {%endfor%}
-
-        {%for search in ps_bulletin_list %}
-        <li class="option selected bulletin-predefined hidden">
-          <input type="hidden" value="{{search.search_request}}" />
-          <span class="text T">{{search.name_en}}</span>
-        </li>
-        {%endfor%}
-
-        {%for search in ps_actor_list %}
-        <li class="option selected actor-predefined hidden">
-          <input type="hidden" value="{{search.search_request}}" />
-          <span class="text T">{{search.name_en}}</span>
-        </li>
-        {%endfor%}
-
-      </ul>
-    </div>
+  <div class='search-combo'>
+  </div>
     <!-- end dropdown combo box -->
 
     <!-- save search -->

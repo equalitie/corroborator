@@ -1,0 +1,30 @@
+.Application, button, input, textarea {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: $FONT_SIZE * 1px;
+  line-height: 1.25em;
+  box-sizing: border-box;
+}
+em {
+  font-style: normal;
+  font-weight: bold;
+};
+input, textarea {
+  border: 1px solid $COLOR_INPUT_BD;
+  padding: 4 * $PX;
+}
+input {
+  display: inline-block;
+  &.is-label {
+    //color: $COLOR_TXT.brighten(25)
+ 
+  }
+  &.with-select {
+    //color: $COLOR_TXT.brighten(25)
+ 
+  }
+  &.with-clear {
+    padding-right: 2em;
+    margin-right: -1.5em;
+  }
+};
+
