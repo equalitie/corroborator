@@ -1,4 +1,4 @@
-/*global define */
+/*global window, define */
 /**
 ### input
 represent an input field, reacts to the enter button being pressed
@@ -12,6 +12,7 @@ global dispatcher for sending events
 
 TODO: define template for the view
 */
+'use strict';
 define(
   [
     'jquery', 'underscore', 'backbone',
@@ -28,14 +29,11 @@ define(
       // initialize is called when the view is instantiated
       // the element being represented is passed in when it is intialised
       initialize: function(options) {
-        this.dispatcher = options.dispatcher;
-        this.setElement(options.element);
         if (options.dispatcher !== undefined) {
           dispatcher = options.dispatcher;
         }
         dispatcher.on('clear_input', this.clearInput, this);
         this.template = _.template('<input type="textfield">');
-        //this.render();
       },
       clearInput: function() {
         this.$el.children('input').val('');

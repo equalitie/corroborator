@@ -32,11 +32,12 @@ define(
 
 
     // ### Combo view
-    var view = Backbone.View.extend({
+    var ComboView = Backbone.View.extend({
       events: {
         'click .combo-main': 'mainSearch',
       },
 
+      // init the view setting the default item if provided
       initialize: function(options) {
         if (options.element) {
           this.setElement(options.element);
@@ -45,27 +46,64 @@ define(
           this.setPrimary(options.primary);
         }
         this.template = Handlebars.templates['combo-outer.tpl'];
+        // re-render the combo box if the collection changes
+        this.collection.on('add remove reset', this.render, this);
       },
 
       setPrimary: function(primary) {
         this.primary = {
-          search_request: primary.label
+          name_en: primary.name_en,
+          search_request: primary.search_request
         };
       },
 
+      // dispatch the event associated with the default element
       mainSearch: function() {
-        dispatcher.trigger('search_requested');
+        dispatcher.trigger(this.primary.search_request);
       },
 
+      // render the list contents
       render: function() {
         var html = this.template(this.primary);
+        this.$el.children().remove();
         this.$el.append(html);
+        this.renderList();
+      },
+
+      // iterate over our collection
+      renderList: function() {
+        this.collection.each(this.renderListItem, this);
+      },
+
+      // render each item in the list 
+      renderListItem: function(model, index, list) {
+        var itemView = new ItemView({ model: model });
+        this.$el.children().children('ul').append(itemView.$el);
+      }
+    });
+
+    // ## used to render an item from the collection passed in
+    var ItemView = Backbone.View.extend({
+      events: {
+        'click': 'itemClicked'
+      },
+      initialize: function() {
+        this.template = Handlebars.templates['combo-inner.tpl'];
+        this.render();
+      },
+      itemClicked: function() {
+        dispatcher.trigger('item_clicked', this.model);
+      },
+      render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el = $(html);
+        this.setElement(this.$el);
       }
     });
 
     // expose our view as a module export
     return {
-      view: view,
+      view: ComboView,
       collection: collection
     };
 });

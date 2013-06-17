@@ -1,43 +1,27 @@
 {% extends "new_base.html" %}
 
 {% block script %}
-<script type="text/javascript">
-var Bootstrap = Bootstrap || {};
-(function(Bootstrap) {
-  var incidentSearches = [];
-  {%for search in ps_incident_list %}
-  incidentSearches.push({
-    id: {{search.id}},
-    request: "{{search.search_request}}",
-    name_en: "{{search.name_en}}"
-  });
-  {%endfor%}
+  <script type="text/javascript">
+  var Bootstrap = Bootstrap || {};
+  (function(Bootstrap) {
+    var predefinedSearchList = [];
+    {%for search in ps_list %}
+    predefinedSearchList.push({
+      id: {{search.id}},
+      request: '{{search.search_request}}',
+      name_en: '{{search.name_en}}',
+      name_ar: '{{search.name_en}}',
+      type: '{{search.search_type}}'
+    });
+    {%endfor%}
+    Bootstrap.predefinedSearchList = predefinedSearchList;
 
-  var bulletinSearches = [];
-  {%for search in ps_bulletin_list %}
-  bulletinSearches.push({
-    id: {{search.id}},
-    request: "{{search.search_request}}",
-    name_en: "{{search.name_en}}"
-  });
-  {%endfor%}
+  }(Bootstrap));
+  </script>
+{% endblock %}
 
-  var actorSearches = [];
-  {%for search in ps_actor_list %}
-  actorSearches.push({
-    id: {{search.id}},
-    request: "{{search.search_request}}",
-    name_en: "{{search.name_en}}"
-  });
-  {%endfor%}
-  Bootstrap.predefinedSearches = {
-    incidentSearches: incidentSearches,
-    bulletinSearches: bulletinSearches,
-    actorSearches: actorSearches
-  };
-
-}(Bootstrap));
-</script>
+{% block dialog %}
+  {% include 'jquery_ui_dialogs.html' %}
 {% endblock %}
 
 {% block content%}
@@ -76,22 +60,20 @@ var Bootstrap = Bootstrap || {};
       <img style="z-index: 100; width: 24px; height: 24px; vertical-align: middle;" src="/static/images/ajax-loader.gif">
     </span>
     <!-- end search spinner -->
-  </div>
   <!-- end search area -->
 
   <div class="tabs">
     <ul>
       <li class="current is-incidents">
-        <a href="#incidents/tab/" id="incidents-tab">
+        <a href="#tab/incidents/" id="incidents-tab">
           <span class="text">
             <span class="label T">Incidents</span>
             <span class="incident-count count"></span>
           </span>
-
         </a>
       </li>
       <li class="is-bulletins">
-        <a id="bulletins-tab" href="#bulletins/tab/">
+        <a id="bulletins-tab" href="#tab/bulletins/">
           <span class="text">
             <span class="label T">Bulletins</span>
             <span class="bulletin-count count"></span>
@@ -100,7 +82,7 @@ var Bootstrap = Bootstrap || {};
       </li>
 
       <li class="is-actors">
-        <a href="#actors/tab/" id="actors-tab">
+        <a href="#tab/actors/" id="actors-tab">
          <span class="text">
           <span class="label T">Actors</span>
           <span class="actor-count count"></span>

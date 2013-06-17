@@ -3417,13 +3417,14 @@ nav .do-search {
   margin-left: 0.76923em;
   margin-top: 5px;
 }
-/* line 25, ../sass/_navigation.scss */
-nav .tabs ul {
+
+/* line 27, ../sass/_navigation.scss */
+.tabs ul {
   float: right;
   margin-right: 3.07692em;
 }
-/* line 29, ../sass/_navigation.scss */
-nav .tabs li {
+/* line 31, ../sass/_navigation.scss */
+.tabs li {
   float: left;
   display: block;
   border-top: 1px solid #666666;
@@ -3434,14 +3435,14 @@ nav .tabs li {
   position: relative;
   z-index: 1;
 }
-/* line 39, ../sass/_navigation.scss */
-nav .tabs li a {
+/* line 41, ../sass/_navigation.scss */
+.tabs li a {
   border-left: 1px solid #666666;
   border-right: 1px solid #666666;
   display: block;
 }
-/* line 44, ../sass/_navigation.scss */
-nav .tabs li .text {
+/* line 46, ../sass/_navigation.scss */
+.tabs li .text {
   display: block;
   padding-top: 0.34965em;
   padding-left: 1.3986em;
@@ -3451,16 +3452,16 @@ nav .tabs li .text {
   font-weight: bold;
   line-height: 1em;
 }
-/* line 54, ../sass/_navigation.scss */
-nav .tabs li .count {
+/* line 56, ../sass/_navigation.scss */
+.tabs li .count {
   padding-left: 0.25em;
   opacity: 0.5;
 }
-/* line 58, ../sass/_navigation.scss */
-nav .tabs li:first-child {
+/* line 60, ../sass/_navigation.scss */
+.tabs li:first-child {
   margin-left: 0em;
 }
-/* line 61, ../sass/_navigation.scss */
-nav .tabs li:hover, nav .tabs li.current {
+/* line 63, ../sass/_navigation.scss */
+.tabs li:hover, .tabs li.current {
   background: white;
 }
