@@ -1,15 +1,16 @@
+"""
+This file describes the Model entities and their relations for the Corroborator
+application.
+
+Author: Bill Doran
+2013/02/01
+"""
+
 from haystack.utils.geo import Point
 from django.db import models
-from django.db.models import Min, Max
+from django.db.models import Min,  Max
 from django.contrib.auth.models import User
 from queued_storage.backends import QueuedStorage
-#from storages.backends.s3boto import S3BotoStorage
-
-
-#Setup Boto AWS storage access system
-queued_s3storage = QueuedStorage(
-    'django.core.files.storage.FileSystemStorage',
-    'storages.backends.s3boto.S3BotoStorage')
 
 
 class PredefinedSearch(models.Model):
@@ -35,7 +36,6 @@ class StatusUpdate(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, null=True, blank=True)
-
     def __unicode__(self):
         return self.status_en
 
@@ -52,8 +52,11 @@ class Comment(models.Model):
     comment_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        """
+        This class is used by Django Haystack in construction of
+        the Solr index to determine sort order for returned results.
+        """
         ordering = ['comment_created']
-
     def __unicode__(self):
         return self.status.status_en
 
@@ -67,8 +70,10 @@ class TimeInfo(models.Model):
     time_to = models.DateTimeField()
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
-    event_name_en = models.CharField('event name en', max_length=255, blank=True, null=True)
-    event_name_ar = models.CharField('event name ar', max_length=255, blank=True, null=True)
+    event_name_en = models.CharField('event name en', max_length=255, 
+        blank=True, null=True)
+    event_name_ar = models.CharField('event name ar', max_length=255, 
+        blank=True, null=True)
     confidence_score = models.IntegerField(max_length=3)
 
     def __unicode__(self):
@@ -79,7 +84,7 @@ class Location(models.Model):
     """
     This object represents a geographical location. It is possible for
     locations to be linked together as a hierarchical chain in order
-    to represent sub regions, provinces, towns, cities, etc.
+    to represent sub regions,  provinces,  towns,  cities,  etc.
     """
     LOC_TYPE = (
         ('Village', 'village'),
@@ -94,18 +99,25 @@ class Location(models.Model):
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
-    loc_type = models.CharField('location type', max_length=25, choices=LOC_TYPE)
+    loc_type = models.CharField('location type', max_length=25,  
+        choices=LOC_TYPE)
     parent_text = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
-    parent_location = models.ForeignKey(
-        'self', max_length=255, blank=True, null=True)
+    parent_location = models.ForeignKey('self', max_length=255, 
+        blank=True, null=True)
 
     def __unicode__(self):
         return self.name_en
 
     def get_location(self):
-        return Point(self.longitude, self.latitude)
+        """
+        This method is utilised by Django Haystack in
+        construction of the Solr index. 
+        It is responsible for converting the lat/long into a single
+        geo point.
+        """
+        return Point(self.longitude,  self.latitude)
 
 
 class Label(models.Model):
@@ -119,7 +131,6 @@ class Label(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     ref_label = models.ForeignKey('self', blank=True, null=True)
-
     def __unicode__(self):
         return self.name_en
 
@@ -136,7 +147,6 @@ class CrimeCategory(models.Model):
     description_ar = models.TextField(blank=True, null=True)
     ref_crime = models.ForeignKey('self', blank=True, null=True)
     parent = models.CharField(max_length=255, blank=True, null=True)
-
     def __unicode__(self):
         return self.category_en
 
@@ -147,7 +157,6 @@ class SourceType(models.Model):
     """
     source_type = models.CharField('source type', max_length=255)
     description = models.TextField(blank=True, null=True)
-
     def __unicode__(self):
         return self.source_type
 
@@ -170,6 +179,11 @@ class Source(models.Model):
 
 
 class Dialect(models.Model):
+    """
+    Currently unused.
+    Provides means to capture a set of available Dialects for selection
+    by users.
+    """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
@@ -177,6 +191,11 @@ class Dialect(models.Model):
 
 
 class Position(models.Model):
+    """
+    Currently unused.
+    Provides means to capture a set of available Positions for selection
+    by users.
+    """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
@@ -184,20 +203,35 @@ class Position(models.Model):
 
 
 class Occupation(models.Model):
+    """
+    Currently unused.
+    Provides means to capture a set of available Occupations for selection
+    by users.
+    """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
 
 
+
 class Ethnicity(models.Model):
-    name_en = models.CharField(max_length=255, blank=True,null=True)
-    name_ar = models.CharField(max_length=255, blank=True,null=True)
+    """
+    Currently unused.
+    Provides means to capture a set of available Ethnicities for selection
+    by users.
+    """
+    name_en = models.CharField(max_length=255, blank=True, null=True)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
 
-
 class Religion(models.Model):
+    """
+    Currently unused.
+    Provides means to capture a set of available Religions for selection
+    by users.
+    """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
@@ -205,6 +239,11 @@ class Religion(models.Model):
 
 
 class Nationality(models.Model):
+    """
+    Currently unused.
+    Provides means to capture a set of available Nationalities for selection
+    by users.
+    """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
@@ -216,6 +255,11 @@ class Media(models.Model):
     The Media object captures represents and individual piece of
     media evidence that can be related to Bulletins.
     """
+    #Setup Boto AWS storage access system   
+    queued_s3storage = QueuedStorage(
+        'django.core.files.storage.FileSystemStorage', 
+        'storages.backends.s3boto.S3BotoStorage')
+
     TYPE = (
         ('Video', 'video'),
         ('Picture', 'picture'),
@@ -228,6 +272,12 @@ class Media(models.Model):
     media_created = models.DateTimeField(auto_now_add=True)
 
     def get_uri(self):
+        """
+        Return AWS Media file URL.
+        This method is primarily used by Django Haystack
+        when populating the Solr index.
+        """
+
         return self.media_file.url
 
 
@@ -246,39 +296,50 @@ class Actor(models.Model):
     civilian_en = models.CharField(max_length=255, blank=True, null=True)
     civilian_ar = models.CharField(max_length=255, blank=True, null=True)
     DOB = models.DateField('date of birth', blank=True, null=True)
-    POB = models.ForeignKey(Location, blank=True, null=True,related_name='POB')
-    occupation_en = models.CharField(max_length=255,blank=True,null=True)
-    occupation_ar = models.CharField(max_length=255,blank=True,null=True)
-    nationality_en = models.CharField(max_length=255,blank=True,null=True)
-    nationality_ar = models.CharField(max_length=255,blank=True,null=True)
-    position_en = models.CharField(max_length=255,blank=True,null=True)
-    position_ar = models.CharField(max_length=255,blank=True,null=True)
-    ethnicity_en = models.CharField(max_length=255,blank=True,null=True)
-    ethnicity_ar = models.CharField(max_length=255,blank=True,null=True)
-    religion_en = models.CharField(max_length=255,blank=True,null=True)
-    religion_ar = models.CharField(max_length=255,blank=True,null=True)
-    spoken_dialect_en = models.CharField(max_length=255,blank=True,null=True)
-    spoken_dialect_ar = models.CharField(max_length=255,blank=True,null=True)
-    current_location = models.ForeignKey(Location,blank=True,null=True,related_name='actor_current')
-    media = models.ForeignKey(Media,blank=True,null=True)
+    POB = models.ForeignKey(Location, blank=True, null=True, 
+        related_name='POB')
+    occupation_en = models.CharField(max_length=255, blank=True, null=True)
+    occupation_ar = models.CharField(max_length=255, blank=True, null=True)
+    nationality_en = models.CharField(max_length=255, blank=True, null=True)
+    nationality_ar = models.CharField(max_length=255, blank=True, null=True)
+    position_en = models.CharField(max_length=255, blank=True, null=True)
+    position_ar = models.CharField(max_length=255, blank=True, null=True)
+    ethnicity_en = models.CharField(max_length=255, blank=True, null=True)
+    ethnicity_ar = models.CharField(max_length=255, blank=True, null=True)
+    religion_en = models.CharField(max_length=255, blank=True, null=True)
+    religion_ar = models.CharField(max_length=255, blank=True, null=True)
+    spoken_dialect_en = models.CharField(max_length=255, blank=True, null=True)
+    spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
+    current_location = models.ForeignKey(Location, blank=True, null=True, 
+        related_name='actor_current')
+    media = models.ForeignKey(Media, blank=True, null=True)
     actor_created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return self.fullname_en
 
     def count_bulletins(self):
-        roles = self.role_set.all()
-        return bulletin.objects.filter(actors_role__in=roles).count()
+        """
+        This method returns the number of associated Bulletins for a given Actor.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
 
+        roles = self.ActorRole_set.all()
+        return Bulletin.objects.filter(actors_role__in=roles).count()
     def count_incidents(self):
-        roles = self.role_set.all()
-        return incident.objects.filter(actors_role__in=roles).count()
+        """
+        This method returns the number of associated Incidents for a given Actor.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
+
+        roles = self.ActorRole_set.all()
+        return Incident.objects.filter(actors_role__in=roles).count()
 
 
 class ActorRelationship(models.Model):
     """
     The Actor Relationship model cpatures the interrelation between actors.
-    This can include shared events, familial connections, insititutional 
+    This can include shared events,  familial connections,  insititutional 
     relationships or rank.
     """
     RELATION = (
@@ -294,7 +355,8 @@ class ActorRelationship(models.Model):
     actor_a = models.ForeignKey(Actor,blank=True,null=True,related_name='actor_a')
     actor_b = models.ForeignKey(Actor,blank=True,null=True,related_name='actor_b')
     def __unicode__(self):
-        return self.actor_a.fullname_en + '-' + self.actor_b.fullname_en + ': ' + self.relation_status
+        return self.actor_a.fullname_en + '-' + \
+        self.actor_b.fullname_en + ': ' + self.relation_status
 
 
 class ActorRole(models.Model):
@@ -323,7 +385,7 @@ class ActorRole(models.Model):
 class Bulletin(models.Model):
     """
     This model represents the Bulletin object. It is intended
-    to capture the relationship specifically between Media objects,
+    to capture the relationship specifically between Media objects, 
     chronological events and Actors' roles.
     """
     TYPE = (
@@ -354,17 +416,28 @@ class Bulletin(models.Model):
         return self.title_en
 
     def get_time_length(self):
-        time = self.times.aggregate(lowest=Min('time_from'),highest=Max('time_to'))
+        """
+        This method returns the time range for a given Bulletin event.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
+        time = self.times.aggregate(lowest=Min('time_from'), highest=Max('time_to'))
         string = ''
 
         if(len(time) > 0):
             if(time["lowest"] != None and time["highest"] != None):
                 duration = (time["lowest"] - time["highest"]).days
-                string = time["highest"].strftime('%Y/%m/%d')+ '&rarr;'+ time["lowest"].strftime('%Y/%m/%d')
-                string = '<span class="date">' + string + '</span> <span class="duration">('+str(duration)+' days)</span>'
+                string = time["highest"].strftime('%Y/%m/%d') + '&rarr;' + \
+                time["lowest"].strftime('%Y/%m/%d')
+                string = '<span class="date">' + string + \
+                '</span> <span class="duration">('+str(duration)+' days)</span>'
         return string
 
     def most_recent_status_bulletin(self):
+        """
+        This method returns the most recent status for a given Bulletin event.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
+
         status = self.bulletin_comments.values('status__status_en').order_by('-comment_created')
         if len(status) > 0:
             status = status[0]
@@ -399,17 +472,29 @@ class Incident(models.Model):
         return self.title_en
 
     def get_time_length(self):
-        time = self.times.aggregate(lowest=Min('time_from'),highest=Max('time_to'))
+        """
+        This method returns the time range for a given Incident event.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
+
+        time = self.times.aggregate(lowest=Min('time_from'), highest=Max('time_to'))
         string = ''
 
         if(len(time) > 0):
             if(time["lowest"] != None and time["highest"] != None):
                 duration = (time["highest"] - time["lowest"]).days
-                string = time["lowest"].strftime('%Y/%m/%d')+ '&rarr;'+ time["highest"].strftime('%Y/%m/%d')
-                string = '<span class="date">' + string + '</span> <span class="duration">('+str(duration)+' days)</span>'
+                string = time["lowest"].strftime('%Y/%m/%d') + '&rarr;' + \
+                time["highest"].strftime('%Y/%m/%d')
+                string = '<span class="date">' + string + \
+                '</span> <span class="duration">('+str(duration)+' days)</span>'
         return string
 
     def most_recent_status_incident(self):
+        """
+        This method returns the most recent status for a given Incident event.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
+
         status = self.incident_comments.values('status__status_en').order_by('-comment_created')
         if len(status) > 0:
             status = status[0]
