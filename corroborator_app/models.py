@@ -11,16 +11,6 @@ from django.db import models
 from django.db.models import Min,  Max
 from django.contrib.auth.models import User
 from queued_storage.backends import QueuedStorage
-<<<<<<< Updated upstream
-#from storages.backends.s3boto import S3BotoStorage
-
-
-#Setup Boto AWS storage access system
-queued_s3storage = QueuedStorage(
-    'django.core.files.storage.FileSystemStorage',
-    'storages.backends.s3boto.S3BotoStorage')
-=======
->>>>>>> Stashed changes
 
 
 class PredefinedSearch(models.Model):
@@ -46,10 +36,6 @@ class StatusUpdate(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, null=True, blank=True)
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     def __unicode__(self):
         return self.status_en
 
@@ -66,16 +52,11 @@ class Comment(models.Model):
     comment_created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-<<<<<<< Updated upstream
-        ordering = ['comment_created']
-
-=======
         """
         This class is used by Django Haystack in construction of
         the Solr index to determine sort order for returned results.
         """
         ordering = ['comment_created']
->>>>>>> Stashed changes
     def __unicode__(self):
         return self.status.status_en
 
