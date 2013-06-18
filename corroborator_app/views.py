@@ -1,8 +1,13 @@
-# Create your views here.
+"""
+This file handles the core views for th Corroborator application.
+
+Author: Bill Doran
+2013/02/10
+"""
 import datetime
 import calendar
 from django.shortcuts import render_to_response, get_object_or_404, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate,  login
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
@@ -11,7 +16,6 @@ from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
     Media, Comment, PredefinedSearch, ActorRelationship
 from django.utils import simplejson as json
 from django.db.models import Count
-from django.core.urlresolvers import reverse
 
 def login_user(request):
     state = "Please log in below..."
@@ -20,25 +24,29 @@ def login_user(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(username=username,  password=password)
         if user is not None:
             if user.is_active:
-                login(request, user)
+                login(request,  user)
                 state = "You're successfully logged in!"
                 return HttpResponseRedirect('/corroborator/')
             else:
-                state = "Your account is not active, please contact the site admin."
-                return render_to_response('auth.html',{'state':state, 'username': username},RequestContext(request))
+                state = "Your account is not active,\
+                please contact the site admin."
+                return render_to_response('auth.html', \
+                {'state':state,  'username': username}, RequestContext(request))
         else:
             state = "Your username and/or password were incorrect."
-            return render_to_response('auth.html',{'state':state, 'username': username},RequestContext(request))
+            return render_to_response('auth.html', {'state':state, \
+            'username': username}, RequestContext(request))
 
-    return render_to_response('auth.html',{'state':state, 'username': username},RequestContext(request))
+    return render_to_response('auth.html', {'state':state, \
+    'username': username}, RequestContext(request))
 
 
 
 
-def index(request, *args, **kwargs):
+def index(request,  *args,  **kwargs):
     username = 'admin'
     if request.user.is_authenticated():
         username = request.user.username
@@ -161,7 +169,6 @@ def home(request, *args, **kwargs):
     else:
         return render_to_response('auth.html', RequestContext(request))
 
-
 def add_predefined_search(request, search_id, mode):
     if request.method == "POST" and request.is_ajax():
         element_data = json.loads(request.raw_post_data)
@@ -247,8 +254,8 @@ def lookup_bulletin(request, bulletin_id, mode):
             m.name_ar = ''
             m.media_file = request.FILES['files']
             m.save()
-            response_data = {'name':request.FILES['files'].name,'id':m.id,'uri':str(m.media_file)}
-        return HttpResponse(json.dumps(response_data), mimetype="application/json")
+            response_data = {'name':request.FILES['files'].name, 'id':m.id, 'uri':str(m.media_file)}
+        return HttpResponse(json.dumps(response_data),  mimetype="application/json")
     else:
         bulletin_result = get_object_or_404(Bulletin, pk=bulletin_id)
         return render_to_response('bulletin_view.html', {'bulletin_result':bulletin_result},RequestContext(request))
@@ -266,7 +273,7 @@ def delete_entities(element_data, mode):
         Actor.objects.filter(id__in=ids).delete()
 
 
-def save_element(element_data,element_id,mode):
+def save_element(element_data, element_id, mode):
     b = ''
     userid = None
     cscore = 0
@@ -332,30 +339,30 @@ def save_element(element_data,element_id,mode):
 
     for a in element_data['actors']:
         actor_local = actor.objects.get(pk=int(a['id']))
-        role_local = role(role_status=a['status_en'],actor_id=int(a['id']))
+        role_local = role(role_status=a['status_en'], actor_id=int(a['id']))
         role_local.save()
         actor_role_ids.append(role_local.id)
     for event in element_data['events']:
-        from_date = datetime.datetime.strptime(event['from'],'%Y-%m-%dT%H:%M:%S.%fZ')
-        to_date = datetime.datetime.strptime(event['to'],'%Y-%m-%dT%H:%M:%S.%fZ')
-        time_info_local = time_info(time_from=from_date,time_to=to_date,comments_en=event['comment_en'],event_name_en=event['name_en'],confidence_score=event['confidence_score'])
+        from_date = datetime.datetime.strptime(event['from'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        to_date = datetime.datetime.strptime(event['to'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        time_info_local = time_info(time_from=from_date, time_to=to_date, comments_en=event['comment_en'], event_name_en=event['name_en'], confidence_score=event['confidence_score'])
         time_info_local.save()
         time_ids.append(time_info_local.id)
 
     if len(time_ids) > 0:
         b.times.add(*time_ids)
     if len(element_data['locations']) > 0:
-        location_ids = map(int, element_data['locations'])
+        location_ids = map(int,  element_data['locations'])
         b.locations.add(*location_ids)
     if len(actor_role_ids) > 0:
         b.actors_role.add(*actor_role_ids)
     if len(element_data['labels']) > 0:
-        labeling_ids = map(int,element_data['labels'])
+        labeling_ids = map(int, element_data['labels'])
         b.labels.add(*labeling_ids)
     if len(element_data['new_comments']) > 0:
         for comment_e in element_data['new_comments']:
-            created_date = datetime.datetime.strptime(comment_e['created'],'%Y-%m-%dT%H:%M:%S.%fZ')
-            comment_local = comment(comments_en=comment_e['comments_en'],assigned_user_id=comment_e['assigned_user'],status_id=comment_e['statusid'],comment_created=created_date)
+            created_date = datetime.datetime.strptime(comment_e['created'], '%Y-%m-%dT%H:%M:%S.%fZ')
+            comment_local = comment(comments_en=comment_e['comments_en'], assigned_user_id=comment_e['assigned_user'], status_id=comment_e['statusid'], comment_created=created_date)
             comment_local.save()
             comment_ids.append(comment_local.id)
     if len(comment_ids) > 0:
@@ -366,30 +373,30 @@ def save_element(element_data,element_id,mode):
 
     if mode == 'bulletin':
         if len(element_data['sources']) > 0:
-            source_ids = map(int,element_data['sources'])
+            source_ids = map(int, element_data['sources'])
             b.sources.add(*source_ids)
         if len(element_data['media']) > 0:
-            media_ids = map(int,element_data['media'])
+            media_ids = map(int, element_data['media'])
             b.medias.add(*media_ids)
         if len( element_data['bulletins']) > 0:
-            bulletin_ids = map(int,element_data['bulletins'])
+            bulletin_ids = map(int, element_data['bulletins'])
             b.ref_bulletins.add(*bulletin_ids)
     else:
 
         if len( element_data['bulletins']) > 0:
-            bulletin_ids = map(int,element_data['bulletins'])
+            bulletin_ids = map(int, element_data['bulletins'])
             b.bulletins.add(*bulletin_ids)
         if len( element_data['incidents']) > 0:
-            incident_ids = map(int,element_data['incidents'])
+            incident_ids = map(int, element_data['incidents'])
             b.ref_incidents.add(*incident_ids)
         if len(element_data['crimes']) > 0:
-            crime_ids = map(int,element_data['crimes'])
+            crime_ids = map(int, element_data['crimes'])
             b.crimes.add(*crime_ids)
 
     b.save()
     return b
 
-def multi_save_entities(element_data,mode):
+def multi_save_entities(element_data, mode):
     list_entities = []
     statusid = ''
     comment_ids = []
@@ -417,8 +424,8 @@ def multi_save_entities(element_data,mode):
             item.assigned_user_id = userid
             if len(element_data['new_comments']) > 0:
                 for comment_e in element_data['new_comments']:
-                    created_date = datetime.datetime.strptime(comment_e['comment_created'],'%Y-%m-%dT%H:%M:%S.%fZ')
-                    comment_local = comment(comments_en=comment_e['comments_en'],assigned_user_id=comment_e['assigned_user'],status_id=comment_e['status_id'],comment_created=created_date)
+                    created_date = datetime.datetime.strptime(comment_e['comment_created'], '%Y-%m-%dT%H:%M:%S.%fZ')
+                    comment_local = comment(comments_en=comment_e['comments_en'], assigned_user_id=comment_e['assigned_user'], status_id=comment_e['status_id'], comment_created=created_date)
                     comment_local.save()
                     comment_ids.append(comment_local.id)
             if len(comment_ids) > 0:
@@ -427,32 +434,32 @@ def multi_save_entities(element_data,mode):
                 else:
                     item.bulletin_comments.add(*comment_ids)
             if len(element_data['labels']) > 0:
-                labeling_ids = map(int,element_data['labels'])
+                labeling_ids = map(int, element_data['labels'])
                 item.labels.add(*labeling_ids)
             for a in element_data['actors']:
                 actor_local = actor.objects.get(pk=int(a['id']))
-                role_local = role(role_status=a['status_en'],actor_id=int(a['id']))
+                role_local = role(role_status=a['status_en'], actor_id=int(a['id']))
                 role_local.save()
                 actor_role_ids.append(role_local.id)
             if len(actor_role_ids) > 0:
                 item.actors_role.add(*actor_role_ids)
             if mode == 'incident':
                 if len(element_data['crimes']) > 0:
-                    crime_ids = map(int,element_data['crimes'])
+                    crime_ids = map(int, element_data['crimes'])
                     item.crimes.add(*crime_ids)
                 if len( element_data['relate_incidents']) > 0:
-                    incident_ids = map(int,element_data['relate_incidents'])
+                    incident_ids = map(int, element_data['relate_incidents'])
                     item.ref_incidents.add(*incident_ids)
                 if len( element_data['relate_bulletins']) > 0:
-                    bulletin_ids = map(int,element_data['relate_bulletins'])
+                    bulletin_ids = map(int, element_data['relate_bulletins'])
                     item.bulletins.add(*bulletin_ids)
 
             else:
                 if len(element_data['sources']) > 0:
-                    source_ids = map(int,element_data['sources'])
+                    source_ids = map(int, element_data['sources'])
                     item.sources.add(*source_ids)
                 if len( element_data['relate_bulletins']) > 0:
-                    bulletin_ids = map(int,element_data['relate_bulletins'])
+                    bulletin_ids = map(int, element_data['relate_bulletins'])
                     item.ref_bulletins.add(*bulletin_ids)
             item.save()
 
@@ -465,11 +472,11 @@ def lookup_incident(request, incident_id, mode):
     labels_set = labeling.objects.all()
     crimes_set = crime_category.objects.all()
     if 'edit' in mode:
-        incident_result = get_object_or_404(incident, pk=incident_id)
+        incident_result = get_object_or_404(incident,  pk=incident_id)
         time_string = incident_result.get_time_length()
-        return render_to_response('incident_new.html', {'username':username,'userid':userid,'time_string':time_string,'incident_result':incident_result,'status_set':status_set,'crimes_set':crimes_set,'labels_set':labels_set,'users_set':users_set},RequestContext(request))
+        return render_to_response('incident_new.html',  {'username':username, 'userid':userid, 'time_string':time_string, 'incident_result':incident_result, 'status_set':status_set, 'crimes_set':crimes_set, 'labels_set':labels_set, 'users_set':users_set}, RequestContext(request))
     elif 'new' in mode:
-        return render_to_response('incident_new.html',{'username':username,'userid':userid,'status_set':status_set,'crimes_set':crimes_set,'labels_set':labels_set,'users_set':users_set},RequestContext(request))
+        return render_to_response('incident_new.html', {'username':username, 'userid':userid, 'status_set':status_set, 'crimes_set':crimes_set, 'labels_set':labels_set, 'users_set':users_set}, RequestContext(request))
     elif mode == 'save':
         if request.method == "POST" and request.is_ajax():
             element_data = json.loads(request.raw_post_data)
@@ -514,7 +521,7 @@ def lookup_actor(request, actor_id, mode):
         locations_set = Location.objects.values('id', 'name_en')
         years = list(str(n) for n in range(1920, datetime.datetime.now().year + 1))
         months = list((n) for n in calendar.month_abbr[1:])
-        days = list(int(n) for n in range(1, 32))
+        days = list(int(n) for n in range(1,  32))
 
         actor_result = get_object_or_404(Actor, pk=actor_id)
         return render_to_response(
@@ -535,7 +542,7 @@ def lookup_actor(request, actor_id, mode):
         years = list(str(n) for n in range(1920, datetime.datetime.now().year + 1))
         locations_set = Location.objects.values('id', 'name_en')
         months = list((n) for n in calendar.month_abbr[1:])
-        days = list(str(n) for n in range(1, 32))
+        days = list(str(n) for n in range(1,  32))
         username = request.user.username
         userid = request.user.id
         return render_to_response(
@@ -575,8 +582,6 @@ def lookup_actor(request, actor_id, mode):
             item.occupation_ar = ''
             item.nationality_ar = ''
             item.save()
-        # TODO - can we remove this?
-        #actor_relation_ids = []
         actor_relations = []
         for a in actorData['relate_actors']:
             relation_local = ActorRelationship(
@@ -654,8 +659,6 @@ def lookup_actor(request, actor_id, mode):
             actor_result.media_id = media_id
             actor_result.related_actors.clear()
         actor_result.save()
-        #TODO can this be removed
-        #actor_relation_ids = []
         actor_relations = []
         for a in actorData['actors']:
             relation_local = ActorRelationship(
