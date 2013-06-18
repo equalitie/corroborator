@@ -37,7 +37,7 @@ class ActorRoleTestCase(ResourceTestCase):
     def test_actorRole_post(self):
         post_data = {
             'role_status': "Killed",
-            'actor': "/api/v1/actor/{0}/".format(self.actor.pk,
+            'actor': "/api/v1/actor/{0}/".format(self.actor.pk)
         }
         url = '/api/v1/actorRole/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -58,11 +58,11 @@ class ActorRoleTestCase(ResourceTestCase):
             'objects': [
                 {
                     'role_status': "Killed",
-                    'actor': "/api/v1/actor/{0}/".format(self.actor.pk,
+                    'actor': "/api/v1/actor/{0}/".format(self.actor.pk)
                 },
                 {
                     'role_status': "Killed",
-                    'actor': "/api/v1/actor/{0}/".format(self.actor.pk,
+                    'actor': "/api/v1/actor/{0}/".format(self.actor.pk)
                 }
             ]
         }
