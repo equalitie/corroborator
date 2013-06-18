@@ -1,4 +1,4 @@
-from ActorActorApiTest import *
+from ActorApiTest import *
 from ActorRelationshipApiTest import *
 from ActorRoleApiTest import *
 from BulletinApiTest import *
