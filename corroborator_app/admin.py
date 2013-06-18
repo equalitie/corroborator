@@ -1,13 +1,9 @@
 from django.contrib import admin
-<<<<<<< Updated upstream
 from corroborator_app.models import\
     Incident, CrimeCategory, Actor, Bulletin, TimeInfo, Location, Source,\
     StatusUpdate, ActorRole, Label, SourceType, Comment, Media,\
     PredefinedSearch
 
-=======
-from corroborator_app.models import Incident,CrimeCategory,Actor,Bulletin,TimeInfo,Location,Source,StatusUpdate,ActorRole,Label,SourceType,Comment,Media,PredefinedSearch
->>>>>>> Stashed changes
 
 class CommentsInlineIn(admin.TabularInline):
     model = Incident.incident_comments.through
@@ -92,7 +88,6 @@ class StatusAdmin(admin.ModelAdmin):
 
 
 class TimeInfoAdmin(admin.ModelAdmin):
-<<<<<<< Updated upstream
     list_display = ('time_from', 'time_to', 'comments_en', )
 
 
@@ -100,27 +95,13 @@ admin.site.register(Bulletin, CorrobAdmin)
 admin.site.register(StatusUpdate)
 admin.site.register(TimeInfo, TimeInfoAdmin)
 admin.site.register(Location)
-=======
-    list_display = ('time_from','time_to','comments_en',)
-
-admin.site.register(Bulletin, CorrobAdmin)
-admin.site.register(StatusUpdate)
-admin.site.register(TimeInfo,TimeInfoAdmin)
-admin.site.register(Location)
-admin.site.register(ActorRole)
->>>>>>> Stashed changes
 admin.site.register(Source)
 admin.site.register(SourceType)
 admin.site.register(Label)
 admin.site.register(CrimeCategory)
 admin.site.register(Actor)
-<<<<<<< Updated upstream
 admin.site.register(ActorRole)
 admin.site.register(Media)
 admin.site.register(Comment)
-=======
-admin.site.register(Media)
-admin.site.register(comment)
->>>>>>> Stashed changes
 admin.site.register(PredefinedSearch)
 admin.site.register(Incident, CorrobAdminIn)
