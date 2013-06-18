@@ -10,7 +10,7 @@ class PredefinedSearchTestCase(ResourceTestCase):
         super(PredefinedSearchTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(predefinedSearch)
+        fixture = AutoFixture(PredefinedSearch)
         predefinedSearchs = fixture.create(10)
 
         try:

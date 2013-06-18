@@ -10,7 +10,7 @@ class SourceTypeTestCase(ResourceTestCase):
         super(SourceTypeTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(sourceType)
+        fixture = AutoFixture(SourceType)
         sourceTypes = fixture.create(10)
 
         try:

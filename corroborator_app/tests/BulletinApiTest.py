@@ -39,7 +39,7 @@ class BulletinTestCase(ResourceTestCase):
         self.media = Media(media_type='Video', name_en='test media',media_file='')
         self.media.save()
         
-        fixture = AutoFixture(bulletin)
+        fixture = AutoFixture(Bulletin)
         bulletins = fixture.create(10)
 
         try:

@@ -10,7 +10,7 @@ class MediaTestCase(ResourceTestCase):
         super(MediaTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(media)
+        fixture = AutoFixture(Media)
         medias = fixture.create(10)
 
         try:
