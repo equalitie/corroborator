@@ -7,13 +7,30 @@ define(
     var assert = buster.assert;
     buster.testCase('Combo box tests', {
       setUp: function() {
+        var searches = [
+          {
+            "id":2,
+            "request":"request",
+            "name_en":"stuff",
+            "name_ar":"stuff",
+            "type":"actor"
+          },
+          {
+            "id":1,
+            "request":"request",
+            "name_en":"test",
+            "name_ar":"test",
+            "type":"incident"
+          }
+        ];
         $(document.body).append('<div class=\'search-combo\'></div>');
-        this.collection = new Combo.collection();
+        this.collection = new Combo.collection(searches);
         this.view = new Combo.view({ 
           element: '.search-combo',
+          collection: this.collection,
           primary: {
-            label: 'Search',
-            eventLabel: 'search'
+            name_en: 'Search',
+            search_request: 'search_requested'
           }
         });
         this.view.render();
@@ -37,7 +54,26 @@ define(
         $('.combo-main').click();
       },
       'the view should render a list of predefined searches': function() {
+        var totalSearchItems = $('ul').children().length;
+        assert.equals(totalSearchItems, 2);
       },
+      'the view should attach arbitrary items': function() {
+        var item = {
+          name_en: 'Save current search...',
+          search_request: 'save_search'
+        };
+        this.collection.add(item);
+        this.view.render();
+        var totalSearchItems = $('ul').children().length;
+        assert.equals(totalSearchItems, 3);
+      },
+      'clicking on an item should dispatch a search event with the search params': function(done) {
+        var li = $('ul').children('li:first')[0];
+        dispatcher.on('item_clicked', done(function (searchModel) {
+          assert(searchModel.get('request'), 'request');
+        }));
+        li.click();
+      }
     });
     
   }

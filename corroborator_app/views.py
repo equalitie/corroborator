@@ -114,13 +114,6 @@ def new_index(request, *args, **kwargs):
         ps_incident_list = []
         ps_bulletin_list = []
         ps_actor_list = []
-        for ps in ps_list:
-            if ps.search_type == 'incident':
-                ps_incident_list.append(ps)
-            elif ps.search_type == 'bulletin':
-                ps_bulletin_list.append(ps)
-            elif ps.search_type == 'actor':
-                ps_actor_list.append(ps)
         labels_set = Label.objects.all()
         role_status_set = []
         rs = ActorRole.ROLE_STATUS
@@ -151,9 +144,7 @@ def new_index(request, *args, **kwargs):
                 'loc_set': loc_set,
                 'username': username,
                 'userid': userid,
-                'ps_incident_list': ps_incident_list,
-                'ps_bulletin_list': ps_bulletin_list,
-                'ps_actor_list': ps_actor_list
+                'ps_list': ps_list,
             }
         )
     else:

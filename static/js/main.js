@@ -1,6 +1,9 @@
 /*global window, document, define */
 'use strict';
-define(['lib/SolrSearch/views'], function(views) {
-  views.init();
-});
+define(
+  ['lib/Navigation/main'],
+  function(Navigation) {
+    Navigation.init();
+  }
+);
 

@@ -1,8 +1,11 @@
 /**
- * Test suite for our event dispatcher
+ * Test suite for the input module
  */
 define(
-  ['lib/elements/input', 'jquery', 'lib/dispatcher'],
+  [ 
+    'jquery',
+    'lib/elements/input', 'lib/dispatcher'
+  ],
   function(InputView, $, dispatcher) {
     var assert = buster.assert;
     buster.testCase('input box tests', {
@@ -10,7 +13,7 @@ define(
         $(document.body).append(
           '<div class="input-view"><input type="textfield"></div>');
         this.inputView = new InputView({
-          element: '.input-view'
+          el: '.input-view'
         });
         
       },

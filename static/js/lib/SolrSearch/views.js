@@ -1,26 +1,12 @@
-/*global window, document, define */
+/*global window, document, define, Bootstrap */
 'use strict';
 define(
   [
     'backbone', 'marionette',
     'lib/elements/input',
-    'lib/elements/combo'
+    'lib/elements/combo',
+    'lib/elements/dialog'
   ],
-  function(Backbone, Marionette, InputView, Combo) {
-    var init = function() {
-      var inputView = new InputView({
-        el: '.search',
-      });
-      var Comboview = new Combo.view({
-        element: '.search-combo',
-        primary: {
-          label: 'Search',
-        }
-      });
-      Comboview.render();
-    };
-    return {
-      init: init
-    };
+  function(Backbone, Marionette, InputView, Combo, Dialog) {
   }
 );
