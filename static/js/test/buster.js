@@ -6,7 +6,6 @@ config["Corroborator Browser tests"] = {
     libs: [
       "components/requirejs/require.js",
       "testconfig.js"
-
     ],
     sources: [
       "lib/elements/*.js",
