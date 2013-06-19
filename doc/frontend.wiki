@@ -123,7 +123,9 @@ http://localhost:1111 by pressing the Capture Browser button on that page<br/>
 Then in a separate terminal window run: 
  buster-test
 The tests will then be run and should give an output like the following
- TODO: make tests run again to show output!!
+ Chrome 27.0.1453.116, Mac OS X 10.8.4: ..............
+ 4 test cases, 14 tests, 16 assertions, 0 failures, 0 errors, 0 timeouts
+ Finished in 0.121s
 
 === Running the tests from the CI===
 This currently will need to be done against PhantomJS, this is not an optimal

@@ -5,8 +5,8 @@ represent an input field, reacts to the enter button being pressed
 when focus is on the input by sending the content of the input box
 in the enter_pressed event
 
-When creating an instance of the view, you can either pass in the element to watch
-or have one rendered.
+When creating an instance of the view, you can either pass in the element to
+watch or have one rendered.
 you may also pass a custom event dispatcher which will be used instead of the 
 global dispatcher for sending events
 
@@ -20,7 +20,6 @@ define(
   ],
   function ($, _, Backbone, Bacon, dispatcher) {
     'use strict';
-    console.log(Bacon);
     var InputView = Backbone.View.extend({
       // declare the events that we will listen for
       events:{
@@ -48,8 +47,7 @@ define(
               raw: inputText,
               encoded: window.encodeURI(inputText)
             };
-          })
-          .log();
+          });
       },
       // catch the keyup event
       pressed: function(e) {

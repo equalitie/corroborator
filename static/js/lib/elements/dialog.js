@@ -55,7 +55,6 @@ define(
 
     var init = function (openEvent, dialogId) {
       dialogElement = dialogId;
-      console.log(openEvent);
       dispatcher.on(openEvent, openDialog);
       createDialog();
     };

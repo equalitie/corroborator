@@ -12,8 +12,8 @@ config["Corroborator Browser tests"] = {
       "lib/elements/templates/*.js",
       "lib/Navigation/*.js",
       "lib/SolrSearch/*.js",
-      "lib/*.js"
-
+      "lib/*.js",
+      "components/bacon-ui/Bacon.UI.js"
      ],
     tests: [
       "lib/SolrSearch/tests/*-test.js",
