@@ -12,13 +12,15 @@ global dispatcher for sending events
 
 TODO: define template for the view
 */
-'use strict';
 define(
   [
-    'jquery', 'underscore', 'backbone',
+    'jquery', 'underscore', 'backbone', 'bacon',
     'lib/dispatcher',
+    'bacon_ui',
   ],
-  function ($, _, Backbone, dispatcher) {
+  function ($, _, Backbone, Bacon, dispatcher) {
+    'use strict';
+    console.log(Bacon);
     var InputView = Backbone.View.extend({
       // declare the events that we will listen for
       events:{
@@ -32,11 +34,22 @@ define(
         if (options.dispatcher !== undefined) {
           dispatcher = options.dispatcher;
         }
+        this.createStream();
         dispatcher.on('clear_input', this.clearInput, this);
         this.template = _.template('<input type="textfield">');
       },
       clearInput: function() {
         this.$el.children('input').val('');
+      },
+      createStream: function() {
+        this.textStream = Bacon.UI.textFieldValue(this.$el.children('input'))
+          .map(function(inputText) {
+            return {
+              raw: inputText,
+              encoded: window.encodeURI(inputText)
+            };
+          })
+          .log();
       },
       // catch the keyup event
       pressed: function(e) {

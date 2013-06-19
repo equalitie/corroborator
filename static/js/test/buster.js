@@ -10,12 +10,14 @@ config["Corroborator Browser tests"] = {
     sources: [
       "lib/elements/*.js",
       "lib/elements/templates/*.js",
+      "lib/Navigation/*.js",
       "lib/SolrSearch/*.js",
       "lib/*.js"
 
      ],
     tests: [
       "lib/SolrSearch/tests/*-test.js",
+      "lib/Navigation/tests/*-test.js",
       "lib/elements/tests/*-test.js"
     ],
     extensions: [require('buster-amd')],

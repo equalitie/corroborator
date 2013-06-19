@@ -20,15 +20,16 @@ In this way we can ensure events do not leak between our main modules
 
 
 */
-'use strict';
 define(
   [
     'backbone', 'underscore',
     'lib/elements/input',
     'lib/elements/combo',
-    'lib/elements/dialog'
+    'lib/elements/dialog',
+    'lib/Navigation/TabRouter'
   ],
-  function(Backbone, _, InputView, Combo, Dialog) {
+  function(Backbone, _, InputView, Combo, Dialog, TabRouter) {
+  'use strict';
     // create local event dispatcher
     var localDispatcher = {};
     _.extend(localDispatcher, Backbone.Events);
@@ -54,7 +55,7 @@ define(
       ComboCollection.add(item);
     };
 
-    var createInputView = function() {
+    var createInputView = function () {
       var inputView = new InputView({
         el: '.search',
         dispatcher: localDispatcher
@@ -66,14 +67,13 @@ define(
       Dialog.init('item_clicked', '#search-dialog-form');
     };
 
-    var init = function() {
+    var init = function () {
       createComboBox();
       createInputView();
       createDialog();
+      TabRouter.init();
 
     };
-
-
 
     return {
       init: init

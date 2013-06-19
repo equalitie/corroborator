@@ -18,17 +18,27 @@ define(
     'lib/dispatcher',
   ],
   function ($, jquery_ui, dispatcher) {
+    'use strict';
+    // stores a ref to the dialog dom element
     var dialogElement;
 
-    var init = function (openEvent, dialogId) {
-      dialogElement = dialogId;
-      console.log(openEvent);
-      dispatcher.on(openEvent, openDialog);
-      createDialog();
+    // called when the dialog Save button is pressed
+    var handleSaveSearch = function() {
+      $(dialogElement).dialog('close');
     };
+
+    // called when the dialog Cancel button is pressed
+    var handleClose = function() {
+      $(dialogElement).dialog('close');
+    };
+
+    var resetError = function() {};
+
+    // open the dialog
     var openDialog = function () {
       $(dialogElement).dialog('open');
     };
+
     var createDialog = function () {
       $(dialogElement).dialog({
         autoOpen: false,
@@ -42,13 +52,13 @@ define(
         close: resetError
       });
     };
-    var handleSaveSearch = function() {
-      $(dialogElement).dialog('close');
+
+    var init = function (openEvent, dialogId) {
+      dialogElement = dialogId;
+      console.log(openEvent);
+      dispatcher.on(openEvent, openDialog);
+      createDialog();
     };
-    var handleClose = function() {
-      $(dialogElement).dialog('close');
-    };
-    var resetError = function() {};
 
 
     // expose our init function as a module export

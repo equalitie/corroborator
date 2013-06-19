@@ -27,9 +27,28 @@ define(
     'lib/elements/templates/combo-inner.tpl'
   ],
   function ($, _, Backbone, Handlebars, dispatcher, co, ci) {
+    'use strict';
     // ##
     var collection = Backbone.Collection.extend();
 
+    // ## used to render an item from the collection passed in
+    var ItemView = Backbone.View.extend({
+      events: {
+        'click': 'itemClicked'
+      },
+      initialize: function() {
+        this.template = Handlebars.templates['combo-inner.tpl'];
+        this.render();
+      },
+      itemClicked: function() {
+        dispatcher.trigger('item_clicked', this.model);
+      },
+      render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el = $(html);
+        this.setElement(this.$el);
+      }
+    });
 
     // ### Combo view
     var ComboView = Backbone.View.extend({
@@ -82,24 +101,6 @@ define(
       }
     });
 
-    // ## used to render an item from the collection passed in
-    var ItemView = Backbone.View.extend({
-      events: {
-        'click': 'itemClicked'
-      },
-      initialize: function() {
-        this.template = Handlebars.templates['combo-inner.tpl'];
-        this.render();
-      },
-      itemClicked: function() {
-        dispatcher.trigger('item_clicked', this.model);
-      },
-      render: function() {
-        var html = this.template(this.model.toJSON());
-        this.$el = $(html);
-        this.setElement(this.$el);
-      }
-    });
 
     // expose our view as a module export
     return {

@@ -1,16 +1,18 @@
 /*global requirejs */
-'use strict';
 (function(requirejs) {
+  'use strict';
   requirejs.config({
     'paths': {
-      'lib': 'lib',
-      'main': 'main',
-      'jquery': 'components/jquery/jquery',
-      'jquery_ui': '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min',
-      'backbone': 'components/backbone/backbone-min',
+      'lib':        'lib',
+      'main':       'main',
+      'jquery':     'components/jquery/jquery',
+      'jquery_ui':  '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min',
+      'backbone':   'components/backbone/backbone-min',
       'marionette': 'components/backbone.marionette/lib/backbone.marionette.min',
-      'underscore':'components/underscore/underscore-min',
-      'handlebars': 'components/handlebars/handlebars.runtime'
+      'underscore': 'components/underscore/underscore-min',
+      'handlebars': 'components/handlebars/handlebars.runtime',
+      'bacon':      'components/baconjs/dist/Bacon',
+      'bacon_ui':   'components/bacon-ui/Bacon.UI'
     },
     shim: {
       underscore: {
@@ -26,7 +28,12 @@
       },
       handlebars: {
         exports: 'Handlebars'
+      },
+      bacon_ui: {
+        deps: ['jquery', 'bacon'],
+        exports: 'Bacon.UI'
       }
+
     }
   });
   requirejs(["main"]);
