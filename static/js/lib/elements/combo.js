@@ -1,4 +1,4 @@
-/*global define */
+/*global define, Bacon */
 /**
 ### combo
 represent a combo box 
@@ -19,14 +19,14 @@ TODO: define template for the view
 define(
   [
     // vendor
-    'jquery', 'underscore', 'backbone', 'handlebars',
+    'jquery', 'underscore', 'backbone', 'handlebars', 'bacon',
     // local libs
     'lib/dispatcher',
     // templates
     'lib/elements/templates/combo-outer.tpl',
     'lib/elements/templates/combo-inner.tpl'
   ],
-  function ($, _, Backbone, Handlebars, dispatcher, co, ci) {
+  function ($, _, Backbone, Handlebars, Bacon, dispatcher, co, ci) {
     'use strict';
     // ##
     var collection = Backbone.Collection.extend();
@@ -67,6 +67,11 @@ define(
         this.template = Handlebars.templates['combo-outer.tpl'];
         // re-render the combo box if the collection changes
         this.collection.on('add remove reset', this.render, this);
+        this.createEventBus();
+      },
+      createEventBus: function() {
+        this.comboBus = new Bacon.Bus();
+        this.property = this.comboBus.toProperty();
       },
 
       setPrimary: function(primary) {
@@ -78,7 +83,7 @@ define(
 
       // dispatch the event associated with the default element
       mainSearch: function() {
-        dispatcher.trigger(this.primary.search_request);
+        this.comboBus.push(this.primary);
       },
 
       // render the list contents

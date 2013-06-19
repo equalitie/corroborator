@@ -32,6 +32,9 @@
       bacon_ui: {
         deps: ['jquery', 'bacon'],
         exports: 'Bacon.UI'
+      },
+      jquery_ui: {
+        deps: ['jquery']
       }
 
     }

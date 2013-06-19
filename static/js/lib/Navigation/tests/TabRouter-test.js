@@ -22,7 +22,8 @@ define(
         assert.equals(typeof(TabRouter.init), 'function');
       },
 
-      'it should dispatch a navigate event when a link is clicked': function(done) {
+      'it should dispatch a navigate event when a link is clicked': 
+      function(done) {
         dispatcher.on('navigate_incidents', done(function() {
           assert.equals(true, true);
         }));

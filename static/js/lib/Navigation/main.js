@@ -31,11 +31,22 @@ define(
   function(Backbone, _, InputView, Combo, Dialog, TabRouter) {
   'use strict';
     // create local event dispatcher
-    var localDispatcher = {};
-    _.extend(localDispatcher, Backbone.Events);
+    var localDispatcher,
+        searchTextfieldProperty,
+        comboBoxProperty,
+        existingSearchEventStream;
 
+    // create a local event dispatcher that will be used for 
+    // events triggered within the Navigation structure
+    var createLocalDispatcher = function() {
+      localDispatcher = {};
+      _.extend(localDispatcher, Backbone.Events);
+    };
+
+    // create our combo box view
     var createComboBox = function() {
-      var ComboCollection = new Combo.collection(Bootstrap.predefinedSearchList);
+      var ComboCollection = 
+        new Combo.collection(Bootstrap.predefinedSearchList);
 
       var Comboview = new Combo.view({
         element: '.search-combo',
@@ -52,27 +63,45 @@ define(
         search_request: 'save_search'
       };
       Comboview.render();
+      comboBoxProperty = Comboview.property;
       ComboCollection.add(item);
     };
 
+    // create the input view that will read in a search from the user
     var createInputView = function () {
       var inputView = new InputView({
         el: '.search',
         dispatcher: localDispatcher
       });
+      searchTextfieldProperty = inputView.textProperty;
     };
 
+    // create the dialog that we will use to save a user's search
     var createDialog = function () {
       // add the dialog
       Dialog.init('item_clicked', '#search-dialog-form');
     };
 
+    var processSearch = function (val1, val2) {
+      console.log(val1, val2);
+    };
+
+    var registerSearchStreams = function() {
+      var searchProperty = searchTextfieldProperty.combine(comboBoxProperty, processSearch);
+      console.log(searchProperty);
+      searchProperty.log();
+    };
+
+
+    // init function used to instantiate the objects required to get 
+    // things running
     var init = function () {
+      createLocalDispatcher();
       createComboBox();
       createInputView();
+      registerSearchStreams();
       createDialog();
       TabRouter.init();
-
     };
 
     return {

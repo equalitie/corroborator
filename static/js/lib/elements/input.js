@@ -33,21 +33,29 @@ define(
         if (options.dispatcher !== undefined) {
           dispatcher = options.dispatcher;
         }
-        this.createStream();
+        this.createProperty();
         dispatcher.on('clear_input', this.clearInput, this);
         this.template = _.template('<input type="textfield">');
       },
       clearInput: function() {
         this.$el.children('input').val('');
       },
-      createStream: function() {
-        this.textStream = Bacon.UI.textFieldValue(this.$el.children('input'))
+      createProperty: function() {
+        this.textProperty = Bacon.UI.textFieldValue(this.$el.children('input'))
+          //.map(this.textLength)
           .map(function(inputText) {
             return {
               raw: inputText,
               encoded: window.encodeURI(inputText)
             };
-          });
+          })
+          .debounce(300);
+      },
+      textLength: function(text) {
+        if (text.length > 3) {
+          return text;
+        }
+        return '';
       },
       // catch the keyup event
       pressed: function(e) {
