@@ -37,7 +37,7 @@ class IncidentTestCase(ResourceTestCase):
         self.media = Media(media_type='Video', name_en='test media',media_file='')
         self.media.save()
         
-        fixture = AutoFixture(incident)
+        fixture = AutoFixture(Incident)
         incidents = fixture.create(10)
 
         try:

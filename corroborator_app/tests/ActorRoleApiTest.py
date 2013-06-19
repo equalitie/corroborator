@@ -12,7 +12,7 @@ class ActorRoleTestCase(ResourceTestCase):
         self.actor.save()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(actorRole)
+        fixture = AutoFixture(ActorRole)
         actorRoles = fixture.create(10)
 
         try:

@@ -12,7 +12,7 @@ class SourceTestCase(ResourceTestCase):
         self.sourceType.save()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(source)
+        fixture = AutoFixture(Source)
         sources = fixture.create(10)
 
         try:

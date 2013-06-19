@@ -11,7 +11,7 @@ class TimeInfoTestCase(ResourceTestCase):
         super(TimeInfoTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(timeInfo)
+        fixture = AutoFixture(TimeInfo)
         timeInfos = fixture.create(10)
 
         try:

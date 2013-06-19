@@ -10,7 +10,7 @@ class LocationTestCase(ResourceTestCase):
         super(LocationTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(location)
+        fixture = AutoFixture(Location)
         locations = fixture.create(10)
 
         try:

@@ -14,7 +14,7 @@ class ActorRelationshipTestCase(ResourceTestCase):
         self.actor_b.save()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(actor)
+        fixture = AutoFixture(ActorRelationship)
         actors = fixture.create(10)
 
         try:

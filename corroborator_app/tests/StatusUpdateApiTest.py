@@ -10,7 +10,7 @@ class statusUpdateTestCase(ResourceTestCase):
         super(statusUpdateTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(statusUpdate)
+        fixture = AutoFixture(StatusUpdate)
         statusUpdates = fixture.create(10)
 
         try:

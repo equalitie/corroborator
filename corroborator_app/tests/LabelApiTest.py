@@ -10,7 +10,7 @@ class LabelTestCase(ResourceTestCase):
         super(LabelTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(label)
+        fixture = AutoFixture(Label)
         labels = fixture.create(10)
 
         try:
