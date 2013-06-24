@@ -44,7 +44,8 @@ class LocationTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_location_put(self):
-        url = '/api/v1/location/1/?format=json{}'.format(self.auth_string)
+        loc = Location.objects.all()[0]
+        url = '/api/v1/location/{0}/?format=json{1}'.format(loc.id, self.auth_string)
         put_data = {
             'name_en': "Test Location",
             'name_ar': "Test Location Arabic",

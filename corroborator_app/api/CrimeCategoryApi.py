@@ -22,5 +22,5 @@ class CrimeCategoryResource(ModelResource):
         queryset = CrimeCategory.objects.all()
         resource_name = 'crimeCategory'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

@@ -22,5 +22,5 @@ class TimeInfoResource(ModelResource):
         queryset = TimeInfo.objects.all()
         resource_name = 'timeInfo'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

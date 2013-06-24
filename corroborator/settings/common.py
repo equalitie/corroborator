@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'corroborator.wsgi.application'
 TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/var/www/corroborator/corroborator/templates'
+    '/var/www/corroborator/corroborator/templates',
 )
 
 

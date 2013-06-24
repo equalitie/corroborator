@@ -8,6 +8,7 @@ tests in tests/api/tests.py
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
+from tastypie import fields
 
 from corroborator_app.models import Actor
 

@@ -22,5 +22,5 @@ class LabelResource(ModelResource):
         queryset = Label.objects.all()
         resource_name = 'label'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

@@ -22,5 +22,5 @@ class IncidentResource(ModelResource):
         queryset = Incident.objects.all()
         resource_name = 'incident'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

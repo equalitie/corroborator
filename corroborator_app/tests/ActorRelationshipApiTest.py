@@ -8,14 +8,14 @@ from corroborator_app.models import ActorRelationship, Actor
 class ActorRelationshipTestCase(ResourceTestCase):
     def setUp(self):
         super(ActorRelationshipTestCase, self).setUp()
-        self.actor_a = Actor(relation_status='Test Actor',Fullname_ar='Test name ar',Nickname_en='Nick name',Nickname_ar='Nick name')
-        self.actor_a.save()
-        self.actor_b = Actor(relation_status='Test Actor',Fullname_ar='Test name ar',Nickname_en='Nick name',Nickname_ar='Nick name')
-        self.actor_b.save()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(ActorRelationship)
-        actors = fixture.create(10)
+        self.actor_a = Actor(fullname_ar='Test name ar', nickname_en='nick name', nickname_ar='nick name')
+        self.actor_a.save()
+        self.actor_b = Actor(fullname_ar='Test name ar', nickname_en='nick name', nickname_ar='nick name')
+        self.actor_b.save()
+        fixture = AutoFixture(ActorRelationship, generate_m2m={1, 4})
+        actorRoles = fixture.create(10)
 
         try:
             self.api_key = ApiKey.objects.get(user=self.user)
@@ -47,7 +47,8 @@ class ActorRelationshipTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_actor_relationship_put(self):
-        url = '/api/v1/actorRelationship/1/?format=json{}'.format(self.auth_string)
+        precreated_actor_rel = ActorRelationship.objects.all()[0]
+        url = '/api/v1/actorRelationship/{0}/?format=json{1}'.format(precreated_actor_rel.id, self.auth_string)
         put_data = {
             'relation_status': "Parent",
             'actor_a': "/api/v1/actor/{0}/".format(self.actor_a.pk),

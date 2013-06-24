@@ -22,5 +22,5 @@ class SourceResource(ModelResource):
         queryset = Source.objects.all()
         resource_name = 'source'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

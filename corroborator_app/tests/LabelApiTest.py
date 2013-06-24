@@ -43,7 +43,8 @@ class LabelTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_label_put(self):
-        url = '/api/v1/label/1/?format=json{}'.format(self.auth_string)
+        precreated_label = Label.objects.all()[0]
+        url = '/api/v1/label/{0}/?format=json{1}'.format(precreated_label.id, self.auth_string)
         put_data = {
             'name_en': "Test Label",
             'name_ar': "Test Label Arabic",
