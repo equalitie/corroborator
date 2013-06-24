@@ -12,7 +12,11 @@
       'underscore': 'components/underscore/underscore-min',
       'handlebars': 'components/handlebars/handlebars.runtime',
       'bacon':      'components/baconjs/dist/Bacon',
-      'bacon_ui':   'components/bacon-ui/Bacon.UI'
+      'bacon_ui':   'components/bacon-ui/Bacon.UI',
+      // ajax solr stuff
+      core: 'components/ajax-solr/core',
+      managers: 'components/ajax-solr/managers',
+      widgets: 'components/ajax-solr/widgets',
     },
     shim: {
       underscore: {
@@ -29,10 +33,12 @@
       handlebars: {
         exports: 'Handlebars'
       },
-      bacon_ui: {
-        deps: ['jquery', 'bacon'],
-        exports: 'Bacon.UI'
+      bacon: {
+        deps: ['jquery', 'jquery_ui']
       },
+      //bacon_ui: {
+        //deps: ['jquery', 'bacon'],
+      //},
       jquery_ui: {
         deps: ['jquery']
       }

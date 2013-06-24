@@ -7,21 +7,21 @@ var initialCurrentGlobal = 'Actors';
     Manager = new AjaxSolr.Manager({
       solrUrl: 'https://sjac.rightscase.org/solr/corrob_dev/'
     });
-Manager.addWidget(new AjaxSolr.CalendarWidget({
-  id: 'calendar_incident',
-  target: '#incident_date_filter',
-  field: 'incident_times_exact'
-}));
-Manager.addWidget(new AjaxSolr.CalendarWidget({
-  id: 'calendar_bulletin',
-  target: '#bulletin_date_filter',
-  field: 'bulletin_times_exact'
-}));
-Manager.addWidget(new AjaxSolr.TextWidget({
-  id: 'text',
-  target: '#docs',
-  fields: ['type','sources']
-}));
+    Manager.addWidget(new AjaxSolr.CalendarWidget({
+      id: 'calendar_incident',
+      target: '#incident_date_filter',
+      field: 'incident_times_exact'
+    }));
+    Manager.addWidget(new AjaxSolr.CalendarWidget({
+      id: 'calendar_bulletin',
+      target: '#bulletin_date_filter',
+      field: 'bulletin_times_exact'
+    }));
+    Manager.addWidget(new AjaxSolr.TextWidget({
+      id: 'text',
+      target: '#docs',
+      fields: ['type','sources']
+    }));
 
 	//var fields = [ 'bulletin_labels_exact', 'bulletin_status_exact','bulletin_assigned_exact','incident_labels_exact', 'incident_status_exact','incident_assigned_exact','crimes_exact','sources_exact','civilian_en_exact','age_en_exact','sex_en_exact','nationality_en_exact'];
 	var fields = [ 'bulletin_labels_exact', 'bulletin_assigned_exact','incident_labels_exact', 'incident_assigned_exact','crimes_exact','sources_exact','civilian_en_exact','age_en_exact','sex_en_exact','nationality_en_exact','most_recent_status_bulletin_exact','most_recent_status_incident_exact'];
@@ -63,20 +63,3 @@ Manager.store.addByValue('q', 'django_ct:*actor');
 Manager.doRequest();
   });
 })(jQuery);
-/*
-var ManagerEmbedded;
-(function ($) {
-  $(function () {
-    ManagerEmbedded = new AjaxSolr.Manager({
-      solrUrl: 'http://eq.rightscase.org:8983/solr/'
-    });
-        ManagerEmbedded.addWidget(new AjaxSolr.EmbeddedSearchWidget({
-          id: 'EmbeddedSearch',
-          target: '#docs',
-          fields: ['type','sources']
-        }));
-
-
-    ManagerEmbedded.init();
-  });
-})(jQuery);*/
