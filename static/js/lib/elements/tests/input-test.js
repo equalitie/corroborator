@@ -3,8 +3,8 @@
  */
 define(
   [ 
-    'jquery',
-    'lib/elements/input', 'lib/dispatcher'
+    'lib/elements/input', 'jquery',
+    'lib/dispatcher'
   ],
   function(InputView, $, dispatcher) {
     var assert = buster.assert;

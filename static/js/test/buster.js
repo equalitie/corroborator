@@ -6,17 +6,18 @@ config["Corroborator Browser tests"] = {
     libs: [
       "components/requirejs/require.js",
       "testconfig.js"
-
     ],
     sources: [
       "lib/elements/*.js",
       "lib/elements/templates/*.js",
+      "lib/Navigation/*.js",
       "lib/SolrSearch/*.js",
-      "lib/*.js"
-
+      "lib/*.js",
+      "components/bacon-ui/Bacon.UI.js"
      ],
     tests: [
       "lib/SolrSearch/tests/*-test.js",
+      "lib/Navigation/tests/*-test.js",
       "lib/elements/tests/*-test.js"
     ],
     extensions: [require('buster-amd')],

@@ -1,16 +1,22 @@
 /*global requirejs */
-'use strict';
 (function(requirejs) {
+  'use strict';
   requirejs.config({
     'paths': {
-      'lib': 'lib',
-      'main': 'main',
-      'jquery': '//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min',
-      'jquery_ui': '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min',
-      'backbone': '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min',
-      'marionette': '//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.0.1-bundled/backbone.marionette.min',
-      'underscore':'//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min',
-      'handlebars': 'components/handlebars/handlebars.runtime'
+      'lib':        'lib',
+      'main':       'main',
+      'jquery':     'components/jquery/jquery',
+      'jquery_ui':  '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min',
+      'backbone':   'components/backbone/backbone-min',
+      'marionette': 'components/backbone.marionette/lib/backbone.marionette.min',
+      'underscore': 'components/underscore/underscore-min',
+      'handlebars': 'components/handlebars/handlebars.runtime',
+      'bacon':      'components/baconjs/dist/Bacon',
+      'bacon_ui':   'components/bacon-ui/Bacon.UI',
+      // ajax solr stuff
+      core: 'components/ajax-solr/core',
+      managers: 'components/ajax-solr/managers',
+      widgets: 'components/ajax-solr/widgets',
     },
     shim: {
       underscore: {
@@ -26,7 +32,17 @@
       },
       handlebars: {
         exports: 'Handlebars'
+      },
+      bacon: {
+        deps: ['jquery', 'jquery_ui']
+      },
+      //bacon_ui: {
+        //deps: ['jquery', 'bacon'],
+      //},
+      jquery_ui: {
+        deps: ['jquery']
       }
+
     }
   });
   requirejs(["main"]);

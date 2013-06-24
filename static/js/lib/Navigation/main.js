@@ -20,60 +20,102 @@ In this way we can ensure events do not leak between our main modules
 
 
 */
-'use strict';
 define(
   [
-    'backbone', 'underscore',
+    'underscore',
     'lib/elements/input',
-    'lib/elements/combo',
-    'lib/elements/dialog'
+    'lib/Navigation/NavCombo',
+    'lib/elements/dialog',
+    'lib/Navigation/TabRouter',
+    'lib/streams'
   ],
-  function(Backbone, _, InputView, Combo, Dialog) {
-    // create local event dispatcher
-    var localDispatcher = {};
-    _.extend(localDispatcher, Backbone.Events);
+  function(_, InputView, NavCombo, Dialog, TabRouter, Streams) {
+    'use strict';
+    var textEntered,
+        textProperty;
 
+    // create our combo box view
     var createComboBox = function() {
-      var ComboCollection = new Combo.collection(Bootstrap.predefinedSearchList);
-
-      var Comboview = new Combo.view({
-        element: '.search-combo',
-        collection: ComboCollection,
-        dispatcher: localDispatcher,
+      var Comboview = new NavCombo.view({
+        el: '.search-combo',
         primary: {
           name_en: 'Search',
           search_request: 'search_request'
         }
       });
       // add the save item
-      var item = {
-        name_en: 'Save current search...',
-        search_request: 'save_search'
-      };
       Comboview.render();
-      ComboCollection.add(item);
     };
 
-    var createInputView = function() {
+    var nonEmpty = function(x) {
+      console.log(x.encoded);
+      return x.encoded.length > 0;
+    };
+    //var and
+
+    // create the input view that will read in a search from the user
+    var createInputView = function () {
       var inputView = new InputView({
         el: '.search',
-        dispatcher: localDispatcher
+      });
+      textEntered = inputView.textProperty.map(nonEmpty);
+      textProperty = inputView.textProperty;
+    };
+
+    var watchForSearch = function() {
+      var searchRequested = Streams.searchBus.filter(function(e){
+        return e.type === 'search_request';
+      })
+      .map(function(e) {
+        return {
+          search_request: e.type === 'search_request'
+        };
+      });
+
+      var merged = searchRequested.merge(textProperty.toEventStream());
+      var navStream = Streams.navBus.toEventStream().map(function(value) {
+        return {
+          domain: value
+        };
+      });
+      merged = merged.merge(navStream);
+
+      merged.scan({}, function(oldResult, value) {
+        var newResult = oldResult;
+        if (value.encoded) {
+          newResult.search = value;
+          newResult.type = 'intermediate';
+        }
+        if (value.domain) {
+          newResult.domain = value.domain;
+          newResult.type = 'intermediate';
+        }
+        if (value.search_request === true) {
+          newResult.type = 'new_search';
+        }
+        return newResult;
+         
+      }).filter(function(value) {
+        return value.type === 'new_search' && value.search !== undefined;
+      }).onValue(function(value) {
+        Streams.searchBus.push(value);
       });
     };
 
+    // create the dialog that we will use to save a user's search
     var createDialog = function () {
-      // add the dialog
       Dialog.init('item_clicked', '#search-dialog-form');
     };
 
-    var init = function() {
+    // init function used to instantiate the objects required to get 
+    // things running
+    var init = function () {
       createComboBox();
       createInputView();
+      watchForSearch();
+      TabRouter.init();
       createDialog();
-
     };
-
-
 
     return {
       init: init
