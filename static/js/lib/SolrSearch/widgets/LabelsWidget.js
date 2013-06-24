@@ -102,9 +102,9 @@ define(
       $('#main_spinner').removeClass('hidden');
     }
       var current = $('.current > a > span > span').html();
-    if(initialLoad){
-     current = initialCurrentGlobal;
-    }
+    //if(initialLoad){
+     //current = initialCurrentGlobal;
+    //}
 
       var links = [];
       if(this.manager.store.params.q.value.indexOf('bulletin') >= 0){
