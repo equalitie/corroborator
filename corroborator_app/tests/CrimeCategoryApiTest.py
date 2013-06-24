@@ -10,7 +10,7 @@ class CrimeCategoryTestCase(ResourceTestCase):
         super(CrimeCategoryTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        fixture = AutoFixture(crimeCategory)
+        fixture = AutoFixture(CrimeCategory)
         crimeCategorys = fixture.create(10)
 
         try:
@@ -43,7 +43,8 @@ class CrimeCategoryTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_crimeCategory_put(self):
-        url = '/api/v1/crimeCategory/1/?format=json{}'.format(self.auth_string)
+        cc = CrimeCategory.objects.all()[0]
+        url = '/api/v1/crimeCategory/{0}/?format=json{1}'.format(cc.id, self.auth_string)
         put_data = {
             'category_en': "Test CrimeCategory",
             'description_en': "Test CrimeCategory Arabic",

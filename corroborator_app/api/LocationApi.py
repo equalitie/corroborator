@@ -14,6 +14,7 @@ from corroborator_app.models import Location
 
 __all__ = ('LocationResource', )
 
+
 class LocationResource(ModelResource):
     """
     tastypie api implementation for location model
@@ -22,5 +23,5 @@ class LocationResource(ModelResource):
         queryset = Location.objects.all()
         resource_name = 'location'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

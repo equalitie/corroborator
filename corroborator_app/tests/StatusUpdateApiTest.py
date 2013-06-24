@@ -43,7 +43,8 @@ class statusUpdateTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_statusUpdate_put(self):
-        url = '/api/v1/statusUpdate/1/?format=json{}'.format(self.auth_string)
+        su = StatusUpdate.objects.all()[0]
+        url = '/api/v1/statusUpdate/{0}/?format=json{1}'.format(su.id, self.auth_string)
         put_data = {
             'status_en': "Test statusUpdate",
             'status_ar': "Test statusUpdate Arabic",

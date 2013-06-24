@@ -12,6 +12,7 @@ class ActorTestCase(ResourceTestCase):
         self.user.save()
         fixture = AutoFixture(Actor)
         actors = fixture.create(10)
+    
 
         try:
             self.api_key = ApiKey.objects.get(user=self.user)
@@ -43,7 +44,8 @@ class ActorTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_actor_put(self):
-        url = '/api/v1/actor/1/?format=json{}'.format(self.auth_string)
+        precreated_actor = Actor.objects.all()[0]
+        url = '/api/v1/actor/{0}/?format=json{1}'.format(precreated_actor.id, self.auth_string)
         put_data = {
             'fullname_en': "Test Actor",
             'fullname_ar': "Test Actor Arabic",

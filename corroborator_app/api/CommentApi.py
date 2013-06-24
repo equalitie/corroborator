@@ -22,5 +22,5 @@ class CommentResource(ModelResource):
         queryset = Comment.objects.all()
         resource_name = 'comment'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

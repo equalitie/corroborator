@@ -5,6 +5,7 @@ from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
 from corroborator_app.models import TimeInfo
 import datetime
+from django.utils.timezone import utc
 
 class TimeInfoTestCase(ResourceTestCase):
     def setUp(self):
@@ -13,7 +14,9 @@ class TimeInfoTestCase(ResourceTestCase):
         self.user.save()
         fixture = AutoFixture(TimeInfo)
         timeInfos = fixture.create(10)
-
+        now = datetime.datetime.utcnow().replace(tzinfo=utc)
+        self.from_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         try:
             self.api_key = ApiKey.objects.get(user=self.user)
         except ApiKey.DoesNotExist:
@@ -34,8 +37,8 @@ class TimeInfoTestCase(ResourceTestCase):
 
     def test_timeInfo_post(self):
         post_data = {
-            'time_from': datetime.now(),
-            'time_to': datetime.now(),
+            'time_from': self.from_datetime,
+            'time_to': self.to_datetime,
             'confidence_score': 79,
             'event_name_en': "Event",
         }
@@ -44,10 +47,11 @@ class TimeInfoTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_timeInfo_put(self):
-        url = '/api/v1/timeInfo/1/?format=json{}'.format(self.auth_string)
+        ti = TimeInfo.objects.all()[0]
+        url = '/api/v1/timeInfo/{0}/?format=json{1}'.format(ti.id, self.auth_string)
         put_data = {
-            'time_from': datetime.now(),
-            'time_to': datetime.now(),
+            'time_from': self.from_datetime,
+            'time_to': self.to_datetime,
             'confidence_score': 79,
             'event_name_en': "Event",
         }
@@ -59,14 +63,14 @@ class TimeInfoTestCase(ResourceTestCase):
         patch_data = {
             'objects': [
                 {
-                    'time_from': datetime.now(),
-                    'time_to': datetime.now(),
+                    'time_from': self.from_datetime,
+                    'time_to': self.to_datetime,
                     'confidence_score': 79,
                     'event_name_en': "Event",
                 },
                 {
-                    'time_from': datetime.now(),
-                    'time_to': datetime.now(),
+                    'time_from': self.from_datetime,
+                    'time_to': self.to_datetime,
                     'confidence_score': 79,
                     'event_name_en': "Event",
                 }

@@ -43,7 +43,8 @@ class MediaTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_media_put(self):
-        url = '/api/v1/media/1/?format=json{}'.format(self.auth_string)
+        media = Media.objects.all()[0]
+        url = '/api/v1/media/{0}/?format=json{1}'.format(media.id, self.auth_string)
         put_data = {
             'fullname_en': "Test Media",
             'fullname_ar': "Test Media Arabic",

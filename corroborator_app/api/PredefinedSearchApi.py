@@ -22,5 +22,5 @@ class PredefinedSearchResource(ModelResource):
         queryset = PredefinedSearch.objects.all()
         resource_name = 'predefinedSearch'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

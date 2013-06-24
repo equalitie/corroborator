@@ -22,5 +22,5 @@ class MediaResource(ModelResource):
         queryset = Media.objects.all()
         resource_name = 'media'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True

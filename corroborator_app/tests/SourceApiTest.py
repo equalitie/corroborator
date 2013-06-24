@@ -40,6 +40,7 @@ class SourceTestCase(ResourceTestCase):
             'name_ar': "Test Source Arabic",
             'comments_en': "comments en",
             'comments_ar': "comments Arabic",
+            'reliability_score': 1,
             'source_type': "/api/vi/sourceType/{0}/".format(self.sourceType.pk),
         }
         url = '/api/v1/source/?format=json{}'.format(self.auth_string)
@@ -47,12 +48,14 @@ class SourceTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_source_put(self):
-        url = '/api/v1/source/1/?format=json{}'.format(self.auth_string)
+        source = Source.objects.all()[0]
+        url = '/api/v1/source/{0}/?format=json{1}'.format(source.id, self.auth_string)
         put_data = {
             'name_en': "Test Source",
             'name_ar': "Test Source Arabic",
             'comments_en': "comments en",
             'comments_ar': "comments Arabic",
+            'reliability_score': 1,
             'source_type': "/api/vi/sourceType/{0}/".format(self.sourceType.pk),
         }
         response = self.api_client.put(url, data=put_data)
@@ -67,6 +70,7 @@ class SourceTestCase(ResourceTestCase):
                     'name_ar': "Test Source Arabic",
                     'comments_en': "comments en",
                     'comments_ar': "comments Arabic",
+                    'reliability_score': 1,
                     'source_type': "/api/vi/sourceType/{0}/".format(self.sourceType.pk),
                 },
                 {
@@ -74,6 +78,7 @@ class SourceTestCase(ResourceTestCase):
                     'name_ar': "Test Source Arabic",
                     'comments_en': "comments en",
                     'comments_ar': "comments Arabic",
+                    'reliability_score': 1,
                     'source_type': "/api/vi/sourceType/{0}/".format(self.sourceType.pk),
                 }
             ]

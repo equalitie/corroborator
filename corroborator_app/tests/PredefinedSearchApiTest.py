@@ -43,7 +43,8 @@ class PredefinedSearchTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 201)
 
     def test_predefinedSearch_put(self):
-        url = '/api/v1/predefinedSearch/1/?format=json{}'.format(self.auth_string)
+        ps = PredefinedSearch.objects.all()[0]
+        url = '/api/v1/predefinedSearch/{0}/?format=json{1}'.format(ps.id, self.auth_string)
         put_data = {
             'user': "/api/v1/user/{0}/".format(self.user.pk),
             'name_en': "Test name",

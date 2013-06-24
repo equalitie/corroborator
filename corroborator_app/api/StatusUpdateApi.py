@@ -22,5 +22,5 @@ class StatusUpdateResource(ModelResource):
         queryset = StatusUpdate.objects.all()
         resource_name = 'statusUpdate'
         authorization = Authorization()
-        #authentication = ApiKeyAuthentication()
+        authentication = ApiKeyAuthentication()
         always_return_data = True
