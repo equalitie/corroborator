@@ -1,18 +1,10 @@
 define(
   [
+    'lib/SolrSearch/TextSearch',
     'managers/Manager.jquery',
-    'core/ParameterStore',
-    'lib/SolrSearch/widgets/ResultWidget',
-    'lib/SolrSearch/widgets/CurrentFiltersWidget',
-    'lib/SolrSearch/widgets/EmbeddedSearchWidget',
-    'lib/SolrSearch/widgets/LabelsWidget',
-    'lib/SolrSearch/widgets/ResultWidget',
-    'lib/SolrSearch/widgets/SearchWidget',
-    'lib/SolrSearch/widgets/CalendarWidget',
-    'lib/SolrSearch/widgets/SpatialSearchWidget',
-    'widgets/jquery/PagerWidget'
+    'core/ParameterStore'
   ], 
-  function() {
+  function(TextSearch) {
     Manager = new AjaxSolr.Manager({
       solrUrl: 'http://127.0.0.1:8983/solr/collection1/'
     });
@@ -48,12 +40,14 @@ define(
     'most_recent_status_incident_exact'
   ];
 
+  /*
   _.each(fields, function(item, index, length) {
     Manager.addWidget(new AjaxSolr.labelsWidget({
       field: item,
       id: item
     }));
   });
+  */
 
 
   /*
@@ -67,10 +61,15 @@ define(
     fields: ['type','sources']
   }));
   */
+  Manager.addWidget(new TextSearch({
+    id: 'EmbeddedSearch',
+    target: '#docs',
+    fields: ['type','sources']
+  }));
 
 
   Manager.init();
-  Manager.store.addByValue('q', 'django_ct:*actor');
+  Manager.store.addByValue('q', 'django_ct:*');
   var params = {
     facet: true,
     'facet.sort':'count',
