@@ -57,13 +57,13 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         """
         Returns count of incident objects associated with a given Actor
         """
-        roles = object.role_set.all()
+        roles = object.actorrole_set.all()
         return Incident.objects.filter(actors_role__in=roles).count()
     def prepare_count_bulletins(self, object):
         """
         Returns count of bulletin objects associated with a given Actor
         """
-        roles = object.role_set.all()
+        roles = object.actorrole_set.all()
         return Bulletin.objects.filter(actors_role__in=roles).count()
 
 class LabelIndex(indexes.SearchIndex, indexes.Indexable):
