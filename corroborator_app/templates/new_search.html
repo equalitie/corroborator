@@ -99,51 +99,13 @@
 
 
 
-<!--
 <div id="incident-content" class="columns as-2">
+  <!-- start first column -->
   <div class="col first has-header">
-    <div class="header">
-      <div class="padding">
-        <div class="Selection">
-          <div class="description">
-            <span class="text T">
-              <em><span id="number-incidents-selected">0</span> incidents</em> selected
-            </span>
-          </div>
-          <div class="actions">
-            <div class="button combo is-default">
-              <span class="T">Actions...</span>
-              <ul class="options">
-                <li> <a href="#archive" id="delete_incidents" class="text T">Delete Incidents</a> </li>
-                <li> <a href="#assign" id="annotate-incidents-selected" class="text T">Update selected</a> </li>
-                <li> <a href="#assign" id="all-incidents-selected" class="text T">Select All</a> </li>
-                <li> <a href="#assign" id="clear-incidents-selected" class="text T">Clear selected</a> </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <table class="incidents">
-        <thead>
-          <tr>
-            <th class="is-selector">&nbsp;</th>
-            <th class="is-preview">&nbsp;</th>
-            <th class="is-description">
-              <a href="#+mode=date" class="T current is-descending">date</a>
-              <a href="#+mode=location" class="T">location</a>
-              <a href="#+mode=title" class="T">title</a>
-            </th>
-            <th class="is-status">
-              <a href="#+mode=status" class="T">status</a>
-            </th>
-            <th class="is-score">
-              <a href="#+mode=score" class="T">score</a>
-            </th>
-          </tr>
-        </thead>
-      </table>
+    <!-- header view appended here -->
+    <div class="header search-header">
     </div>
+    <!-- search-results view appended here -->
     <div class="body">
       <div class="padding">
         <table class="incidents">
@@ -153,8 +115,11 @@
       </div>
     </div>
   </div>
+  <!-- end first column -->
+
 
   <div class="col last has-header">
+  <!--
   <div class="header">
     <div class="padding">
       <div class="group is-creator">
@@ -231,6 +196,6 @@
     </div>
   </div>
 </div>
-</div>
 -->
+</div>
 {% endblock %}

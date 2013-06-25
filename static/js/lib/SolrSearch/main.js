@@ -2,9 +2,19 @@
 'use strict';
 define(
   [
-    'lib/SolrSearch/widgets/manager'
+    'lib/SolrSearch/widgets/manager',
+    'lib/SolrSearch/views/header',
   ],
-  function(SolrManager) {
+  function(SolrManager, Header) {
+    var headerView;
+
+    var init = function() {
+      headerView = new Header.HeaderView();
+
+    };
+    return {
+      init: init
+    };
     
   }
 );

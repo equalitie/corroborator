@@ -34,6 +34,7 @@
     min-width: 5em;
     > span:after {
       position: absolute;
+      z-index: 3;
       display: block;
       top: 0em;
       bottom: 0em;

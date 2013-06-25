@@ -7,6 +7,7 @@ define(
   ],
   function(Navigation, SolrSearch) {
     Navigation.init();
+    SolrSearch.init();
   }
 );
 

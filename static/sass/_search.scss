@@ -1,0 +1,212 @@
+.Content {
+  margin-top: $PAD_UNIT * 3;
+}
+// ========================================================================
+// COLUMNS CONTENT
+// ========================================================================
+.columns {
+  .col {
+    margin: 0em;
+    padding: 0em;
+    > .body, > .header {
+      margin: 0em;
+      padding: 0em;
+    }
+  }
+  .group {
+    margin-bottom: $PAD_UNIT;
+    &:last-child, &.last {
+      margin-bottom: 0em;
+    }
+  }
+  .group.is-creator {
+    margin-top: $PAD_UNIT / 2;
+    min-height: 4em;
+  }
+}
+
+/*
+.columns.as-2 {
+  @include clearfix;
+  .col {
+    position: fixed;
+    top: 106 * $PX;
+    bottom: 0em;
+    overflow: hidden;
+    > .header, > .body {
+      position: absolute;
+      @include clearfix;
+      top: 0em;
+      left: $PAD_UNIT * 2;
+      right: $PAD_UNIT * 2;
+    }
+    //> .header:
+    //  z-index: $Z_COLUMN_HEADER
+    > .body {
+      overflow: auto;
+      bottom: 0em;
+    }
+    &.first {
+      width: 66.66666%;
+      left: 0em;
+      > .header, > .body {
+        right: $PAD_UNIT;
+      }
+    }
+    &.last {
+      width: 33.33333%;
+      right: 0em;
+      > .header, > .body {
+        left: $PAD_UNIT;
+        right: 0em;
+        > .padding {
+          margin-right: $PAD_UNIT * 2;
+        }
+      }
+    }
+  }
+}
+*/
+
+.columns.as-2 {
+  .col {
+    &.first {
+      width: 66.66666%;
+      float: left;
+      .header {
+        margin-top: $PAD_UNIT;
+        margin-left: $PAD_UNIT;
+        margin-right: $PAD_UNIT;
+      }
+    }
+    &.last {
+      width: 33.33333%;
+      float: left;
+      }
+    }
+  }
+
+
+/**
+### grey selection display
+    also contains item selection dropdown
+*/
+.Selection {
+  background: $COLOR_SELECTION_BG;
+  border: 1px solid $COLOR_SELECTION_BD;
+  padding: $PAD_UNIT / 2;
+  .description {
+    margin-top: 0.25em + 1 * $PX;
+    float: left;
+  }
+  .actions {
+    float: right;
+    position: relative;
+  }
+  &:after {
+    content: '';
+    display: block;
+    clear: both;
+    height: 0em;
+  }
+}
+
+// ========================================================================
+// OVERLAY
+// ========================================================================
+.cover {
+  position: fixed;
+  top: 106 * $PX;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color:rgba(255,255,255,0.75);
+  z-index: $Z_OVERLAY;
+}
+.overlay {
+  position: fixed;
+  background-color: white;
+  top: 106 * $PX;
+  right: 0em;
+  bottom: 0em;
+  width: 33.33333%;
+  z-index: $Z_OVERLAY;
+  .when-overlay-expanded {
+    display: none;
+  }
+  .actions {
+    background-color: $COLOR_ACTIONS_BG;
+    padding: $PAD_UNIT / 2;
+    &:after {
+      //content: '""""';
+      display: block;
+      clear: both;
+      height: 0em;
+    }
+  }
+  > .header {
+    top: 1px;
+    left: 1px;
+    right: $PAD_UNIT * 7 / 4;
+    background-color: rgba(255,255,255,0.5);
+    position: absolute;
+    text-align: right;
+    padding: $PAD_UNIT / 2;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    z-index: $Z_OVERLAY_HEADER;
+    .do-hide {
+      padding-top: 0em;
+      text-transform: uppercase;
+      padding-bottom: 0em;
+    }
+  }
+  > .body {
+    border: 1px solid $COLOR_TABLE_BD;
+    border-right: 2px solid $COLOR_TABLE_BD;
+    border-bottom: 2px solid $COLOR_TABLE_BD;
+    position: absolute;
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+    top: 0em;
+    left: 0em;
+    right: $PAD_UNIT;
+    bottom: 0em;
+    background: white;
+    > * {
+      margin: $PAD_UNIT / 2;
+    }
+  }
+  > .footer {
+    border: 1px solid $COLOR_TABLE_BD;
+    border-right: 2px solid $COLOR_TABLE_BD;
+    border-bottom: 0px solid $COLOR_TABLE_BD;
+    bottom: 0em;
+    position: absolute;
+    left: 0em;
+    right: $PAD_UNIT;
+  }
+  &.is-expanded {
+    width: 100%;
+    .when-overlay-expanded {
+      display: block;
+    }
+    .when-overlay-not_expanded {
+      display: none;
+    }
+    > .body, > .footer {
+      left: $PAD_UNIT;
+    }
+  }
+  &:hover {
+    &, &.hidden {
+      display: block !important;
+    }
+  }
+}
+.overlay.is-middle {
+  right: 33%;
+  > .header, > .body, > .footer {
+    right: 0em;
+  }
+}
