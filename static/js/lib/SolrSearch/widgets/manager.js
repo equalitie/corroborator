@@ -98,6 +98,5 @@ define(
 
   //Manager.store.addByValue('sort', 'actor_created');
 
-  Manager.doRequest();
   return Manager;
 });

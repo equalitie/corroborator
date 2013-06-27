@@ -39,6 +39,7 @@ define(
     ]);
     
     var ActionComboView = Combo.view.extend({
+      eventIdentifier: 'action_combo',
       el: '.actions',
       initialize: function(options) {
         Combo.view.prototype.initialize.call(this, options);
@@ -53,6 +54,7 @@ define(
             .onValue(this.updateCollection, this);
       },
       updateCollection: function(context, value) {
+        console.log(context, value);
       }
     });
 

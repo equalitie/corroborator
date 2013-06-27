@@ -31,47 +31,65 @@ define(
     var collection = Backbone.Collection.extend();
     var localBus = new Bacon.Bus();
 
-    var isSearchRequest = function(model) {
+    var isSearchRequest = function(value) {
+      var model = value.content;
       return model.get('type') === 'search';
     };
-    var isSavedSearch = function(model) {
+    var isComboAction = function(value) {
+      return value.type === 'nav_combo';
+    };
+    var isSavedSearch = function(value) {
+      var model = value.content;
       return model.get('type') === 'actor' ||
              model.get('type') === 'incident' ||
              model.get('type') === 'bulletin';
     };
 
-    var isSaveSearchRequest = function(model) {
+    var isSaveSearchRequest = function(value) {
+      var model = value.content;
       return model.get('type') === 'default';
     };
 
-    var dispatchSavedSearch = function (model) {
+    var dispatchSavedSearch = function (value) {
+      var model = value.content;
       Streams.searchBus.push({
         type: 'saved_search',
-        value: model
+        content: model
       });
     };
 
-    var dispatchSaveSearchRequest = function (model) {
+    var dispatchSaveSearchRequest = function (value) {
+      var model = value.content;
       Streams.searchBus.push({
         type: 'save_search_request',
-        value: model
+        content: model
       });
     };
-    var dispatchSearchRequest = function (model) {
+    var dispatchSearchRequest = function (value) {
+      var model = value.content;
       Streams.searchBus.push({
         type: 'search_request',
-        value: model
+        content: model
       });
     };
 
     // send saved search events to the main search bus
-    localBus.toProperty().filter(isSavedSearch).onValue(dispatchSavedSearch);
+    localBus.toProperty()
+            .filter(isComboAction)
+            .filter(isSavedSearch)
+            .onValue(dispatchSavedSearch);
 
     // send save current search request to the main search bus
-    localBus.toProperty().filter(isSaveSearchRequest).onValue(dispatchSaveSearchRequest);
+    localBus.toProperty()
+            .filter(isComboAction)
+            .filter(isSaveSearchRequest)
+            .onValue(dispatchSaveSearchRequest);
 
     // send search request to the main bus
-    localBus.toProperty().filter(isSearchRequest).onValue(dispatchSearchRequest);
+    localBus.toProperty()
+            .filter(isComboAction)
+            .filter(isSearchRequest)
+            .onValue(dispatchSearchRequest);
 
     /**
      * check if the element is a new search
@@ -99,10 +117,12 @@ define(
     // ## Combo view
     var NavComboView = Combo.view.extend({
       filteredCollection: undefined,
+      eventIdentifier: 'nav_combo',
 
       // init the view setting the default item if provided
       initialize: function(options) {
         this.fullCollection = createFullCollection();
+        console.log(this.fullCollection);
         this.collection = this.fullCollection.clone();
         options.bus = localBus;
         Combo.view.prototype.initialize.call(this, options);

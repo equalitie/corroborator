@@ -619,10 +619,10 @@ ul.media {
 }
 
 .in-list {
-  border: 1px solid $COLOR_TABLE_BD;
-  padding: $PAD_UNIT / 2;
+  //border: 1px solid $COLOR_TABLE_BD;
+  //padding: $PAD_UNIT / 2;
   &:after {
-    //content: '""""';
+    //content: "";
     clear: both;
     display: block;
     height: 0em;
@@ -685,96 +685,6 @@ ul.media {
   }
 }
 
-.Actor {
-  background-color: white;
-  .when-hover {
-    display: none;
-  }
-  .name {
-    font-weight: bold;
-  }
-  .avatar {
-    float: left;
-  }
-  .status {
-    float: right;
-  }
-  .content {
-    margin-left: 80 * $PX + $PAD_UNIT / 2;
-  }
-  .incidents-count {
-    font-weight: bold;
-  }
-  .details {
-    margin-top: $PAD_UNIT / 2;
-    margin-bottom: $PAD_UNIT / 2;
-    width: 100%;
-    th {
-      width: 33%;
-      padding-rigth: $PAD_UNIT / 2;
-      font-weight: normal;
-      text-transform: uppercase;
-      font-size: 70%;
-    }
-  }
-  .stats {
-    margin-top: $PAD_UNIT / 2;
-    margin-bottom: $PAD_UNIT / 2;
-    &:after {
-      //content: '""""';
-      clear: both;
-    }
-    h4.title {
-      text-transform: uppercase;
-      font-size: 80%;
-    }
-    > div {
-      float: left;
-      &:after {
-        //content: '""""';
-        clear: both;
-      }
-    }
-    .stat {
-      float: left;
-      margin: $PAD_UNIT / 2;
-      margin-left: 0em;
-      .value {
-        font-size: 200%;
-        font-weight: bold;
-        margin-bottom: 0.25em;
-      }
-      .label {
-        font-size: 70%;
-        text-transform: uppercase;
-      }
-    }
-  }
-  .related {
-    clear: both;
-    margin-top: $PAD_UNIT / 2;
-    margin-bottom: $PAD_UNIT / 2;
-  }
-  .when-related {
-    display: none;
-  }
-  &.in-related {
-    .when-related {
-      display: block !important;
-    }
-  }
-  .when-expanded {
-    display: none;
-  }
-  &.in-list.is-expanded {
-    .when-not_expanded {
-      display: none !important;
-    }
-    .when-expanded {
-      display: block !important;
-    }
-  }
-}
 
 .Bulletin.in-view, .Incident.in-view, .Actor.in-view {
   > .header:before {
@@ -854,66 +764,6 @@ ul.media {
   }
 }
 
-.Bulletin.in-table,.Incident.in-table {
-  td {
-    border-top: 1px solid $COLOR_TABLE_BD;
-    border-bottom: 1px solid $COLOR_TABLE_BD;
-    padding: 0.5em;
-  }
-  td.is-selector {
-    vertical-align: middle;
-    text-align: center;
-    width: 1.5em;
-    border-left: 1px solid $COLOR_TABLE_BD;
-  }
-  td.is-preview {
-    background-color: $COLOR_MEDIA_BG;
-  }
-  td.is-description {
-    a {
-      &, &:active, &:visited, &:hover {
-        color: $COLOR_TXT;
-        text-decoration: none;
-      }
-    }
-    > a:after {
-      //content: '""""';
-      clear: both;
-      display: block;
-    }
-    .title {
-      line-height: 1.25em;
-      font-weight: bold;
-    }
-    .details {
-      float: left;
-      font-size: 90%;
-    }
-    .meta {
-      float: right;
-      font-size: 90%;
-    }
-  }
-  td.is-status {
-    vertical-align: middle;
-    text-align: center;
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-  td.is-score {
-    vertical-align: middle;
-    text-align: center;
-    border-left: 1px solid $COLOR_TABLE_BD;
-    border-right: 1px solid $COLOR_TABLE_BD;
-    .value {
-      font-size: 180%;
-      font-weight: bold;
-    }
-  }
-  &:hover td {
-    background-color: $COLOR_SELECTABLE_HOVER;
-  }
-}
 
 .Bulletin.is-edited,.Incident.is-edited,.Actor.is-edited {
   .field {
@@ -1160,35 +1010,6 @@ ul.media {
   }
 }
 
-.actors.table {
-  li {
-    width: 50%;
-    float: left;
-    box-sizing: border-box;
-    padding: 0 0 $PAD_UNIT / 2 $PAD_UNIT;
-  }
-  .Actor.in-list {
-    position: relative;
-    .when-hover {
-      .is-selector {
-        position: absolute;
-        border: 1px solid $COLOR_TABLE_BD;
-        border-right: 1px solid $COLOR_SELECTABLE_HOVER;
-        background-color: $COLOR_SELECTABLE_HOVER;
-        width: $PAD_UNIT;
-        top: -1px;
-        left: -(0.1 + $PAD_UNIT);
-      }
-    }
-    &:hover {
-      cursor: pointer;
-      background-color: $COLOR_SELECTABLE_HOVER;
-      .when-hover {
-        display: block !important;
-      }
-    }
-  }
-}
 
 .Incident.in-list,.Bulletin.in-list {
   .title {

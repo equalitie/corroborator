@@ -35,6 +35,7 @@ define(
         'click': 'itemClicked'
       },
       initialize: function(options) {
+        this.eventIdentifier = options.eventIdentifier;
         this.bus = options.bus;
         this.template = Handlebars.templates['combo-inner.tpl'];
         this.render();
@@ -42,7 +43,10 @@ define(
       itemClicked: function() {
         //dispatcher.trigger('item_clicked', this.model);
         if (this.bus) {
-          this.bus.push(this.model);
+          this.bus.push({
+            type: this.eventIdentifier,
+            content: this.model
+          });
         }
       },
       render: function() {
@@ -54,6 +58,7 @@ define(
 
     // ### Combo view
     var ComboView = Backbone.View.extend({
+      eventIdentifier: 'combo',
       events: {
         'click .combo-main': 'mainElementClicked',
       },
@@ -81,7 +86,6 @@ define(
           type: 'search'
         });
       },
-      
 
       // render the list contents
       render: function() {
@@ -98,7 +102,10 @@ define(
 
       // render each item in the list 
       renderListItem: function(model, index, list) {
-        var options = {model: model};
+        var options = {
+          model: model,
+          eventIdentifier: this.eventIdentifier
+        };
         if (this.bus) {
           options.bus = this.bus;
         }

@@ -27,9 +27,16 @@ define(
         var searchResults = this.manager.response.response.docs;
         // pull the various 
         var actors = _.filter(searchResults, filterActors);
+        Streams.searchBus.push({
+          type: 'results_actor',
+          content: actors
+        }); 
         var bulletins = _.filter(searchResults, filterBulletin);
+        Streams.searchBus.push({
+          type: 'results_bulletin',
+          content: bulletins
+        }); 
         var incidents = _.filter(searchResults, filterIncident);
-        console.log(actors, bulletins, incidents);
       }
     });
 

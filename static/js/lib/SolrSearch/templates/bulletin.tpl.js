@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<tr count=\"20\" class=\"REPEAT Bulletin in-table\">\n  <td class=\"is-selector\">\n    <input type=\"checkbox\">\n  </td>\n  <td class=\"is-preview\">&nbsp;</td>\n  <td class=\"is-description\">\n    <a href=\"#bulletin/0\">\n      <div class=\"title text i18n\">\n        <span lang=\"en\">"
+  buffer += "  <td class=\"is-selector\">\n    <input type=\"checkbox\">\n  </td>\n  <td class=\"is-preview\">&nbsp;</td>\n  <td class=\"is-description\">\n    <a href=\"#bulletin/0\">\n      <div class=\"title text i18n\">\n        <span lang=\"en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.title_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n        <span lang=\"ar\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.title_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -22,7 +22,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sources)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>)\n      </div>\n    </a>\n    </td>\n    <td class=\"is-status\">\n    <span class=\"status\">\n    <span class=\"text\">reviewed</span>\n    </span>\n    </td>\n  <td class=\"is-score\">\n  <span class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.confidence_score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n  </td>\n</tr>\n\n";
+    + "</span>\n  </td>\n";
   return buffer;
   });
 });

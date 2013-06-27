@@ -6,13 +6,15 @@ define(
   ['bacon'],
   function(Bacon) {
     'use strict';
-    var searchBus = new Bacon.Bus();
-    searchBus.toEventStream().log();
-    var navBus = new Bacon.Bus();
+    var searchBus = new Bacon.Bus(),
+        navBus = new Bacon.Bus(),
+        navProperty = navBus.toProperty('incident');
     navBus.toEventStream().log();
+    searchBus.toEventStream().log();
     return {
       searchBus: searchBus,
-      navBus: navBus
+      navBus: navBus,
+      navProperty: navProperty,
     };
   }
 );
