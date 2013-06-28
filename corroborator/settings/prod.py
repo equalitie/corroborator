@@ -10,7 +10,10 @@ DATABASES = {
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
+INSTALLED_APPS += (
+    'autofixture',
+    'interntest',
+)
 #Haystack backend configuration
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 

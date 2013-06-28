@@ -13,34 +13,36 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     lives_in = indexes.CharField(model_attr='current_location', null=True)
     dob = indexes.DateField(model_attr='DOB', null=True)
     pob = indexes.CharField(model_attr='POB', null=True)
-    fullname_en = indexes.CharField(model_attr='fullname_en')
-    fullname_ar = indexes.CharField(model_attr='fullname_ar')
-    nickname_en = indexes.CharField(model_attr='nickname_en')
-    nickname_ar = indexes.CharField(model_attr='nickname_ar')
-    age_en = indexes.CharField(model_attr='age_en', faceted=True)
-    age_ar = indexes.CharField(model_attr='age_ar')
-    sex_en = indexes.CharField(model_attr='sex_en', faceted=True)
-    sex_ar = indexes.CharField(model_attr='sex_ar')
+    fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
+    fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
+    nickname_en = indexes.CharField(model_attr='nickname_en', null=True)
+    nickname_ar = indexes.CharField(model_attr='nickname_ar', null=True)
+    age_en = indexes.CharField(model_attr='age_en', faceted=True, null=True)
+    age_ar = indexes.CharField(model_attr='age_ar', null=True)
+    sex_en = indexes.CharField(model_attr='sex_en', faceted=True, null=True)
+    sex_ar = indexes.CharField(model_attr='sex_ar', null=True)
     civilian_en = indexes.CharField(model_attr='civilian_en', \
-    faceted=True)
-    civilian_ar = indexes.CharField(model_attr='civilian_ar')
-    occupation_en = indexes.CharField(model_attr='occupation_en')
-    occupation_ar = indexes.CharField(model_attr='occupation_ar')
+    faceted=True, null=True)
+    civilian_ar = indexes.CharField(model_attr='civilian_ar', null=True)
+    occupation_en = indexes.CharField(model_attr='occupation_en', null=True)
+    occupation_ar = indexes.CharField(model_attr='occupation_ar', null=True)
     nationality_en = indexes.CharField(model_attr='nationality_en', \
-    faceted=True)
-    nationality_ar = indexes.CharField(model_attr='nationality_ar')
-    position_en = indexes.CharField(model_attr='position_en')
-    position_ar = indexes.CharField(model_attr='position_ar')
-    ethnicity_en = indexes.CharField(model_attr='ethnicity_en')
-    ethnicity_ar = indexes.CharField(model_attr='ethnicity_ar')
-    religion_en = indexes.CharField(model_attr='religion_en')
-    religion_ar = indexes.CharField(model_attr='religion_ar')
-    spoken_dialect_en = indexes.CharField(model_attr='spoken_dialect_en')
-    spoken_dialect_ar = indexes.CharField(model_attr='spoken_dialect_ar')
+    faceted=True, null=True)
+    nationality_ar = indexes.CharField(model_attr='nationality_ar', null=True)
+    position_en = indexes.CharField(model_attr='position_en', null=True)
+    position_ar = indexes.CharField(model_attr='position_ar', null=True)
+    ethnicity_en = indexes.CharField(model_attr='ethnicity_en', null=True)
+    ethnicity_ar = indexes.CharField(model_attr='ethnicity_ar', null=True)
+    religion_en = indexes.CharField(model_attr='religion_en', null=True)
+    religion_ar = indexes.CharField(model_attr='religion_ar', null=True)
+    spoken_dialect_en = indexes.CharField(model_attr='spoken_dialect_en',
+    null=True)
+    spoken_dialect_ar = indexes.CharField(model_attr='spoken_dialect_ar',
+    null=True)
     count_incidents = indexes.MultiValueField()
     count_bulletins = indexes.MultiValueField()
     actor_created = indexes.DateTimeField(model_attr='actor_created', \
-    faceted=True)
+    faceted=True, null=True)
     media_uri = indexes.MultiValueField()
 
     def get_model(self):
@@ -71,10 +73,10 @@ class LabelIndex(indexes.SearchIndex, indexes.Indexable):
     This document handles the construction of the Label Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    name_en = indexes.CharField(model_attr='name_en')
-    name_ar = indexes.CharField(model_attr='name_ar')
-    description_en = indexes.CharField(model_attr='description_en')
-    description_ar = indexes.CharField(model_attr='description_ar')
+    name_en = indexes.CharField(model_attr='name_en', null=True)
+    name_ar = indexes.CharField(model_attr='name_ar', null=True)
+    description_en = indexes.CharField(model_attr='description_en', null=True)
+    description_ar = indexes.CharField(model_attr='description_ar', null=True)
 
     def get_model(self):
         return Label
@@ -84,7 +86,7 @@ class MediaIndex(indexes.SearchIndex, indexes.Indexable):
     This document handles the construction of the Media Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name_en')
+    name = indexes.CharField(model_attr='name_en', null=True)
     uri = indexes.MultiValueField()
 
     def get_model(self):
@@ -101,11 +103,14 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     This document handles the construction of the Incident Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    incident_details_en = indexes.CharField(model_attr='incident_details_en')
-    incident_details_ar = indexes.CharField(model_attr='incident_details_ar')
-    title_en = indexes.CharField(model_attr='title_en')
-    title_ar = indexes.CharField(model_attr='title_ar')
-    confidence_score = indexes.IntegerField(model_attr='confidence_score')
+    incident_details_en = indexes.CharField(model_attr='incident_details_en',
+    null=True)
+    incident_details_ar = indexes.CharField(model_attr='incident_details_ar',
+    null=True)
+    title_en = indexes.CharField(model_attr='title_en', null=True)
+    title_ar = indexes.CharField(model_attr='title_ar', null=True)
+    confidence_score = indexes.IntegerField(model_attr='confidence_score',
+    null=True)
     actors_role = indexes.MultiValueField()
     crimes = indexes.MultiValueField(faceted=True)
     incident_times = indexes.MultiValueField(faceted=True)
@@ -114,9 +119,11 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     count_actors = indexes.MultiValueField()
     count_bulletins = indexes.MultiValueField()
     count_incidents = indexes.MultiValueField()
-    incident_assigned = indexes.CharField(model_attr='assigned_user', faceted=True)
+    incident_assigned = indexes.CharField(model_attr='assigned_user',
+    faceted=True, null=True)
     most_recent_status_incident = indexes.MultiValueField(faceted=True)
-    incident_created = indexes.DateTimeField(model_attr='incident_created', faceted=True)
+    incident_created = indexes.DateTimeField(model_attr='incident_created',
+    faceted=True, null=True)
 
     def get_model(self):
         return Incident
@@ -178,24 +185,26 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     This document handles the construction of the Bulletin Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    description_en = indexes.CharField(model_attr='description_en')
-    description_ar = indexes.CharField(model_attr='description_ar')
-    title_en = indexes.CharField(model_attr='title_en')
-    title_ar = indexes.CharField(model_attr='title_ar')
-    confidence_score = indexes.IntegerField(model_attr='confidence_score')
-    type = indexes.CharField(model_attr='type')
-    bulletin_times = indexes.MultiValueField(faceted=True)
+    description_en = indexes.CharField(model_attr='description_en', null=True)
+    description_ar = indexes.CharField(model_attr='description_ar', null=True)
+    title_en = indexes.CharField(model_attr='title_en', null=True)
+    title_ar = indexes.CharField(model_attr='title_ar', null=True)
+    confidence_score = indexes.IntegerField(model_attr='confidence_score',
+    null=True)
+    type = indexes.CharField(model_attr='type', null=True)
+    bulletin_times = indexes.MultiValueField(faceted=True, null=True)
     locations = indexes.MultiValueField()
-    bulletin_labels = indexes.MultiValueField(faceted=True)
-    sources = indexes.MultiValueField(faceted=True)
+    bulletin_labels = indexes.MultiValueField(faceted=True, null=True)
+    sources = indexes.MultiValueField(faceted=True, null=True)
     count_actors = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
     medias = indexes.MultiValueField()
     bulletin_assigned = indexes.CharField(model_attr='assigned_user', \
-    faceted=True)
-    most_recent_status_bulletin = indexes.MultiValueField(faceted=True)
+    faceted=True, null=True)
+    most_recent_status_bulletin = indexes.MultiValueField(faceted=True,
+    null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
-    faceted=True)
+    faceted=True, null=True)
 
     #bulletins = indexes.MultiValueField()
     def get_model(self):
@@ -253,10 +262,10 @@ class LocationIndex(indexes.SearchIndex, indexes.Indexable):
     This document handles the construction of the Location Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name_en')
-    location_type = indexes.CharField(model_attr='loc_type')
-    parent_text = indexes.CharField(model_attr='parent_text')
-    location = indexes.LocationField(model_attr='get_location')
+    name = indexes.CharField(model_attr='name_en', null=True)
+    location_type = indexes.CharField(model_attr='loc_type', null=True)
+    parent_text = indexes.CharField(model_attr='parent_text', null=True)
+    location = indexes.LocationField(model_attr='get_location', null=True)
 
     def get_model(self):
         return Location
