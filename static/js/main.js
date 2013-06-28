@@ -6,6 +6,7 @@ define(
     'lib/SolrSearch/main',
   ],
   function(Navigation, SolrSearch) {
+    SolrSearch.init();
     Navigation.init();
   }
 );

@@ -36,9 +36,12 @@
       bacon: {
         deps: ['jquery', 'jquery_ui']
       },
-      //bacon_ui: {
-        //deps: ['jquery', 'bacon'],
-      //},
+      core: {
+        deps: ['jquery'],
+      },
+      widgets: {
+        deps: ['jquery'],
+      },
       jquery_ui: {
         deps: ['jquery']
       }

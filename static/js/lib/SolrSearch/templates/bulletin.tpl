@@ -1,4 +1,3 @@
-<tr count="20" class="REPEAT Bulletin in-table">
   <td class="is-selector">
     <input type="checkbox">
   </td>
@@ -28,5 +27,3 @@
   <td class="is-score">
   <span class="value">{{model.confidence_score}}</span>
   </td>
-</tr>
-

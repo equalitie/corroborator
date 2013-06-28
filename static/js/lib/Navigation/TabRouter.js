@@ -9,10 +9,10 @@ define(
   [
     'jquery', 'backbone',
     'lib/streams',
-    'lib/dispatcher'
+    'lib/Data/collections'
 
   ],
-  function($, Backbone, Streams, dispatcher) {
+  function($, Backbone, Streams, Collections) {
     'use strict';
     var tabRouter,
         tabView;
@@ -55,6 +55,21 @@ define(
                       .toProperty()
                       .map(convertToElement)
                       .onValue(this.updateTabClass);
+        this.watchCollectionCounts();
+      },
+      watchCollectionCounts: function() {
+        Collections.BulletinCollection.on('add reset', function() {
+          $('.bulletin-count').empty()
+                              .append(Collections.BulletinCollection.length);
+        }, this);
+        Collections.ActorCollection.on('add reset', function() {
+          $('.actor-count').empty()
+                           .append(Collections.ActorCollection.length);
+        }, this);
+        Collections.IncidentCollection.on('add reset', function() {
+          $('.incident-count').empty()
+                              .append(Collections.IncidentCollection.length);
+        }, this);
       },
 
       updateTabClass: function(el) {
