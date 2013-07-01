@@ -93,7 +93,7 @@
     margin-right: -1px;
   }
   .is-selector.right {
-    border-left: none;
+    //margin-left: 1px;
   }
   .actor-content {
     @include clearfix;

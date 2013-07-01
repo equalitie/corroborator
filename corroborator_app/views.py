@@ -16,6 +16,7 @@ from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
     Media, Comment, PredefinedSearch, ActorRelationship
 from django.utils import simplejson as json
 from django.db.models import Count
+from tastypie.models import ApiKey
 
 def login_user(request):
     state = "Please log in below..."
@@ -131,6 +132,11 @@ def new_index(request, *args, **kwargs):
         users_set = User.objects.all()
         loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
         loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
+
+        #api details
+        user = User.objects.get(username=username)
+        api = ApiKey.objects.get(user=user)
+
         return render(
             request, 'new_search.html',
             {
@@ -145,6 +151,7 @@ def new_index(request, *args, **kwargs):
                 'username': username,
                 'userid': userid,
                 'ps_list': ps_list,
+                'api_key': api.key,
             }
         )
     else:

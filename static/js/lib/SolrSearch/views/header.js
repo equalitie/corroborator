@@ -22,7 +22,7 @@ define(
   ],
   function ($, Backbone, Handlebars, Streams, Combo) {
     'use strict';
-    // ## create a combo view to handle the actions
+    // collection of menu items
     var menuItems = new Backbone.Collection([
       {
         name_en: 'Delete Selected',
@@ -37,24 +37,82 @@ define(
         name_en: 'Clear Selected',
       },
     ]);
+
+    // Stream processing functions
+    var filterActions = function(value) {
+      return value.type === 'action_combo';
+    };
+    // event stream processing helpers
+    var extractResults = function(value) {
+      return value.content;
+    };
+    var getActionType = function(model) {
+     return {
+       option: model.get('name_en')
+     };
+    };
+    // used to combine nav and action combo events
+    var combineBoth = function(previous, newValue) {
+      if (newValue.hasOwnProperty('navValue')) {
+        previous.navValue = newValue.navValue;
+        previous.action = false;
+      }
+      if (newValue.hasOwnProperty('option')) {
+        previous.option = newValue.option;
+        previous.action = true;
+      }
+      return previous;
+    };
+    var filterExecuteAction = function(value) {
+      return value.action === true;
+    };
+
+    // map navigation event into a wrapped one
+    var createNavProperty = function() {
+      var mapNav = function(value) {
+        return { navValue: value };
+      };
+      return Streams.navBus
+                    .toEventStream()
+                    .map(mapNav);
+    };
+    // distinguish between new nav and action events
+    var identifyNewAction = function(previous, newValue) {
+      console.log(previous.option, newValue.option);
+      console.log('identifyNewAction');
+      return previous.option === newValue.option;
+    };
     
+    // ## create a combo view to handle the actions
     var ActionComboView = Combo.view.extend({
       eventIdentifier: 'action_combo',
       el: '.actions',
       initialize: function(options) {
         Combo.view.prototype.initialize.call(this, options);
         this.collection = options.collection;
-        this.handleNavigation();
+        this.propogateEvents();
       },
+
       /**
        * register a handler for navigation events
        */
-      handleNavigation: function() {
-        Streams.navBus.toProperty()
-            .onValue(this.updateCollection, this);
-      },
-      updateCollection: function(context, value) {
-        console.log(context, value);
+      propogateEvents: function() {
+        var self = this;
+
+        var selectStream = Streams.searchBus.toEventStream()
+                           .filter(filterActions)
+                           .map(extractResults)
+                           .map(getActionType);
+
+        var both = selectStream.merge(createNavProperty());
+        var watcher = both.scan({
+                            type: self.eventIdentifier + '_combined'
+                          }, combineBoth);
+        watcher.filter(filterExecuteAction)
+               .onValue(function(value) {
+                  Streams.searchBus.push(value);
+                });
+
       }
     });
 
@@ -62,7 +120,12 @@ define(
     var HeaderView = Backbone.View.extend({
       el: '.search-header',
       events: {
-        'click a': 'handleFilter'
+        'click a': 'handleFilter',
+        'click .date': 'sortDate',
+        'click .location': 'sortLocation',
+        'click .title': 'sortTitle',
+        'click .status': 'sortStatus',
+        'click .score': 'sortScore'
       },
       initialize: function(options) {
         this.template = Handlebars.templates['header.tpl'];
@@ -83,6 +146,7 @@ define(
                           .children()
                           .removeClass('current')
                           .removeClass('is-descending');
+
         $(e.currentTarget).parent()
                           .children()
                           .removeClass('current')

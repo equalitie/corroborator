@@ -31,6 +31,7 @@ define(
         this.index = options.index;
         this.template = Handlebars.templates['actor.tpl'];
         this.model.on('change', this.render, this);
+        this.model.on('destroy', this.destroy, this);
         this.render();
       },
       expandActor: function() {

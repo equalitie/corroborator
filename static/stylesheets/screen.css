@@ -3124,10 +3124,6 @@ nav .do-search {
   border-right: 1px solid white;
   margin-right: -1px;
 }
-/* line 95, ../sass/_search.scss */
-.actors.table .is-selector.right {
-  border-left: none;
-}
 /* line 98, ../sass/_search.scss */
 .actors.table .actor-content {
   overflow: hidden;
