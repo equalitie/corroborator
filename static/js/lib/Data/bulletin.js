@@ -23,7 +23,7 @@ define(
     var mapSort = function(value) {
       var sortMap = {
         'date': 'bulletin_created',
-        'title': 'fullname_en',
+        'title': 'title_en',
         'score': 'confidence_score',
         //'status': ''
       };
@@ -148,7 +148,6 @@ define(
     BulletinModel: BulletinModel,
     BulletinCollection: BulletinCollection
   };
-
 
 });
 
