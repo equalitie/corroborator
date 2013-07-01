@@ -1,3 +1,10 @@
+/*global Bootstrap*/
+/**
+ * Author Cormac McGuire
+ * actor.js
+ * Represent a single actor and a group of actors
+ * TODO: refactor common logic for all collections
+ */
 define(
   [
     'jquery', 'underscore', 'backbone',
@@ -23,7 +30,9 @@ define(
       return sortMap[value];
     };
 
+    //////////////////////////////////////////////////////////////////////
     // common to all collections
+    //////////////////////////////////////////////////////////////////////
     var extractOption = function(value) {
       return value.option;
     };
@@ -39,8 +48,14 @@ define(
     var filterDeleteSelected = function(value) {
       return value.option === 'Delete Selected';
     };
+    //////////////////////////////////////////////////////////////////////
+    // end common
+    //////////////////////////////////////////////////////////////////////
 
     // Data representations
+    //////////////////////////////////////////////////////////////////////
+    // Actor Model
+    //////////////////////////////////////////////////////////////////////
     var ActorModel = Backbone.Model.extend({
       idAttribute: 'django_id',
       url: function() {
@@ -54,7 +69,9 @@ define(
       }
     });
 
-    // Collection representing all actors
+    //////////////////////////////////////////////////////////////////////
+    // Actor Collection
+    //////////////////////////////////////////////////////////////////////
     var ActorCollection = Backbone.Collection.extend({
       model: ActorModel,
       compareField: 'actor_created',
@@ -96,6 +113,10 @@ define(
         });
       },
 
+      //
+      // listen for sort request events
+      // originate from header.js in SolrSearch views
+      //
       watchSort: function() {
         var self = this;
         Streams.searchBus.filter(function(value) {
@@ -111,10 +132,20 @@ define(
         });
       },
 
+      //////////////////////////////////////////////////////////////////////
+      // common to all collections
+      //////////////////////////////////////////////////////////////////////
+
+      // 
+      // change the selected state of a single model
+      //
       toggleSelection: function(model, checked) {
         model.set({checked: checked});
       },
 
+      // 
+      // delete selected models
+      //
       deleteSelected: function() {
         var getSelected = function(model) {
           return model.get('checked') === 'checked';
@@ -136,6 +167,9 @@ define(
           this.toggleSelection(model, '');
         }, this);
       }
+      //////////////////////////////////////////////////////////////////////
+      // end common
+      //////////////////////////////////////////////////////////////////////
     });
 
 

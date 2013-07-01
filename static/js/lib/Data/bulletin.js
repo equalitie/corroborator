@@ -1,3 +1,10 @@
+/*global Bootstrap*/
+/**
+ * Author Cormac McGuire
+ * bulletin.js
+ * Represent a single bulletin and a group of bulletins
+ * TODO: refactor common logic for all collections
+ */
 define(
   [
     'jquery', 'underscore', 'backbone',
@@ -45,7 +52,16 @@ define(
     //////////////////////////////////////////////////////////////////////
 
     var BulletinModel = Backbone.Model.extend({
-      idAttribute: 'django_id'
+      idAttribute: 'django_id',
+      url: function() {
+        var base = '/api/v1/bulletin/';
+        if (this.id) {
+          base = base + this.id + '/';
+        }
+        var urlvars = "?format=json&username=" +
+        Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
+          return base + urlvars;
+      }
     });
 
     var BulletinCollection = Backbone.Collection.extend({
@@ -109,6 +125,7 @@ define(
           return model.get('checked') === 'checked';
         };
         var deleteModel = function(model) {
+          console.log(model);
           model.destroy();
         };
         _.each(this.filter(getSelected), deleteModel);
