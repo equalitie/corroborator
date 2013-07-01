@@ -44,7 +44,7 @@ define(
       selectActor: function(e) {
         var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';
         this.model.set({checked: checked}, {silent: true});
-        return true;
+        this.model.collection.trigger('change');
       },
       render: function() {
         this.$el.empty();
@@ -70,7 +70,7 @@ define(
       childViews: [],
       initialize: function() {
         this.collection = Collections.ActorCollection;
-        this.collection.on('add reset', this.render, this);
+        this.collection.on('add sort reset', this.render, this);
         this.template = Handlebars.templates['actor-results.tpl'];
         this.render();
       },
@@ -142,7 +142,7 @@ define(
 
       initialize: function() {
         this.collection = Collections.IncidentCollection;
-        this.collection.on('add reset', this.render, this);
+        this.collection.on('add sort reset', this.render, this);
         this.template = Handlebars.templates['actor-results.tpl'];
         this.render();
       },
@@ -185,20 +185,29 @@ define(
     var BulletinResultView = Backbone.View.extend({
       tagName: 'tr',
       events: {
+        'click input[type="checkbox"]': 'selectBulletin'
       },
 
       initialize: function(options) {
         this.index = options.index;
         this.template = Handlebars.templates['bulletin.tpl'];
+        this.model.on('change', this.render, this);
+        this.model.on('destroy', this.destroy, this);
         this.render();
+      },
+      selectBulletin: function() {
+        var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';
+        this.model.set({checked: checked}, {silent: true});
+        this.model.collection.trigger('change');
       },
 
       render: function() {
         var html = this.template({
           model: this.model.toJSON(),
         });
-        this.$el.addClass('REPEAT Bulletin in-table');
-        this.$el.append(html);
+        this.$el.empty()
+                .addClass('REPEAT Bulletin in-table')
+                .append(html);
         return this;
       },
 
@@ -215,7 +224,7 @@ define(
       childViews: [],
       initialize: function() {
         this.collection = Collections.BulletinCollection;
-        this.collection.on('add reset', this.render, this);
+        this.collection.on('add sort reset', this.render, this);
         this.template = Handlebars.templates['bulletin-results.tpl'];
         this.render();
       },

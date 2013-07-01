@@ -2,8 +2,7 @@
   <div class="Selection">
     <div class="description">
       <span class="text T">
-        <em><span id="number-incidents-selected">0</span> {{domain}}</em> selected
-      </span>
+      <span id="number-selected"></span>
     </div>
     <div class="actions">
     </div>

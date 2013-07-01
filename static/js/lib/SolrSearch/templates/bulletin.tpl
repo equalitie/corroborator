@@ -1,5 +1,5 @@
   <td class="is-selector">
-    <input type="checkbox">
+    <input type="checkbox" {{model.checked}}>
   </td>
   <td class="is-preview">&nbsp;</td>
   <td class="is-description">

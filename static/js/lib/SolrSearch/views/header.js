@@ -17,10 +17,13 @@ define(
     'lib/streams',
     // elements
     'lib/elements/combo',
+    //data
+    'lib/Data/collections',
     // templates
-    'lib/SolrSearch/templates/header.tpl'
+    'lib/SolrSearch/templates/header.tpl',
+    'lib/SolrSearch/templates/header-count.tpl'
   ],
-  function ($, Backbone, Handlebars, Streams, Combo) {
+  function ($, Backbone, Handlebars, Streams, Combo, Collections) {
     'use strict';
     // collection of menu items
     var menuItems = new Backbone.Collection([
@@ -39,6 +42,14 @@ define(
     ]);
 
     // Stream processing functions
+    var filterSort = function(value) {
+      return value.type === 'header_view';
+    };
+    var getSortType = function(value) {
+      return {
+        option: value.sort
+      };
+    };
     var filterActions = function(value) {
       return value.type === 'action_combo';
     };
@@ -46,6 +57,7 @@ define(
     var extractResults = function(value) {
       return value.content;
     };
+
     var getActionType = function(model) {
      return {
        option: model.get('name_en')
@@ -78,8 +90,6 @@ define(
     };
     // distinguish between new nav and action events
     var identifyNewAction = function(previous, newValue) {
-      console.log(previous.option, newValue.option);
-      console.log('identifyNewAction');
       return previous.option === newValue.option;
     };
     
@@ -116,9 +126,54 @@ define(
       }
     });
 
+    var ElementsSelectedView = Backbone.View.extend({
+      el: '#number-selected',
+      initialize: function() {
+        this.template = Handlebars.templates['header-count.tpl'];
+        this.collections = {
+          'actor': Collections.ActorCollection,
+          'bulletin': Collections.BulletinCollection,
+          'incident': Collections.IncidentCollection
+        };
+        this.watchNav();
+      },
+      watchNav: function() {
+        var self = this;
+        createNavProperty().onValue(function(value) {
+          self.collection = self.collections[value.navValue];
+          self.collection.on('change updateSelected', self.render, self);
+          self.collectionName = value.navValue;
+          self.render();
+        });
+                           
+      },
+      pluralise: function(word, number) {
+        if (number !== 1) {
+          word = word + 's';
+        }
+        return word;
+      },
+      render: function() {
+        var numItems = 
+          this.collection.filter(function(model) {
+            return model.get('checked') === 'checked';
+          }).length;
+        var html = this.template({
+          domain:   this.pluralise(this.collectionName, numItems),
+          numItems: numItems
+        });
+        this.$el.empty()
+                .append(html);
+
+        return this;
+      }
+
+    });
+
     // ## used to render an item from the collection passed in
     var HeaderView = Backbone.View.extend({
       el: '.search-header',
+      eventIdentifier: 'header_view',
       events: {
         'click a': 'handleFilter',
         'click .date': 'sortDate',
@@ -127,6 +182,7 @@ define(
         'click .status': 'sortStatus',
         'click .score': 'sortScore'
       },
+
       initialize: function(options) {
         this.template = Handlebars.templates['header.tpl'];
         this.comboView = new ActionComboView({
@@ -137,8 +193,55 @@ define(
             search_request: 'none'
           }
         });
+        this.on('sortEvent', this.publishSort, this);
+        this.watchSortEvents();
         this.render();
       },
+
+      // handle sort events from headers
+      sortDate: function() {
+        this.sendSortEvent('date');
+      },
+      sortLocation: function() {
+        this.sendSortEvent('location');
+      },
+      sortTitle: function() {
+        this.sendSortEvent('title');
+      },
+      sortStatus: function() {
+        this.sendSortEvent('status');
+      },
+      sortScore: function() {
+        this.sendSortEvent('score');
+      },
+
+      sendSortEvent: function(sortEventName) {
+        Streams.searchBus.push({
+          type: this.eventIdentifier,
+          content: {
+            sort: sortEventName
+          }
+        });
+      },
+      watchSortEvents: function() {
+        var self = this;
+
+        var selectStream = Streams.searchBus.toEventStream()
+                           .filter(filterSort)
+                           .map(extractResults)
+                           .map(getSortType);
+
+        var both = selectStream.merge(createNavProperty());
+        var watcher = both.scan({
+                            type: self.eventIdentifier + '_combined'
+                          }, combineBoth);
+        watcher.filter(filterExecuteAction)
+               .onValue(function(value) {
+                  Streams.searchBus.push(value);
+                });
+
+      },
+
       handleFilter: function(e) {
         e.preventDefault();
         $(e.currentTarget).parent()
@@ -158,7 +261,13 @@ define(
       render: function() {
         var header = this.template({domain: 'incidents'});
         this.$el.append(header);
+        this.renderSelectedCount();
         this.renderComboBox();
+      },
+      //render the number selected box
+      renderSelectedCount: function() {
+        var countView = new ElementsSelectedView({
+        });
       },
       // render the actions
       renderComboBox: function() {

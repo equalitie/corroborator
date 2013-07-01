@@ -58,15 +58,16 @@ define(
         this.watchCollectionCounts();
       },
       watchCollectionCounts: function() {
-        Collections.BulletinCollection.on('add reset', function() {
+        Collections.BulletinCollection.on('add destroy reset', function() {
           $('.bulletin-count').empty()
                               .append(Collections.BulletinCollection.length);
         }, this);
-        Collections.ActorCollection.on('add reset', function() {
+        Collections.ActorCollection.on('add destroy change reset', function() {
+          console.log('change or summat');
           $('.actor-count').empty()
                            .append(Collections.ActorCollection.length);
         }, this);
-        Collections.IncidentCollection.on('add reset', function() {
+        Collections.IncidentCollection.on('add destroy reset', function() {
           $('.incident-count').empty()
                               .append(Collections.IncidentCollection.length);
         }, this);
