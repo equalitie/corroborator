@@ -1,8 +1,8 @@
 /*global define, Bacon */
 /**
-### header.js
+### filters.js
 
-This displays the header view
+This displays the filter view
 it provides:
 - feedback on the number of actors selected
 - filtering for the search results
@@ -20,24 +20,40 @@ define(
     //data
     'lib/Data/collections',
     // templates
-    'lib/SolrSearch/templates/header.tpl',
-    'lib/SolrSearch/templates/header-count.tpl'
   ],
 
   function ($, Backbone, Handlebars, Streams, Combo, Collections) {
     //////////////////////////////////////////////////////////////////////
+    // STREAM PROCESSING HELPERS
+    //////////////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////////
     // ACTOR FILTER VIEW
     //////////////////////////////////////////////////////////////////////
-    var ActorFilterView = Backbone.View.extend({});
+    var ActorFilterView = Backbone.View.extend({
+      initialize: function() {},
+      render: function() {}
+
+    });
 
 
     //////////////////////////////////////////////////////////////////////
     // BULLETIN FILTER VIEW
     //////////////////////////////////////////////////////////////////////
-    var BulletinFilterView = Backbone.View.extend({});
+    var BulletinFilterView = Backbone.View.extend({
+      initialize: function() {},
+      render: function() {}
+
+    });
+
 
     //////////////////////////////////////////////////////////////////////
     // INCIDENT FILTER VIEW
     //////////////////////////////////////////////////////////////////////
-    var IncidentFilterView = Backbone.View.extend({});
+    var IncidentFilterView = Backbone.View.extend({
+      initialize: function() {},
+      render: function() {}
+
+    });
 });

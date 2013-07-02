@@ -89,16 +89,16 @@ define(
 
         incidentStream.filter(filterSelectAll)
           .onValue(function() {
-          self.selectAll();
-        });
+            self.selectAll();
+          });
         incidentStream.filter(filterUnselectAll)
           .onValue(function() {
-          self.unSelectAll();
-        });
+            self.unSelectAll();
+          });
         incidentStream.filter(filterDeleteSelected)
           .onValue(function() {
-          self.deleteSelected();
-        });
+            self.deleteSelected();
+          });
       },
       watchSort: function() {
         var self = this;
@@ -124,14 +124,14 @@ define(
           return model.get('checked') === 'checked';
         };
         var deleteModel = function(model) {
-          console.log(model);
+          console.log('deleteModel');
           model.destroy();
         };
+        console.log(this);
         _.each(this.filter(getSelected), deleteModel);
       },
 
       selectAll: function() {
-        console.log('selectAll');
         this.each(function(model) {
           this.toggleSelection(model, 'checked');
         }, this);
