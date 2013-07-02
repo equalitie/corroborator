@@ -21,29 +21,16 @@ define(
     'lib/Data/collections',
     // templates
     'lib/SolrSearch/templates/header.tpl',
-    'lib/SolrSearch/templates/header-count.tpl'
+    'lib/SolrSearch/templates/header-count.tpl',
+    'lib/SolrSearch/templates/filters.tpl'
   ],
   function ($, Backbone, Handlebars, Streams, Combo, Collections) {
     'use strict';
-    // collection of menu items
-    var menuItems = new Backbone.Collection([
-      {
-        name_en: 'Delete Selected',
-      },
-      {
-        name_en: 'Update Selected',
-      },
-      {
-        name_en: 'Select All',
-      },
-      {
-        name_en: 'Clear Selected',
-      },
-    ]);
-
+    //////////////////////////////////////////////////////////////////////
     // Stream processing functions
+    //////////////////////////////////////////////////////////////////////
     var filterSort = function(value) {
-      return value.type === 'header_view';
+      return value.type === 'filter_view';
     };
     var getSortType = function(value) {
       return {
@@ -53,7 +40,6 @@ define(
     var filterActions = function(value) {
       return value.type === 'action_combo';
     };
-    // event stream processing helpers
     var extractResults = function(value) {
       return value.content;
     };
@@ -93,7 +79,25 @@ define(
       return previous.option === newValue.option;
     };
     
-    // ## create a combo view to handle the actions
+    //////////////////////////////////////////////////////////////////////
+    // END STREAM PROCESSING FUNCTIONS
+    //////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////
+    // VIEWS
+    //////////////////////////////////////////////////////////////////////
+
+    // collection of menu items for the action combo
+    var menuItems = new Backbone.Collection([
+      { name_en: 'Delete Selected' },
+      { name_en: 'Update Selected' },
+      { name_en: 'Select All' },
+      { name_en: 'Clear Selected' }
+    ]);
+
+    //////////////////////////////////////////////////////////////////////
+    // ACTION COMBO VIEW
+    //////////////////////////////////////////////////////////////////////
     var ActionComboView = Combo.view.extend({
       eventIdentifier: 'action_combo',
       el: '.actions',
@@ -126,6 +130,9 @@ define(
       }
     });
 
+    //////////////////////////////////////////////////////////////////////
+    // NUMBER OF ELEMENTS SELECTED VIEW
+    //////////////////////////////////////////////////////////////////////
     var ElementsSelectedView = Backbone.View.extend({
       el: '#number-selected',
       initialize: function() {
@@ -170,31 +177,27 @@ define(
 
     });
 
-    // ## used to render an item from the collection passed in
-    var HeaderView = Backbone.View.extend({
-      el: '.search-header',
-      eventIdentifier: 'header_view',
+    //////////////////////////////////////////////////////////////////////
+    // FILTER VIEW
+    //////////////////////////////////////////////////////////////////////
+    
+    var FilterView = Backbone.View.extend({
+      el: 'tr.filters',
+      eventIdentifier: 'filter_view',
+      variableFilter: 'location',
       events: {
         'click a': 'handleFilter',
         'click .date': 'sortDate',
         'click .location': 'sortLocation',
+        'click .age': 'sortAge',
         'click .title': 'sortTitle',
         'click .status': 'sortStatus',
         'click .score': 'sortScore'
       },
-
-      initialize: function(options) {
-        this.template = Handlebars.templates['header.tpl'];
-        this.comboView = new ActionComboView({
-          collection: menuItems,
-          bus: Streams.searchBus,
-          primary: {
-            name_en: 'Actions',
-            search_request: 'none'
-          }
-        });
-        this.on('sortEvent', this.publishSort, this);
+      initialize: function() {
+        this.template = Handlebars.templates['filters.tpl'];
         this.watchSortEvents();
+        this.watchNavEvents();
         this.render();
       },
 
@@ -204,6 +207,9 @@ define(
       },
       sortLocation: function() {
         this.sendSortEvent('location');
+      },
+      sortAge: function() {
+        this.sendSortEvent('age');
       },
       sortTitle: function() {
         this.sendSortEvent('title');
@@ -223,6 +229,22 @@ define(
           }
         });
       },
+      // watch for nav to actor - swap out filters when change to and from
+      watchNavEvents: function() {
+        var self = this;
+        var filterMap = {
+          actor: 'age',
+          bulletin: 'location',
+          incident: 'location'
+        };
+        createNavProperty()
+          .onValue(function(value) {
+            console.log(value);
+            self.variableFilter = filterMap[value.navValue];
+            self.render();
+          });
+      },
+
       watchSortEvents: function() {
         var self = this;
 
@@ -257,6 +279,34 @@ define(
 
         $(e.currentTarget).addClass('current').addClass('is-descending');
       },
+      render: function() {
+        var html = this.template({variableFilter: this.variableFilter});
+        this.$el.empty()
+                .append(html);
+      }
+    });
+
+    // ## used to render the header container view
+    // renders the ElementsSelectedView and the ActionComboView subviews
+    var HeaderView = Backbone.View.extend({
+      el: '.search-header',
+      eventIdentifier: 'header_view',
+
+      initialize: function(options) {
+        this.template = Handlebars.templates['header.tpl'];
+        this.comboView = new ActionComboView({
+          collection: menuItems,
+          bus: Streams.searchBus,
+          primary: {
+            name_en: 'Actions',
+            search_request: 'none'
+          }
+        });
+        this.on('sortEvent', this.publishSort, this);
+        this.render();
+        this.renderFilterBox();
+      },
+
 
       render: function() {
         var header = this.template({domain: 'incidents'});
@@ -274,8 +324,12 @@ define(
         // needed because actions div has just been rendered
         this.comboView.setElement('.actions');
         this.comboView.render();
+      },
+      renderFilterBox: function() {
+        var filterView = new FilterView();
       }
     });
+
 
     // expose our view as a module export
     return {

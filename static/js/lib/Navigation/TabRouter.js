@@ -63,7 +63,6 @@ define(
                               .append(Collections.BulletinCollection.length);
         }, this);
         Collections.ActorCollection.on('add destroy change reset', function() {
-          console.log('change or summat');
           $('.actor-count').empty()
                            .append(Collections.ActorCollection.length);
         }, this);

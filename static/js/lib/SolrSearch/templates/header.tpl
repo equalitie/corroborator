@@ -11,7 +11,7 @@
 
 <table class="incidents">
   <thead>
-    <tr>
+    <tr class="filters">
       <th class="is-selector">&nbsp;</th>
       <th class="is-preview">&nbsp;</th>
       <th class="is-description sort-header">

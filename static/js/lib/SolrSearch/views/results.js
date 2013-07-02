@@ -1,8 +1,14 @@
+/**
+ * Author: Cormac McGuire
+ * results.js
+ * Display the results for actors, bulletins and incidents
+ */
 define(
   [
     'jquery', 'underscore', 'backbone', 'handlebars',
     'lib/streams',
     'lib/Data/collections',
+    'lib/elements/language',
     'lib/SolrSearch/templates/actor.tpl',
     'lib/SolrSearch/templates/actor-results.tpl',
     'lib/SolrSearch/templates/bulletin.tpl',
@@ -10,7 +16,7 @@ define(
     'lib/SolrSearch/templates/incident.tpl',
     'lib/SolrSearch/templates/incident-results.tpl'
   ],
-  function($, _, Backbone, Handlebars, Streams, Collections) {
+  function($, _, Backbone, Handlebars, Streams, Collections, Language) {
     'use strict';
     var extractResults = function(value) {
       return value.content;
@@ -25,6 +31,8 @@ define(
       tagName: 'li',
       events: {
         'click .actor-content': 'expandActor',
+        'click .toggle lang:(ar)': 'showArabic',
+        'click .toggle lang:(en)': 'showEnglish',
         'click input[type="checkbox"]': 'selectActor'
       },
       initialize: function(options) {
@@ -114,11 +122,20 @@ define(
     //render and individual result
     var IncidentResultView = Backbone.View.extend({
       events: {
+        'click .toggle span': 'switchLanguage',
       },
       initialize: function(options) {
         this.index = options.index;
         this.template = Handlebars.templates['incident.tpl'];
         this.render();
+      },
+      // dom event handlers
+      switchLanguage: function(evt) {
+        var clickedElement = evt.currentTarget,
+            i18nElement = this.$el.children('td.is-description')
+                              .children('a')
+                              .children('div.i18n');
+        Language.toggleLanguage(clickedElement, i18nElement);
       },
       render: function() {
         var html = this.template({
@@ -185,6 +202,7 @@ define(
     var BulletinResultView = Backbone.View.extend({
       tagName: 'tr',
       events: {
+        'click .toggle span': 'switchLanguage',
         'click input[type="checkbox"]': 'selectBulletin'
       },
 
@@ -194,6 +212,14 @@ define(
         this.model.on('change', this.render, this);
         this.model.on('destroy', this.destroy, this);
         this.render();
+      },
+      // dom event handlers
+      switchLanguage: function(evt) {
+        var clickedElement = evt.currentTarget,
+            i18nElement = this.$el.children('td.is-description')
+                              .children('a')
+                              .children('div.i18n');
+        Language.toggleLanguage(clickedElement, i18nElement);
       },
       selectBulletin: function() {
         var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';

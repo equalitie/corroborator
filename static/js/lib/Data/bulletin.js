@@ -104,7 +104,7 @@ define(
       watchSort: function() {
         var self = this;
         Streams.searchBus.filter(function(value) {
-          return value.type === 'header_view_combined';
+          return value.type === 'filter_view_combined';
         })
         .filter(filterBulletin)
         .map(extractOption)
