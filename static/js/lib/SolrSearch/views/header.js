@@ -1,14 +1,12 @@
 /*global define, Bacon */
-/**
-### header.js
+// ### header.js
 
-This displays the header view
-it provides:
-- feedback on the number of actors selected
-- filtering for the search results
-- a menu to select/unselect all, create new, or update
+// This displays the header view
+// it provides:  
+// > feedback on the number of actors selected
+// > filtering for the search results
+// > a menu to select/unselect all, create new, or update
 
-*/
 define(
   [
     // vendor
@@ -24,7 +22,9 @@ define(
     'lib/SolrSearch/templates/header-count.tpl',
     'lib/SolrSearch/templates/filters.tpl'
   ],
-  function ($, Backbone, Handlebars, Streams, Combo, Collections) {
+  function ($, Backbone, Handlebars, Streams, Combo, Collections,
+    headerTmp, headerCountTmp, filtersTmp
+  ) {
     'use strict';
     //////////////////////////////////////////////////////////////////////
     // Stream processing functions
@@ -98,11 +98,11 @@ define(
     //////////////////////////////////////////////////////////////////////
     // ACTION COMBO VIEW
     //////////////////////////////////////////////////////////////////////
-    var ActionComboView = Combo.view.extend({
+    var ActionComboView = Combo.View.extend({
       eventIdentifier: 'action_combo',
       el: '.actions',
       initialize: function(options) {
-        Combo.view.prototype.initialize.call(this, options);
+        Combo.View.prototype.initialize.call(this, options);
         this.collection = options.collection;
         this.propogateEvents();
       },
@@ -136,7 +136,6 @@ define(
     var ElementsSelectedView = Backbone.View.extend({
       el: '#number-selected',
       initialize: function() {
-        this.template = Handlebars.templates['header-count.tpl'];
         this.collections = {
           'actor': Collections.ActorCollection,
           'bulletin': Collections.BulletinCollection,
@@ -148,7 +147,7 @@ define(
         var self = this;
         createNavProperty().onValue(function(value) {
           self.collection = self.collections[value.navValue];
-          self.collection.on('change updateSelected', self.render, self);
+          self.collection.on('change destroy updateSelected', self.render, self);
           self.collectionName = value.navValue;
           self.render();
         });
@@ -165,7 +164,7 @@ define(
           this.collection.filter(function(model) {
             return model.get('checked') === 'checked';
           }).length;
-        var html = this.template({
+        var html = headerCountTmp({
           domain:   this.pluralise(this.collectionName, numItems),
           numItems: numItems
         });
@@ -195,7 +194,6 @@ define(
         'click .score': 'sortScore'
       },
       initialize: function() {
-        this.template = Handlebars.templates['filters.tpl'];
         this.watchSortEvents();
         this.watchNavEvents();
         this.render();
@@ -239,7 +237,6 @@ define(
         };
         createNavProperty()
           .onValue(function(value) {
-            console.log(value);
             self.variableFilter = filterMap[value.navValue];
             self.render();
           });
@@ -280,7 +277,7 @@ define(
         $(e.currentTarget).addClass('current').addClass('is-descending');
       },
       render: function() {
-        var html = this.template({variableFilter: this.variableFilter});
+        var html = filtersTmp({variableFilter: this.variableFilter});
         this.$el.empty()
                 .append(html);
       }
@@ -293,7 +290,6 @@ define(
       eventIdentifier: 'header_view',
 
       initialize: function(options) {
-        this.template = Handlebars.templates['header.tpl'];
         this.comboView = new ActionComboView({
           collection: menuItems,
           bus: Streams.searchBus,
@@ -309,7 +305,7 @@ define(
 
 
       render: function() {
-        var header = this.template({domain: 'incidents'});
+        var header = headerTmp({domain: 'incidents'});
         this.$el.append(header);
         this.renderSelectedCount();
         this.renderComboBox();

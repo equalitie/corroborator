@@ -1,21 +1,12 @@
 /*global window, define, Bacon, Bootstrap */
-/**
-### combo
-represent the combo box in the navigation area
+// Author: Cormac McGuire  
+// ### combo
+// represent the combo box in the navigation area
+// 
+// collection contains the elements to be displayed can be filtered based on 
+// current tab
+// 
 
-collection contains the elements to be displayed
-can be filtered based on 
-
-When creating an instance of the view, you can either pass in the element to watch
-or have one rendered.
-
-
-
-you may also pass a custom event dispatcher which will be used instead of the 
-global dispatcher for sending events
-
-TODO: define template for the view
-*/
 define(
   [
     // vendor
@@ -28,7 +19,7 @@ define(
   ],
   function ($, _, Backbone, Bacon, Streams, Combo) {
     'use strict';
-    var collection = Backbone.Collection.extend();
+    var Collection = Backbone.Collection.extend();
     var localBus = new Bacon.Bus();
 
     var isSearchRequest = function(value) {
@@ -103,7 +94,7 @@ define(
      * we add the save search item in here
      */
     var createFullCollection = function() {
-      var fullCollection = new collection(Bootstrap.predefinedSearchList);
+      var fullCollection = new Collection(Bootstrap.predefinedSearchList);
       var item = {
         name_en: 'Save current search...',
         search_request: 'save_search',
@@ -114,33 +105,30 @@ define(
     };
 
 
-    // ## Combo view
-    var NavComboView = Combo.view.extend({
+    // ## NavComboView
+    // This is a subclass for the combo view from combo.js
+    //
+    var NavComboView = Combo.View.extend({
       filteredCollection: undefined,
       eventIdentifier: 'nav_combo',
 
       // init the view setting the default item if provided
       initialize: function(options) {
         this.fullCollection = createFullCollection();
-        console.log(this.fullCollection);
         this.collection = this.fullCollection.clone();
         options.bus = localBus;
-        Combo.view.prototype.initialize.call(this, options);
+        Combo.View.prototype.initialize.call(this, options);
         this.handleNavigation();
         this.handleAddSearch();
       },
 
-      /**
-       * register a handler for navigation events
-       */
+       // register a handler for navigation events
       handleNavigation: function() {
         Streams.navBus.toProperty()
             .onValue(this.updateCollection, this);
       },
 
-      /**
-       * this function is called in response to a navigate event being pushed
-       */
+       // this function is called in response to a navigate event being pushed
       updateCollection: function(context, value) {
         var self = context,
             models,
@@ -155,11 +143,10 @@ define(
         self.collection.reset(models);
       },
 
-      /**
-       * filter search events of type new_search
-       * this adds new searches to the combo box
-       * TODO - handle saving the search
-       */
+      // filter search events of type new_search  
+      // this adds new searches to the combo box  
+      // TODO - handle saving the search  
+      //
       handleAddSearch: function() {
         var self = this;
         Streams.searchBus.toEventStream().toProperty()
@@ -175,8 +162,8 @@ define(
 
     // expose our view as a module export
     return {
-      view: NavComboView,
-      collection: collection
+      View: NavComboView,
+      Collection: Collection
     };
 });
 

@@ -1,3 +1,8 @@
+/*global Bootstrap*/
+
+// Author: Cormac McGuire  
+// collections.js  
+// Instantiate and store a reference to our collections
 define(
   [
     'jquery', 'underscore', 'backbone',

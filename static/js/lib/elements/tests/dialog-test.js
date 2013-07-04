@@ -16,10 +16,8 @@ define(
 
       tearDown: function() {
         Backbone.history.stop();
-      },
+      }
 
-      'it should return an init function': function() {
-      },
     });
   }
 );

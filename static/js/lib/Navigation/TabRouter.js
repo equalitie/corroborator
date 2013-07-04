@@ -1,35 +1,33 @@
 /*global define, Bootstrap */
-/**
-### TabRouter
+// Author: Cormac McGuire  
+// ### TabRouter
+// 
+// Backbone Router  
+// handles clicks on the three tabs and sends messages into the navStream
+// defined in streams.js based on this  
+//
+// 
 
-handle tab presses
-
-*/
 define(
   [
     'jquery', 'backbone',
     'lib/streams',
     'lib/Data/collections'
-
   ],
   function($, Backbone, Streams, Collections) {
     'use strict';
     var tabRouter,
         tabView;
 
-    /**
-     * convert tab link argument to element
-     */
+    // convert tab link argument to element
     var convertToElement = function(className) {
       return  'li.is-' + className + 's';
     };
 
-    /**
-     * ## TabRouter
-     *
-     * handle tab clicks
-     * push an event to the navBus when the user clicks on a tab
-     */
+    // ## TabRouter
+    //
+    // handle tab clicks
+    // push an event to the navBus when the user clicks on a tab
     var TabRouter = Backbone.Router.extend({
       routes: {
         'tab/:section': 'openSection'
@@ -39,15 +37,12 @@ define(
       }
     });
 
-    /**
-     * ## TabView
-     *
-     * This represents the three tabs
-     * It simply sets the current class on the last clicked
-     * tab, in response to a navigation change in the router above
-     * it has no real backbone functionality, we could either get rid of this
-     * or the router 
-     */
+    // ## TabView
+    //
+    // This represents the three tabs  
+    // It simply sets the current class on the last clicked  
+    // tab, in response to a navigation change in the router above  
+    // display the total results for each bulletin/actor/incident
     var TabView = Backbone.View.extend({
       el: '.tabs ul',
       initialize: function() {
@@ -57,6 +52,8 @@ define(
                       .onValue(this.updateTabClass);
         this.watchCollectionCounts();
       },
+      // bind to the three main collections and update the counts when they
+      // change
       watchCollectionCounts: function() {
         Collections.BulletinCollection.on('add destroy reset', function() {
           $('.bulletin-count').empty()
@@ -72,6 +69,7 @@ define(
         }, this);
       },
 
+      // update the class on the current tab
       updateTabClass: function(el) {
         $(el).siblings().removeClass('current');
         $(el).addClass('current');
@@ -79,6 +77,7 @@ define(
 
     });
 
+    // init function  
     // create our objects
     var init = function(navBus) {
       tabView = new TabView();

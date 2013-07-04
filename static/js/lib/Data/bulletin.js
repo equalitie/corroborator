@@ -1,10 +1,8 @@
 /*global Bootstrap*/
-/**
- * Author Cormac McGuire
- * bulletin.js
- * Represent a single bulletin and a group of bulletins
- * TODO: refactor common logic for all collections
- */
+// Author: Cormac McGuire  
+// bulletin.js  
+// Represent a single bulletin and a group of bulletins  
+// TODO: refactor common logic for all collections
 define(
   [
     'jquery', 'underscore', 'backbone',
@@ -13,25 +11,29 @@ define(
   function($, _, Backbone, Streams) {
     'use strict';
 
+    // ### Bulletin Specific filter stream processors
+
+    // filter bulletin nav requests
     var filterBulletin = function(value) {
       return value.navValue === 'bulletin';
     };
 
+    // filter out bulletin results
     var filterBulletinResults = function(value) {
       return value.type === 'results_bulletin';
     };
+
+    // map sort request to model field
     var mapSort = function(value) {
       var sortMap = {
         'date': 'bulletin_created',
         'title': 'title_en',
-        'score': 'confidence_score',
-        //'status': ''
+        'score': 'confidence_score'
       };
       return sortMap[value];
     };
-    //////////////////////////////////////////////////////////////////////
-    // common to all collections
-    //////////////////////////////////////////////////////////////////////
+    // ### common to all collections  
+    // TODO: refactor to share accross collections
     var extractOption = function(value) {
       return value.option;
     };
@@ -47,10 +49,12 @@ define(
     var filterDeleteSelected = function(value) {
       return value.option === 'Delete Selected';
     };
-    //////////////////////////////////////////////////////////////////////
-    // end common
-    //////////////////////////////////////////////////////////////////////
 
+    // ##Data representations
+
+
+    // ### Bulletin Model
+    // provide api endpoint for Bulletin model
     var BulletinModel = Backbone.Model.extend({
       idAttribute: 'django_id',
       url: function() {
@@ -64,6 +68,9 @@ define(
       }
     });
 
+    // ### Bulletin Collection
+    // provide sort, selection functionality  
+    // stores bulletins 
     var BulletinCollection = Backbone.Collection.extend({
       compareField: 'bulletin_created',
       model: BulletinModel,
@@ -72,9 +79,12 @@ define(
         this.watchSelection();
         this.watchSort();
       },
+      // models are sorted based on the result of this function
       comparator: function(model) {
         return model.get(this.compareField);
       },
+      // watch the search bus to update the bulletin collection when new  
+      // bulletin results are received from solr
       watchEventStream: function() {
         var self = this;
         Streams.searchBus.toProperty()
@@ -84,6 +94,8 @@ define(
                  self.reset(results);
                });
       },
+
+      // watch for selections from the action combo box
       watchSelection: function() {
         var self = this;
         var bulletinStream = Streams.searchBus.filter(filterBulletin);
@@ -101,6 +113,9 @@ define(
           self.deleteSelected();
         });
       },
+
+      // listen for sort request events  
+      // these originate from header.js in SolrSearch views
       watchSort: function() {
         var self = this;
         Streams.searchBus.filter(function(value) {
@@ -110,33 +125,37 @@ define(
         .map(extractOption)
         .map(mapSort)
         .onValue(function (value) {
-          console.log(self.at(0));
           self.compareField = value;
           self.sort();
         });
       },
 
+      // #### common to all collections
+
+      // change the selected state of a single model
       toggleSelection: function(model, checked) {
         model.set({checked: checked});
       },
 
+      // delete selected models
       deleteSelected: function() {
         var getSelected = function(model) {
           return model.get('checked') === 'checked';
         };
         var deleteModel = function(model) {
-          console.log(model);
           model.destroy();
         };
         _.each(this.filter(getSelected), deleteModel);
       },
 
+      // select all models
       selectAll: function() {
-        console.log('selectAll');
         this.each(function(model) {
           this.toggleSelection(model, 'checked');
         }, this);
       },
+
+      // unselect all models
       unSelectAll: function(model) {
         this.each(function(model) {
           this.toggleSelection(model, '');
@@ -150,4 +169,3 @@ define(
   };
 
 });
-

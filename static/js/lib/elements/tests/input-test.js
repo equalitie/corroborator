@@ -10,12 +10,9 @@ define(
     var assert = buster.assert;
     buster.testCase('input box tests', {
       setUp: function() {
-        $(document.body).append(
-          '<div class="input-view"><input type="textfield"></div>');
         this.inputView = new InputView({
-          el: '.input-view'
+          el: '.search'
         });
-        
       },
       tearDown: function() {
         $('.input-view').remove();
@@ -25,11 +22,11 @@ define(
         assert.equals(typeof(InputView), 'function');
       },
       'clearInput should remove text from the input field': function() {
-        $('input').val('hello');
+        $('.search input').val('hello');
         this.inputView.clearInput();
-        assert.equals($('input').val(), '');
+        assert.equals($('.search input').val(), '');
       },
-      'pressing return should trigger enter_pressed event': function(done) {
+      '// pressing return should trigger enter_pressed event': function(done) {
         $('input').val('hello');
         var evt = $.Event('keyup');
         evt.which = 13;
@@ -45,7 +42,7 @@ define(
           assert.equals(encodeURI(text), textSent.encoded);
         }));
         this.inputView.sendText(text);
-      },
+      }
     });
     
   }

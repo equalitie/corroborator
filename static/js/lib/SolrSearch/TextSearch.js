@@ -34,36 +34,64 @@ define(
 
         filterIncident = function(element) {
           return element.django_ct.search(/incident/) > -1;
-        };
+        },
 
+        // send the results off to the search bus
+        pushActorResults = function(actors) {
+          Streams.searchBus.push({
+            type: 'results_actor',
+            content: actors
+          }); 
+        },
+        pushBulletinResults = function(bulletins) {
+          Streams.searchBus.push({
+            type: 'results_bulletin',
+            content: bulletins
+          }); 
+        },
+        pushIncidentResults = function(incidents) {
+          Streams.searchBus.push({
+            type: 'results_incident',
+            content: incidents
+          }); 
+        };
     //////////////////////////////////////////////////////////////////////
     // AJAX SOLR SEARCH WIDGET
     //////////////////////////////////////////////////////////////////////
+
     var TextWidget = AjaxSolr.AbstractTextWidget.extend({
       init: function () {
         
       },
+      // send the results off the bus in a super functional way
+      // cos that's how we do round here!
+      //
+      sendResults: function(searchResults) {
+        
+        pushActorResults(
+          _.chain(searchResults)
+           .filter(filterActors)
+           .value()
+        );
+
+        pushBulletinResults(
+          _.chain(searchResults)
+           .filter(filterBulletin)
+           .value()
+        );
+         
+        pushIncidentResults(
+          _.chain(searchResults)
+           .filter(filterIncident)
+           .value()
+        );
+      },
+      sendFilters: function() {
+      },
 
       afterRequest: function () {
-        console.log(this.manager.response);
-        
         var searchResults = this.manager.response.response.docs;
-        // pull the various 
-        var actors = _.filter(searchResults, filterActors);
-        Streams.searchBus.push({
-          type: 'results_actor',
-          content: actors
-        }); 
-        var bulletins = _.filter(searchResults, filterBulletin);
-        Streams.searchBus.push({
-          type: 'results_bulletin',
-          content: bulletins
-        }); 
-        var incidents = _.filter(searchResults, filterIncident);
-        Streams.searchBus.push({
-          type: 'results_incident',
-          content: incidents
-        }); 
+        this.sendResults(searchResults);
       }
     });
 

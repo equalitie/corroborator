@@ -16,7 +16,10 @@ define(
     'lib/SolrSearch/templates/incident.tpl',
     'lib/SolrSearch/templates/incident-results.tpl'
   ],
-  function($, _, Backbone, Handlebars, Streams, Collections, Language) {
+  function($, _, Backbone, Handlebars, Streams, Collections, Language,
+    actorTmp, actorResultsTmp, bulletinTmp, bulletinResultsTmp,
+    incidentTmp, incidentResultsTmp
+  ) {
     'use strict';
     var extractResults = function(value) {
       return value.content;
@@ -37,7 +40,6 @@ define(
       },
       initialize: function(options) {
         this.index = options.index;
-        this.template = Handlebars.templates['actor.tpl'];
         this.model.on('change', this.render, this);
         this.model.on('destroy', this.destroy, this);
         this.render();
@@ -57,7 +59,7 @@ define(
       render: function() {
         this.$el.empty();
         var pos = this.index % 2 === 1 ? 'right': 'left';
-        var html = this.template({
+        var html = actorTmp({
           model: this.model.toJSON(),
           pos:pos
         });
@@ -74,18 +76,17 @@ define(
 
     // Show the results of a search for actors
     var ActorResultsView = Backbone.View.extend({
-      el: '.body',
+      el: '.results-body',
       childViews: [],
       initialize: function() {
         this.collection = Collections.ActorCollection;
         this.collection.on('add sort reset', this.render, this);
-        this.template = Handlebars.templates['actor-results.tpl'];
         this.render();
       },
 
       //render container template
       render: function() {
-        var html = this.template();
+        var html = actorResultsTmp();
         this.$el.empty();
         this.$el.append(html);
         this.collection.each(this.renderList, this);
@@ -127,7 +128,6 @@ define(
       },
       initialize: function(options) {
         this.index = options.index;
-        this.template = Handlebars.templates['incident.tpl'];
         this.model.on('change', this.render, this);
         this.model.on('destroy', this.destroy, this);
         this.render();
@@ -146,8 +146,8 @@ define(
         this.model.collection.trigger('change');
       },
       render: function() {
-        var html = this.template({
-          model: this.model.toJSON(),
+        var html = incidentTmp({
+          model: this.model.toJSON()
         });
         this.$el.addClass('result');
         this.$el.empty()
@@ -163,19 +163,18 @@ define(
 
     // Show the results of a search for actors
     var IncidentResultsView = Backbone.View.extend({
-      el: '.body',
+      el: '.results-body',
       childViews: [],
 
       initialize: function() {
         this.collection = Collections.IncidentCollection;
         this.collection.on('add sort reset', this.render, this);
-        this.template = Handlebars.templates['incident-results.tpl'];
         this.render();
       },
 
       render: function() {
         this.$el.empty();
-        var html = this.template();
+        var html = incidentResultsTmp();
         this.$el.empty().append(html);
         this.collection.each(this.renderList, this);
         return this;
@@ -217,7 +216,6 @@ define(
 
       initialize: function(options) {
         this.index = options.index;
-        this.template = Handlebars.templates['bulletin.tpl'];
         this.model.on('change', this.render, this);
         this.model.on('destroy', this.destroy, this);
         this.render();
@@ -237,8 +235,8 @@ define(
       },
 
       render: function() {
-        var html = this.template({
-          model: this.model.toJSON(),
+        var html = bulletinTmp({
+          model: this.model.toJSON()
         });
         this.$el.empty()
                 .addClass('REPEAT Bulletin in-table')
@@ -255,18 +253,17 @@ define(
 
     // Show the results of a search for actors
     var BulletinResultsView = Backbone.View.extend({
-      el: '.body',
+      el: '.results-body',
       childViews: [],
       initialize: function() {
         this.collection = Collections.BulletinCollection;
         this.collection.on('add sort reset', this.render, this);
-        this.template = Handlebars.templates['bulletin-results.tpl'];
         this.render();
       },
 
       render: function() {
         this.$el.empty();
-        var html = this.template();
+        var html = bulletinResultsTmp();
         this.$el.append(html);
         this.collection.each(this.renderList, this);
         return this;

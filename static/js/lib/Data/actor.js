@@ -1,19 +1,22 @@
 /*global Bootstrap*/
-/**
- * Author Cormac McGuire
- * actor.js
- * Represent a single actor and a group of actors
- * TODO: refactor common logic for all collections
- */
+//
+// Author Cormac McGuire
+//
+// actor.js
+//
+// Represent a single actor and a group of actors
+//
+// TODO: refactor common logic for all collections
+
 define(
   [
     'jquery', 'underscore', 'backbone',
     'lib/streams'
   ],
   function($, _, Backbone, Streams) {
+    'use strict';
 
-    // event stream processing helpers
-
+    // ### event stream processing helpers
     // particular to actors
     var filterActorResults = function(value) {
       return value.type === 'results_actor';
@@ -24,15 +27,15 @@ define(
     var mapSort = function(value) {
       var sortMap = {
         'date': 'actor_created',
-        'title': 'fullname_en',
-        //'status': '
+        'title': 'fullname_en'
       };
       return sortMap[value];
     };
 
     //////////////////////////////////////////////////////////////////////
     // common to all collections
-    //////////////////////////////////////////////////////////////////////
+    //
+    // TODO: refactor to share accross collections
     var extractOption = function(value) {
       return value.option;
     };
@@ -48,14 +51,11 @@ define(
     var filterDeleteSelected = function(value) {
       return value.option === 'Delete Selected';
     };
-    //////////////////////////////////////////////////////////////////////
-    // end common
-    //////////////////////////////////////////////////////////////////////
 
-    // Data representations
-    //////////////////////////////////////////////////////////////////////
-    // Actor Model
-    //////////////////////////////////////////////////////////////////////
+    // ##Data representations
+
+    // ### Actor Model
+    // provide api endpoint for Actor model
     var ActorModel = Backbone.Model.extend({
       idAttribute: 'django_id',
       url: function() {
@@ -69,9 +69,7 @@ define(
       }
     });
 
-    //////////////////////////////////////////////////////////////////////
-    // Actor Collection
-    //////////////////////////////////////////////////////////////////////
+    // ### Actor Collection
     var ActorCollection = Backbone.Collection.extend({
       model: ActorModel,
       compareField: 'actor_created',
@@ -80,11 +78,14 @@ define(
         this.watchSelection();
         this.watchSort();
       },
+      // sort is implemented based on the result of this function
       comparator: function(model) {
         return model.get(this.compareField);
       },
       setComparatorField: function() {
       },
+      // watch the search bus to update the actor collection when new actor
+      // results are received from solr
       watchSearchResults: function() {
         var self = this;
         Streams.searchBus.toProperty()
@@ -95,6 +96,7 @@ define(
                });
       },
 
+      // watch for selections from the action combo box
       watchSelection: function() {
         var self = this;
         var actorStream = Streams.searchBus.filter(filterActor);
@@ -126,26 +128,19 @@ define(
         .map(extractOption)
         .map(mapSort)
         .onValue(function (value) {
-          console.log(self.at(0));
           self.compareField = value;
           self.sort();
         });
       },
 
-      //////////////////////////////////////////////////////////////////////
-      // common to all collections
-      //////////////////////////////////////////////////////////////////////
+      // #### common to all collections
 
-      // 
       // change the selected state of a single model
-      //
       toggleSelection: function(model, checked) {
         model.set({checked: checked});
       },
 
-      // 
       // delete selected models
-      //
       deleteSelected: function() {
         var getSelected = function(model) {
           return model.get('checked') === 'checked';
@@ -156,20 +151,18 @@ define(
         _.each(this.filter(getSelected), deleteModel);
       },
 
+      // select all models
       selectAll: function() {
-        console.log('selectAll');
         this.each(function(model) {
           this.toggleSelection(model, 'checked');
         }, this);
       },
+      // unselect models
       unSelectAll: function(model) {
         this.each(function(model) {
           this.toggleSelection(model, '');
         }, this);
       }
-      //////////////////////////////////////////////////////////////////////
-      // end common
-      //////////////////////////////////////////////////////////////////////
     });
 
 

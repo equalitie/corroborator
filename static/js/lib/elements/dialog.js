@@ -1,21 +1,15 @@
 /*global define */
-/**
-### input
-represent an input field, reacts to the enter button being pressed
-when focus is on the input by sending the content of the input box
-in the enter_pressed event
-
-When creating an instance of the view, you can either pass in the element to watch
-or have one rendered.
-you may also pass a custom event dispatcher which will be used instead of the 
-global dispatcher for sending events
-
-TODO: define template for the view
-*/
+// Author: Cormac McGuire  
+// ### dialog.js
+// represent a dialog box that can be reused across the site  
+// This is a jquery_ui element
+//
+// Currently only useful for saving search
+// TODO: make it more generic
 define(
   [
     'jquery', 'jquery_ui',
-    'lib/dispatcher',
+    'lib/dispatcher'
   ],
   function ($, jquery_ui, dispatcher) {
     'use strict';

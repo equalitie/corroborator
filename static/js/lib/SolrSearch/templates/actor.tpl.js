@@ -1,6 +1,6 @@
 define(['handlebars'], function(Handlebars) {
-  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-return templates['actor.tpl'] = template(function (Handlebars,depth0,helpers,partials,data) {
+
+return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this;
@@ -113,5 +113,6 @@ function program14(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          </tbody></table>\n          <div class=\"stats\">\n            <div class=\"is-mentions\">\n              <h4 class=\"title\">Mentioned in</h4>\n              <div class=\"stat\">\n                <div class=\"value\">10</div>\n                <div class=\"label\">Bulletins</div>\n              </div>\n              <div class=\"stat\">\n                <div class=\"value\">7</div>\n                <div class=\"label\">Incidents</div>\n              </div>\n            </div>\n            <div class=\"is-related\">\n              <h4 class=\"title\">Related to</h4>\n              <div class=\"stat\">\n                <div class=\"value\">25</div>\n                <div class=\"label\">Actors</div>\n              </div>\n            </div>\n          </div>\n          <div class=\"related\">\n            Appears in related bulletins: <a href=\"#\">Phasells ur nunc purus</a>, <a href=\"#\">Vitae loboris nulla</a>, <a href=\"#\">Aliquam erat volutpat</a>, <a href=\"#\">Nam urna erat</a>, <a href=\"#\">Lorem ipsum</a>.\n          </div>\n        </div>\n        <div class=\"when-related\">\n          <div class=\"actions\">\n            <div class=\"left\">\n              <div class=\"button combo is-default\">\n                <span class=\"T\">\n                  Related as: Victim \n                  <ul class=\"options\">\n                    <li>\n                      <span class=\"text T\">Witness</span>\n                    </li>\n                    <li>\n                      <span class=\"text T\">Victim</span>\n                    </li>\n                    <li>\n                      <span class=\"text T\">Killer</span>\n                    </li>\n                    <li>\n                      <span class=\"text T\">Torturer</span>\n                    </li>\n                    <li>\n                      <span class=\"text T\">Kidnapper</span>\n                    </li>\n                  </ul>\n                </span>\n              </div>\n            </div>\n            <div class=\"right\">\n              <button class=\"do-removeActor\">\n                <span class=\"text T\">Remove</span>\n              </button>\n            </div>\n            <div class=\"clearer\">&nbsp;</div>\n          </div>\n        </div>\n     </div> \n   </div>\n  </div>\n";
   return buffer;
-  });
+  })
+
 });

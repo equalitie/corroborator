@@ -1,34 +1,33 @@
-/*global window, define */
-/**
-### input
-represent an input field, reacts to the enter button being pressed
-when focus is on the input by sending the content of the input box
-in the enter_pressed event
+/*global window, define, console */
 
-When creating an instance of the view, you can either pass in the element to
-watch or have one rendered.
-you may also pass a custom event dispatcher which will be used instead of the 
-global dispatcher for sending events
+// Author: Cormac McGuire
+// ### input.js
+// represent an input field, reacts to the enter button being pressed
+// when focus is on the input by sending the content of the input box
+// into the search Stream
+// TODO: implement stream integration
+// 
+// When creating an instance of the view, you can either pass in the element to
+// watch or have one rendered.
 
-TODO: define template for the view
-*/
 define(
   [
     'jquery', 'underscore', 'backbone', 'bacon',
     'lib/dispatcher',
-    'bacon_ui',
+    'bacon_ui'
   ],
   function ($, _, Backbone, Bacon, dispatcher) {
     'use strict';
+    // ## InputView
+    // Declare the view that will describe our input field
     var InputView = Backbone.View.extend({
       // declare the events that we will listen for
       events:{
         'keyup input': 'pressed',
         'click .do-clear': 'clearInput'
       },
+      // constructor  
       // create our template function
-      // initialize is called when the view is instantiated
-      // the element being represented is passed in when it is intialised
       initialize: function(options) {
         if (options.dispatcher !== undefined) {
           dispatcher = options.dispatcher;
@@ -37,9 +36,14 @@ define(
         dispatcher.on('clear_input', this.clearInput, this);
         this.template = _.template('<input type="textfield">');
       },
+
+      // clear the contents of the input box
       clearInput: function() {
         this.$el.children('input').val('');
       },
+
+      // create a property to track the text in the search box
+      // map the content to an object that contains the raw and encoded text
       createProperty: function() {
         this.textProperty = Bacon.UI.textFieldValue(this.$el.children('input'))
           //.map(this.textLength)
@@ -51,6 +55,7 @@ define(
           })
           .debounce(300);
       },
+      // check the length of the text
       textLength: function(text) {
         if (text.length > 3) {
           return text;
@@ -64,6 +69,7 @@ define(
         }
       },
       // dispatch event with contents of the input field
+      // deprecated - we are using event streams
       sendText: function(inputText) {
         var textToSend = {
           raw: inputText,
@@ -72,6 +78,7 @@ define(
         dispatcher.trigger('enter_pressed', textToSend);
 
       },
+      // render the input field
       render: function() {
         var html = this.template();
         this.$el.append(html);

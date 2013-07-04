@@ -1,6 +1,6 @@
 define(['handlebars'], function(Handlebars) {
-  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
-return templates['filters.tpl'] = template(function (Handlebars,depth0,helpers,partials,data) {
+
+return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
@@ -16,5 +16,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   buffer += escapeExpression(stack1)
     + "</a>\n  <a href=\"#\" class=\"T title\">title</a>\n</th>\n<th class=\"is-status sort-header\">\n  <a href=\"#\" class=\"T status\">status</a>\n</th>\n<th class=\"is-score sort-header\">\n  <a href=\"#\" class=\"T score\">score</a>\n</th>\n\n";
   return buffer;
-  });
+  })
+
 });

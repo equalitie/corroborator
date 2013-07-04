@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>combo.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="actor.html">
+                actor.js
+              </a>
+            
+              
+              <a class="source" href="bulletin.html">
+                bulletin.js
+              </a>
+            
+              
+              <a class="source" href="collections.html">
+                collections.js
+              </a>
+            
+              
+              <a class="source" href="incident.html">
+                incident.js
+              </a>
+            
+              
+              <a class="source" href="NavCombo.html">
+                NavCombo.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter.html">
+                TabRouter.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter-test.html">
+                TabRouter-test.js
+              </a>
+            
+              
+              <a class="source" href="TextSearch.html">
+                TextSearch.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher-test.html">
+                dispatcher-test.js
+              </a>
+            
+              
+              <a class="source" href="filter-test.html">
+                filter-test.js
+              </a>
+            
+              
+              <a class="source" href="filters.html">
+                filters.js
+              </a>
+            
+              
+              <a class="source" href="header.html">
+                header.js
+              </a>
+            
+              
+              <a class="source" href="results.html">
+                results.js
+              </a>
+            
+              
+              <a class="source" href="manager.html">
+                manager.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher.html">
+                dispatcher.js
+              </a>
+            
+              
+              <a class="source" href="combo.html">
+                combo.js
+              </a>
+            
+              
+              <a class="source" href="dialog.html">
+                dialog.js
+              </a>
+            
+              
+              <a class="source" href="input.html">
+                input.js
+              </a>
+            
+              
+              <a class="source" href="language.html">
+                language.js
+              </a>
+            
+              
+              <a class="source" href="combo-test.html">
+                combo-test.js
+              </a>
+            
+              
+              <a class="source" href="dialog-test.html">
+                dialog-test.js
+              </a>
+            
+              
+              <a class="source" href="input-test.html">
+                input-test.js
+              </a>
+            
+              
+              <a class="source" href="streams.html">
+                streams.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>combo.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/*global define, Bacon */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Author: Cormac McGuire  </p>
+<h3>combo.js</h3>
+<p>represent a combo box<br>reacts to the being pressed - sends the model that has been pressed in the event
+collection contains the elements to be displayed<br>When creating an instance of the view, you can either pass in the element to watch
+or have one rendered.<br>you may also pass a custom event dispatcher which will be used instead of the 
+global dispatcher for sending events</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>define(
+  [</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>vendor</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="string">'jquery'</span>, <span class="string">'backbone'</span>, <span class="string">'handlebars'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>templates</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="string">'lib/elements/templates/combo-outer.tpl'</span>,
+    <span class="string">'lib/elements/templates/combo-inner.tpl'</span>
+  ],
+  <span class="function"><span class="keyword">function</span> <span class="params">($, Backbone, Handlebars, comboOuterTmp, comboInnerTmp)</span> {</span>
+    <span class="string">'use strict'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Drop down item collection</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> Collection = Backbone.Collection.extend();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h2>ItemView</h2>
+<p>used to render an item from the collection passed in</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ItemView = Backbone.View.extend({
+      events: {
+        <span class="string">'click'</span>: <span class="string">'itemClicked'</span>
+      },
+      tagName: <span class="string">'li'</span>,
+      initialize: <span class="keyword">function</span>(options) {
+        <span class="keyword">this</span>.eventIdentifier = options.eventIdentifier;
+        <span class="keyword">this</span>.bus = options.bus;
+        <span class="keyword">this</span>.render();
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>handle a click on one of the list items<br>push an item onto the bus when received</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      itemClicked: <span class="keyword">function</span>() {
+        <span class="keyword">if</span> (<span class="keyword">this</span>.bus) {
+          <span class="keyword">this</span>.bus.push({
+            type: <span class="keyword">this</span>.eventIdentifier,
+            content: <span class="keyword">this</span>.model
+          });
+        }
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>render the list items</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> html = comboInnerTmp(<span class="keyword">this</span>.model.toJSON());
+        <span class="keyword">this</span>.$el.append(html);
+        <span class="keyword">this</span>.$el.addClass(<span class="string">'option selected'</span>);
+        <span class="keyword">this</span>.setElement(<span class="keyword">this</span>.$el);
+      }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <h3>Combo view</h3>
+<p>Container view for the combo box - uses ItemView to render the 
+individual items</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ComboView = Backbone.View.extend({
+      eventIdentifier: <span class="string">'combo'</span>,
+      events: {
+        <span class="string">'click .combo-main'</span>: <span class="string">'mainElementClicked'</span>
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>init the view setting the default item if provided</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      initialize: <span class="keyword">function</span>(options) {
+        <span class="keyword">if</span> (options.primary) {
+          <span class="keyword">this</span>.setPrimary(options.primary);
+        }
+        <span class="keyword">if</span> (options.eventIdentifier) {
+          <span class="keyword">this</span>.eventIdentifier = options.eventIdentifier;
+        }
+        <span class="keyword">this</span>.bus = options.bus;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>re-render the combo box if the collection changes</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="keyword">this</span>.collection.on(<span class="string">'add remove reset'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>push an event onto the bus </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      mainElementClicked: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.bus.push({
+          type: <span class="keyword">this</span>.eventIdentifier,
+          content: <span class="keyword">this</span>.primary
+        });
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>set the primary (header element for the combo box)<br>TODO: change type</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      setPrimary: <span class="keyword">function</span>(primary) {
+        <span class="keyword">this</span>.primary = <span class="keyword">new</span> Backbone.Model({
+          name_en: primary.name_en,
+          search_request: primary.search_request,
+          type: <span class="string">'search'</span>
+        });
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>render the list contents</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> html = comboOuterTmp(<span class="keyword">this</span>.primary.toJSON());
+        <span class="keyword">this</span>.$el.children().remove();
+        <span class="keyword">this</span>.$el.append(html);
+        <span class="keyword">this</span>.renderList();
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>iterate over our collection</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      renderList: <span class="keyword">function</span>() {
+          <span class="keyword">this</span>.collection.each(<span class="keyword">this</span>.renderListItem, <span class="keyword">this</span>);
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>render each item in the list </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      renderListItem: <span class="keyword">function</span>(model, index, list) {
+        <span class="keyword">var</span> options = {
+          model: model,
+          eventIdentifier: <span class="keyword">this</span>.eventIdentifier
+        };
+        <span class="keyword">if</span> (<span class="keyword">this</span>.bus) {
+          options.bus = <span class="keyword">this</span>.bus;
+        }
+        <span class="keyword">var</span> itemView = <span class="keyword">new</span> ItemView(options);
+        <span class="keyword">this</span>.$el.children().children(<span class="string">'ul'</span>).append(itemView.$el);
+      }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>expose the collection and container view as a module export</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> {
+      View: ComboView,
+      Collection: Collection
+    };
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

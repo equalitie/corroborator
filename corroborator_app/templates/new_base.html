@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery-ui-1.10.3.custom.min.css" />
     <link rel="stylesheet" href="{{ STATIC_URL}}css/validationEngine.jquery.css" />
     <script data-main="{{STATIC_URL}}js/loader" type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/components/requirejs/require.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/components/requirejs/require.js"/></script>
+<!--    <script type="text/javascript" charset="utf-8">
+      require.config({
+          paths: {
+              //Comment out this line to go back to loading
+              //the non-optimized main.js source file.
+              "main": "{{STATIC_URL}}js/dist/build"
+          }
+      });
+      require(["main"]);
+    </script>-->
 
 
 

@@ -1,21 +1,14 @@
 /*global define, Bacon */
-/**
-### combo
-represent a combo box 
-reacts to the being pressed - sends the model that has been pressed in the event
-
-collection contains the elements to be displayed
-
-When creating an instance of the view, you can either pass in the element to watch
-or have one rendered.
-
-
-
-you may also pass a custom event dispatcher which will be used instead of the 
-global dispatcher for sending events
-
-TODO: define template for the view
-*/
+// Author: Cormac McGuire  
+// ### combo.js
+// represent a combo box   
+// reacts to the being pressed - sends the model that has been pressed in the event
+// collection contains the elements to be displayed  
+// When creating an instance of the view, you can either pass in the element to watch
+// or have one rendered.  
+// you may also pass a custom event dispatcher which will be used instead of the 
+// global dispatcher for sending events
+// 
 define(
   [
     // vendor
@@ -24,24 +17,26 @@ define(
     'lib/elements/templates/combo-outer.tpl',
     'lib/elements/templates/combo-inner.tpl'
   ],
-  function ($, Backbone, Handlebars, Bacon, co, ci) {
+  function ($, Backbone, Handlebars, comboOuterTmp, comboInnerTmp) {
     'use strict';
-    // ##
-    var collection = Backbone.Collection.extend();
+    // Drop down item collection
+    var Collection = Backbone.Collection.extend();
 
-    // ## used to render an item from the collection passed in
+    // ## ItemView
+    // used to render an item from the collection passed in
     var ItemView = Backbone.View.extend({
       events: {
         'click': 'itemClicked'
       },
+      tagName: 'li',
       initialize: function(options) {
         this.eventIdentifier = options.eventIdentifier;
         this.bus = options.bus;
-        this.template = Handlebars.templates['combo-inner.tpl'];
         this.render();
       },
+      // handle a click on one of the list items  
+      // push an item onto the bus when received
       itemClicked: function() {
-        //dispatcher.trigger('item_clicked', this.model);
         if (this.bus) {
           this.bus.push({
             type: this.eventIdentifier,
@@ -49,18 +44,22 @@ define(
           });
         }
       },
+      // render the list items
       render: function() {
-        var html = this.template(this.model.toJSON());
-        this.$el = $(html);
+        var html = comboInnerTmp(this.model.toJSON());
+        this.$el.append(html);
+        this.$el.addClass('option selected');
         this.setElement(this.$el);
       }
     });
 
     // ### Combo view
+    // Container view for the combo box - uses ItemView to render the 
+    // individual items
     var ComboView = Backbone.View.extend({
       eventIdentifier: 'combo',
       events: {
-        'click .combo-main': 'mainElementClicked',
+        'click .combo-main': 'mainElementClicked'
       },
 
       // init the view setting the default item if provided
@@ -68,17 +67,25 @@ define(
         if (options.primary) {
           this.setPrimary(options.primary);
         }
+        if (options.eventIdentifier) {
+          this.eventIdentifier = options.eventIdentifier;
+        }
         this.bus = options.bus;
-        this.template = Handlebars.templates['combo-outer.tpl'];
         // re-render the combo box if the collection changes
         this.collection.on('add remove reset', this.render, this);
       },
 
+      // push an event onto the bus 
       mainElementClicked: function() {
-        this.bus.push(this.primary);
+        this.bus.push({
+          type: this.eventIdentifier,
+          content: this.primary
+        });
       },
 
 
+      // set the primary (header element for the combo box)  
+      // TODO: change type
       setPrimary: function(primary) {
         this.primary = new Backbone.Model({
           name_en: primary.name_en,
@@ -89,7 +96,7 @@ define(
 
       // render the list contents
       render: function() {
-        var html = this.template(this.primary.toJSON());
+        var html = comboOuterTmp(this.primary.toJSON());
         this.$el.children().remove();
         this.$el.append(html);
         this.renderList();
@@ -115,10 +122,10 @@ define(
     });
 
 
-    // expose our view as a module export
+    // expose the collection and container view as a module export
     return {
-      view: ComboView,
-      collection: collection
+      View: ComboView,
+      Collection: Collection
     };
 });
 

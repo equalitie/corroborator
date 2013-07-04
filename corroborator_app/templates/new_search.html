@@ -108,90 +108,13 @@
     <div class="header search-header">
     </div>
     <!-- search-results view appended here -->
-    <div class="body">
+    <div class="body results-body">
     </div>
   </div>
   <!-- end first column -->
 
 
   <div class="col last has-header">
-  <!--
-  <div class="header">
-    <div class="padding">
-      <div class="group is-creator">
-        <button class="do-create-incident create">
-          <span class="text T">New incident</span>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="body">
-    <div class="padding">
-      <div class="group is-filters filters">
-        <div class="filter is-labels">
-          <label id="incident-selected-label" class="hidden">Current filters</label>
-          <ul id="incident-selected-tags" class="tags editor">
-          </ul>
-
-        </div>
-        <div class="filter">
-          <label>Date Range</label>
-          <div class="wrapper" style="position:relative;z-index:1;">
-            <div id="incident-jrange" class="dates">
-              <input id="incident_date_filter" value="yyyy/mm/dd - yyyy/mm/dd"/>
-              <div></div>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div class="filter">
-          <label>Crime</label>
-          <ul class="select" id="incident-crime-filter">
-          </ul>
-        </div>
-        <div class="filter">
-          <label>Assigned to</label>
-          <ul class="select" id="incident-assigned-filter">
-          </ul>
-        </div>
-        <div class="filter">
-          <label>Status</label>
-          <ul class="select" id="incident-status-filter">
-            {% for status in statuses %}	
-            <li class="option">
-              <span class="incident-option text T">{{status.status_en}}</span>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div class="filter is-labels">
-          <label>Labels</label>
-          <ul id="incidents_tags" class="tags">
-          </ul>
-        </div>
-
-        <div class="filter is-map">
-          <label>Location</label>
-          <div id="bulletin-location-search-container" class="field hidden">
-            <input id="bulletin-location-ac-filter" type="text" class="with-clear" />
-            <button class="do-clear">
-              <span>&#x2713;</span>
-            </button>
-          </div>
-          <div class="map">
-            <div id="filter_map" style="width:100%;height:100%;"></div>
-            <button class="do-filter">
-              <span class="text T">Filter</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
--->
+    <div class="right-filters"></div>
 </div>
 {% endblock %}

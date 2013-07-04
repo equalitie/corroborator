@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>header.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="actor.html">
+                actor.js
+              </a>
+            
+              
+              <a class="source" href="bulletin.html">
+                bulletin.js
+              </a>
+            
+              
+              <a class="source" href="collections.html">
+                collections.js
+              </a>
+            
+              
+              <a class="source" href="incident.html">
+                incident.js
+              </a>
+            
+              
+              <a class="source" href="NavCombo.html">
+                NavCombo.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter.html">
+                TabRouter.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter-test.html">
+                TabRouter-test.js
+              </a>
+            
+              
+              <a class="source" href="TextSearch.html">
+                TextSearch.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher-test.html">
+                dispatcher-test.js
+              </a>
+            
+              
+              <a class="source" href="filter-test.html">
+                filter-test.js
+              </a>
+            
+              
+              <a class="source" href="filters.html">
+                filters.js
+              </a>
+            
+              
+              <a class="source" href="header.html">
+                header.js
+              </a>
+            
+              
+              <a class="source" href="results.html">
+                results.js
+              </a>
+            
+              
+              <a class="source" href="manager.html">
+                manager.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher.html">
+                dispatcher.js
+              </a>
+            
+              
+              <a class="source" href="combo.html">
+                combo.js
+              </a>
+            
+              
+              <a class="source" href="dialog.html">
+                dialog.js
+              </a>
+            
+              
+              <a class="source" href="input.html">
+                input.js
+              </a>
+            
+              
+              <a class="source" href="language.html">
+                language.js
+              </a>
+            
+              
+              <a class="source" href="combo-test.html">
+                combo-test.js
+              </a>
+            
+              
+              <a class="source" href="dialog-test.html">
+                dialog-test.js
+              </a>
+            
+              
+              <a class="source" href="input-test.html">
+                input-test.js
+              </a>
+            
+              
+              <a class="source" href="streams.html">
+                streams.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>header.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/*global define, Bacon */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h3>header.js</h3>
+<p>This displays the header view
+it provides:  </p>
+<blockquote>
+<p>feedback on the number of actors selected
+filtering for the search results
+a menu to select/unselect all, create new, or update</p>
+</blockquote>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>define(
+  [</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>vendor</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="string">'jquery'</span>, <span class="string">'backbone'</span>, <span class="string">'handlebars'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>streams</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="string">'lib/streams'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>elements</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="string">'lib/elements/combo'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>data</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="string">'lib/Data/collections'</span>,</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>templates</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="string">'lib/SolrSearch/templates/header.tpl'</span>,
+    <span class="string">'lib/SolrSearch/templates/header-count.tpl'</span>,
+    <span class="string">'lib/SolrSearch/templates/filters.tpl'</span>
+  ],
+  <span class="function"><span class="keyword">function</span> <span class="params">($, Backbone, Handlebars, Streams, Combo, Collections,
+    headerTmp, headerCountTmp, filtersTmp
+  )</span> {</span>
+    <span class="string">'use strict'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////
+Stream processing functions
+////////////////////////////////////////////////////////////////////</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> filterSort = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.type === <span class="string">'filter_view'</span>;
+    };
+    <span class="keyword">var</span> getSortType = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> {
+        option: value.sort
+      };
+    };
+    <span class="keyword">var</span> filterActions = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.type === <span class="string">'action_combo'</span>;
+    };
+    <span class="keyword">var</span> extractResults = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.content;
+    };
+
+    <span class="keyword">var</span> getActionType = <span class="keyword">function</span>(model) {
+     <span class="keyword">return</span> {
+       option: model.get(<span class="string">'name_en'</span>)
+     };
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>used to combine nav and action combo events</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> combineBoth = <span class="keyword">function</span>(previous, newValue) {
+      <span class="keyword">if</span> (newValue.hasOwnProperty(<span class="string">'navValue'</span>)) {
+        previous.navValue = newValue.navValue;
+        previous.action = <span class="literal">false</span>;
+      }
+      <span class="keyword">if</span> (newValue.hasOwnProperty(<span class="string">'option'</span>)) {
+        previous.option = newValue.option;
+        previous.action = <span class="literal">true</span>;
+      }
+      <span class="keyword">return</span> previous;
+    };
+    <span class="keyword">var</span> filterExecuteAction = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.action === <span class="literal">true</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>map navigation event into a wrapped one</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> createNavProperty = <span class="keyword">function</span>() {
+      <span class="keyword">var</span> mapNav = <span class="keyword">function</span>(value) {
+        <span class="keyword">return</span> { navValue: value };
+      };
+      <span class="keyword">return</span> Streams.navBus
+                    .toEventStream()
+                    .map(mapNav);
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>distinguish between new nav and action events</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> identifyNewAction = <span class="keyword">function</span>(previous, newValue) {
+      <span class="keyword">return</span> previous.option === newValue.option;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////
+END STREAM PROCESSING FUNCTIONS
+////////////////////////////////////////////////////////////////////</p>
+<p>////////////////////////////////////////////////////////////////////
+VIEWS
+////////////////////////////////////////////////////////////////////</p>
+<p>collection of menu items for the action combo</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> menuItems = <span class="keyword">new</span> Backbone.Collection([
+      { name_en: <span class="string">'Delete Selected'</span> },
+      { name_en: <span class="string">'Update Selected'</span> },
+      { name_en: <span class="string">'Select All'</span> },
+      { name_en: <span class="string">'Clear Selected'</span> }
+    ]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////
+ACTION COMBO VIEW
+////////////////////////////////////////////////////////////////////</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActionComboView = Combo.View.extend({
+      eventIdentifier: <span class="string">'action_combo'</span>,
+      el: <span class="string">'.actions'</span>,
+      initialize: <span class="keyword">function</span>(options) {
+        Combo.View.prototype.initialize.call(<span class="keyword">this</span>, options);
+        <span class="keyword">this</span>.collection = options.collection;
+        <span class="keyword">this</span>.propogateEvents();
+      },
+
+      <span class="comment">/**
+       * register a handler for navigation events
+       */</span>
+      propogateEvents: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+
+        <span class="keyword">var</span> selectStream = Streams.searchBus.toEventStream()
+                           .filter(filterActions)
+                           .map(extractResults)
+                           .map(getActionType);
+
+        <span class="keyword">var</span> both = selectStream.merge(createNavProperty());
+        <span class="keyword">var</span> watcher = both.scan({
+                            type: self.eventIdentifier + <span class="string">'_combined'</span>
+                          }, combineBoth);
+        watcher.filter(filterExecuteAction)
+               .onValue(<span class="keyword">function</span>(value) {
+                  Streams.searchBus.push(value);
+                });
+
+      }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////
+NUMBER OF ELEMENTS SELECTED VIEW
+////////////////////////////////////////////////////////////////////</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ElementsSelectedView = Backbone.View.extend({
+      el: <span class="string">'#number-selected'</span>,
+      initialize: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.collections = {
+          <span class="string">'actor'</span>: Collections.ActorCollection,
+          <span class="string">'bulletin'</span>: Collections.BulletinCollection,
+          <span class="string">'incident'</span>: Collections.IncidentCollection
+        };
+        <span class="keyword">this</span>.watchNav();
+      },
+      watchNav: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        createNavProperty().onValue(<span class="keyword">function</span>(value) {
+          self.collection = self.collections[value.navValue];
+          self.collection.on(<span class="string">'change updateSelected'</span>, self.render, self);
+          self.collectionName = value.navValue;
+          self.render();
+        });
+                           
+      },
+      pluralise: <span class="keyword">function</span>(word, number) {
+        <span class="keyword">if</span> (number !== <span class="number">1</span>) {
+          word = word + <span class="string">'s'</span>;
+        }
+        <span class="keyword">return</span> word;
+      },
+      render: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> numItems = 
+          <span class="keyword">this</span>.collection.filter(<span class="keyword">function</span>(model) {
+            <span class="keyword">return</span> model.get(<span class="string">'checked'</span>) === <span class="string">'checked'</span>;
+          }).length;
+        <span class="keyword">var</span> html = headerCountTmp({
+          domain:   <span class="keyword">this</span>.pluralise(<span class="keyword">this</span>.collectionName, numItems),
+          numItems: numItems
+        });
+        <span class="keyword">this</span>.$el.empty()
+                .append(html);
+
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+      }
+
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////
+FILTER VIEW
+////////////////////////////////////////////////////////////////////</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    
+    <span class="keyword">var</span> FilterView = Backbone.View.extend({
+      el: <span class="string">'tr.filters'</span>,
+      eventIdentifier: <span class="string">'filter_view'</span>,
+      variableFilter: <span class="string">'location'</span>,
+      events: {
+        <span class="string">'click a'</span>: <span class="string">'handleFilter'</span>,
+        <span class="string">'click .date'</span>: <span class="string">'sortDate'</span>,
+        <span class="string">'click .location'</span>: <span class="string">'sortLocation'</span>,
+        <span class="string">'click .age'</span>: <span class="string">'sortAge'</span>,
+        <span class="string">'click .title'</span>: <span class="string">'sortTitle'</span>,
+        <span class="string">'click .status'</span>: <span class="string">'sortStatus'</span>,
+        <span class="string">'click .score'</span>: <span class="string">'sortScore'</span>
+      },
+      initialize: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.watchSortEvents();
+        <span class="keyword">this</span>.watchNavEvents();
+        <span class="keyword">this</span>.render();
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>handle sort events from headers</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      sortDate: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.sendSortEvent(<span class="string">'date'</span>);
+      },
+      sortLocation: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.sendSortEvent(<span class="string">'location'</span>);
+      },
+      sortAge: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.sendSortEvent(<span class="string">'age'</span>);
+      },
+      sortTitle: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.sendSortEvent(<span class="string">'title'</span>);
+      },
+      sortStatus: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.sendSortEvent(<span class="string">'status'</span>);
+      },
+      sortScore: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.sendSortEvent(<span class="string">'score'</span>);
+      },
+
+      sendSortEvent: <span class="keyword">function</span>(sortEventName) {
+        Streams.searchBus.push({
+          type: <span class="keyword">this</span>.eventIdentifier,
+          content: {
+            sort: sortEventName
+          }
+        });
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>watch for nav to actor - swap out filters when change to and from</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      watchNavEvents: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        <span class="keyword">var</span> filterMap = {
+          actor: <span class="string">'age'</span>,
+          bulletin: <span class="string">'location'</span>,
+          incident: <span class="string">'location'</span>
+        };
+        createNavProperty()
+          .onValue(<span class="keyword">function</span>(value) {
+            self.variableFilter = filterMap[value.navValue];
+            self.render();
+          });
+      },
+
+      watchSortEvents: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+
+        <span class="keyword">var</span> selectStream = Streams.searchBus.toEventStream()
+                           .filter(filterSort)
+                           .map(extractResults)
+                           .map(getSortType);
+
+        <span class="keyword">var</span> both = selectStream.merge(createNavProperty());
+        <span class="keyword">var</span> watcher = both.scan({
+                            type: self.eventIdentifier + <span class="string">'_combined'</span>
+                          }, combineBoth);
+        watcher.filter(filterExecuteAction)
+               .onValue(<span class="keyword">function</span>(value) {
+                  Streams.searchBus.push(value);
+                });
+
+      },
+
+      handleFilter: <span class="keyword">function</span>(e) {
+        e.preventDefault();
+        $(e.currentTarget).parent()
+                          .siblings()
+                          .children()
+                          .removeClass(<span class="string">'current'</span>)
+                          .removeClass(<span class="string">'is-descending'</span>);
+
+        $(e.currentTarget).parent()
+                          .children()
+                          .removeClass(<span class="string">'current'</span>)
+                          .removeClass(<span class="string">'is-descending'</span>);
+
+        $(e.currentTarget).addClass(<span class="string">'current'</span>).addClass(<span class="string">'is-descending'</span>);
+      },
+      render: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> html = filtersTmp({variableFilter: <span class="keyword">this</span>.variableFilter});
+        <span class="keyword">this</span>.$el.empty()
+                .append(html);
+      }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <h2>used to render the header container view</h2>
+<p>renders the ElementsSelectedView and the ActionComboView subviews</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> HeaderView = Backbone.View.extend({
+      el: <span class="string">'.search-header'</span>,
+      eventIdentifier: <span class="string">'header_view'</span>,
+
+      initialize: <span class="keyword">function</span>(options) {
+        <span class="keyword">this</span>.comboView = <span class="keyword">new</span> ActionComboView({
+          collection: menuItems,
+          bus: Streams.searchBus,
+          primary: {
+            name_en: <span class="string">'Actions'</span>,
+            search_request: <span class="string">'none'</span>
+          }
+        });
+        <span class="keyword">this</span>.on(<span class="string">'sortEvent'</span>, <span class="keyword">this</span>.publishSort, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.render();
+        <span class="keyword">this</span>.renderFilterBox();
+      },
+
+
+      render: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> header = headerTmp({domain: <span class="string">'incidents'</span>});
+        <span class="keyword">this</span>.$el.append(header);
+        <span class="keyword">this</span>.renderSelectedCount();
+        <span class="keyword">this</span>.renderComboBox();
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>render the number selected box</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      renderSelectedCount: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> countView = <span class="keyword">new</span> ElementsSelectedView({
+        });
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>render the actions</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      renderComboBox: <span class="keyword">function</span>() {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>needed because actions div has just been rendered</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="keyword">this</span>.comboView.setElement(<span class="string">'.actions'</span>);
+        <span class="keyword">this</span>.comboView.render();
+      },
+      renderFilterBox: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> filterView = <span class="keyword">new</span> FilterView();
+      }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>expose our view as a module export</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> {
+      HeaderView: HeaderView
+    };
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

@@ -6,9 +6,10 @@ define(
   [
     'backbone',
     'lib/Navigation/TabRouter',
-    'lib/dispatcher'
+    'lib/streams'
   ],
-  function(Backbone, TabRouter, dispatcher) {
+  function(Backbone, TabRouter, Streams) {
+    var bus = Streams.navBus;
     buster.testCase('Router testing', {
       setUp: function() {
         this.tabRouter = TabRouter.init();
@@ -24,10 +25,10 @@ define(
 
       'it should dispatch a navigate event when a link is clicked': 
       function(done) {
-        dispatcher.on('navigate_incidents', done(function() {
-          assert.equals(true, true);
+        bus.toEventStream().take(1).onValue(done(function (value) {
+          assert.equals(value, 'incident');
         }));
-        this.tabRouter.navigate('tab/incidents', {trigger: true});
+        this.tabRouter.navigate('tab/incident', {trigger: true});
       }
     });
   }

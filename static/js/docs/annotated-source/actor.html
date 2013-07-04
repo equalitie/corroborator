@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>actor.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="actor.html">
+                actor.js
+              </a>
+            
+              
+              <a class="source" href="bulletin.html">
+                bulletin.js
+              </a>
+            
+              
+              <a class="source" href="collections.html">
+                collections.js
+              </a>
+            
+              
+              <a class="source" href="incident.html">
+                incident.js
+              </a>
+            
+              
+              <a class="source" href="NavCombo.html">
+                NavCombo.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter.html">
+                TabRouter.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter-test.html">
+                TabRouter-test.js
+              </a>
+            
+              
+              <a class="source" href="TextSearch.html">
+                TextSearch.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher-test.html">
+                dispatcher-test.js
+              </a>
+            
+              
+              <a class="source" href="filter-test.html">
+                filter-test.js
+              </a>
+            
+              
+              <a class="source" href="filters.html">
+                filters.js
+              </a>
+            
+              
+              <a class="source" href="header.html">
+                header.js
+              </a>
+            
+              
+              <a class="source" href="results.html">
+                results.js
+              </a>
+            
+              
+              <a class="source" href="manager.html">
+                manager.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher.html">
+                dispatcher.js
+              </a>
+            
+              
+              <a class="source" href="combo.html">
+                combo.js
+              </a>
+            
+              
+              <a class="source" href="dialog.html">
+                dialog.js
+              </a>
+            
+              
+              <a class="source" href="input.html">
+                input.js
+              </a>
+            
+              
+              <a class="source" href="language.html">
+                language.js
+              </a>
+            
+              
+              <a class="source" href="combo-test.html">
+                combo-test.js
+              </a>
+            
+              
+              <a class="source" href="dialog-test.html">
+                dialog-test.js
+              </a>
+            
+              
+              <a class="source" href="input-test.html">
+                input-test.js
+              </a>
+            
+              
+              <a class="source" href="streams.html">
+                streams.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>actor.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/*global Bootstrap*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Author Cormac McGuire</p>
+<p>actor.js</p>
+<p>Represent a single actor and a group of actors</p>
+<p>TODO: refactor common logic for all collections</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>define(
+  [
+    <span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'backbone'</span>,
+    <span class="string">'lib/streams'</span>
+  ],
+  <span class="keyword">function</span>($, _, Backbone, Streams) {
+    <span class="string">'use strict'</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h3>event stream processing helpers</h3>
+<p>particular to actors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> filterActorResults = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.type === <span class="string">'results_actor'</span>;
+    };
+    <span class="keyword">var</span> filterActor = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.navValue === <span class="string">'actor'</span>;
+    };
+    <span class="keyword">var</span> mapSort = <span class="keyword">function</span>(value) {
+      <span class="keyword">var</span> sortMap = {
+        <span class="string">'date'</span>: <span class="string">'actor_created'</span>,
+        <span class="string">'title'</span>: <span class="string">'fullname_en'</span>
+      };
+      <span class="keyword">return</span> sortMap[value];
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////
+common to all collections</p>
+<p>TODO: refactor to share accross collections</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> extractOption = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.option;
+    };
+    <span class="keyword">var</span> extractResults = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.content;
+    };
+    <span class="keyword">var</span> filterUnselectAll = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.option === <span class="string">'Clear Selected'</span>;
+    };
+    <span class="keyword">var</span> filterSelectAll = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.option === <span class="string">'Select All'</span>;
+    };
+    <span class="keyword">var</span> filterDeleteSelected = <span class="keyword">function</span>(value) {
+      <span class="keyword">return</span> value.option === <span class="string">'Delete Selected'</span>;
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <h2>Data representations</h2>
+<h3>Actor Model</h3>
+<p>provide api endpoint for Actor model</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActorModel = Backbone.Model.extend({
+      idAttribute: <span class="string">'django_id'</span>,
+      url: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> base = <span class="string">'/api/v1/actor/'</span>;
+        <span class="keyword">if</span> (<span class="keyword">this</span>.id) {
+          base = base + <span class="keyword">this</span>.id + <span class="string">'/'</span>;
+        }
+        <span class="keyword">var</span> urlvars = <span class="string">"?format=json&amp;username="</span> +
+        Bootstrap.username + <span class="string">"&amp;api_key="</span> + Bootstrap.apiKey;
+          <span class="keyword">return</span> base + urlvars;
+      }
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <h3>Actor Collection</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActorCollection = Backbone.Collection.extend({
+      model: ActorModel,
+      compareField: <span class="string">'actor_created'</span>,
+      initialize: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.watchSearchResults();
+        <span class="keyword">this</span>.watchSelection();
+        <span class="keyword">this</span>.watchSort();
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>sort is implemented based on the result of this function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      comparator: <span class="keyword">function</span>(model) {
+        <span class="keyword">return</span> model.get(<span class="keyword">this</span>.compareField);
+      },
+      setComparatorField: <span class="keyword">function</span>() {
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>watch the search bus to update the actor collection when new actor
+results are received from solr</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      watchSearchResults: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        Streams.searchBus.toProperty()
+               .filter(filterActorResults)
+               .map(extractResults)
+               .onValue(<span class="keyword">function</span>(results) {
+                 self.reset(results);
+               });
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>watch for selections from the action combo box</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      watchSelection: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        <span class="keyword">var</span> actorStream = Streams.searchBus.filter(filterActor);
+
+        actorStream.filter(filterSelectAll)
+          .onValue(<span class="keyword">function</span>() {
+          self.selectAll();
+        });
+        actorStream.filter(filterUnselectAll)
+          .onValue(<span class="keyword">function</span>() {
+          self.unSelectAll();
+        });
+        actorStream.filter(filterDeleteSelected)
+          .onValue(<span class="keyword">function</span>() {
+          self.deleteSelected();
+        });
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>listen for sort request events
+originate from header.js in SolrSearch views</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      watchSort: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        Streams.searchBus.filter(<span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'filter_view_combined'</span>;
+        })
+        .filter(filterActor)
+        .map(extractOption)
+        .map(mapSort)
+        .onValue(<span class="function"><span class="keyword">function</span> <span class="params">(value)</span> {</span>
+          self.compareField = value;
+          self.sort();
+        });
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h4">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <h4>common to all collections</h4>
+<p>change the selected state of a single model</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      toggleSelection: <span class="keyword">function</span>(model, checked) {
+        model.set({checked: checked});
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>delete selected models</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      deleteSelected: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> getSelected = <span class="keyword">function</span>(model) {
+          <span class="keyword">return</span> model.get(<span class="string">'checked'</span>) === <span class="string">'checked'</span>;
+        };
+        <span class="keyword">var</span> deleteModel = <span class="keyword">function</span>(model) {
+          model.destroy();
+        };
+        _.each(<span class="keyword">this</span>.filter(getSelected), deleteModel);
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>select all models</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      selectAll: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.each(<span class="keyword">function</span>(model) {
+          <span class="keyword">this</span>.toggleSelection(model, <span class="string">'checked'</span>);
+        }, <span class="keyword">this</span>);
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>unselect models</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      unSelectAll: <span class="keyword">function</span>(model) {
+        <span class="keyword">this</span>.each(<span class="keyword">function</span>(model) {
+          <span class="keyword">this</span>.toggleSelection(model, <span class="string">''</span>);
+        }, <span class="keyword">this</span>);
+      }
+    });
+
+
+    <span class="keyword">return</span> {
+      ActorCollection: ActorCollection,
+      ActorModel: ActorModel
+    };
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

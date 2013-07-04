@@ -1,25 +1,18 @@
 /*global define, Bootstrap */
-/**
-### main
+// ### main
+// 
+// main entry point for the Navigation module  
+// We will define and manage events from the various components within this section  
+// 
+// bacon.js EventStreams are used to build more functionality into our events  
+// Certain events must happen in combination before they are propogated  
+// For example:  
+// To search, the user must have entered text into the input box
+// and press the search button  
+// To save the search requires the similar requirements  
+// Save Search, Search and tab events will be propogated around the whole application  
+// 
 
-main entry point for the Navigation module 
-We will define and manage events from the various components within this section
-
-bacon.js EventStreams are used to build more functionality into our events
-Certain events must happen in combination before they are propogated
-For example:
-To search, the user must have entered text into the input box
-and press the search button
-
-To save the search requires the similar requirements
-
-Save Search, Search and tab events will be propogated around the whole application
-
-A module level event dispatcher is created and passed to all modules referenced here. 
-In this way we can ensure events do not leak between our main modules
-
-
-*/
 define(
   [
     'underscore',
@@ -36,7 +29,7 @@ define(
 
     // create our combo box view
     var createComboBox = function() {
-      var Comboview = new NavCombo.view({
+      var Comboview = new NavCombo.View({
         el: '.search-combo',
         primary: {
           name_en: 'Search',
@@ -47,21 +40,21 @@ define(
       Comboview.render();
     };
 
+    // stream processing helper
     var nonEmpty = function(x) {
-      console.log(x.encoded);
       return x.encoded.length > 0;
     };
-    //var and
 
     // create the input view that will read in a search from the user
     var createInputView = function () {
       var inputView = new InputView({
-        el: '.search',
+        el: '.search'
       });
       textEntered = inputView.textProperty.map(nonEmpty);
       textProperty = inputView.textProperty;
     };
 
+    // watch for search events
     var watchForSearch = function() {
       var searchRequested = Streams.searchBus.filter(function(e){
         return e.type === 'search_request';
