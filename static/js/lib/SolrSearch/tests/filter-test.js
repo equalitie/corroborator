@@ -6,23 +6,26 @@
 define(
   [
     'jquery',
-    'lib/SolrSearch/views/filters',
+    'lib/SolrSearch/views/filters/filter-manager',
+    'lib/SolrSearch/views/filters/actor-filters',
+    'lib/SolrSearch/views/filters/incident-filters',
+    'lib/SolrSearch/views/filters/bulletin-filters',
     'lib/streams'
   ],
-  function($, Filters, Streams) {
+  function($, FilterManager, ActorFilters, IncidentFilters, BulletinFilters, Streams) {
     'use strict';
     var assert = buster.assert,
         manager;
     buster.testCase('Filter views ', {
       
       setUp: function() {
-        manager = new Filters.FilterManagerView();
+        manager = new FilterManager.FilterManagerView();
       },
       'should return the three views': function() {
-        assert.equals(typeof(Filters.ActorFilterView), 'function');
-        assert.equals(typeof(Filters.BulletinFilterView), 'function');
-        assert.equals(typeof(Filters.IncidentFilterView), 'function');
-        assert.equals(typeof(Filters.FilterManagerView), 'function');
+        assert.equals(typeof(ActorFilters.ActorFilterView), 'function');
+        assert.equals(typeof(BulletinFilters.BulletinFilterView), 'function');
+        assert.equals(typeof(IncidentFilters.IncidentFilterView), 'function');
+        assert.equals(typeof(FilterManager.FilterManagerView), 'function');
        },
       'should create a view when the user navigates': function() {
         assert.equals(typeof(manager.currentView), 'undefined');

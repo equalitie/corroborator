@@ -1,20 +1,22 @@
 /*global window, document, define, Bootstrap */
 define(
   [
-    'lib/SolrSearch/widgets/manager',
+    'lib/SolrSearch/solr/manager',
     'lib/SolrSearch/views/header',
     'lib/SolrSearch/views/results',
-    'lib/SolrSearch/views/filters',
+    'lib/SolrSearch/views/filters/filter-manager',
+    'lib/SolrSearch/data/filter-collections',
     'lib/Data/collections'
   ],
-  function(SolrManager, Header, Results, Filters, Collections) {
+  function(SolrManager, Header, Results, FilterManager, FilterCollection, Collections) {
     'use strict';
     var headerView,
         filterManager;
 
     var init = function() {
+      //FilterCollection.init();
       headerView = new Header.HeaderView();
-      filterManager = new Filters.FilterManagerView();
+      filterManager = new FilterManager.FilterManagerView();
       Results.init();
       SolrManager.doRequest();
 
