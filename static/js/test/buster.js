@@ -11,14 +11,15 @@ config["Corroborator Browser tests"] = {
       "testconfig.js"
     ],
     sources: [
-      "components/require-handlebars-plugin/hbs.js",
-      "components/require-handlebars-plugin/hbs/json2.js",
-      "components/require-handlebars-plugin/hbs/i18nprecompile.js",
+      "test/fixtures/*.js",
       "lib/elements/*.js",
       "lib/elements/templates/*.js",
       "lib/Navigation/*.js",
       "lib/SolrSearch/*.js",
+      "lib/SolrSearch/data/*.js",
+      "lib/SolrSearch/solr/*.js",
       "lib/SolrSearch/views/*.js",
+      "lib/SolrSearch/views/filters/*.js",
       "lib/SolrSearch/templates/*.js",
       "lib/*.js",
       "lib/Data/*.js",

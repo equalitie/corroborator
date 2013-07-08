@@ -3,6 +3,7 @@ require.config({
   baseUrl: 'lib',
   paths: {
     'lib'            : '../lib',
+    'test'           : '../test',
     'jquery'         : '//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min',
     'jquery_ui'      : '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js',
     'backbone'       : '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min',
@@ -10,7 +11,7 @@ require.config({
     'underscore'     : '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min',
     'bacon'          : '//cdnjs.cloudflare.com/ajax/libs/bacon.js/0.4.2/Bacon',
     'bacon_ui'       : '../components/bacon-ui/Bacon.UI',
-    'handlebars'     : '../components/handlebars/handlebars.runtime'
+    'handlebars'     : '../components/handlebars/handlebars.runtime',
   },
   shim: {
     underscore: {

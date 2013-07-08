@@ -17,6 +17,8 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/bulletin-results.tpl.js': 'lib/SolrSearch/templates/bulletin-results.tpl',
           'lib/SolrSearch/templates/bulletin.tpl.js'        : 'lib/SolrSearch/templates/bulletin.tpl',
           'lib/SolrSearch/templates/filters.tpl.js'         : 'lib/SolrSearch/templates/filters.tpl',
+          'lib/SolrSearch/templates/single-filter.tpl.js'   : 'lib/SolrSearch/templates/single-filter.tpl',
+          'lib/SolrSearch/templates/filter-group.tpl.js'    : 'lib/SolrSearch/templates/filter-group.tpl',
           'lib/SolrSearch/templates/header-count.tpl.js'    : 'lib/SolrSearch/templates/header-count.tpl',
           'lib/SolrSearch/templates/header.tpl.js'          : 'lib/SolrSearch/templates/header.tpl',
           'lib/SolrSearch/templates/incident-results.tpl.js': 'lib/SolrSearch/templates/incident-results.tpl',
@@ -37,6 +39,7 @@ module.exports = function(grunt) {
         'lib/Navigation/*.js',
         'lib/Navigation/tests/TabRouter-test.js',
         'lib/SolrSearch/*.js',
+        'lib/SolrSearch/solr/*.js',
         'lib/SolrSearch/tests/*.js',
         'lib/SolrSearch/views/*.js',
         'lib/SolrSearch/widgets/manager.js'

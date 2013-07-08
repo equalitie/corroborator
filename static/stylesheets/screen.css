@@ -3029,6 +3029,7 @@ nav .do-search {
 /* line 46, ../sass/_navigation.scss */
 .tabs li .text {
   display: block;
+  padding-bottom: 5px;
   padding-top: 0.34965em;
   padding-left: 1.3986em;
   padding-right: 1.3986em;
@@ -3037,16 +3038,16 @@ nav .do-search {
   font-weight: bold;
   line-height: 1em;
 }
-/* line 56, ../sass/_navigation.scss */
+/* line 57, ../sass/_navigation.scss */
 .tabs li .count {
   padding-left: 0.25em;
   opacity: 0.5;
 }
-/* line 60, ../sass/_navigation.scss */
+/* line 61, ../sass/_navigation.scss */
 .tabs li:first-child {
   margin-left: 0em;
 }
-/* line 63, ../sass/_navigation.scss */
+/* line 64, ../sass/_navigation.scss */
 .tabs li:hover, .tabs li.current {
   background: white;
 }

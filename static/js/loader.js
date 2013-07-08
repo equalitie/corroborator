@@ -14,9 +14,9 @@
       'bacon'          : 'components/baconjs/dist/Bacon',
       'bacon_ui'       : 'components/bacon-ui/Bacon.UI',
       // ajax solr stuff
-      core: 'components/ajax-solr/core',
-      managers: 'components/ajax-solr/managers',
-      widgets: 'components/ajax-solr/widgets',
+      'core'           : 'components/ajax-solr/core',
+      'managers'       : 'components/ajax-solr/managers',
+      'widgets'        : 'components/ajax-solr/widgets',
     },
     shim: {
       underscore: {
