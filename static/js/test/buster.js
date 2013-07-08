@@ -15,6 +15,8 @@ config["Corroborator Browser tests"] = {
       "lib/elements/*.js",
       "lib/elements/templates/*.js",
       "lib/Navigation/*.js",
+      "lib/CRUD/views/*.js",
+      "lib/CRUD/templates/*.js",
       "lib/SolrSearch/*.js",
       "lib/SolrSearch/data/*.js",
       "lib/SolrSearch/solr/*.js",
@@ -26,6 +28,7 @@ config["Corroborator Browser tests"] = {
      ],
     tests: [
       "lib/SolrSearch/tests/*-test.js",
+      "lib/CRUD/tests/*-test.js",
       //"lib/Navigation/tests/*-test.js",
       //"lib/elements/tests/*-test.js"
     ],

@@ -66,7 +66,6 @@ define(
       },
       // render a filter group
       renderGroup: function(model, index) {
-        console.log(model.attributes);
         //if (_.size(model.attributes > 2)) {
           var filterGroupView = new FilterGroupView({
             model: model

@@ -9,8 +9,8 @@ define(
     var searchBus = new Bacon.Bus(),
         navBus = new Bacon.Bus(),
         navProperty = navBus.toProperty('incident');
-    navBus.toEventStream().log();
-    searchBus.toEventStream().log();
+    //navBus.toEventStream().log();
+    //searchBus.toEventStream().log();
     return {
       searchBus: searchBus,
       navBus: navBus,

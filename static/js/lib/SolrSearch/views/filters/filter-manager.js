@@ -1,3 +1,8 @@
+// Author: Cormac McGuire
+
+// ### Description
+// 
+// 
 define(
   [
     // vendor

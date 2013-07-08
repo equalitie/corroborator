@@ -33,7 +33,6 @@ define(
       },
       // create bulletin clicked
       createBulletinPressed: function(e) {
-        console.log(e);
         var createBulletinEvent = {
           content: {},
           type: 'create_bulletin'
