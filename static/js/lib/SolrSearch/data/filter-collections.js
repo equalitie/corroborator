@@ -10,11 +10,11 @@ define(
     'lib/SolrSearch/data/incident-filter-collection',
     'lib/SolrSearch/data/bulletin-filter-collection',
   ],
-  function (_, ActorFilterCollection, IncidentFilterCollection, 
+  function (_, ActorFilters, IncidentFilterCollection, 
     BulletinFilterCollection) {
     'use strict';
     // instantiate our filter collections
-    var actorFilterCollection = new ActorFilterCollection();
+    var actorFilterCollection = new ActorFilters.ActorFilterCollection();
     var bulletinFilterCollection = new BulletinFilterCollection();
     var incidentFilterCollection = new IncidentFilterCollection();
 

@@ -30,6 +30,9 @@ define(
       return navMap[value];
     };
 
+    var filterCloseRequest = function(value) {
+      return value.type === 'close_form';
+    };
     // filter CRUD events
     var filterCRUD = function(value) {
       return value.type === 'create_actor' ||
@@ -62,6 +65,16 @@ define(
                       .onValue(function (view) {
                         self.replaceView(view);
                       });
+      },
+      // watch for form closing - show our view again
+      watchForFormClose: function() {
+        var self = this;
+        Streams.searchBus.filter(filterCloseRequest)
+               .onValue(function(value) {
+                 if (self.currentView !== undefined) {
+                   self.render();
+                 }
+               });
       },
       // we need to hide the filters if the user wants to create a
       // new entity or if the user clicks to see the full detail

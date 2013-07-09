@@ -42,7 +42,7 @@ define(
           content: {},
           type: 'create_incident'
         });
-        var incidentFormEl= $('#incident');
+        var incidentFormEl= $('#incident_form');
         assert.equals(incidentFormEl.length, 1);
 
       });

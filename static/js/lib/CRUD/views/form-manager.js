@@ -24,6 +24,9 @@ define (
       };
       return createMap[value.type];
     };
+    var filterCloseRequest = function(value) {
+      return value.type === 'close_form';
+    };
     var filterCreateRequest = function(value) {
       return value.type === 'create_actor' ||
              value.type === 'create_bulletin' ||
@@ -45,6 +48,10 @@ define (
                          .map(mapCreateEventToView)
                          .onValue(function(view) {
                            self.replaceView(view);
+                         });
+        Streams.searchBus.filter(filterCloseRequest)
+                         .onValue(function() {
+                           self.destroyCurrentView();
                          });
       },
       replaceView: function(View) {

@@ -41,11 +41,18 @@ define(
         searchBus = Streams.searchBus;
         
     // ### ActorFilterCollection
-    // This collection stores the filters related to actors
+    // This collection stores the filter groups related to actors  
+    // listens for remove_filters event triggered directly on the collection
+    // by a view displaying it's contents
     var ActorFilterCollection = Backbone.Collection.extend({
+      selectedFilters: undefined,
       initialize: function() {
-        console.log('actor initialize');
         this.watchSearchStream();
+        this.selectedFilters = new SelectedActorFilterCollection({
+          availableFilters: this
+        });
+        this.selectedFilters.on('remove', this.reInsertFilter, this);
+        this.on('select_filter', this.selectFilter, this);
       },
       // watch for events in the search stream and pull out the
       // actor filter ones
@@ -57,11 +64,31 @@ define(
                  .onValue(function(value) {
                    self.reset(value);
                  });
+      },
+      // add a filter to the selectFilters
+      selectFilter: function(model) {
+        this.remove(model);
+        this.selectedFilters.add(model);
+        console.log(this, this.selectedFilters);
       }
 
     });
 
-    return ActorFilterCollection;
+
+
+    // ### SelectedActorFilterCollection
+    // Maintain a list of selected actor filters 
+    var SelectedActorFilterCollection = Backbone.Collection.extend({
+      initialize: function(options) {
+        this.availableFilters = options.availableFilters;
+      }
+    });
+    
+
+    return {
+      ActorFilterCollection: ActorFilterCollection,
+      SelectedActorFilterCollection: SelectedActorFilterCollection
+    };
 
 
 });

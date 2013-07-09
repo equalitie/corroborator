@@ -1,13 +1,8 @@
 /*global define, Bacon */
-// ### filters.js
+// ### Description
 // 
-// This displays the filter view  
-// it provides:  
-// filtering for the search results
-// The FilterManagerView handles creation/deletion of the different views
-// There are then three individual views to handle the different filters
-// #### TODO separate into three files
-
+// Display the actor filters available via ActorFilterView
+// and filters in use via ActorFiltersSelectedView
 define(
   [
     // vendor
@@ -20,11 +15,13 @@ define(
     'lib/SolrSearch/views/filters/filter-elements',
     // templates
     'lib/SolrSearch/templates/actor-filters.tpl',
+    'lib/SolrSearch/templates/selected-filters.tpl',
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
-    FilterElements, actorFiltersTmp) {
+    FilterElements, actorFiltersTmp, selectedFiltersTmp) {
     'use strict';
     var ActorFilterView,
+        ActorFiltersSelectedView,
         FilterGroupView = FilterElements.FilterGroupView;
 
     // ## Actor filter view
@@ -84,6 +81,20 @@ define(
         });
         this.$el.append(filterGroupView.$el);
         this.filterGroupViews.push(filterGroupView);
+      }
+    });
+    
+    // ### ActorFiltersSelectedView
+    // Show a list of all selected filters
+    // Allows users to remove these filters
+    ActorFiltersSelectedView = Backbone.View.extend({
+      initialize: function() {
+      },
+      destroy: function() {
+        this.$el.remove();
+        this.undelegateEvents();
+      },
+      render: function() {
       }
     });
     
