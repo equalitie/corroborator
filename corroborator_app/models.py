@@ -285,16 +285,41 @@ class Actor(models.Model):
     """
     This object captures the unique properties of an individual Actor
     """
+    AGE_TYPE_AR = (
+        ('Adult', 'adult'),
+        ('Child', 'child'),
+    )
+    SEX_TYPE_AR = (
+        ('Female', 'female'),
+        ('Male', 'male'),
+    )
+    CIVILIAN_TYPE_AR = (
+        ('Adult', 'adult'),
+        ('Child', 'child'),
+    )
+    AGE_TYPE_EN = (
+        ('Adult', 'adult'),
+        ('Child', 'child'),
+    )
+    SEX_TYPE_EN = (
+        ('Female', 'female'),
+        ('Male', 'male'),
+    )
+    CIVILIAN_TYPE_EN = (
+        ('Adult', 'adult'),
+        ('Child', 'child'),
+    )
+
     fullname_en = models.CharField(max_length=255, blank=True, null=True)
     fullname_ar = models.CharField(max_length=255, blank=True, null=True)
     nickname_en = models.CharField(max_length=255, blank=True, null=True)
     nickname_ar = models.CharField(max_length=255, blank=True, null=True)
-    age_en = models.CharField(max_length=255, blank=True, null=True)
-    age_ar = models.CharField(max_length=255, blank=True, null=True)
-    sex_en = models.CharField(max_length=255, blank=True, null=True)
-    sex_ar = models.CharField(max_length=255, blank=True, null=True)
-    civilian_en = models.CharField(max_length=255, blank=True, null=True)
-    civilian_ar = models.CharField(max_length=255, blank=True, null=True)
+    age_en = models.CharField(max_length=255, choices=AGE_TYPE_EN)
+    age_ar = models.CharField(max_length=255, choices=AGE_TYPE_AR)
+    sex_en = models.CharField(max_length=255, choices=SEX_TYPE_EN)
+    sex_ar = models.CharField(max_length=255, choices=SEX_TYPE_AR)
+    civilian_en = models.CharField(max_length=255, choices=CIVILIAN_TYPE_EN)
+    civilian_ar = models.CharField(max_length=255, choices=CIVILIAN_TYPE_AR)
     DOB = models.DateField('date of birth', blank=True, null=True)
     POB = models.ForeignKey(Location, blank=True, null=True, 
         related_name='POB')
@@ -323,7 +348,6 @@ class Actor(models.Model):
         This method returns the number of associated Bulletins for a given Actor.
         It is used by Django Haystack in construction of the Solr Index.
         """
-
         roles = self.ActorRole_set.all()
         return Bulletin.objects.filter(actors_role__in=roles).count()
     def count_incidents(self):
