@@ -8,6 +8,13 @@ define(
     AjaxSolr.labelsWidget = AjaxSolr.AbstractFacetWidget.extend({
     init: function(){
       var self = this;
+      var facet = 'adult';
+      self.manager.store.remove('fq');
+      self.add(facet);
+      self.doRequest();
+
+
+
 
       if(this.field != 'status_exact'){return false;}
       // handle bulletin status clicks
@@ -40,14 +47,12 @@ define(
           self.manager.store.params.q.value = value;
 
           if(facet !== 'Any'){
-            self.add(facet);
           }
           else {
             self.manager.store.remove('fq');
           }
           $('.selected').removeClass('selected');	
           $(this).parent().addClass('selected');
-          self.doRequest();
       }
 
     });
