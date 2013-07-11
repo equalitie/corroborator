@@ -14,7 +14,11 @@ define(
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
     FilterElements, incidentFiltersTmp) {
     var IncidentFilterView,
-        FilterGroupView = FilterElements.FilterGroupView;
+        FilterGroupView = FilterElements.FilterGroupView,
+        IncidentFilterCollection = FilterCollection.IncidentFilterCollection,
+        SelectedIncidentFilterCollection = 
+          FilterCollection.SelectedIncidentFilterCollection,
+        SelectedFiltersView = FilterElements.SelectedFiltersView;
 
     // ## Incident filter view
     // display a list of filters for incidents
@@ -29,6 +33,7 @@ define(
       initialize: function() {
         this.collection = FilterCollection.BulletinFilterCollection;
         this.collection.on('reset', this.render, this);
+        this.createSelectedFiltersGroup();
         this.render();
       },
       createIncidentPressed: function(e) {
@@ -54,25 +59,42 @@ define(
       },
       //render the container element
       render: function() {
-        var html = incidentFiltersTmp();
-        this.$el.empty()
-                .append(html);
+        var renderContainer = _.once(this.renderContainer, this);
+        renderContainer(this);
         this.destroyFilterGroupViews();
         this.renderFilterGroups();
       },
+
+      // render the container
+      renderContainer: function(self) {
+        var html = incidentFiltersTmp();
+        self.$el.empty()
+                .append(html);
+        self.selectedFiltersView.setElement('.selected-incident-filters');
+      },
+
       // render the filter groups
       renderFilterGroups: function() {
-        this.collection.each(this.renderGroup, this);
+        this.filterGroupViews = this.collection.map(this.renderGroup, this);
       },
+
+      // create the view that will display the users selected filters
+      createSelectedFiltersGroup: function() {
+        this.selectedFiltersView = new SelectedFiltersView({
+          el: '.selected-incident-filters',
+          collection: SelectedIncidentFilterCollection,
+          type: 'incident'
+        });
+
+      },
+
       // render a filter group
-      renderGroup: function(model, index) {
-        //if (_.size(model.attributes > 2)) {
-          var filterGroupView = new FilterGroupView({
-            model: model
-          });
-          this.$el.append(filterGroupView.$el);
-          this.filterGroupViews.push(filterGroupView);
-        //}
+      renderGroup: function(model) {
+        var filterGroupView = new FilterGroupView({
+          model: model
+        });
+        this.$el.append(filterGroupView.$el);
+        return filterGroupView;
       }
     });
 

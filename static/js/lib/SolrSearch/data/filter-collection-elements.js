@@ -8,19 +8,36 @@
 
 define (
   [
-    'backbone', 'underscore'
+    'backbone', 'underscore',
+    'lib/streams'
   ],
-  function (Backbone, _) {
+  function (Backbone, _, Streams) {
     'use strict';
 
     var SelectedFilterCollection,
-        FilterGroupCollection;
+        FilterGroupCollection,
+        filterRemoveFilterEvents = function(value) {
+          return value.type === 'remove_filter';
+        },
+        searchBus = Streams.searchBus;
 
     // ### FilterGroupCollection
     // 
     FilterGroupCollection = Backbone.Collection.extend({
       initialize: function() {
-      }
+        this.watchSearchStream();
+      },
+      watchSearchStream: function() {
+        var self = this;
+        searchBus.filter(filterRemoveFilterEvents)
+                 .filter(function(value) {
+                   return value.content.get('key') === self.groupKey;
+                 })
+                 .onValue(function(value) {
+                   self.add(value.content);
+                   console.log(value);
+                 });
+      },
     });
 
     // ### SelectedFilterCollection

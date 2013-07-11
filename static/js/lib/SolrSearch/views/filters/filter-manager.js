@@ -49,7 +49,6 @@ define(
     // ## FilterManagerView
     // manage creation/deletion of filter views
     FilterManagerView = Backbone.View.extend({
-      el: '.right-filters',
       currentView: undefined,
       initialize: function() {
         this.watchNavStream();
@@ -111,12 +110,13 @@ define(
       destroyCurrentView: function() {
         if (this.currentView !== undefined) {
           this.currentView.destroy();
+          //delete(this.currentView);
         }
       },
       // render the child view
       render:function() {
-        this.$el.empty()
-                .append(this.currentView.$el);
+        
+        this.currentView.render();
       }
     });
 

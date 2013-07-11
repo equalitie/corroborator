@@ -2,54 +2,67 @@ define(
   [
     // vendor
     'underscore', 'jquery', 'backbone',
+    'lib/streams',
     // templates
     'lib/SolrSearch/templates/filter-group.tpl',
     'lib/SolrSearch/templates/single-filter.tpl',
+    'lib/SolrSearch/templates/selected-filters.tpl',
     'lib/SolrSearch/templates/selected-filter.tpl'
   ],
-  function (_, $, Backbone, filterGroupTmp, singleFilterTmp) {
+  function (_, $, Backbone, Streams, filterGroupTmp, singleFilterTmp,
+    selectedFiltersTmp, selectedFilterTmp
+  ) {
     'use strict';
     var FilterGroupView,
         SelectedFilterView,
-        FilterView;
+        SelectedFiltersView,
+        FilterView,
+        searchBus = Streams.searchBus;
 
     // ### FilterGroupView
     // Render a group of filters
     FilterGroupView = Backbone.View.extend({
       className: 'filter',
       filterViews: [],
+      // actor bulletin incident?
+      type: '',
+
+      // constructor
       initialize: function() {
+        this.collection = this.model.get('collection');
+        this.collection.on('add', this.render, this);
         this.render();
       },
-      pluckFilters: function() {
-        var attrs = this.model.toJSON();
-        return _.omit(attrs, ['key', 'title']);
-      },
+
+      // destroy this view and it's subviews
       destroy: function() {
         _.each(this.filterViews, function(view) {
           view.destroy();
         });
-
+        this.filterViews = [];
       },
+
+      // render the filter group
       render: function() {
         var html = filterGroupTmp({model: this.model.toJSON()});
         this.$el.empty()
                 .append(html);
         this.renderFilters();
       },
+
+      // iterate over the filters with a render function
       renderFilters: function() {
-        var filters = this.pluckFilters();
-        _.each(filters, this.renderFilter, this);
+        this.filtersViews = this.collection.map(this.renderFilter, this);
       },
-      renderFilter: function(numItems, filterName) {
-        var model = new Backbone.Model({
-          numItems: numItems,
-          filterName: filterName
-          });
-        var filterView = new FilterView({model: model});
+
+      // render a single filter
+      renderFilter: function(model) {
+        var filterView = new FilterView({
+          model: model
+        });
         this.$el.children('ul')
                 .append(filterView.$el);
-        this.filterViews.push(filterView);
+        return filterView;
       }
     });
 
@@ -59,12 +72,27 @@ define(
       tagName: 'li',
       className: 'option',
       events: {
-        'click': 'filterRequested'
+        'click .text': 'filterRequested'
       },
       initialize: function() {
+        this.uniqueId = _.uniqueId();
         this.render();
       },
-      filterRequested: function() {
+      // the user has clicked on the filter  
+      // send the filter name and key to the event stream
+      filterRequested: function(e) {
+        var filter =  $(e.currentTarget).children()
+                                        .data('filter');
+        var field =  $(e.currentTarget).children()
+                                        .data('key');
+        searchBus.push({
+          type: 'filter_event_' + this.model.get('type'),
+          content: {
+            filter: this.model
+          }
+        });
+        this.destroy();
+        this.model.collection.remove(this.model);
       },
       destroy: function() {
         this.$el.remove();
@@ -77,24 +105,112 @@ define(
       },
     });
 
-    // ### SelectedFilterView
-    // Used to display a filter that has been selected by a user  
-    // Shown in the Current Filters section
-    SelectedFilterView = Backbone.View.extend({
-      initialize: function() {
+    // ### SelectedFiltersView
+    // Show a list of all selected filters
+    // Allows users to remove these filters
+    SelectedFiltersView = Backbone.View.extend({
+      // constructor
+      initialize: function(options) {
+        this.type = options.type;
+        this.collection.on('add', this.render, this);
+        this.collection.on('add', this.showFilters, this);
+        this.collection.on('remove', this.shouldBeHidden, this);
       },
+
+      // unhide the view
+      showFilters: function() {
+        this.$el.children()
+                .children()
+                .children()
+                .children()
+                .removeClass('hidden');
+      },
+
+      // check if the view should be hidden and hide if yes
+      shouldBeHidden: function() {
+        console.log('shouldBeHidden', this.collection, this.el);
+        if (this.collection.size() === 0) {
+        this.$el.children()
+                .addClass('hidden');
+        }
+      },
+
+      // destroy the view
       destroy: function() {
         this.$el.remove();
         this.undelegateEvents();
       },
+
+      // render the selected filters container
       render: function() {
+        var html = selectedFiltersTmp({
+          model: {
+            type: this.type
+          }
+        });
+        this.$el.empty()
+                .append(html);
+        this.renderFilters();
+      },
+
+      // iterate over the collection of filters
+      renderFilters: function() {
+        this.collection.each(this.renderFilter, this);
+      },
+
+      // render a single filter
+      renderFilter: function(model, index, collection) {
+        console.log(model);
+        var selectedFilterView = new SelectedFilterView({
+          model: model,
+          collection: this.collection
+        });
+        console.log(this.$el);
+        $('#' + this.type + '-selected-tags').append(selectedFilterView.$el);
+      }
+    });
+
+    // ### SelectedFilterView
+    // Used to display a filter that has been selected by a user  
+    // Shown in the Current Filters section
+    SelectedFilterView = Backbone.View.extend({
+      events: {
+        'click .do-clear': 'removeFilter'
+      },
+      // constructor
+      initialize: function() {
+        this.render();
+      },
+
+      removeFilter: function() {
+        searchBus.push({
+          type: 'remove_filter',
+          content: this.model
+        });
+        this.destroy();
+      },
+
+      // destroy the view
+      destroy: function() {
+        this.$el.remove();
+        this.undelegateEvents();
+        this.collection.remove(this.model);
+      },
+
+      // render a single filter
+      render: function() {
+        console.log(this.model.toJSON());
+        var html = selectedFilterTmp({model: this.model.toJSON()});
+        this.$el.empty()
+                .append(html);
       }
     });
     
 
     return {
       FilterView: FilterView,
-      FilterGroupView: FilterGroupView
+      FilterGroupView: FilterGroupView,
+      SelectedFiltersView: SelectedFiltersView
     };
   }
 );

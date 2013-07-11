@@ -11,10 +11,7 @@
   <div class="padding">
     <div class="group is-filters filters">
       <!-- enabled filters -->
-      <div class="filter is-labels">
-        <label id="actor-selected-label" class="hidden">Current filters</label>
-        <ul id="actor-selected-tags" class="tags editor">
-        </ul>
+      <div class="selected-incident-filters filter is-labels">
       </div>
 
       <!-- filter groups go in here -->

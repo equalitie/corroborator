@@ -82,7 +82,6 @@ define(
       sendActorFilters(actorFilters);
       sendIncidentFilters(incidentFilters);
       sendBulletinFilters(bulletinFilters);
-      
     };
 
     return ParseFilter;

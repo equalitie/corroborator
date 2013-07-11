@@ -15,6 +15,9 @@ define(
   function (_, $, Backbone, Streams, Collections, FilterCollection,
     FilterElements, bulletinFiltersTmp) {
     var BulletinFilterView,
+        SelectedFiltersView = FilterElements.SelectedFiltersView,
+        SelectedBulletinFilterCollection = 
+          FilterCollection.SelectedBulletinFilterCollection,
         FilterGroupView = FilterElements.FilterGroupView;
     // ## Bulletin filter view
     // display a list of filters for bulletins
@@ -29,6 +32,7 @@ define(
       initialize: function() {
         this.collection = FilterCollection.BulletinFilterCollection;
         this.collection.on('reset', this.render, this);
+        this.createSelectedFiltersGroup();
         this.render();
       },
       // create bulletin clicked
@@ -55,23 +59,42 @@ define(
       },
       //render the container element
       render: function() {
-        var html = bulletinFiltersTmp();
-        this.$el.empty()
-                .append(html);
+        var renderContainer = _.once(this.renderContainer, this);
+        renderContainer(this);
         this.destroyFilterGroupViews();
         this.renderFilterGroups();
       },
+
+      // render the container
+      renderContainer: function(self) {
+        var html = bulletinFiltersTmp();
+        self.$el.empty()
+                .append(html);
+        self.selectedFiltersView.setElement('.selected-bulletin-filters');
+      },
+
       // render the filter groups
       renderFilterGroups: function() {
-        this.collection.each(this.renderGroup, this);
+        this.filterGroupViews = this.collection.map(this.renderGroup, this);
       },
+
+      // create the view that will display the users selected filters
+      createSelectedFiltersGroup: function() {
+        this.selectedFiltersView = new SelectedFiltersView({
+          el: '.selected-bulletin-filters',
+          collection: SelectedBulletinFilterCollection,
+          type: 'bulletin'
+        });
+
+      },
+
       // render a filter group
-      renderGroup: function(model, index) {
+      renderGroup: function(model) {
         var filterGroupView = new FilterGroupView({
           model: model
         });
         this.$el.append(filterGroupView.$el);
-        this.filterGroupViews.push(filterGroupView);
+        return filterGroupView;
       }
     });
 

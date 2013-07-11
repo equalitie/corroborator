@@ -10,19 +10,28 @@ define(
     'lib/SolrSearch/data/incident-filter-collection',
     'lib/SolrSearch/data/bulletin-filter-collection',
   ],
-  function (_, ActorFilters, IncidentFilterCollection, 
-    BulletinFilterCollection) {
+  function (_, ActorFilters, IncidentFilters, BulletinFilters) {
     'use strict';
     // instantiate our filter collections
+
     var actorFilterCollection = new ActorFilters.ActorFilterCollection();
-    var bulletinFilterCollection = new BulletinFilterCollection();
-    var incidentFilterCollection = new IncidentFilterCollection();
+    var bulletinFilterCollection = new BulletinFilters.BulletinFilterCollection();
+    var incidentFilterCollection = new IncidentFilters.IncidentFilterCollection();
+
+    var selectedActorFilterCollection = new ActorFilters.SelectedActorFilterCollection();
+    var selectedBulletinFilterCollection
+      = new BulletinFilters.SelectedBulletinFilterCollection();
+    var selectedIncidentFilterCollection
+      = new IncidentFilters.SelectedIncidentFilterCollection();
 
     // return the references to the collection instances
     return {
       ActorFilterCollection: actorFilterCollection,
       BulletinFilterCollection: bulletinFilterCollection,
-      IncidentFilterCollection: incidentFilterCollection
+      IncidentFilterCollection: incidentFilterCollection,
+      SelectedActorFilterCollection: selectedActorFilterCollection,
+      SelectedBulletinFilterCollection: selectedBulletinFilterCollection,
+      SelectedIncidentFilterCollection: selectedIncidentFilterCollection
     };
 
 });

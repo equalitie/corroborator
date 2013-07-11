@@ -18,7 +18,7 @@ define(
       headerView = new Header.HeaderView();
       filterManager = new FilterManager.FilterManagerView();
       Results.init();
-      SolrManager.doRequest();
+      SolrManager.MainManager.doRequest();
 
 
     };

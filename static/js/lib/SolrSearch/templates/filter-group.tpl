@@ -1,3 +1,3 @@
-<label>{{ model.title}}</label>
-<ul class="select" id="{{ model.key }}">
+<label>{{ model.groupTitle}}</label>
+<ul class="select" id="{{ model.groupKey }}">
 </ul>

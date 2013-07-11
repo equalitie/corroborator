@@ -21,12 +21,34 @@ define(
     FilterElements, actorFiltersTmp, selectedFiltersTmp) {
     'use strict';
     var ActorFilterView,
-        ActorFiltersSelectedView,
-        FilterGroupView = FilterElements.FilterGroupView;
+        NewActorButtonView,
+        FilterGroupView = FilterElements.FilterGroupView,
+        ActorFilterCollection = FilterCollection.ActorFilterCollection,
+        SelectedActorFilterCollection = 
+          FilterCollection.SelectedActorFilterCollection,
+        SelectedFiltersView = FilterElements.SelectedFiltersView;
 
+    // ### NewActorButtonView
+    // show the new actor button
+    NewActorButtonView = Backbone.View.extend({
+      el: '.actor-display div.padding div.group',
+      initialize: function() {
+        this.template = _.template('<button class="do-create-actor create">' +
+          '<span class="text T">New actor</span> </button>');
+      },
+      destroy: function() {
+        this.$el.remove();
+        this.undelegateEvents();
+      },
+      render: function() {
+        this.$el.append(this.template());
+      }
+    });
+    
     // ## Actor filter view
     // display a list of filters for actors
     ActorFilterView = Backbone.View.extend({
+      el: '.right-filters',
       events : {
         'click button.do-create-actor': 'createActorPressed'
       },
@@ -35,10 +57,12 @@ define(
 
       // constructor - listen for collection reset event and render the view
       initialize: function() {
-        this.collection = FilterCollection.ActorFilterCollection;
+        this.collection = ActorFilterCollection;
         this.collection.on('reset', this.render, this);
+        this.createSelectedFiltersGroup();
         this.render();
       },
+
       // respond to new actor button press  
       // send event on search bus 
       createActorPressed: function(e) {
@@ -48,13 +72,17 @@ define(
         };
         Streams.searchBus.push(createActorEvent);
       },
+
       // unset event handlers and destroy DOM elements
       destroy: function() {
         this.destroyFilterGroupViews();
+        this.selectedFiltersView.destroy();
+        this.selectedFiltersView = undefined;
         this.undelegateEvents();
         this.collection.off('reset', this.render);
         this.$el.remove();
       },
+      
       // destroy the subviews
       destroyFilterGroupViews: function() {
         _.each(this.filterGroupViews, function(view) {
@@ -62,45 +90,52 @@ define(
         });
         this.filterGroupViews = [];
       },
+
       //render the container element
       render: function() {
-        var html = actorFiltersTmp();
-        this.$el.empty()
-                .append(html);
+        console.log('renderContainer');
+        var renderContainer = _.once(this.renderContainer, this);
+        renderContainer(this);
         this.destroyFilterGroupViews();
         this.renderFilterGroups();
       },
+
+      // render the container
+      renderContainer: function(self) {
+        console.log(self.$el);
+        var html = actorFiltersTmp();
+        self.$el.empty()
+                .append(html);
+        self.selectedFiltersView.setElement('.selected-actor-filters');
+        console.log($('.selected-actor-filters').length);
+      },
+
       // render the filter groups
       renderFilterGroups: function() {
-        this.collection.each(this.renderGroup, this);
+        this.filterGroupViews = this.collection.map(this.renderGroup, this);
       },
+
+      // create the view that will display the users selected filters
+      createSelectedFiltersGroup: function() {
+        this.selectedFiltersView = new SelectedFiltersView({
+          el: '.selected-actor-filters',
+          collection: SelectedActorFilterCollection,
+          type: 'actor'
+        });
+      },
+
       // render a filter group
-      renderGroup: function(model, index) {
+      renderGroup: function(model) {
         var filterGroupView = new FilterGroupView({
           model: model
         });
         this.$el.append(filterGroupView.$el);
-        this.filterGroupViews.push(filterGroupView);
+        return filterGroupView;
       }
     });
     
-    // ### ActorFiltersSelectedView
-    // Show a list of all selected filters
-    // Allows users to remove these filters
-    ActorFiltersSelectedView = Backbone.View.extend({
-      initialize: function() {
-      },
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
-      },
-      render: function() {
-      }
-    });
-    
-
     // module export
     return {
-      ActorFilterView   : ActorFilterView,
+      ActorFilterView: ActorFilterView,
     };
 });

@@ -1,3 +1,9 @@
+/*global define*/
+// Author: Cormac McGuire
+// ### Description
+// This file handles the main search over all three entities  
+// The results of this will update collections in the Data folder
+
 define(
   [
     'underscore',
@@ -6,14 +12,17 @@ define(
     'core/AbstractTextWidget'
   ],
   function(_, ParseFilter, Streams) {
+        // parse actor results from the result string
         var filterActors = function(element) {
           return element.django_ct.search(/actor/) > -1;
         },
 
+        // parse bulletin results from the result string
         filterBulletin = function(element) {
           return element.django_ct.search(/bulletin/) > -1;
         },
 
+        // parse incident results from the result string
         filterIncident = function(element) {
           return element.django_ct.search(/incident/) > -1;
         },
@@ -37,9 +46,9 @@ define(
             content: incidents
           }); 
         };
-    //////////////////////////////////////////////////////////////////////
+
     // AJAX SOLR SEARCH WIDGET
-    //////////////////////////////////////////////////////////////////////
+    // TODO: listen for search event to update the search
 
     var TextWidget = AjaxSolr.AbstractTextWidget.extend({
       init: function () {

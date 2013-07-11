@@ -1,6 +1,6 @@
 <li class="tag">
-  <span class="text">{{model.title_en}}</span>
+  <span class="text">{{model.filterName}}</span>
   <button class="do-clear">
-    <span>~~S</span>
+    <span>✓</span>
   </button>
 </li>
