@@ -39,6 +39,8 @@ define(
         _.each(this.filterViews, function(view) {
           view.destroy();
         });
+        this.$el.remove();
+        this.collection.off('add', this.render);
         this.filterViews = [];
       },
 
@@ -110,14 +112,19 @@ define(
     // Allows users to remove these filters
     SelectedFiltersView = Backbone.View.extend({
       // constructor
+      // render the container, show the filters  
+      // register listeners for add and remove events  
       initialize: function(options) {
         this.type = options.type;
         this.collection.on('add', this.render, this);
         this.collection.on('add', this.showFilters, this);
         this.collection.on('remove', this.shouldBeHidden, this);
+        this.render();
+        this.shouldBeHidden();
       },
 
       // unhide the view
+      // how ugly is this!!
       showFilters: function() {
         this.$el.children()
                 .children()
@@ -128,7 +135,6 @@ define(
 
       // check if the view should be hidden and hide if yes
       shouldBeHidden: function() {
-        console.log('shouldBeHidden', this.collection, this.el);
         if (this.collection.size() === 0) {
         this.$el.children()
                 .addClass('hidden');
@@ -137,8 +143,11 @@ define(
 
       // destroy the view
       destroy: function() {
-        this.$el.remove();
+        this.$el.empty();
         this.undelegateEvents();
+        this.collection.off('add', this.render);
+        this.collection.off('add', this.showFilters);
+        this.collection.off('remove', this.shouldBeHidden);
       },
 
       // render the selected filters container
@@ -160,12 +169,10 @@ define(
 
       // render a single filter
       renderFilter: function(model, index, collection) {
-        console.log(model);
         var selectedFilterView = new SelectedFilterView({
           model: model,
           collection: this.collection
         });
-        console.log(this.$el);
         $('#' + this.type + '-selected-tags').append(selectedFilterView.$el);
       }
     });
@@ -174,6 +181,8 @@ define(
     // Used to display a filter that has been selected by a user  
     // Shown in the Current Filters section
     SelectedFilterView = Backbone.View.extend({
+      tagName: 'li',
+      className: 'tag',
       events: {
         'click .do-clear': 'removeFilter'
       },
@@ -199,7 +208,6 @@ define(
 
       // render a single filter
       render: function() {
-        console.log(this.model.toJSON());
         var html = selectedFilterTmp({model: this.model.toJSON()});
         this.$el.empty()
                 .append(html);

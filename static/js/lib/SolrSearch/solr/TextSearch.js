@@ -13,46 +13,60 @@ define(
   ],
   function(_, ParseFilter, Streams) {
         // parse actor results from the result string
-        var filterActors = function(element) {
-          return element.django_ct.search(/actor/) > -1;
-        },
+        var searchBus = Streams.searchBus,
+            filterSearchRequestEvents = function(value) {
+              return value.type === 'new_search';
+            },
+            filterActors = function(element) {
+              return element.django_ct.search(/actor/) > -1;
+            },
 
-        // parse bulletin results from the result string
-        filterBulletin = function(element) {
-          return element.django_ct.search(/bulletin/) > -1;
-        },
+            // parse bulletin results from the result string
+            filterBulletin = function(element) {
+              return element.django_ct.search(/bulletin/) > -1;
+            },
 
-        // parse incident results from the result string
-        filterIncident = function(element) {
-          return element.django_ct.search(/incident/) > -1;
-        },
+            // parse incident results from the result string
+            filterIncident = function(element) {
+              return element.django_ct.search(/incident/) > -1;
+            },
 
-        // send the results off to the search bus
-        pushActorResults = function(actors) {
-          Streams.searchBus.push({
-            type: 'results_actor',
-            content: actors
-          }); 
-        },
-        pushBulletinResults = function(bulletins) {
-          Streams.searchBus.push({
-            type: 'results_bulletin',
-            content: bulletins
-          }); 
-        },
-        pushIncidentResults = function(incidents) {
-          Streams.searchBus.push({
-            type: 'results_incident',
-            content: incidents
-          }); 
-        };
+            // send the results off to the search bus
+            pushActorResults = function(actors) {
+              Streams.searchBus.push({
+                type: 'results_actor',
+                content: actors
+              }); 
+            },
+            pushBulletinResults = function(bulletins) {
+              Streams.searchBus.push({
+                type: 'results_bulletin',
+                content: bulletins
+              }); 
+            },
+            pushIncidentResults = function(incidents) {
+              Streams.searchBus.push({
+                type: 'results_incident',
+                content: incidents
+              }); 
+            };
 
     // AJAX SOLR SEARCH WIDGET
     // TODO: listen for search event to update the search
 
     var TextWidget = AjaxSolr.AbstractTextWidget.extend({
       init: function () {
+        this.watchSearchStream();
         
+      },
+      watchSearchStream: function() {
+        var self = this;
+        searchBus.filter(filterSearchRequestEvents)
+                 .onValue(function(value) {
+                   self.clear();
+                   self.set('*' + value.content.raw + '*');
+                   self.doRequest();
+                 });
       },
       // send the results off the bus in a super functional way
       // cos that's how we do round here!

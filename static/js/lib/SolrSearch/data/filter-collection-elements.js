@@ -14,43 +14,40 @@ define (
   function (Backbone, _, Streams) {
     'use strict';
 
-    var SelectedFilterCollection,
-        FilterGroupCollection,
+    var FilterGroupCollection,
         filterRemoveFilterEvents = function(value) {
           return value.type === 'remove_filter';
         },
         searchBus = Streams.searchBus;
 
     // ### FilterGroupCollection
-    // 
+    // Collection to store the groups of filters associated with
+    // each entity
     FilterGroupCollection = Backbone.Collection.extend({
+      // this needs to be set when creating a filter group collection
+      groupKey: '',
+      // constructor
       initialize: function() {
         this.watchSearchStream();
       },
+      // watch for removeFilter events
       watchSearchStream: function() {
         var self = this;
         searchBus.filter(filterRemoveFilterEvents)
+                 // check the filter is associated with this group
                  .filter(function(value) {
                    return value.content.get('key') === self.groupKey;
                  })
                  .onValue(function(value) {
                    self.add(value.content);
-                   console.log(value);
                  });
-      },
-    });
-
-    // ### SelectedFilterCollection
-    // 
-    SelectedFilterCollection = Backbone.Collection.extend({
-      initialize: function() {
       }
     });
 
     
     
     return {
-      SelectedFilterCollection: SelectedFilterCollection,
-      FilterGroupCollection   : FilterGroupCollection };
+      FilterGroupCollection: FilterGroupCollection 
+    };
 });
 

@@ -76,7 +76,7 @@ define(
       merged.scan({}, function(oldResult, value) {
         var newResult = oldResult;
         if (value.encoded) {
-          newResult.search = value;
+          newResult.content = value;
           newResult.type = 'intermediate';
         }
         if (value.domain) {
@@ -89,7 +89,7 @@ define(
         return newResult;
          
       }).filter(function(value) {
-        return value.type === 'new_search' && value.search !== undefined;
+        return value.type === 'new_search' && value.content !== undefined;
       }).onValue(function(value) {
         Streams.searchBus.push(value);
       });

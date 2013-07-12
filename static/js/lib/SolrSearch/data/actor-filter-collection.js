@@ -11,19 +11,25 @@ define(
     'backbone',
     'underscore',
     'lib/streams',
-    'lib/SolrSearch/data/filter-collection-elements'
+    'lib/SolrSearch/data/filter-collection-mixins'
   ],
-  function(Backbone, _, Streams, FilterCollectionElements) {
+  function(Backbone, _, Streams, Mixins) {
     'use strict';
 
     // filter out the actor filters event
-    var FilterGroupCollection = FilterCollectionElements.FilterGroupCollection,
+    var FilterGroupMixin = Mixins.FilterGroupMixin,
+
+        // filter out event with notification of actor filter createion
         filterActorFilters = function(value) {
           return value.type === 'parse_filters_actor';
         },
+        
+        // actor filter event
         filterActorFilterEvents = function(value) {
           return value.type === 'filter_event_actor';
         },
+
+        // map solr facet to labels
         filterTitles = {
           'age_en_exact': 'Age',
           'sex_en_exact': 'Gender',
@@ -53,6 +59,7 @@ define(
     // by a view displaying it's contents
     var ActorFilterCollection = Backbone.Collection.extend({
       selectedFilters: undefined,
+      entityType: 'actor',
 
       initialize: function() {
         this.watchSearchStream();
@@ -69,40 +76,9 @@ define(
                  .onValue(function(value) {
                    self.createFilterGroupCollections(value);
                  });
-      },
-
-      // iterate over filter groups to create collections
-      createFilterGroupCollections: function(groups) {
-        _.each(groups, this.createFilterGroupCollection, this);
-        this.trigger('reset');
-      },
-
-      // create collections for each filter group  
-      // we create this as a model that gets added to this collection
-      createFilterGroupCollection: function(group) {
-        // remove the key and title from the passed in filters
-        var filters = _.omit(group, ['key', 'title']);
-        var filterGroupCollection = new FilterGroupCollection();
-        filterGroupCollection.groupKey = group.key;
-        _.each(filters, function(numItems, filterName) {
-          var filterModel = new Backbone.Model({
-            key: group.key,
-            title: group.title,
-            numItems: numItems,
-            filterName: filterName,
-            type: 'actor'
-          });
-          filterGroupCollection.add(filterModel);
-        }, this);
-
-        this.add({
-            groupKey: group.key,
-            groupTitle: group.title,
-            collection: filterGroupCollection
-        });
       }
-
     });
+    _.extend(ActorFilterCollection.prototype, FilterGroupMixin);
 
 
     // ### SelectedActorFilterCollection
@@ -110,6 +86,7 @@ define(
     var SelectedActorFilterCollection = Backbone.Collection.extend({
       initialize: function(options) {
         this.watchSearchStream();
+        this.on('add remove', this.sendFilter, this);
       },
       watchSearchStream: function() {
         var self = this;
@@ -118,6 +95,12 @@ define(
                    self.add(value.content.filter);
                  });
       },
+      sendFilter: function(filterModel) {
+        Streams.searchBus.push({
+          type: 'filter_event_add',
+          content: this.models
+        });
+      }
     });
     
 

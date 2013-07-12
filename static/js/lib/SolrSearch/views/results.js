@@ -70,6 +70,8 @@ define(
       destroy: function() {
         this.undelegateEvents();
         this.remove();
+        this.model.off('change', this.render, this);
+        this.model.off('destroy', this.destroy, this);
       }
 
     });
@@ -111,7 +113,8 @@ define(
           view.destroy();
         });
         this.undelegateEvents();
-        this.remove();
+        this.collection.off('add sort reset', this.render);
+        this.$el.empty();
       }
     });
 
@@ -157,6 +160,8 @@ define(
       destroy: function() {
         this.undelegateEvents();
         this.remove();
+        this.model.off('change', this.render, this);
+        this.model.off('destroy', this.destroy, this);
       }
 
     });
@@ -197,7 +202,8 @@ define(
           view.destroy();
         });
         this.undelegateEvents();
-        this.remove();
+        this.collection.off('add sort reset', this.render);
+        this.$el.empty();
       }
 
     });
@@ -247,6 +253,8 @@ define(
       destroy: function() {
         this.undelegateEvents();
         this.remove();
+        this.model.off('change', this.render, this);
+        this.model.off('destroy', this.destroy, this);
       }
 
     });
@@ -284,7 +292,8 @@ define(
           view.destroy();
         });
         this.undelegateEvents();
-        this.remove();
+        this.$el.empty();
+        this.collection.off('add sort reset', this.render);
       }
 
     });
@@ -306,22 +315,19 @@ define(
       // destroy current view
       destroy(currentView);
       // show actor view
-      var actorResultsView = new ActorResultsView();
+      currentView = new ActorResultsView();
     };
     var showBulletins = function() {
       // destroy current view
       destroy(currentView);
       // show actor view
-      var bulletinsResultsView = new BulletinResultsView();
+      currentView = new BulletinResultsView();
     };
     var showIncidents = function() {
       // destroy current view
       destroy(currentView);
       // show actor view
-      var incidentResultsView = new IncidentResultsView();
-    };
-
-    var showCurrent = function(navValue) {
+      currentView = new IncidentResultsView();
     };
 
     var displayInicidents = function() {};
@@ -338,7 +344,6 @@ define(
       // connect to the navStream to choose our initial result display
       var actorsSelected = Streams.navProperty
                                   .filter(actorClicked)
-                                  //.onValue(showCurrent);
                                   .onValue(showActors);
                                   
       var incidentSelected = Streams.navProperty

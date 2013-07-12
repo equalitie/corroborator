@@ -11,18 +11,18 @@ define(
     'lib/streams',
     //data
     'lib/SolrSearch/data/filter-collections',
-    // filter elements
+    // filter mixins
+    'lib/SolrSearch/views/filters/filter-mixins',
     'lib/SolrSearch/views/filters/filter-elements',
     // templates
-    'lib/SolrSearch/templates/actor-filters.tpl',
-    'lib/SolrSearch/templates/selected-filters.tpl',
+    'lib/SolrSearch/templates/actor-filters.tpl'
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
-    FilterElements, actorFiltersTmp, selectedFiltersTmp) {
+    Mixins, FilterElements, actorFiltersTmp) {
     'use strict';
     var ActorFilterView,
         NewActorButtonView,
-        FilterGroupView = FilterElements.FilterGroupView,
+        FilterViewMixin = Mixins.FilterViewMixin,
         ActorFilterCollection = FilterCollection.ActorFilterCollection,
         SelectedActorFilterCollection = 
           FilterCollection.SelectedActorFilterCollection,
@@ -53,14 +53,14 @@ define(
         'click button.do-create-actor': 'createActorPressed'
       },
       // store the sub views so we can get rid of them later
-      filterGroupViews: [],
 
       // constructor - listen for collection reset event and render the view
       initialize: function() {
-        this.collection = ActorFilterCollection;
-        this.collection.on('reset', this.render, this);
-        this.createSelectedFiltersGroup();
         this.render();
+        this.collection = ActorFilterCollection;
+        this.renderExistingCollection();
+        this.collection.on('reset', this.renderFilterGroups, this);
+        this.createSelectedFiltersGroup();
       },
 
       // respond to new actor button press  
@@ -73,46 +73,11 @@ define(
         Streams.searchBus.push(createActorEvent);
       },
 
-      // unset event handlers and destroy DOM elements
-      destroy: function() {
-        this.destroyFilterGroupViews();
-        this.selectedFiltersView.destroy();
-        this.selectedFiltersView = undefined;
-        this.undelegateEvents();
-        this.collection.off('reset', this.render);
-        this.$el.remove();
-      },
-      
-      // destroy the subviews
-      destroyFilterGroupViews: function() {
-        _.each(this.filterGroupViews, function(view) {
-          view.destroy();
-        });
-        this.filterGroupViews = [];
-      },
-
-      //render the container element
-      render: function() {
-        console.log('renderContainer');
-        var renderContainer = _.once(this.renderContainer, this);
-        renderContainer(this);
-        this.destroyFilterGroupViews();
-        this.renderFilterGroups();
-      },
-
       // render the container
-      renderContainer: function(self) {
-        console.log(self.$el);
+      render: function() {
         var html = actorFiltersTmp();
-        self.$el.empty()
+        this.$el.empty()
                 .append(html);
-        self.selectedFiltersView.setElement('.selected-actor-filters');
-        console.log($('.selected-actor-filters').length);
-      },
-
-      // render the filter groups
-      renderFilterGroups: function() {
-        this.filterGroupViews = this.collection.map(this.renderGroup, this);
       },
 
       // create the view that will display the users selected filters
@@ -122,17 +87,10 @@ define(
           collection: SelectedActorFilterCollection,
           type: 'actor'
         });
-      },
-
-      // render a filter group
-      renderGroup: function(model) {
-        var filterGroupView = new FilterGroupView({
-          model: model
-        });
-        this.$el.append(filterGroupView.$el);
-        return filterGroupView;
       }
+
     });
+    _.extend(ActorFilterView.prototype, FilterViewMixin);
     
     // module export
     return {

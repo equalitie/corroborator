@@ -11,46 +11,32 @@
 define(
   [
     'jquery', 'underscore', 'backbone',
-    'lib/streams'
+    'lib/streams',
+    'lib/Data/collection-mixins'
   ],
-  function($, _, Backbone, Streams) {
+  function($, _, Backbone, Streams, Mixins) {
     'use strict';
+
 
     // ### event stream processing helpers
     // particular to actors
-    var filterActorResults = function(value) {
-      return value.type === 'results_actor';
-    };
-    var filterActor = function(value) {
-      return value.navValue === 'actor';
-    };
-    var mapSort = function(value) {
-      var sortMap = {
-        'date': 'actor_created',
-        'title': 'fullname_en'
-      };
-      return sortMap[value];
-    };
+    var PersistSelectionMixin = Mixins.PersistSelectionMixin,
+        ModelSelectionMixin = Mixins.ModelSelectionMixin,
+        Filters = new Mixins.Filters(),
+        filterActorResults = function(value) {
+          return value.type === 'results_actor';
+        },
+        filterActor = function(value) {
+          return value.navValue === 'actor';
+        },
+        mapSort = function(value) {
+          var sortMap = {
+            'date': 'actor_created',
+            'title': 'fullname_en'
+          };
+          return sortMap[value];
+        };
 
-    //////////////////////////////////////////////////////////////////////
-    // common to all collections
-    //
-    // TODO: refactor to share accross collections
-    var extractOption = function(value) {
-      return value.option;
-    };
-    var extractResults = function(value) {
-      return value.content;
-    };
-    var filterUnselectAll = function(value) {
-      return value.option === 'Clear Selected';
-    };
-    var filterSelectAll = function(value) {
-      return value.option === 'Select All';
-    };
-    var filterDeleteSelected = function(value) {
-      return value.option === 'Delete Selected';
-    };
 
     // ##Data representations
 
@@ -73,10 +59,15 @@ define(
     var ActorCollection = Backbone.Collection.extend({
       model: ActorModel,
       compareField: 'actor_created',
+      selectedIdList: [],
       initialize: function() {
         this.watchSearchResults();
         this.watchSelection();
         this.watchSort();
+        // event handlers for these are in the PersistSelectionMixin
+        // TODO: have the mixin set these some way
+        this.on('change', this.updateSelectedIdList, this);
+        this.on('reset', this.selectModelsAfterReset, this);
       },
       // sort is implemented based on the result of this function
       comparator: function(model) {
@@ -90,26 +81,27 @@ define(
         var self = this;
         Streams.searchBus.toProperty()
                .filter(filterActorResults)
-               .map(extractResults)
+               .map(Filters.extractResults)
                .onValue(function(results) {
                  self.reset(results);
                });
       },
+
 
       // watch for selections from the action combo box
       watchSelection: function() {
         var self = this;
         var actorStream = Streams.searchBus.filter(filterActor);
 
-        actorStream.filter(filterSelectAll)
+        actorStream.filter(Filters.filterSelectAll)
           .onValue(function() {
           self.selectAll();
         });
-        actorStream.filter(filterUnselectAll)
+        actorStream.filter(Filters.filterUnselectAll)
           .onValue(function() {
           self.unSelectAll();
         });
-        actorStream.filter(filterDeleteSelected)
+        actorStream.filter(Filters.filterDeleteSelected)
           .onValue(function() {
           self.deleteSelected();
         });
@@ -125,45 +117,18 @@ define(
           return value.type === 'filter_view_combined';
         })
         .filter(filterActor)
-        .map(extractOption)
+        .map(Filters.extractOption)
         .map(mapSort)
         .onValue(function (value) {
           self.compareField = value;
           self.sort();
         });
-      },
-
-      // #### common to all collections
-
-      // change the selected state of a single model
-      toggleSelection: function(model, checked) {
-        model.set({checked: checked});
-      },
-
-      // delete selected models
-      deleteSelected: function() {
-        var getSelected = function(model) {
-          return model.get('checked') === 'checked';
-        };
-        var deleteModel = function(model) {
-          model.destroy();
-        };
-        _.each(this.filter(getSelected), deleteModel);
-      },
-
-      // select all models
-      selectAll: function() {
-        this.each(function(model) {
-          this.toggleSelection(model, 'checked');
-        }, this);
-      },
-      // unselect models
-      unSelectAll: function(model) {
-        this.each(function(model) {
-          this.toggleSelection(model, '');
-        }, this);
       }
+
     });
+    // add our mixins to the collection
+    _.extend(ActorCollection.prototype, PersistSelectionMixin);
+    _.extend(ActorCollection.prototype, ModelSelectionMixin);
 
 
     return {

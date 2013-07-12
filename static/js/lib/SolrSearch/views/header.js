@@ -147,7 +147,7 @@ define(
         var self = this;
         createNavProperty().onValue(function(value) {
           self.collection = self.collections[value.navValue];
-          self.collection.on('change destroy updateSelected', self.render, self);
+          self.collection.on('reset change remove destroy updateSelected', self.render, self);
           self.collectionName = value.navValue;
           self.render();
         });

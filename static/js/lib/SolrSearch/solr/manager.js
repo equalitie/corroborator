@@ -6,9 +6,9 @@ define(
     'core/ParameterStore'
   ], 
   function(TextSearch, FilterWidget) {
-    var Manager = new AjaxSolr.Manager({
+    var solrUrl = {
           solrUrl: 'http://127.0.0.1:8983/solr/collection1/'
-        }),
+        },
         MainManager,
         FilterManager,
         createFilterManager,
@@ -52,7 +52,8 @@ define(
         // add the filtered search widget to a passed in manager
         addFilterSearchToManger = function(manager) {
           manager.addWidget(new FilterWidget.FilterWidget({
-            id: 'FilterSearch'
+            id: 'FilterSearch',
+            fields: ['type','sources']
           }));
         },
 
@@ -68,8 +69,7 @@ define(
 
     // create a manager object to manage the main search across all entities
     createMainManager = function() {
-      var mainManager = {};
-      _.extend(mainManager, Manager);
+      var mainManager = new AjaxSolr.Manager(solrUrl);
       addTextSearchToManger(mainManager);
       mainManager.init();
       addValuesToManager(mainManager);
@@ -82,8 +82,7 @@ define(
     // this will need to listen for filters sent to the main search also
     // because we want to perform sub filtering here
     createFilterManager = function() {
-      var filterManager = {};
-      _.extend(filterManager, Manager);
+      var filterManager = new AjaxSolr.Manager(solrUrl);
       addFilterSearchToManger(filterManager);
       filterManager.init();
       addValuesToManager(filterManager);

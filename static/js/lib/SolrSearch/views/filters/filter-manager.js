@@ -104,7 +104,6 @@ define(
       replaceView: function(View) {
         this.destroyCurrentView();
         this.currentView = new View();
-        this.render();
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
@@ -112,11 +111,6 @@ define(
           this.currentView.destroy();
           //delete(this.currentView);
         }
-      },
-      // render the child view
-      render:function() {
-        
-        this.currentView.render();
       }
     });
 

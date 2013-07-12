@@ -107,7 +107,8 @@ module.exports = function(grunt) {
       files: [
         '<%= jshint.files %>',
         'lib/elements/templates/*.tpl',
-        'lib/SolrSearch/templates/*.tpl'
+        'lib/SolrSearch/templates/*.tpl',
+        'lib/CRUD/templates/*.tpl'
       ],
       tasks: ['handlebars',/* 'jshint',*/ 'buster:dev',/* 'requirejs', 'docco'*/]
     }

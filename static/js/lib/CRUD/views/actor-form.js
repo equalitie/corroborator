@@ -8,45 +8,26 @@ define (
   [
     'jquery', 'underscore', 'backbone', 
     'lib/streams',
+    'lib/CRUD/views/form-mixins',
     // templates
-    'lib/CRUD/templates/actor.tpl',
-    'lib/CRUD/templates/confirm-dialog.tpl'
+    'lib/CRUD/templates/actor.tpl'
   ],
-  function ($, _, Backbone, Streams, actorFormTmp, confirmDialogTmp) {
+  function ($, _, Backbone, Streams, Mixins, actorFormTmp) {
 
-    var ActorFormView;
+    var ActorFormView,
+        searchBus = Streams.searchBus,
+        Formatter = Mixins.Formatter,
+        ConfirmMixin = Mixins.ConfirmMixin;
 
     // ### ActorFormView
     // display create update form for actor
     ActorFormView = Backbone.View.extend({
       events: {
+        'click button#actor-action_save': 'saveRequested',
         'click button.do-hide': 'requestCloseForm'
       },
       initialize: function() {
         this.render();
-      },
-      // dispatch and event that will be picked up and converted into a
-      // dialog confirming that you want to exit the add/update
-      requestCloseForm: function() {
-        var dialogHTML = $(confirmDialogTmp());
-        dialogHTML.dialog({
-          resizable: false,
-          height: 140,
-          modal: true,
-          buttons: {
-            'Close Form': function() {
-              Streams.searchBus.push({
-                content: {},
-                type: 'close_form'
-              });
-              $(this).dialog('close');
-            },
-            'Cancel': function() {
-              $(this).dialog('close');
-            }
-          }
-        });
-
       },
       destroy: function() {
         this.$el.remove();
@@ -56,8 +37,26 @@ define (
         var html = actorFormTmp();
         this.$el.empty()
                 .append(html);
-      }
+      },
+      formContent: function() {
+        var formArray = $('#actor_form').serializeArray();
+        return this.formArrayToData(formArray);
+      },
+      saveRequested: function() {
+        var formContent = this.formContent();
+        if (this.model !== undefined) {
+          this.model.save();
+        }
+        else {
+          searchBus.push({
+            type: 'new_actor',
+            content: formContent
+          });
+        }
+      },
     });
+    _.extend(ActorFormView.prototype, ConfirmMixin);
+    _.extend(ActorFormView.prototype, Formatter);
     
     return {
       ActorFormView: ActorFormView

@@ -14,13 +14,14 @@ define(
         filterManager;
 
     var init = function() {
-      //FilterCollection.init();
+      // Display Results header and sort links
       headerView = new Header.HeaderView();
+      // Display filers
       filterManager = new FilterManager.FilterManagerView();
+      // Display results
       Results.init();
+      // Do initial solr request
       SolrManager.MainManager.doRequest();
-
-
     };
     return {
       init: init

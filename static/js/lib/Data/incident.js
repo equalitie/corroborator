@@ -8,49 +8,34 @@
 define(
   [
     'jquery', 'underscore', 'backbone',
-    'lib/streams'
+    'lib/streams',
+    'lib/Data/collection-mixins'
   ],
-  function($, _, Backbone, Streams) {
+  function($, _, Backbone, Streams, Mixins) {
     'use strict';
     // ### event stream processing helpers
     // particular to actors
+     var filterIncident = function(value) {
+          return value.navValue === 'incident';
+        },
 
-    var filterIncident = function(value) {
-      return value.navValue === 'incident';
-    };
+        filterIncidentResults = function(value) {
+          return value.type === 'results_incident';
+        },
 
-    var filterIncidentResults = function(value) {
-      return value.type === 'results_incident';
-    };
-    var mapSort = function(value) {
-      var sortMap = {
-        'date': 'bulletin_created',
-        'title': 'title_en',
-        'score': 'confidence_score'
-        //'status': ''
-      };
-      return sortMap[value];
-    };
+        PersistSelectionMixin = Mixins.PersistSelectionMixin,
+        ModelSelectionMixin = Mixins.ModelSelectionMixin,
+        Filters = new Mixins.Filters(),
+        mapSort = function(value) {
+          var sortMap = {
+            'date': 'incident_created',
+            'title': 'title_en',
+            'score': 'confidence_score'
+            //'status': ''
+          };
+          return sortMap[value];
+        };
 
-    //////////////////////////////////////////////////////////////////////
-    // common to all collections
-    //
-    // TODO: refactor to share accross collections
-    var extractOption = function(value) {
-      return value.option;
-    };
-    var extractResults = function(value) {
-      return value.content;
-    };
-    var filterUnselectAll = function(value) {
-      return value.option === 'Clear Selected';
-    };
-    var filterSelectAll = function(value) {
-      return value.option === 'Select All';
-    };
-    var filterDeleteSelected = function(value) {
-      return value.option === 'Delete Selected';
-    };
 
 
     // ##Data representations
@@ -81,6 +66,10 @@ define(
         this.watchEventStream();
         this.watchSelection();
         this.watchSort();
+        // event handlers for these are in the PersistSelectionMixin
+        // TODO: have the mixin set these some way
+        this.on('change', this.updateSelectedIdList, this);
+        this.on('reset', this.selectModelsAfterReset, this);
       },
 
       // models are sorted based on the result of this function
@@ -93,7 +82,7 @@ define(
         var self = this;
         Streams.searchBus.toProperty()
                .filter(filterIncidentResults)
-               .map(extractResults)
+               .map(Filters.extractResults)
                .onValue(function(results) {
                  self.reset(results);
                });
@@ -103,15 +92,15 @@ define(
         var self = this;
         var incidentStream = Streams.searchBus.filter(filterIncident);
 
-        incidentStream.filter(filterSelectAll)
+        incidentStream.filter(Filters.filterSelectAll)
           .onValue(function() {
             self.selectAll();
           });
-        incidentStream.filter(filterUnselectAll)
+        incidentStream.filter(Filters.filterUnselectAll)
           .onValue(function() {
             self.unSelectAll();
           });
-        incidentStream.filter(filterDeleteSelected)
+        incidentStream.filter(Filters.filterDeleteSelected)
           .onValue(function() {
             self.deleteSelected();
           });
@@ -124,51 +113,23 @@ define(
           return value.type === 'filter_view_combined';
         })
         .filter(filterIncident)
-        .map(extractOption)
+        .map(Filters.extractOption)
         .map(mapSort)
         .onValue(function (value) {
           self.compareField = value;
           self.sort();
         });
-      },
-
-      // #### common to all collections
-
-      // change the selected state of a single model
-      toggleSelection: function(model, checked) {
-        model.set({checked: checked});
-      },
-
-      // delete selected models
-      deleteSelected: function() {
-        var getSelected = function(model) {
-          return model.get('checked') === 'checked';
-        };
-        var deleteModel = function(model) {
-          model.destroy();
-        };
-        _.each(this.filter(getSelected), deleteModel);
-      },
-
-      // select all models
-      selectAll: function() {
-        this.each(function(model) {
-          this.toggleSelection(model, 'checked');
-        }, this);
-      },
-      // unselect all models
-      unSelectAll: function(model) {
-        this.each(function(model) {
-          this.toggleSelection(model, '');
-        }, this);
       }
+
     });
+    // add our mixins to the collection
+    _.extend(IncidentCollection.prototype, PersistSelectionMixin);
+    _.extend(IncidentCollection.prototype, ModelSelectionMixin);
 
   return {
     IncidentModel: IncidentModel,
     IncidentCollection: IncidentCollection
   };
-
 
 });
 
