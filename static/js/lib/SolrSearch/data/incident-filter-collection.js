@@ -47,7 +47,7 @@ define(
     // ### IncidentFilterCollection
     // This collection stores the filters related to actors
     var IncidentFilterCollection = Backbone.Collection.extend({
-      entityType: 'bulletin',
+      entityType: 'incident',
       initialize: function() {
         this.watchSearchStream();
       },
@@ -70,8 +70,7 @@ define(
     var SelectedIncidentFilterCollection = Backbone.Collection.extend({
       initialize: function(options) {
         this.watchSearchStream();
-        this.on('add', this.sendFilter, this);
-        this.on('remove', this.removeFilter, this);
+        this.on('add remove', this.sendFilter, this);
       },
       watchSearchStream: function() {
         var self = this;
@@ -79,17 +78,44 @@ define(
                  .onValue(function (value) {
                    self.add(value.content.filter);
                  });
+        searchBus.filter(filterIncidentFilters)
+                 .map(extractFilters)
+                 .onValue(function(value) {
+                   _(value).each(self.updateFilterTotals, self);
+                 });
       },
-      removeFilter: function(filterModel) {
-        Streams.searchBus.push({
-          type: 'filter_event_remove',
-          content: filterModel
-        });
+
+      // find a model that matches the filter passed on from the searchBus
+      findMatchingModel: function(solrFilter) {
+        return this.chain()
+                   .filter(function(model) {
+                     return model.get('key') === solrFilter.key; 
+                   })
+                   .last()
+                   .value();
       },
+
+      // iterate over the filters to updated the totals/existence of each
+      // filter model after an all entity search
+      updateFilterTotals: function(solrFilter) {
+        var filterName,
+            model = this.findMatchingModel(solrFilter);
+
+        if (model !== undefined) {
+          filterName = model.get('filterName');
+          if (solrFilter[filterName] !== undefined) {
+            model.set('numItems', solrFilter[filterName]);
+          }
+          else {
+            model.destroy();
+          }
+        }
+      },
+
       sendFilter: function(filterModel) {
         Streams.searchBus.push({
           type: 'filter_event_add',
-          content: filterModel
+          content: this.models
         });
       }
     });

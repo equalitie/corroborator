@@ -75,16 +75,28 @@ define(
         this.filterCollection.on('add remove reset', this.sendRequest, this);
       },
 
+      emptyQueryStrings: function() {
+        this.manager.store.remove('q');
+        this.manager.store.remove('fq');
+        return this;
+      },
+      populateFreeTextQueryString: function () {
+        if (this.queryString.length) {
+          this.manager.store.addByValue('q', '*' + this.queryString + '*');
+        }
+        else {
+          this.manager.store.addByValue('q', '*:*');
+        }
+        return this;
+      },
+
 
       // empty the previous query, and rebuild a new one, then send the request
       // to solr
       sendRequest: function() {
-        this.manager.store.remove('q');
-        this.manager.store.remove('fq');
-        console.log(this.queryString);
-        if (this.queryString.length) {
-          this.manager.store.addByValue('q', '*' + this.queryString + '*');
-        }
+        this.emptyQueryStrings()
+            .populateFreeTextQueryString();
+
         this.filterCollection
             .chain()
             .groupBy(function(model){return model.get('key');})
@@ -116,11 +128,9 @@ define(
       },
 
       watchSearchStream: function() {
-        console.log('watchSearchStream');
         var self = this;
         searchBus.filter(filterSearchRequestEvents)
                  .onValue(function(value) {
-                   console.log(value);
                    self.queryString = value.content.raw;
                  });
       },

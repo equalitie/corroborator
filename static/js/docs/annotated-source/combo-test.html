@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -195,11 +200,24 @@ define(
             <span class="string">"name_ar"</span>:<span class="string">"test"</span>,
             <span class="string">"type"</span>:<span class="string">"incident"</span>
           }
-        ];
-        $(document.body).append(<span class="string">'&lt;div class=\'search-combo\'&gt;&lt;/div&gt;'</span>);
-        <span class="keyword">this</span>.collection = <span class="keyword">new</span> Combo.Collection(searches);
+        ];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>$(document.body).append(&#39;<div class=\'search-combo\'></div>&#39;);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="keyword">this</span>.collection = <span class="keyword">new</span> Combo.Collection(searches);
         <span class="keyword">this</span>.view = <span class="keyword">new</span> Combo.View({ 
-          element: <span class="string">'.search-combo'</span>,
+          el: <span class="string">'.search-combo'</span>,
           collection: <span class="keyword">this</span>.collection,
           eventIdentifier: <span class="string">'combo-test'</span>,
           bus: bus,
@@ -231,7 +249,7 @@ define(
         $(<span class="string">'.combo-main'</span>).click();
       },
       <span class="string">'the view should render a list of predefined searches'</span>: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> totalSearchItems = $(<span class="string">'ul'</span>).children().length;
+        <span class="keyword">var</span> totalSearchItems = $(<span class="string">'#predefined_options'</span>).children().length;
         assert.equals(totalSearchItems, <span class="number">2</span>);
       },
       <span class="string">'the view should attach arbitrary items'</span>: <span class="keyword">function</span>() {
@@ -241,7 +259,7 @@ define(
         };
         <span class="keyword">this</span>.collection.add(item);
         <span class="keyword">this</span>.view.render();
-        <span class="keyword">var</span> totalSearchItems = $(<span class="string">'ul'</span>).children().length;
+        <span class="keyword">var</span> totalSearchItems = $(<span class="string">'#predefined_options'</span>).children().length;
         assert.equals(totalSearchItems, <span class="number">3</span>);
       },
       <span class="string">'clicking on an item should dispatch a search event with the search params'</span>: <span class="keyword">function</span>(done) {
@@ -249,7 +267,7 @@ define(
           <span class="keyword">var</span> searchModel  = value.content;
           assert.equals(searchModel.get(<span class="string">'request'</span>), <span class="string">'request'</span>);
         }));
-        $(<span class="string">'ul'</span>).children(<span class="string">'li:first'</span>).click();
+        $(<span class="string">'#predefined_options'</span>).children(<span class="string">'li:first'</span>).click();
 
       }
     });

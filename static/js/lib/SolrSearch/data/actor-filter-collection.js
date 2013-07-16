@@ -9,14 +9,16 @@
 define(
   [
     'backbone',
+    'bacon',
     'underscore',
     'lib/streams',
     'lib/SolrSearch/data/filter-collection-mixins'
   ],
-  function(Backbone, _, Streams, Mixins) {
+  function(Backbone, Bacon, _, Streams, Mixins) {
     'use strict';
 
-    // filter out the actor filters event
+
+    // shared functionality with other filter collections
     var FilterGroupMixin = Mixins.FilterGroupMixin,
 
         // filter out event with notification of actor filter createion
@@ -66,6 +68,7 @@ define(
         this.on('select_filter', this.selectFilter, this);
       },
 
+
       // watch for events in the search stream and pull out the
       // actor filter ones
       watchSearchStream: function() {
@@ -78,6 +81,7 @@ define(
                  });
       }
     });
+    // apply mixin
     _.extend(ActorFilterCollection.prototype, FilterGroupMixin);
 
 
@@ -88,19 +92,60 @@ define(
         this.watchSearchStream();
         this.on('add remove', this.sendFilter, this);
       },
+
+      // watch for filters being added/ removed via filter clicks
+      // and from the overall search
       watchSearchStream: function() {
         var self = this;
         searchBus.filter(filterActorFilterEvents)
                  .onValue(function (value) {
                    self.add(value.content.filter);
                  });
+        searchBus.filter(filterActorFilters)
+                 .map(extractFilters)
+                 .onValue(function(value) {
+                   _(value).each(self.updateFilterTotals, self);
+                 });
       },
+
+      // find a model that matches the filter passed on from the searchBus
+      findMatchingModel: function(solrFilter) {
+        return this.chain()
+                   .filter(function(model) {
+                     return model.get('key') === solrFilter.key; 
+                   })
+                   .last()
+                   .value();
+      },
+
+      // iterate over the filters to updated the totals/existence of each
+      // filter model after an all entity search
+      updateFilterTotals: function(solrFilter) {
+        var filterName,
+            model = this.findMatchingModel(solrFilter);
+
+        if (model !== undefined) {
+          filterName = model.get('filterName');
+          if (solrFilter[filterName] !== undefined) {
+            model.set('numItems', solrFilter[filterName]);
+            searchBus.push({
+              type: 'selected_item',
+              content: model
+            });
+          }
+          else {
+            model.destroy();
+          }
+        }
+      },
+
       sendFilter: function(filterModel) {
         Streams.searchBus.push({
           type: 'filter_event_add',
           content: this.models
         });
       }
+
     });
     
 

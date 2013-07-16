@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -168,7 +173,7 @@
             
             <div class="content"><div class='highlight'><pre>define(
   [
-    <span class="string">'lib/SolrSearch/TextSearch'</span>,
+    <span class="string">'lib/SolrSearch/solr/TextSearch'</span>,
     <span class="string">'managers/Manager.jquery'</span>,
     <span class="string">'core/ParameterStore'</span>
   ], 
@@ -176,22 +181,6 @@
     Manager = <span class="keyword">new</span> AjaxSolr.Manager({
       solrUrl: <span class="string">'http://127.0.0.1:8983/solr/collection1/'</span>
     });
-<span class="comment">/*    Manager.addWidget(new AjaxSolr.CalendarWidget({
-      id: 'calendar_incident',
-      target: '#incident_date_filter',
-      field: 'incident_times_exact'
-    }));
-    Manager.addWidget(new AjaxSolr.CalendarWidget({
-      id: 'calendar_bulletin',
-      target: '#bulletin_date_filter',
-      field: 'bulletin_times_exact'
-    }));
-    Manager.addWidget(new AjaxSolr.TextWidget({
-      id: 'text',
-      target: '#docs',
-      fields: ['type','sources']
-    }));
-    */</span>
 
 	<span class="keyword">var</span> fields = [ 
     <span class="string">'bulletin_labels_exact'</span>,
@@ -208,27 +197,6 @@
     <span class="string">'most_recent_status_incident_exact'</span>
   ];
 
-  <span class="comment">/*
-  _.each(fields, function(item, index, length) {
-    Manager.addWidget(new AjaxSolr.labelsWidget({
-      field: item,
-      id: item
-    }));
-  });
-  */</span>
-
-
-  <span class="comment">/*
-  Manager.addWidget(new AjaxSolr.CurrentFiltersWidget({
-		id: 'currentfilters'
-	}));
-
-  Manager.addWidget(new AjaxSolr.EmbeddedSearchWidget({
-    id: 'EmbeddedSearch',
-    target: '#docs',
-    fields: ['type','sources']
-  }));
-  */</span>
   Manager.addWidget(<span class="keyword">new</span> TextSearch({
     id: <span class="string">'EmbeddedSearch'</span>,
     target: <span class="string">'#docs'</span>,
@@ -262,22 +230,10 @@
   };
   _.each(params, <span class="keyword">function</span>(item, index, list) {
     Manager.store.addByValue(index, item);
-  });</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>Manager.store.addByValue(&#39;sort&#39;, &#39;actor_created&#39;);</p>
+  });
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  <span class="keyword">return</span> Manager;
+
+  <span class="keyword">return</span> Manager;
 });</pre></div></div>
             
         </li>

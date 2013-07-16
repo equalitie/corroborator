@@ -104,7 +104,7 @@ define(
         var html = singleFilterTmp({model: this.model.toJSON()});
         this.$el.empty()
                 .append(html);
-      },
+      }
     });
 
     // ### SelectedFiltersView

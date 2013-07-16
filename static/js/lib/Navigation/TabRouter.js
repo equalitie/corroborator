@@ -30,9 +30,11 @@ define(
     // push an event to the navBus when the user clicks on a tab
     var TabRouter = Backbone.Router.extend({
       routes: {
+        '': 'openSection',
         'tab/:section': 'openSection'
       },
       openSection: function(section) {
+        section = section === undefined ? 'incident': section;
         Streams.navBus.push(section);
       }
     });
@@ -82,7 +84,9 @@ define(
     var init = function(navBus) {
       tabView = new TabView();
       tabRouter = new TabRouter({navBus: navBus});
-      Backbone.history.start();
+      Backbone.history.start({
+        root: 'tabs/incident'
+      });
       return tabRouter;
     };
 

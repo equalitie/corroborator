@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -478,7 +483,7 @@ NUMBER OF ELEMENTS SELECTED VIEW
         <span class="keyword">var</span> self = <span class="keyword">this</span>;
         createNavProperty().onValue(<span class="keyword">function</span>(value) {
           self.collection = self.collections[value.navValue];
-          self.collection.on(<span class="string">'change updateSelected'</span>, self.render, self);
+          self.collection.on(<span class="string">'reset change remove destroy updateSelected'</span>, self.render, self);
           self.collectionName = value.navValue;
           self.render();
         });

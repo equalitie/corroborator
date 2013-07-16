@@ -64,7 +64,7 @@ define(
              assert.equals(true, true);
           
         }));
-        ParseFilter(filters);
+        var fp = new ParseFilter(filters);
       },
       'should parse the incident filters': function(done) {
         bus.toEventStream()
@@ -74,7 +74,7 @@ define(
              assert.equals(true, true);
           
         }));
-        ParseFilter(filters);
+        var fp = new ParseFilter(filters);
       },
       'should parse the actor filters': function(done) {
         bus.toEventStream()
@@ -84,7 +84,7 @@ define(
              assert.equals(true, true);
           
         }));
-        ParseFilter(filters);
+        var fp = new ParseFilter(filters);
       }
 
     });

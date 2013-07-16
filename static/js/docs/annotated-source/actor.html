@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -187,9 +192,10 @@
             <div class="content"><div class='highlight'><pre>define(
   [
     <span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'backbone'</span>,
-    <span class="string">'lib/streams'</span>
+    <span class="string">'lib/streams'</span>,
+    <span class="string">'lib/Data/collection-mixins'</span>
   ],
-  <span class="keyword">function</span>($, _, Backbone, Streams) {
+  <span class="keyword">function</span>($, _, Backbone, Streams, Mixins) {
     <span class="string">'use strict'</span>;</pre></div></div>
             
         </li>
@@ -206,19 +212,22 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> filterActorResults = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.type === <span class="string">'results_actor'</span>;
-    };
-    <span class="keyword">var</span> filterActor = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.navValue === <span class="string">'actor'</span>;
-    };
-    <span class="keyword">var</span> mapSort = <span class="keyword">function</span>(value) {
-      <span class="keyword">var</span> sortMap = {
-        <span class="string">'date'</span>: <span class="string">'actor_created'</span>,
-        <span class="string">'title'</span>: <span class="string">'fullname_en'</span>
-      };
-      <span class="keyword">return</span> sortMap[value];
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> PersistSelectionMixin = Mixins.PersistSelectionMixin,
+        ModelSelectionMixin = Mixins.ModelSelectionMixin,
+        Filters = <span class="keyword">new</span> Mixins.Filters(),
+        filterActorResults = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'results_actor'</span>;
+        },
+        filterActor = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.navValue === <span class="string">'actor'</span>;
+        },
+        mapSort = <span class="keyword">function</span>(value) {
+          <span class="keyword">var</span> sortMap = {
+            <span class="string">'date'</span>: <span class="string">'actor_created'</span>,
+            <span class="string">'title'</span>: <span class="string">'fullname_en'</span>
+          };
+          <span class="keyword">return</span> sortMap[value];
+        };</pre></div></div>
             
         </li>
         
@@ -226,39 +235,8 @@
         <li id="section-4">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>////////////////////////////////////////////////////////////////////
-common to all collections</p>
-<p>TODO: refactor to share accross collections</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> extractOption = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.option;
-    };
-    <span class="keyword">var</span> extractResults = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.content;
-    };
-    <span class="keyword">var</span> filterUnselectAll = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.option === <span class="string">'Clear Selected'</span>;
-    };
-    <span class="keyword">var</span> filterSelectAll = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.option === <span class="string">'Select All'</span>;
-    };
-    <span class="keyword">var</span> filterDeleteSelected = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.option === <span class="string">'Delete Selected'</span>;
-    };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <h2>Data representations</h2>
 <h3>Actor Model</h3>
@@ -282,11 +260,11 @@ common to all collections</p>
         </li>
         
         
-        <li id="section-6">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <h3>Actor Collection</h3>
 
@@ -295,10 +273,28 @@ common to all collections</p>
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActorCollection = Backbone.Collection.extend({
       model: ActorModel,
       compareField: <span class="string">'actor_created'</span>,
+      selectedIdList: [],
       initialize: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.watchSearchResults();
         <span class="keyword">this</span>.watchSelection();
-        <span class="keyword">this</span>.watchSort();
+        <span class="keyword">this</span>.watchSort();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>event handlers for these are in the PersistSelectionMixin
+TODO: have the mixin set these some way</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="keyword">this</span>.on(<span class="string">'change'</span>, <span class="keyword">this</span>.updateSelectedIdList, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.on(<span class="string">'reset'</span>, <span class="keyword">this</span>.selectModelsAfterReset, <span class="keyword">this</span>);
       },</pre></div></div>
             
         </li>
@@ -338,7 +334,7 @@ results are received from solr</p>
         <span class="keyword">var</span> self = <span class="keyword">this</span>;
         Streams.searchBus.toProperty()
                .filter(filterActorResults)
-               .map(extractResults)
+               .map(Filters.extractResults)
                .onValue(<span class="keyword">function</span>(results) {
                  self.reset(results);
                });
@@ -361,15 +357,15 @@ results are received from solr</p>
         <span class="keyword">var</span> self = <span class="keyword">this</span>;
         <span class="keyword">var</span> actorStream = Streams.searchBus.filter(filterActor);
 
-        actorStream.filter(filterSelectAll)
+        actorStream.filter(Filters.filterSelectAll)
           .onValue(<span class="keyword">function</span>() {
           self.selectAll();
         });
-        actorStream.filter(filterUnselectAll)
+        actorStream.filter(Filters.filterUnselectAll)
           .onValue(<span class="keyword">function</span>() {
           self.unSelectAll();
         });
-        actorStream.filter(filterDeleteSelected)
+        actorStream.filter(Filters.filterDeleteSelected)
           .onValue(<span class="keyword">function</span>() {
           self.deleteSelected();
         });
@@ -395,13 +391,15 @@ originate from header.js in SolrSearch views</p>
           <span class="keyword">return</span> value.type === <span class="string">'filter_view_combined'</span>;
         })
         .filter(filterActor)
-        .map(extractOption)
+        .map(Filters.extractOption)
         .map(mapSort)
         .onValue(<span class="function"><span class="keyword">function</span> <span class="params">(value)</span> {</span>
           self.compareField = value;
           self.sort();
         });
-      },</pre></div></div>
+      }
+
+    });</pre></div></div>
             
         </li>
         
@@ -409,79 +407,15 @@ originate from header.js in SolrSearch views</p>
         <li id="section-11">
             <div class="annotation">
               
-              <div class="pilwrap for-h4">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <h4>common to all collections</h4>
-<p>change the selected state of a single model</p>
+              <p>add our mixins to the collection</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      toggleSelection: <span class="keyword">function</span>(model, checked) {
-        model.set({checked: checked});
-      },</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-12">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
-              </div>
-              <p>delete selected models</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>      deleteSelected: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> getSelected = <span class="keyword">function</span>(model) {
-          <span class="keyword">return</span> model.get(<span class="string">'checked'</span>) === <span class="string">'checked'</span>;
-        };
-        <span class="keyword">var</span> deleteModel = <span class="keyword">function</span>(model) {
-          model.destroy();
-        };
-        _.each(<span class="keyword">this</span>.filter(getSelected), deleteModel);
-      },</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-13">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
-              </div>
-              <p>select all models</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>      selectAll: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.each(<span class="keyword">function</span>(model) {
-          <span class="keyword">this</span>.toggleSelection(model, <span class="string">'checked'</span>);
-        }, <span class="keyword">this</span>);
-      },</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-14">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
-              </div>
-              <p>unselect models</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>      unSelectAll: <span class="keyword">function</span>(model) {
-        <span class="keyword">this</span>.each(<span class="keyword">function</span>(model) {
-          <span class="keyword">this</span>.toggleSelection(model, <span class="string">''</span>);
-        }, <span class="keyword">this</span>);
-      }
-    });
+            <div class="content"><div class='highlight'><pre>    _.extend(ActorCollection.prototype, PersistSelectionMixin);
+    _.extend(ActorCollection.prototype, ModelSelectionMixin);
 
 
     <span class="keyword">return</span> {

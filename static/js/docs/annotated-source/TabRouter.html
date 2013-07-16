@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -229,9 +234,11 @@ push an event to the navBus when the user clicks on a tab</p>
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> TabRouter = Backbone.Router.extend({
       routes: {
+        <span class="string">''</span>: <span class="string">'openSection'</span>,
         <span class="string">'tab/:section'</span>: <span class="string">'openSection'</span>
       },
       openSection: <span class="keyword">function</span>(section) {
+        section = section === <span class="literal">undefined</span> ? <span class="string">'incident'</span>: section;
         Streams.navBus.push(section);
       }
     });</pre></div></div>
@@ -325,7 +332,9 @@ change</p>
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> init = <span class="keyword">function</span>(navBus) {
       tabView = <span class="keyword">new</span> TabView();
       tabRouter = <span class="keyword">new</span> TabRouter({navBus: navBus});
-      Backbone.history.start();
+      Backbone.history.start({
+        root: <span class="string">'tabs/incident'</span>
+      });
       <span class="keyword">return</span> tabRouter;
     };
 

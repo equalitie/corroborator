@@ -53,7 +53,7 @@ define (
             content: formContent
           });
         }
-      },
+      }
     });
     _.extend(ActorFormView.prototype, ConfirmMixin);
     _.extend(ActorFormView.prototype, Formatter);

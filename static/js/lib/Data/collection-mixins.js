@@ -29,7 +29,7 @@ define (
           },
           filterDeleteSelected: function(value) {
             return value.option === 'Delete Selected';
-          },
+          }
         },
         ModelSelectionMixin = {
           // change the selected state of a single model
@@ -93,7 +93,7 @@ define (
 
           selectModelInList: function(model) {
             model.set('checked', 'checked');
-          },
+          }
         };
 
   _.extend(Filters.prototype, filterFunctions);

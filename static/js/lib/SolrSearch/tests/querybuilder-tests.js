@@ -17,7 +17,7 @@ define(
       },
       'should return the three views': function() {
         //assert.equals(typeof(ActorFilters.ActorFilterView), 'function');
-       },
+       }
 
 
     });

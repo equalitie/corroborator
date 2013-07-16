@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -187,10 +192,23 @@
     <span class="string">'use strict'</span>;
     <span class="keyword">var</span> searchBus = <span class="keyword">new</span> Bacon.Bus(),
         navBus = <span class="keyword">new</span> Bacon.Bus(),
-        navProperty = navBus.toProperty(<span class="string">'incident'</span>);
-    navBus.toEventStream().log();
-    searchBus.toEventStream().log();
-    <span class="keyword">return</span> {
+        navProperty = navBus.toProperty(<span class="string">'incident'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>navBus.toEventStream().log();
+searchBus.toEventStream().log();</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> {
       searchBus: searchBus,
       navBus: navBus,
       navProperty: navProperty

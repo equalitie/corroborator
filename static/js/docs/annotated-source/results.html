@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -249,6 +254,8 @@ define(
       destroy: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.undelegateEvents();
         <span class="keyword">this</span>.remove();
+        <span class="keyword">this</span>.model.off(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.model.off(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
       }
 
     });</pre></div></div>
@@ -267,7 +274,7 @@ define(
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActorResultsView = Backbone.View.extend({
-      el: <span class="string">'.body'</span>,
+      el: <span class="string">'.results-body'</span>,
       childViews: [],
       initialize: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.collection = Collections.ActorCollection;
@@ -326,7 +333,8 @@ define(
           view.destroy();
         });
         <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.remove();
+        <span class="keyword">this</span>.collection.off(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render);
+        <span class="keyword">this</span>.$el.empty();
       }
     });</pre></div></div>
             
@@ -395,6 +403,8 @@ define(
       destroy: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.undelegateEvents();
         <span class="keyword">this</span>.remove();
+        <span class="keyword">this</span>.model.off(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.model.off(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
       }
 
     });</pre></div></div>
@@ -413,7 +423,7 @@ define(
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> IncidentResultsView = Backbone.View.extend({
-      el: <span class="string">'.body'</span>,
+      el: <span class="string">'.results-body'</span>,
       childViews: [],
 
       initialize: <span class="keyword">function</span>() {
@@ -447,7 +457,8 @@ define(
           view.destroy();
         });
         <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.remove();
+        <span class="keyword">this</span>.collection.off(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render);
+        <span class="keyword">this</span>.$el.empty();
       }
 
     });</pre></div></div>
@@ -521,6 +532,8 @@ define(
       destroy: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.undelegateEvents();
         <span class="keyword">this</span>.remove();
+        <span class="keyword">this</span>.model.off(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.model.off(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
       }
 
     });</pre></div></div>
@@ -539,7 +552,7 @@ define(
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> BulletinResultsView = Backbone.View.extend({
-      el: <span class="string">'.body'</span>,
+      el: <span class="string">'.results-body'</span>,
       childViews: [],
       initialize: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.collection = Collections.BulletinCollection;
@@ -570,7 +583,8 @@ define(
           view.destroy();
         });
         <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.remove();
+        <span class="keyword">this</span>.$el.empty();
+        <span class="keyword">this</span>.collection.off(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render);
       }
 
     });</pre></div></div>
@@ -641,7 +655,7 @@ define(
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="keyword">var</span> actorResultsView = <span class="keyword">new</span> ActorResultsView();
+            <div class="content"><div class='highlight'><pre>      currentView = <span class="keyword">new</span> ActorResultsView();
     };
     <span class="keyword">var</span> showBulletins = <span class="keyword">function</span>() {</pre></div></div>
             
@@ -673,7 +687,7 @@ define(
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="keyword">var</span> bulletinsResultsView = <span class="keyword">new</span> BulletinResultsView();
+            <div class="content"><div class='highlight'><pre>      currentView = <span class="keyword">new</span> BulletinResultsView();
     };
     <span class="keyword">var</span> showIncidents = <span class="keyword">function</span>() {</pre></div></div>
             
@@ -705,10 +719,7 @@ define(
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="keyword">var</span> incidentResultsView = <span class="keyword">new</span> IncidentResultsView();
-    };
-
-    <span class="keyword">var</span> showCurrent = <span class="keyword">function</span>(navValue) {
+            <div class="content"><div class='highlight'><pre>      currentView = <span class="keyword">new</span> IncidentResultsView();
     };
 
     <span class="keyword">var</span> displayInicidents = <span class="keyword">function</span>() {};
@@ -749,22 +760,8 @@ define(
             </div>
             
             <div class="content"><div class='highlight'><pre>      <span class="keyword">var</span> actorsSelected = Streams.navProperty
-                                  .filter(actorClicked)</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-22">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
-              </div>
-              <p>.onValue(showCurrent);</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>                                  .onValue(showActors);
+                                  .filter(actorClicked)
+                                  .onValue(showActors);
                                   
       <span class="keyword">var</span> incidentSelected = Streams.navProperty
                                     .filter(incidentClicked)

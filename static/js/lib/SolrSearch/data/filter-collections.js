@@ -8,7 +8,7 @@ define(
     'underscore',
     'lib/SolrSearch/data/actor-filter-collection',
     'lib/SolrSearch/data/incident-filter-collection',
-    'lib/SolrSearch/data/bulletin-filter-collection',
+    'lib/SolrSearch/data/bulletin-filter-collection'
   ],
   function (_, ActorFilters, IncidentFilters, BulletinFilters) {
     'use strict';

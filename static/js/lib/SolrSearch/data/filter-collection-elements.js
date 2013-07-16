@@ -18,6 +18,12 @@ define (
         filterRemoveFilterEvents = function(value) {
           return value.type === 'remove_filter';
         },
+        filterSelectedItem = function(value) {
+          return value.type === 'selected_item';
+        },
+        extractContent = function(value) {
+          return value.content;
+        },
         searchBus = Streams.searchBus;
 
     // ### FilterGroupCollection
@@ -29,6 +35,7 @@ define (
       // constructor
       initialize: function() {
         this.watchSearchStream();
+        this.watchSelectedItemUpdate();
       },
       // watch for removeFilter events
       watchSearchStream: function() {
@@ -41,6 +48,34 @@ define (
                  .onValue(function(value) {
                    self.add(value.content);
                  });
+      },
+      watchSelectedItemUpdate: function() {
+          
+        var filterName,
+            filterKey,
+            self = this;
+           
+        searchBus.filter(filterSelectedItem)
+                 .map(extractContent)
+                 .onValue(function(selectedFilterModel) {
+          //console.log(selectedFilterModel);
+          filterName = selectedFilterModel.get('filterName');
+          filterKey  = selectedFilterModel.get('key');
+          var filter = self.chain()
+                           .filter(function (model) {
+                             //console.log(filterName, model.get('filterName'));
+                             //console.log(filterKey, model.get('key'));
+                             return model.get('key') === filterKey &&
+                                    model.get('filterName') === filterName;
+                           })
+                           .last()
+                           .value();
+          
+          //console.log(filter);
+          if (filter !== undefined) {
+            self.remove(filter);
+          }
+        });
       }
     });
 

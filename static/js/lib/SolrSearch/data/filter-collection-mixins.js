@@ -6,7 +6,7 @@
 define (
   [
     'underscore', 'backbone',
-    'lib/SolrSearch/data/filter-collection-elements',
+    'lib/SolrSearch/data/filter-collection-elements'
   ],
   function (_, Backbone, FilterCollectionElements) {
     'use strict';

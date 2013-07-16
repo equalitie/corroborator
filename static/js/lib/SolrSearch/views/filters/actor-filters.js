@@ -94,6 +94,6 @@ define(
     
     // module export
     return {
-      ActorFilterView: ActorFilterView,
+      ActorFilterView: ActorFilterView
     };
 });

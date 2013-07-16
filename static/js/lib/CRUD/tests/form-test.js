@@ -84,7 +84,7 @@ define(
               requiredStyle = {
                 foo : 1,
                 bar : "xxx",
-                this: "hi"
+                'this': "hi"
               },
               output;
 

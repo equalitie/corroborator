@@ -16,7 +16,7 @@ define(
     var init = function() {
       // Display Results header and sort links
       headerView = new Header.HeaderView();
-      // Display filers
+      // Display filters
       filterManager = new FilterManager.FilterManagerView();
       // Display results
       Results.init();

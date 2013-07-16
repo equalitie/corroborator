@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -160,25 +165,79 @@
         <li id="section-1">
             <div class="annotation">
               
-              <div class="pilwrap for-h2">
+              <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/*global define, buster */</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
               <h2>filter-test.js</h2>
 <p>Author: Cormac McGuire
-Test that filters are displaying and updating our lists correctly</p>
+Test that filters are displaying and dispatching filter events
+to our streams</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>define(
   [
-    <span class="string">'lib/SolrSearch/views/filters'</span>
+    <span class="string">'jquery'</span>,
+    <span class="string">'lib/SolrSearch/views/filters/filter-manager'</span>,
+    <span class="string">'lib/SolrSearch/views/filters/actor-filters'</span>,
+    <span class="string">'lib/SolrSearch/views/filters/incident-filters'</span>,
+    <span class="string">'lib/SolrSearch/views/filters/bulletin-filters'</span>,
+    <span class="string">'lib/streams'</span>
   ],
-  <span class="keyword">function</span>(Filters) {
-    <span class="keyword">var</span> assert = buster.assert;
-    buster.testCase(<span class="string">'Filter testing'</span>, {
+  <span class="keyword">function</span>($, FilterManager, ActorFilters, IncidentFilters, BulletinFilters, Streams) {
+    <span class="string">'use strict'</span>;
+    <span class="keyword">var</span> assert = buster.assert,
+        manager;
+    buster.testCase(<span class="string">'Filter views '</span>, {
       
       setUp: <span class="keyword">function</span>() {
+        manager = <span class="keyword">new</span> FilterManager.FilterManagerView();
+      },
+      <span class="string">'should return the three views'</span>: <span class="keyword">function</span>() {
+        assert.equals(<span class="keyword">typeof</span>(ActorFilters.ActorFilterView), <span class="string">'function'</span>);
+        assert.equals(<span class="keyword">typeof</span>(BulletinFilters.BulletinFilterView), <span class="string">'function'</span>);
+        assert.equals(<span class="keyword">typeof</span>(IncidentFilters.IncidentFilterView), <span class="string">'function'</span>);
+        assert.equals(<span class="keyword">typeof</span>(FilterManager.FilterManagerView), <span class="string">'function'</span>);
+       },
+      <span class="string">'should create a view when the user navigates'</span>: <span class="keyword">function</span>() {
+        assert.equals(<span class="keyword">typeof</span>(manager.currentView), <span class="string">'undefined'</span>);
+        Streams.navBus.push(<span class="string">'actor'</span>);
+        assert.equals(<span class="keyword">typeof</span>(manager.currentView), <span class="string">'object'</span>);
+      },
+      <span class="string">'should render actor filters when the user navigates to actors'</span>:
+      <span class="keyword">function</span>() {
+        Streams.navBus.push(<span class="string">'actor'</span>);
+        <span class="keyword">var</span> actorFilterAdded = $(<span class="string">'.actor-display'</span>);
+        assert.equals(actorFilterAdded.length, <span class="number">1</span>);
+      },
+      <span class="string">'should render incident filters when the user navigates to incidents'</span>: 
+      <span class="keyword">function</span>() {
+          Streams.navBus.push(<span class="string">'incident'</span>);
+          <span class="keyword">var</span> actorFilterAdded = $(<span class="string">'.incident-display'</span>);
+          assert.equals(actorFilterAdded.length, <span class="number">1</span>);
+      },
+      <span class="string">'should render bulletin filters when the user navigates to bulletins'</span>:
+      <span class="keyword">function</span>() {
+        Streams.navBus.push(<span class="string">'bulletin'</span>);
+        <span class="keyword">var</span> actorFilterAdded = $(<span class="string">'.bulletin-display'</span>);
+        assert.equals(actorFilterAdded.length, <span class="number">1</span>);
       }
+
+
     });
     
   }

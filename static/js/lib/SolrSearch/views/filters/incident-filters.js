@@ -10,7 +10,7 @@ define(
     'lib/SolrSearch/views/filters/filter-elements',
     'lib/SolrSearch/views/filters/filter-mixins',
     // templates
-    'lib/SolrSearch/templates/incident-filters.tpl',
+    'lib/SolrSearch/templates/incident-filters.tpl'
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
     FilterElements, Mixins, incidentFiltersTmp) {
@@ -29,6 +29,7 @@ define(
       events: {
         'click button.do-create-incident': 'createIncidentPressed'
       },
+
       // constructor - listen for collection reset event and render the view
       initialize: function() {
         this.render();
@@ -37,6 +38,8 @@ define(
         this.collection.on('reset', this.renderFilterGroups, this);
         this.createSelectedFiltersGroup();
       },
+
+      // event handler for new incidents button press
       createIncidentPressed: function(e) {
         var createIncidentEvent = {
           content: {},
@@ -48,8 +51,8 @@ define(
       // render the container
       render: function() {
         var html = incidentFiltersTmp();
-        this.$el.empty()
-                .append(html);
+        this.$el.children().remove();
+        this.$el.append(html);
       },
 
       // create the view that will display the users selected filters

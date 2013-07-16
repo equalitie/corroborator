@@ -29,6 +29,11 @@
               </a>
             
               
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
               <a class="source" href="collections.html">
                 collections.js
               </a>
@@ -59,11 +64,6 @@
               </a>
             
               
-              <a class="source" href="TextSearch.html">
-                TextSearch.js
-              </a>
-            
-              
               <a class="source" href="main.html">
                 main.js
               </a>
@@ -79,8 +79,13 @@
               </a>
             
               
-              <a class="source" href="filters.html">
-                filters.js
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
               </a>
             
               
@@ -169,21 +174,79 @@
             <div class="content"><div class='highlight'><pre><span class="comment">/*global window, document, define, Bootstrap */</span>
 define(
   [
-    <span class="string">'lib/SolrSearch/widgets/manager'</span>,
+    <span class="string">'lib/SolrSearch/solr/manager'</span>,
     <span class="string">'lib/SolrSearch/views/header'</span>,
     <span class="string">'lib/SolrSearch/views/results'</span>,
+    <span class="string">'lib/SolrSearch/views/filters/filter-manager'</span>,
+    <span class="string">'lib/SolrSearch/data/filter-collections'</span>,
     <span class="string">'lib/Data/collections'</span>
   ],
-  <span class="keyword">function</span>(SolrManager, Header, Results, Collections) {
+  <span class="keyword">function</span>(SolrManager, Header, Results, FilterManager, FilterCollection, Collections) {
     <span class="string">'use strict'</span>;
-    <span class="keyword">var</span> headerView;
+    <span class="keyword">var</span> headerView,
+        filterManager;
 
-    <span class="keyword">var</span> init = <span class="keyword">function</span>() {
-      headerView = <span class="keyword">new</span> Header.HeaderView();
-      Results.init();
-      SolrManager.doRequest();
+    <span class="keyword">var</span> init = <span class="keyword">function</span>() {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Display Results header and sort links</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      headerView = <span class="keyword">new</span> Header.HeaderView();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Display filters</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      filterManager = <span class="keyword">new</span> FilterManager.FilterManagerView();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Display results</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      Results.init();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Do initial solr request</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      SolrManager.MainManager.doRequest();
     };
     <span class="keyword">return</span> {
       init: init
