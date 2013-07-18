@@ -6,19 +6,31 @@
 define (
   [
     'underscore', 'backbone',
-    'lib/SolrSearch/data/filter-collection-elements'
+    'lib/SolrSearch/data/filter-collection-elements',
+    'lib/streams'
   ],
-  function (_, Backbone, FilterCollectionElements) {
+  function (_, Backbone, FilterCollectionElements, Streams) {
     'use strict';
     // used by actor/bulletin/incident collections to create groups of filters
-    var FilterGroupCollection = FilterCollectionElements.FilterGroupCollection,
+    var searchBus = Streams.searchBus,
+        FilterGroupCollection = FilterCollectionElements.FilterGroupCollection,
         FilterGroupMixin = {
+          // store a flat collection of all filters
           // iterate over filter groups to create collections
           createFilterGroupCollections: function(groups) {
             // empty the collection before we add the new filters
             this.reset([], {silent: true});
+            this.allFilters.reset([]);
             _.each(groups, this.createFilterGroupCollection, this);
             this.trigger('reset');
+          },
+
+          sendResetEvent: function() {
+            searchBus.push({
+              type: 'filter_group_updated',
+              content: this.allFilters,
+              entity: this.entityType
+            });
           },
 
           // create collections for each filter group  
@@ -37,6 +49,7 @@ define (
                 type: this.entityType
               });
               filterGroupCollection.add(filterModel);
+              this.allFilters.add(filterModel);
             }, this);
 
             this.add({

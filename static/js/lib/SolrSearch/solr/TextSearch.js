@@ -92,7 +92,9 @@ define(
         );
       },
       sendFilters: function(filters) {
-        ParseFilter(filters);
+        ParseFilter(filters, 'actor');
+        ParseFilter(filters, 'bulletin');
+        ParseFilter(filters, 'incident');
       },
 
       afterRequest: function () {

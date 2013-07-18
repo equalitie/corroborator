@@ -48,6 +48,7 @@ define(
     // This collection stores the filters related to bulletins
     var BulletinFilterCollection = Backbone.Collection.extend({
       entityType: 'bulletin',
+      allFilters: new Backbone.Collection(),
       initialize: function() {
         this.watchSearchStream();
       },
@@ -83,7 +84,7 @@ define(
         searchBus.filter(filterBulletinFilters)
                  .map(extractFilters)
                  .onValue(function(value) {
-                   _(value).each(self.updateFilterTotals, self);
+                   //_(value).each(self.updateFilterTotals, self);
                  });
       },
 
@@ -109,7 +110,7 @@ define(
             model.set('numItems', solrFilter[filterName]);
           }
           else {
-            model.destroy();
+            this.remove(model);
           }
         }
       },

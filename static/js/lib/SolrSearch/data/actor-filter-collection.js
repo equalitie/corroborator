@@ -22,10 +22,18 @@ define(
     var FilterGroupMixin = Mixins.FilterGroupMixin,
 
         // filter out event with notification of actor filter createion
+        filterGroupUpdated = function(value) {
+          return value.type === 'filter_group_updated' &&
+                 value.entity === 'actor';
+        },
+        
         filterActorFilters = function(value) {
           return value.type === 'parse_filters_actor';
         },
-        
+        filterSelectedItemEvents = function(value) {
+          return value.type === 'selected_item_actor';
+        },
+
         // actor filter event
         filterActorFilterEvents = function(value) {
           return value.type === 'filter_event_actor';
@@ -48,6 +56,7 @@ define(
             return filterGroup;
         },
 
+
         // pull the filters from the message content
         extractFilters = function(value) {
           var keys = _.keys(value.content);
@@ -62,10 +71,12 @@ define(
     var ActorFilterCollection = Backbone.Collection.extend({
       selectedFilters: undefined,
       entityType: 'actor',
+      allFilters: new Backbone.Collection(),
 
       initialize: function() {
         this.watchSearchStream();
         this.on('select_filter', this.selectFilter, this);
+        this.on('reset', this.sendResetEvent, this);
       },
 
 
@@ -79,6 +90,11 @@ define(
                  .onValue(function(value) {
                    self.createFilterGroupCollections(value);
                  });
+        searchBus.toProperty()
+                 .filter(filterSelectedItemEvents)
+                 .onValue(function(value) {
+                   self.remove(value.content);
+                 });
       }
     });
     // apply mixin
@@ -86,7 +102,11 @@ define(
 
 
     // ### SelectedActorFilterCollection
-    // Maintain a list of selected actor filters 
+    // Maintain a list of selected actor filters  
+    // This needs to watch for filters being added from filter views
+    // and removed by selectedfilter views  
+    // It also needs to update the counts if a currently selected filters numbers
+    // have updated, and remove the filter if it doesn't apply
     var SelectedActorFilterCollection = Backbone.Collection.extend({
       initialize: function(options) {
         this.watchSearchStream();
@@ -101,47 +121,61 @@ define(
                  .onValue(function (value) {
                    self.add(value.content.filter);
                  });
-        searchBus.filter(filterActorFilters)
-                 .map(extractFilters)
-                 .onValue(function(value) {
-                   _(value).each(self.updateFilterTotals, self);
+        // this receives the new models from the
+        searchBus.filter(filterGroupUpdated)
+                 //.map(extractFilters)
+                 .onValue(function(allFilters) {
+                   allFilters.content.each(self.updateFilterTotals, self);
+                   self.removeRedundantFilters.call(self, allFilters.content);
+                   self.sendFilter();
                  });
       },
 
       // find a model that matches the filter passed on from the searchBus
-      findMatchingModel: function(solrFilter) {
+      findMatchingModel: function(filterModel) {
         return this.chain()
                    .filter(function(model) {
-                     return model.get('key') === solrFilter.key; 
+                     return model.get('key') === filterModel.get('key') &&
+                     model.get('filterName') === filterModel.get('filterName'); 
                    })
                    .last()
                    .value();
       },
+      removeRedundantFilters: function(allFilters) {
+        console.log(this, allFilters);
+        this.each(function(model) {
+         var modelFound = (allFilters.findWhere({
+            key: model.get('key'),
+            filterName: model.get('filterName')
+          }));
+         if (modelFound === undefined) {
+           this.remove(model);
+         }
+
+          
+        }, this);
+
+      },
 
       // iterate over the filters to updated the totals/existence of each
       // filter model after an all entity search
-      updateFilterTotals: function(solrFilter) {
+      updateFilterTotals: function(filterModel) {
         var filterName,
-            model = this.findMatchingModel(solrFilter);
+            self = this,
+            model = this.findMatchingModel(filterModel);
 
         if (model !== undefined) {
-          filterName = model.get('filterName');
-          if (solrFilter[filterName] !== undefined) {
-            model.set('numItems', solrFilter[filterName]);
+            model.set('numItems', filterModel.get('numItems'));
             searchBus.push({
               type: 'selected_item',
               content: model
             });
           }
-          else {
-            model.destroy();
-          }
-        }
       },
 
       sendFilter: function(filterModel) {
         Streams.searchBus.push({
-          type: 'filter_event_add',
+          type: 'filter_event_add_actor',
           content: this.models
         });
       }

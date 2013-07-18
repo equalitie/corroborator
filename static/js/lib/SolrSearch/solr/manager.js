@@ -11,6 +11,9 @@ define(
         },
         MainManager,
         FilterManager,
+        ActorManager,
+        BulletinManager,
+        IncidentManager,
         createFilterManager,
         createMainManager,
 
@@ -76,13 +79,12 @@ define(
       return mainManager;
     };
 
-
-
     // create the filtered search for one entity  
     // this will need to listen for filters sent to the main search also
     // because we want to perform sub filtering here
-    createFilterManager = function() {
+    createFilterManager = function(entity) {
       var filterManager = new AjaxSolr.Manager(solrUrl);
+      filterManager.entity = entity;
       addFilterSearchToManger(filterManager);
       filterManager.init();
       addValuesToManager(filterManager);
@@ -91,11 +93,15 @@ define(
 
     // create the manager objects
     MainManager = createMainManager();
-    FilterManager = createFilterManager();
+    ActorManager = createFilterManager('actor');
+    BulletinManager = createFilterManager('bulletin');
+    IncidentManager = createFilterManager('incident');
 
     // module export
     return {
-      MainManager  : MainManager,
-      FilterManager: FilterManager
+      MainManager: MainManager,
+      ActorManager: ActorManager,
+      BulletinManager: BulletinManager,
+      IncidentManager: IncidentManager
     };
 });

@@ -30,17 +30,15 @@ define(
       // constructor
       initialize: function() {
         this.collection = this.model.get('collection');
-        this.collection.on('add', this.render, this);
+        this.collection.on('add remove', this.render, this);
         this.render();
       },
 
       // destroy this view and it's subviews
       destroy: function() {
-        _.each(this.filterViews, function(view) {
-          view.destroy();
-        });
+        _.invoke(this.filterViews, 'destroy');
         this.$el.remove();
-        this.collection.off('add', this.render);
+        this.collection.off('add remove', this.render);
         this.filterViews = [];
       },
 
@@ -60,7 +58,8 @@ define(
       // render a single filter
       renderFilter: function(model) {
         var filterView = new FilterView({
-          model: model
+          model: model,
+          collection: this.collection
         });
         this.$el.children('ul')
                 .append(filterView.$el);
@@ -83,6 +82,7 @@ define(
       // the user has clicked on the filter  
       // send the filter name and key to the event stream
       filterRequested: function(e) {
+        console.log('filterRequested');
         var filter =  $(e.currentTarget).children()
                                         .data('filter');
         var field =  $(e.currentTarget).children()
@@ -94,7 +94,7 @@ define(
           }
         });
         this.destroy();
-        this.model.collection.remove(this.model);
+        this.collection.remove(this.model);
       },
       destroy: function() {
         this.$el.remove();
@@ -111,6 +111,7 @@ define(
     // Show a list of all selected filters
     // Allows users to remove these filters
     SelectedFiltersView = Backbone.View.extend({
+      selectedFilterViews: [],
       // constructor
       // render the container, show the filters  
       // register listeners for add and remove events  
@@ -119,6 +120,7 @@ define(
         this.collection.on('add', this.render, this);
         this.collection.on('add', this.showFilters, this);
         this.collection.on('remove', this.shouldBeHidden, this);
+        this.collection.on('remove', this.removeFilterView, this);
         this.render();
         this.shouldBeHidden();
       },
@@ -131,6 +133,9 @@ define(
                 .children()
                 .children()
                 .removeClass('hidden');
+      },
+      removeFilterView: function(model) {
+        model.trigger('remove_selected');
       },
 
       // check if the view should be hidden and hide if yes
@@ -148,6 +153,7 @@ define(
         this.collection.off('add', this.render);
         this.collection.off('add', this.showFilters);
         this.collection.off('remove', this.shouldBeHidden);
+        this.collection.off('remove', this.removeFilterView);
       },
 
       // render the selected filters container
@@ -173,6 +179,7 @@ define(
           model: model,
           collection: this.collection
         });
+        this.selectedFilterViews.push(selectedFilterView);
         $('#' + this.type + '-selected-tags').append(selectedFilterView.$el);
       }
     });
@@ -189,6 +196,7 @@ define(
       // constructor
       initialize: function() {
         this.render();
+        this.model.on('remove_selected', this.destroy, this);
       },
 
       removeFilter: function() {
@@ -201,6 +209,7 @@ define(
 
       // destroy the view
       destroy: function() {
+        this.model.off('remove_selected');
         this.$el.remove();
         this.undelegateEvents();
         this.collection.remove(this.model);

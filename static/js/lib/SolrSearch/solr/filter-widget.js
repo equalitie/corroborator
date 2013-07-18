@@ -8,18 +8,20 @@ define(
   [
     'backbone', 'underscore',
     'lib/streams',
+    'lib/SolrSearch/solr/parse-filters',
+    // solr shizz
     'core/Core',
     'core/AbstractFacetWidget'
   ], 
-  function(Backbone, _, Streams) {
+  function(Backbone, _, Streams, ParseFilter) {
     'use strict';
     var FilterWidget,
         searchBus = Streams.searchBus,
         navBus    = Streams.navBus,
 
         // filter out events where a filter is added to the query
-        filterAddFilterEvents = function(value) {
-          return value.type === 'filter_event_add';
+        filterAddActorFilterEvents = function(value) {
+          return value.type === 'filter_event_add_actor';
         },
         filterSearchRequestEvents = function(value) {
           return value.type === 'new_search';
@@ -62,6 +64,8 @@ define(
     // Create a widget to send / receive filtered searches to/from solr
     FilterWidget = AjaxSolr.AbstractFacetWidget.extend({
       queryString: '',
+      entity: '',
+      sendFilter: true,
 
       // constructor  
       // start our event listeners  
@@ -70,9 +74,8 @@ define(
       init: function(){
         this.watchFilterEvents();
         this.watchSearchStream();
-        this.watchNavEvents();
         this.filterCollection = new Backbone.Collection();
-        this.filterCollection.on('add remove reset', this.sendRequest, this);
+        //this.filterCollection.on('reset', this.sendRequest, this);
       },
 
       emptyQueryStrings: function() {
@@ -134,22 +137,19 @@ define(
                    self.queryString = value.content.raw;
                  });
       },
-      // watch for tab navigation
-      watchNavEvents: function() {
-        var self = this;
-        navBus.onValue(function(value) {
-          self.filterCollection.reset([], {silent: true});
-          self.currentElement = value;
-        });
-      },
 
       // watch for the addition and removal of filters
       watchFilterEvents: function() {
         var self = this;
-        searchBus.filter(filterAddFilterEvents)
+        searchBus.filter(function(value) {
+                   return value.type === 
+                     'filter_event_add_' + self.manager.entity;
+                 })
                  .map(mapFilterToValue)
                  .onValue(function(value) {
                    self.filterCollection.reset(value);
+                   self.sendFilter = false;
+                   self.sendRequest();
                  });
       },
 
@@ -158,15 +158,25 @@ define(
       sendResults: function(searchResults) {
         pushResults(
           _.chain(searchResults)
-           .filter(filterMap[this.currentElement])
-           .value(), this.currentElement
+           .filter(filterMap[this.manager.entity])
+           .value(), this.manager.entity
         );
+      },
+
+      // parse the new filters from solr
+      sendFilters: function(filters) {
+        ParseFilter(filters, this.manager.entity);
       },
 
       // process the results from solr
       afterRequest: function () {
-        var searchResults = this.manager.response.response.docs;
+        var searchResults = this.manager.response.response.docs,
+            filters = this.manager.response.facet_counts.facet_fields;
         this.sendResults(searchResults);
+        //only send new filters after a keyword search
+        if (this.sendFilter) {
+          this.sendFilters(filters);
+        }
       }
 
     });

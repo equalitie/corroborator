@@ -15,58 +15,38 @@ define(
         // These are used to filter out the different filters from the object
         // returned by solr  
         // actor fields
-        actorFields = [
-          'age_en_exact',
-          'sex_en_exact',
-          'civilian_en_exact',
-          'nationality_en_exact'
-        ],
-        // bulletin fields
-        bulletinFields = [
-          'bulletin_labels_exact',
-          'bulletin_assigned_exact',
-          'most_recent_status_bulletin_exact',
-          'sources_exact'
-        ],
-        // incident fields
-        incidentFields = [
-          'incident_labels_exact', 
-          'incident_assigned_exact',
-          'crimes_exact',
-          'most_recent_status_incident_exact'
-        ],
+        fields = {
+          actor: [
+            'age_en_exact',
+            'sex_en_exact',
+            'civilian_en_exact',
+            'nationality_en_exact'
+          ],
+          // bulletin fields
+          bulletin: [
+            'bulletin_labels_exact',
+            'bulletin_assigned_exact',
+            'most_recent_status_bulletin_exact',
+            'sources_exact'
+          ],
+          // incident fields
+          incident: [
+            'incident_labels_exact', 
+            'incident_assigned_exact',
+            'crimes_exact',
+            'most_recent_status_incident_exact'
+          ],
+        },
         // pull the bulletin filters from the returned list
-        extractBulletinFilters = function(filters) {
-          return _.pick(filters, bulletinFields);
-        },
-        // pull the incident filters from the returned list
-        extractIncidentFields = function(filters) {
-          return _.pick(filters, incidentFields);
-        },
-        // pull the actor filters from the returned list
-        extractActorFilters = function(filters) {
-          return _.pick(filters, actorFields);
+        extractFilters = function(filters, entity) {
+          return _.pick(filters, fields[entity]);
         },
         // send the actor filters on to the search event bus
-        sendActorFilters = function(actorFilters) {
+        sendFilters = function(filters, entity) {
+          //console.log(entity);
           Streams.searchBus.push({
-            type: eventIdentifier + '_actor',
-            content: actorFilters
-          });
-        },
-        // send the incident filters on to the search event bus
-        sendIncidentFilters = function(incidentFilters) {
-          Streams.searchBus.push({
-            type: eventIdentifier + '_incident',
-            content: incidentFilters
-          });
-        },
-
-        // send the bulletin filters on to the search event bus
-        sendBulletinFilters = function(bulletinFilters) {
-          Streams.searchBus.push({
-            type: eventIdentifier + '_bulletin',
-            content: bulletinFilters
+            type: eventIdentifier + '_' + entity,
+            content: filters
           });
         };
 
@@ -74,14 +54,9 @@ define(
     // main function  
     // filters the different filter types from the list
     // and then sends the events off on the search bus
-    var ParseFilter = function (searchFields) {
-      var actorFilters = extractActorFilters(searchFields),
-          incidentFilters = extractIncidentFields(searchFields),
-          bulletinFilters = extractBulletinFilters(searchFields);
-
-      sendActorFilters(actorFilters);
-      sendIncidentFilters(incidentFilters);
-      sendBulletinFilters(bulletinFilters);
+    var ParseFilter = function (searchFields, entity) {
+      var filters = extractFilters(searchFields, entity);
+      sendFilters(filters, entity);
     };
 
     return ParseFilter;

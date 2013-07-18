@@ -48,6 +48,7 @@ define(
     // This collection stores the filters related to actors
     var IncidentFilterCollection = Backbone.Collection.extend({
       entityType: 'incident',
+      allFilters: new Backbone.Collection(),
       initialize: function() {
         this.watchSearchStream();
       },

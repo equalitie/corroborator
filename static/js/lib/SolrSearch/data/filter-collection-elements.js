@@ -58,20 +58,16 @@ define (
         searchBus.filter(filterSelectedItem)
                  .map(extractContent)
                  .onValue(function(selectedFilterModel) {
-          //console.log(selectedFilterModel);
           filterName = selectedFilterModel.get('filterName');
           filterKey  = selectedFilterModel.get('key');
           var filter = self.chain()
                            .filter(function (model) {
-                             //console.log(filterName, model.get('filterName'));
-                             //console.log(filterKey, model.get('key'));
                              return model.get('key') === filterKey &&
                                     model.get('filterName') === filterName;
                            })
                            .last()
                            .value();
           
-          //console.log(filter);
           if (filter !== undefined) {
             self.remove(filter);
           }
