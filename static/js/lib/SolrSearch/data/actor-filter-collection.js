@@ -151,7 +151,6 @@ define(
          if (modelFound === undefined) {
            this.remove(model);
          }
-
           
         }, this);
 

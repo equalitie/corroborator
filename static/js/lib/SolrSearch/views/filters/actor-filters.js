@@ -21,29 +21,12 @@ define(
     Mixins, FilterElements, actorFiltersTmp) {
     'use strict';
     var ActorFilterView,
-        NewActorButtonView,
         FilterViewMixin = Mixins.FilterViewMixin,
         ActorFilterCollection = FilterCollection.ActorFilterCollection,
         SelectedActorFilterCollection = 
           FilterCollection.SelectedActorFilterCollection,
         SelectedFiltersView = FilterElements.SelectedFiltersView;
 
-    // ### NewActorButtonView
-    // show the new actor button
-    NewActorButtonView = Backbone.View.extend({
-      el: '.actor-display div.padding div.group',
-      initialize: function() {
-        this.template = _.template('<button class="do-create-actor create">' +
-          '<span class="text T">New actor</span> </button>');
-      },
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
-      },
-      render: function() {
-        this.$el.append(this.template());
-      }
-    });
     
     // ## Actor filter view
     // display a list of filters for actors

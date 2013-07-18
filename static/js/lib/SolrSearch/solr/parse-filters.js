@@ -43,7 +43,6 @@ define(
         },
         // send the actor filters on to the search event bus
         sendFilters = function(filters, entity) {
-          //console.log(entity);
           Streams.searchBus.push({
             type: eventIdentifier + '_' + entity,
             content: filters

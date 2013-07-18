@@ -19,10 +19,6 @@ define(
         searchBus = Streams.searchBus,
         navBus    = Streams.navBus,
 
-        // filter out events where a filter is added to the query
-        filterAddActorFilterEvents = function(value) {
-          return value.type === 'filter_event_add_actor';
-        },
         filterSearchRequestEvents = function(value) {
           return value.type === 'new_search';
         },
@@ -147,6 +143,7 @@ define(
                  })
                  .map(mapFilterToValue)
                  .onValue(function(value) {
+                   console.log(value);
                    self.filterCollection.reset(value);
                    self.sendFilter = false;
                    self.sendRequest();

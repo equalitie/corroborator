@@ -16,8 +16,13 @@ define(
 
         // filter out the actor filters event
     var FilterGroupMixin = Mixins.FilterGroupMixin,
+        SelectedFilterMixin = Mixins.SelectedFilterMixin,
         filterBulletinFilters = function(value) {
           return value.type === 'parse_filters_bulletin';
+        },
+        filterGroupUpdated = function(value) {
+          return value.type === 'filter_group_updated' &&
+                 value.entity === 'bulletin';
         },
         filterBulletinFilterEvents = function(value) {
           return value.type === 'filter_event_bulletin';
@@ -51,6 +56,7 @@ define(
       allFilters: new Backbone.Collection(),
       initialize: function() {
         this.watchSearchStream();
+        this.on('reset', this.sendResetEvent, this);
       },
       // watch for events in the search stream and pull out the
       // bulletin filter ones
@@ -81,46 +87,22 @@ define(
                  .onValue(function (value) {
                    self.add(value.content.filter);
                  });
-        searchBus.filter(filterBulletinFilters)
-                 .map(extractFilters)
-                 .onValue(function(value) {
-                   //_(value).each(self.updateFilterTotals, self);
+        searchBus.filter(filterGroupUpdated)
+                 .onValue(function(allFilters) {
+                   allFilters.content.each(self.updateFilterTotals, self);
+                   self.removeRedundantFilters.call(self, allFilters.content);
+                   self.sendFilter();
                  });
       },
 
-      // find a model that matches the filter passed on from the searchBus
-      findMatchingModel: function(solrFilter) {
-        return this.chain()
-                   .filter(function(model) {
-                     return model.get('key') === solrFilter.key; 
-                   })
-                   .last()
-                   .value();
-      },
-
-      // iterate over the filters to updated the totals/existence of each
-      // filter model after an all entity search
-      updateFilterTotals: function(solrFilter) {
-        var filterName,
-            model = this.findMatchingModel(solrFilter);
-
-        if (model !== undefined) {
-          filterName = model.get('filterName');
-          if (solrFilter[filterName] !== undefined) {
-            model.set('numItems', solrFilter[filterName]);
-          }
-          else {
-            this.remove(model);
-          }
-        }
-      },
       sendFilter: function(filterModel) {
         Streams.searchBus.push({
-          type: 'filter_event_add',
+          type: 'filter_event_add_bulletin',
           content: this.models
         });
       }
     });
+    _.extend(SelectedBulletinFilterCollection.prototype, SelectedFilterMixin);
 
     return {
       BulletinFilterCollection: BulletinFilterCollection,

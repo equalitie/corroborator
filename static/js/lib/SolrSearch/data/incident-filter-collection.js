@@ -16,11 +16,16 @@ define(
 
         // filter out the actor filters event
     var FilterGroupMixin = Mixins.FilterGroupMixin,
+        SelectedFilterMixin = Mixins.SelectedFilterMixin,
         filterIncidentFilters = function(value) {
           return value.type === 'parse_filters_incident';
         },
         filterIncidentFilterEvents = function(value) {
           return value.type === 'filter_event_incident';
+        },
+        filterGroupUpdated = function(value) {
+          return value.type === 'filter_group_updated' &&
+                 value.entity === 'bulletin';
         },
         filterTitles = {
           'incident_assigned_exact': 'Assigned To',
@@ -51,6 +56,7 @@ define(
       allFilters: new Backbone.Collection(),
       initialize: function() {
         this.watchSearchStream();
+        this.on('reset', this.sendResetEvent, this);
       },
       // watch for events in the search stream and pull out the
       // actor filter ones
@@ -74,52 +80,36 @@ define(
         this.on('add remove', this.sendFilter, this);
       },
       watchSearchStream: function() {
+        this.watchForFilterSelect();
+        this.watchForFilterReset();
+      },
+      watchForFilterSelect: function() {
         var self = this;
         searchBus.filter(filterIncidentFilterEvents)
                  .onValue(function (value) {
                    self.add(value.content.filter);
                  });
-        searchBus.filter(filterIncidentFilters)
-                 .map(extractFilters)
-                 .onValue(function(value) {
-                   _(value).each(self.updateFilterTotals, self);
+      },
+
+      watchForFilterReset: function() {
+        var self = this;
+        searchBus.filter(filterGroupUpdated)
+                 .onValue(function(allFilters) {
+                   console.log(allFilters);
+                   allFilters.content.each(self.updateFilterTotals, self);
+                   self.removeRedundantFilters.call(self, allFilters.content);
+                   self.sendFilter();
                  });
-      },
-
-      // find a model that matches the filter passed on from the searchBus
-      findMatchingModel: function(solrFilter) {
-        return this.chain()
-                   .filter(function(model) {
-                     return model.get('key') === solrFilter.key; 
-                   })
-                   .last()
-                   .value();
-      },
-
-      // iterate over the filters to updated the totals/existence of each
-      // filter model after an all entity search
-      updateFilterTotals: function(solrFilter) {
-        var filterName,
-            model = this.findMatchingModel(solrFilter);
-
-        if (model !== undefined) {
-          filterName = model.get('filterName');
-          if (solrFilter[filterName] !== undefined) {
-            model.set('numItems', solrFilter[filterName]);
-          }
-          else {
-            model.destroy();
-          }
-        }
       },
 
       sendFilter: function(filterModel) {
         Streams.searchBus.push({
-          type: 'filter_event_add',
+          type: 'filter_event_add_incident',
           content: this.models
         });
       }
     });
+    _.extend(SelectedIncidentFilterCollection.prototype, SelectedFilterMixin);
 
     return {
       IncidentFilterCollection: IncidentFilterCollection,

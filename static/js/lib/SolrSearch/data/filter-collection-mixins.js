@@ -58,10 +58,53 @@ define (
                 collection: filterGroupCollection
             });
           }
-        };
+        },
+    SelectedFilterMixin = {
+      // find a model that matches the filter passed on from the searchBus
+      findMatchingModel: function(filterModel) {
+        return this.chain()
+                   .filter(function(model) {
+                     return model.get('key') === filterModel.get('key') &&
+                     model.get('filterName') === filterModel.get('filterName'); 
+                   })
+                   .last()
+                   .value();
+      },
+      // if the search results from free text search do not contain
+      // one of the selected filters, remove it
+      removeRedundantFilters: function(allFilters) {
+        this.each(function(model) {
+         var modelFound = (allFilters.findWhere({
+            key: model.get('key'),
+            filterName: model.get('filterName')
+          }));
+         if (modelFound === undefined) {
+           this.remove(model);
+         }
+          
+        }, this);
 
+      },
+
+      // iterate over the filters to updated the totals/existence of each
+      // filter model after an all entity search
+      updateFilterTotals: function(filterModel) {
+        var filterName,
+            self = this,
+            model = this.findMatchingModel(filterModel);
+
+        if (model !== undefined) {
+            model.set('numItems', filterModel.get('numItems'));
+            searchBus.push({
+              type: 'selected_item',
+              content: model
+            });
+          }
+      }
+    };
     return {
-      FilterGroupMixin: FilterGroupMixin
+      FilterGroupMixin: FilterGroupMixin,
+      SelectedFilterMixin: SelectedFilterMixin
     };
 });
 

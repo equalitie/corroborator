@@ -5,9 +5,11 @@
 
 define (
   [
-    'jquery', 'backbone', 'underscore'
+    'jquery', 'backbone', 'underscore',
+    'lib/streams',
+    'lib/SolrSearch/templates/date-range.tpl'
   ],
-  function ($, Backbone, _) {
+  function ($, Backbone, _, Streams, dateRangeTmp) {
     'use strict';
     var DateRangeView;
 
@@ -15,15 +17,20 @@ define (
     // Display two input boxes with from and to labels that open
     // a datepicker when clicked on
     DateRangeView = Backbone.View.extend({
+      className: 'filter',
       initialize: function() {
+        this.render();
       },
       destroy: function() {
         this.$el.remove();
         this.undelegateEvents();
       },
       render: function() {
+        var html = dateRangeTmp();
+        this.$el.append(html);
       }
     });
+    return DateRangeView;
     
 });
 
