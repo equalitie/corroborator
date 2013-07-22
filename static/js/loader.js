@@ -6,13 +6,13 @@
       'lib'            : 'lib',
       'main'           : 'main',
       'jquery'         : 'components/jquery/jquery',
-      'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui-1.10.3.custom.min',
+      'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui',
       'leaflet'        : 'components/leaflet/dist/leaflet',
-      'backbone'       : 'components/backbone/backbone-min',
-      'marionette'     : 'components/backbone.marionette/lib/backbone.marionette.min',
-      'underscore'     : 'components/underscore/underscore-min',
+      'backbone'       : 'components/backbone/backbone',
+      'moment'         : 'components/moment/moment',
+      'underscore'     : 'components/underscore/underscore',
       'handlebars'     : 'components/handlebars/handlebars',
-      'bacon'          : 'components/baconjs/dist/Bacon',
+      'bacon'          : 'components/bacon/dist/Bacon',
       'bacon_ui'       : 'components/bacon-ui/Bacon.UI',
       // ajax solr stuff
       'core'           : 'components/ajax-solr/core',
@@ -27,15 +27,14 @@
         deps: ['underscore', 'jquery'],
         exports: 'Backbone'
       },
-      marionette: {
-        deps: ['backbone'],
-        exports: 'Marionette'
-      },
       handlebars: {
         exports: 'Handlebars'
       },
       bacon: {
         deps: ['jquery']
+      },
+      bacon_ui: {
+        deps: ['bacon', 'jquery']
       },
       core: {
         deps: ['jquery'],

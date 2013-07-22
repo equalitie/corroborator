@@ -53,7 +53,6 @@ define (
 
           // render a filter group
           renderGroup: function(model) {
-            console.log('renderGroup');
             var filterGroupView = new FilterGroupView({
               model: model
             });

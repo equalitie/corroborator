@@ -7,7 +7,14 @@ config["Corroborator Browser tests"] = {
     libs: [
       "components/requirejs/require.js",
       "components/handlebars/*.js",
+      "components/bacon/dist/Bacon.js",
+      "components/jquery/jquery.js",
+      "components/jquery.ui/dist/jquery-ui.js",
+      "components/leaflet/dist/leaflet.js",
+      "components/underscore/underscore.js",
+      "components/backbone/backbone.js",
       "components/bacon-ui/Bacon.UI.js",
+      "components/moment/moment.js",
       "testconfig.js"
     ],
     sources: [
@@ -39,7 +46,7 @@ config["Corroborator Browser tests"] = {
         "Content-Type": "text/html"
       }
     }],
-    extensions: [require('buster-amd')],
+    extensions: [require("buster-amd")],
     "buster-amd": {
         pathMapper: function (path) {
           return path.

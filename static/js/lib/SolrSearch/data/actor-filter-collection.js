@@ -142,7 +142,6 @@ define(
                    .value();
       },
       removeRedundantFilters: function(allFilters) {
-        console.log(this, allFilters);
         this.each(function(model) {
          var modelFound = (allFilters.findWhere({
             key: model.get('key'),

@@ -46,7 +46,7 @@ define (
             .setView([start_lat, start_long], zoom_level);
                   
         L.tileLayer(tileLayerUrl, {
-            maxZoom: 18,
+            maxZoom: 18
         }).addTo(map);
         this.map = map;
         this.addMapListener();
@@ -78,7 +78,6 @@ define (
         this.destroyMarker();
       },
       sendCoordinates: function(e) {
-        console.log(e);
       },
       destroyMarker: function() {
         if (this.currentMarker !== undefined) {

@@ -35,7 +35,7 @@ define(
             'incident_assigned_exact',
             'crimes_exact',
             'most_recent_status_incident_exact'
-          ],
+          ]
         },
         // pull the bulletin filters from the returned list
         extractFilters = function(filters, entity) {

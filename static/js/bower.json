@@ -4,7 +4,8 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "components"
+    "components",
+    "dist"
   ],
   "dependencies": {
     "requirejs": "~2.1",
@@ -17,6 +18,5 @@
     "bacon-ui": "~0.1",
     "backbone": "~1.0",
     "moment": "~2.1"
-
   }
 }

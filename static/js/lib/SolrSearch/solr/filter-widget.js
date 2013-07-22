@@ -143,7 +143,6 @@ define(
                  })
                  .map(mapFilterToValue)
                  .onValue(function(value) {
-                   console.log(value);
                    self.filterCollection.reset(value);
                    self.sendFilter = false;
                    self.sendRequest();
@@ -162,7 +161,7 @@ define(
 
       // parse the new filters from solr
       sendFilters: function(filters) {
-        ParseFilter(filters, this.manager.entity);
+        var fp = new ParseFilter(filters, this.manager.entity);
       },
 
       // process the results from solr

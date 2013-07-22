@@ -82,7 +82,6 @@ define(
       // the user has clicked on the filter  
       // send the filter name and key to the event stream
       filterRequested: function(e) {
-        console.log('filterRequested');
         var filter =  $(e.currentTarget).children()
                                         .data('filter');
         var field =  $(e.currentTarget).children()

@@ -5,11 +5,11 @@
 
 define (
   [
-    'jquery', 'bacon', 'backbone', 'underscore',
+    'jquery', 'bacon', 'backbone', 'underscore', 'moment',
     'lib/streams',
     'lib/SolrSearch/templates/date-range.tpl'
   ],
-  function ($, Bacon, Backbone, _, Streams, dateRangeTmp) {
+  function ($, Bacon, Backbone, _, moment, Streams, dateRangeTmp) {
     'use strict';
     var DateRangeView;
 
@@ -48,8 +48,14 @@ define (
           }
         });
       },
+
       checkFilters: function() {
+        var startDate = moment(this.startDate, "YYYY-MM-DD"),
+            endDate   = moment(this.endDate,  "YYYY-MM-DD");
+        
       },
+
+
       applyFilter:function() {
 
       },
