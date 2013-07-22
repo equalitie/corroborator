@@ -13,9 +13,10 @@
     "jquery": "~1.9",
     "jquery.ui": "~1.10",
     "handlebars": "~1.0",
-    "baconjs": "~0.4",
+    "bacon": "~0.4",
     "bacon-ui": "~0.1",
     "backbone": "~1.0",
-    "ajax-solr": "~0.0"
+    "moment": "~2.1"
+
   }
 }

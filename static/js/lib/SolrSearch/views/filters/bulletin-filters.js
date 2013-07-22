@@ -38,6 +38,7 @@ define(
         this.createSelectedFiltersGroup();
         this.createDateRangeWidget();
       },
+
       // create bulletin clicked
       createBulletinPressed: function(e) {
         var createBulletinEvent = {
@@ -46,6 +47,7 @@ define(
         };
         Streams.searchBus.push(createBulletinEvent);
       },
+
       createDateRangeWidget: function() {
         this.dateRangeView = new DateRangeView({
           el: '.date-range',
