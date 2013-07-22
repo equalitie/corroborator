@@ -88,12 +88,11 @@
     .map {
       position: relative;
       width: 100%;
-      height: 15em;
+      height: 300px;
       background-color: $COLOR_PLACEHOLDER_BG;
-      .do-filter {
-        position: absolute;
-        bottom: 0em;
-        right: 0em;
+      .filter-map {
+        height: 100%;
+        width: 100%;
       }
     }
   }

@@ -27,7 +27,8 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/actor-filters.tpl.js'   : 'lib/SolrSearch/templates/actor-filters.tpl',
           'lib/SolrSearch/templates/bulletin-filters.tpl.js': 'lib/SolrSearch/templates/bulletin-filters.tpl',
           'lib/SolrSearch/templates/selected-filters.tpl.js': 'lib/SolrSearch/templates/selected-filters.tpl',
-          'lib/SolrSearch/templates/date-range.tpl.js' : 'lib/SolrSearch/templates/date-range.tpl',
+          'lib/SolrSearch/templates/date-range.tpl.js'      : 'lib/SolrSearch/templates/date-range.tpl',
+          'lib/SolrSearch/templates/map-container.tpl.js'   : 'lib/SolrSearch/templates/map-container.tpl',
           'lib/SolrSearch/templates/selected-filter.tpl.js' : 'lib/SolrSearch/templates/selected-filter.tpl',
           'lib/CRUD/templates/confirm-dialog.tpl.js'        : 'lib/CRUD/templates/confirm-dialog.tpl',
           'lib/CRUD/templates/actor.tpl.js'                 : 'lib/CRUD/templates/actor.tpl',
@@ -111,7 +112,7 @@ module.exports = function(grunt) {
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/*.tpl'
       ],
-      tasks: ['handlebars', 'jshint', 'buster:dev', 'requirejs', 'docco']
+      tasks: ['handlebars'/*, 'jshint', 'buster:dev', 'requirejs', 'docco'*/]
     }
   });
 

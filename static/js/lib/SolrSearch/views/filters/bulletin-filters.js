@@ -10,11 +10,12 @@ define(
     // filter elements
     'lib/SolrSearch/views/filters/filter-mixins',
     'lib/SolrSearch/views/filters/filter-elements',
+    'lib/SolrSearch/views/filters/date-range',
     // templates
     'lib/SolrSearch/templates/bulletin-filters.tpl'
   ],
   function (_, $, Backbone, Streams, Collections, FilterCollection,
-    Mixins, FilterElements, bulletinFiltersTmp) {
+    Mixins, FilterElements, DateRangeView, bulletinFiltersTmp) {
     var BulletinFilterView,
         SelectedFiltersView = FilterElements.SelectedFiltersView,
         FilterViewMixin = Mixins.FilterViewMixin,
@@ -35,6 +36,7 @@ define(
         this.renderExistingCollection();
         this.collection.on('reset', this.renderFilterGroups, this);
         this.createSelectedFiltersGroup();
+        this.createDateRangeWidget();
       },
       // create bulletin clicked
       createBulletinPressed: function(e) {
@@ -43,6 +45,12 @@ define(
           type: 'create_bulletin'
         };
         Streams.searchBus.push(createBulletinEvent);
+      },
+      createDateRangeWidget: function() {
+        this.dateRangeView = new DateRangeView({
+          el: '.date-range',
+          entityType: 'bulletin'
+        });
       },
 
       // render the container

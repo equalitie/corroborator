@@ -53,10 +53,16 @@ define (
 
           // render a filter group
           renderGroup: function(model) {
+            console.log('renderGroup');
             var filterGroupView = new FilterGroupView({
               model: model
             });
-            this.$el.append(filterGroupView.$el);
+            // aaaaaaaaaaagh
+            this.$el.children()
+                    .children()
+                    .children()
+                    .children('.filter-groups')
+                    .prepend(filterGroupView.$el);
             return filterGroupView;
           }
         };

@@ -5,11 +5,11 @@
 
 define (
   [
-    'jquery', 'backbone', 'underscore',
+    'jquery', 'bacon', 'backbone', 'underscore',
     'lib/streams',
     'lib/SolrSearch/templates/date-range.tpl'
   ],
-  function ($, Backbone, _, Streams, dateRangeTmp) {
+  function ($, Bacon, Backbone, _, Streams, dateRangeTmp) {
     'use strict';
     var DateRangeView;
 
@@ -17,9 +17,41 @@ define (
     // Display two input boxes with from and to labels that open
     // a datepicker when clicked on
     DateRangeView = Backbone.View.extend({
-      className: 'filter',
+      fromDate: undefined,
+      toDate  : undefined,
       initialize: function() {
         this.render();
+        this.createDatePickers();
+      },
+      createDatePickers: function() {
+        var self = this;
+        this.$el.children('.from-date').datepicker({
+          defaultDate: '-1w',
+          changeMonth: true,
+          dateFormat: 'yy-mm-dd',
+          numberOfMonths: 1,
+          onClose: function(selectedDate) {
+            $('.to-date').datepicker('option', 'minDate', selectedDate);
+            self.fromDate = selectedDate;
+            self.checkFilters();
+          }
+        });
+        this.$el.children('.to-date').datepicker({
+          defaultDate: '+1w',
+          changeMonth: true,
+          dateFormat: 'yy-mm-dd',
+          numberOfMonths: 1,
+          onClose: function(selectedDate) {
+            $('.from-date').datepicker('option', 'maxDate', selectedDate);
+            self.toDate = selectedDate;
+            self.checkFilters();
+          }
+        });
+      },
+      checkFilters: function() {
+      },
+      applyFilter:function() {
+
       },
       destroy: function() {
         this.$el.remove();
@@ -27,7 +59,7 @@ define (
       },
       render: function() {
         var html = dateRangeTmp();
-        this.$el.append(html);
+        this.$el.append(html).addClass('filter');
       }
     });
     return DateRangeView;

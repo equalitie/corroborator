@@ -7,6 +7,7 @@
       'main'           : 'main',
       'jquery'         : 'components/jquery/jquery',
       'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui-1.10.3.custom.min',
+      'leaflet'        : 'components/leaflet/dist/leaflet',
       'backbone'       : 'components/backbone/backbone-min',
       'marionette'     : 'components/backbone.marionette/lib/backbone.marionette.min',
       'underscore'     : 'components/underscore/underscore-min',
@@ -33,7 +34,6 @@
       handlebars: {
         exports: 'Handlebars'
       },
-      
       bacon: {
         deps: ['jquery']
       },

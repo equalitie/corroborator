@@ -9,11 +9,12 @@ define(
     // filter elements
     'lib/SolrSearch/views/filters/filter-elements',
     'lib/SolrSearch/views/filters/filter-mixins',
+    'lib/SolrSearch/views/filters/map-view',
     // templates
     'lib/SolrSearch/templates/incident-filters.tpl'
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
-    FilterElements, Mixins, incidentFiltersTmp) {
+    FilterElements, Mixins, CoordinatePickerView, incidentFiltersTmp) {
     var IncidentFilterView,
         FilterGroupView = FilterElements.FilterGroupView,
         FilterViewMixin = Mixins.FilterViewMixin,
@@ -37,6 +38,7 @@ define(
         this.renderExistingCollection();
         this.collection.on('reset', this.renderFilterGroups, this);
         this.createSelectedFiltersGroup();
+        //this.createMapViewFilter();
       },
 
       // event handler for new incidents button press
@@ -62,7 +64,15 @@ define(
           collection: SelectedIncidentFilterCollection,
           type: 'incident'
         });
-
+      },
+      createMapViewFilter: function() {
+        this.mapView = new CoordinatePickerView();
+        this.$el.children()
+                .children()
+                .children()
+                .children('.filter-groups')
+                .append(this.mapView.$el);
+        this.mapView.displayMap();
       }
 
     });

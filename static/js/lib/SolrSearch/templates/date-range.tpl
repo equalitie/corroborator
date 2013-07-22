@@ -1,5 +1,6 @@
 <label >Date Range</label>
+<br/>
 <label for="from">From</label>
-<input type="text" id="from" name="from" />
+<input type="text" class="from-date" name="from" />
 <label for="to">to</label>
-<input type="text" id="to" name="to" />
+<input type="text" class="to-date" name="to" />

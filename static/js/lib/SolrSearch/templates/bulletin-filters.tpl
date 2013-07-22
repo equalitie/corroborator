@@ -15,6 +15,7 @@
       </div>
       <!-- filter groups go in here -->
       <div class="filter-groups">
+        <div class="date-range"></div>
       </div>
 
     </div>
