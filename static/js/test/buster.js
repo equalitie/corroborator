@@ -6,16 +6,14 @@ config["Corroborator Browser tests"] = {
     rootPath: "../",
     libs: [
       "components/requirejs/require.js",
+      "testconfig.js",
       "components/handlebars/*.js",
-      "components/bacon/dist/Bacon.js",
       "components/jquery/jquery.js",
       "components/jquery.ui/dist/jquery-ui.js",
-      "components/leaflet/dist/leaflet.js",
+      "components/leaflet/dist/leaflet-src.js",
       "components/underscore/underscore.js",
       "components/backbone/backbone.js",
-      "components/bacon-ui/Bacon.UI.js",
       "components/moment/moment.js",
-      "testconfig.js"
     ],
     sources: [
       "test/fixtures/*.js",

@@ -20,6 +20,7 @@ define(
 
     // shared functionality with other filter collections
     var FilterGroupMixin = Mixins.FilterGroupMixin,
+        SelectedFilterMixin = Mixins.SelectedFilterMixin,
 
         // filter out event with notification of actor filter createion
         filterGroupUpdated = function(value) {
@@ -111,64 +112,33 @@ define(
       initialize: function(options) {
         this.watchSearchStream();
         this.on('add remove', this.sendFilter, this);
+        this.on('add', this.removeExistingDateFilters, this);
       },
 
       // watch for filters being added/ removed via filter clicks
       // and from the overall search
       watchSearchStream: function() {
+        this.watchForFilterSelect();
+        this.watchForFilterReset();
+      },
+
+      watchForFilterSelect: function() {
         var self = this;
         searchBus.filter(filterActorFilterEvents)
                  .onValue(function (value) {
                    self.add(value.content.filter);
                  });
+      },
+
+      watchForFilterReset: function() {
+        var self = this;
         // this receives the new models from the
         searchBus.filter(filterGroupUpdated)
-                 //.map(extractFilters)
                  .onValue(function(allFilters) {
                    allFilters.content.each(self.updateFilterTotals, self);
                    self.removeRedundantFilters.call(self, allFilters.content);
                    self.sendFilter();
                  });
-      },
-
-      // find a model that matches the filter passed on from the searchBus
-      findMatchingModel: function(filterModel) {
-        return this.chain()
-                   .filter(function(model) {
-                     return model.get('key') === filterModel.get('key') &&
-                     model.get('filterName') === filterModel.get('filterName'); 
-                   })
-                   .last()
-                   .value();
-      },
-      removeRedundantFilters: function(allFilters) {
-        this.each(function(model) {
-         var modelFound = (allFilters.findWhere({
-            key: model.get('key'),
-            filterName: model.get('filterName')
-          }));
-         if (modelFound === undefined) {
-           this.remove(model);
-         }
-          
-        }, this);
-
-      },
-
-      // iterate over the filters to updated the totals/existence of each
-      // filter model after an all entity search
-      updateFilterTotals: function(filterModel) {
-        var filterName,
-            self = this,
-            model = this.findMatchingModel(filterModel);
-
-        if (model !== undefined) {
-            model.set('numItems', filterModel.get('numItems'));
-            searchBus.push({
-              type: 'selected_item',
-              content: model
-            });
-          }
       },
 
       sendFilter: function(filterModel) {
@@ -179,6 +149,7 @@ define(
       }
 
     });
+    _.extend(SelectedActorFilterCollection.prototype, SelectedFilterMixin);
     
 
     return {

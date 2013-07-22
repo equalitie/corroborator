@@ -92,11 +92,8 @@ define(
           assert.equals(_.isEqual(output, requiredStyle), true);
           assert.equals(output, requiredStyle);
 
-          
         });
-        
       });
-      
     });
     
 

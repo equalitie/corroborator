@@ -6,13 +6,12 @@ require.config({
     "test"           : "../test",
     "jquery"         : "../components/jquery/jquery",
     "jquery_ui"      : "../components/jquery.ui/dist/jquery-ui",
-    "leaflet"        : "../components/leaflet/dist/leaflet",
+    "leaflet"        : "../components/leaflet/dist/leaflet-src",
     "backbone"       : "../components/backbone/backbone",
     "underscore"     : "../components/underscore/underscore",
-    "bacon"          : "../components/bacon/dist/Bacon",
     "moment"         : "../components/moment/moment",
-    "bacon_ui"       : "../components/bacon-ui/Bacon.UI",
     "handlebars"     : "../components/handlebars/handlebars.runtime",
+    "bacon"          : "//cdnjs.cloudflare.com/ajax/libs/bacon.js/0.6.1/Bacon"
   },
   shim: {
       underscore: {
@@ -27,6 +26,7 @@ require.config({
       },
       bacon: {
         deps: ['jquery'],
+        exports: 'Bacon'
       },
       bacon_ui: {
         deps: ['bacon', 'jquery']

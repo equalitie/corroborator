@@ -42,11 +42,12 @@ define (
             filterGroupCollection.groupKey = group.key;
             _.each(filters, function(numItems, filterName) {
               var filterModel = new Backbone.Model({
-                key: group.key,
-                title: group.title,
-                numItems: numItems,
-                filterName: filterName,
-                type: this.entityType
+                key              : group.key,
+                title            : group.title,
+                numItems         : numItems,
+                filterName       : filterName,
+                displayFilterName: filterName,
+                type             : this.entityType
               });
               filterGroupCollection.add(filterModel);
               this.allFilters.add(filterModel);
@@ -84,6 +85,19 @@ define (
           
         }, this);
 
+      },
+
+      // remove previous date filter from selected filters if it exists
+      removeExistingDateFilters: function(filterModel) {
+        var dateFilter = this.chain()
+            .filter(function(model) {return model.get('dateFilter'); })
+            .reject(function(model) { 
+              return model.cid === filterModel.cid; 
+            })
+            .last()
+            .value();
+        console.log(dateFilter);
+        this.remove(dateFilter);
       },
 
       // iterate over the filters to updated the totals/existence of each

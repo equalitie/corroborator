@@ -15,8 +15,9 @@ define(
     'lib/SolrSearch/templates/bulletin-filters.tpl'
   ],
   function (_, $, Backbone, Streams, Collections, FilterCollection,
-    Mixins, FilterElements, DateRangeView, bulletinFiltersTmp) {
+    Mixins, FilterElements, DateRange, bulletinFiltersTmp) {
     var BulletinFilterView,
+        DateRangeView = DateRange.DateRangeView,
         SelectedFiltersView = FilterElements.SelectedFiltersView,
         FilterViewMixin = Mixins.FilterViewMixin,
         SelectedBulletinFilterCollection = 

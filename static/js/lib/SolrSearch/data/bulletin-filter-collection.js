@@ -24,6 +24,9 @@ define(
           return value.type === 'filter_group_updated' &&
                  value.entity === 'bulletin';
         },
+        filterBulletinDateFilter = function(value) {
+          return value.type === 'date_range_bulletin';
+        },
         filterBulletinFilterEvents = function(value) {
           return value.type === 'filter_event_bulletin';
         },
@@ -80,19 +83,24 @@ define(
       initialize: function(options) {
         this.watchSearchStream();
         this.on('add remove', this.sendFilter, this);
+        this.on('add', this.removeExistingDateFilters, this);
       },
       watchSearchStream: function() {
         var self = this;
+        // look for filters being added 
         searchBus.filter(filterBulletinFilterEvents)
                  .onValue(function (value) {
                    self.add(value.content.filter);
                  });
+
+        // look for overall search events that update the filter groups
         searchBus.filter(filterGroupUpdated)
                  .onValue(function(allFilters) {
                    allFilters.content.each(self.updateFilterTotals, self);
                    self.removeRedundantFilters.call(self, allFilters.content);
                    self.sendFilter();
                  });
+
       },
 
       sendFilter: function(filterModel) {

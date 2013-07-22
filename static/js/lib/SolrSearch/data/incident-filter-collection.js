@@ -78,6 +78,7 @@ define(
       initialize: function(options) {
         this.watchSearchStream();
         this.on('add remove', this.sendFilter, this);
+        this.on('add', this.removeExistingDateFilters, this);
       },
       watchSearchStream: function() {
         this.watchForFilterSelect();
@@ -95,7 +96,6 @@ define(
         var self = this;
         searchBus.filter(filterGroupUpdated)
                  .onValue(function(allFilters) {
-                   console.log(allFilters);
                    allFilters.content.each(self.updateFilterTotals, self);
                    self.removeRedundantFilters.call(self, allFilters.content);
                    self.sendFilter();

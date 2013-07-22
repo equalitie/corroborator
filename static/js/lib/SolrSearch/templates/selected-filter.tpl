@@ -1,4 +1,4 @@
-<span class="text">{{model.filterName}}</span>
+<span class="text">{{model.displayFilterName}}</span>
 <button class="do-clear">
   <span>✓</span>
 </button>

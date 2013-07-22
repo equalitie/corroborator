@@ -9,14 +9,15 @@ define(
     // filter elements
     'lib/SolrSearch/views/filters/filter-elements',
     'lib/SolrSearch/views/filters/filter-mixins',
-    'lib/SolrSearch/views/filters/map-view',
+    'lib/SolrSearch/views/filters/date-range',
     // templates
     'lib/SolrSearch/templates/incident-filters.tpl'
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
-    FilterElements, Mixins, CoordinatePickerView, incidentFiltersTmp) {
+    FilterElements, Mixins, DateRange, incidentFiltersTmp) {
     var IncidentFilterView,
         FilterGroupView = FilterElements.FilterGroupView,
+        DateRangeView = DateRange.DateRangeView,
         FilterViewMixin = Mixins.FilterViewMixin,
         IncidentFilterCollection = FilterCollection.IncidentFilterCollection,
         SelectedIncidentFilterCollection = 
@@ -38,7 +39,14 @@ define(
         this.renderExistingCollection();
         this.collection.on('reset', this.renderFilterGroups, this);
         this.createSelectedFiltersGroup();
-        //this.createMapViewFilter();
+        this.createDateRangeWidget();
+      },
+
+      createDateRangeWidget: function() {
+        this.dateRangeView = new DateRangeView({
+          el: '.date-range',
+          entityType: 'incident'
+        });
       },
 
       // event handler for new incidents button press

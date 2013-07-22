@@ -14,14 +14,16 @@ define(
     // filter mixins
     'lib/SolrSearch/views/filters/filter-mixins',
     'lib/SolrSearch/views/filters/filter-elements',
+    'lib/SolrSearch/views/filters/date-range',
     // templates
     'lib/SolrSearch/templates/actor-filters.tpl'
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
-    Mixins, FilterElements, actorFiltersTmp) {
+    Mixins, FilterElements, DateRange, actorFiltersTmp) {
     'use strict';
     var ActorFilterView,
         FilterViewMixin = Mixins.FilterViewMixin,
+        DateRangeView = DateRange.DateRangeView,
         ActorFilterCollection = FilterCollection.ActorFilterCollection,
         SelectedActorFilterCollection = 
           FilterCollection.SelectedActorFilterCollection,
@@ -44,6 +46,14 @@ define(
         this.renderExistingCollection();
         this.collection.on('reset', this.renderFilterGroups, this);
         this.createSelectedFiltersGroup();
+        this.createDateRangeWidget();
+      },
+
+      createDateRangeWidget: function() {
+        this.dateRangeView = new DateRangeView({
+          el: '.date-range',
+          entityType: 'actor'
+        });
       },
 
       // respond to new actor button press  
