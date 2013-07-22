@@ -112,7 +112,7 @@ module.exports = function(grunt) {
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/*.tpl'
       ],
-      tasks: ['handlebars', 'buster:dev', 'jshint', 'requirejs', 'docco']
+      tasks: ['handlebars'/*, 'buster:dev', 'jshint', 'requirejs', 'docco'*/]
     }
   });
 

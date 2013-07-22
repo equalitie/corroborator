@@ -89,15 +89,22 @@ define (
 
       // remove previous date filter from selected filters if it exists
       removeExistingDateFilters: function(filterModel) {
-        var dateFilter = this.chain()
-            .filter(function(model) {return model.get('dateFilter'); })
+        // a wee date filter
+        var filterDateFilters = function(model) {
+          return model.get('dateFilter') === true;
+        };
+
+        // this should only be done if there are two date filters
+        if (this.filter(filterDateFilters).length === 2) {
+          var dateFilter = this.chain()
+            .filter(filterDateFilters)
             .reject(function(model) { 
               return model.cid === filterModel.cid; 
             })
             .last()
             .value();
-        console.log(dateFilter);
-        this.remove(dateFilter);
+          this.remove(dateFilter);
+        }
       },
 
       // iterate over the filters to updated the totals/existence of each

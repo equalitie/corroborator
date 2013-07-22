@@ -42,6 +42,7 @@ define (
       initialize: function() {
         this.watchSearchStream();
       },
+
       watchSearchStream: function() {
         var self = this;
         Streams.searchBus.filter(filterCreateRequest)

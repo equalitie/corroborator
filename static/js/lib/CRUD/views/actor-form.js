@@ -15,8 +15,9 @@ define (
   function ($, _, Backbone, Streams, Mixins, actorFormTmp) {
 
     var ActorFormView,
-        searchBus = Streams.searchBus,
-        Formatter = Mixins.Formatter,
+        searchBus    = Streams.searchBus,
+        crudBus      = Streams.crudBus,
+        Formatter    = Mixins.Formatter,
         ConfirmMixin = Mixins.ConfirmMixin;
 
     // ### ActorFormView
@@ -26,6 +27,9 @@ define (
         'click button#actor-action_save': 'saveRequested',
         'click button.do-hide': 'requestCloseForm'
       },
+      // keys for date fields, these need to be validated and removed
+      // from the model object if invalid
+      dateFields: ['DOB', 'POB'], 
       initialize: function() {
         this.render();
       },
@@ -42,18 +46,28 @@ define (
         var formArray = $('#actor_form').serializeArray();
         return this.formArrayToData(formArray);
       },
+
+      // we need to remove DOB and POB from the object if they do not have
+      // valid dates - test it baby
+      validateDateFields: function(formContent) {
+        return _.omit(formContent, this.dateFields);
+      },
+
       saveRequested: function() {
         var formContent = this.formContent();
+        formContent = this.validateDateFields(formContent);
+
         if (this.model !== undefined) {
           this.model.save();
         }
         else {
-          searchBus.push({
-            type: 'new_actor',
+          crudBus.push({
+            type: 'create_new_actor',
             content: formContent
           });
         }
       }
+
     });
     _.extend(ActorFormView.prototype, ConfirmMixin);
     _.extend(ActorFormView.prototype, Formatter);

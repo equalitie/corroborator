@@ -1,4 +1,3 @@
-<tr count="20" class="REPEAT Incident in-table">
   <td class="is-selector">
     <input type="checkbox" {{model.checked}}>
   </td>
@@ -29,4 +28,3 @@
   <td class="is-score">
     <span class="value">{{model.confidence_score}}</span>
   </td>
-</tr>

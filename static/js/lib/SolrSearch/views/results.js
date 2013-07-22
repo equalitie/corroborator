@@ -125,6 +125,7 @@ define(
 
     //render and individual result
     var IncidentResultView = Backbone.View.extend({
+      tagName: 'tr',
       events: {
         'click .toggle span': 'switchLanguage',
         'click input[type="checkbox"]': 'selectIncident'
@@ -152,7 +153,7 @@ define(
         var html = incidentTmp({
           model: this.model.toJSON()
         });
-        this.$el.addClass('result');
+        this.$el.addClass('result REPEAT Incident in-table');
         this.$el.empty()
                 .append(html);
         return this;

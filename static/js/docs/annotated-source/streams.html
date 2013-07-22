@@ -197,6 +197,7 @@
     <span class="string">'use strict'</span>;
     <span class="keyword">var</span> searchBus = <span class="keyword">new</span> Bacon.Bus(),
         navBus = <span class="keyword">new</span> Bacon.Bus(),
+        crudBus = <span class="keyword">new</span> Bacon.Bus(),
         navProperty = navBus.toProperty(<span class="string">'incident'</span>);</pre></div></div>
             
         </li>
@@ -216,6 +217,7 @@ searchBus.toEventStream().log();</p>
             <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> {
       searchBus: searchBus,
       navBus: navBus,
+      crudBus: crudBus,
       navProperty: navProperty
     };
   }

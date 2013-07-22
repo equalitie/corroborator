@@ -17,12 +17,12 @@ define(
   function($, _, Backbone, Streams, Mixins) {
     'use strict';
 
-
-    // ### event stream processing helpers
-    // particular to actors
-    var PersistSelectionMixin = Mixins.PersistSelectionMixin,
+    var crudBus   = Streams.crudBus,
+        searchBus = Streams.searchBus,
+        PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin = Mixins.ModelSelectionMixin,
         Filters = new Mixins.Filters(),
+    // ### event stream processing helpers
         filterActorResults = function(value) {
           return value.type === 'results_actor';
         },
@@ -64,6 +64,7 @@ define(
         this.watchSearchResults();
         this.watchSelection();
         this.watchSort();
+        this.watchCreate();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -123,6 +124,15 @@ define(
           self.compareField = value;
           self.sort();
         });
+      },
+      watchCreate: function() {
+        var self = this;
+        crudBus.filter(function(value) { return value.type === 'create_new_actor'; })
+               .onValue(function(value) {
+                 var actorModel = new ActorModel(value.content);
+                 actorModel.save();
+                 self.add(actorModel);
+               });
       }
 
     });

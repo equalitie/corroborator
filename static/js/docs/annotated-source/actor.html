@@ -201,7 +201,13 @@
     <span class="string">'lib/Data/collection-mixins'</span>
   ],
   <span class="keyword">function</span>($, _, Backbone, Streams, Mixins) {
-    <span class="string">'use strict'</span>;</pre></div></div>
+    <span class="string">'use strict'</span>;
+
+    <span class="keyword">var</span> crudBus   = Streams.crudBus,
+        searchBus = Streams.searchBus,
+        PersistSelectionMixin = Mixins.PersistSelectionMixin,
+        ModelSelectionMixin = Mixins.ModelSelectionMixin,
+        Filters = <span class="keyword">new</span> Mixins.Filters(),</pre></div></div>
             
         </li>
         
@@ -213,14 +219,10 @@
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <h3>event stream processing helpers</h3>
-<p>particular to actors</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> PersistSelectionMixin = Mixins.PersistSelectionMixin,
-        ModelSelectionMixin = Mixins.ModelSelectionMixin,
-        Filters = <span class="keyword">new</span> Mixins.Filters(),
-        filterActorResults = <span class="keyword">function</span>(value) {
+            <div class="content"><div class='highlight'><pre>        filterActorResults = <span class="keyword">function</span>(value) {
           <span class="keyword">return</span> value.type === <span class="string">'results_actor'</span>;
         },
         filterActor = <span class="keyword">function</span>(value) {
@@ -282,7 +284,8 @@
       initialize: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.watchSearchResults();
         <span class="keyword">this</span>.watchSelection();
-        <span class="keyword">this</span>.watchSort();</pre></div></div>
+        <span class="keyword">this</span>.watchSort();
+        <span class="keyword">this</span>.watchCreate();</pre></div></div>
             
         </li>
         
@@ -402,6 +405,15 @@ originate from header.js in SolrSearch views</p>
           self.compareField = value;
           self.sort();
         });
+      },
+      watchCreate: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        crudBus.filter(<span class="keyword">function</span>(value) { <span class="keyword">return</span> value.type === <span class="string">'create_new_actor'</span>; })
+               .onValue(<span class="keyword">function</span>(value) {
+                 <span class="keyword">var</span> actorModel = <span class="keyword">new</span> ActorModel(value.content);
+                 actorModel.save();
+                 self.add(actorModel);
+               });
       }
 
     });</pre></div></div>

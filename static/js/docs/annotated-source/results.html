@@ -360,6 +360,7 @@ define(
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> IncidentResultView = Backbone.View.extend({
+      tagName: <span class="string">'tr'</span>,
       events: {
         <span class="string">'click .toggle span'</span>: <span class="string">'switchLanguage'</span>,
         <span class="string">'click input[type="checkbox"]'</span>: <span class="string">'selectIncident'</span>
@@ -400,7 +401,7 @@ define(
         <span class="keyword">var</span> html = incidentTmp({
           model: <span class="keyword">this</span>.model.toJSON()
         });
-        <span class="keyword">this</span>.$el.addClass(<span class="string">'result'</span>);
+        <span class="keyword">this</span>.$el.addClass(<span class="string">'result REPEAT Incident in-table'</span>);
         <span class="keyword">this</span>.$el.empty()
                 .append(html);
         <span class="keyword">return</span> <span class="keyword">this</span>;
