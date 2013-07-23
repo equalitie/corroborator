@@ -1,0 +1,10 @@
+a.ui-slider-handle {
+  margin-top: -4px;
+  @include border-radius(10px);
+}
+div.ui-slider-horizontal {
+  height: 1px;
+}
+.score-editor .rail {
+  border: none;
+}

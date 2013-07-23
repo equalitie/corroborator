@@ -3515,3 +3515,22 @@ nav .do-search {
   }
 }
 */
+/* line 1, ../sass/_jqueryui.scss */
+a.ui-slider-handle {
+  margin-top: -4px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* line 5, ../sass/_jqueryui.scss */
+div.ui-slider-horizontal {
+  height: 1px;
+}
+
+/* line 8, ../sass/_jqueryui.scss */
+.score-editor .rail {
+  border: none;
+}

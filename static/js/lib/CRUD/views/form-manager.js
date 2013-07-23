@@ -59,6 +59,7 @@ define (
         this.destroyCurrentView();
         this.currentView = new View();
         this.render();
+
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
@@ -66,9 +67,12 @@ define (
           this.currentView.destroy();
         }
       },
+      // render the form, calls enable widgets to enable the dropdowns and
+      // date widgets, this must be done after the form has rendered
       render: function() {
         this.$el.empty()
                 .append(this.currentView.$el);
+        this.currentView.enableWidgets();
       }
     });
 

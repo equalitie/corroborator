@@ -20,11 +20,14 @@ define(
   function ($, Backbone, Handlebars, comboOuterTmp, comboInnerTmp) {
     'use strict';
     // Drop down item collection
-    var Collection = Backbone.Collection.extend();
+    var Collection = Backbone.Collection.extend(),
+        ItemView,
+        ComboView,
+        ComboWidget;
 
     // ## ItemView
     // used to render an item from the collection passed in
-    var ItemView = Backbone.View.extend({
+    ItemView = Backbone.View.extend({
       events: {
         'click': 'itemClicked'
       },
@@ -56,7 +59,7 @@ define(
     // ### Combo view
     // Container view for the combo box - uses ItemView to render the 
     // individual items
-    var ComboView = Backbone.View.extend({
+    ComboView = Backbone.View.extend({
       eventIdentifier: 'combo',
       events: {
         'click .combo-main': 'mainElementClicked'
@@ -121,11 +124,48 @@ define(
       }
     });
 
+    // ### ComboWidget
+    // input form combo dropdown, this accepts the container element, when a 
+    // user selects an option it updates the displayed option and the hidden
+    // field used to store the choice
+    ComboWidget = function(el){
+      this.setElement(el);
+      this.setInput();
+      this.createClickHandler();
+    };
+    ComboWidget.prototype = {
+      setElement: function(el) {
+        this.$el = $(el);
+      },
+      setInput: function() {
+        this.input = $('input[name='+ this.$el.attr('id') + ']'); 
+      },
+      createClickHandler: function() {
+        var self = this;
+        this.$el.children()
+                .children('li')
+                .click(function() {
+                  var selectedText = $(this).children('span').text();
+                  self.setSelectedText(selectedText);
+                });
+      },
+      setSelectedText: function(selectedText) {
+        this.$el.children('span.selected-option').text(selectedText);
+        this.input.val(selectedText);
+      },
+      destroy: function() {
+        this.$el.off('click');
+      }
+
+
+    };
+
 
     // expose the collection and container view as a module export
     return {
       View: ComboView,
-      Collection: Collection
+      Collection: Collection,
+      ComboWidget: ComboWidget
     };
 });
 

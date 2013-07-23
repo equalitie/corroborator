@@ -57,9 +57,9 @@
           <div class="group details">
             <div class="field span-33p">
               <label>Sex</label>
-              <div class="button combo">
+              <div id="sex_en" class="button combo">
         
-                <span id="sex_en" class="T selected-option">Sex</span>
+                <span class="T selected-option">Sex</span>
                 <input name="sex_en" type="hidden" value="">
         
                 <ul class="options">
@@ -74,9 +74,9 @@
             </div>
             <div class="field span-33p">
               <label>Child/Adult</label>
-              <div class="button combo">
+              <div id="age_en" class="button combo">
         
-                <span id="age_en" class="T selected-option">Age</span>
+                <span class="T selected-option">Age</span>
                 <input name="age_en" type="hidden" value="">
         
 
@@ -92,9 +92,9 @@
             </div>
             <div class="field span-33p">
               <label>Civilian/Non-civilian</label>
-              <div class="button combo">
+              <div id="civilian_en" class="button combo">
         
-                <span id="civilian_en" class="T selected-option">Civilian</span>
+                <span class="T selected-option">Civilian</span>
                 <input type="hidden" name="civilian_en" value="">
         
 
@@ -275,7 +275,7 @@
       </span>
     </div>
               <button id="actor-action_cancel" class="hidden do-hide default">
-                <span class="text T">Canel</span>
+                <span class="text T">Cancel</span>
               </button>
 
               <button id="actor-action_save" class="do-select default">

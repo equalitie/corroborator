@@ -18,6 +18,7 @@ define (
         searchBus    = Streams.searchBus,
         crudBus      = Streams.crudBus,
         Formatter    = Mixins.Formatter,
+        WidgetMixin  = Mixins.WidgetMixin;
         ConfirmMixin = Mixins.ConfirmMixin;
 
     // ### ActorFormView
@@ -27,32 +28,51 @@ define (
         'click button#actor-action_save': 'saveRequested',
         'click button.do-hide': 'requestCloseForm'
       },
+
       // keys for date fields, these need to be validated and removed
       // from the model object if invalid
-      dateFields: ['DOB', 'POB'], 
+      dateFields: ['DOB'], 
+
+      // ids of combo boxes
+      comboIds: ['#sex_en', '#age_en', '#civilian_en'],
+
+      // constructor
       initialize: function() {
         this.render();
       },
+      enableWidgets: function() {
+        this.enableComboBoxes();
+        this.enableDateFields();
+      },
+
+      // remove the dom elements and all associated events
       destroy: function() {
         this.$el.remove();
         this.undelegateEvents();
       },
+
+      // render the form
       render: function() {
         var html = actorFormTmp();
         this.$el.empty()
                 .append(html);
       },
+
+
+      // pull the data from the form
       formContent: function() {
         var formArray = $('#actor_form').serializeArray();
         return this.formArrayToData(formArray);
       },
 
-      // we need to remove DOB and POB from the object if they do not have
+      // we need to remove DOB from the object if they do not have
       // valid dates - test it baby
       validateDateFields: function(formContent) {
         return _.omit(formContent, this.dateFields);
       },
 
+      // send the form data on the crudBus, it will be picked up in data and 
+      // persisted
       saveRequested: function() {
         var formContent = this.formContent();
         formContent = this.validateDateFields(formContent);
@@ -70,6 +90,7 @@ define (
 
     });
     _.extend(ActorFormView.prototype, ConfirmMixin);
+    _.extend(ActorFormView.prototype, WidgetMixin);
     _.extend(ActorFormView.prototype, Formatter);
     
     return {
