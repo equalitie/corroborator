@@ -34,6 +34,7 @@
     var gl_ac_loc_set = [];
     var gl_ac_loc_ac_set = [];
     var gl_ac_users_list = [];
+    var solr_url = '{{ solr_url }}';
 
     {%for role in role_status_set %}
       gl_ac_role_list.push({ role:"{{role}}"});
@@ -97,7 +98,8 @@
         special_global_ac_sources_list: special_global_ac_sources_list,
         gl_ac_loc_set: gl_ac_loc_set,
         gl_ac_loc_ac_set: gl_ac_loc_ac_set,
-        gl_ac_users_list: gl_ac_users_list
+        gl_ac_users_list: gl_ac_users_list,
+        solr_url: solr_url
     }
 
   }());

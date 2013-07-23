@@ -205,7 +205,7 @@ def new_index(request, *args, **kwargs):
                 'userid': userid,
                 'ps_list': ps_list,
                 'api_key': api.key,
-                'solr_url': 'https://127.0.0.1:8983/solr/collection1/',
+                'solr_url': 'http://127.0.0.1:8983/solr/collection1/',
             }
         )
     else:
