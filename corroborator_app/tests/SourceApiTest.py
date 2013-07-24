@@ -8,7 +8,10 @@ from corroborator_app.models import Source, SourceType
 class SourceTestCase(ResourceTestCase):
     def setUp(self):
         super(SourceTestCase, self).setUp()
-        self.sourceType = SourceType(source_type="test type",description="test description")
+        self.sourceType = SourceType(
+            source_type="test type",
+            description="test description"
+        )
         self.sourceType.save()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()

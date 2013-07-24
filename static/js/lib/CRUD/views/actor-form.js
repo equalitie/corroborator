@@ -15,7 +15,6 @@ define (
   function ($, _, Backbone, Streams, Mixins, actorFormTmp) {
 
     var ActorFormView,
-        searchBus    = Streams.searchBus,
         crudBus      = Streams.crudBus,
         Formatter    = Mixins.Formatter,
         WidgetMixin  = Mixins.WidgetMixin;

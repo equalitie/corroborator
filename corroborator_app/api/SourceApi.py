@@ -24,3 +24,4 @@ class SourceResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+

@@ -18,6 +18,7 @@ define (
     bulletinFormTmp) {
 
     var BulletinFormView,
+        crudBus          = Streams.crudBus,
         Formatter        = Mixins.Formatter,
         ConfirmMixin     = Mixins.ConfirmMixin,
         WidgetMixin      = Mixins.WidgetMixin,
@@ -74,6 +75,7 @@ define (
         { // confidence_score
           sliderDiv : '#bulletin-score-block .score-editor .slider',
           display   : '#bulletin_confidence_score',
+          formField : 'confidence_score',
           startPoint: 0,
           endPoint  : 100,
           suffix    : '%',
@@ -120,13 +122,20 @@ define (
       // handle save click
       saveRequested: function() {
         var formContent = this.formContent();
-        console.log(formContent);
+        if (this.model !== undefined) {
+          this.model.save();
+        }
+        else {
+          crudBus.push({
+            type: 'create_new_bulletin',
+            content: formContent
+          });
+        }
       },
 
       // pull the data from the form
       formContent: function() {
         var formArray = $('#bulletin_form').serializeArray();
-        console.log(formArray);
         return this.formArrayToData(formArray);
       },
 

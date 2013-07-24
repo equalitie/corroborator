@@ -43,13 +43,15 @@
         <div id="bulletin-group-block-ne" class="body bulletin-not-expanded-edit">
           <div id="bulletin-group-block" class="group details">
             <div class="field clear-after">
+
+              <!-- score slider name=confidence_score -->
               <div id="bulletin-score-block" class="is-score right">
                 <label>Score</label>
                 <div class="score">
 
                   <span id="bulletin_confidence_score" class="value">0</span>
+                  <input type="hidden" name="confidence_score" value="0">
 
-                  <!-- score slider name=confidence_score -->
                   <div class="score-editor">
 
                     <div class="rail">
@@ -70,9 +72,10 @@
                       </div>
                     </div>
                   </div>
-                  <!-- end score slider -->
                 </div>
               </div>
+              <!-- end score slider -->
+
             <!-- Assigned to field name='assigned_user' -->
               <div id="bulletin-assignment-block" class="bulletinAssigned  left">
                 <label>Assigned to</label>

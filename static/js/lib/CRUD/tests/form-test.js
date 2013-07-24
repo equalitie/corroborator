@@ -83,7 +83,7 @@ define(
                 {"name":"this","value":"hi"}
               ],
               requiredStyle = {
-                "foo" : ["1","3"],
+                "foo" : [1,3],
                 "bar" : "xxx",
                 "this": "hi"
               },

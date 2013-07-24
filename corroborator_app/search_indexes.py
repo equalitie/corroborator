@@ -68,18 +68,18 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         roles = object.actorrole_set.all()
         return Bulletin.objects.filter(actors_role__in=roles).count()
 
-class LabelIndex(indexes.SearchIndex, indexes.Indexable):
-    """
-    This document handles the construction of the Label Solr document.
-    """
-    text = indexes.CharField(document=True, use_template=True)
-    name_en = indexes.CharField(model_attr='name_en', null=True)
-    name_ar = indexes.CharField(model_attr='name_ar', null=True)
-    description_en = indexes.CharField(model_attr='description_en', null=True)
-    description_ar = indexes.CharField(model_attr='description_ar', null=True)
+#class LabelIndex(indexes.SearchIndex, indexes.Indexable):
+    #"""
+    #This document handles the construction of the Label Solr document.
+    #"""
+    #text = indexes.CharField(document=True, use_template=True)
+    #name_en = indexes.CharField(model_attr='name_en', null=True)
+    #name_ar = indexes.CharField(model_attr='name_ar', null=True)
+    #description_en = indexes.CharField(model_attr='description_en', null=True)
+    #description_ar = indexes.CharField(model_attr='description_ar', null=True)
 
-    def get_model(self):
-        return Label
+    #def get_model(self):
+        #return Label
 
 class MediaIndex(indexes.SearchIndex, indexes.Indexable):
     """
@@ -177,7 +177,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
         """
         Returns set of crime objects associated with a given incident
         """
-        return [crime.category_en for crime in object.crimes.all()]
+        return [crime.name_en for crime in object.crimes.all()]
 
 
 class BulletinIndex(indexes.SearchIndex, indexes.Indexable):

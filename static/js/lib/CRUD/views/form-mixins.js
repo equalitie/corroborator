@@ -44,6 +44,9 @@ define (
       },
 
       Formatter = {
+        relatedFields: [
+          'sources'
+        ],
         makeIntStringsIntegers: function(value) {
           var intValue = parseInt(value, 10);
           return intValue.toString() === value ? intValue : value;
@@ -53,22 +56,23 @@ define (
         // to an object, preserving objects associated with duplicated keys
         reduceToObject: function(memo, formEl) {
           var value,
-              firstEl;
+              firstEl,
+              parsedValue = this.makeIntStringsIntegers(formEl.value);
           if (memo[formEl.name] !== undefined) {
             value = [];
             firstEl = memo[formEl.name];
-            value = [firstEl, formEl.value];
+            value = [firstEl, parsedValue];
             value = _.flatten(value);
           }
           else {
-            value = formEl.value;
+            value = parsedValue;
           }
           memo[formEl.name] = value;
           return memo;
         },
 
         formArrayToData: function(namedArray) {
-          return _.reduce(namedArray, this.reduceToObject, {});
+          return _.reduce(namedArray, this.reduceToObject, {}, this);
         }
       },
       // give rich functionality to date and combo fields
@@ -130,6 +134,7 @@ define (
           var updateValue = function(e) {
             var value = $(field.sliderDiv).slider('value');
             $(field.display).text(value);
+            $('input[name=' + field.formField + ']').val(value);
           };
           // create the slider
           $(field.sliderDiv).slider({
