@@ -9,16 +9,21 @@ define (
     'jquery', 'underscore', 'backbone', 
     'lib/streams',
     'lib/CRUD/views/form-mixins',
+    'lib/CRUD/data/SourceCollection',
+    'lib/CRUD/data/LabelCollection',
     // templates
     'lib/CRUD/templates/bulletin.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins, bulletinFormTmp) {
+  function ($, _, Backbone, Streams, Mixins, Source, Label,
+    bulletinFormTmp) {
 
     var BulletinFormView,
-        Formatter    = Mixins.Formatter,
-        ConfirmMixin = Mixins.ConfirmMixin,
-        WidgetMixin  = Mixins.WidgetMixin,
-        userList     = function() {
+        Formatter        = Mixins.Formatter,
+        ConfirmMixin     = Mixins.ConfirmMixin,
+        WidgetMixin      = Mixins.WidgetMixin,
+        SourceCollectionInstance = Source.SourceCollectionInstance,
+        LabelCollectionInstance = Label.LabelCollectionInstance,
+        userList         = function() {
           return Bootstrap.gl_ac_users_list;
         };
 
@@ -41,6 +46,27 @@ define (
           className: '.is-assigned-to',
           content  : userList(),
           name     : 'assigned_user'
+        }
+      ],
+      // represent free text input fields that will autocomplete
+      // based on the content of the collection, these labels will
+      // persist based on the model type in the collecion
+      labelFields: [
+        {
+          containerid: '#bulletin-source-block',
+          collection : SourceCollectionInstance,
+          display: {
+            field_name : 'sources',
+            field_label: 'Sources'
+          }
+        },
+        {
+          containerid: '#bulletin-label-block',
+          collection : LabelCollectionInstance,
+          display: {
+            field_name : 'labels',
+            field_label: 'Labels'
+          }
         }
       ],
 
@@ -75,6 +101,7 @@ define (
       enableWidgets: function() {
         this.enableAutoCompleteFields();
         this.enableSliderFields();
+        this.enableLabelFields();
       },
 
 

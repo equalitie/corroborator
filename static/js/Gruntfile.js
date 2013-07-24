@@ -12,6 +12,9 @@ module.exports = function(grunt) {
         files: {
           'lib/elements/templates/combo-inner.tpl.js'       : 'lib/elements/templates/combo-inner.tpl',
           'lib/elements/templates/combo-outer.tpl.js'       : 'lib/elements/templates/combo-outer.tpl',
+          'lib/elements/templates/label-widget.tpl.js'      : 'lib/elements/templates/label-widget.tpl',
+          'lib/elements/templates/label.tpl.js'             : 'lib/elements/templates/label.tpl',
+          'lib/elements/templates/select-option.tpl.js'     : 'lib/elements/templates/select-option.tpl',
           'lib/SolrSearch/templates/actor-results.tpl.js'   : 'lib/SolrSearch/templates/actor-results.tpl',
           'lib/SolrSearch/templates/actor.tpl.js'           : 'lib/SolrSearch/templates/actor.tpl',
           'lib/SolrSearch/templates/bulletin-results.tpl.js': 'lib/SolrSearch/templates/bulletin-results.tpl',
@@ -112,7 +115,7 @@ module.exports = function(grunt) {
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/*.tpl'
       ],
-      tasks: ['handlebars'/*, 'buster:dev', 'jshint', 'requirejs', 'docco'*/]
+      tasks: ['handlebars', 'buster:dev'/*, 'jshint', 'requirejs', 'docco'*/]
     }
   });
 

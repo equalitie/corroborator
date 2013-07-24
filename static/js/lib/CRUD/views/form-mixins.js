@@ -8,9 +8,10 @@ define (
     'jquery', 'underscore',
     'lib/streams',
     'lib/elements/combo',
+    'lib/elements/label-widget',
     'lib/CRUD/templates/confirm-dialog.tpl'
   ],
-  function ($, _, Streams, Combo, confirmDialogTmp) {
+  function ($, _, Streams, Combo, LabelWidget, confirmDialogTmp) {
     'use strict';
     var ComboWidget  = Combo.ComboWidget,
 
@@ -47,14 +48,27 @@ define (
           var intValue = parseInt(value, 10);
           return intValue.toString() === value ? intValue : value;
         },
+        // reduce an array of objects
+        // in the format {"name":"foo","value":"1"}
+        // to an object, preserving objects associated with duplicated keys
+        reduceToObject: function(memo, formEl) {
+          var value,
+              firstEl;
+          if (memo[formEl.name] !== undefined) {
+            value = [];
+            firstEl = memo[formEl.name];
+            value = [firstEl, formEl.value];
+            value = _.flatten(value);
+          }
+          else {
+            value = formEl.value;
+          }
+          memo[formEl.name] = value;
+          return memo;
+        },
 
         formArrayToData: function(namedArray) {
-          var keys = _(namedArray).pluck('name'),
-              values = _(namedArray).chain()
-                                    .pluck('value')
-                                    .map(this.makeIntStringsIntegers)
-                                    .value();
-          return _.object(keys, values);
+          return _.reduce(namedArray, this.reduceToObject, {});
         }
       },
       // give rich functionality to date and combo fields
@@ -84,7 +98,6 @@ define (
           _.each(this.autoCompleteFields, this.enableAutoCompleteField, this);
         },
         enableAutoCompleteField: function(field) {
-          console.log(field.content);
           $(field.className).autocomplete({
             minLength: 0,
             source: field.content,
@@ -96,10 +109,22 @@ define (
           
         },
 
+        enableLabelFields: function() {
+          _.each(this.labelFields, this.enableLabelField, this);
+        },
+        enableLabelField: function(field) {
+          var labelWidget = new LabelWidget({
+            collection: field.collection,
+            el        : field.containerid,
+            display   : field.display
+          });
+        },
+
         // enable sliders, store the value in the designated field
         enableSliderFields: function() {
-          _.each(this.sliderFields, this.enableSliderField, this);
+          _.each(this.sliderFields, this.enableSliderField);
         },
+
         enableSliderField: function(field) {
           // handle slider values
           var updateValue = function(e) {

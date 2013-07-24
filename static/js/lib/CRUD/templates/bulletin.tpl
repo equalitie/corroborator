@@ -89,24 +89,10 @@
 
           <!-- Sources field -->
           <div id="bulletin-source-block" class="field is-sources">
-            <label>Sources</label>
-            <ul class="sources editor">
-
-              <li class="source is-new">
-                <input class="source-ac with-select ui-autocomplete-input" type="text" 
-                  value="Source" autocomplete="off">
-              </li>
-            </ul>
           </div>
 
           <!-- Labels field -->
           <div id="bulletin-label-block" class="field is-tags">
-            <label>Labels</label>
-            <ul class="tags editor">
-              <li class="tag is-new">
-                <input type="text" value="Label" class="labels-ac">
-              </li>
-            </ul>
           </div>
 
           <!-- Comments block bulletin_comments -->

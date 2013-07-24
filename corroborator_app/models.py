@@ -168,7 +168,8 @@ class Source(models.Model):
     """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
-    reliability_score = models.IntegerField('reliability score', max_length=3)
+    reliability_score = models.IntegerField('reliability score',
+        blank=True, max_length=3)
     source_type = models.ForeignKey(SourceType, blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
@@ -376,8 +377,10 @@ class ActorRelationship(models.Model):
     relation_status = models.CharField('status',max_length=25, choices=RELATION)
     comments_en = models.TextField(blank=True,null=True)
     comments_ar = models.TextField(blank=True,null=True)
-    actor_a = models.ForeignKey(Actor,blank=True,null=True,related_name='actor_a')
-    actor_b = models.ForeignKey(Actor,blank=True,null=True,related_name='actor_b')
+    actor_a = models.ForeignKey(Actor, blank=True, null=True,
+        related_name='actor_a')
+    actor_b = models.ForeignKey(Actor, blank=True, null=True,
+        related_name='actor_b')
     def __unicode__(self):
         return self.actor_a.fullname_en + '-' + \
         self.actor_b.fullname_en + ': ' + self.relation_status
@@ -444,7 +447,8 @@ class Bulletin(models.Model):
         This method returns the time range for a given Bulletin event.
         It is used by Django Haystack in construction of the Solr Index.
         """
-        time = self.times.aggregate(lowest=Min('time_from'), highest=Max('time_to'))
+        time = self.times.aggregate(lowest=Min('time_from'),
+            highest=Max('time_to'))
         string = ''
 
         if(len(time) > 0):

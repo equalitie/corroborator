@@ -32,6 +32,7 @@
     var gl_ac_crimes_list = [];
     var special_global_ac_sources_list = [];
     var gl_ac_loc_set = [];
+    var gl_ac_labels_list = [];
     var gl_ac_loc_ac_set = [];
     var gl_ac_users_list = [];
     var solr_url = '{{ solr_url }}';
@@ -67,7 +68,7 @@
 
     {%for source in sources_set.all %}
       special_global_ac_sources_list.push({
-        label:"{{source.name_en}}",
+        name_en:"{{source.name_en}}",
         id:"{{source.id}}"
       });
     {% endfor %}
@@ -95,7 +96,8 @@
         gl_ac_role_list: gl_ac_role_list,
         gl_ac_relation_list: gl_ac_relation_list,
         gl_ac_crimes_list: gl_ac_crimes_list,
-        special_global_ac_sources_list: special_global_ac_sources_list,
+        sources: special_global_ac_sources_list,
+        labels: gl_ac_labels_list,
         gl_ac_loc_set: gl_ac_loc_set,
         gl_ac_loc_ac_set: gl_ac_loc_ac_set,
         gl_ac_users_list: gl_ac_users_list,
