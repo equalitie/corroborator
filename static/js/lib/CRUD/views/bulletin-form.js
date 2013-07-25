@@ -11,26 +11,43 @@ define (
     'lib/CRUD/views/form-mixins',
     'lib/CRUD/data/SourceCollection',
     'lib/CRUD/data/LabelCollection',
+    // child views
+    'lib/CRUD/views/comment-form',
+    'lib/CRUD/views/event-form',
     // templates
     'lib/CRUD/templates/bulletin.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins, Source, Label,
+  function ($, _, Backbone, Streams, Mixins,
+    // data
+    Source, Label,
+    // views
+    CommentForm, EventForm,
     bulletinFormTmp) {
 
     var BulletinFormView,
-        crudBus          = Streams.crudBus,
-        Formatter        = Mixins.Formatter,
-        ConfirmMixin     = Mixins.ConfirmMixin,
-        WidgetMixin      = Mixins.WidgetMixin,
+        crudBus                  = Streams.crudBus,
+        Formatter                = Mixins.Formatter,
+        ConfirmMixin             = Mixins.ConfirmMixin,
+        WidgetMixin              = Mixins.WidgetMixin,
+        CommentContainerView     = CommentForm.CommentContainerView,
+        EventContainerView       = EventForm.EventContainerView,
         SourceCollectionInstance = Source.SourceCollectionInstance,
-        LabelCollectionInstance = Label.LabelCollectionInstance,
-        userList         = function() {
+        LabelCollectionInstance  = Label.LabelCollectionInstance,
+
+        userList = function() {
           return Bootstrap.gl_ac_users_list;
         };
 
     // ### BulletinFormView
     // display create/update form for bulletins
     BulletinFormView = Backbone.View.extend({
+      entityType: 'bulletin',
+      // class name for all input fields to be processed as a bulletin
+      // allows us to nest fields that and exclude them from the 
+      // serialised array
+      formElClass: 'bulletin-field',
+      //store a reference to our child views so we can destroy them
+      childViews: [],
       // define events to be handled
       events: {
         'click button#bulletin-action_save': 'saveRequested',
@@ -82,15 +99,6 @@ define (
           marks     : [0, 50, 100],
           snap      : false,
           value     : 50 // TODO enable for update
-        },
-        { // reliability score ( event )
-          sliderDiv : '#bulletin-event-block .score-editor .slider',
-          startPoint: 0,
-          endPoint  : 100,
-          suffix    : '%',
-          marks     : [0, 50, 100],
-          snap      : false,
-          value     : 50 // TODO enable for update
         }
       ],
         
@@ -99,16 +107,12 @@ define (
         this.render();
       },
 
-      // enable the widgets associated with this form view
-      enableWidgets: function() {
-        this.enableAutoCompleteFields();
-        this.enableSliderFields();
-        this.enableLabelFields();
-      },
 
 
       // remove DOM elements and cancel event handlers
       destroy: function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
         this.$el.remove();
         this.undelegateEvents();
       },
@@ -135,8 +139,30 @@ define (
 
       // pull the data from the form
       formContent: function() {
-        var formArray = $('#bulletin_form').serializeArray();
+        var formArray = $('.' + this.formElClass).serializeArray();
         return this.formArrayToData(formArray);
+      },
+
+      // render out the child views - comment form, event form, add location,
+      // add media, add actors, add related bulletins
+      renderChildren: function() {
+        var commentForm = new CommentContainerView({
+          el: '#bulletin-comment-block',
+          entityType: 'bulletin'
+        });
+        var eventForm = new EventContainerView({
+          el: '#bulletin-event-block',
+          entityType: 'bulletin'
+        });
+
+
+
+        // add each new view to the child views array
+        this.childViews = [
+          commentForm,
+          eventForm
+        ];
+        return this;
       },
 
       // render the form
@@ -144,6 +170,7 @@ define (
         var html = bulletinFormTmp();
         this.$el.empty()
                 .append(html);
+        return this;
       }
     });
 

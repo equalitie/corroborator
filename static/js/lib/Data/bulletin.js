@@ -13,9 +13,10 @@ define(
     'use strict';
 
     var PersistSelectionMixin = Mixins.PersistSelectionMixin,
-        crudBus          = Streams.crudBus,
-        ModelSelectionMixin = Mixins.ModelSelectionMixin,
-        Filters = new Mixins.Filters(),
+        crudBus               = Streams.crudBus,
+        ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        ModelSyncMixin        = Mixins.ModelSyncMixin,
+        Filters               = new Mixins.Filters(),
         // ### Bulletin Specific filter stream processors
 
         // filter bulletin nav requests
@@ -44,6 +45,13 @@ define(
     // ### Bulletin Model
     // provide api endpoint for Bulletin model
     var BulletinModel = Backbone.Model.extend({
+      foreignKeyFields: [
+        'assigned_user'
+      ],
+      manyToManyFields: [
+        'sources', 'bulletin_comments', 'actors_role', 'times', 'medias',
+        'locations', 'labels', 'ref_bulletins'
+      ],
       idAttribute: 'django_id',
       url: function() {
         var base = '/api/v1/bulletin/';
@@ -55,6 +63,7 @@ define(
           return base + urlvars;
       }
     });
+    _.extend(BulletinModel.prototype, ModelSyncMixin);
 
     // ### Bulletin Collection
     // provide sort, selection functionality  

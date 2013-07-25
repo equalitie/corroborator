@@ -6,9 +6,9 @@
 
 define (
   [
-    'underscore'
+    'underscore', 'backbone'
   ],
-  function (_) {
+  function (_, Backbone) {
     'use strict';
 
         // common to all collections  
@@ -94,6 +94,50 @@ define (
           selectModelInList: function(model) {
             model.set('checked', 'checked');
           }
+        },
+        ModelSyncMixin = {
+          formatManyToManyFields: function() {
+            _.chain(this.manyToManyFields)
+             .filter(this.filterEmptyFields, this)
+             .each(this.setEmptyArray, this);
+
+            _.chain(this.manyToManyFields)
+             .filter(this.filterSingleValueFields, this)
+             .each(this.wrapAsArray, this);
+          },
+
+          filterEmptyFields: function(key) {
+            return this.get(key) ==='';
+          },
+          setEmptyArray: function(key) {
+            this.set(key, []);
+          },
+
+          filterSingleValueFields: function(key) {
+            return typeof(this.get(key) === 'string') &&
+                   this.get(key).length > 0;
+          },
+
+          wrapAsArray: function(key) {
+            return [this.get(key)];
+          },
+
+          removeEmptyForeignKeyFields: function() {
+            _.each(this.foreignKeyFields, this.removeEmptyForeignKeyField, this);
+          },
+          removeEmptyForeignKeyField: function(key) {
+            if (this.get(key) === '') {
+              this.unset(key);
+            }
+          },
+          sync: function(method, model) {
+            var createEditMethods = ['create', 'update'];
+            if (_.contains(createEditMethods, method)) {
+              this.removeEmptyForeignKeyFields();
+              this.formatManyToManyFields();
+            }
+            return Backbone.sync.apply(this, arguments);
+          }
         };
 
   _.extend(Filters.prototype, filterFunctions);
@@ -101,6 +145,7 @@ define (
   return {
     Filters              : Filters,
     PersistSelectionMixin: PersistSelectionMixin,
+    ModelSyncMixin       : ModelSyncMixin,
     ModelSelectionMixin  : ModelSelectionMixin
   };
 });

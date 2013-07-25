@@ -26,7 +26,7 @@ define (
         'click .do-clear': 'removeFilter'
       },
       // constructor
-      initialize: function() {
+      initialize: function(options) {
         this.render();
         this.model.on('remove_selected', this.destroy, this);
       },
@@ -59,6 +59,10 @@ define (
       displayViews: [],
       // constructor 
       initialize: function(options) {
+        if (options.entityType === undefined) {
+          throw 'Exception: entityType undefined';
+        }
+        this.entityType = options.entityType;
         if (this.collection === undefined) {
           throw 'Widget view requires collection';
         }
@@ -67,7 +71,10 @@ define (
         this.selectCollection.on('add remove', this.renderSelected, this);
         this.collection.on('add remove', this.initAutocomplete, this);
         this.selectCollection.on('remove', this.reinsertModel, this);
-        this.templateVars = options.display;
+        this.templateVars = {
+          display: options.display,
+          entityType: this.entityType
+        };
         this.render();
         this.initAutocomplete();
       },

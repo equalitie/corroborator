@@ -23,7 +23,6 @@ define (
         LabelCollectionInstance = Label.LabelCollectionInstance,
         CrimeCollectionInstance = Crime.CrimeCollectionInstance,
         userList     = function() {
-          console.log(Bootstrap.gl_ac_users_list);
           return Bootstrap.gl_ac_users_list;
         };
 
@@ -114,7 +113,6 @@ define (
       },
       saveRequested: function() {
         var formContent = this.formContent();
-        console.log(formContent);
       }
     });
     _.extend(IncidentFormView.prototype, ConfirmMixin);

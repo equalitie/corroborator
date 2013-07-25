@@ -21,6 +21,7 @@ define(
         searchBus = Streams.searchBus,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin = Mixins.ModelSelectionMixin,
+        ModelSyncMixin = Mixins.ModelSyncMixin,
         Filters = new Mixins.Filters(),
     // ### event stream processing helpers
         filterActorResults = function(value) {
@@ -43,6 +44,7 @@ define(
     // ### Actor Model
     // provide api endpoint for Actor model
     var ActorModel = Backbone.Model.extend({
+      foreignKeyFields: ['POB', 'current_location', 'media'] ,
       idAttribute: 'django_id',
       url: function() {
         var base = '/api/v1/actor/';
@@ -54,6 +56,7 @@ define(
           return base + urlvars;
       }
     });
+    _.extend(ActorModel.prototype, ModelSyncMixin);
 
     // ### Actor Collection
     var ActorCollection = Backbone.Collection.extend({

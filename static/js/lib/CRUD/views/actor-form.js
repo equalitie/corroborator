@@ -39,10 +39,6 @@ define (
       initialize: function() {
         this.render();
       },
-      enableWidgets: function() {
-        this.enableComboBoxes();
-        this.enableDateFields();
-      },
 
       // remove the dom elements and all associated events
       destroy: function() {
@@ -50,6 +46,7 @@ define (
         this.undelegateEvents();
       },
 
+      renderChildren: function() {},
       // render the form
       render: function() {
         var html = actorFormTmp();

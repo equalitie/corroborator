@@ -72,6 +72,7 @@ define (
       render: function() {
         this.$el.empty()
                 .append(this.currentView.$el);
+        this.currentView.renderChildren();
         this.currentView.enableWidgets();
       }
     });

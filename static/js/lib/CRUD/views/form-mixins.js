@@ -9,9 +9,11 @@ define (
     'lib/streams',
     'lib/elements/combo',
     'lib/elements/label-widget',
-    'lib/CRUD/templates/confirm-dialog.tpl'
+    'lib/elements/date-time-range',
+    'lib/CRUD/templates/confirm-dialog.tpl',
+    'jquery_slider'
   ],
-  function ($, _, Streams, Combo, LabelWidget, confirmDialogTmp) {
+  function ($, _, Streams, Combo, LabelWidget, DateTimeRangeView, confirmDialogTmp) {
     'use strict';
     var ComboWidget  = Combo.ComboWidget,
 
@@ -75,13 +77,51 @@ define (
           return _.reduce(namedArray, this.reduceToObject, {}, this);
         }
       },
+
       // give rich functionality to date and combo fields
       WidgetMixin = {
+        // enable the widgets associated with this form view
+        enableWidgets: function() {
+          this.enableAutoCompleteFields();
+          this.enableSliderFields();
+          this.enableLabelFields();
+          this.enableDateFields();
+          this.enableDateTimeFields();
+          this.enableDateTimeRangeFields();
+          this.enableComboBoxes();
+        },
+
+        // enable a jquery ui date field for date of birth
+        enableDateTimeFields: function() {
+          _.each(this.dateTimeFields, this.enableDateTimeField, this);
+          
+        },
+        enableDateTimeField: function(dateTimeField) {
+          $(dateTimeField.el).datetimepicker({
+            dateFormat: 'yy-mm-dd',
+            timeFormat: 'HH:mm:00'
+          });
+        },
+        // enable a jquery ui date field for date of birth
+        enableDateTimeRangeFields: function() {
+          _.each(this.dateTimeRangeFields, this.enableDateTimeRangeField, this);
+          
+        },
+        enableDateTimeRangeField: function(dateTimeField) {
+          var dateTimeRange = new DateTimeRangeView({
+            entityType: this.entityType,
+            el        : dateTimeField.el,
+            from      : dateTimeField.from,
+            to        : dateTimeField.to
+          });
+          this.childViews.push(dateTimeRange);
+        },
+
         // enable a jquery ui date field for date of birth
         enableDateFields: function() {
           _.each(this.dateFields, this.enableDateField, this);
-          
         },
+
         enableDateField: function(dateFieldName) {
           $('input[name=' + dateFieldName + ']').datepicker({
             dateFormat: 'yy-mm-dd'
@@ -118,6 +158,7 @@ define (
         },
         enableLabelField: function(field) {
           var labelWidget = new LabelWidget({
+            entityType: this.entityType,
             collection: field.collection,
             el        : field.containerid,
             display   : field.display
