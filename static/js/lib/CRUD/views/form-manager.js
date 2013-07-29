@@ -16,22 +16,30 @@ define (
 
     // ## Stream processing helpers
     // map nav events to the filter views we will be displaying
-    var mapCreateEventToView = function(value) {
-      var createMap = {
-        create_actor: ActorForm.ActorFormView,
-        create_bulletin: BulletinForm.BulletinFormView,
-        create_incident: IncidentForm.IncidentFormView
-      };
-      return createMap[value.type];
-    };
-    var filterCloseRequest = function(value) {
-      return value.type === 'close_form';
-    };
-    var filterCreateRequest = function(value) {
-      return value.type === 'create_actor' ||
-             value.type === 'create_bulletin' ||
-             value.type === 'create_incident';
-    };
+    var crudBus = Streams.crudBus,
+        searchBus = Streams.searchBus,
+        mapCreateEventToView = function(value) {
+          var createMap = {
+            create_actor: ActorForm.ActorFormView,
+            create_bulletin: BulletinForm.BulletinFormView,
+            create_incident: IncidentForm.IncidentFormView
+          };
+          return createMap[value.type];
+        },
+        filterEmbeddedSearchClose = function(value) {
+          return value.type === 'close_embedded_results';
+        },
+        filterEmbeddedSearchRequest = function(value) {
+          return value.type === 'new_search';
+        },
+        filterCloseRequest = function(value) {
+          return value.type === 'close_form';
+        },
+        filterCreateRequest = function(value) {
+          return value.type === 'create_actor' ||
+                 value.type === 'create_bulletin' ||
+                 value.type === 'create_incident';
+        };
 
     // ### FormManagerView
     // Manage the creation and hiding of forms to save and update actors, bulletins
@@ -39,22 +47,43 @@ define (
     var FormManagerView = Backbone.View.extend({
       el: '.form_overlay',
       currentView: undefined,
+      // constructor - watch for stream events
       initialize: function() {
         this.watchSearchStream();
+        this.watchCrudStream();
       },
 
+      // watch for embedded searches being fired move the form position 
+      // accordingly
+      watchCrudStream: function() {
+        var self = this;
+        crudBus.filter(filterEmbeddedSearchRequest)
+               .onValue(function() {
+                 self.$el.children().addClass('is-middle');
+               });
+        crudBus.filter(filterEmbeddedSearchClose)
+               .onValue(function() {
+                 self.$el.children().removeClass('is-middle');
+               });
+      },
+
+      // watch for a request to create an entity
       watchSearchStream: function() {
         var self = this;
-        Streams.searchBus.filter(filterCreateRequest)
-                         .map(mapCreateEventToView)
-                         .onValue(function(view) {
-                           self.replaceView(view);
-                         });
-        Streams.searchBus.filter(filterCloseRequest)
-                         .onValue(function() {
-                           self.destroyCurrentView();
-                         });
+        searchBus.filter(filterCreateRequest)
+                 .map(mapCreateEventToView)
+                 .onValue(function(view) {
+                   self.replaceView(view);
+                 });
+
+        // watch for form close request
+        crudBus.filter(filterCloseRequest)
+                 .onValue(function() {
+                   self.destroyCurrentView();
+                 });
       },
+
+      // replace the current form view with the requested one
       replaceView: function(View) {
         this.destroyCurrentView();
         this.currentView = new View();
@@ -77,7 +106,6 @@ define (
         this.currentView.enableWidgets();
       }
     });
-
 
     // module export
     return {

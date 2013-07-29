@@ -14,7 +14,10 @@ define (
     actorSearchTmp) {
     'use strict';
     var ActorSearchView,
-        crudBus = Streams.crudBus;
+        crudBus = Streams.crudBus,
+        filterActorRelateRequest = function(value) {
+          return value.type === 'relate_actor_request';
+        };
 
     // ### ActorSearchView
     // Search for actors and display actors already associated with and entity
@@ -30,24 +33,49 @@ define (
       initialize: function() {
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
+          this.collection.on('add remove', this.renderActors, this);
         }
+        this.listenForActorsAdded();
         this.render();
+        this.renderActors();
       },
+
+      // turn off event listeners and remove dom elements
       destroy: function() {
+        this.collection.off('add remove', this.renderActors, this);
         this.$el.remove();
         this.undelegateEvents();
       },
+
+      // user clicked search
       searchActorsRequested: function(evt) {
         evt.preventDefault();
+        // get the text from the search box
         var inputText = this.$el.children('.search').children('input').val();
+        // send a search request - handled in TextSearch
         crudBus.push({
           type: 'new_search',
           content: {
             raw: inputText
           }
         });
-        console.log('searchActorsRequested');
+        // 
+        crudBus.push({
+          type: 'actor-results',
+          content: {}
+        });
       },
+      listenForActorsAdded: function() {
+        crudBus.filter(filterActorRelateRequest)
+               .onValue(function() {
+               });
+      },
+
+      // render the list of related actors
+      renderActors: function() {
+      },
+
+      //render the input field and buttons
       render: function() {
         var html = this.template();
         this.$el.empty()

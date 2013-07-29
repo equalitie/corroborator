@@ -44,11 +44,11 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     actor_created = indexes.DateTimeField(model_attr='actor_created', \
     faceted=True, null=True)
     media_uri = indexes.MultiValueField()
-    actor_api_uri = indexes.MultiValueField()
+    resource_uri = indexes.MultiValueField()
 
     def get_model(self):
         return Actor
-    def prepare_actor_api_uri(self, object):
+    def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this actor instance
         for the tastypie api
@@ -131,11 +131,11 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     most_recent_status_incident = indexes.MultiValueField(faceted=True)
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
-    incident_api_uri = indexes.MultiValueField()
+    resource_uri = indexes.MultiValueField()
 
     def get_model(self):
         return Incident
-    def prepare_incident_api_uri(self, object):
+    def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
@@ -219,12 +219,12 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
-    bulletin_api_uri = indexes.MultiValueField()
+    resource_uri = indexes.MultiValueField()
 
     #bulletins = indexes.MultiValueField()
     def get_model(self):
         return Bulletin
-    def prepare_bulletin_api_uri(self, object):
+    def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api

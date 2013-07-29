@@ -16,6 +16,7 @@ define (
   function ($, _, Streams, Combo, LabelWidget, DateTimeRangeView, confirmDialogTmp) {
     'use strict';
     var ComboWidget  = Combo.ComboWidget,
+        crudBus = Streams.crudBus,
 
     // ### ConfirmMixin
     // Show a dialog box asking the user to confirm their action
@@ -30,7 +31,7 @@ define (
             modal: true,
             buttons: {
               'Close Form': function() {
-                Streams.searchBus.push({
+                crudBus.push({
                   content: {},
                   type: 'close_form'
                 });
