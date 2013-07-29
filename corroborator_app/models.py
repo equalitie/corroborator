@@ -57,8 +57,14 @@ class Comment(models.Model):
         the Solr index to determine sort order for returned results.
         """
         ordering = ['comment_created']
-    def __unicode__(self):
-        return self.status.status_en
+    #def __unicode__(self):
+        #desc = self.comments_en
+        #return desc
+        #print self.status
+        #if self.status:
+            #desc = '[0] - [1]'.format(self.comments_en, self.status.status_en)
+
+        #return desc
 
 
 class TimeInfo(models.Model):
@@ -66,8 +72,8 @@ class TimeInfo(models.Model):
     This object captures the time aspect of an event for
     either a Bulletin or Incident/
     """
-    time_from = models.DateTimeField()
-    time_to = models.DateTimeField()
+    time_from = models.DateTimeField(blank=True, null=True)
+    time_to = models.DateTimeField(blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
     event_name_en = models.CharField('event name en', max_length=255, 
@@ -140,8 +146,8 @@ class CrimeCategory(models.Model):
     This object represents a crime category. Multiple crime categories
     can be interlinked as an hierarchical chain.
     """
-    category_en = models.CharField(max_length=255, blank=True, null=True)
-    category_ar = models.CharField(max_length=255, blank=True, null=True)
+    name_en = models.CharField(max_length=255, blank=True, null=True)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
     level = models.IntegerField(blank=True, null=True)
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
@@ -168,7 +174,8 @@ class Source(models.Model):
     """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
-    reliability_score = models.IntegerField('reliability score', max_length=3)
+    reliability_score = models.IntegerField('reliability score',
+        blank=True, max_length=3)
     source_type = models.ForeignKey(SourceType, blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
@@ -314,15 +321,13 @@ class Actor(models.Model):
     fullname_ar = models.CharField(max_length=255, blank=True, null=True)
     nickname_en = models.CharField(max_length=255, blank=True, null=True)
     nickname_ar = models.CharField(max_length=255, blank=True, null=True)
-    age_en = models.CharField(max_length=255, choices=AGE_TYPE_EN)
-    age_ar = models.CharField(max_length=255, choices=AGE_TYPE_AR)
-    sex_en = models.CharField(max_length=255, choices=SEX_TYPE_EN)
-    sex_ar = models.CharField(max_length=255, choices=SEX_TYPE_AR)
-    civilian_en = models.CharField(max_length=255, choices=CIVILIAN_TYPE_EN)
-    civilian_ar = models.CharField(max_length=255, choices=CIVILIAN_TYPE_AR)
+    age_en = models.CharField(max_length=255, choices=AGE_TYPE_EN, blank=True)
+    age_ar = models.CharField(max_length=255, choices=AGE_TYPE_AR, blank=True)
+    sex_en = models.CharField(max_length=255, choices=SEX_TYPE_EN, blank=True)
+    sex_ar = models.CharField(max_length=255, choices=SEX_TYPE_AR, blank=True)
+    civilian_en = models.CharField(max_length=255, choices=CIVILIAN_TYPE_EN, blank=True)
+    civilian_ar = models.CharField(max_length=255, choices=CIVILIAN_TYPE_AR, blank=True)
     DOB = models.DateField('date of birth', blank=True, null=True)
-    POB = models.ForeignKey(Location, blank=True, null=True, 
-        related_name='POB')
     occupation_en = models.CharField(max_length=255, blank=True, null=True)
     occupation_ar = models.CharField(max_length=255, blank=True, null=True)
     nationality_en = models.CharField(max_length=255, blank=True, null=True)
@@ -335,6 +340,10 @@ class Actor(models.Model):
     religion_ar = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_en = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    # Foreign Keys
+    POB = models.ForeignKey(Location, blank=True, null=True, 
+        related_name='POB')
     current_location = models.ForeignKey(Location, blank=True, null=True, 
         related_name='actor_current')
     media = models.ForeignKey(Media, blank=True, null=True)
@@ -376,8 +385,10 @@ class ActorRelationship(models.Model):
     relation_status = models.CharField('status',max_length=25, choices=RELATION)
     comments_en = models.TextField(blank=True,null=True)
     comments_ar = models.TextField(blank=True,null=True)
-    actor_a = models.ForeignKey(Actor,blank=True,null=True,related_name='actor_a')
-    actor_b = models.ForeignKey(Actor,blank=True,null=True,related_name='actor_b')
+    actor_a = models.ForeignKey(Actor, blank=True, null=True,
+        related_name='actor_a')
+    actor_b = models.ForeignKey(Actor, blank=True, null=True,
+        related_name='actor_b')
     def __unicode__(self):
         return self.actor_a.fullname_en + '-' + \
         self.actor_b.fullname_en + ': ' + self.relation_status
@@ -418,23 +429,29 @@ class Bulletin(models.Model):
         ('Report', 'report'),
         ('News', 'news'),
     )
-    assigned_user = models.ForeignKey(User, null=True, blank=True)
-    bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
     title_en = models.CharField(max_length=255, blank=True, null=True)
     title_ar = models.CharField(max_length=255, blank=True, default='')
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, default='')
     uri = models.CharField('Media Link', max_length=255, blank=True, null=True)
-    actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
     confidence_score = models.IntegerField('confidence score')
+    type = models.CharField('type', max_length=25, choices=TYPE, blank=True)
+    bulletin_created = models.DateTimeField(auto_now_add=True)
+
+    # foreign key fields
+    assigned_user = models.ForeignKey(User, null=True, blank=True)
+
+    # ManyToManyFields
+    sources = models.ManyToManyField(Source, blank=True, null=True)
+    bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
+    labels = models.ManyToManyField(Label, blank=True, null=True)
     times = models.ManyToManyField(TimeInfo, blank=True, null=True)
+
+    actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
     medias = models.ManyToManyField(Media, blank=True, null=True)
     locations = models.ManyToManyField(Location, blank=True, null=True)
-    labels = models.ManyToManyField(Label, blank=True, null=True)
-    sources = models.ManyToManyField(Source, blank=True, null=True)
     ref_bulletins = models.ManyToManyField('self', blank=True, null=True)
-    type = models.CharField('type', max_length=25, choices=TYPE)
-    bulletin_created = models.DateTimeField(auto_now_add=True)
+
 
     def __unicode__(self):
         return self.title_en
@@ -444,7 +461,8 @@ class Bulletin(models.Model):
         This method returns the time range for a given Bulletin event.
         It is used by Django Haystack in construction of the Solr Index.
         """
-        time = self.times.aggregate(lowest=Min('time_from'), highest=Max('time_to'))
+        time = self.times.aggregate(lowest=Min('time_from'),
+            highest=Max('time_to'))
         string = ''
 
         if(len(time) > 0):
@@ -478,19 +496,21 @@ class Incident(models.Model):
     """
     incident_details_en = models.TextField(blank=True,null=True)
     incident_details_ar = models.TextField(blank=True,null=True)
-    incident_comments = models.ManyToManyField(Comment,blank=True,null=True)
     confidence_score = models.IntegerField('confidence score',max_length=3)
     title_en = models.TextField(blank=True,null=True)
     title_ar = models.TextField(blank=True,null=True)
-    ref_incidents = models.ManyToManyField('self',blank=True,null=True)
-    bulletins = models.ManyToManyField(Bulletin,blank=True,null=True)
-    actors_role = models.ManyToManyField(ActorRole,blank=True,null=True)
-    crimes = models.ManyToManyField(CrimeCategory,blank=True,null=True)
-    labels = models.ManyToManyField(Label,blank=True,null=True)
-    times = models.ManyToManyField(TimeInfo,blank=True,null=True)
-    locations = models.ManyToManyField(Location,blank=True,null=True)
-    assigned_user = models.ForeignKey(User,null=True,blank=True)
     incident_created = models.DateTimeField(auto_now_add=True)
+
+    assigned_user = models.ForeignKey(User,null=True,blank=True)
+
+    incident_comments = models.ManyToManyField(Comment,blank=True,null=True)
+    bulletins = models.ManyToManyField(Bulletin, blank=True, null=True)
+    actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
+    crimes = models.ManyToManyField(CrimeCategory, blank=True, null=True)
+    labels = models.ManyToManyField(Label, blank=True, null=True)
+    times = models.ManyToManyField(TimeInfo, blank=True,null=True)
+    locations = models.ManyToManyField(Location,blank=True,null=True)
+    ref_incidents = models.ManyToManyField('self',blank=True,null=True)
 
     def __unicode__(self):
         return self.title_en

@@ -12,6 +12,10 @@ module.exports = function(grunt) {
         files: {
           'lib/elements/templates/combo-inner.tpl.js'       : 'lib/elements/templates/combo-inner.tpl',
           'lib/elements/templates/combo-outer.tpl.js'       : 'lib/elements/templates/combo-outer.tpl',
+          'lib/elements/templates/label-widget.tpl.js'      : 'lib/elements/templates/label-widget.tpl',
+          'lib/elements/templates/label.tpl.js'             : 'lib/elements/templates/label.tpl',
+          'lib/elements/templates/select-option.tpl.js'     : 'lib/elements/templates/select-option.tpl',
+          'lib/elements/templates/date-time-range.tpl.js'   : 'lib/elements/templates/date-time-range.tpl',
           'lib/SolrSearch/templates/actor-results.tpl.js'   : 'lib/SolrSearch/templates/actor-results.tpl',
           'lib/SolrSearch/templates/actor.tpl.js'           : 'lib/SolrSearch/templates/actor.tpl',
           'lib/SolrSearch/templates/bulletin-results.tpl.js': 'lib/SolrSearch/templates/bulletin-results.tpl',
@@ -32,8 +36,15 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/selected-filter.tpl.js' : 'lib/SolrSearch/templates/selected-filter.tpl',
           'lib/CRUD/templates/confirm-dialog.tpl.js'        : 'lib/CRUD/templates/confirm-dialog.tpl',
           'lib/CRUD/templates/actor.tpl.js'                 : 'lib/CRUD/templates/actor.tpl',
+          'lib/CRUD/templates/actor-search-field.tpl.js'    : 'lib/CRUD/templates/actor-search-field.tpl',
           'lib/CRUD/templates/incident.tpl.js'              : 'lib/CRUD/templates/incident.tpl',
-          'lib/CRUD/templates/bulletin.tpl.js'              : 'lib/CRUD/templates/bulletin.tpl'
+          'lib/CRUD/templates/bulletin.tpl.js'              : 'lib/CRUD/templates/bulletin.tpl',
+          'lib/CRUD/templates/comment-container.tpl.js'     : 'lib/CRUD/templates/comment-container.tpl',
+          'lib/CRUD/templates/comment-form.tpl.js'          : 'lib/CRUD/templates/comment-form.tpl',
+          'lib/CRUD/templates/comment-display.tpl.js'       : 'lib/CRUD/templates/comment-display.tpl',
+          'lib/CRUD/templates/event-container.tpl.js'       : 'lib/CRUD/templates/event-container.tpl',
+          'lib/CRUD/templates/event-form.tpl.js'            : 'lib/CRUD/templates/event-form.tpl',
+          'lib/CRUD/templates/event-display.tpl.js'         : 'lib/CRUD/templates/event-display.tpl',
         }
       }
     },
@@ -112,7 +123,7 @@ module.exports = function(grunt) {
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/*.tpl'
       ],
-      tasks: ['handlebars'/*, 'buster:dev', 'jshint', 'requirejs', 'docco'*/]
+      tasks: ['handlebars',/* 'buster:dev', 'jshint', 'requirejs', 'docco'*/]
     }
   });
 

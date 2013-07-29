@@ -2,18 +2,23 @@ define(
   [
     'lib/SolrSearch/solr/TextSearch',
     'lib/SolrSearch/solr/filter-widget',
+    'lib/SolrSearch/solr/embedded-search-widget',
+    'lib/streams',
     'managers/Manager.jquery',
     'core/ParameterStore'
   ], 
-  function(TextSearch, FilterWidget) {
+  function(TextSearch, FilterWidget, EmbeddedSearchWidget, Streams) {
     var solrUrl = {
           solrUrl: Bootstrap.solr_url
         },
+        crudBus = Streams.crudBus,
+        searchBus = Streams.searchBus,
         MainManager,
         FilterManager,
         ActorManager,
         BulletinManager,
         IncidentManager,
+        createEmbeddedSearchManager,
         createFilterManager,
         createMainManager,
 
@@ -52,8 +57,18 @@ define(
           });
         },
 
+        // add the embedded search widget to a passed in manager
+        addEmbeddedSearchToManager = function(manager) {
+          manager.addWidget(new TextSearch({
+            id: 'EmbeddedSearch',
+            bus: crudBus,
+            shouldSendFilters: false,
+            fields: ['type','sources']
+          }));
+        },
+
         // add the filtered search widget to a passed in manager
-        addFilterSearchToManger = function(manager) {
+        addFilterSearchToManager = function(manager) {
           manager.addWidget(new FilterWidget.FilterWidget({
             id: 'FilterSearch',
             fields: ['type','sources']
@@ -61,19 +76,28 @@ define(
         },
 
         // add the main text search widget to a passed in manager
-        addTextSearchToManger = function(manager) {
+        addTextSearchToManager = function(manager) {
           manager.addWidget(new TextSearch({
             id: 'MainSearch',
+            bus: searchBus,
+            shouldSendFilters: true,
             fields: ['type','sources']
           }));
         };
 
+    createEmbeddedSearchManager = function() {
+      var embeddedSearchManager = new AjaxSolr.Manager(solrUrl);
+      addEmbeddedSearchToManager(embeddedSearchManager);
+      embeddedSearchManager.init();
+      addValuesToManager(embeddedSearchManager);
+      return embeddedSearchManager;
+    };
 
 
     // create a manager object to manage the main search across all entities
     createMainManager = function() {
       var mainManager = new AjaxSolr.Manager(solrUrl);
-      addTextSearchToManger(mainManager);
+      addTextSearchToManager(mainManager);
       mainManager.init();
       addValuesToManager(mainManager);
       return mainManager;
@@ -85,23 +109,25 @@ define(
     createFilterManager = function(entity) {
       var filterManager = new AjaxSolr.Manager(solrUrl);
       filterManager.entity = entity;
-      addFilterSearchToManger(filterManager);
+      addFilterSearchToManager(filterManager);
       filterManager.init();
       addValuesToManager(filterManager);
       return filterManager;
     };
 
     // create the manager objects
-    MainManager = createMainManager();
-    ActorManager = createFilterManager('actor');
-    BulletinManager = createFilterManager('bulletin');
-    IncidentManager = createFilterManager('incident');
+    MainManager           = createMainManager();
+    EmbeddedSearchManager = createEmbeddedSearchManager();
+    ActorManager          = createFilterManager('actor');
+    BulletinManager       = createFilterManager('bulletin');
+    IncidentManager       = createFilterManager('incident');
 
     // module export
     return {
-      MainManager: MainManager,
-      ActorManager: ActorManager,
-      BulletinManager: BulletinManager,
-      IncidentManager: IncidentManager
+      MainManager          : MainManager,
+      EmbeddedSearchManager: EmbeddedSearchManager,
+      ActorManager         : ActorManager,
+      BulletinManager      : BulletinManager,
+      IncidentManager      : IncidentManager
     };
 });

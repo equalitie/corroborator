@@ -3515,22 +3515,22 @@ nav .do-search {
   }
 }
 */
-/* line 1, ../sass/_jqueryui.scss */
-a.ui-slider-handle {
+/* line 3, ../sass/_jqueryui.scss */
+.score-editor a.ui-slider-handle {
   margin-top: -4px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
-  border-radius: 10px;
+  height: 15px;
+  width: 15px;
+  -webkit-border-radius: 7.5px;
+  -moz-border-radius: 7.5px;
+  -ms-border-radius: 7.5px;
+  -o-border-radius: 7.5px;
+  border-radius: 7.5px;
 }
-
-/* line 5, ../sass/_jqueryui.scss */
-div.ui-slider-horizontal {
-  height: 1px;
+/* line 10, ../sass/_jqueryui.scss */
+.score-editor div.ui-slider-horizontal {
+  height: 0px;
 }
-
-/* line 8, ../sass/_jqueryui.scss */
-.score-editor .rail {
+/* line 13, ../sass/_jqueryui.scss */
+.score-editor .score-editor .rail {
   border: none;
 }

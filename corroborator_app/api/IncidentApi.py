@@ -10,6 +10,17 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
+from corroborator_app.api.UserApi import UserResource
+from corroborator_app.api.SourceApi import SourceResource
+from corroborator_app.api.LabelApi import LabelResource
+from corroborator_app.api.ActorRoleApi import ActorRoleResource
+from corroborator_app.api.CommentApi import CommentResource
+from corroborator_app.api.TimeInfoApi import TimeInfoResource
+from corroborator_app.api.LocationApi import LocationResource
+from corroborator_app.api.MediaApi import MediaResource
+from corroborator_app.api.BulletinApi import BulletinResource
+from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
+
 from corroborator_app.models import Incident
 
 __all__ = ('IncidentResource', )
@@ -18,6 +29,20 @@ class IncidentResource(ModelResource):
     """
     tastypie api implementation for Incident model
     """
+    # foreign key fields
+    assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
+    incident_comments = fields.ManyToManyField(
+        CommentResource,
+        'incident_comments'
+    )
+    bulletins = fields.ManyToManyField(BulletinResource, 'bulletins')
+    actors_role = fields.ManyToManyField(ActorRoleResource, 'actors_role')
+    crimes = fields.ManyToManyField(CrimeCategoryResource, 'crimes')
+    labels = fields.ManyToManyField(LabelResource, 'labels')
+    times = fields.ManyToManyField(TimeInfoResource, 'times')
+    locations = fields.ManyToManyField(LocationResource, 'locations')
+    ref_incidents = fields.ManyToManyField('self', 'ref_incidents')
+
     class Meta:
         queryset = Incident.objects.all()
         resource_name = 'incident'

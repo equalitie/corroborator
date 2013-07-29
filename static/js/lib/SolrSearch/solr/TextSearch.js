@@ -8,12 +8,11 @@ define(
   [
     'underscore',
     'lib/SolrSearch/solr/parse-filters',
-    'lib/streams',
     'core/AbstractTextWidget'
   ],
-  function(_, ParseFilter, Streams) {
+  function(_, ParseFilter) {
         // parse actor results from the result string
-        var searchBus = Streams.searchBus,
+        var bus,
             filterSearchRequestEvents = function(value) {
               return value.type === 'new_search';
             },
@@ -33,19 +32,19 @@ define(
 
             // send the results off to the search bus
             pushActorResults = function(actors) {
-              Streams.searchBus.push({
+              bus.push({
                 type: 'results_actor',
                 content: actors
               }); 
             },
             pushBulletinResults = function(bulletins) {
-              Streams.searchBus.push({
+              bus.push({
                 type: 'results_bulletin',
                 content: bulletins
               }); 
             },
             pushIncidentResults = function(incidents) {
-              Streams.searchBus.push({
+              bus.push({
                 type: 'results_incident',
                 content: incidents
               }); 
@@ -55,13 +54,21 @@ define(
     // TODO: listen for search event to update the search
 
     var TextWidget = AjaxSolr.AbstractTextWidget.extend({
-      init: function () {
+      init: function (options) {
+        if (this.shouldSendFilters === undefined) {
+          throw 'you must specify if you want filters sent or' +
+            'not after a search';
+        }
+        if (this.bus === undefined) {
+          throw 'you must specify a communication bus for results';
+        }
+        bus = this.bus;
         this.watchSearchStream();
         
       },
       watchSearchStream: function() {
         var self = this;
-        searchBus.filter(filterSearchRequestEvents)
+        bus.filter(filterSearchRequestEvents)
                  .onValue(function(value) {
                    self.clear();
                    self.set('*' + value.content.raw + '*');
@@ -101,7 +108,9 @@ define(
         var searchResults = this.manager.response.response.docs,
             filters = this.manager.response.facet_counts.facet_fields;
         this.sendResults(searchResults);
-        this.sendFilters(filters);
+        if (this.shouldSendFilters === true) {
+          this.sendFilters(filters);
+        }
       }
     });
 

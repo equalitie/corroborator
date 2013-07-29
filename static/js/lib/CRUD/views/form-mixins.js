@@ -8,9 +8,12 @@ define (
     'jquery', 'underscore',
     'lib/streams',
     'lib/elements/combo',
-    'lib/CRUD/templates/confirm-dialog.tpl'
+    'lib/elements/label-widget',
+    'lib/elements/date-time-range',
+    'lib/CRUD/templates/confirm-dialog.tpl',
+    'jquery_slider'
   ],
-  function ($, _, Streams, Combo, confirmDialogTmp) {
+  function ($, _, Streams, Combo, LabelWidget, DateTimeRangeView, confirmDialogTmp) {
     'use strict';
     var ComboWidget  = Combo.ComboWidget,
 
@@ -42,28 +45,93 @@ define (
         }
       },
 
+      // ### Formatter
+      // pull the data from form elements and convert them into
+      // a digestible format
       Formatter = {
+        relatedFields: [
+          'sources'
+        ],
         makeIntStringsIntegers: function(value) {
           var intValue = parseInt(value, 10);
           return intValue.toString() === value ? intValue : value;
         },
 
+        // pull the data from the form
+        formContent: function() {
+          var formArray = $('.' + this.formElClass).serializeArray();
+          return this.formArrayToData(formArray);
+        },
+
+        // reduce an array of objects
+        // in the format {"name":"foo","value":"1"}
+        // to an object, preserving objects associated with duplicated keys
+        reduceToObject: function(memo, formEl) {
+          var value,
+              firstEl,
+              parsedValue = this.makeIntStringsIntegers(formEl.value);
+          if (memo[formEl.name] !== undefined) {
+            value = [];
+            firstEl = memo[formEl.name];
+            value = [firstEl, parsedValue];
+            value = _.flatten(value);
+          }
+          else {
+            value = parsedValue;
+          }
+          memo[formEl.name] = value;
+          return memo;
+        },
+
         formArrayToData: function(namedArray) {
-          var keys = _(namedArray).pluck('name'),
-              values = _(namedArray).chain()
-                                    .pluck('value')
-                                    .map(this.makeIntStringsIntegers)
-                                    .value();
-          return _.object(keys, values);
+          return _.reduce(namedArray, this.reduceToObject, {}, this);
         }
       },
+
       // give rich functionality to date and combo fields
       WidgetMixin = {
+        // enable the widgets associated with this form view
+        enableWidgets: function() {
+          this.enableAutoCompleteFields();
+          this.enableSliderFields();
+          this.enableLabelFields();
+          this.enableDateFields();
+          this.enableDateTimeFields();
+          this.enableDateTimeRangeFields();
+          this.enableComboBoxes();
+        },
+
+        // enable a jquery ui date field for date of birth
+        enableDateTimeFields: function() {
+          _.each(this.dateTimeFields, this.enableDateTimeField, this);
+          
+        },
+        enableDateTimeField: function(dateTimeField) {
+          $(dateTimeField.el).datetimepicker({
+            dateFormat: 'yy-mm-dd',
+            timeFormat: 'HH:mm:00'
+          });
+        },
+        // enable a jquery ui date field for date of birth
+        enableDateTimeRangeFields: function() {
+          _.each(this.dateTimeRangeFields, this.enableDateTimeRangeField, this);
+          
+        },
+        enableDateTimeRangeField: function(dateTimeField) {
+          var dateTimeRange = new DateTimeRangeView({
+            entityType: this.entityType,
+            el        : dateTimeField.el,
+            from      : dateTimeField.from,
+            to        : dateTimeField.to
+          });
+          this.childViews.push(dateTimeRange);
+        },
+
         // enable a jquery ui date field for date of birth
         enableDateFields: function() {
           _.each(this.dateFields, this.enableDateField, this);
-          
         },
+
         enableDateField: function(dateFieldName) {
           $('input[name=' + dateFieldName + ']').datepicker({
             dateFormat: 'yy-mm-dd'
@@ -84,7 +152,6 @@ define (
           _.each(this.autoCompleteFields, this.enableAutoCompleteField, this);
         },
         enableAutoCompleteField: function(field) {
-          console.log(field.content);
           $(field.className).autocomplete({
             minLength: 0,
             source: field.content,
@@ -96,16 +163,39 @@ define (
           
         },
 
+        enableLabelFields: function() {
+          _.each(this.labelFields, this.enableLabelField, this);
+        },
+        enableLabelField: function(field) {
+          var collection = new field.collection();
+          var labelWidget = new LabelWidget({
+            entityType: this.entityType,
+            collection: collection,
+            el        : field.containerid,
+            display   : field.display
+          });
+        },
+
         // enable sliders, store the value in the designated field
         enableSliderFields: function() {
-          _.each(this.sliderFields, this.enableSliderField, this);
+          _.each(this.sliderFields, this.enableSliderField);
         },
+
         enableSliderField: function(field) {
           // handle slider values
-          var updateValue = function(e) {
-            var value = $(field.sliderDiv).slider('value');
-            $(field.display).text(value);
-          };
+          var setInputVal = function(value) {
+                $(field.display).text(value);
+              },
+              setDisplayVal = function(value) {
+                $('input[name=' + field.formField + ']').val(value);
+              },
+              updateValue = function(e) {
+                var value = $(field.sliderDiv).slider('value');
+                setInputVal(value);
+                setDisplayVal(value);
+              };
+
+          
           // create the slider
           $(field.sliderDiv).slider({
             min: field.startPoint,
@@ -114,6 +204,9 @@ define (
             value: field.value,
             slide: updateValue
           });
+          // set initial values
+          setInputVal(field.value);
+          setDisplayVal(field.value);
         }
 
       };

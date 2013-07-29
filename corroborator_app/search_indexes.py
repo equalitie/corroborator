@@ -44,9 +44,16 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     actor_created = indexes.DateTimeField(model_attr='actor_created', \
     faceted=True, null=True)
     media_uri = indexes.MultiValueField()
+    actor_api_uri = indexes.MultiValueField()
 
     def get_model(self):
         return Actor
+    def prepare_actor_api_uri(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        return '/api/v1/actor/[0]/'.format(object.id)
     def prepare_media_uri(self, object):
         """
         Returns media uri of image associated with given Actor
@@ -68,18 +75,18 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         roles = object.actorrole_set.all()
         return Bulletin.objects.filter(actors_role__in=roles).count()
 
-class LabelIndex(indexes.SearchIndex, indexes.Indexable):
-    """
-    This document handles the construction of the Label Solr document.
-    """
-    text = indexes.CharField(document=True, use_template=True)
-    name_en = indexes.CharField(model_attr='name_en', null=True)
-    name_ar = indexes.CharField(model_attr='name_ar', null=True)
-    description_en = indexes.CharField(model_attr='description_en', null=True)
-    description_ar = indexes.CharField(model_attr='description_ar', null=True)
+#class LabelIndex(indexes.SearchIndex, indexes.Indexable):
+    #"""
+    #This document handles the construction of the Label Solr document.
+    #"""
+    #text = indexes.CharField(document=True, use_template=True)
+    #name_en = indexes.CharField(model_attr='name_en', null=True)
+    #name_ar = indexes.CharField(model_attr='name_ar', null=True)
+    #description_en = indexes.CharField(model_attr='description_en', null=True)
+    #description_ar = indexes.CharField(model_attr='description_ar', null=True)
 
-    def get_model(self):
-        return Label
+    #def get_model(self):
+        #return Label
 
 class MediaIndex(indexes.SearchIndex, indexes.Indexable):
     """
@@ -124,9 +131,16 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     most_recent_status_incident = indexes.MultiValueField(faceted=True)
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
+    incident_api_uri = indexes.MultiValueField()
 
     def get_model(self):
         return Incident
+    def prepare_incident_api_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return '/api/v1/incident/[0]/'.format(object.id)
     def prepare_most_recent_status_incident(self,object):
         """
         Returns moste recent status associated with a given Incident
@@ -177,7 +191,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
         """
         Returns set of crime objects associated with a given incident
         """
-        return [crime.category_en for crime in object.crimes.all()]
+        return [crime.name_en for crime in object.crimes.all()]
 
 
 class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
@@ -205,10 +219,17 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
+    bulletin_api_uri = indexes.MultiValueField()
 
     #bulletins = indexes.MultiValueField()
     def get_model(self):
         return Bulletin
+    def prepare_bulletin_api_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return '/api/v1/bulletin/[0]/'.format(object.id)
     def prepare_most_recent_status_bulletin(self, object):
         """
         Returns most recently created status update associated with a given Bulletin

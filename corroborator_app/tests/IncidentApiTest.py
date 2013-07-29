@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.test.client import Client
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
-from corroborator_app.models import Incident, CrimeCategory, Location, Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label, Source, SourceType
+from corroborator_app.models import Incident, CrimeCategory, Location, Actor, \
+    ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label
 import datetime
 from django.utils.timezone import utc
 
@@ -28,7 +29,7 @@ class IncidentTestCase(ResourceTestCase):
         self.statusUpdate = StatusUpdate(status_en='test status')
         self.statusUpdate.save()
 
-        self.crimeCategory = CrimeCategory(category_en='test crime category',
+        self.crimeCategory = CrimeCategory(name_en='test crime category',
         level=1, description_en='test source incident_details')
         self.crimeCategory.save()
         self.label = Label(name_en='test label')
@@ -72,6 +73,15 @@ class IncidentTestCase(ResourceTestCase):
             'title_en': "Test Incident",
             'incident_details_ar': "incident_details Arabic",
             'confidence_score':11,
+            'assigned_user': '/api/v1/user/1/',
+            'incident_comments': ['/api/v1/comment/1/',],
+            'bulletins': [],
+            'actors_role': [],
+            'crimes': [],
+            'labels': [],
+            'times': [],
+            'locations': [],
+            'ref_incidents': [],
         }
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -86,6 +96,15 @@ class IncidentTestCase(ResourceTestCase):
             'incident_details_en': "incident_details en",
             'incident_details_ar': "incident_details Arabic",
             'confidence_score':11,
+            'assigned_user': '/api/v1/user/1/',
+            'incident_comments': ['/api/v1/comment/1/',],
+            'bulletins': [],
+            'actors_role': [],
+            'crimes': [],
+            'labels': [],
+            'times': [],
+            'locations': [],
+            'ref_incidents': [],
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -100,6 +119,15 @@ class IncidentTestCase(ResourceTestCase):
                     'incident_details_en': "incident_details en",
                     'incident_details_ar': "incident_details Arabic",
                     'confidence_score':11,
+                    'assigned_user': '/api/v1/user/1/',
+                    'incident_comments': ['/api/v1/comment/1/',],
+                    'bulletins': [],
+                    'actors_role': [],
+                    'crimes': [],
+                    'labels': [],
+                    'times': [],
+                    'locations': [],
+                    'ref_incidents': [],
                 },
                 {
                     'title_en': "Test Incident",
@@ -107,6 +135,14 @@ class IncidentTestCase(ResourceTestCase):
                     'incident_details_en': "incident_details en",
                     'incident_details_ar': "incident_details Arabic",
                     'confidence_score':11,
+                    'incident_comments': ['/api/v1/comment/1/',],
+                    'bulletins': [],
+                    'actors_role': [],
+                    'crimes': [],
+                    'labels': [],
+                    'times': [],
+                    'locations': [],
+                    'ref_incidents': [],
                 }
             ]
         }

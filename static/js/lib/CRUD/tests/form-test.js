@@ -78,13 +78,14 @@ define(
 
           var jqueryStyle = [
                 {"name":"foo","value":"1"},
+                {"name":"foo","value":"3"},
                 {"name":"bar","value":"xxx"},
                 {"name":"this","value":"hi"}
               ],
               requiredStyle = {
-                foo : 1,
-                bar : "xxx",
-                'this': "hi"
+                "foo" : [1,3],
+                "bar" : "xxx",
+                "this": "hi"
               },
               output;
 

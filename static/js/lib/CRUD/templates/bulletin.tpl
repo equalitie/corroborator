@@ -32,24 +32,38 @@
             <label>Title</label>
             <span id="bulletin-title-block" class="i18n with-en with-ar">
               <div lang="en">
-                <textarea name="title_en" type="text" class="validate[required] w-100p"></textarea>
+                <textarea name="title_en"
+                          type="text"
+                          class="bulletin-field w-100p"></textarea>
               </div>
               <div lang="ar">
-                <textarea name="title_ar" type="text" class="w-100p"></textarea>
+                <textarea name="title_ar"
+                          type="text"
+                          class="bulletin-field w-100p"></textarea>
               </div>
-          <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+              <span class="toggle">
+                <span lang="en">EN</span>
+                <span lang="ar">AR</span>
+              </span>
+            </span>
+          </h2>
         </div>
 
         <div id="bulletin-group-block-ne" class="body bulletin-not-expanded-edit">
           <div id="bulletin-group-block" class="group details">
             <div class="field clear-after">
+
+              <!-- score slider name=confidence_score -->
               <div id="bulletin-score-block" class="is-score right">
                 <label>Score</label>
                 <div class="score">
 
                   <span id="bulletin_confidence_score" class="value">0</span>
+                  <input type="hidden" 
+                         name="confidence_score"
+                         value="0"
+                         class="bulletin-field">
 
-                  <!-- score slider name=confidence_score -->
                   <div class="score-editor">
 
                     <div class="rail">
@@ -70,15 +84,19 @@
                       </div>
                     </div>
                   </div>
-                  <!-- end score slider -->
                 </div>
               </div>
+              <!-- end score slider -->
+
             <!-- Assigned to field name='assigned_user' -->
               <div id="bulletin-assignment-block" class="bulletinAssigned  left">
                 <label>Assigned to</label>
 
                 <input type="text" class="with-clear is-assigned-to" value="">
-                <input type="hidden" name="assigned_user" value="">
+                <input type="hidden" 
+                       name="assigned_user"
+                       value=""
+                       class="bulletin-field" >
 
               <button id="clear-user" class="do-clear">
                 <span>✓</span>
@@ -89,115 +107,17 @@
 
           <!-- Sources field -->
           <div id="bulletin-source-block" class="field is-sources">
-            <label>Sources</label>
-            <ul class="sources editor">
-
-              <li class="source is-new">
-                <input class="source-ac with-select ui-autocomplete-input" type="text" 
-                  value="Source" autocomplete="off">
-              </li>
-            </ul>
           </div>
 
           <!-- Labels field -->
           <div id="bulletin-label-block" class="field is-tags">
-            <label>Labels</label>
-            <ul class="tags editor">
-              <li class="tag is-new">
-                <input type="text" value="Label" class="labels-ac">
-              </li>
-            </ul>
           </div>
 
           <!-- Comments block bulletin_comments -->
-          <div id="incident-comment-block" class="field is-comments">
-            <label>Comments</label>
-            <ul class="comments">
-              <li class="comment is-new">
-                <!-- Comment status field  dropdown should match others -->
-                <div id="incident-status-block" class="add">
-                  <label>Status</label><br/>
-                  <select id="bulletin_status">
-                    <option value="Select status">Select Status</option>
-                  </select>
-                </div>
-
-                <div class="clearer"></div>
-                <!-- Comment content field -->
-                <div class="add">
-                  <label>Comment</label><br/>
-                  <textarea class="w-100p comment-comment"></textarea>
-                </div>
-                <button class="do-addComment">
-                  <span class="T">Add comment</span>
-                </button>
-              </li>
-            </ul>
+          <div id="bulletin-comment-block" class="field is-comments">
           </div>
           <!-- Event block -->
           <div id="bulletin-event-block" class="field is-events clear">
-            <label>Events</label>
-            <div class="date-duration">
-
-            </div>
-            <ul class="events">
-              <li class="event is-new">
-                <div class="span-70p">
-                  <label>Description</label><br>
-                  <input type="text" class="w-100p bulletin_event-description">
-                </div>
-                <div class="clearer">&nbsp;</div>
-                <div class="span-70p">
-                  <label>Comment</label><br>
-                  <textarea class="w-100p bulletin_event-comment"></textarea>
-                </div>
-                <div class="clearer">&nbsp;</div>
-                <div class="span-70p">
-                  <span class="score">
-                    <span class="bulletin_event-cscore value"></span>
-                  </span>
-                  <!-- Reliability score slider -->
-                  <label>Reliability score</label>
-                  <div class="score-editor">
-                    <div class="rail">
-                      <div class="slider">
-                      </div>  
-                    <!-- <div class="cursor">&nbsp;</div> -->
-                      <div class="axis">
-                        <div class="start">
-                          <span class="label">0%</span>
-                        </div>
-                        <div class="middle">
-                          <span class="label">50%</span>
-                        </div>
-                        <div class="end">
-                          <span class="label">100%</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="clearer">&nbsp;</div>
-                <div class="span-30p">
-                <!-- Event Date From -->
-                  <label>From</label><br/>
-                  <input class="bulletin_event-from" type="text">
-                </div>
-                <div class="span-30p">
-                  <label>To</label><br/>
-                  <input class="bulletin_event-to" type="text">
-                </div>
-                <div class="span-30p">
-                  <label></label><br/>
-                  <div class="pad">
-                    <button class="do-addEvent">
-                      <span class="T">Add Event</span>
-                    </button>
-                  </div>
-                </div>
-                <div class="clearer">&nbsp;</div>
-              </li>
-            </ul>
           </div>
         <div id="bulletin-location-block" class="field is-locations">
           <label>Locations</label>
@@ -253,33 +173,26 @@
           <label>Description</label>
           <div class="i18n with-en with-ar">
             <div lang="en">
-              <textarea id="bulletin_description_en" type="text" class="w-100p"></textarea>
+              <textarea id="bulletin_description_en"
+                        name="bulletin_description_en"
+                        type="text"
+                        class="bulletin-field w-100p"></textarea>
             </div>
             <div lang="ar">
-              <textarea id="bulletin_description_ar" type="text" class="w-100p"></textarea>
+              <textarea id="bulletin_description_ar"
+                        name="bulletin_description_ar"
+                        type="text"
+                        class="bulletin-field w-100p"></textarea>
             </div>
             <span class="toggle">
-            <span lang="en">EN</span><span lang="ar">AR</span>
+              <span lang="en">EN</span>
+              <span lang="ar">AR</span>
             </span>
           </div>
         </div>
 
         <!-- Related Actors -->
         <div id="bulletin-actor-list-block" class="field is-actors">
-          <label>Actors</label>
-          <div id="bulletin-actor-search-block" class="search">
-            <input type="text" class="with-clear">
-            <button class="do-clear">
-              <span>✓</span>
-            </button>
-            <button class="do-search do-search-embedded actors">
-              <span>Search</span>
-            </button>
-          </div>
-          <ul class="elements elements-bulletin">
-
-          </ul>
-          <!--      <div class="drop-target">Drag &amp; drop actors here</div> -->
         </div>
 
         <!-- Related bulletins -->

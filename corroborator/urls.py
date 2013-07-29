@@ -36,7 +36,7 @@ from corroborator_app.api import ActorResource, ActorRoleResource, \
 ActorRelationshipResource, CommentResource, CrimeCategoryResource, \
 IncidentResource, BulletinResource, LabelResource, MediaResource, \
 PredefinedSearchResource, SourceResource, SourceTypeResource, \
-LocationResource, StatusUpdateResource, TimeInfoResource
+LocationResource, StatusUpdateResource, TimeInfoResource, UserResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(ActorResource())
@@ -54,6 +54,7 @@ v1_api.register(SourceTypeResource())
 v1_api.register(LocationResource())
 v1_api.register(StatusUpdateResource())
 v1_api.register(TimeInfoResource())
+v1_api.register(UserResource())
 
 urlpatterns += patterns('',
     (r'^api/', include(v1_api.urls)),

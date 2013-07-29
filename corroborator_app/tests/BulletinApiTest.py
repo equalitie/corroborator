@@ -3,23 +3,30 @@ from django.contrib.auth.models import User
 from django.test.client import Client
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
-from corroborator_app.models import Bulletin, CrimeCategory, Media, Location, Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label, Source, SourceType
-import datetime
-from django.utils.timezone import utc
+from corroborator_app.models import Bulletin, Media, Location, \
+    Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label, \
+    Source, SourceType
+#import datetime
+#from django.utils.timezone import utc
 
 class BulletinTestCase(ResourceTestCase):
     def setUp(self):
         super(BulletinTestCase, self).setUp()
-        now = datetime.datetime.utcnow().replace(tzinfo=utc)
-        self.from_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-        self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        #now = datetime.datetime.utcnow().replace(tzinfo=utc)
+        #self.from_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        #self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
         
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
         
-        self.actor = Actor(fullname_en='Test Actor',fullname_ar='Test name ar',nickname_en='nick name',nickname_ar='nick name')
+        self.actor = Actor(
+            fullname_en='Test Actor',
+            fullname_ar='Test name ar',
+            nickname_en='nick name',
+            nickname_ar='nick name'
+        )
         self.actor.save()
         self.role = ActorRole(role_status='Detained', actor_id=self.actor.pk)
         self.role.save()
@@ -27,20 +34,42 @@ class BulletinTestCase(ResourceTestCase):
         self.statusUpdate = StatusUpdate(status_en='test status')
         self.statusUpdate.save()
 
-        self.sourceType = SourceType(source_type='test source type', description='test source description')
+        self.sourceType = SourceType(
+            source_type='test source type',
+            description='test source description'
+        )
+
         self.sourceType.save()
-        self.source = Source(reliability_score=0, name_en='test source', source_type_id=self.sourceType.pk)
+        self.source = Source(
+            reliability_score=0,
+            name_en='test source',
+            source_type_id=self.sourceType.pk
+        )
+
         self.source.save()
         self.label = Label(name_en='test label')
         self.label.save()
         
-        self.comment = Comment(assigned_user_id=self.user.pk, status_id=self.statusUpdate.pk, comments_en='test comment')
+        self.comment = Comment(
+            assigned_user_id=self.user.pk,
+            status_id=self.statusUpdate.pk,
+            comments_en='test comment'
+        )
         self.comment.save()
         
-        self.timeinfo = TimeInfo(confidence_score=1, time_from=self.from_datetime, time_to=self.to_datetime, event_name_en='test event')
-        self.timeinfo.save()
+        #self.timeinfo = TimeInfo(
+            #confidence_score=1,
+            #time_from=self.from_datetime,
+            #time_to=self.to_datetime,
+            #event_name_en='test event'
+        #)
+        #self.timeinfo.save()
         
-        self.media = Media(media_type='Video', name_en='test media',media_file='')
+        self.media = Media(
+            media_type='Video',
+            name_en='test media',
+            media_file=''
+        )
         self.media.save()
         
         fixture = AutoFixture(Bulletin, generate_m2m={1, 5})
@@ -61,7 +90,6 @@ class BulletinTestCase(ResourceTestCase):
         Media.objects.all().delete()
         Comment.objects.all().delete()
         StatusUpdate.objects.all().delete()
-        CrimeCategory.objects.all().delete()
         Bulletin.objects.all().delete()
 
     def test_bulletin_get(self):
@@ -77,6 +105,15 @@ class BulletinTestCase(ResourceTestCase):
             'title_en': "Test Bulletin",
             'description_ar': "description Arabic",
             'confidence_score': 73,
+            'sources': ['/api/v1/source/1/',],
+            'bulletin_comments': ['/api/v1/comment/1/',],
+            'assigned_user': '/api/v1/user/1/',
+            'actors_role': [],
+            'times': [],
+            'medias': [],
+            'locations': [],
+            'labels': [],
+            'ref_bulletins': [],
         }
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -84,7 +121,10 @@ class BulletinTestCase(ResourceTestCase):
 
     def test_bulletin_put(self):
         b = Bulletin.objects.all()[0]
-        url = '/api/v1/bulletin/{0}/?format=json{1}'.format(b.id, self.auth_string)
+        url = '/api/v1/bulletin/{0}/?format=json{1}'.format(
+            b.id,
+            self.auth_string
+        )
         put_data = {
             'title_en': "Test Bulletin",
             'title_ar': "Test Bulletin Arabic",

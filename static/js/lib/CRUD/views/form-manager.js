@@ -65,6 +65,7 @@ define (
       destroyCurrentView: function() {
         if (this.currentView !== undefined) {
           this.currentView.destroy();
+          this.currentView = undefined;
         }
       },
       // render the form, calls enable widgets to enable the dropdowns and
@@ -72,6 +73,7 @@ define (
       render: function() {
         this.$el.empty()
                 .append(this.currentView.$el);
+        this.currentView.renderChildren();
         this.currentView.enableWidgets();
       }
     });

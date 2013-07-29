@@ -18,6 +18,7 @@ from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.PredefinedSearchApi import PredefinedSearchResource
 from corroborator_app.api.SourceApi import SourceResource
+from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.SourceTypeApi import SourceTypeResource
 from corroborator_app.api.StatusUpdateApi import StatusUpdateResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource

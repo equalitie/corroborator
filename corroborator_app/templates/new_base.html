@@ -4,8 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fonts/iconic-fill/font.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL }}js/components/leaflet/dist/leaflet.css" type="text/css" media="screen" charset="utf-8">
+    <!--<link rel="stylesheet" href="{{ STATIC_URL }}js/components/leaflet/dist/leaflet.css" type="text/css" media="screen" charset="utf-8">-->
     <link rel="stylesheet" href="{{ STATIC_URL}}js/components/jquery.ui/dist/jquery-ui.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL}}js/components/jquery-timepicker-addon/jquery-ui-timepicker-addon.css" />
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/screen.css" />
 
     <script data-main="{{STATIC_URL}}js/loader" type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/components/requirejs/require.js"> </script>
@@ -32,12 +33,19 @@
     var gl_ac_crimes_list = [];
     var special_global_ac_sources_list = [];
     var gl_ac_loc_set = [];
+    var gl_ac_labels_list = [];
     var gl_ac_loc_ac_set = [];
     var gl_ac_users_list = [];
     var solr_url = '{{ solr_url }}';
+    var comment_statuses = [];
 
     {%for role in role_status_set %}
       gl_ac_role_list.push({ role:"{{role}}"});
+    {% endfor %}
+
+
+    {%for comment_status in status_set %}
+      comment_statuses.push(comment_status);
     {% endfor %}
 
     {% for relation in relation_status_set %}
@@ -46,29 +54,33 @@
 
     {%for label in labels_set.all %}
       gl_ac_labels_list.push({
-        label:"{{label.name_en}}",
-        id:"{{label.id}}"
+        name_en:"{{label.name_en}}",
+        id:"{{label.id}}",
+        id:"/api/v1/label/{{label.id}}/"
       });
     {% endfor %}
 
     {%for user in users_set.all %}
       gl_ac_users_list.push({
         label:"{{user.username}}",
-        id:"{{user.id}}"
+        id:"/api/v1/user/{{user.id}}/",
+        resource_uri:"/api/v1/user/{{user.id}}/"
       });
     {% endfor %}
 
     {%for crime in crimes_set.all %}
       gl_ac_crimes_list.push({
-        label:"{{crime.category_en}}",
-        id:"{{crime.id}}"
+        name_en:"{{crime.name_en}}",
+        id:"{{crime.id}}",
+        resource_uri:"/api/v1/crime/{{crime.id}}/"
       });
     {% endfor %}
 
     {%for source in sources_set.all %}
       special_global_ac_sources_list.push({
-        label:"{{source.name_en}}",
-        id:"{{source.id}}"
+        name_en:"{{source.name_en}}",
+        id:"/api/v1/source/{{source.id}}/",
+        resource_uri:"/api/v1/source/{{source.id}}/"
       });
     {% endfor %}
 
@@ -83,7 +95,8 @@
     {%for loc in loc_set.all %}
       gl_ac_loc_ac_set.push({
         label:"{{loc.name_en}}",
-        id:"{{loc.latitude}},{{loc.longitude}}"
+        id:"{{loc.latitude}},{{loc.longitude}}",
+        id:"/api/v1/location/{{loc.id}}/"
       });
     {% endfor %}
 
@@ -94,11 +107,13 @@
         gl_userid: '{{userid}}',
         gl_ac_role_list: gl_ac_role_list,
         gl_ac_relation_list: gl_ac_relation_list,
-        gl_ac_crimes_list: gl_ac_crimes_list,
-        special_global_ac_sources_list: special_global_ac_sources_list,
+        crimes: gl_ac_crimes_list,
+        sources: special_global_ac_sources_list,
+        labels: gl_ac_labels_list,
         gl_ac_loc_set: gl_ac_loc_set,
         gl_ac_loc_ac_set: gl_ac_loc_ac_set,
         gl_ac_users_list: gl_ac_users_list,
+        comment_statuses: comment_statuses,
         solr_url: solr_url
     }
 

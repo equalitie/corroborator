@@ -13,8 +13,10 @@ define(
     'use strict';
 
     var PersistSelectionMixin = Mixins.PersistSelectionMixin,
-        ModelSelectionMixin = Mixins.ModelSelectionMixin,
-        Filters = new Mixins.Filters(),
+        crudBus               = Streams.crudBus,
+        ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        ModelSyncMixin        = Mixins.ModelSyncMixin,
+        Filters               = new Mixins.Filters(),
         // ### Bulletin Specific filter stream processors
 
         // filter bulletin nav requests
@@ -43,6 +45,13 @@ define(
     // ### Bulletin Model
     // provide api endpoint for Bulletin model
     var BulletinModel = Backbone.Model.extend({
+      foreignKeyFields: [
+        'assigned_user'
+      ],
+      manyToManyFields: [
+        'sources', 'bulletin_comments', 'actors_role', 'times', 'medias',
+        'locations', 'labels', 'ref_bulletins'
+      ],
       idAttribute: 'django_id',
       url: function() {
         var base = '/api/v1/bulletin/';
@@ -54,6 +63,7 @@ define(
           return base + urlvars;
       }
     });
+    _.extend(BulletinModel.prototype, ModelSyncMixin);
 
     // ### Bulletin Collection
     // provide sort, selection functionality  
@@ -65,6 +75,7 @@ define(
         this.watchEventStream();
         this.watchSelection();
         this.watchSort();
+        this.watchCreate();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -119,6 +130,16 @@ define(
           self.compareField = value;
           self.sort();
         });
+      },
+      watchCreate: function() {
+        var self = this;
+        crudBus.filter(function(value) { return value.type === 'create_new_bulletin'; })
+               .onValue(function(value) {
+                 console.log(value);
+                 var bulletinModel = new BulletinModel(value.content);
+                 bulletinModel.save();
+                 self.add(bulletinModel);
+               });
       }
 
     });
