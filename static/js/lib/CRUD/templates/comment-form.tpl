@@ -13,8 +13,9 @@
 <div class="add">
   <label>Comment</label><br/>
   <textarea class="w-100p comment-comment comment-field"
-            name="comment_en"></textarea>
+            name="comment_en">{{model.comment_en}}</textarea>
 </div>
 <button class="do-addComment">
-  <span class="T">Add comment</span>
+  <span class="T">Save comment</span>
 </button>
+<input type="hidden" name="id" value="{{model.id}}">

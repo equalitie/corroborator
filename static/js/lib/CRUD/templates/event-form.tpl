@@ -1,17 +1,22 @@
   <div class="span-70p">
     <label>Description</label><br>
-    <input type="text" name="event_name_en" class="w-100p {{entityType}}-field bulletin_event-description">
+    <input type="text" name="event_name_en" 
+      class="w-100p {{entityType}}-field bulletin_event-description"
+      value="{{model.event_name_en}}">
   </div>
   <div class="clearer">&nbsp;</div>
   <div class="span-70p">
     <label>Comment</label><br>
-    <textarea class="w-100p bulletin_event-comment {{entityType}}-field"></textarea>
+    <textarea name="comments_en" class="w-100p bulletin_event-comment {{entityType}}-field"></textarea>
   </div>
   <div class="clearer">&nbsp;</div>
   <div class="span-70p">
     <span class="score">
       <span class="bulletin_event-cscore value"></span>
-      <input type="hidden" name="confidence_score" value="" class="{{entityType}}-field">
+      <input type="hidden" name="confidence_score" 
+        class="{{entityType}}-field"
+        value="{{model.confidence_score}}" 
+      >
     </span>
     <!-- Reliability score slider -->
     <label>Reliability score</label>
@@ -41,7 +46,7 @@
     <label></label><br/>
     <div class="pad">
       <button class="do-addEvent">
-        <span class="T">Add Event</span>
+        <span class="T">Save Event</span>
       </button>
     </div>
   </div>

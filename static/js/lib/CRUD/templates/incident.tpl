@@ -261,20 +261,6 @@
 
             <!-- Actor selection -->
             <div id="incident-actor-list-block" class="field is-actors">
-            <label>Actors</label>
-            <div class="search">
-            <input type="text" class="with-clear">
-            <button class="do-clear">
-            <span>✓</span>
-            </button>
-            <button class="do-search do-search-embedded actors">
-            <span>Search</span>
-            </button>
-            </div>
-            <ul class="elements elements-incident">
-
-            </ul>
-            <!--      <div class="drop-target">Drag &amp; drop actors here</div> -->
             </div>
 
           <div id="incident-bulletin-block" class="field is-bulletins">

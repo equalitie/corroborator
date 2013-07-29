@@ -35,8 +35,6 @@ define (
       model: LabelModel,
       initialize: function() {
         this.reset(Bootstrap.labels);
-        this.on('add', this.addToBootstrap, this);
-        this.on('remove', this.removeFromBootstrap, this);
       },
 
       // map a list of models to autocomplete format
@@ -50,25 +48,12 @@ define (
           label: model.get('name_en'),
           id   : model.get('id')
         };
-      },
+      }
 
-      // TODO allow users to add their own labels via these methods
-      addToBootstrap: function(model) {
-      },
-      removeFromBootstrap: function(model) {
-      },
     });
-    labelCollection = new LabelCollection();
-    
-
-
 
     return {
       LabelModel: LabelModel,
-      LabelCollection: LabelCollection,
-      LabelCollectionInstance: labelCollection
+      LabelCollection: LabelCollection
     };
 });
-
-
-

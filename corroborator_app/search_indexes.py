@@ -53,7 +53,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         Returns the correctly formated uri related to this actor instance
         for the tastypie api
         """
-        return '/api/v1/actor/' + object.id + '/'
+        return '/api/v1/actor/[0]/'.format(object.id)
     def prepare_media_uri(self, object):
         """
         Returns media uri of image associated with given Actor
@@ -140,7 +140,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
-        return '/api/v1/incident/' + object.id + '/'
+        return '/api/v1/incident/[0]/'.format(object.id)
     def prepare_most_recent_status_incident(self,object):
         """
         Returns moste recent status associated with a given Incident
@@ -229,7 +229,7 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api
         """
-        return '/api/v1/bulletin/' + object.id + '/'
+        return '/api/v1/bulletin/[0]/'.format(object.id)
     def prepare_most_recent_status_bulletin(self, object):
         """
         Returns most recently created status update associated with a given Bulletin

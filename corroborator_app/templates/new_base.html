@@ -37,9 +37,15 @@
     var gl_ac_loc_ac_set = [];
     var gl_ac_users_list = [];
     var solr_url = '{{ solr_url }}';
+    var comment_statuses = [];
 
     {%for role in role_status_set %}
       gl_ac_role_list.push({ role:"{{role}}"});
+    {% endfor %}
+
+
+    {%for comment_status in status_set %}
+      comment_statuses.push(comment_status);
     {% endfor %}
 
     {% for relation in relation_status_set %}
@@ -49,28 +55,32 @@
     {%for label in labels_set.all %}
       gl_ac_labels_list.push({
         name_en:"{{label.name_en}}",
-        id:"{{label.id}}"
+        id:"{{label.id}}",
+        id:"/api/v1/label/{{label.id}}/"
       });
     {% endfor %}
 
     {%for user in users_set.all %}
       gl_ac_users_list.push({
         label:"{{user.username}}",
-        id:"/api/v1/user/{{user.id}}/"
+        id:"/api/v1/user/{{user.id}}/",
+        resource_uri:"/api/v1/user/{{user.id}}/"
       });
     {% endfor %}
 
     {%for crime in crimes_set.all %}
       gl_ac_crimes_list.push({
         name_en:"{{crime.name_en}}",
-        id:"{{crime.id}}"
+        id:"{{crime.id}}",
+        resource_uri:"/api/v1/crime/{{crime.id}}/"
       });
     {% endfor %}
 
     {%for source in sources_set.all %}
       special_global_ac_sources_list.push({
         name_en:"{{source.name_en}}",
-        id:"/api/v1/source/{{source.id}}/"
+        id:"/api/v1/source/{{source.id}}/",
+        resource_uri:"/api/v1/source/{{source.id}}/"
       });
     {% endfor %}
 
@@ -85,7 +95,8 @@
     {%for loc in loc_set.all %}
       gl_ac_loc_ac_set.push({
         label:"{{loc.name_en}}",
-        id:"{{loc.latitude}},{{loc.longitude}}"
+        id:"{{loc.latitude}},{{loc.longitude}}",
+        id:"/api/v1/location/{{loc.id}}/"
       });
     {% endfor %}
 
@@ -102,6 +113,7 @@
         gl_ac_loc_set: gl_ac_loc_set,
         gl_ac_loc_ac_set: gl_ac_loc_ac_set,
         gl_ac_users_list: gl_ac_users_list,
+        comment_statuses: comment_statuses,
         solr_url: solr_url
     }
 

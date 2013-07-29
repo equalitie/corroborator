@@ -5,9 +5,10 @@
 // 
 define (
   [
-    'lib/CRUD/views/form-manager'
+    'lib/CRUD/views/form-manager',
+    'lib/SolrSearch/solr/manager'
   ],
-  function (FormManager) {
+  function (FormManager, Manager) {
     'use strict';
 
     var formManagerView,

@@ -17,7 +17,7 @@ define (
     SelectOptionView = Backbone.View.extend({
       tagName: 'option',
       initialize: function() {
-        this.model.on('destroy', this.destroy);
+        this.model.on('destroy', this.destroy, this);
         this.render();
       },
       destroy: function() {
@@ -26,7 +26,7 @@ define (
         this.undelegateEvents();
       },
       render: function() {
-        this.$el.attr('value', this.model.get('id'));
+        this.$el.attr('value', this.model.get('resource_uri'));
         this.$el.attr('selected', true);
       }
     });

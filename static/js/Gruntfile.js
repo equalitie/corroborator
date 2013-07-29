@@ -36,6 +36,7 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/selected-filter.tpl.js' : 'lib/SolrSearch/templates/selected-filter.tpl',
           'lib/CRUD/templates/confirm-dialog.tpl.js'        : 'lib/CRUD/templates/confirm-dialog.tpl',
           'lib/CRUD/templates/actor.tpl.js'                 : 'lib/CRUD/templates/actor.tpl',
+          'lib/CRUD/templates/actor-search-field.tpl.js'    : 'lib/CRUD/templates/actor-search-field.tpl',
           'lib/CRUD/templates/incident.tpl.js'              : 'lib/CRUD/templates/incident.tpl',
           'lib/CRUD/templates/bulletin.tpl.js'              : 'lib/CRUD/templates/bulletin.tpl',
           'lib/CRUD/templates/comment-container.tpl.js'     : 'lib/CRUD/templates/comment-container.tpl',

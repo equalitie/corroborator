@@ -6,7 +6,7 @@
 // handles clicks on the three tabs and sends messages into the navStream
 // defined in streams.js based on this  
 //
-// 
+// TODO: handle bogey urls
 
 define(
   [

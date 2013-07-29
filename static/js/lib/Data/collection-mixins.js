@@ -95,6 +95,10 @@ define (
             model.set('checked', 'checked');
           }
         },
+        // ### helper methods for persisting models with tastypie  
+        // formats many to many fields  
+        // removes empty foreign key fields  
+        // removes empty date fields  
         ModelSyncMixin = {
           formatManyToManyFields: function() {
             _.chain(this.manyToManyFields)
@@ -122,10 +126,16 @@ define (
             return [this.get(key)];
           },
 
-          removeEmptyForeignKeyFields: function() {
-            _.each(this.foreignKeyFields, this.removeEmptyForeignKeyField, this);
+          removeEmptyDateFields: function() {
+            _.each(this.dateFields, this.removeEmptyField, this);
           },
-          removeEmptyForeignKeyField: function(key) {
+          removeEmptyDateTimeFields: function() {
+            _.each(this.dateTimeFields, this.removeEmptyField, this);
+          },
+          removeEmptyForeignKeyFields: function() {
+            _.each(this.foreignKeyFields, this.removeEmptyField, this);
+          },
+          removeEmptyField: function(key) {
             if (this.get(key) === '') {
               this.unset(key);
             }
@@ -134,6 +144,8 @@ define (
             var createEditMethods = ['create', 'update'];
             if (_.contains(createEditMethods, method)) {
               this.removeEmptyForeignKeyFields();
+              this.removeEmptyDateTimeFields();
+              this.removeEmptyDateFields();
               this.formatManyToManyFields();
             }
             return Backbone.sync.apply(this, arguments);

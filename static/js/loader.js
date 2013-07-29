@@ -47,8 +47,11 @@
       jquery_ui: {
         deps: ['jquery']
       },
+      jquery_time: {
+        deps: ['jquery', 'jquery_ui']
+      },
       jquery_slider: {
-        deps: ['jquery_ui', 'jquery_time']
+        deps: ['jquery', 'jquery_ui', 'jquery_time']
       }
 
     }

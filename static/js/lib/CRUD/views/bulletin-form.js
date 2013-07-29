@@ -2,13 +2,13 @@
 
 // ### Description
 // Handle create update of bulletin(s)
-// 
 
 define (
   [
     'jquery', 'underscore', 'backbone', 
     'lib/streams',
     'lib/CRUD/views/form-mixins',
+    'lib/CRUD/views/search-views/actor-search-field',
     'lib/CRUD/data/SourceCollection',
     'lib/CRUD/data/LabelCollection',
     // child views
@@ -17,7 +17,7 @@ define (
     // templates
     'lib/CRUD/templates/bulletin.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins,
+  function ($, _, Backbone, Streams, Mixins, ActorSearchView,
     // data
     Source, Label,
     // views
@@ -25,14 +25,14 @@ define (
     bulletinFormTmp) {
 
     var BulletinFormView,
-        crudBus                  = Streams.crudBus,
-        Formatter                = Mixins.Formatter,
-        ConfirmMixin             = Mixins.ConfirmMixin,
-        WidgetMixin              = Mixins.WidgetMixin,
-        CommentContainerView     = CommentForm.CommentContainerView,
-        EventContainerView       = EventForm.EventContainerView,
-        SourceCollectionInstance = Source.SourceCollectionInstance,
-        LabelCollectionInstance  = Label.LabelCollectionInstance,
+        crudBus              = Streams.crudBus,
+        Formatter            = Mixins.Formatter,
+        ConfirmMixin         = Mixins.ConfirmMixin,
+        WidgetMixin          = Mixins.WidgetMixin,
+        CommentContainerView = CommentForm.CommentContainerView,
+        EventContainerView   = EventForm.EventContainerView,
+        SourceCollection     = Source.SourceCollection,
+        LabelCollection      = Label.LabelCollection,
 
         userList = function() {
           return Bootstrap.gl_ac_users_list;
@@ -72,7 +72,7 @@ define (
       labelFields: [
         {
           containerid: '#bulletin-source-block',
-          collection : SourceCollectionInstance,
+          collection : SourceCollection,
           display: {
             field_name : 'sources',
             field_label: 'Sources'
@@ -80,7 +80,7 @@ define (
         },
         {
           containerid: '#bulletin-label-block',
-          collection : LabelCollectionInstance,
+          collection : LabelCollection,
           display: {
             field_name : 'labels',
             field_label: 'Labels'
@@ -88,6 +88,7 @@ define (
         }
       ],
 
+      // display a slider for scores
       sliderFields: [
         { // confidence_score
           sliderDiv : '#bulletin-score-block .score-editor .slider',
@@ -104,6 +105,7 @@ define (
         
       // constructor
       initialize: function() {
+        console.log('init');
         this.render();
       },
 
@@ -137,12 +139,6 @@ define (
         }
       },
 
-      // pull the data from the form
-      formContent: function() {
-        var formArray = $('.' + this.formElClass).serializeArray();
-        return this.formArrayToData(formArray);
-      },
-
       // render out the child views - comment form, event form, add location,
       // add media, add actors, add related bulletins
       renderChildren: function() {
@@ -154,13 +150,18 @@ define (
           el: '#bulletin-event-block',
           entityType: 'bulletin'
         });
+        var actorSearchView = new ActorSearchView({
+          el: '#bulletin-actor-list-block',
+          entityType: 'bulletin'
+        });
 
 
 
         // add each new view to the child views array
         this.childViews = [
           commentForm,
-          eventForm
+          eventForm,
+          actorSearchView
         ];
         return this;
       },

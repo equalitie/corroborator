@@ -1,1 +1,1 @@
-<option selected value="{{ model.id }}">
+<option selected value="{{ model.resource_uri }}">

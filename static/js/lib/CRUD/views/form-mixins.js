@@ -45,6 +45,9 @@ define (
         }
       },
 
+      // ### Formatter
+      // pull the data from form elements and convert them into
+      // a digestible format
       Formatter = {
         relatedFields: [
           'sources'
@@ -53,6 +56,13 @@ define (
           var intValue = parseInt(value, 10);
           return intValue.toString() === value ? intValue : value;
         },
+
+        // pull the data from the form
+        formContent: function() {
+          var formArray = $('.' + this.formElClass).serializeArray();
+          return this.formArrayToData(formArray);
+        },
+
         // reduce an array of objects
         // in the format {"name":"foo","value":"1"}
         // to an object, preserving objects associated with duplicated keys
@@ -157,9 +167,10 @@ define (
           _.each(this.labelFields, this.enableLabelField, this);
         },
         enableLabelField: function(field) {
+          var collection = new field.collection();
           var labelWidget = new LabelWidget({
             entityType: this.entityType,
-            collection: field.collection,
+            collection: collection,
             el        : field.containerid,
             display   : field.display
           });
@@ -172,11 +183,19 @@ define (
 
         enableSliderField: function(field) {
           // handle slider values
-          var updateValue = function(e) {
-            var value = $(field.sliderDiv).slider('value');
-            $(field.display).text(value);
-            $('input[name=' + field.formField + ']').val(value);
-          };
+          var setInputVal = function(value) {
+                $(field.display).text(value);
+              },
+              setDisplayVal = function(value) {
+                $('input[name=' + field.formField + ']').val(value);
+              },
+              updateValue = function(e) {
+                var value = $(field.sliderDiv).slider('value');
+                setInputVal(value);
+                setDisplayVal(value);
+              };
+
+          
           // create the slider
           $(field.sliderDiv).slider({
             min: field.startPoint,
@@ -185,6 +204,9 @@ define (
             value: field.value,
             slide: updateValue
           });
+          // set initial values
+          setInputVal(field.value);
+          setDisplayVal(field.value);
         }
 
       };

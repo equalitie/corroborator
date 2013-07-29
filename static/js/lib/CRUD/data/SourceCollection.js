@@ -35,8 +35,6 @@ define (
       model: SourceModel,
       initialize: function() {
         this.reset(Bootstrap.sources);
-        this.on('add', this.addToBootstrap, this);
-        this.on('remove', this.removeFromBootstrap, this);
       },
       autoCompleteFormat: function() {
         return this.map(this.mapAutoCompleteFormat);
@@ -46,23 +44,11 @@ define (
           label: model.get('name_en'),
           id   : model.get('id')
         };
-      },
-      addToBootstrap: function(model) {
-      },
-      removeFromBootstrap: function(model) {
-      },
+      }
     });
-    sourceCollection = new SourceCollection();
-    
-
-
 
     return {
       SourceModel: SourceModel,
-      SourceCollection: SourceCollection,
-      SourceCollectionInstance: sourceCollection
+      SourceCollection: SourceCollection
     };
 });
-
-
-

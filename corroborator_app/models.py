@@ -57,8 +57,14 @@ class Comment(models.Model):
         the Solr index to determine sort order for returned results.
         """
         ordering = ['comment_created']
-    def __unicode__(self):
-        return self.status.status_en
+    #def __unicode__(self):
+        #desc = self.comments_en
+        #return desc
+        #print self.status
+        #if self.status:
+            #desc = '[0] - [1]'.format(self.comments_en, self.status.status_en)
+
+        #return desc
 
 
 class TimeInfo(models.Model):
@@ -66,8 +72,8 @@ class TimeInfo(models.Model):
     This object captures the time aspect of an event for
     either a Bulletin or Incident/
     """
-    time_from = models.DateTimeField()
-    time_to = models.DateTimeField()
+    time_from = models.DateTimeField(blank=True, null=True)
+    time_to = models.DateTimeField(blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
     event_name_en = models.CharField('event name en', max_length=255, 
@@ -438,11 +444,12 @@ class Bulletin(models.Model):
     # ManyToManyFields
     sources = models.ManyToManyField(Source, blank=True, null=True)
     bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
-    actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
+    labels = models.ManyToManyField(Label, blank=True, null=True)
     times = models.ManyToManyField(TimeInfo, blank=True, null=True)
+
+    actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
     medias = models.ManyToManyField(Media, blank=True, null=True)
     locations = models.ManyToManyField(Location, blank=True, null=True)
-    labels = models.ManyToManyField(Label, blank=True, null=True)
     ref_bulletins = models.ManyToManyField('self', blank=True, null=True)
 
 

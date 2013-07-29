@@ -2,6 +2,9 @@
 // Author: Cormac McGuire
 // ### Description
 // Collection to hold sources
+// TODO: decide what to do with collection after form closed, should we 
+// a) destroy the collection and make the form re-initialise it  
+// b) reset the collection in the view
 
 define (
   [
@@ -31,12 +34,13 @@ define (
       }
     });
     
+    // ## CrimeCollection
+    // store a list of predefined crimes to be used to categorise incidents
+    // via an autocomplete textfield
     CrimeCollection = Backbone.Collection.extend({
       model: CrimeModel,
       initialize: function() {
         this.reset(Bootstrap.crimes);
-        this.on('add', this.addToBootstrap, this);
-        this.on('remove', this.removeFromBootstrap, this);
       },
 
       // map a list of models to autocomplete format
@@ -50,23 +54,16 @@ define (
           label: model.get('name_en'),
           id   : model.get('id')
         };
-      },
+      }
 
-      // TODO allow users to add their own crimes via these methods
-      addToBootstrap: function(model) {
-      },
-      removeFromBootstrap: function(model) {
-      },
     });
-    crimeCollection = new CrimeCollection();
     
 
 
 
     return {
       CrimeModel: CrimeModel,
-      CrimeCollection: CrimeCollection,
-      CrimeCollectionInstance: crimeCollection
+      CrimeCollection: CrimeCollection
     };
 });
 
