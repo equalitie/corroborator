@@ -27,7 +27,7 @@ define (
           var dialogHTML = $(confirmDialogTmp());
           dialogHTML.dialog({
             resizable: false,
-            height: 140,
+            height: 160,
             modal: true,
             buttons: {
               'Close Form': function() {

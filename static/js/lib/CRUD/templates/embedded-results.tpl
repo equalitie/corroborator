@@ -6,9 +6,9 @@
 </div>
 <div class="footer actions">
   <div class="left">
-    <button class="do-hideResults">
-      <span class="text T">New <span class="search-entity">actor</span></span>
-    </button>
+    <!--<button class="do-hideResults">-->
+      <!--<span class="text T">New <span class="search-entity">actor</span></span>-->
+    <!--</button>-->
   </div>
 
   <div class="right">

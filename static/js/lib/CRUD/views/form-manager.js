@@ -18,6 +18,8 @@ define (
     // map nav events to the filter views we will be displaying
     var crudBus = Streams.crudBus,
         searchBus = Streams.searchBus,
+
+        // pick the form view to match the create event
         mapCreateEventToView = function(value) {
           var createMap = {
             create_actor: ActorForm.ActorFormView,
@@ -26,15 +28,25 @@ define (
           };
           return createMap[value.type];
         },
+
+        // close embedded search box requested
         filterEmbeddedSearchClose = function(value) {
           return value.type === 'close_embedded_results';
         },
+
+        // look for an event denoting an embedded search
         filterEmbeddedSearchRequest = function(value) {
-          return value.type === 'new_search';
+          return value.type === 'actor-results' ||
+                 value.type === 'bulletin-results' ||
+                 value.type === 'location-results' ||
+                 value.type === 'incident-results';
         },
+
+        // filter for close form request
         filterCloseRequest = function(value) {
           return value.type === 'close_form';
         },
+
         filterCreateRequest = function(value) {
           return value.type === 'create_actor' ||
                  value.type === 'create_bulletin' ||
@@ -85,6 +97,7 @@ define (
 
       // replace the current form view with the requested one
       replaceView: function(View) {
+        console.log('replaceView');
         this.destroyCurrentView();
         this.currentView = new View();
         this.render();
@@ -94,8 +107,10 @@ define (
       destroyCurrentView: function() {
         if (this.currentView !== undefined) {
           this.currentView.destroy();
+          delete(this.currentView);
           this.currentView = undefined;
         }
+        console.log(this.currentView);
       },
       // render the form, calls enable widgets to enable the dropdowns and
       // date widgets, this must be done after the form has rendered

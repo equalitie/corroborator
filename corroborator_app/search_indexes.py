@@ -3,7 +3,8 @@ This file handles the construction of Solr entities based on the existing MySQL
 database model using Django Haystacks as an interface.
 """
 from haystack import indexes
-from corroborator_app.models import Bulletin, Location, Incident, Label, Actor, Media
+from corroborator_app.models import Bulletin, Location, \
+    Incident, Actor, Media
 
 class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     """
@@ -44,16 +45,18 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     actor_created = indexes.DateTimeField(model_attr='actor_created', \
     faceted=True, null=True)
     media_uri = indexes.MultiValueField()
-    resource_uri = indexes.MultiValueField()
+    resource_uri = indexes.CharField()
 
     def get_model(self):
         return Actor
+
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this actor instance
         for the tastypie api
         """
-        return '/api/v1/actor/[0]/'.format(object.id)
+        return "/api/v1/actor/{0}/".format(object.id)
+
     def prepare_media_uri(self, object):
         """
         Returns media uri of image associated with given Actor
@@ -75,18 +78,6 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         roles = object.actorrole_set.all()
         return Bulletin.objects.filter(actors_role__in=roles).count()
 
-#class LabelIndex(indexes.SearchIndex, indexes.Indexable):
-    #"""
-    #This document handles the construction of the Label Solr document.
-    #"""
-    #text = indexes.CharField(document=True, use_template=True)
-    #name_en = indexes.CharField(model_attr='name_en', null=True)
-    #name_ar = indexes.CharField(model_attr='name_ar', null=True)
-    #description_en = indexes.CharField(model_attr='description_en', null=True)
-    #description_ar = indexes.CharField(model_attr='description_ar', null=True)
-
-    #def get_model(self):
-        #return Label
 
 class MediaIndex(indexes.SearchIndex, indexes.Indexable):
     """

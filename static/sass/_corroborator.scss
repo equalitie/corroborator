@@ -616,7 +616,13 @@ ul.media {
     margin-left: 0.3em;
   }
 }
-
+.in-list.embedded {
+  border: 1px solid $COLOR_TABLE_BD;
+  padding: $PAD_UNIT / 2;
+  &:after {
+    content: "";
+  }
+}
 .in-list {
   //border: 1px solid $COLOR_TABLE_BD;
   //padding: $PAD_UNIT / 2;
@@ -773,6 +779,7 @@ ul.media {
     }
   }
   .search {
+    //@include clearfix;
     margin-bottom: 0.5em;
     input {
       width: 70%;

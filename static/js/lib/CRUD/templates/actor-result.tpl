@@ -1,4 +1,4 @@
-  <div class="Actor in-list">
+  <div class="Actor in-list embedded">
     <div class="actor-content">
       <div class="avatar">&nbsp;</div>
       <div class="content">
@@ -10,6 +10,7 @@
         <div class="L2">
             <p class="aka">aka «{{model.nickname_en}}»</p>
         </div>
+        {{#if model.selected }}
         <div class="actor-summary hidden">
           <div class="L3">
             {{#if model.lives_in.location_en}}
@@ -30,68 +31,49 @@
             <br>involved in <span class="incidents-count">{{model.count_incidents}} incidents</span>
           </div>
         </div>
+        {{/if}}
+        {{#if model.result }}
         <div class="actor-long-summary">
-          <div class="actions">
-            <div class="button combo is-default">
-              <span class="T">Add as</span>
-              <ul class="options">
-                <li>
-                  <span class="text T">Witness</span>
-                </li>
-                <li>
-                  <span class="text T">Victim</span>
-                </li>
-                <li>
-                  <span class="text T">Killer</span>
-                </li>
-                <li>
-                  <span class="text T">Torturer</span>
-                </li>
-                <li>
-                  <span class="text T">Kidnapper</span>
-                </li>
-              </ul>
-            </div>
-          </div>
           <table class="details">
-            {{#if model.lives_in.location_en}}
-            <tbody><tr>
-              <th>Lives in</th>
-              <td>{{model.lives_in.location_en}}</td>
-            </tr>
-            {{/if}}
-            {{#if model.POB}}
-            <tr>
-              <th>Born in</th>
-              <td>{{ model.POB }}</td>
-            </tr>
-            {{/if}}
-            {{#if model.nationality_en}}
-            <tr>
-              <th>Nationality</th>
-              <td>{{nationality_en}}</td>
-            </tr>
-            {{/if}}
-            {{#if model.ethnicity_en}}
-            <tr>
-              <th>Ethnicity</th>
-              <td>{{model.ethnicity_en}}</td>
-            </tr>
-            {{/if}}
-            {{#if model.spoken_dialect_en}}
-            <tr>
-              <th>Speaks</th>
-              <td>{{model.spoken_dialect_en}}</td>
-            </tr>
-            {{/if}}
-            {{#if model.religion_en}}
-            <tr>
-            <tr>
-              <th>Religion</th>
-              <td>{{model.religion_en}}</td>
-            </tr>
-            {{/if}}
-          </tbody></table>
+            <tbody>
+              {{#if model.lives_in.location_en}}
+                <tr>
+                  <th>Lives in</th>
+                  <td>{{model.lives_in.location_en}}</td>
+                </tr>
+              {{/if}}
+              {{#if model.POB}}
+                <tr>
+                  <th>Born in</th>
+                  <td>{{ model.POB }}</td>
+                </tr>
+              {{/if}}
+              {{#if model.nationality_en}}
+                <tr>
+                  <th>Nationality</th>
+                  <td>{{nationality_en}}</td>
+                </tr>
+              {{/if}}
+              {{#if model.ethnicity_en}}
+                <tr>
+                  <th>Ethnicity</th>
+                  <td>{{model.ethnicity_en}}</td>
+                </tr>
+              {{/if}}
+              {{#if model.spoken_dialect_en}}
+                <tr>
+                  <th>Speaks</th>
+                  <td>{{model.spoken_dialect_en}}</td>
+                </tr>
+              {{/if}}
+              {{#if model.religion_en}}
+                <tr>
+                  <th>Religion</th>
+                  <td>{{model.religion_en}}</td>
+                </tr>
+              {{/if}}
+            </tbody>
+          </table>
           <div class="stats">
             <div class="is-mentions">
               <h4 class="title">Mentioned in</h4>
@@ -104,45 +86,33 @@
                 <div class="label">Incidents</div>
               </div>
             </div>
-            <!--<div class="is-related">-->
-              <!--<h4 class="title">Related to</h4>-->
-              <!--<div class="stat">-->
-                <!--<div class="value">25</div>-->
-                <!--<div class="label">Actors</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          </div>
-          <div class="related">
-            Appears in related bulletins: 
-            <a href="#">Phasells ur nunc purus</a>,
-            <a href="#">Vitae loboris nulla</a>,
-            <a href="#">Aliquam erat volutpat</a>,
-            <a href="#">Nam urna erat</a>,
-            <a href="#">Lorem ipsum</a>.
           </div>
         </div>
+        <div class="actions search-result">
+          <div class="button combo is-default">
+            <span class="T">Add as</span>
+            <ul class="options">
+              {{#each roles}}
+              <li>
+                <span class="text T">{{role}}</span>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+        {{/if}}
         <div class="when-related">
           <div class="actions">
             <div class="left">
               <div class="button combo is-default">
                 <span class="T">
-                  Related as: Victim 
+                  Related as: {{roleModel.role_en}} 
                   <ul class="options">
+                    {{#each roles}}
                     <li>
-                      <span class="text T">Witness</span>
+                      <span class="text T">{{role}}</span>
                     </li>
-                    <li>
-                      <span class="text T">Victim</span>
-                    </li>
-                    <li>
-                      <span class="text T">Killer</span>
-                    </li>
-                    <li>
-                      <span class="text T">Torturer</span>
-                    </li>
-                    <li>
-                      <span class="text T">Kidnapper</span>
-                    </li>
+                    {{/each}}
                   </ul>
                 </span>
               </div>
