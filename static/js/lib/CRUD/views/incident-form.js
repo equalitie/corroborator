@@ -8,20 +8,32 @@ define (
   [
     'jquery', 'underscore', 'backbone', 
     'lib/streams',
-    // templates
+    'lib/CRUD/views/form-mixins',
+
     'lib/CRUD/data/LabelCollection',
     'lib/CRUD/data/CrimeCollection',
-    'lib/CRUD/views/form-mixins',
+    'lib/CRUD/views/search-views/actor/actor-search-field',
+    'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
+
+    // child views
+    'lib/CRUD/views/comment-form',
+    'lib/CRUD/views/event-form',
+
+    // templates
     'lib/CRUD/templates/incident.tpl'
   ],
-  function ($, _, Backbone, Streams, Label, Crime, Mixins, incidentFormTmp) {
+  function ($, _, Backbone, Streams, Mixins, Label, Crime,
+    ActorSearchView, BulletinSearchView, CommentForm, EventForm,
+    incidentFormTmp) {
 
     var IncidentFormView,
         Formatter    = Mixins.Formatter,
         ConfirmMixin = Mixins.ConfirmMixin,
         WidgetMixin  = Mixins.WidgetMixin,
-        LabelCollectionInstance = Label.LabelCollectionInstance,
-        CrimeCollectionInstance = Crime.CrimeCollectionInstance,
+        CommentContainerView = CommentForm.CommentContainerView,
+        EventContainerView   = EventForm.EventContainerView,
+        CrimeCollection      = Crime.CrimeCollection,
+        LabelCollection      = Label.LabelCollection,
         userList     = function() {
           return Bootstrap.gl_ac_users_list;
         };
@@ -29,6 +41,7 @@ define (
     // ### IncidentFormView
     // display create/update form for incidents
     IncidentFormView = Backbone.View.extend({
+      entityType: 'incident',
       events: {
         'click button#incident-action_save': 'saveRequested',
         'click button#clear-user'          : 'clearUser',
@@ -53,7 +66,7 @@ define (
       labelFields: [
         {
           containerid: '#incident-crime-block',
-          collection : CrimeCollectionInstance,
+          collection : CrimeCollection,
           display: {
             field_name : 'crimes',
             field_label: 'Crimes'
@@ -61,7 +74,7 @@ define (
         },
         {
           containerid: '#incident-label-block',
-          collection : LabelCollectionInstance,
+          collection : LabelCollection,
           display: {
             field_name : 'labels',
             field_label: 'Labels'
@@ -103,8 +116,7 @@ define (
       },
       render: function() {
         var html = incidentFormTmp();
-        this.$el.empty()
-                .append(html);
+        this.$el = $(html);
       },
       // pull the data from the form
       formContent: function() {
@@ -113,6 +125,20 @@ define (
       },
       saveRequested: function() {
         var formContent = this.formContent();
+      },
+      renderChildren: function() {
+        var commentForm = new CommentContainerView({
+          el: '#incident-comment-block',
+          entityType: this.entityType
+        });
+        var eventForm = new EventContainerView({
+          el: '#incident-event-block',
+          entityType: this.entityType
+        });
+        var bulletinSearchView = new BulletinSearchView({
+          el: '#incident-bulletin-block',
+          entityType: this.entityType
+        });
       }
     });
     _.extend(IncidentFormView.prototype, ConfirmMixin);

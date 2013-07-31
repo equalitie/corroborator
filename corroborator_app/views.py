@@ -152,7 +152,7 @@ def index(request, *args, **kwargs):
                 'userid': userid,
                 'ps_list': ps_list,
                 'api_key': api.key,
-                'solr_url': 'https://sjac.rightscase.org/solr/corrob_dev/',
+                'solr_url': 'https://sjac.rightscase.org/solr/collection1/',
             }
         )
     else:

@@ -110,8 +110,6 @@ define (
         this.render();
       },
 
-
-
       // remove DOM elements and cancel event handlers
       destroy: function() {
         _.invoke(this.childViews, 'destroy');
@@ -187,5 +185,4 @@ define (
     return {
       BulletinFormView: BulletinFormView
     };
-    
 });

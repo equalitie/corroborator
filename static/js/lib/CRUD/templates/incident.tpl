@@ -104,143 +104,14 @@
             </div>
             <!-- comments -->
             <div id="incident-comment-block" class="field is-comments">
-            <label>Comments</label>
-            <ul class="comments">
-
-            <li class="comment is-new">
-            <div id="incident-status-block" class="add">
-            <label>Status</label>
-            <br>
-            <select id="incident_status">
-
-            <option value="Select status">Select Status</option>
-
-
-            <option value="1">Machine Created</option>
-
-
-
-            <option value="2">Human Created</option>
-
-
-
-            <option value="3">Updated</option>
-
-
-
-            <option value="4">Reviewed</option>
-
-
-
-            <option value="5">Finalized</option>
-
-
-            </select>
-            </div>
-            <div class="clearer"> </div> 
-
-            <div class="add">
-            <label>Comment</label>
-            <br>
-            <textarea type="text" class="w-100p comment-comment"></textarea>
-            </div>
-            <button class="do-addComment">
-            <span class="T">Add comment</span>
-            </button>
-            </li>
-            </ul>
             </div>
 
             <!-- events -->
             <div id="incident-event-block" class="field is-events clear">
-            <label>Events</label>
-            <div class="date-duration">
-
-            </div>
-            <ul class="events">
-
-            <li class="event is-new">
-            <div class="span-70p">
-            <label>Description</label>
-            <br>
-            <input type="text" class="w-100p incident_event-description">
-            </div>
-            <div class="clearer">&nbsp;</div>
-            <div class="span-70p">
-            <label>Comment</label>
-            <br>
-            <textarea class="w-100p incident_event-comment"></textarea>
-            </div>
-            <div class="clearer">&nbsp;</div>
-            <div class="span-70p">
-            <span class="score">
-            <span class="incident_event-cscore value"></span>
-            </span>
-            <label>Reliability score</label>
-            <div class="score-editor">
-            <div class="rail">
-            <div class="slider" aria-disabled="false"><a class="ui-state-default ui-corner-all cursor" href="#" style="left: 0%;"></a></div>  
-            <!-- <div class="cursor">&nbsp;</div> -->
-
-            <div class="axis">
-            <div class="start">
-            <span class="label">0%</span>
-            </div>
-            <div class="middle">
-            <span class="label">50%</span>
-            </div>
-            <div class="end">
-            <span class="label">100%</span>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            <div class="clearer">&nbsp;</div>
-            <div class="span-30p">
-            <label>From</label>
-            <br>
-            <input class="incident_event-from hasDatepicker" type="text" id="dp1373294954230">
-            </div>
-            <div class="span-30p">
-            <label>To</label>
-            <br>
-            <input class="incident_event-to hasDatepicker" type="text" id="dp1373294954231">
-            </div>
-            <div class="span-30p">
-            <label></label>
-            <br>
-            <div class="pad">
-            <button class="do-addEvent">
-            <span class="T">Add Event</span>
-            </button>
-            </div>
-            </div>
-            <div class="clearer">&nbsp;</div>
-            </li>
-            </ul>
             </div>
 
             <!-- Locations -->
             <div id="incident-location-block" class="field is-locations">
-            <label>Locations</label>
-            <ul class="locations locations-incident">
-
-            <li class="location is-new">
-            <div class="search">
-            <input type="text" class="with-clear">
-            <button class="do-clear">
-            <span>✓</span>
-            </button>
-            <button class="do-search do-search-embedded locations">
-            <span class="T">Search</span>
-            </button>
-            </div>
-            <!--          <button class="do-addLocation">
-            <span class="T">Add location</span>
-            </button> -->
-            </li>
-            </ul>
             </div>
 
             <!-- Description -->
@@ -264,36 +135,8 @@
             </div>
 
           <div id="incident-bulletin-block" class="field is-bulletins">
-          <label>Related bulletins</label>
-          <div class="search">
-          <input type="text" class="with-clear">
-          <button class="do-clear">
-          <span>✓</span>
-          </button>
-          <button class="do-search do-search-embedded bulletins">
-          <span>Search</span>
-          </button>
-          </div>
-          <ul class="elements elements-bulletins-incidents">
-
-          </ul>
-          <!--      <div class="drop-target">Drag &amp; drop bulletins here</div> -->
           </div>
           <div id="incident-incident-block" class="field is-incidents">
-          <label>Related incidents</label>
-          <div class="search">
-          <input type="text" class="with-clear">
-          <button class="do-clear">
-          <span>✓</span>
-          </button>
-          <button class="do-search do-search-embedded incidents">
-          <span>Search</span>
-          </button>
-          </div>
-          <ul class="elements elements-incidents-incidents">
-
-          </ul>
-          <!--      <div class="drop-target">Drag &amp; drop incidents here</div> -->
           </div>
           </div>
         </div>

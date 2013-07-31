@@ -10,15 +10,17 @@ define (
     'backbone', 'underscore',
     'lib/streams',
     'lib/CRUD/views/search-views/actor/actor-results',
-    'lib/CRUD/views/search-views/bulletin/bulletin-results'
+    'lib/CRUD/views/search-views/bulletin/bulletin-results',
+    'lib/CRUD/views/search-views/incident/incident-results'
   ],
-  function (Backbone, _, Streams, ActorResults, BulletinResults) {
+  function (Backbone, _, Streams, ActorResults, BulletinResults, IncidentResults) {
     'use strict';
 
     var EmbeddedResultsManagerView,
         crudBus = Streams.crudBus,
         embeddedSearchResultViews = {
           'actor': ActorResults.ActorResultsView,
+          'incident': IncidentResults.IncidentResultsView,
           'bulletin': BulletinResults.BulletinResultsView
         },
         filterEmbeddedSearchClose = function(value) {
