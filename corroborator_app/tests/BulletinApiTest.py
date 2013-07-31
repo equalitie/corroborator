@@ -131,6 +131,15 @@ class BulletinTestCase(ResourceTestCase):
             'description_en': "description en",
             'description_ar': "description Arabic",
             'confidence_score': 73,
+            'sources': ['/api/v1/source/1/',],
+            'bulletin_comments': ['/api/v1/comment/1/',],
+            'assigned_user': '/api/v1/user/1/',
+            'actors_role': [],
+            'times': [],
+            'medias': [],
+            'locations': [],
+            'labels': [],
+            'ref_bulletins': [],
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -145,6 +154,15 @@ class BulletinTestCase(ResourceTestCase):
                     'description_en': "description en",
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
+                    'sources': ['/api/v1/source/1/',],
+                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'assigned_user': '/api/v1/user/1/',
+                    'actors_role': [],
+                    'times': [],
+                    'medias': [],
+                    'locations': [],
+                    'labels': [],
+                    'ref_bulletins': [],
                 },
                 {
                     'title_en': "Test Bulletin",
@@ -152,6 +170,15 @@ class BulletinTestCase(ResourceTestCase):
                     'description_en': "description en",
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
+                    'sources': ['/api/v1/source/1/',],
+                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'assigned_user': '/api/v1/user/1/',
+                    'actors_role': [],
+                    'times': [],
+                    'medias': [],
+                    'locations': [],
+                    'labels': [],
+                    'ref_bulletins': [],
                 }
             ]
         }

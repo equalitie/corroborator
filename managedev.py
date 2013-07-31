@@ -23,7 +23,7 @@ if __name__ == "__main__":
     new_sys_path = []
     for item in list(sys.path):
         if item not in prev_sys_path:
-            print item
+            #print item
             new_sys_path.append(item)
             sys.path.remove(item)
             sys.path[:0] = new_sys_path

@@ -18,12 +18,13 @@ define (
     // ### CommentModel
     // describe a single comment
     CommentModel = Backbone.Model.extend({
+      idAttribute: 'resource_uri',
       initialize: function() {
       },
       url: function() {
         var base = '/api/v1/comment/';
         if (this.id) {
-          base = base + this.id + '/';
+          base = this.id;
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;

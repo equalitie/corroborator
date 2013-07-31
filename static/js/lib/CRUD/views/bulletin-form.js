@@ -169,8 +169,7 @@ define (
       // render the form
       render: function() {
         var html = bulletinFormTmp();
-        this.$el.empty()
-                .append(html);
+        this.$el = $(html);
         return this;
       }
     });

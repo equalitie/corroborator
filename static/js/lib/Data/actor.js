@@ -36,6 +36,10 @@ define(
             'title': 'fullname_en'
           };
           return sortMap[value];
+        },
+        // context set to have actorIds variable
+        filterByIds = function(model) {
+          return _.contains(this.actorIds, model.id);
         };
 
 
@@ -45,7 +49,7 @@ define(
     // provide api endpoint for Actor model
     var ActorModel = Backbone.Model.extend({
       foreignKeyFields: ['POB', 'current_location', 'media'] ,
-      idAttribute: 'django_id',
+      idAttribute: 'resource_uri',
       url: function() {
         var base = '/api/v1/actor/';
         if (this.id) {
@@ -58,9 +62,18 @@ define(
     });
     _.extend(ActorModel.prototype, ModelSyncMixin);
 
-    // ### Actor Collection
-    var ActorCollection = Backbone.Collection.extend({
+    var SimpleActorCollection = Backbone.Collection.extend({
       model: ActorModel,
+      filterByIds: function(actorIds) {
+        var context = {
+          actorIds: actorIds
+        };
+        return new Backbone.Collection(this.filter(filterByIds, context));
+      }
+    });
+
+    // ### Actor Collection
+    var ActorCollection = SimpleActorCollection.extend({
       compareField: 'actor_created',
       selectedIdList: [],
       initialize: function() {
@@ -86,9 +99,10 @@ define(
         Streams.searchBus.toProperty()
                .filter(filterActorResults)
                .map(Filters.extractResults)
-               .onValue(function(results) {
-                 self.reset(results);
-               });
+               .onValue(this.resetCollection.bind(this));
+      },
+      resetCollection: function(results) {
+        this.reset(results);
       },
 
 
@@ -146,6 +160,7 @@ define(
 
     return {
       ActorCollection: ActorCollection,
+      SimpleActorCollection: SimpleActorCollection,
       ActorModel: ActorModel
     };
 });
