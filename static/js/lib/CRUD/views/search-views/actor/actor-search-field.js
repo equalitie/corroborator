@@ -225,10 +225,12 @@ define (
 
       // render the list of related actors
       updateRenderCollection: function() {
-        this.destroyChildViews();
-        var actorIds = this.collection.pluck('actor');
+        var actorIds = this.collection.pluck('actor'),
+            oldRenderCollection = this.renderCollection;
         this.renderCollection = this.actorCollection.filterByIds(actorIds);
-        this.renderCollection.on('remove', this.unselectActor, this);
+        this.renderCollection.add(oldRenderCollection.toJSON(), {silent: true});
+        _.once(this.renderCollection.on('remove', this.unselectActor, this));
+        this.destroyChildViews();
         this.renderActors();
       },
 
