@@ -197,20 +197,6 @@
 
         <!-- Related bulletins -->
         <div id="bulletin-bulletin-block" class="field is-bulletins">
-          <label>Related bulletins</label>
-          <div class="search">
-            <input type="text" class="with-clear"/>
-            <button class="do-clear">
-              <span>✓</span>
-            </button>
-            <button class="do-search do-search-embedded bulletins">
-              <span>Search</span>
-            </button>
-          </div>
-          <ul class="elements elements-bulletins-bulletins">
-
-          </ul>
-          <!--      <div class="drop-target">Drag &amp; drop bulletins here</div> -->
         </div>
 
         </div>

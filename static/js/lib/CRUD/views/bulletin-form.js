@@ -8,7 +8,8 @@ define (
     'jquery', 'underscore', 'backbone', 
     'lib/streams',
     'lib/CRUD/views/form-mixins',
-    'lib/CRUD/views/search-views/actor-search-field',
+    'lib/CRUD/views/search-views/actor/actor-search-field',
+    'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
     'lib/CRUD/data/SourceCollection',
     'lib/CRUD/data/LabelCollection',
     // child views
@@ -17,7 +18,7 @@ define (
     // templates
     'lib/CRUD/templates/bulletin.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins, ActorSearchView,
+  function ($, _, Backbone, Streams, Mixins, ActorSearchView, BulletinSearchView,
     // data
     Source, Label,
     // views
@@ -152,6 +153,10 @@ define (
         });
         var actorSearchView = new ActorSearchView({
           el: '#bulletin-actor-list-block',
+          entityType: 'bulletin'
+        });
+        var bulletinSearchView = new BulletinSearchView({
+          el: '#bulletin-bulletin-block',
           entityType: 'bulletin'
         });
 

@@ -41,6 +41,8 @@ module.exports = function(grunt) {
           'lib/CRUD/templates/actor-search-field.tpl.js'    : 'lib/CRUD/templates/actor-search-field.tpl',
           'lib/CRUD/templates/incident.tpl.js'              : 'lib/CRUD/templates/incident.tpl',
           'lib/CRUD/templates/bulletin.tpl.js'              : 'lib/CRUD/templates/bulletin.tpl',
+          'lib/CRUD/templates/bulletin-result.tpl.js'       : 'lib/CRUD/templates/bulletin-result.tpl',
+          'lib/CRUD/templates/bulletin-search-field.tpl.js' : 'lib/CRUD/templates/bulletin-search-field.tpl',
           'lib/CRUD/templates/comment-container.tpl.js'     : 'lib/CRUD/templates/comment-container.tpl',
           'lib/CRUD/templates/comment-form.tpl.js'          : 'lib/CRUD/templates/comment-form.tpl',
           'lib/CRUD/templates/comment-display.tpl.js'       : 'lib/CRUD/templates/comment-display.tpl',

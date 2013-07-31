@@ -15,7 +15,7 @@
         <span class="actors">{{total}}</span> actors involved
       </div>
       <div class="details text">
-        <span class="date">{{model.bulletin_created}}</span> in <span class="location">{{model.location}}</span> (<span class="sources">{{model.sources}}</span>)
+        <span class="date">{{dateFormat model.bulletin_created}}</span> in <span class="location">{{model.location}}</span> (<span class="sources">{{model.sources}}</span>)
       </div>
     </a>
     </td>

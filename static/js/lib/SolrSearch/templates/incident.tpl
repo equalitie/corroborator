@@ -16,7 +16,7 @@
         <span class="actors">{{actors}}</span> actors involved
       </div>
       <div class="details text">
-        <span class="date">{{model.incident_created}}</span> in <span class="location">{{model.locations}}</span> (<span class="sources">{{model.sources}}</span>)
+        <span class="date">{{dateFormat model.incident_created}}</span> in <span class="location">{{model.locations}}</span> (<span class="sources">{{model.sources}}</span>)
       </div>
     </a>
   </td>

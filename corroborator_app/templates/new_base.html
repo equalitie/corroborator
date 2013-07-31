@@ -45,7 +45,7 @@
 
 
     {%for comment_status in status_set %}
-      comment_statuses.push(comment_status);
+      comment_statuses.push({{comment_status}});
     {% endfor %}
 
     {% for relation in relation_status_set %}

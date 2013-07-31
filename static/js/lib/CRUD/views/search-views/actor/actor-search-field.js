@@ -10,7 +10,7 @@ define (
     'lib/elements/select-option',
     'lib/Data/actor',
     'lib/CRUD/data/ActorRoleCollection',
-    'lib/CRUD/views/search-views/actor-result',
+    'lib/CRUD/views/search-views/actor/actor-result',
     'lib/CRUD/templates/actor-search-field.tpl'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Actor, ActorRole, ActorResult,
