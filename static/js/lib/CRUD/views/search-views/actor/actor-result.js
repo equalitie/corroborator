@@ -27,7 +27,6 @@ define (
       },
       // constructor
       initialize: function(options) {
-        console.log(options);
         if (options.type === undefined) {
           throw "You must specify a type";
         }
@@ -98,7 +97,6 @@ define (
         if (this.actorRoleModel !== undefined) {
           templateVars.roleModel = this.actorRoleModel.toJSON();
         }
-        console.log(templateVars.roleModel);
         var html = this.template(templateVars);
         this.$el.append(html);
       }

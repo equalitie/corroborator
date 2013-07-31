@@ -3,26 +3,32 @@
 // ### Description
 // This view manages the display of embedded search result views, it creates
 // and destroys them as and when needed
+// TODO - tidy up result switching
 
 define (
   [
     'backbone', 'underscore',
     'lib/streams',
-    'lib/CRUD/views/search-views/results'
+    'lib/CRUD/views/search-views/actor/actor-results',
+    'lib/CRUD/views/search-views/bulletin/bulletin-results'
   ],
-  function (Backbone, _, Streams, Results) {
+  function (Backbone, _, Streams, ActorResults, BulletinResults) {
     'use strict';
 
     var EmbeddedResultsManagerView,
         crudBus = Streams.crudBus,
         embeddedSearchResultViews = {
-          'actor': Results.ActorResultsView
+          'actor': ActorResults.ActorResultsView,
+          'bulletin': BulletinResults.BulletinResultsView
         },
         filterEmbeddedSearchClose = function(value) {
           return value.type === 'close_embedded_results';
         },
         filterCloseRequest = function(value) {
           return value.type === 'close_form';
+        },
+        filterBulletinResults = function(value) {
+          return value.type === 'bulletin-results';
         },
         filterActorResults = function(value) {
           return value.type === 'actor-results';
@@ -40,6 +46,7 @@ define (
       // watch for embedded search requests
       watchCrudStream: function() {
         this.watchForActorDisplay();
+        this.watchForBulletinDisplay();
         this.watchForFormClose();
         this.watchForResultClose();
       },
@@ -65,6 +72,13 @@ define (
         crudBus.filter(filterActorResults)
                .onValue(function() {
                  self.replaceView('actor');
+               });
+      },
+      watchForBulletinDisplay: function() {
+        var self = this;
+        crudBus.filter(filterBulletinResults)
+               .onValue(function() {
+                 self.replaceView('bulletin');
                });
       },
 

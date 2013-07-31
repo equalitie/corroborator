@@ -3,7 +3,7 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
 
   buffer += "  <td class=\"is-selector\">\n    <input type=\"checkbox\" "
@@ -16,8 +16,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack2 = helpers.actors) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.actors; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "</span> actors involved\n      </div>\n      <div class=\"details text\">\n        <span class=\"date\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_created)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span> actors involved\n      </div>\n      <div class=\"details text\">\n        <span class=\"date\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_created), options)))
     + "</span> in <span class=\"location\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span> (<span class=\"sources\">"

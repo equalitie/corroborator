@@ -4,6 +4,7 @@ define(
     'lib/Navigation/main',
     'lib/SolrSearch/main',
     'lib/CRUD/main',
+    'lib/elements/helpers/date-helper',
     'jquery',
     'jquery_ui',
     'jquery_time',
