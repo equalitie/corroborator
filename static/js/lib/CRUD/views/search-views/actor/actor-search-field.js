@@ -49,8 +49,10 @@ define (
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
           this.collection.on('remove sync', this.renderSelectOptions, this);
-          this.collection.on('add remove', this.updateRenderCollection, this);
+          //this.collection.on('add remove', this.updateRenderCollection, this);
         }
+        this.renderCollection = new Backbone.Collection();
+        this.renderCollection.on('add remove', this.renderActors, this);
         this.createActorCollection();
         this.listenForActorsAdded();
         this.listenForActorUpdate();
@@ -60,7 +62,7 @@ define (
       // create a collection to store all available actors
       createActorCollection: function() {
         this.actorCollection = new Actor.SimpleActorCollection();
-        this.actorCollection.on('reset', this.updateRenderCollection, this);
+        //this.actorCollection.on('reset', this.updateRenderCollection, this);
         this.actorCollection.model = Actor.ActorModel;
         this.listenForAvailableActors();
         this.requestAvailableActors();
@@ -78,9 +80,8 @@ define (
 
       // turn off event listeners and remove dom elements
       destroy: function() {
-        this.collection.off('add remove', this.updateRenderCollection, this);
-        this.actorCollection.off('reset', this.updateRenderCollection, this);
         this.collection.off('add remove', this.renderSelectOptions, this);
+        this.renderCollection.off('add remove', this.renderActors, this);
         this.collection = undefined;
         this.actorCollection = undefined;
         this.renderCollection = undefined;
@@ -127,7 +128,7 @@ define (
         var subscriber = 
           crudBus.toEventStream()
                  .filter(filterActorRelateRequest)
-                 .subscribe(this.createActorRoleEntity.bind(this));
+                 .subscribe(this.addActorToCollections.bind(this));
        this.unsubFunctions.push(subscriber);
       },
 
@@ -149,7 +150,7 @@ define (
       updateActorRoleModel: function(model, role_en) {
         model.set('role_en', role_en);
         model.save();
-        this.updateRenderCollection();
+        this.renderActors();
       },
 
       createNewActorRole: function(actorRoleData) {
@@ -168,15 +169,21 @@ define (
                    .value();
       },
 
-      // create the actor role entity on the backend that the 
-      // entity will refer to
-      // if the actor role already exists 
-      createActorRoleEntity: function(evt) {
+
+      addActorToCollections: function(evt) {
         var actorContent = evt.value().content;
         var actorRoleData = {
           role_en: actorContent.relationship,
           actor: actorContent.model.get('resource_uri')
         };
+        this.createActorRoleEntity(actorRoleData);
+        this.addActorToRenderCollection(actorContent.model);
+      },
+
+      // create the actor role entity on the backend that the 
+      // entity will refer to
+      // if the actor role already exists 
+      createActorRoleEntity: function(actorRoleData) {
         var existingActor = this.existingActor(actorRoleData);
         if (existingActor === undefined) {
           this.createNewActorRole(actorRoleData);
@@ -224,15 +231,19 @@ define (
       },
 
       // render the list of related actors
-      updateRenderCollection: function() {
-        var actorIds = this.collection.pluck('actor'),
-            oldRenderCollection = this.renderCollection;
-        this.renderCollection = this.actorCollection.filterByIds(actorIds);
-        this.renderCollection.add(oldRenderCollection.toJSON(), {silent: true});
-        _.once(this.renderCollection.on('remove', this.unselectActor, this));
-        this.destroyChildViews();
-        this.renderActors();
+      // here be monsters...!
+      addActorToRenderCollection: function(actorModel) {
+        this.renderCollection.add(actorModel);
+        
       },
+
+      addOldModels: function(newRenderCollection, oldRenderCollection) {
+        newRenderCollection.add(oldRenderCollection.toJSON());
+        var merged = _.uniq(newRenderCollection.toJSON());
+        return newRenderCollection.reset(merged, {silent: true});
+      },
+
+      
 
       // an actor has been removed propogate to the collecgtions
       unselectActor: function(model) {
@@ -244,12 +255,12 @@ define (
 
       // render the related actors
       renderActors: function() {
+        this.destroyChildViews();
         this.renderCollection.each(this.renderActor, this);
       },
 
       // render a single actor
       renderActor: function(model) {
-        console.log(this.collection);
         var resultView = new ActorResult({
           model: model,
           actorRoleModel: _.last(this.collection.where({
