@@ -260,8 +260,6 @@ define (
         _.invoke(this.childViews, 'destroy');
       },
       render: function() {
-        console.log('render events');
-        console.log(this.collection);
         this.destroyChildren();
         this.collection.each(function(model) {
           var commentView = new EventDisplayView({
@@ -312,7 +310,6 @@ define (
 
       // render the comment
       render: function(evt) {
-        console.log(evt, this.model);
         var html = this.template({model: this.model.toJSON()});
         this.$el.empty().append(html);
       }

@@ -6,14 +6,15 @@
 define (
   [
     'lib/CRUD/views/form-manager',
-    'lib/SolrSearch/solr/manager'
+    'lib/CRUD/views/search-views/embedded-results-manager'
   ],
-  function (FormManager, Manager) {
+  function (FormManager, EmbeddedResultsManagerView) {
     'use strict';
 
     var formManagerView,
         init = function() {
-          formManagerView = new FormManager.FormManagerView();
+          var formManagerView = new FormManager.FormManagerView(),
+          embeddedSearchView = new EmbeddedResultsManagerView();
         };
     return {
       init: init

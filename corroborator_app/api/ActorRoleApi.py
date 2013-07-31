@@ -11,10 +11,12 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
 from corroborator_app.models import ActorRole
+from corroborator_app.api.ActorApi import ActorResource
 
 __all__ = ('ActorRoleResource', )
 
 class ActorRoleResource(ModelResource):
+    actor = fields.ForeignKey(ActorResource, 'assigned_user', null=True)
     """
     tastypie api implementation
     """
