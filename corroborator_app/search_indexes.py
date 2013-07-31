@@ -5,6 +5,7 @@ database model using Django Haystacks as an interface.
 from haystack import indexes
 from corroborator_app.models import Bulletin, Location, Incident, Label, Actor, Media
 
+
 class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     """
     This class manages the construction of the Actor Solr document.
