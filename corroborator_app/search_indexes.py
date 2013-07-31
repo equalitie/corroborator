@@ -46,7 +46,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     actor_created = indexes.DateTimeField(model_attr='actor_created', \
     faceted=True, null=True)
     media_uri = indexes.CharField()
-    actor_resource_uri = indexes.CharField()
+    resource_uri = indexes.CharField()
     actor_pob_resource_uri = indexes.CharField()
     actor_lives_in_resource_uri = indexes.CharField()
     def get_model(self):
@@ -69,7 +69,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
             return '/api/v1/location/{0}/'.format(object.current_location.id)
         else:
             return ''
-    def prepare_actor_resource_uri(self, object):
+    def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this actor instance
         for the tastypie api
@@ -141,7 +141,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     most_recent_status_incident = indexes.MultiValueField(faceted=True)
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
-    incident_resource_uri = indexes.CharField()
+    resource_uri = indexes.CharField()
     incident_ref_incidents_resource_uri = indexes.MultiValueField()
     incident_locations_resource_uri = indexes.MultiValueField()
     incident_labels_resource_uri = indexes.MultiValueField()
@@ -194,7 +194,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.incident_comments.all()]
-    def prepare_incident_resource_uri(self, object):
+    def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
@@ -278,7 +278,7 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
-    bulletin_resource_uri = indexes.CharField()
+    resource_uri = indexes.CharField()
 
     bulletin_ref_bulletins_resource_uri = indexes.MultiValueField()
     bulletin_locations_resource_uri = indexes.MultiValueField()
@@ -329,18 +329,13 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
         """
         return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.bulletin_comments.all()]
 
-    def prepare_bulletin_resource_uri(self, object):
+    def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api
         """
         return '/api/v1/bulletin/{0}/'.format(object.id)
-    def prepare_bulletin_resource_uri(self, object):
-        """
-        Returns the correctly formated uri related to this bulletin instance
-        for the tastypie api
-        """
-        return '/api/v1/bulletin/{0}/'.format(object.id)
+
     def prepare_most_recent_status_bulletin(self, object):
         """
         Returns most recently created status update associated with a given Bulletin

@@ -78,11 +78,11 @@
             <div class="is-mentions">
               <h4 class="title">Mentioned in</h4>
               <div class="stat">
-                <div class="value">{{ model.count_bulletins.[0] }}</div>
+                <div class="value">{{ model.count_bulletins }}</div>
                 <div class="label">Bulletins</div>
               </div>
               <div class="stat">
-                <div class="value">{{ model.count_incidents.[0] }}</div>
+                <div class="value">{{ model.count_incidents }}</div>
                 <div class="label">Incidents</div>
               </div>
             </div>

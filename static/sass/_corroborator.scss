@@ -841,6 +841,9 @@ ul.media {
         background-color: rgba(0,0,0,0.05);
       }
     }
+    .Bulletin .when-related {
+      display: none;
+    }
     .Bulletin:hover .when-related {
       position: absolute;
       display: block !important;

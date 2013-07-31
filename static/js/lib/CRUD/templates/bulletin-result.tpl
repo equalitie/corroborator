@@ -25,11 +25,11 @@
         <span class="date">{{dateFormat model.bulletin_created}}</span>
       {{#if model.location.[0] }}
         in <span class="location">{{ model.location.[0]}}</span>
-      </div>
       {{/if}}
-      {{#if model.count_actors.[0]}}
+      </div>
+      {{#if model.count_actors}}
       <div class="involved">
-        <span class="actors-count">{{model.count_actors.[0]}}</span>
+        <span class="actors-count">{{model.count_actors}}</span>
         actors involved
       </div>
       {{/if}}

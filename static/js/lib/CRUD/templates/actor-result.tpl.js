@@ -67,9 +67,9 @@ function program7(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.religion_en), {hash:{},inverse:self.noop,fn:self.program(18, program18, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n            </tbody>\n          </table>\n          <div class=\"stats\">\n            <div class=\"is-mentions\">\n              <h4 class=\"title\">Mentioned in</h4>\n              <div class=\"stat\">\n                <div class=\"value\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_bulletins)),stack1 == null || stack1 === false ? stack1 : stack1[0])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_bulletins)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n                <div class=\"label\">Bulletins</div>\n              </div>\n              <div class=\"stat\">\n                <div class=\"value\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),stack1 == null || stack1 === false ? stack1 : stack1[0])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n                <div class=\"label\">Incidents</div>\n              </div>\n            </div>\n          </div>\n        </div>\n        <div class=\"actions search-result\">\n          <div class=\"button combo is-default\">\n            <span class=\"T\">Add as</span>\n            <ul class=\"options\">\n              ";
   stack2 = helpers.each.call(depth0, depth0.roles, {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
