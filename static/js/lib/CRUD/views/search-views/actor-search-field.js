@@ -53,6 +53,7 @@ define (
         }
         this.createActorCollection();
         this.listenForActorsAdded();
+        this.listenForActorUpdate();
         this.render();
       },
 
@@ -123,40 +124,66 @@ define (
 
       // listen for an event specifying the actor who has been added
       listenForActorsAdded: function() {
-        var self = this;
         var subscriber = 
           crudBus.toEventStream()
                  .filter(filterActorRelateRequest)
-                 .subscribe(function(evt) {
-                   self.createActorRoleEntity(evt.value().content);
-                 });
+                 .subscribe(this.createActorRoleEntity.bind(this));
        this.unsubFunctions.push(subscriber);
       },
 
+      // listen for actor updated request
       listenForActorUpdate: function() {
-        var self = this;
         var subscriber = 
           crudBus.toEventStream()
                  .filter(filterActorUpdateRelationship)
-                 .subscribe(function(evt) {
-                   self.createActorRoleEntity(evt.value().content);
-                 });
-       this.unsubFunctions.push(subscriber);
+                 .subscribe(this.processActorUpdateData.bind(this));
+        this.unsubFunctions.push(subscriber);
       },
 
-      updateActorRoleModel: function() {
+      processActorUpdateData: function(evt) {
+        var model = evt.value().content.model,
+            role_en = evt.value().content.relationship;
+        this.updateActorRoleModel(model, role_en);
+      },
+
+      updateActorRoleModel: function(model, role_en) {
+        model.set('role_en', role_en);
+        model.save();
+        this.updateRenderCollection();
+      },
+
+      createNewActorRole: function(actorRoleData) {
+        var actorRole = new ActorRoleModel(actorRoleData);
+        this.collection.add(actorRole);
+        actorRole.save();
+      },
+
+      existingActor: function(actorRoleData) {
+        return this.collection
+                   .chain()
+                   .filter(function(model) { 
+                      return model.get('actor') === actorRoleData.actor;
+                   })
+                   .last()
+                   .value();
       },
 
       // create the actor role entity on the backend that the 
       // entity will refer to
-      createActorRoleEntity: function(actorContent) {
+      // if the actor role already exists 
+      createActorRoleEntity: function(evt) {
+        var actorContent = evt.value().content;
         var actorRoleData = {
           role_en: actorContent.relationship,
           actor: actorContent.model.get('resource_uri')
         };
-        var actorRole = new ActorRoleModel(actorRoleData);
-        this.collection.add(actorRole);
-        actorRole.save();
+        var existingActor = this.existingActor(actorRoleData);
+        if (existingActor === undefined) {
+          this.createNewActorRole(actorRoleData);
+        }
+        else {
+          this.updateActorRoleModel(existingActor, actorRoleData.role_en);
+        }
       },
 
       // render the multiple select box 
