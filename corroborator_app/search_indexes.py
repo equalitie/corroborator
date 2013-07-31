@@ -39,27 +39,47 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     null=True)
     spoken_dialect_ar = indexes.CharField(model_attr='spoken_dialect_ar',
     null=True)
-    count_incidents = indexes.MultiValueField()
-    count_bulletins = indexes.MultiValueField()
+    count_incidents = indexes.IntegerField()
+    count_bulletins = indexes.IntegerField()
     actor_created = indexes.DateTimeField(model_attr='actor_created', \
     faceted=True, null=True)
-    media_uri = indexes.MultiValueField()
-    actor_api_uri = indexes.MultiValueField()
-
+    media_uri = indexes.CharField()
+    actor_resource_uri = indexes.CharField()
+    actor_pob_resource_uri = indexes.CharField()
+    actor_lives_in_resource_uri = indexes.CharField()
     def get_model(self):
         return Actor
-    def prepare_actor_api_uri(self, object):
+    def prepare_actor_pob_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this actor instance
         for the tastypie api
         """
-        return '/api/v1/actor/[0]/'.format(object.id)
+        if object.POB != None:
+            return '/api/v1/location/{0}/'.format(object.POB.id)
+        else:
+            return ''
+    def prepare_actor_lives_in_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        if object.current_location != None:
+            return '/api/v1/location/{0}/'.format(object.current_location.id)
+        else:
+            return ''
+    def prepare_actor_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        return '/api/v1/actor/{0}/'.format(object.id)
     def prepare_media_uri(self, object):
         """
         Returns media uri of image associated with given Actor
         """
         if object.media != None:
-            return object.media.media_file.name
+            #return object.media.media_file.name
+            return '/api/v1/media/{0}/'.format(object.media.id)
         else:
             return ''
     def prepare_count_incidents(self, object):
@@ -123,24 +143,73 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     incident_times = indexes.MultiValueField(faceted=True)
     locations = indexes.MultiValueField()
     incident_labels = indexes.MultiValueField(faceted=True)
-    count_actors = indexes.MultiValueField()
-    count_bulletins = indexes.MultiValueField()
-    count_incidents = indexes.MultiValueField()
+    count_actors = indexes.IntegerField()
+    count_bulletins = indexes.IntegerField()
+    count_incidents = indexes.IntegerField()
     incident_assigned = indexes.CharField(model_attr='assigned_user',
     faceted=True, null=True)
     most_recent_status_incident = indexes.MultiValueField(faceted=True)
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
-    incident_api_uri = indexes.MultiValueField()
+    incident_resource_uri = indexes.CharField()
+    incident_ref_incidents_resource_uri = indexes.MultiValueField()
+    incident_locations_resource_uri = indexes.MultiValueField()
+    incident_labels_resource_uri = indexes.MultiValueField()
+    incident_bulletins_resource_uri = indexes.MultiValueField()
+    incident_actors_role_resource_uri = indexes.MultiValueField()
+    incident_crimes_resource_uri = indexes.MultiValueField()
+    incident_comments_resource_uri = indexes.MultiValueField()
 
     def get_model(self):
         return Incident
-    def prepare_incident_api_uri(self, object):
+    def prepare_incident_ref_incidents_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
-        return '/api/v1/incident/[0]/'.format(object.id)
+        return ['/api/v1/incident/{0}/'.format(incident.id) for incident in object.ref_incidents.all()]
+    def prepare_incident_locations_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/location/{0}/'.format(location.id) for location in object.locations.all()]
+    def prepare_incident_labels_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/label/{0}/'.format(label.id) for label in object.labels.all()]
+    def prepare_incident_bulletins_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/bulletin/{0}/'.format(bulletin.id) for bulletin in object.bulletins.all()]
+    def prepare_incident_actors_role_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/actorRole/{0}/'.format(actor_role.id) for actor_role in object.actors_role.all()]
+    def prepare_incident_crimes_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/crimeCategory/{0}/'.format(crime.id) for crime in object.crimes.all()]
+    def prepare_incident_comments_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.incident_comments.all()]
+    def prepare_incident_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return '/api/v1/incident/{0}/'.format(object.id)
     def prepare_most_recent_status_incident(self,object):
         """
         Returns moste recent status associated with a given Incident
@@ -210,8 +279,8 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     locations = indexes.MultiValueField()
     bulletin_labels = indexes.MultiValueField(faceted=True, null=True)
     sources = indexes.MultiValueField(faceted=True, null=True)
-    count_actors = indexes.MultiValueField()
-    actors_role = indexes.MultiValueField()
+    count_actors = indexes.IntegerField()
+    actors_role = indexes.IntegerField()
     medias = indexes.MultiValueField()
     bulletin_assigned = indexes.CharField(model_attr='assigned_user', \
     faceted=True, null=True)
@@ -219,17 +288,69 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
-    bulletin_api_uri = indexes.MultiValueField()
+    bulletin_resource_uri = indexes.CharField()
 
-    #bulletins = indexes.MultiValueField()
+    bulletin_ref_bulletins_resource_uri = indexes.MultiValueField()
+    bulletin_locations_resource_uri = indexes.MultiValueField()
+    bulletin_labels_resource_uri = indexes.MultiValueField()
+    bulletin_bulletins_resource_uri = indexes.MultiValueField()
+    bulletin_actors_role_resource_uri = indexes.MultiValueField()
+    bulletin_sources_resource_uri = indexes.MultiValueField()
+    bulletin_comments_resource_uri = indexes.MultiValueField()
+
     def get_model(self):
         return Bulletin
-    def prepare_bulletin_api_uri(self, object):
+
+    def prepare_bulletin_ref_bulletins_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api
         """
-        return '/api/v1/bulletin/[0]/'.format(object.id)
+        return ['/api/v1/bulletin/{0}/'.format(bulletin.id) for bulletin in
+        object.ref_bulletins.all()]
+    def prepare_bulletin_locations_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return ['/api/v1/location/{0}/'.format(location.id) for location in object.locations.all()]
+    def prepare_bulletin_labels_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return ['/api/v1/label/{0}/'.format(label.id) for label in object.labels.all()]
+    def prepare_bulletin_actors_role_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return ['/api/v1/actorRole/{0}/'.format(actor_role.id) for actor_role in object.actors_role.all()]
+    def prepare_bulletin_sources_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return ['/api/v1/source/{0}/'.format(source.id) for source in object.sources.all()]
+    def prepare_bulletin_comments_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.bulletin_comments.all()]
+
+    def prepare_bulletin_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return '/api/v1/bulletin/{0}/'.format(object.id)
+    def prepare_bulletin_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return '/api/v1/bulletin/{0}/'.format(object.id)
     def prepare_most_recent_status_bulletin(self, object):
         """
         Returns most recently created status update associated with a given Bulletin
@@ -245,7 +366,7 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
         """
         Returns set of media objects associated with a given Bulletin
         """
-        return [media.name_en for media in object.medias.all()]
+        return ['/api/v1/media/{0}/'.format(media.id) for media in object.medias.all()]
 
     def prepare_bulletin_labels(self, object):
         """
