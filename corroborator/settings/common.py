@@ -4,6 +4,14 @@ Django settings for corroborator project.
 
 DEBUG = True
 
+AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'sjacvideotest'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+MEDIA_DIRECTORY = '/media/'
+S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = S3_URL + '/'
+
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
