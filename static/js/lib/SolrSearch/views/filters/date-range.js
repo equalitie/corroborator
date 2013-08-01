@@ -147,10 +147,6 @@ define (
       applyFilter:function() {
 
       },
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
-      },
       render: function() {
         var html = dateRangeTmp();
         this.$el.append(html).addClass('filter');

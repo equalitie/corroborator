@@ -26,11 +26,11 @@ define (
       // store a list of stream subscribers
       subscribers: [],
       initialize: function() {
-        console.log('initialize EmbeddedSearchResultsView', this);
         this.render();
         this.watchCrudStream();
         this.collection = new Backbone.Collection();
-        this.collection.on('add remove reset', this.renderResults, this);
+        this.listenTo(this.collection, 'add remove reset',
+          this.renderResults.bind(this));
       },
 
       // trigger event notifying of embedded reults close request
@@ -44,11 +44,9 @@ define (
       watchCrudStream: function() {},
 
       // destroy this view
-      destroy: function() {
-        this.collection.off('add change remove reset', this.renderResults, this);
+      onDestroy: function() {
+        this.stopListening();
         this.destroyChildren();
-        this.$el.remove();
-        this.undelegateEvents();
       },
 
       // ask all child views to destroy

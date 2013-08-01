@@ -47,8 +47,10 @@ define (
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
-        this.collection.on('reset add remove', this.renderIncidents, this);
-        this.collection.on('reset add remove', this.renderSelectOptions, this);
+        this.listenTo(this.collection, 'reset add remove',
+          this.renderIncidents.bind(this));
+        this.listenTo(this.collection, 'reset add remove',
+          this.renderSelectOptions.bind(this));
         this.listenForIncidentsAdded();
         this.render();
       },
@@ -65,15 +67,12 @@ define (
       },
 
       // turn off event listeners and remove dom elements
-      destroy: function() {
-        this.collection.off('reset add remove', this.renderIncidents, this);
-        this.collection.off('add remove', this.renderSelectOptions, this);
+      onDestroy: function() {
+        this.stopListening();
         this.collection = undefined;
         this.destroySelectViews();
         this.destroyChildViews();
         this.unsubStreams();
-        this.$el.remove();
-        this.undelegateEvents();
       },
 
       // user clicked search

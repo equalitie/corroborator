@@ -32,6 +32,9 @@ define (
         filterBulletinResults = function(value) {
           return value.type === 'bulletin-results';
         },
+        filterIncidentResults = function(value) {
+          return value.type === 'incident-results';
+        },
         filterActorResults = function(value) {
           return value.type === 'actor-results';
         };
@@ -49,6 +52,7 @@ define (
       watchCrudStream: function() {
         this.watchForActorDisplay();
         this.watchForBulletinDisplay();
+        this.watchForIncidentDisplay();
         this.watchForFormClose();
         this.watchForResultClose();
       },
@@ -83,6 +87,13 @@ define (
                  self.replaceView('bulletin');
                });
       },
+      watchForIncidentDisplay: function() {
+        var self = this;
+        crudBus.filter(filterIncidentResults)
+               .onValue(function() {
+                 self.replaceView('incident');
+               });
+      },
 
       destroyCurrentView: function() {
         if (this.currentView !== undefined) {
@@ -95,11 +106,6 @@ define (
         this.destroyCurrentView();
         this.currentView = new embeddedSearchResultViews[viewType]();
         this.render();
-      },
-
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
       },
 
       render: function() {

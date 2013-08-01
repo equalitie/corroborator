@@ -9,10 +9,11 @@ define (
     'jquery', 'underscore', 'backbone', 
     'lib/streams',
     'lib/CRUD/views/form-mixins',
+    'lib/CRUD/views/search-views/actor/actor-search-field',
     // templates
     'lib/CRUD/templates/actor.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins, actorFormTmp) {
+  function ($, _, Backbone, Streams, Mixins, ActorSearchView, actorFormTmp) {
 
     var ActorFormView,
         crudBus      = Streams.crudBus,
@@ -23,6 +24,7 @@ define (
     // ### ActorFormView
     // display create update form for actor
     ActorFormView = Backbone.View.extend({
+      childViews: [],
       events: {
         'click button#actor-action_save': 'saveRequested',
         'click button.do-hide': 'requestCloseForm'
@@ -41,12 +43,16 @@ define (
       },
 
       // remove the dom elements and all associated events
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
+      onDestroy: function() {
+        this.destroyChildViews();
+      },
+      
+      // destroy the sub views
+      destroyChildViews: function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
       },
 
-      renderChildren: function() {},
       // render the form
       render: function() {
         var html = actorFormTmp();
@@ -82,6 +88,14 @@ define (
             content: formContent
           });
         }
+      },
+      // render the sub views
+      renderChildren: function() {
+        var actorSearchView = new ActorSearchView({
+          el: '#actor-actor-search-block',
+          entityType: 'actor'
+        });
+        this.childViews.push(actorSearchView);
       }
 
     });

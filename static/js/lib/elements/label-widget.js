@@ -28,7 +28,7 @@ define (
       // constructor
       initialize: function(options) {
         this.render();
-        this.model.on('remove_selected', this.destroy, this);
+        this.listenTo(this.model, 'remove_selected', this.destroy.bind(this));
       },
 
       removeFilter: function() {
@@ -36,10 +36,8 @@ define (
       },
 
       // destroy the view
-      destroy: function() {
-        this.model.off('remove_selected');
-        this.$el.remove();
-        this.undelegateEvents();
+      onDestroy: function() {
+        this.stopListening();
       },
 
       // render a single filter
@@ -68,9 +66,15 @@ define (
         }
         // TODO reset these with existing values
         this.selectCollection = new Backbone.Collection();
-        this.selectCollection.on('add remove', this.renderSelected, this);
-        this.collection.on('add remove', this.initAutocomplete, this);
-        this.selectCollection.on('remove', this.reinsertModel, this);
+        this.listenTo(this.selectCollection, 'add remove',
+          this.renderSelected.bind(this));
+        
+        this.listenTo(this.collection, 'add remove',
+          this.initAutocomplete.bind(this));
+        
+        this.listenTo(this.selectCollection, 'add remove',
+          this.reinsertModel.bind(this));
+
         this.templateVars = {
           display: options.display,
           entityType: this.entityType
@@ -93,7 +97,7 @@ define (
             var selectedModel =
               self.collection.chain()
                   .filter(function(model) {
-                    return model.get('id') === ui.item.id;
+                    return model.get('resource_uri') === ui.item.id;
                   })
                   .last()
                   .value();
@@ -109,16 +113,12 @@ define (
       },
 
       
-      destroy: function() {
-        this.deleteChildViews();
-        this.selectCollection.off('add remove', this.renderSelected, this);
-        this.selectCollection.off('remove', this.reinsertModel, this);
-        this.collection.off('add remove', this.initAutocomplete, this);
-        this.$el.remove();
-        this.undelegateEvents();
+      onDestroy: function() {
+        this.destroyChildViews();
+        this.stopListening();
       },
 
-      deleteChildViews: function() {
+      destroyChildViews: function() {
         _.invoke(this.displayViews, 'destroy');
         _.invoke(this.selectViews, 'destroy');
         this.displayViews = [];
@@ -127,7 +127,8 @@ define (
 
       // render the 
       renderSelected: function() {
-        this.deleteChildViews();
+        console.log('renderSelected', this.selectCollection, this.collection);
+        this.destroyChildViews();
         this.selectCollection.each(this.addToDisplayList, this);
         this.selectCollection.each(this.addToSelectList, this);
       },
@@ -162,8 +163,6 @@ define (
 
       }
     });
-
-    
 
     return LabelWidgetView;
 });

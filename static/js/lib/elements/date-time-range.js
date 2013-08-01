@@ -37,10 +37,6 @@ define (
           });
       },
 
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
-      },
       render: function() {
         var html = this.template({
           entityType: this.entityType,

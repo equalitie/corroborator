@@ -131,7 +131,10 @@ def index(request, *args, **kwargs):
         sources_set = Source.objects.all()
         users_set = User.objects.all()
         loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
-        loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
+        print loc_set
+        loc_set = Location.objects.all()
+        #loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
+        loc_set = loc_set.values('name_en', 'latitude', 'longitude')
 
         #api details
         user = User.objects.get(username=username)
@@ -184,8 +187,10 @@ def new_index(request, *args, **kwargs):
         status_set = StatusUpdate.objects.all()
         sources_set = Source.objects.all()
         users_set = User.objects.all()
-        loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
-        loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
+        loc_set = Location.objects.all()
+        #loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
+        #loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
+        #loc_set = loc_set.values('name_en', 'latitude', 'longitude')
 
         #api details
         user = User.objects.get(username=username)

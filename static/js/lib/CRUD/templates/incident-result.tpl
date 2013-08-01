@@ -1,4 +1,4 @@
-<div class="Incident in-list">
+<div class="Incident in-list embedded">
   <div class="L1">
     <div class="meta">
       <div class="score">
@@ -21,4 +21,28 @@
       <span class="date">{{dateFormat model.incident_created}}</span> in <span class="location">Damas, Syriah</span>
     </div>
   </div>
+  {{#if model.result }}
+  <div class="when-expanded">
+    <div class="actions">
+      <div class="left">
+        <button class="do-relate">
+          <span class="text T">Relate</span>
+        </button>
+      </div>
+      <div class="clearer">&nbsp;</div>
+    </div>
+  </div>
+  {{/if}}
+  {{#if model.selected }}
+  <div class="when-related">
+    <div class="actions">
+      <div class="right">
+        <button class="do-remove">
+          <span class="text T"> Remove</span>
+        </button>
+      </div>
+      <div class="clearer"> &nbsp;</div>
+    </div>
+  </div>
+  {{/if}}
 </div>

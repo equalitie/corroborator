@@ -10,18 +10,18 @@ define (
   function (Backbone) {
     'use strict';
     
-    var LabelCollection,
-        LabelModel,
-        labelCollection;
+    var LocationCollection,
+        LocationModel,
+        locationCollection;
 
-    // ### LabelModel
+    // ### LocationModel
     // relates to an individual source
-    LabelModel = Backbone.Model.extend({
+    LocationModel = Backbone.Model.extend({
       
       initialize: function() {
       },
       url: function() {
-        var base = '/api/v1/label/';
+        var base = '/api/v1/location/';
         if (this.id) {
           base = base + this.id + '/';
         }
@@ -31,10 +31,10 @@ define (
       }
     });
     
-    LabelCollection = Backbone.Collection.extend({
-      model: LabelModel,
+    LocationCollection = Backbone.Collection.extend({
+      model: LocationModel,
       initialize: function() {
-        this.reset(Bootstrap.labels);
+        this.reset(Bootstrap.locations);
       },
 
       // map a list of models to autocomplete format
@@ -53,7 +53,8 @@ define (
     });
 
     return {
-      LabelModel: LabelModel,
-      LabelCollection: LabelCollection
+      LocationModel: LocationModel,
+      LocationCollection: LocationCollection
     };
 });
+

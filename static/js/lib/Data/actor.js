@@ -70,6 +70,7 @@ define(
         };
         return new Backbone.Collection(this.filter(filterByIds, context));
       }
+
     });
 
     // ### Actor Collection

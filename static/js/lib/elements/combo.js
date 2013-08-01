@@ -75,7 +75,7 @@ define(
         }
         this.bus = options.bus;
         // re-render the combo box if the collection changes
-        this.collection.on('add remove reset', this.render, this);
+        this.listenTo(this.collection, 'add remove reset', this.render.bind(this));
       },
 
       // push an event onto the bus 
@@ -84,6 +84,9 @@ define(
           type: this.eventIdentifier,
           content: this.primary
         });
+      },
+      onDestroy: function() {
+        this.stopListening();
       },
 
 
@@ -140,6 +143,11 @@ define(
       setInput: function() {
         this.input = $('input[name='+ this.$el.attr('id') + ']'); 
       },
+      destroy: function() {
+        this.$el.off('click');
+        this.$el.removeData().unbind();
+        this.$el.remove();
+      },
       createClickHandler: function() {
         var self = this;
         this.$el.children()
@@ -153,9 +161,6 @@ define(
         this.$el.children('span.selected-option').text(selectedText);
         this.input.val(selectedText);
       },
-      destroy: function() {
-        this.$el.off('click');
-      }
 
 
     };

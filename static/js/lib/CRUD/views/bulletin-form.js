@@ -12,6 +12,7 @@ define (
     'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
     'lib/CRUD/data/SourceCollection',
     'lib/CRUD/data/LabelCollection',
+    'lib/CRUD/data/LocationCollection',
     // child views
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
@@ -20,7 +21,7 @@ define (
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, BulletinSearchView,
     // data
-    Source, Label,
+    Source, Label, Location,
     // views
     CommentForm, EventForm,
     bulletinFormTmp) {
@@ -34,6 +35,7 @@ define (
         EventContainerView   = EventForm.EventContainerView,
         SourceCollection     = Source.SourceCollection,
         LabelCollection      = Label.LabelCollection,
+        LocationCollection   = Location.LocationCollection,
 
         userList = function() {
           return Bootstrap.gl_ac_users_list;
@@ -86,7 +88,16 @@ define (
             field_name : 'labels',
             field_label: 'Labels'
           }
-        }
+        },
+        {
+          containerid: '#bulletin-location-block',
+          collection : LocationCollection,
+          display: {
+            field_name : 'locations',
+            field_label: 'Locations'
+          }
+        },
+
       ],
 
       // display a slider for scores
@@ -106,18 +117,22 @@ define (
         
       // constructor
       initialize: function() {
-        console.log('init');
+        this.childViews = [];
         this.render();
       },
 
       // remove DOM elements and cancel event handlers
-      destroy: function() {
-        _.invoke(this.childViews, 'destroy');
-        this.childViews = [];
-        this.$el.remove();
-        this.undelegateEvents();
+      onDestroy: function() {
+        this.disableWidgets();
+        this.destroyChildViews();
       },
       
+      // destroy the sub views
+      destroyChildViews: function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
+      },
+
       // handle clear user click
       clearUser: function(e) {
         e.preventDefault();
@@ -127,6 +142,7 @@ define (
       // handle save click
       saveRequested: function() {
         var formContent = this.formContent();
+        console.log(formContent);
         if (this.model !== undefined) {
           this.model.save();
         }
@@ -145,27 +161,30 @@ define (
           el: '#bulletin-comment-block',
           entityType: 'bulletin'
         });
+
         var eventForm = new EventContainerView({
           el: '#bulletin-event-block',
           entityType: 'bulletin'
         });
+
         var actorSearchView = new ActorSearchView({
           el: '#bulletin-actor-list-block',
           entityType: 'bulletin'
         });
+
         var bulletinSearchView = new BulletinSearchView({
           el: '#bulletin-bulletin-block',
           entityType: 'bulletin'
         });
 
 
-
         // add each new view to the child views array
-        this.childViews = [
+        this.childViews.push(
           commentForm,
           eventForm,
-          actorSearchView
-        ];
+          actorSearchView,
+          bulletinSearchView
+        );
         return this;
       },
 

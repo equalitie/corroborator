@@ -36,7 +36,6 @@ define (
 
         // look for an event denoting an embedded search
         filterEmbeddedSearchRequest = function(value) {
-          console.log('filterEmbeddedSearchRequest');
           return value.type === 'actor-results' ||
                  value.type === 'bulletin-results' ||
                  value.type === 'location-results' ||
@@ -98,20 +97,19 @@ define (
 
       // replace the current form view with the requested one
       replaceView: function(View) {
-        console.log('replaceView');
         this.destroyCurrentView();
         this.currentView = new View();
         this.render();
-
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
+        console.log('destroyCurrentView');
+        
         if (this.currentView !== undefined) {
           this.currentView.destroy();
           delete(this.currentView);
           this.currentView = undefined;
         }
-        console.log(this.currentView);
       },
       // render the form, calls enable widgets to enable the dropdowns and
       // date widgets, this must be done after the form has rendered

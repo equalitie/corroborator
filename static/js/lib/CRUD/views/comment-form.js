@@ -178,6 +178,7 @@ define (
       // prepare the object for destruction
       destroy: function() {
         this.$el.remove();
+        this.disableWidgets();
         this.undelegateEvents();
       },
 
@@ -213,8 +214,6 @@ define (
         _.invoke(this.childViews, 'destroy');
       },
       render: function() {
-        console.log('render comments');
-        console.log(this.collection);
         this.destroyChildren();
         this.collection.each(function(model) {
           var commentView = new CommentDisplayView({
@@ -258,15 +257,8 @@ define (
         this.destroy();
       },
 
-      // remove the dom elements and unsubscribe to events
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
-      },
-
       // render the comment
       render: function(evt) {
-        console.log(evt, this.model);
         var html = this.template({model: this.model.toJSON()});
         this.$el.empty().append(html);
       }
