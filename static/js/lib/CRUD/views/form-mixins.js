@@ -23,6 +23,8 @@ define (
     ConfirmMixin = {
         // display a dialog box
         // dialog confirming that you want to exit the add/update
+        disableConfirm: function() {
+        },
         requestCloseForm: function() {
           var dialogHTML = $(confirmDialogTmp());
           dialogHTML.dialog({
@@ -102,10 +104,25 @@ define (
           this.enableComboBoxes();
         },
 
+        disableWidgets: function() {
+          this.disableDateFields();
+          this.disableDateTimeFields();
+          this.disableSliderFields();
+          this.disableAutoCompleteFields();
+        },
+
+        // enable a jquery ui date field for date of birth
+        disableDateTimeFields: function() {
+          _.each(this.dateTimeFields, this.disableDateTimeField, this);
+        },
+        disableDateTimeField: function(dateTimeField) {
+          $(dateTimeField.el).datetimepicker('disable');
+          $(dateTimeField.el).remove();
+        },
+
         // enable a jquery ui date field for date of birth
         enableDateTimeFields: function() {
           _.each(this.dateTimeFields, this.enableDateTimeField, this);
-          
         },
         enableDateTimeField: function(dateTimeField) {
           $(dateTimeField.el).datetimepicker({
@@ -113,6 +130,7 @@ define (
             timeFormat: 'HH:mm:00'
           });
         },
+
         // enable a jquery ui date field for date of birth
         enableDateTimeRangeFields: function() {
           _.each(this.dateTimeRangeFields, this.enableDateTimeRangeField, this);
@@ -128,6 +146,14 @@ define (
           this.childViews.push(dateTimeRange);
         },
 
+        // enable a jquery ui date field for date of birth
+        disableDateFields: function() {
+          _.each(this.dateTimeRangeFields, this.enableDateTimeRangeField, this);
+        },
+
+        disableDateField: function(dateFieldName) {
+          $('input[name=' + dateFieldName + ']').remove();
+        },
         // enable a jquery ui date field for date of birth
         enableDateFields: function() {
           _.each(this.dateFields, this.enableDateField, this);
@@ -145,8 +171,15 @@ define (
         },
         enableComboBox: function(comboId) {
           var comboWidget = new ComboWidget(comboId);
+          this.childViews.push(comboWidget);
         },
 
+        disableAutoCompleteFields: function() {
+          _.each(this.autoCompleteFields, this.enableAutoCompleteField, this);
+        },
+        disableAutoCompleteField: function(field) {
+          $(field.className).remove();
+        },
         // enable auto complete fields  
         // the actual data gets stored  to a hidden input field
         enableAutoCompleteFields: function() {
@@ -175,8 +208,16 @@ define (
             el        : field.containerid,
             display   : field.display
           });
+          this.childViews.push(labelWidget);
         },
 
+        disableSliderFields: function() {
+          _.each(this.sliderFields, this.enableSliderField);
+        },
+
+        disableSliderField: function(field) {
+          $(field.sliderDiv).remove();
+        },
         // enable sliders, store the value in the designated field
         enableSliderFields: function() {
           _.each(this.sliderFields, this.enableSliderField);

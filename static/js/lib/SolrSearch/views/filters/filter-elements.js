@@ -30,15 +30,14 @@ define(
       // constructor
       initialize: function() {
         this.collection = this.model.get('collection');
-        this.collection.on('add remove', this.render, this);
+        this.listenTo(this.collection, 'add remove', this.render.bind(this));
         this.render();
       },
 
       // destroy this view and it's subviews
-      destroy: function() {
+      onDestroy: function() {
         _.invoke(this.filterViews, 'destroy');
-        this.$el.remove();
-        this.collection.off('add remove', this.render);
+        this.stopListening();
         this.filterViews = [];
       },
 
@@ -95,10 +94,6 @@ define(
         this.destroy();
         this.collection.remove(this.model);
       },
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
-      },
       render: function() {
         var html = singleFilterTmp({model: this.model.toJSON()});
         this.$el.empty()
@@ -116,10 +111,12 @@ define(
       // register listeners for add and remove events  
       initialize: function(options) {
         this.type = options.type;
-        this.collection.on('add', this.render, this);
-        this.collection.on('add', this.showFilters, this);
-        this.collection.on('remove', this.shouldBeHidden, this);
-        this.collection.on('remove', this.removeFilterView, this);
+        this.listenTo(this.collection, 'add', this.render.bind(this));
+        this.listenTo(this.collection, 'add', this.showFilters.bind(this));
+        this.listenTo(this.collection, 'remove',
+          this.shouldBeHidden.bind(this));
+        this.listenTo(this.collection, 'remove',
+          this.removeFilterView.bind(this));
         this.render();
         this.shouldBeHidden();
       },
@@ -146,13 +143,8 @@ define(
       },
 
       // destroy the view
-      destroy: function() {
-        this.$el.empty();
-        this.undelegateEvents();
-        this.collection.off('add', this.render);
-        this.collection.off('add', this.showFilters);
-        this.collection.off('remove', this.shouldBeHidden);
-        this.collection.off('remove', this.removeFilterView);
+      onDestroy: function() {
+        this.stopListening();
       },
 
       // render the selected filters container

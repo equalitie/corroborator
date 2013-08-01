@@ -12,8 +12,9 @@ define (
     'use strict';
 
     var formManagerView,
+        embeddedSearchView,
         init = function() {
-          var formManagerView = new FormManager.FormManagerView(),
+          formManagerView = new FormManager.FormManagerView();
           embeddedSearchView = new EmbeddedResultsManagerView();
         };
     return {

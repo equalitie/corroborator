@@ -18,6 +18,9 @@ MEDIA_DIRECTORY = '/media/'
 S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 MEDIA_URL = S3_URL + '/'
 
+
+
+
 INSTALLED_APPS += (
     'autofixture',
     'interntest',
@@ -33,3 +36,5 @@ HAYSTACK_CONNECTIONS = {
         # ...or for multicore...
     },
 }
+
+STATIC_ROOT = '/var/www/corroborator/static/'

@@ -14,6 +14,7 @@ define (
     'lib/CRUD/data/CrimeCollection',
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
+    'lib/CRUD/views/search-views/incident/incident-search-field',
 
     // child views
     'lib/CRUD/views/comment-form',
@@ -23,8 +24,8 @@ define (
     'lib/CRUD/templates/incident.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins, Label, Crime,
-    ActorSearchView, BulletinSearchView, CommentForm, EventForm,
-    incidentFormTmp) {
+    ActorSearchView, BulletinSearchView, IncidentSearchView, CommentForm,
+    EventForm, incidentFormTmp) {
 
     var IncidentFormView,
         Formatter    = Mixins.Formatter,
@@ -42,6 +43,7 @@ define (
     // display create/update form for incidents
     IncidentFormView = Backbone.View.extend({
       entityType: 'incident',
+      childViews: [],
       events: {
         'click button#incident-action_save': 'saveRequested',
         'click button#clear-user'          : 'clearUser',
@@ -110,10 +112,16 @@ define (
         this.enableSliderFields();
         this.enableLabelFields();
       },
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
+      onDestroy: function() {
+        this.destroyChildViews();
       },
+
+      // destroy the sub views
+      destroyChildViews: function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
+      },
+
       render: function() {
         var html = incidentFormTmp();
         this.$el = $(html);
@@ -131,6 +139,10 @@ define (
           el: '#incident-comment-block',
           entityType: this.entityType
         });
+        var actorForm = new ActorSearchView({
+          el: '#incident-actor-list-block',
+          entityType: this.entityType
+        });
         var eventForm = new EventContainerView({
           el: '#incident-event-block',
           entityType: this.entityType
@@ -139,6 +151,12 @@ define (
           el: '#incident-bulletin-block',
           entityType: this.entityType
         });
+        var incidentSearchView = new IncidentSearchView({
+          el: '#incident-incident-block',
+          entityType: this.entityType
+        });
+        this.childViews.push(commentForm, actorForm, eventForm,
+          bulletinSearchView, incidentSearchView);
       }
     });
     _.extend(IncidentFormView.prototype, ConfirmMixin);

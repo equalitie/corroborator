@@ -862,6 +862,9 @@ ul.media {
         background-color: rgba(0,0,0,0.05);
       }
     }
+    .Incident .when-related {
+      display: none;
+    }
     .Incident:hover .when-related {
       position: absolute;
       display: block !important;

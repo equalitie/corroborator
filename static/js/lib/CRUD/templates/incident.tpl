@@ -131,8 +131,8 @@
             </div>
 
             <!-- Actor selection -->
-            <div id="incident-actor-list-block" class="field is-actors">
-            </div>
+          <div id="incident-actor-list-block" class="field is-actors">
+          </div>
 
           <div id="incident-bulletin-block" class="field is-bulletins">
           </div>

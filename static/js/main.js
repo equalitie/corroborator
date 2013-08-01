@@ -5,6 +5,7 @@ define(
     'lib/SolrSearch/main',
     'lib/CRUD/main',
     'lib/elements/helpers/date-helper',
+    'lib/elements/helpers/view-close',
     'jquery',
     'jquery_ui',
     'jquery_time',

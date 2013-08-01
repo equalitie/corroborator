@@ -48,11 +48,10 @@ define (
       initialize: function() {
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
-          this.collection.on('remove sync', this.renderSelectOptions, this);
-          //this.collection.on('add remove', this.updateRenderCollection, this);
         }
+        this.listenTo(this.collection, 'remove sync', this.renderSelectOptions.bind(this));
         this.renderCollection = new Backbone.Collection();
-        this.renderCollection.on('add remove', this.renderActors, this);
+        this.listenTo(this.renderCollection, 'add remove', this.renderActors.bind(this));
         this.createActorCollection();
         this.listenForActorsAdded();
         this.listenForActorUpdate();
@@ -79,17 +78,15 @@ define (
       },
 
       // turn off event listeners and remove dom elements
-      destroy: function() {
-        this.collection.off('add remove', this.renderSelectOptions, this);
-        this.renderCollection.off('add remove', this.renderActors, this);
+      onDestroy: function() {
+        console.log(this.collection, 'destroy ActorSearchView');
+        this.stopListening();
         this.collection = undefined;
         this.actorCollection = undefined;
-        this.renderCollection = undefined;
+        //this.renderCollection = undefined;
         this.destroySelectViews();
         this.destroyChildViews();
         this.unsubStreams();
-        this.$el.remove();
-        this.undelegateEvents();
       },
 
       // user clicked search
@@ -225,16 +222,17 @@ define (
       // unsubscribe from bacon event streams
       unsubStreams: function() {
         _.each(this.unsubFunctions, function(unsub) {
+          // evidence of memory leak here
+          // TODO - what is not getting destroyed??!
+          //console.log(unsub());
           unsub();
         });
         this.unsubFunctions = [];
       },
 
       // render the list of related actors
-      // here be monsters...!
       addActorToRenderCollection: function(actorModel) {
         this.renderCollection.add(actorModel);
-        
       },
 
       addOldModels: function(newRenderCollection, oldRenderCollection) {

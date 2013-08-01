@@ -17,13 +17,11 @@ define (
     SelectOptionView = Backbone.View.extend({
       tagName: 'option',
       initialize: function() {
-        this.model.on('destroy', this.destroy, this);
+        this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
-      destroy: function() {
-        this.$el.remove();
-        this.model.off('destroy');
-        this.undelegateEvents();
+      onDestroy: function() {
+        this.stopListening();
       },
       render: function() {
         this.$el.attr('value', this.model.get('resource_uri'));

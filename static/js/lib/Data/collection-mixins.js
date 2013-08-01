@@ -118,6 +118,9 @@ define (
           },
 
           filterSingleValueFields: function(key) {
+            if (this.get(key) === undefined) {
+              return false;
+            }
             return typeof(this.get(key) === 'string') &&
                    this.get(key).length > 0;
           },

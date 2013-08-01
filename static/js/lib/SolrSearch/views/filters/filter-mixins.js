@@ -26,6 +26,7 @@ define (
             this.undelegateEvents();
             this.collection.off('reset', this.renderFilterGroups);
             this.$el.empty();
+            this.$el.unbind();
           },
           
           // destroy the subviews

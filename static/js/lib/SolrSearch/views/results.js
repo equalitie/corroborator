@@ -40,8 +40,8 @@ define(
       },
       initialize: function(options) {
         this.index = options.index;
-        this.model.on('change', this.render, this);
-        this.model.on('destroy', this.destroy, this);
+        this.listenTo(this.model, 'change', this.render.bind(this));
+        this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
       expandActor: function() {
@@ -67,36 +67,40 @@ define(
         this.$el.append(html);
         return this;
       },
-      destroy: function() {
-        this.undelegateEvents();
-        this.remove();
-        this.model.off('change', this.render, this);
-        this.model.off('destroy', this.destroy, this);
+      onDestroy: function() {
+        console.log('onDestroy');
+        this.model.stopListening();
       }
 
     });
 
     // Show the results of a search for actors
     var ActorResultsView = Backbone.View.extend({
-      el: '.results-body',
+      //el: '.results-body',
+      template: actorResultsTmp,
       childViews: [],
       initialize: function() {
         this.collection = Collections.ActorCollection;
-        this.collection.on('add sort reset', this.render, this);
+        this.listenTo(this.collection, 'add sort reset', this.renderList.bind(this));
         this.render();
+        this.renderList();
       },
 
       //render container template
       render: function() {
-        var html = actorResultsTmp();
-        this.$el.empty();
-        this.$el.append(html);
-        this.collection.each(this.renderList, this);
+        this.$el.remove().unbind();
+        var html = this.template();
+        this.$el.html(html);
         return this;
       },
 
       // render each of our actor results
       renderList: function(model, index) {
+        this.destroyChildren();
+        this.collection.each(this.renderItem, this);
+        return this;
+      },
+      renderItem: function(model, index) {
         var resultView = new ActorResultView({
           model: model,
           index: index
@@ -107,14 +111,14 @@ define(
                 .append(resultView.$el);
         this.childViews.push(resultView);
       },
+      destroyChildren:function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
+      },
 
-      destroy: function() {
-        _.each(this.childViews, function(view) {
-          view.destroy();
-        });
-        this.undelegateEvents();
-        this.collection.off('add sort reset', this.render);
-        this.$el.empty();
+      onDestroy: function() {
+        this.destroyChildren();
+        this.stopListening();
       }
     });
 
@@ -132,8 +136,8 @@ define(
       },
       initialize: function(options) {
         this.index = options.index;
-        this.model.on('change', this.render, this);
-        this.model.on('destroy', this.destroy, this);
+        this.listenTo(this.model, 'change', this.render.bind(this));
+        this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
       // dom event handlers
@@ -158,35 +162,41 @@ define(
                 .append(html);
         return this;
       },
-      destroy: function() {
-        this.undelegateEvents();
-        this.remove();
-        this.model.off('change', this.render, this);
-        this.model.off('destroy', this.destroy, this);
+      onDestroy: function() {
+        this.stopListening();
       }
 
     });
 
     // Show the results of a search for actors
     var IncidentResultsView = Backbone.View.extend({
-      el: '.results-body',
+      //el: '.results-body',
       childViews: [],
+      template: incidentResultsTmp,
 
       initialize: function() {
+        console.log(this.childViews.length);
         this.collection = Collections.IncidentCollection;
-        this.collection.on('add sort reset', this.render, this);
+        this.listenTo(this.collection, 'add sort reset', this.renderList.bind(this));
         this.render();
+        this.renderList();
       },
 
+      //render container template
       render: function() {
-        this.$el.empty();
-        var html = incidentResultsTmp();
-        this.$el.empty().append(html);
-        this.collection.each(this.renderList, this);
+        this.$el.remove().unbind();
+        var html = this.template();
+        this.$el.html(html);
         return this;
       },
 
+      // render each of our actor results
       renderList: function(model, index) {
+        this.destroyChildren();
+        this.collection.each(this.renderItem, this);
+        return this;
+      },
+      renderItem: function(model, index, list) {
         var resultView = new IncidentResultView({
           model: model,
           index: index
@@ -198,13 +208,13 @@ define(
         this.childViews.push(resultView);
       },
 
-      destroy: function() {
-        _.each(this.childViews, function(view) {
-          view.destroy();
-        });
-        this.undelegateEvents();
-        this.collection.off('add sort reset', this.render);
-        this.$el.empty();
+      destroyChildren:function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
+      },
+      onDestroy: function() {
+        this.destroyChildren();
+        this.stopListening();
       }
 
     });
@@ -223,8 +233,8 @@ define(
 
       initialize: function(options) {
         this.index = options.index;
-        this.model.on('change', this.render, this);
-        this.model.on('destroy', this.destroy, this);
+        this.listenTo(this.model, 'change', this.render.bind(this));
+        this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
       // dom event handlers
@@ -252,32 +262,38 @@ define(
       },
 
       destroy: function() {
-        this.undelegateEvents();
-        this.remove();
-        this.model.off('change', this.render, this);
-        this.model.off('destroy', this.destroy, this);
+        this.stopListening();
       }
 
     });
 
     // Show the results of a search for actors
     var BulletinResultsView = Backbone.View.extend({
-      el: '.results-body',
+      //el: '.results-body',
       childViews: [],
+      template: bulletinResultsTmp,
       initialize: function() {
         this.collection = Collections.BulletinCollection;
-        this.collection.on('add sort reset', this.render, this);
+        this.listenTo(this.collection, 'add sort reset', this.renderList.bind(this));
         this.render();
+        this.renderList();
       },
 
+      //render container template
       render: function() {
-        this.$el.empty();
-        var html = bulletinResultsTmp();
-        this.$el.append(html);
-        this.collection.each(this.renderList, this);
+        this.$el.remove().unbind();
+        var html = this.template();
+        this.$el.html(html);
         return this;
       },
-      renderList: function(model, index, list) {
+
+      // render each of our actor results
+      renderList: function(model, index) {
+        this.destroyChildren();
+        this.collection.each(this.renderItem, this);
+        return this;
+      },
+      renderItem: function(model, index, list) {
         var resultView = new BulletinResultView({
           model: model,
           index: index
@@ -288,13 +304,13 @@ define(
                 .append(resultView.$el);
         this.childViews.push(resultView);
       },
-      destroy: function() {
-        _.each(this.childViews, function(view) {
-          view.destroy();
-        });
-        this.undelegateEvents();
-        this.$el.empty();
-        this.collection.off('add sort reset', this.render);
+      destroyChildren:function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
+      },
+      onDestroy: function() {
+        this.destroyChildren();
+        this.stopListening();
       }
 
     });
@@ -304,12 +320,17 @@ define(
     // ## show/display results logic
     //////////////////////////////////////////////////////////////////////////
     
-    var currentView;
-    var destroy = function (view) {
-      if (view !== undefined) {
-        view.destroy();
-      }
-    };
+    var currentView,
+        displayCurrentView = function (view) {
+          if (currentView !== undefined) {
+            $('.results-body').append(currentView.$el);
+          }
+        },
+      destroy = function (view) {
+          if (view !== undefined) {
+            view.destroy();
+          }
+        };
 
     // show the actor search results view
     var showActors = function() {
@@ -317,18 +338,21 @@ define(
       destroy(currentView);
       // show actor view
       currentView = new ActorResultsView();
+      displayCurrentView();
     };
     var showBulletins = function() {
       // destroy current view
       destroy(currentView);
       // show actor view
       currentView = new BulletinResultsView();
+      displayCurrentView();
     };
     var showIncidents = function() {
       // destroy current view
       destroy(currentView);
       // show actor view
       currentView = new IncidentResultsView();
+      displayCurrentView();
     };
 
     var displayInicidents = function() {};

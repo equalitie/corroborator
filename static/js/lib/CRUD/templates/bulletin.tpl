@@ -120,26 +120,6 @@
           <div id="bulletin-event-block" class="field is-events clear">
           </div>
         <div id="bulletin-location-block" class="field is-locations">
-          <label>Locations</label>
-          <ul class="locations locations-bulletin">
-
-            <li class="location is-new">
-              <div class="search">
-                <input type="text" class="with-clear">
-                <button class="do-clear">
-                  <span>✓</span>
-                </button>
-                <button class="do-search do-search-embedded locations">
-                  <span class="T">Search</span>
-                </button>
-              </div>
-            <!--
-            <button class="do-addLocation">
-            <span class="T">Add location</span>
-            </button> 
-            -->
-            </li>
-          </ul>
         </div>
         <div id="bulletin-media-block" class="field is-media">
           <div id="bulletin-video-player" clas="hidden"></div>  

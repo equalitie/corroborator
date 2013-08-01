@@ -26,10 +26,6 @@ define (
       },
       initAutocomplete: function() {},
 
-      destroy: function() {
-        this.undelegateEvents();
-        this.$el.remove();
-      },
       render: function() {
         var html = labelWidgetTmp();
         this.$el.empty()

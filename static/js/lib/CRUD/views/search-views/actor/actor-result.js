@@ -77,10 +77,6 @@ define (
       },
 
       // unsubscribe from dom events and remove the element
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
-      },
       resetFlags: function() {
         this.model.unset('selected');
         this.model.unset('result');

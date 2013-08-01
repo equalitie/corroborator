@@ -103,6 +103,8 @@ define (
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
+        console.log('destroyCurrentView');
+        
         if (this.currentView !== undefined) {
           this.currentView.destroy();
           delete(this.currentView);

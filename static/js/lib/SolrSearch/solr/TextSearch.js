@@ -21,6 +21,11 @@ define(
             },
 
             // parse bulletin results from the result string
+            filterLocation = function(element) {
+              return element.django_ct.search(/location/) > -1;
+            },
+
+            // parse bulletin results from the result string
             filterBulletin = function(element) {
               return element.django_ct.search(/bulletin/) > -1;
             },
@@ -43,6 +48,12 @@ define(
                 content: bulletins
               }); 
             },
+            pushLocationResults = function(locations) {
+              bus.push({
+                type: 'results_location',
+                content: locations
+              }); 
+            };
             pushIncidentResults = function(incidents) {
               bus.push({
                 type: 'results_incident',
@@ -95,6 +106,12 @@ define(
         pushIncidentResults(
           _.chain(searchResults)
            .filter(filterIncident)
+           .value()
+        );
+         
+        pushLocationResults(
+          _.chain(searchResults)
+           .filter(filterLocation)
            .value()
         );
       },

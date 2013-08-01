@@ -51,15 +51,16 @@ define (
       destroy: function() {
         this.destroyChildViews();
         this.destroySelectViews();
-        this.childViews = [];
         this.$el.remove();
         this.undelegateEvents();
       },
       destroyChildViews: function() {
         _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
       },
       destroySelectViews: function() {
         _.invoke(this.selectViews, 'destroy');
+        this.selectViews = [];
       },
 
       // render all display elements
@@ -218,6 +219,7 @@ define (
 
       // remove dom elements and unsubscribe from events
       destroy: function() {
+        this.disableWidgets();
         this.collection.off('edit', this.populateForm, this);
         this.collection.off('destroy', this.checkCurrentModelMatches, this);
         this.$el.remove();
@@ -262,12 +264,12 @@ define (
       render: function() {
         this.destroyChildren();
         this.collection.each(function(model) {
-          var commentView = new EventDisplayView({
+          var eventView = new EventDisplayView({
             model: model,
             collection: this.collection
           });
-          this.$el.prepend(commentView.$el);
-          this.childViews.push(commentView);
+          this.$el.prepend(eventView.$el);
+          this.childViews.push(eventView);
         }, this);
       }
     });
@@ -300,12 +302,6 @@ define (
         evt.preventDefault();
         this.model.destroy();
         this.destroy();
-      },
-
-      // remove the dom elements and unsubscribe to events
-      destroy: function() {
-        this.$el.remove();
-        this.undelegateEvents();
       },
 
       // render the comment
