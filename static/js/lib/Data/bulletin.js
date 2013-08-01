@@ -56,7 +56,7 @@ define(
       url: function() {
         var base = '/api/v1/bulletin/';
         if (this.id) {
-          base = base + this.id + '/';
+          base = this.get('resource_uri');
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;

@@ -25,11 +25,11 @@ define(
         // facet fields
         fields = [ 
           'bulletin_labels_exact',
-          //'bulletin_assigned_exact',
+          'bulletin_assigned_user_exact',
           'incident_labels_exact', 
           'incident_assigned_exact',
-          //'incident_crimes_exact',
-          //'bulletin_sources_exact',
+          'incident_crimes_exact',
+          'bulletin_sources_exact',
           'civilian_en_exact',
           'age_en_exact',
           'sex_en_exact',
