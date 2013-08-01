@@ -109,6 +109,50 @@ class IncidentTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
         
+    def test_incident_patch_update(self):
+        url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
+        patch_data = {
+            'objects': [
+                {
+                    'id': '1',
+                    'resource_uri': '/api/v1/incident/1/',
+                    'title_en': "Test Incident",
+                    'title_ar': "Test Incident Arabic",
+                    'incident_details_en': "incident_details en",
+                    'incident_details_ar': "incident_details Arabic",
+                    'confidence_score':11,
+                    'assigned_user': '/api/v1/user/1/',
+                    'incident_comments': ['/api/v1/comment/1/',],
+                    'bulletins': [],
+                    'actors_role': [],
+                    'crimes': [],
+                    'labels': [],
+                    'times': [],
+                    'locations': [],
+                    'ref_incidents': [],
+                },
+                {
+                    'id': '2',
+                    'resource_uri': '/api/v1/incident/2/',
+                    'title_en': "Test Incident",
+                    'title_ar': "Test Incident Arabic",
+                    'incident_details_en': "incident_details en",
+                    'incident_details_ar': "incident_details Arabic",
+                    'confidence_score':11,
+                    'incident_comments': ['/api/v1/comment/1/',],
+                    'bulletins': [],
+                    'actors_role': [],
+                    'crimes': [],
+                    'labels': [],
+                    'times': [],
+                    'locations': [],
+                    'ref_incidents': [],
+                }
+            ]
+        }
+        response = self.api_client.patch(url, data=patch_data)
+        self.assertEqual(response.status_code, 202)
+        
     def test_incident_patch(self):
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         patch_data = {

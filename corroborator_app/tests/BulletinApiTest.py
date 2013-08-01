@@ -144,7 +144,54 @@ class BulletinTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
         
+    def test_bulletin_patch_update(self):
+        
+        url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
+        patch_data = {
+            'objects': [
+                {
+                    'id': '1',
+                    'resource_uri': '/api/v1/bulletin/1/',
+                    'title_en': "Test Bulletin",
+                    'title_ar': "Test Bulletin Arabic",
+                    'description_en': "description en",
+                    'description_ar': "description Arabic",
+                    'confidence_score': 73,
+                    #'sources': [],
+                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'assigned_user': '/api/v1/user/1/',
+                    'actors_role': [],
+                    #'times': [],
+                    'medias': [],
+                    'locations': [],
+                    'labels': [],
+                    'ref_bulletins': [],
+                },
+                {
+                    'id': '2',
+                    'resource_uri': '/api/v1/bulletin/2/',
+                    'title_en': "Test Bulletin",
+                    'title_ar': "Test Bulletin Arabic",
+                    'description_en': "description en",
+                    'description_ar': "description Arabic",
+                    'confidence_score': 73,
+                    #'sources': ['/api/v1/source/1/',],
+                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'assigned_user': '/api/v1/user/1/',
+                    'actors_role': [],
+                    'times': [],
+                    'medias': [],
+                    'locations': [],
+                    'labels': [],
+                    'ref_bulletins': [],
+                }
+            ]
+        }
+        response = self.api_client.patch(url, data=patch_data)
+        self.assertEqual(response.status_code, 202)
+
     def test_bulletin_patch(self):
+       
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         patch_data = {
             'objects': [
@@ -154,11 +201,11 @@ class BulletinTestCase(ResourceTestCase):
                     'description_en': "description en",
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
-                    'sources': ['/api/v1/source/1/',],
+                    #'sources': [],
                     'bulletin_comments': ['/api/v1/comment/1/',],
                     'assigned_user': '/api/v1/user/1/',
                     'actors_role': [],
-                    'times': [],
+                    #'times': [],
                     'medias': [],
                     'locations': [],
                     'labels': [],
@@ -170,7 +217,7 @@ class BulletinTestCase(ResourceTestCase):
                     'description_en': "description en",
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
-                    'sources': ['/api/v1/source/1/',],
+                    #'sources': ['/api/v1/source/1/',],
                     'bulletin_comments': ['/api/v1/comment/1/',],
                     'assigned_user': '/api/v1/user/1/',
                     'actors_role': [],

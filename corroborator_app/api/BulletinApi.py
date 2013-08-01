@@ -29,14 +29,19 @@ class BulletinResource(ModelResource):
     sources = fields.ManyToManyField(SourceResource, 'sources', null=True)
     bulletin_comments = fields.ManyToManyField(
         CommentResource,
-        'bulletin_comments'
+        'bulletin_comments',
+        null=True
     )
-    actors_role = fields.ManyToManyField(ActorRoleResource, 'actors_role')
-    times = fields.ManyToManyField(TimeInfoResource, 'times')
-    medias = fields.ManyToManyField(MediaResource, 'medias')
-    locations = fields.ManyToManyField(LocationResource, 'locations')
-    labels = fields.ManyToManyField(LabelResource, 'labels')
-    ref_bulletins = fields.ManyToManyField('self', 'ref_bulletins')
+    actors_role = fields.ManyToManyField(
+        ActorRoleResource, 
+        'actors_role',
+        null=True
+    )
+    times = fields.ManyToManyField(TimeInfoResource, 'times', null=True)
+    medias = fields.ManyToManyField(MediaResource, 'medias',null=True)
+    locations = fields.ManyToManyField(LocationResource, 'locations',null=True)
+    labels = fields.ManyToManyField(LabelResource, 'labels',null=True)
+    ref_bulletins = fields.ManyToManyField('self', 'ref_bulletins',null=True)
 
     """
     tastypie api implementation for Bulletin model

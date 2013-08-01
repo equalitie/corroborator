@@ -10,6 +10,7 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
+from corroborator_app.api.ActorApi import ActorResource
 from corroborator_app.models import ActorRelationship
 
 __all__ = ('ActorRelationshipResource', )
@@ -18,6 +19,8 @@ class ActorRelationshipResource(ModelResource):
     """
     tastypie api implementation for actor relationship model
     """
+    actor_a = fields.ForeignKey(ActorResource, 'actor_a', null=True)
+    actor_b = fields.ForeignKey(ActorResource, 'actor_b', null=True)
     class Meta:
         queryset = ActorRelationship.objects.all()
         resource_name = 'actorRelationship'
