@@ -22,7 +22,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "-field\">\n  <option selected value=\"\"></option>\n</select>\n\n";
+    + "-field\">\n</select>\n\n";
   return buffer;
   })
 

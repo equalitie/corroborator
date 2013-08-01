@@ -10,5 +10,4 @@ for input fields on the entity form
 <select multiple="true" 
         name="{{entityType}}_comments"
         class="{{entityType}}-field hidden">
-  <option selected value="">
 </select>

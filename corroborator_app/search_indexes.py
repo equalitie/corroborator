@@ -156,7 +156,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Incident
     def prepare_assigned_user(self, object):
-        if object.assigned_usr is not None:
+        if object.assigned_user != None:
             return '/api/v1/user/{0}/'.format(object.assigned_user.id)
         else:
             return ''

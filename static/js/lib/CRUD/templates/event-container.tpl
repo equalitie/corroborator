@@ -7,5 +7,4 @@
   </li>
 </ul>
 <select name="times" multiple="true" class="{{entityType}}-field hidden">
-  <option value=""></option>
 </select>

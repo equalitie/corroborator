@@ -12,7 +12,6 @@
 
 </ul>
 <select multiple="true" name="actors_role" id="actors_role" class="hidden">
-  <option value=""></option>
 </select>
 
 <!--<div class="drop-target">Drag &amp; drop actors here</div>-->
