@@ -63,6 +63,7 @@ define (
         // pull the data from the form
         formContent: function() {
           var formArray = $('.' + this.formElClass).serializeArray();
+          console.log(formArray);
           return this.formArrayToData(formArray);
         },
 

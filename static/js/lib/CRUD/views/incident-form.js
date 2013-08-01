@@ -35,6 +35,7 @@ define (
         EventContainerView   = EventForm.EventContainerView,
         CrimeCollection      = Crime.CrimeCollection,
         LabelCollection      = Label.LabelCollection,
+        crudBus              = Streams.crudBus,
         userList     = function() {
           return Bootstrap.gl_ac_users_list;
         };
@@ -43,6 +44,7 @@ define (
     // display create/update form for incidents
     IncidentFormView = Backbone.View.extend({
       entityType: 'incident',
+      formElClass: 'incident_form',
       childViews: [],
       events: {
         'click button#incident-action_save': 'saveRequested',
@@ -133,6 +135,15 @@ define (
       },
       saveRequested: function() {
         var formContent = this.formContent();
+        if (this.model !== undefined) {
+          this.model.save();
+        }
+        else {
+          crudBus.push({
+            type: 'create_new_incident',
+            content: formContent
+          });
+        }
       },
       renderChildren: function() {
         var commentForm = new CommentContainerView({
