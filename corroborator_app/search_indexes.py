@@ -156,7 +156,10 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Incident
     def prepare_assigned_user(self, object):
-        return '/api/v1/user/{0}/'.format(object.assigned_user.id)
+        if object.assigned_usr != None:
+            return '/api/v1/user/{0}/'.format(object.assigned_user.id)
+        else:
+            return ''
     def prepare_ref_incidents(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -296,7 +299,10 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return Bulletin
     def prepare_assigned_user(self, object):
-        return 'api/v1/user/{0}/'.format(object.assigned_user.id)
+        if object.assigned_usr != None:
+            return '/api/v1/user/{0}/'.format(object.assigned_user.id)
+        else:
+            return ''
     def prepare_times(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
