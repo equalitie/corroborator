@@ -25,6 +25,7 @@ define (
     // display create update form for actor
     ActorFormView = Backbone.View.extend({
       childViews: [],
+      entityType: 'actor',
       events: {
         'click button#actor-action_save': 'saveRequested',
         'click button.do-hide': 'requestCloseForm'
