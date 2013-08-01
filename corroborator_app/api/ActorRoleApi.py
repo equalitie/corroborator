@@ -16,7 +16,7 @@ from corroborator_app.api.ActorApi import ActorResource
 __all__ = ('ActorRoleResource', )
 
 class ActorRoleResource(ModelResource):
-    actor = fields.ForeignKey(ActorResource, 'assigned_user', null=True)
+    actor = fields.ForeignKey(ActorResource, 'actor', null=True)
     """
     tastypie api implementation
     """

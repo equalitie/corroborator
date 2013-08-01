@@ -33,15 +33,20 @@ class IncidentResource(ModelResource):
     assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
     incident_comments = fields.ManyToManyField(
         CommentResource,
-        'incident_comments'
+        'incident_comments',
+        null=True
     )
-    bulletins = fields.ManyToManyField(BulletinResource, 'bulletins')
-    actors_role = fields.ManyToManyField(ActorRoleResource, 'actors_role')
-    crimes = fields.ManyToManyField(CrimeCategoryResource, 'crimes')
-    labels = fields.ManyToManyField(LabelResource, 'labels')
-    times = fields.ManyToManyField(TimeInfoResource, 'times')
-    locations = fields.ManyToManyField(LocationResource, 'locations')
-    ref_incidents = fields.ManyToManyField('self', 'ref_incidents')
+    bulletins = fields.ManyToManyField(BulletinResource, 'bulletins', null=True)
+    actors_role = fields.ManyToManyField(
+        ActorRoleResource, 
+        'actors_role',
+        null=True
+    )
+    crimes = fields.ManyToManyField(CrimeCategoryResource, 'crimes', null=True)
+    labels = fields.ManyToManyField(LabelResource, 'labels', null=True)
+    times = fields.ManyToManyField(TimeInfoResource, 'times', null=True)
+    locations = fields.ManyToManyField(LocationResource, 'locations', null=True)
+    ref_incidents = fields.ManyToManyField('self', 'ref_incidents', null=True)
 
     class Meta:
         queryset = Incident.objects.all()
