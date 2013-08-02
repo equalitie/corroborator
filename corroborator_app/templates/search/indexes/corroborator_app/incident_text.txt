@@ -1,28 +1,33 @@
-{{ object.comments_en }}
 {{ object.title_en }}
+{{ object.title_ar }}
+{{ object.incident_created }}
 {{ object.incident_details_en }}
+{{ object.incident_details_ar }}
 {{ object.confisence_score }}
-{{ object.type }}
+{{ object.assigned_user }}
 {% for location in object.locations.all %}
     {{ location.name_en }}
+    {{ location.name_ar }}
 {% endfor %}
 
 {% for time in object.times.all %}
-    {{ time.time }}
+    {{ time.time_from }}
+    {{ time.time_to }}
 {% endfor %}
 {% for crime in object.crimes.all %}
-    {{ crime.category_en }}
+    {{ crime.name_en }}
+    {{ crime.name_ar }}
 {% endfor %}
 
-
-{% for status in object.status.all %}
-    {{ status.status }}
-{% endfor %}
 {% for label in object.labels.all %}
-    {{ label.name }}
+    {{ label.name_en }}
+    {{ label.name_ar }}
+{% endfor %}
+{% for ic in object.incident_comments.all %}
+    {{ ic.comments_en }}
+    {{ ic.comments_ar }}
+    {{ ic.status.name_en }}
+    {{ ic.status.name_ar }}
 {% endfor %}
 
-{% for source in object.sources.all %}
-    {{ source.name }}
-    {{ source.source_type.source_type }}
-{% endfor %}
+
