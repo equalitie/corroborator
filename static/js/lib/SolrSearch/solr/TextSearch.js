@@ -82,7 +82,7 @@ define(
         bus.filter(filterSearchRequestEvents)
                  .onValue(function(value) {
                    self.clear();
-                   self.set('*' + value.content.raw + '*');
+                   self.set( value.content.raw);
                    self.doRequest();
                  });
       },
