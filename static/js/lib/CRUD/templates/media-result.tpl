@@ -1,7 +1,7 @@
-<span class="type">{{model.type}}</span>
-<span class="date">{{dateFormat model.date}}</span>
+<span class="type">{{model.media_type}}</span>
+<span class="date">{{dateFormat model.media_created}}</span>
 {{#if model.result}}
-  <button class="do-relate is-small">
+  <button class="do-relate right is-small">
     <span class="text">relate</span>
   </button>
 {{/if}}

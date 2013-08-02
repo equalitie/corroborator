@@ -8,16 +8,17 @@
 define (
   [
     'backbone', 'jquery', 'lib/streams',
+    'lib/Data/media',
     'lib/CRUD/templates/media-form.tpl'
   ],
-  function (Backbone, $, Streams, mediaFormTmp) {
+  function (Backbone, $, Streams, Media,  mediaFormTmp) {
     'use strict';
     var MediaFormView,
         crudBus = Streams.crudBus,
         mediaTypes = [
-          { value: 'video',    text : 'Video'    },
-          { value: 'picture',  text : 'Picture'  },
-          { value: 'document', text : 'Document' }
+          { value: 'Video',    text : 'Video'    },
+          { value: 'Picture',  text : 'Picture'  },
+          { value: 'Document', text : 'Document' }
         ];
 
     // ### MediaFormView
@@ -124,12 +125,15 @@ define (
       },
 
       submitSuccess: function(responseObject) {
+        var mediaModel = new Media.MediaModel(responseObject);
         this.showMessage('.success');
         window.setTimeout(this.hideMessage.bind(this, '.success'), 2000);
         this.progressbar.hide();
         crudBus.push({
-          type: 'media-created',
-          content: responseObject
+          type: 'relate_media_request',
+          content: {
+            model: mediaModel
+          }
         });
 
       },
