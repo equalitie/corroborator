@@ -1,61 +1,63 @@
 /*global define*/
 // Author: Cormac McGuire
 // ### Description
-// Search for bulletins, provide display of selected bulletins and select element
+// Search for medias, provide display of selected medias and select element
 // to store them for the containing form
 
 define (
   [
     'jquery', 'backbone', 'underscore', 'lib/streams',
     'lib/elements/select-option',
-    'lib/Data/bulletin',
-    'lib/CRUD/views/search-views/bulletin/bulletin-result',
-    'lib/CRUD/templates/bulletin-search-field.tpl'
+    'lib/Data/media',
+    'lib/CRUD/views/search-views/media/media-result',
+    'lib/CRUD/views/search-views/media/media-form',
+    'lib/CRUD/templates/media-search-field.tpl'
   ],
-  function ($, Backbone, _, Streams, SelectOptionView, Bulletin, BulletinResult,
-    bulletinSearchTmp) {
+  function ($, Backbone, _, Streams, SelectOptionView, Media, MediaResult,
+    MediaFormView, mediaSearchTmp) {
     'use strict';
-    var BulletinSearchView,
+    var MediaSearchView,
         crudBus = Streams.crudBus,
-        filterBulletinResults = function(value) {
-          return value.type === 'results_bulletin';
+        filterMediaResults = function(value) {
+          return value.type === 'results_media';
         },
-        filterBulletinUpdateRelationship = function(value) {
-          return value.type === 'update_bulletin_relationship_request';
+        filterMediaUpdateRelationship = function(value) {
+          return value.type === 'update_media_relationship_request';
         },
-        filterBulletinRelateRequest = function(value) {
-          return value.type === 'relate_bulletin_request';
+        filterMediaRelateRequest = function(value) {
+          return value.type === 'relate_media_request';
         };
 
-    // ### BulletinSearchView
-    // Search for bulletins and display bulletins already associated with and entity
+    // ### MediaSearchView
+    // Search for medias and display medias already associated with and entity
     // allows for adding of search results
-    BulletinSearchView = Backbone.View.extend({
+    MediaSearchView = Backbone.View.extend({
       childViews: [],
       unsubFunctions: [],
       events: {
-        'click .do-search': 'searchBulletinsRequested',
+        'click .do-search': 'searchMediasRequested',
+        'click .do-upload': 'uploadMediasRequested',
         'click .do-clear' : 'clearSearchRequested'
       },
-      template: bulletinSearchTmp,
-      bulletinCollection: undefined,
+      template: mediaSearchTmp,
+      mediaCollection: undefined,
       renderCollection: undefined,
       // constructor
-      // pass in collection of existing Bulletins related to this entity
+      // pass in collection of existing Medias related to this entity
       // or create a new one
       initialize: function() {
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
         this.listenTo(this.collection, 'reset add remove',
-          this.renderBulletins.bind(this));
+          this.renderMedias.bind(this));
         this.listenTo(this.collection, 'reset add remove',
           this.renderSelectOptions.bind(this));
-        this.listenForBulletinsAdded();
+        this.listenForMediasAdded();
         this.render();
       },
 
-      requestAvailableBulletins: function(inputText) {
+      requestAvailableMedias: function(inputText) {
         var searchText = inputText !== undefined ? inputText : '';
         // send a search request - handled in TextSearch
         crudBus.push({
@@ -69,7 +71,8 @@ define (
       // turn off event listeners and remove dom elements
       destroy: function() {
         this.stopListening();
-        //this.collection = undefined;
+        this.collection = undefined;
+        this.mediaCollection = undefined;
         this.destroySelectViews();
         this.destroyChildViews();
         this.unsubStreams();
@@ -77,15 +80,26 @@ define (
         this.undelegateEvents();
       },
 
+      // user clicked upload
+      uploadMediasRequested: function(evt) {
+        evt.preventDefault();
+        this.watchForUpload();
+        this.watchForUploadCancel();
+        this.mediaUploadForm = new MediaFormView();
+      },
+      watchForUpload: function() {
+      },
+      watchForUploadCancel: function() {
+      },
       // user clicked search
-      searchBulletinsRequested: function(evt) {
+      searchMediasRequested: function(evt) {
         evt.preventDefault();
         // get the text from the search box
         var inputText = this.$el.children('.search').children('input').val();
-        this.requestAvailableBulletins(inputText);
-        // opent the bulletin results box
+        this.requestAvailableMedias(inputText);
+        // opent the media results box
         crudBus.push({
-          type: 'bulletin-results',
+          type: 'media-results',
           content: {}
         });
       },
@@ -96,45 +110,45 @@ define (
         $(evt.currentTarget).siblings('input').val('');
       },
 
-      // listen for the list of all available bulletins, used to populate the
-      // added bulletins data
-      listenForAvailableBulletins: function() {
-        console.trace();
+      // listen for the list of all available medias, used to populate the
+      // added medias data
+      listenForAvailableMedias: function() {
         var self = this;
         var subscriber =
           crudBus.toEventStream()
-                 .filter(filterBulletinResults)
+                 .filter(filterMediaResults)
                  .subscribe(function(evt) {
                    var value = evt.value();
-                   self.bulletinCollection.reset(value.content);
+                   self.mediaCollection.reset(value.content);
+                   console.log(self.mediaCollection);
                  });
        this.unsubFunctions.push(subscriber);
       },
 
-      // listen for an event specifying the bulletin who has been added
-      listenForBulletinsAdded: function() {
+      // listen for an event specifying the media who has been added
+      listenForMediasAdded: function() {
         var subscriber = 
           crudBus.toEventStream()
-                 .filter(filterBulletinRelateRequest)
-                 .subscribe(this.attachBulletin.bind(this));
+                 .filter(filterMediaRelateRequest)
+                 .subscribe(this.attachMedia.bind(this));
        this.unsubFunctions.push(subscriber);
       },
 
-      attachBulletin: function(evt) {
-        var bulletinModel = evt.value().content.model,
-            existingBulletin = this.existingBulletin(bulletinModel);
-        if (existingBulletin === undefined) { // create bulletin
-          this.collection.add(bulletinModel);
+      attachMedia: function(evt) {
+        var mediaModel = evt.value().content.model,
+            existingMedia = this.existingMedia(mediaModel);
+        if (existingMedia === undefined) { // create media
+          this.collection.add(mediaModel);
         }
       },
 
 
-      // check if the bulletin is already associated with this entity
-      existingBulletin: function(bulletinModel) {
+      // check if the media is already associated with this entity
+      existingMedia: function(mediaModel) {
         return this.collection
                    .chain()
                    .filter(function(model) { 
-                      return model.get('id') === bulletinModel.get('id');
+                      return model.get('id') === mediaModel.get('id');
                    })
                    .last()
                    .value();
@@ -158,7 +172,7 @@ define (
         this.selectViews.push(selectOptionView);
       },
 
-      // destroy the displayed bulletin views
+      // destroy the displayed media views
       destroyChildViews: function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
@@ -178,15 +192,15 @@ define (
         this.unsubFunctions = [];
       },
 
-      // render the related bulletins
-      renderBulletins: function() {
+      // render the related medias
+      renderMedias: function() {
         this.destroyChildViews();
-        this.collection.each(this.renderBulletin, this);
+        this.collection.each(this.renderMedia, this);
       },
 
-      // render a single bulletin
-      renderBulletin: function(model) {
-        var resultView = new BulletinResult({
+      // render a single media
+      renderMedia: function(model) {
+        var resultView = new MediaResult({
           model: model,
           collection: this.collection,
           type: 'selected'
@@ -202,6 +216,6 @@ define (
                 .append(html);
       }
     });
-    return BulletinSearchView;
+    return MediaSearchView;
 });
 

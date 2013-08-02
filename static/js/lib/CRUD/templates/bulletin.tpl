@@ -121,34 +121,10 @@
           </div>
         <div id="bulletin-location-block" class="field is-locations">
         </div>
+
         <div id="bulletin-media-block" class="field is-media">
-          <div id="bulletin-video-player" clas="hidden"></div>  
-          <div class="bulletin-preview preview"> </div>
-          <label>Media</label>
-          <div id="bulletin-media-search-block" class="search">
-            <input type="text" class="with-clear"/>
-            <button class="do-clear">
-              <span>✓</span>
-            </button>
-            <button class="do-search do-search-embedded medias">
-              <span>Search</span>
-            </button>
-            <button class="do-search upload-media">
-              <span>Upload New Media</span>
-            </button>
-          </div>
-
-          <ul class="bulletin-media media">
-
-          </ul>
-          <div class="clearer">&nbsp;</div>
-          <!--      <div class="media editor">
-          <div class="drop-target">Drag &amp; drop files here</div>
-          </div>
-          <button class="do-addMedia">
-          <span class="T">Add media</span>
-          </button> -->
         </div>
+
         <div id="bulletin-description-block" class="field is-description">
           <label>Description</label>
           <div class="i18n with-en with-ar">

@@ -7,6 +7,7 @@
       'main'           : 'main',
       'jquery'         : 'components/jquery/jquery',
       'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui',
+      'jquery_form'    : 'components/jquery-form/jquery.form',
       'jquery_time'    : 'components/jquery-timepicker-addon/jquery-ui-timepicker-addon',
       'jquery_slider'  : 'components/jquery-timepicker-addon/jquery-ui-sliderAccess',
       'leaflet'        : 'components/leaflet/dist/leaflet',
@@ -45,6 +46,9 @@
         deps: ['jquery'],
       },
       jquery_ui: {
+        deps: ['jquery']
+      },
+      jquery_form: {
         deps: ['jquery']
       },
       jquery_time: {

@@ -385,6 +385,7 @@ ul.elements {
 }
 
 ul.media {
+  @include clearfix;
   margin-right: -$PAD_UNIT / 2;
   li.medium {
     display: block;

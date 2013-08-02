@@ -8,6 +8,7 @@ define(
     'lib/elements/helpers/view-close',
     'jquery',
     'jquery_ui',
+    'jquery_form',
     'jquery_time',
     'jquery_slider'
   ],

@@ -21,6 +21,11 @@ define(
             },
 
             // parse bulletin results from the result string
+            filterMedia = function(element) {
+              return element.django_ct.search(/media/) > -1;
+            },
+
+            // parse bulletin results from the result string
             filterLocation = function(element) {
               return element.django_ct.search(/location/) > -1;
             },
@@ -48,6 +53,12 @@ define(
                 content: bulletins
               }); 
             },
+            pushMediaResults = function(locations) {
+              bus.push({
+                type: 'results_media',
+                content: locations
+              }); 
+            };
             pushLocationResults = function(locations) {
               bus.push({
                 type: 'results_location',
@@ -83,6 +94,7 @@ define(
                  .onValue(function(value) {
                    self.clear();
                    self.set( value.content.raw);
+                   self.set('*' + value.content.raw + '*');
                    self.doRequest();
                  });
       },
@@ -109,6 +121,12 @@ define(
            .value()
         );
          
+        pushMediaResults(
+          _.chain(searchResults)
+           .filter(filterMedia)
+           .value()
+        );
+
         pushLocationResults(
           _.chain(searchResults)
            .filter(filterLocation)
