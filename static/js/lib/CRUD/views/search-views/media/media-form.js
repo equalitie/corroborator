@@ -1,0 +1,155 @@
+/*global window, define, Bootstrap*/
+// Author: Cormac McGuire
+// ### Description
+// Handle the media form display and interaction with the backend to create 
+// a media entity with file upload
+// The file will be uploaded first and meta data added afterwards
+
+define (
+  [
+    'backbone', 'jquery', 'lib/streams',
+    'lib/CRUD/templates/media-form.tpl'
+  ],
+  function (Backbone, $, Streams, mediaFormTmp) {
+    'use strict';
+    var MediaFormView,
+        crudBus = Streams.crudBus,
+        mediaTypes = [
+          { value: 'video',    text : 'Video'    },
+          { value: 'picture',  text : 'Picture'  },
+          { value: 'document', text : 'Document' }
+        ];
+
+    // ### MediaFormView
+    // 
+    MediaFormView = Backbone.View.extend({
+      template: mediaFormTmp,
+      events: {
+      },
+      formOptions: function() {
+        return {
+          resetForm     : true,
+          success       : this.submitSuccess.bind(this),
+          error         : this.submitError.bind(this),
+          beforeSubmit  : this.validateFile.bind(this),
+          uploadProgress: this.uploadProgress.bind(this),
+          dataType      : 'json',
+          url           : this.buildUrl()
+        };
+      },
+      initialize: function() {
+        this.render();
+      },
+      buildUrl: function() {
+        return '/api/v1/media/?format=json&username=' + Bootstrap.username +
+               '&api_key=' + Bootstrap.apiKey;
+      },
+
+      // render the html then call the openDialog function
+      render: function() {
+        var html = this.template({
+          mediaTypes: mediaTypes,
+          username  : Bootstrap.username,
+          apiKey    : Bootstrap.apiKey
+        });
+        this.$el.html(html);
+        this.openDialog();
+        this.formify();
+      },
+
+      // open the dialog box
+      openDialog: function() {
+        this.$el.dialog({
+          autoOpen : true,
+          height   : 380,
+          width    : 350,
+          title    : "Upload New Media",
+          modal    : true,
+          draggable: false,
+          close    : this.cancelRequested.bind(this),
+          buttons  : {
+            'Upload Media': this.uploadRequested.bind(this),
+            'Cancel'      : this.cancelRequested.bind(this)
+          }
+        });
+      },
+      formify: function() {
+        this.$formEl = this.$el.children()
+                               .children('form.media-form');
+        this.$formEl.ajaxForm(function() {
+                      console.log('did something');
+                     });
+      },
+
+      createProgressBar: function() {
+        this.progressbar = this.$el.children()
+                               .children('.media-progressbar')
+                               .progressbar({
+                                 value: 5
+                               });
+      },
+
+      // validate that a file has been added and create the entity
+      uploadRequested: function() {
+        this.createProgressBar();
+        this.progressbar.show();
+        this.$formEl.ajaxSubmit(this.formOptions());
+      },
+      validateFile: function(arr, $form, options) {
+        if (arr[3].value === "") {
+            this.progressbar.hide();
+            this.showMessage('.file');
+            window.setTimeout(this.hideMessage.bind(this, '.file'), 2000);
+          return false;
+        }
+      },
+      showMessage: function(messageClass) {
+            this.$el.children()
+                    .children('.message-text')
+                    .children(messageClass)
+                    .addClass('show-message');
+      },
+      hideMessage: function(messageClass) {
+            this.$el.children()
+                    .children('.message-text')
+                    .children(messageClass)
+                    .removeClass('show-message');
+      },
+
+      // upload failed show error message
+      submitError: function() {
+        this.showMessage('.server');
+        window.setTimeout(this.hideMessage.bind(this, '.server'), 2000);
+        this.progressbar.hide();
+      },
+
+      submitSuccess: function(responseObject) {
+        this.showMessage('.success');
+        window.setTimeout(this.hideMessage.bind(this, '.success'), 2000);
+        this.progressbar.hide();
+        crudBus.push({
+          type: 'media-created',
+          content: responseObject
+        });
+
+      },
+
+      uploadProgress: function(evt, position, total, percent) {
+        this.progressbar.progressbar('option', { value: percent });
+      },
+
+      // close the dialog and send a message to say that it has been 
+      // closed
+      cancelRequested: function() {
+        crudBus.push({
+          type: 'media_upload_cancelled',
+          content: {}
+        });
+        this.$el.dialog('close');
+      }
+    });
+
+    return MediaFormView;
+    
+});
+

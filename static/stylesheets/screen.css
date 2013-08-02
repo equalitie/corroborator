@@ -2995,6 +2995,43 @@ input.with-clear {
   margin-right: -1.5em;
 }
 
+/* line 31, ../sass/_forms.scss */
+.message {
+  border: 1px solid;
+  height: 10px;
+}
+
+/* line 35, ../sass/_forms.scss */
+.fail {
+  padding: 0.76923em;
+  background-color: #ffeeee;
+  border-color: #ff9999;
+  color: #ff9999;
+  display: none;
+}
+/* line 41, ../sass/_forms.scss */
+.fail.show-message {
+  display: block;
+}
+
+/* line 46, ../sass/_forms.scss */
+.success {
+  padding: 0.76923em;
+  background-color: #eeffee;
+  border-color: #99ff99;
+  color: #55ff55;
+  display: none;
+}
+/* line 51, ../sass/_forms.scss */
+.success a {
+  color: #55ff55;
+  text-decoration: underline;
+}
+/* line 57, ../sass/_forms.scss */
+.success.show-message {
+  display: block;
+}
+
 /* line 4, ../sass/_navigation.scss */
 nav {
   border-bottom: 1px solid #a0a0a0;

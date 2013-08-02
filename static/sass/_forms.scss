@@ -28,3 +28,33 @@ input {
   }
 };
 
+.message {
+  border: 1px solid;
+  height: 10px;
+}
+.fail {
+  padding: $PAD_UNIT / 2;
+  background-color: #ffeeee;
+  border-color: #ff9999;
+  color: #ff9999;
+  display: none;
+  &.show-message {
+    display: block;
+  }
+}
+
+.success {
+  padding: $PAD_UNIT / 2;
+  background-color: #eeffee;
+  border-color: #99ff99;
+  color: #55ff55;
+  a {
+    color: #55ff55;
+    text-decoration: underline;
+  }
+
+  display: none;
+  &.show-message {
+    display: block;
+  }
+}

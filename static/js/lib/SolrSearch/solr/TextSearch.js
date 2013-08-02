@@ -93,6 +93,7 @@ define(
         bus.filter(filterSearchRequestEvents)
                  .onValue(function(value) {
                    self.clear();
+                   console.log('watchSearchStream');
                    self.set('*' + value.content.raw + '*');
                    self.doRequest();
                  });

@@ -10,6 +10,6 @@
 
 <ul class="media"></ul>
 
-<button class="do-search upload-media">
+<button class="do-upload upload-media">
   <span>Upload New Media</span>
 </button>

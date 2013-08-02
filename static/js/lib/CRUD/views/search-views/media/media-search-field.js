@@ -10,10 +10,11 @@ define (
     'lib/elements/select-option',
     'lib/Data/media',
     'lib/CRUD/views/search-views/media/media-result',
+    'lib/CRUD/views/search-views/media/media-form',
     'lib/CRUD/templates/media-search-field.tpl'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Media, MediaResult,
-    mediaSearchTmp) {
+    MediaFormView, mediaSearchTmp) {
     'use strict';
     var MediaSearchView,
         crudBus = Streams.crudBus,
@@ -35,6 +36,7 @@ define (
       unsubFunctions: [],
       events: {
         'click .do-search': 'searchMediasRequested',
+        'click .do-upload': 'uploadMediasRequested',
         'click .do-clear' : 'clearSearchRequested'
       },
       template: mediaSearchTmp,
@@ -78,6 +80,17 @@ define (
         this.undelegateEvents();
       },
 
+      // user clicked upload
+      uploadMediasRequested: function(evt) {
+        evt.preventDefault();
+        this.watchForUpload();
+        this.watchForUploadCancel();
+        this.mediaUploadForm = new MediaFormView();
+      },
+      watchForUpload: function() {
+      },
+      watchForUploadCancel: function() {
+      },
       // user clicked search
       searchMediasRequested: function(evt) {
         evt.preventDefault();

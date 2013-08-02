@@ -14,7 +14,29 @@ from corroborator_app.models import Media
 
 __all__ = ('MediaResource', )
 
-class MediaResource(ModelResource):
+class MultipartResource(object):
+    def deserialize(self, request, data, format=None):
+        import sys
+        print >> sys.stderr, '****************************************'
+        print >> sys.stderr, format
+        print >> sys.stderr, '****************************************'
+        if not format:
+            format = request.META.get('CONTENT_TYPE', 'application/json')
+
+        if format == 'application/x-www-form-urlencoded':
+            return request.POST
+
+        if format.startswith('multipart'):
+            import sys
+            print >> sys.stderr, 'deserialize'
+            data = request.POST.copy()
+            data.update(request.FILES)
+
+            return data
+
+        return super(MultipartResource, self).deserialize(request, data, format)
+
+class MediaResource(MultipartResource, ModelResource):
     """
     tastypie api implementation for media model
     """
