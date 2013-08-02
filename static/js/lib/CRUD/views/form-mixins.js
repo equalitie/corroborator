@@ -62,7 +62,7 @@ define (
 
         // pull the data from the form
         formContent: function() {
-          var formArray = $('.' + this.formElClass).serializeArray();
+          var formArray = $('.' + this.entityType + '-field').serializeArray();
           return this.formArrayToData(formArray);
         },
 

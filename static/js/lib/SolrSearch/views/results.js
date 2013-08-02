@@ -68,7 +68,6 @@ define(
         return this;
       },
       onDestroy: function() {
-        console.log('onDestroy');
         this.model.stopListening();
       }
 
@@ -100,6 +99,8 @@ define(
         this.collection.each(this.renderItem, this);
         return this;
       },
+
+      // render a single actor result
       renderItem: function(model, index) {
         var resultView = new ActorResultView({
           model: model,
@@ -111,6 +112,7 @@ define(
                 .append(resultView.$el);
         this.childViews.push(resultView);
       },
+
       destroyChildren:function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
@@ -134,12 +136,15 @@ define(
         'click .toggle span': 'switchLanguage',
         'click input[type="checkbox"]': 'selectIncident'
       },
+
+      // constructor
       initialize: function(options) {
         this.index = options.index;
         this.listenTo(this.model, 'change', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
+      
       // dom event handlers
       switchLanguage: function(evt) {
         var clickedElement = evt.currentTarget,
@@ -148,11 +153,15 @@ define(
                               .children('div.i18n');
         Language.toggleLanguage(clickedElement, i18nElement);
       },
+
+      // select an incident - user has clicked the checkbox
       selectIncident: function() {
         var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';
         this.model.set({checked: checked}, {silent: true});
         this.model.collection.trigger('change');
       },
+
+      // render the incident
       render: function() {
         var html = incidentTmp({
           model: this.model.toJSON()
@@ -174,8 +183,8 @@ define(
       childViews: [],
       template: incidentResultsTmp,
 
+      // constructor
       initialize: function() {
-        console.log(this.childViews.length);
         this.collection = Collections.IncidentCollection;
         this.listenTo(this.collection, 'add sort reset', this.renderList.bind(this));
         this.render();
@@ -196,6 +205,8 @@ define(
         this.collection.each(this.renderItem, this);
         return this;
       },
+
+      // render a single incident
       renderItem: function(model, index, list) {
         var resultView = new IncidentResultView({
           model: model,
@@ -231,12 +242,14 @@ define(
         'click input[type="checkbox"]': 'selectBulletin'
       },
 
+      // constructor
       initialize: function(options) {
         this.index = options.index;
         this.listenTo(this.model, 'change', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
+
       // dom event handlers
       switchLanguage: function(evt) {
         var clickedElement = evt.currentTarget,
@@ -245,12 +258,15 @@ define(
                               .children('div.i18n');
         Language.toggleLanguage(clickedElement, i18nElement);
       },
+
+      // user clicked checkbox
       selectBulletin: function() {
         var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';
         this.model.set({checked: checked}, {silent: true});
         this.model.collection.trigger('change');
       },
 
+      // render the bulletin
       render: function() {
         var html = bulletinTmp({
           model: this.model.toJSON()
@@ -261,7 +277,8 @@ define(
         return this;
       },
 
-      destroy: function() {
+      // remove event listeners
+      onDestroy: function() {
         this.stopListening();
       }
 

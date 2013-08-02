@@ -11,9 +11,10 @@ define (
     'lib/streams',
     'lib/CRUD/views/search-views/actor/actor-results',
     'lib/CRUD/views/search-views/bulletin/bulletin-results',
+    'lib/CRUD/views/search-views/media/media-results',
     'lib/CRUD/views/search-views/incident/incident-results'
   ],
-  function (Backbone, _, Streams, ActorResults, BulletinResults, IncidentResults) {
+  function (Backbone, _, Streams, ActorResults, BulletinResults, MediaResults, IncidentResults) {
     'use strict';
 
     var EmbeddedResultsManagerView,
@@ -21,6 +22,7 @@ define (
         embeddedSearchResultViews = {
           'actor': ActorResults.ActorResultsView,
           'incident': IncidentResults.IncidentResultsView,
+          'media': MediaResults.MediaResultsView,
           'bulletin': BulletinResults.BulletinResultsView
         },
         filterEmbeddedSearchClose = function(value) {
@@ -34,6 +36,9 @@ define (
         },
         filterIncidentResults = function(value) {
           return value.type === 'incident-results';
+        },
+        filterMediaResults = function(value) {
+          return value.type === 'media-results';
         },
         filterActorResults = function(value) {
           return value.type === 'actor-results';
@@ -53,6 +58,7 @@ define (
         this.watchForActorDisplay();
         this.watchForBulletinDisplay();
         this.watchForIncidentDisplay();
+        this.watchForMediaDisplay();
         this.watchForFormClose();
         this.watchForResultClose();
       },
@@ -85,6 +91,13 @@ define (
         crudBus.filter(filterBulletinResults)
                .onValue(function() {
                  self.replaceView('bulletin');
+               });
+      },
+      watchForMediaDisplay: function() {
+        var self = this;
+        crudBus.filter(filterMediaResults)
+               .onValue(function() {
+                 self.replaceView('media');
                });
       },
       watchForIncidentDisplay: function() {

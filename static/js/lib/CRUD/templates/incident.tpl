@@ -5,7 +5,7 @@
     </button>
   </div>
   <div id="view-placeholder-incident" class="body" style="bottom: 46px;">
-    <form id="incident_form">
+    <form id="incident_form" class="incident_form">
       <div class="Incident in-preview is-edited">
         <div class="Incident is-edited">
           <div class="col first span-66p hidden incident-expanded-edit">
@@ -29,10 +29,20 @@
               <label>Title
                 <span id="incident-title-block" class="i18n with-en with-ar">
                 <div lang="en">
-                  <textarea id="incident_title_en" type="text" class="validate[required] w-100p"></textarea>
+                  <textarea 
+                    id="incident_title_en"
+                    type="text"
+                    name="title_en"
+                    class="incident-field
+                    w-100p"></textarea>
                 </div>
                 <div lang="ar">
-                  <textarea type="text" id="incident_title_ar" class="w-100p"></textarea>
+                  <textarea 
+                    id="incident_title_ar"
+                    name="title_ar"
+                    type="text"
+                    class="incident-field
+                    w-100p"></textarea>
                 </div>
                 <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span>
                 </span>
@@ -49,7 +59,7 @@
                   <span class="score">
 
                     <span id="incident_confidence_score" class="value">0</span>
-                    <input type="hidden" name="confidence_score" value="0">
+                    <input type="hidden" class="incident-field" name="confidence_score" value="0">
 
 
                     <div class="score-editor">
@@ -118,12 +128,18 @@
             <div id="incident-description-block" class="field is-description">
             <label>Description</label>
             <div class="i18n with-en with-ar">
-            <div lang="en">
-            <textarea id="incident_description_en" type="text" class="w-100p"></textarea>
-            </div>
-            <div lang="ar">
-            <textarea id="incident_description_ar" type="text" class="w-100p"></textarea>
-            </div>
+                <div lang="en">
+                  <textarea 
+                    id="description_en"
+                    name="description_en"
+                    class="incident-field w-100p"></textarea>
+                </div>
+                <div lang="ar">
+                  <textarea 
+                    id="description_ar"
+                    name="description_ar"
+                    class="incident-field w-100p"></textarea>
+                </div>
             <span class="toggle">
             <span lang="en">EN</span><span lang="ar">AR</span>
             </span>

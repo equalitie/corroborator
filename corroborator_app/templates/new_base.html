@@ -63,7 +63,7 @@
     {%for user in users_set.all %}
       gl_ac_users_list.push({
         label:"{{user.username}}",
-        id:"{user.id}}",
+        id:"/api/v1/user/{{user.id}}/",
         resource_uri:"/api/v1/user/{{user.id}}/"
       });
     {% endfor %}

@@ -10,6 +10,7 @@ define (
     'lib/CRUD/views/form-mixins',
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
+    'lib/CRUD/views/search-views/media/media-search-field',
     'lib/CRUD/data/SourceCollection',
     'lib/CRUD/data/LabelCollection',
     'lib/CRUD/data/LocationCollection',
@@ -19,7 +20,8 @@ define (
     // templates
     'lib/CRUD/templates/bulletin.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins, ActorSearchView, BulletinSearchView,
+  function ($, _, Backbone, Streams, Mixins,
+    ActorSearchView, BulletinSearchView, MediaSearchView,
     // data
     Source, Label, Location,
     // views
@@ -175,6 +177,11 @@ define (
         var bulletinSearchView = new BulletinSearchView({
           el: '#bulletin-bulletin-block',
           entityType: 'bulletin'
+        });
+
+        var mediaSearchView = new MediaSearchView({
+          el: '#bulletin-media-block',
+          entitytype: 'bulletin'
         });
 
 

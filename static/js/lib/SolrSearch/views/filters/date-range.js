@@ -13,6 +13,8 @@ define (
     'use strict';
     var DateRangeView,
         searchBus = Streams.searchBus,
+        // helper object to deteermine if our dates our valid and format them
+        // correctly for both display and solr
         DateRange = function(startDate, endDate) {
           try {
             this.startDate = moment(startDate, 'YYYY-MM-DD');
@@ -88,7 +90,6 @@ define (
         else {
           throw 'entityType required by Date range view';
         }
-        
         this.render();
         this.createDatePickers();
       },
@@ -99,26 +100,32 @@ define (
           changeMonth: true,
           dateFormat: 'yy-mm-dd',
           numberOfMonths: 1,
-          onClose: function(selectedDate) {
-            $('.to-date').datepicker('option', 'minDate', selectedDate);
-            self.startDate = selectedDate;
-            self.checkFilters();
-          }
+          onClose: this.onCloseFrom.bind(this)
         });
         this.$el.children('.to-date').datepicker({
           defaultDate: '+1w',
           changeMonth: true,
           dateFormat: 'yy-mm-dd',
           numberOfMonths: 1,
-          onClose: function(selectedDate) {
-            $('.from-date').datepicker('option', 'maxDate', selectedDate);
-            self.endDate = selectedDate;
-            self.checkFilters();
-          }
+          onClose: this.onCloseTo.bind(this)
         });
 
       },
+      // callbacks for when the datepickers are closed
+      // set the min date on the other picker and see if we can
+      // send teh date out
+      onCloseFrom: function(selectedDate) {
+            this.$el.children('.to-date').datepicker('option', 'minDate', selectedDate);
+            this.startDate = selectedDate;
+            this.checkFilters();
+      },
+      onCloseTo: function(selectedDate) {
+            this.$el.children('.from-date').datepicker('option', 'maxDate', selectedDate);
+            this.endDate = selectedDate;
+            this.checkFilters();
+      },
 
+      // do we have a valid date range
       checkFilters: function() {
         var dr = new DateRange(this.startDate, this.endDate);
         if (dr.validate().passed ) {
@@ -132,6 +139,7 @@ define (
         }
       },
 
+      // create a model to be passed to teh ajax solr library
       createFilterModel: function(filterString, filterDisplay) {
         var model = new Backbone.Model({
           key              : this.entityType + '_created_exact',
@@ -144,9 +152,7 @@ define (
       },
 
 
-      applyFilter:function() {
-
-      },
+      // render the datepicker template
       render: function() {
         var html = dateRangeTmp();
         this.$el.append(html).addClass('filter');

@@ -49,11 +49,11 @@ define(
     // provide api endpoint for Actor model
     var ActorModel = Backbone.Model.extend({
       foreignKeyFields: ['POB', 'current_location', 'media'] ,
-      idAttribute: 'resource_uri',
+      idAttribute: 'django_id',
       url: function() {
         var base = '/api/v1/actor/';
         if (this.id) {
-          base = base + this.id + '/';
+          base = this.get('resource_uri');
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;

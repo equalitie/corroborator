@@ -22,7 +22,7 @@ define(
         filterIncidentResults = function(value) {
           return value.type === 'results_incident';
         },
-
+        crudBus = Streams.crudBus,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin = Mixins.ModelSelectionMixin,
         Filters = new Mixins.Filters(),
@@ -47,7 +47,7 @@ define(
       url: function() {
         var base = '/api/v1/incident/';
         if (this.id) {
-          base = base + this.id + '/';
+          base = this.get('resource_uri');
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
@@ -66,6 +66,7 @@ define(
         this.watchEventStream();
         this.watchSelection();
         this.watchSort();
+        this.watchCreate();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -119,6 +120,16 @@ define(
           self.compareField = value;
           self.sort();
         });
+      },
+      watchCreate: function() {
+        var self = this;
+        crudBus.filter(function(value) { return value.type === 'create_new_incident'; })
+               .onValue(function(value) {
+                 console.log(value);
+                 var incidentModel = new IncidentModel(value.content);
+                 incidentModel.save();
+                 self.add(incidentModel);
+               });
       }
 
     });

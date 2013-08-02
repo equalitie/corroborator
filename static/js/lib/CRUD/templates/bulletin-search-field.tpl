@@ -8,7 +8,6 @@
 
 </ul>
 <select multiple="true" name="ref_bulletins" id="ref_bulletins" class="hidden">
-  <option value=""></option>
 </select>
 <!--      <div class="drop-target">Drag &amp; drop bulletins here</div> -->
 
