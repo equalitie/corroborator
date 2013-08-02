@@ -13,7 +13,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     """
     text = indexes.CharField(document=True, use_template=True)
     current_location = indexes.CharField(model_attr='current_location', null=True)
-    dob = indexes.DateField(model_attr='DOB', null=True faceted=True)
+    dob = indexes.DateField(model_attr='DOB', null=True, faceted=True)
     pob = indexes.CharField(model_attr='POB', null=True)
     fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
     fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
@@ -104,8 +104,13 @@ class MediaIndex(indexes.SearchIndex, indexes.Indexable):
     This document handles the construction of the Media Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    name = indexes.CharField(model_attr='name_en', null=True)
+    name_en = indexes.CharField(model_attr='name_en', null=True)
+    name_ar = indexes.CharField(model_attr='name_en', null=True)
+    media_type =  indexes.CharField(model_attr='media_type', null=True)
+    media_created = indexes.DateTimeField(model_attr='media_created',
+    faceted=True, null=True)
     uri = indexes.MultiValueField()
+    resource_uri = indexes.CharField()
 
     def get_model(self):
         return Media
@@ -114,6 +119,12 @@ class MediaIndex(indexes.SearchIndex, indexes.Indexable):
         Returns URI of a given Media
         """
         return object.get_uri()
+    def prepare_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this media instance
+        for the tastypie api
+        """
+        return '/api/v1/media/{0}/'.format(object.id)
 
 
 class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
