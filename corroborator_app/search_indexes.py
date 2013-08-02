@@ -13,7 +13,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     """
     text = indexes.CharField(document=True, use_template=True)
     current_location = indexes.CharField(model_attr='current_location', null=True)
-    dob = indexes.DateField(model_attr='DOB', null=True)
+    dob = indexes.DateField(model_attr='DOB', null=True faceted=True)
     pob = indexes.CharField(model_attr='POB', null=True)
     fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
     fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
@@ -128,7 +128,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     title_en = indexes.CharField(model_attr='title_en', null=True)
     title_ar = indexes.CharField(model_attr='title_ar', null=True)
     confidence_score = indexes.IntegerField(model_attr='confidence_score',
-    null=True)
+    null=True, faceted=True)
     incident_times = indexes.MultiValueField(faceted=True)
     incident_locations = indexes.MultiValueField()
     incident_labels = indexes.MultiValueField(faceted=True)
@@ -271,7 +271,7 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     title_en = indexes.CharField(model_attr='title_en', null=True)
     title_ar = indexes.CharField(model_attr='title_ar', null=True)
     confidence_score = indexes.IntegerField(model_attr='confidence_score',
-    null=True)
+    null=True, faceted=True)
     type = indexes.CharField(model_attr='type', null=True)
     bulletin_times = indexes.MultiValueField(faceted=True, null=True)
     bulletin_locations = indexes.MultiValueField()
