@@ -36,9 +36,10 @@ define (
 
         // look for an event denoting an embedded search
         filterEmbeddedSearchRequest = function(value) {
-          return value.type === 'actor-results' ||
+          return value.type === 'actor-results'    ||
                  value.type === 'bulletin-results' ||
                  value.type === 'location-results' ||
+                 value.type === 'media-results'    ||
                  value.type === 'incident-results';
         },
 

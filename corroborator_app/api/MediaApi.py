@@ -18,6 +18,12 @@ class MediaResource(ModelResource):
     """
     tastypie api implementation for media model
     """
+    media_file = fields.FileField(
+        attribute='media_file',
+        null=True,
+        blank=True
+    )
+
     class Meta:
         queryset = Media.objects.all()
         resource_name = 'media'
