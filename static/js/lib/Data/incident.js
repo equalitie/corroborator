@@ -22,10 +22,12 @@ define(
         filterIncidentResults = function(value) {
           return value.type === 'results_incident';
         },
-        crudBus = Streams.crudBus,
+        crudBus               = Streams.crudBus,
+        searchBus             = Streams.crudBus,
+        SuperCollection       = Mixins.SuperCollection,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
-        ModelSelectionMixin = Mixins.ModelSelectionMixin,
-        Filters = new Mixins.Filters(),
+        ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        Filters               = new Mixins.Filters(),
         mapSort = function(value) {
           var sortMap = {
             'date': 'incident_created',
@@ -67,6 +69,7 @@ define(
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
+        this.createSuperCollection();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -84,9 +87,10 @@ define(
         Streams.searchBus.toProperty()
                .filter(filterIncidentResults)
                .map(Filters.extractResults)
-               .onValue(function(results) {
-                 self.reset(results);
-               });
+               .onValue(this.resetCollection.bind(this));
+      },
+      resetCollection: function(results) {
+        this.reset(results);
       },
       // watch for selections from the action combo box
       watchSelection: function() {
@@ -136,6 +140,7 @@ define(
     // add our mixins to the collection
     _.extend(IncidentCollection.prototype, PersistSelectionMixin);
     _.extend(IncidentCollection.prototype, ModelSelectionMixin);
+    _.extend(IncidentCollection.prototype, SuperCollection);
 
   return {
     IncidentModel: IncidentModel,

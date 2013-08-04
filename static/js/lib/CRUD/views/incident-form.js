@@ -20,8 +20,8 @@ define (
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
 
-    // templates
-    'lib/CRUD/templates/incident.tpl'
+    // templates/search-templates
+    'lib/CRUD/templates/search-templates/incident.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins, Label, Crime,
     ActorSearchView, BulletinSearchView, IncidentSearchView, CommentForm,

@@ -14,7 +14,9 @@ define(
 
     var PersistSelectionMixin = Mixins.PersistSelectionMixin,
         crudBus               = Streams.crudBus,
+        searchBus             = Streams.searchBus,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        SuperCollection       = Mixins.SuperCollection,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
         Filters               = new Mixins.Filters(),
         // ### Bulletin Specific filter stream processors
@@ -76,6 +78,7 @@ define(
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
+        this.createSuperCollection();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -92,10 +95,12 @@ define(
         Streams.searchBus.toProperty()
                .filter(filterBulletinResults)
                .map(Filters.extractResults)
-               .onValue(function(results) {
-                 self.reset(results);
-               });
+               .onValue(this.resetCollection.bind(this));
       },
+      resetCollection: function(results) {
+        this.reset(results);
+      },
+
 
       // watch for selections from the action combo box
       watchSelection: function() {
@@ -145,6 +150,7 @@ define(
     });
     _.extend(BulletinCollection.prototype, PersistSelectionMixin);
     _.extend(BulletinCollection.prototype, ModelSelectionMixin);
+    _.extend(BulletinCollection.prototype, SuperCollection);
 
   return {
     BulletinModel: BulletinModel,

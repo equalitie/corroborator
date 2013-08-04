@@ -7,7 +7,7 @@ define (
   [
     'backbone', 'underscore',
     'lib/streams',
-    'lib/CRUD/templates/embedded-results.tpl'
+    'lib/CRUD/templates/search-templates/embedded-results.tpl'
   ],
   function (Backbone, _, Streams, embeddedResultsTmp) {
     'use strict';

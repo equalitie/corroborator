@@ -9,7 +9,7 @@ define (
     'lib/streams',
     'lib/CRUD/views/search-views/results',
     'lib/CRUD/views/search-views/incident/incident-result',
-    'lib/CRUD/templates/embedded-results.tpl'
+    'lib/CRUD/templates/search-templates/embedded-results.tpl'
   ],
   function (Backbone, _, Streams, Results, IncidentResult,
     embeddedResultsTmp) {

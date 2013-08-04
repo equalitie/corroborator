@@ -10,33 +10,87 @@
 
 define(
   [
-    'jquery', 'backbone',
+    'jquery', 'backbone', 'underscore',
     'lib/streams',
     'lib/Data/collections'
   ],
-  function($, Backbone, Streams, Collections) {
+  function($, Backbone, _, Streams, Collections) {
     'use strict';
     var tabRouter,
-        tabView;
+        navBus = Streams.navBus,
+        tabView,
 
-    // convert tab link argument to element
-    var convertToElement = function(className) {
-      return  'li.is-' + className + 's';
-    };
+        filterTabNav = function(value) {
+          return value.type === 'navigate';
+        },
+        filterEntityNav = function(value) {
+          return value.type === 'entity-display';
+        },
+
+        // convert tab link argument to element
+        convertToElement = function(value) {
+          return  'li.is-' + value.content.entity + 's';
+        };
 
     // ## TabRouter
     //
     // handle tab clicks
-    // push an event to the navBus when the user clicks on a tab
+    // push an event to the navBus when the user clicks on a tab or a result  
+    //
+    // For the initial navigate if a user is on an individual result
+    // we also want to open the filters and results at this point
     var TabRouter = Backbone.Router.extend({
       routes: {
-        '': 'openSection',
-        'tab/:section': 'openSection'
+        ''                    : 'openSection',
+        'tab/:section'        : 'openSection',
+        'bulletin/:bulletinId': 'openBulletin',
+        'incident/:incidentId': 'openIncident',
+        'actor/:actorId'      : 'openActor',
       },
+      initialize: function() {
+        this.watchForResultNav();
+      },
+      watchForResultNav: function() {
+        var unsub = 
+          navBus.toEventStream()
+                .filter(filterEntityNav)
+                .subscribe(this.navigateToSection.bind(this));
+        this.unsubNavSubscriber = _.once(unsub);
+      },
+
+      navigateToSection: function(evt) {
+        this.openSection(evt.value().entity);
+      },
+
       openSection: function(section) {
+        this.unsubNavSubscriber();
         section = section === undefined ? 'incident': section;
-        Streams.navBus.push(section);
+        navBus.push({
+          type: 'navigate',
+          content: {
+            entity: section
+          }
+        });
+      },
+      openBulletin: function(bulletinId) {
+        this.openEntity('bulletin', bulletinId);
+      },
+      openIncident: function(incidentId) {
+        this.openEntity('incident', incidentId);
+      },
+      openActor: function(actorId) {
+        this.openEntity('actor', actorId);
+      },
+      openEntity: function(type, id) {
+        navBus.push({
+          type: 'entity-display',
+          content: {
+            entity: type,
+            id    : id
+          }
+        });
       }
+
     });
 
     // ## TabView
@@ -50,24 +104,31 @@ define(
       initialize: function() {
         Streams.navBus.toEventStream()
                       .toProperty()
+                      .filter(filterTabNav)
                       .map(convertToElement)
                       .onValue(this.updateTabClass);
         this.watchCollectionCounts();
+        this.initCollectionCounts();
+      },
+      initCollectionCounts: function() {
+        this.setCollectionCount('bulletin', Collections.BulletinCollection.length);
+        this.setCollectionCount('actor', Collections.ActorCollection.length);
+        this.setCollectionCount('incident', Collections.IncidentCollection.length);
+      },
+      setCollectionCount: function(entity, count) {
+        $('.' + entity + '-count').empty().append(count);
       },
       // bind to the three main collections and update the counts when they
       // change
       watchCollectionCounts: function() {
         Collections.BulletinCollection.on('add destroy reset', function() {
-          $('.bulletin-count').empty()
-                              .append(Collections.BulletinCollection.length);
+          this.setCollectionCount('bulletin', Collections.BulletinCollection.length);
         }, this);
         Collections.ActorCollection.on('add destroy change reset', function() {
-          $('.actor-count').empty()
-                           .append(Collections.ActorCollection.length);
+          this.setCollectionCount('actor', Collections.ActorCollection.length);
         }, this);
         Collections.IncidentCollection.on('add destroy reset', function() {
-          $('.incident-count').empty()
-                              .append(Collections.IncidentCollection.length);
+          this.setCollectionCount('incident', Collections.IncidentCollection.length);
         }, this);
       },
 

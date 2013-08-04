@@ -1,4 +1,4 @@
-<div class="body" style="bottom: 46px;">
+<div class="body" style="bottom: 49px;">
   <div class="EmbeddedSearch">
     <ul class="{{entityType}} elements">
     </ul>

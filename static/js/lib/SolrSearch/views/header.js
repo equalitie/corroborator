@@ -29,55 +29,59 @@ define(
     //////////////////////////////////////////////////////////////////////
     // Stream processing functions
     //////////////////////////////////////////////////////////////////////
-    var filterSort = function(value) {
-      return value.type === 'filter_view';
-    };
-    var getSortType = function(value) {
-      return {
-        option: value.sort
-      };
-    };
-    var filterActions = function(value) {
-      return value.type === 'action_combo';
-    };
-    var extractResults = function(value) {
-      return value.content;
-    };
+    var navBus = Streams.navBus,
+        filterSort = function(value) {
+          return value.type === 'filter_view';
+        },
+        getSortType = function(value) {
+          return {
+            option: value.sort
+          };
+        },
+        filterTabNav = function(value) {
+          console.log(value);
+          return value.type === 'navigate';
+        },
+        filterActions = function(value) {
+          return value.type === 'action_combo';
+        },
+        extractResults = function(value) {
+          return value.content;
+        },
 
-    var getActionType = function(model) {
-     return {
-       option: model.get('name_en')
-     };
-    };
-    // used to combine nav and action combo events
-    var combineBoth = function(previous, newValue) {
-      if (newValue.hasOwnProperty('navValue')) {
-        previous.navValue = newValue.navValue;
-        previous.action = false;
-      }
-      if (newValue.hasOwnProperty('option')) {
-        previous.option = newValue.option;
-        previous.action = true;
-      }
-      return previous;
-    };
-    var filterExecuteAction = function(value) {
-      return value.action === true;
-    };
+        getActionType = function(model) {
+          return {
+            option: model.get('name_en')
+          };
+        },
+        // used to combine nav and action combo events
+        combineBoth = function(previous, newValue) {
+          if (newValue.hasOwnProperty('navValue')) {
+            previous.navValue = newValue.navValue;
+            previous.action = false;
+          }
+          if (newValue.hasOwnProperty('option')) {
+            previous.option = newValue.option;
+            previous.action = true;
+          }
+          return previous;
+        },
+        filterExecuteAction = function(value) {
+          return value.action === true;
+        },
 
-    // map navigation event into a wrapped one
-    var createNavProperty = function() {
-      var mapNav = function(value) {
-        return { navValue: value };
-      };
-      return Streams.navBus
-                    .toEventStream()
-                    .map(mapNav);
-    };
-    // distinguish between new nav and action events
-    var identifyNewAction = function(previous, newValue) {
-      return previous.option === newValue.option;
-    };
+        // map navigation event into a wrapped one
+        createNavProperty = function() {
+          var mapNav = function(value) {
+            return { navValue: value.content.entity };
+          };
+          return navBus.toEventStream()
+                       .map(mapNav);
+        },
+        // distinguish between new nav and action events
+        identifyNewAction = function(previous, newValue) {
+          return previous.option === newValue.option;
+        };
     
     //////////////////////////////////////////////////////////////////////
     // END STREAM PROCESSING FUNCTIONS
@@ -144,15 +148,18 @@ define(
         this.watchNav();
       },
       watchNav: function() {
-        var self = this;
-        createNavProperty().onValue(function(value) {
-          self.collection = self.collections[value.navValue];
-          self.collection.on('reset change remove destroy updateSelected', self.render, self);
-          self.collectionName = value.navValue;
-          self.render();
-        });
+        createNavProperty().onValue(this.updateSelectedView.bind(this));
                            
       },
+
+      // change the section we are watching
+      updateSelectedView: function(value) {
+        this.collection = this.collections[value.navValue];
+        this.collection.on('reset change remove destroy updateSelected', this.render, this);
+        this.collectionName = value.navValue;
+        this.render();
+      },
+
       pluralise: function(word, number) {
         if (number !== 1) {
           word = word + 's';

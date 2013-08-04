@@ -4,7 +4,7 @@
       <span class="T">close</span>
     </button>
   </div>
-  <div id="view-placeholder-bulletin" class="body" style="bottom: 50px;">
+  <div id="view-placeholder-bulletin" class="body" style="bottom: 49px;">
     <form id="bulletin_form">
       <div class="Bulletin is-edited">
         <div class="col first span-66p hidden bulletin-expanded-edit">

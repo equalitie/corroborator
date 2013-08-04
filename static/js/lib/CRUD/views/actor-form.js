@@ -11,7 +11,7 @@ define (
     'lib/CRUD/views/form-mixins',
     'lib/CRUD/views/search-views/actor/actor-search-field',
     // templates
-    'lib/CRUD/templates/actor.tpl'
+    'lib/CRUD/templates/search-templates/actor.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, actorFormTmp) {
 

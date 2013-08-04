@@ -17,34 +17,37 @@ define(
   ],
   function (_, $, Backbone, Streams, ActorFilters, BulletinFilters, IncidentFilters) {
     'use strict';
-    var FilterManagerView;
+    var FilterManagerView,
 
-    // ## Stream processing helpers
-    // map nav events to the filter views we will be displaying
-    var mapNavToView = function(value) {
-      var navMap = {
-        actor: ActorFilters.ActorFilterView,
-        bulletin: BulletinFilters.BulletinFilterView,
-        incident: IncidentFilters.IncidentFilterView
-      };
-      return navMap[value];
-    };
+        // ## Stream processing helpers
+        // map nav events to the filter views we will be displaying
+        mapNavToView = function(value) {
+          var navMap = {
+            actor: ActorFilters.ActorFilterView,
+            bulletin: BulletinFilters.BulletinFilterView,
+            incident: IncidentFilters.IncidentFilterView
+          };
+          return navMap[value.content.entity];
+        },
+        filterTabNav = function(value) {
+          return value.type === 'navigate';
+        },
 
-    var filterCloseRequest = function(value) {
-      return value.type === 'close_form';
-    };
-    // filter CRUD events
-    var filterCRUD = function(value) {
-      return value.type === 'create_actor' ||
-             value.type === 'create_bulletin' ||
-             value.type === 'create_incident';
-    };
+        filterCloseRequest = function(value) {
+          return value.type === 'close_form';
+        },
+        // filter CRUD events
+        filterCRUD = function(value) {
+          return value.type === 'create_actor' ||
+                 value.type === 'create_bulletin' ||
+                 value.type === 'create_incident';
+        },
 
-    var filterShowDetail = function(value) {
-      return value.type === 'show_actor' ||
-             value.type === 'show_bulletin' ||
-             value.type === 'show_incident';
-    };
+        filterShowDetail = function(value) {
+          return value.type === 'show_actor' ||
+                 value.type === 'show_bulletin' ||
+                 value.type === 'show_incident';
+        };
 
     // ## FilterManagerView
     // manage creation/deletion of filter views
@@ -60,7 +63,8 @@ define(
       // and rendered
       watchNavStream: function() {
         var self = this;
-        Streams.navBus.map(mapNavToView)
+        Streams.navBus.filter(filterTabNav)
+                      .map(mapNavToView)
                       .onValue(function (view) {
                         self.replaceView(view);
                       });

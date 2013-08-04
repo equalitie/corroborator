@@ -4,7 +4,7 @@
       <span class="T">close</span>
     </button>
   </div>
-  <div id="view-placeholder-incident" class="body" style="bottom: 46px;">
+  <div id="view-placeholder-incident" class="body" style="bottom: 49px;">
     <form id="incident_form" class="incident_form">
       <div class="Incident in-preview is-edited">
         <div class="Incident is-edited">

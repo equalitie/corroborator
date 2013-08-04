@@ -17,8 +17,8 @@ define (
     // child views
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
-    // templates
-    'lib/CRUD/templates/bulletin.tpl'
+    // templates/search-templates
+    'lib/CRUD/templates/search-templates/bulletin.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,
     ActorSearchView, BulletinSearchView, MediaSearchView,

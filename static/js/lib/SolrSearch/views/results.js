@@ -33,7 +33,7 @@ define(
     var ActorResultView = Backbone.View.extend({
       tagName: 'li',
       events: {
-        'click .actor-content': 'expandActor',
+        //'click .actor-content': 'expandActor',
         'click .toggle lang:(ar)': 'showArabic',
         'click .toggle lang:(en)': 'showEnglish',
         'click input[type="checkbox"]': 'selectActor'
@@ -338,69 +338,53 @@ define(
     //////////////////////////////////////////////////////////////////////////
     
     var currentView,
+        viewMap = {
+          actor: ActorResultsView,
+          bulletin: BulletinResultsView,
+          incident: IncidentResultsView
+        },
         displayCurrentView = function (view) {
           if (currentView !== undefined) {
             $('.results-body').append(currentView.$el);
           }
         },
-      destroy = function (view) {
+        destroy = function (view) {
           if (view !== undefined) {
             view.destroy();
           }
-        };
+        },
 
-    // show the actor search results view
-    var showActors = function() {
-      // destroy current view
-      destroy(currentView);
-      // show actor view
-      currentView = new ActorResultsView();
-      displayCurrentView();
-    };
-    var showBulletins = function() {
-      // destroy current view
-      destroy(currentView);
-      // show actor view
-      currentView = new BulletinResultsView();
-      displayCurrentView();
-    };
-    var showIncidents = function() {
-      // destroy current view
-      destroy(currentView);
-      // show actor view
-      currentView = new IncidentResultsView();
-      displayCurrentView();
-    };
+        // show the actor search results view
+        showResultsView = function(entity) {
+          // destroy current view
+          destroy(currentView);
+          // show actor view
+          currentView = new viewMap[entity]();
+          displayCurrentView();
+        },
 
-    var displayInicidents = function() {};
-    var displayBulletins = function() {};
-
-    var actorClicked = function(value) { return value === 'actor'; };
-    var incidentClicked = function(value) { return value === 'incident'; };
-    var bulletinClicked = function(value) { return value === 'bulletin'; };
+        filterTabNav = function(value) { return value.type === 'navigate'; },
+        mapNavToEntity = function(value) { return value.content.entity; },
+        actorClicked = function(value) { return value === 'actor'; },
+        incidentClicked = function(value) { return value === 'incident'; },
+        bulletinClicked = function(value) { return value === 'bulletin'; };
 
     //////////////////////////////////////////////////////////////////////////
-    // ## init/destroy
+    // ## init
     //////////////////////////////////////////////////////////////////////////
+    // TODO - handle initial load if bulletin selected path sent
     var init = function () {
       // connect to the navStream to choose our initial result display
-      var actorsSelected = Streams.navProperty
-                                  .filter(actorClicked)
-                                  .onValue(showActors);
+      var tabSelected = Streams.navProperty
+                               .filter(filterTabNav)
+                               .map(mapNavToEntity)
+                               .onValue(showResultsView);
+
                                   
-      var incidentSelected = Streams.navProperty
-                                    .filter(incidentClicked)
-                                    .onValue(showIncidents);
-
-      var bulletinSelected = Streams.navProperty
-                                    .filter(bulletinClicked)
-                                    .onValue(showBulletins);
-
     };
 
     return {
-      init: init,
-      destroy: destroy
+      init: init
     };
 
 });
