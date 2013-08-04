@@ -116,7 +116,6 @@ define(
         this.setCollectionCount('incident', Collections.IncidentCollection.length);
       },
       setCollectionCount: function(entity, count) {
-        console.log('setCollectionCount', entity, count);
         $('.' + entity + '-count').empty().append(count);
       },
       // bind to the three main collections and update the counts when they

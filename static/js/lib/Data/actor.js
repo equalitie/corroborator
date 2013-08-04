@@ -17,29 +17,10 @@ define(
   function($, _, Backbone, Streams, Mixins) {
     'use strict';
 
-    var SuperCollection = {
-      createSuperCollection: function() {
-        var initSuperCollection = _.once(this.createInitialCollection);
-        this.on('reset', initSuperCollection, this);
-        this.on('add', this.addToSuperCollection, this);
-        this.on('remove', this.addToSuperCollection, this);
-      },
-      createInitialCollection: function() {
-        this.superCollection = new Backbone.Collection(this.models);
-      },
-      addToSuperCollection: function(model) {
-        this.superCollection.add(model);
-      },
-      removeFromSuperCollection: function(model) {
-        this.superCollection.remove(model);
-      },
-      getList: function(idArray) {
-
-      }
-    };
 
     var crudBus   = Streams.crudBus,
         searchBus = Streams.searchBus,
+        SuperCollection = Mixins.SuperCollection,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin = Mixins.ModelSelectionMixin,
         ModelSyncMixin = Mixins.ModelSyncMixin,

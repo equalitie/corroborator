@@ -22,7 +22,6 @@ define(
         unsub,
         postSearchInit = function() {
           unsub();
-          console.log('postSearchInit');
           CRUD.init();
           Navigation.init();
         },

@@ -10,9 +10,9 @@ define (
   [
     'backbone', 'underscore',
     'lib/streams',
-    'lib/CRUD/views/display-views/actor-display',
-    'lib/CRUD/views/display-views/bulletin-display',
-    'lib/CRUD/views/display-views/incident-display',
+    'lib/CRUD/views/display-views/actor/actor-display-container',
+    'lib/CRUD/views/display-views/bulletin/bulletin-display-container',
+    'lib/CRUD/views/display-views/incident/incident-display-container',
     'lib/CRUD/templates/display-templates/display-manager.tpl'
   ],
   function (Backbone, _, Streams,
@@ -24,8 +24,8 @@ define (
         navBus = Streams.navBus,
         viewMap = {
           actor: ActorDisplayView,
-          bulletin: function() {},
-          incident: function() {}
+          bulletin: BulletinDisplayView,
+          incident: IncidentDisplayView
         },
         extractEntity = function(value) {
           return value.content;
@@ -61,7 +61,6 @@ define (
               .onValue(this.displayEntity.bind(this));
       },
       displayEntity: function(content) {
-        console.log(content);
         this.renderContainer()
             .renderEntity(content);
       },

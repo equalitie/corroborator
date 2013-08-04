@@ -33,7 +33,7 @@ define(
     var ActorResultView = Backbone.View.extend({
       tagName: 'li',
       events: {
-        'click .actor-content': 'expandActor',
+        //'click .actor-content': 'expandActor',
         'click .toggle lang:(ar)': 'showArabic',
         'click .toggle lang:(en)': 'showEnglish',
         'click input[type="checkbox"]': 'selectActor'

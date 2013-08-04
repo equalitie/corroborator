@@ -4,7 +4,7 @@
       <span class="T">hide</span>
     </button>
   </div>
-  <div class="body" style="bottom: 46px;">
+  <div class="body" style="bottom: 49px;">
   </div>
   <div class="footer actions">
     <div class="left">
