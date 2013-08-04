@@ -14,6 +14,7 @@ define(
 
     var PersistSelectionMixin = Mixins.PersistSelectionMixin,
         crudBus               = Streams.crudBus,
+        searchBus             = Streams.searchBus,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
         Filters               = new Mixins.Filters(),
@@ -92,10 +93,12 @@ define(
         Streams.searchBus.toProperty()
                .filter(filterBulletinResults)
                .map(Filters.extractResults)
-               .onValue(function(results) {
-                 self.reset(results);
-               });
+               .onValue(this.resetCollection.bind(this));
       },
+      resetCollection: function(results) {
+        this.reset(results);
+      },
+
 
       // watch for selections from the action combo box
       watchSelection: function() {

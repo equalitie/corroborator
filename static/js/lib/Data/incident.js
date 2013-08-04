@@ -23,6 +23,7 @@ define(
           return value.type === 'results_incident';
         },
         crudBus = Streams.crudBus,
+        searchBus = Streams.crudBus,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin = Mixins.ModelSelectionMixin,
         Filters = new Mixins.Filters(),
@@ -84,9 +85,10 @@ define(
         Streams.searchBus.toProperty()
                .filter(filterIncidentResults)
                .map(Filters.extractResults)
-               .onValue(function(results) {
-                 self.reset(results);
-               });
+               .onValue(this.resetCollection.bind(this));
+      },
+      resetCollection: function(results) {
+        this.reset(results);
       },
       // watch for selections from the action combo box
       watchSelection: function() {

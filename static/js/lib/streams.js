@@ -10,7 +10,7 @@ define(
         navBus = new Bacon.Bus(),
         crudBus = new Bacon.Bus(),
         navProperty = navBus.toProperty('incident');
-    navBus.toEventStream().log();
+    //navBus.toEventStream().log();
     //searchBus.toEventStream().log();
     //crudBus.toEventStream().log();
     return {

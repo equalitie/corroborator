@@ -379,6 +379,7 @@ define(
                                .filter(filterTabNav)
                                .map(mapNavToEntity)
                                .onValue(showResultsView);
+
                                   
     };
 
