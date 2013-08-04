@@ -11,9 +11,9 @@ define (
     'lib/CRUD/views/form-mixins',   
     'lib/CRUD/data/EventCollection',
     'lib/elements/select-option',
-    'lib/CRUD/templates/event-container.tpl',
-    'lib/CRUD/templates/event-display.tpl',
-    'lib/CRUD/templates/event-form.tpl'
+    'lib/CRUD/templates/search-templates/event-container.tpl',
+    'lib/CRUD/templates/search-templates/event-display.tpl',
+    'lib/CRUD/templates/search-templates/event-form.tpl'
   ],
   function ($, Backbone, _, Mixins, EventData, SelectOptionView,
     eventContainerTmp, eventDisplayTmp, eventFormTmp) {

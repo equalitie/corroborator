@@ -17,12 +17,17 @@ define(
   function($, Backbone, Streams, Collections) {
     'use strict';
     var tabRouter,
-        tabView;
+        navBus = Streams.navBus,
+        tabView,
 
-    // convert tab link argument to element
-    var convertToElement = function(className) {
-      return  'li.is-' + className + 's';
-    };
+        filterTabNav = function(value) {
+          return value.type === 'navigate';
+        },
+
+        // convert tab link argument to element
+        convertToElement = function(value) {
+          return  'li.is-' + value.content.entity + 's';
+        };
 
     // ## TabRouter
     //
@@ -30,13 +35,40 @@ define(
     // push an event to the navBus when the user clicks on a tab
     var TabRouter = Backbone.Router.extend({
       routes: {
-        '': 'openSection',
-        'tab/:section': 'openSection'
+        ''                    : 'openSection',
+        'tab/:section'        : 'openSection',
+        'bulletin/:bulletinId': 'openBulletin',
+        'incident/:incidentId': 'openIncident',
+        'actor/:actorId'      : 'openActor',
       },
       openSection: function(section) {
         section = section === undefined ? 'incident': section;
-        Streams.navBus.push(section);
+        navBus.push({
+          type: 'navigate',
+          content: {
+            entity: section
+          }
+        });
+      },
+      openBulletin: function(bulletinId) {
+        this.openEntity('bulletin', bulletinId);
+      },
+      openIncident: function(incidentId) {
+        this.openEntity('incident', incidentId);
+      },
+      openActor: function(actorId) {
+        this.openEntity('actor', actorId);
+      },
+      openEntity: function(type, id) {
+        navBus.push({
+          type: 'entity-display',
+          content: {
+            entity: type,
+            id    : id
+          }
+        });
       }
+
     });
 
     // ## TabView
@@ -50,6 +82,7 @@ define(
       initialize: function() {
         Streams.navBus.toEventStream()
                       .toProperty()
+                      .filter(filterTabNav)
                       .map(convertToElement)
                       .onValue(this.updateTabClass);
         this.watchCollectionCounts();

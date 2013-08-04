@@ -7,7 +7,7 @@ define (
   [
     'jquery', 'backbone',
     'lib/streams',
-    'lib/CRUD/templates/actor-result.tpl',
+    'lib/CRUD/templates/search-templates/actor-result.tpl',
   ],
   function ($, Backbone, Streams, actorResultTmp) {
     'use strict';

@@ -11,9 +11,9 @@ define (
     'lib/elements/select-option',
     'lib/CRUD/views/form-mixins',
     'lib/CRUD/data/CommentCollection',
-    'lib/CRUD/templates/comment-container.tpl',
-    'lib/CRUD/templates/comment-form.tpl',
-    'lib/CRUD/templates/comment-display.tpl'
+    'lib/CRUD/templates/search-templates/comment-container.tpl',
+    'lib/CRUD/templates/search-templates/comment-form.tpl',
+    'lib/CRUD/templates/search-templates/comment-display.tpl'
   ],
   function (Backbone, _, $, SelectOptionView, Mixins, CommentData,
     commentContainerTmp, commentFormTmp, commentDisplayTmp

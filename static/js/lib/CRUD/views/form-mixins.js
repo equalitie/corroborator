@@ -10,7 +10,7 @@ define (
     'lib/elements/combo',
     'lib/elements/label-widget',
     'lib/elements/date-time-range',
-    'lib/CRUD/templates/confirm-dialog.tpl',
+    'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
     'jquery_slider'
   ],
   function ($, _, Streams, Combo, LabelWidget, DateTimeRangeView, confirmDialogTmp) {

@@ -7,7 +7,7 @@ define (
   [
     'jquery', 'backbone',
     'lib/streams',
-    'lib/CRUD/templates/bulletin-result.tpl',
+    'lib/CRUD/templates/search-templates/bulletin-result.tpl',
   ],
   function ($, Backbone, Streams, bulletinResultTmp) {
     'use strict';
