@@ -91,8 +91,10 @@
                 <div id="incident-assignment-block" class="incidentAssigned left">
                   <label>Assigned to</label>
 
-                  <input type="text" class="with-clear is-assigned-to" value="{{model.incident_assigned_user}}">
-                  <input type="hidden" name="assigned_user" value="{{model.assigned_user}}">
+                  <input type="text" class="with-clear is-assigned-to"
+                    value="{{model.incident_assigned}}">
+                  <input type="hidden" name="assigned_user"
+                    value="{{model.assigned_user}}">
 
                 <button id="clear-user" class="do-clear">
                   <span>✓</span>

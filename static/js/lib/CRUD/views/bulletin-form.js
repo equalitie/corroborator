@@ -131,20 +131,11 @@ define (
         
       // constructor
       initialize: function() {
-        if(this.model !== undefined) {
-          this.setFieldDefaults();
-        }
-        else {
+        if(this.model === undefined) {
           this.model = new Backbone.Model();
         }
+        this.populateWidgets();
         this.render();
-      },
-      setFieldDefaults: function() {
-        _.each(this.labelFields, function(field, index) {
-          console.log(field);
-          field.content.labels = this.model.get(field.content.labels);
-          field.content.values = this.model.get(field.content.values);
-        }, this);
       },
 
       // remove DOM elements and cancel event handlers

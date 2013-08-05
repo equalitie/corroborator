@@ -83,9 +83,10 @@ define (
           this.reinsertModel.bind(this));
 
         // populate existing content
-        this.content = this.options.content;
-        this.selectModelsFromResourceUri(this.content.values);
-        console.log(this.content, this.selectCollection, this.collection);
+        if (this.options.content !== undefined) {
+          this.content = this.options.content;
+          this.selectModelsFromResourceUri(this.content.values);
+        }
 
         this.templateVars = {
           display: options.display,

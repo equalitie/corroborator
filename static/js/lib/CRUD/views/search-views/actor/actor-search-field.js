@@ -45,10 +45,11 @@ define (
       // constructor
       // pass in collection of existing Actors related to this entity
       // or create a new one
-      initialize: function() {
+      initialize: function(options) {
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
+        this.entityType = options.entityType;
         this.listenTo(this.collection, 'remove sync', this.renderSelectOptions.bind(this));
         this.renderCollection = new Backbone.Collection();
         this.listenTo(this.renderCollection, 'add remove', this.renderActors.bind(this));
@@ -273,7 +274,9 @@ define (
 
       //render the input field and buttons
       render: function() {
-        var html = this.template();
+        var html = this.template({
+          entityType: this.entityType
+        });
         this.$el.empty()
                 .append(html);
       }

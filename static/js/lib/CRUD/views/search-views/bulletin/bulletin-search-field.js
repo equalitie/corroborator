@@ -43,10 +43,11 @@ define (
       // constructor
       // pass in collection of existing Bulletins related to this entity
       // or create a new one
-      initialize: function() {
+      initialize: function(options) {
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
+        this.entityType = options.entityType;
         this.listenTo(this.collection, 'reset add remove',
           this.renderBulletins.bind(this));
         this.listenTo(this.collection, 'reset add remove',
@@ -197,7 +198,9 @@ define (
 
       //render the input field and buttons
       render: function() {
-        var html = this.template();
+        var html = this.template({
+          entityType: this.entityType
+        });
         this.$el.empty()
                 .append(html);
       }

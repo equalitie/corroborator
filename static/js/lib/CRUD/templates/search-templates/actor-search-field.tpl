@@ -11,7 +11,7 @@
 <ul class="elements elements-bulletin">
 
 </ul>
-<select multiple="true" name="actors_role" id="actors_role" class="hidden">
+<select multiple="true" name="actors_role" id="actors_role" class="{{entityType}}-field hidden">
 </select>
 
 <!--<div class="drop-target">Drag &amp; drop actors here</div>-->

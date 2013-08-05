@@ -67,26 +67,32 @@ define (
       // represent free text input fields that will autocomplete
       // based on the content of the collection, these labels will
       // persist based on the model type in the collecion
-      labelFields: [
-        {
+      labelFields: {
+        crimes: {
           containerid: '#incident-crime-block',
           collection : CrimeCollection,
           display: {
             field_name : 'crimes',
             field_label: 'Crimes'
+          },
+          content: {
+            values: 'crimes'
           }
         },
-        {
+        labels: {
           containerid: '#incident-label-block',
           collection : LabelCollection,
           display: {
             field_name : 'labels',
             field_label: 'Labels'
+          },
+          content: {
+            values: 'labels'
           }
         }
-      ],
-      sliderFields: [
-        { // confidence_score
+      },
+      sliderFields: {
+        confidence_score: { // confidence_score
           sliderDiv : '#incident-score-block .score-editor .slider',
           display   : '#incident_confidence_score',
           formField : 'confidence_score',
@@ -97,10 +103,12 @@ define (
           snap      : false,
           value     : 50 // TODO enable for update
         },
-      ],
+      },
 
       initialize: function() {
         this.model = this.model !== undefined ? this.model : new Backbone.Model();
+        console.log(this.model.toJSON());
+        this.populateWidgets();
         this.render();
       },
 
@@ -126,7 +134,6 @@ define (
       },
 
       render: function() {
-        console.log(this.model.toJSON());
         var html = incidentFormTmp({model: this.model.toJSON()});
         this.$el = $(html);
       },
@@ -148,10 +155,11 @@ define (
           });
         }
       },
+
       renderChildren: function() {
         var commentForm = new CommentContainerView({
           el: '#incident-comment-block',
-          entityType: this.entityType
+          entityType: this.entityType,
         });
         var actorForm = new ActorSearchView({
           el: '#incident-actor-list-block',

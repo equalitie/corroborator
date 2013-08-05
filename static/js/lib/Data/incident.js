@@ -47,6 +47,10 @@ define(
     // provide api endpoint for Actor model
     var IncidentModel = Backbone.Model.extend({
       idAttribute: 'django_id',
+      manyToManyFields: [
+        'crimes', 'labels', 'incident_comments', 'times', 'actors_role',
+        'ref_bulletins', 'ref_incidents'
+      ],
       url: function() {
         var base = '/api/v1/incident/';
         if (this.id) {

@@ -7,7 +7,8 @@
 <ul class="elements elements-bulletins-bulletins">
 
 </ul>
-<select multiple="true" name="ref_bulletins" id="ref_bulletins" class="hidden">
+<select multiple="true" name="ref_bulletins" id="ref_bulletins"
+  class="{{entityType}}-field hidden">
 </select>
 <!--      <div class="drop-target">Drag &amp; drop bulletins here</div> -->
 
