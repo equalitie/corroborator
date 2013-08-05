@@ -48,7 +48,6 @@ define (
         }
         var content = _.map(options.content, mapResourceUriToId);
         this.collection = new CommentCollection(content);
-        console.log(this.collection);
         this.entityType = options.entityType;
         this.render()
             .renderChildren();
@@ -71,7 +70,6 @@ define (
 
       // render all child display elements
       renderChildren: function() {
-        console.log('renderChildren');
         this.renderForm()
             .renderComments()
             .renderSelectOptions();
@@ -151,13 +149,10 @@ define (
           var formContent = this.formContent();
           var comment = new CommentModel(this.formContent());
           comment.save();
-          console.log(comment);
           this.collection.add(comment);
         }
         else { // update existing comment
-          console.log(this.model);
           this.model.set(this.formContent());
-          console.log(this.model);
           this.model.save();
           this.model = undefined;
         }
