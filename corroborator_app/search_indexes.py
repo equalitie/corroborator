@@ -20,27 +20,29 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     nickname_en = indexes.CharField(model_attr='nickname_en', null=True)
     nickname_ar = indexes.CharField(model_attr='nickname_ar', null=True)
     age_en = indexes.CharField(model_attr='age_en', faceted=True, null=True)
-    age_ar = indexes.CharField(model_attr='age_ar', null=True)
+    age_ar = indexes.CharField(model_attr='age_ar', null=True, faceted=True)
     sex_en = indexes.CharField(model_attr='sex_en', faceted=True, null=True)
-    sex_ar = indexes.CharField(model_attr='sex_ar', null=True)
+    sex_ar = indexes.CharField(model_attr='sex_ar', null=True, faceted=True)
     civilian_en = indexes.CharField(model_attr='civilian_en', \
     faceted=True, null=True)
-    civilian_ar = indexes.CharField(model_attr='civilian_ar', null=True)
-    occupation_en = indexes.CharField(model_attr='occupation_en', null=True)
-    occupation_ar = indexes.CharField(model_attr='occupation_ar', null=True)
+    civilian_ar = indexes.CharField(model_attr='civilian_ar', null=True,
+    faceted=True)
+    occupation_en = indexes.CharField(model_attr='occupation_en',
+    null=True, faceted=True)
+    occupation_ar = indexes.CharField(model_attr='occupation_ar', null=True, faceted=True)
     nationality_en = indexes.CharField(model_attr='nationality_en', \
     faceted=True, null=True)
-    nationality_ar = indexes.CharField(model_attr='nationality_ar', null=True)
-    position_en = indexes.CharField(model_attr='position_en', null=True)
-    position_ar = indexes.CharField(model_attr='position_ar', null=True)
-    ethnicity_en = indexes.CharField(model_attr='ethnicity_en', null=True)
-    ethnicity_ar = indexes.CharField(model_attr='ethnicity_ar', null=True)
-    religion_en = indexes.CharField(model_attr='religion_en', null=True)
-    religion_ar = indexes.CharField(model_attr='religion_ar', null=True)
+    nationality_ar = indexes.CharField(model_attr='nationality_ar', null=True, faceted=True)
+    position_en = indexes.CharField(model_attr='position_en', null=True, faceted=True)
+    position_ar = indexes.CharField(model_attr='position_ar', null=True, faceted=True)
+    ethnicity_en = indexes.CharField(model_attr='ethnicity_en', null=True, faceted=True)
+    ethnicity_ar = indexes.CharField(model_attr='ethnicity_ar', null=True, faceted=True)
+    religion_en = indexes.CharField(model_attr='religion_en', null=True, faceted=True)
+    religion_ar = indexes.CharField(model_attr='religion_ar', null=True, faceted=True)
     spoken_dialect_en = indexes.CharField(model_attr='spoken_dialect_en',
-    null=True)
+    null=True, faceted=True)
     spoken_dialect_ar = indexes.CharField(model_attr='spoken_dialect_ar',
-    null=True)
+    null=True, faceted=True)
     count_incidents = indexes.IntegerField()
     count_bulletins = indexes.IntegerField()
     actor_created = indexes.DateTimeField(model_attr='actor_created', \
@@ -146,13 +148,15 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     count_actors = indexes.IntegerField()
     count_bulletins = indexes.IntegerField()
     count_incidents = indexes.IntegerField()
-    incident_assigned = indexes.CharField(model_attr='assigned_user',
+    incident_assigned_user = indexes.CharField(model_attr='assigned_user',
     faceted=True, null=True)
     assigned_user = indexes.CharField()
     most_recent_status_incident = indexes.MultiValueField(faceted=True)
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
-    
+    incident_comments_text = indexes.MultiValueField()
+
+
     resource_uri = indexes.CharField()
     actors_role = indexes.MultiValueField()
     incident_crimes = indexes.MultiValueField(faceted=True)

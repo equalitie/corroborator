@@ -1,3 +1,4 @@
+
 /*global define*/
 // Author: Cormac McGuire  
 // Collection to store the filters sent by solr  
@@ -42,10 +43,24 @@ define(
 
         // map solr facet to labels
         filterTitles = {
-          'age_en_exact': 'Age',
-          'sex_en_exact': 'Gender',
-          'civilian_en_exact': 'Type',
-          'nationality_en_exact': 'Nationality'
+          'age_en_exact': 'Age::en',
+          'age_ar_exact': 'Age::ar',
+          'sex_en_exact': 'Gender::en',
+          'sex_ar_exact': 'Gender::ar',
+          'civilian_en_exact': 'Civilian::en',
+          'civilian_ar_exact': 'Civilian::ar',
+          'nationality_en_exact': 'Nationality::en',
+          'nationality_ar_exact': 'Nationality::ar',
+          'occupation_en_exact': 'Occupation::en',
+          'occupation_ar_exact': 'Occupation::ar',
+          'position_en_exact': 'Position::en',
+          'position_ar_exact': 'Position::ar',
+          'ethnicity_en_exact': 'Ethnicity::en',
+          'ethnicity_ar_exact': 'Ethnicity::ar',
+          'spoken_dialect_en': 'Spoken Dialect::en',
+          'spoken_dialect_ar': 'Spoken Dialect::ar',
+          //'actor_created_exact',
+          //'dob_exact',
         },
 
         // used to map the filters object to an array of objects with the 

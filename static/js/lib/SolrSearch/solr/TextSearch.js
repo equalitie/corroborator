@@ -8,11 +8,15 @@ define(
   [
     'underscore',
     'lib/SolrSearch/solr/parse-filters',
+    'lib/SolrSearch/solr/query-builder',
     'core/AbstractTextWidget'
   ],
-  function(_, ParseFilter) {
+  function(_, ParseFilter, QueryBuilder) {
         // parse actor results from the result string
         var bus,
+            filterQueryBuilderEvents = function(value) {
+                return value.type === 'query_builder';
+            },
             filterSearchRequestEvents = function(value) {
               return value.type === 'new_search';
             },
@@ -86,17 +90,38 @@ define(
         }
         bus = this.bus;
         this.watchSearchStream();
-        
+        this.watchQueryBuilderStream();
       },
       watchSearchStream: function() {
-        var self = this;
         bus.filter(filterSearchRequestEvents)
+                 .map(this.parseQuery)
+                 .onValue(this.sendRequest.bind(this));
+      },
+      watchQueryBuilderStream: function() {
+        var self = this;
+        bus.filter(filterQueryBuilderEvents)
                  .onValue(function(value) {
+<<<<<<< HEAD
+                    self.clear();
+                    self.set( value.content.raw );
+                    self.doRequest();
+                 });    
+      },
+      sendRequest: function(searchQuery) {
+        this.clear();
+        this.set( searchQuery );
+        this.doRequest(); 
+      },
+      parseQuery: function(searchQuery) {
+        var qb = new QueryBuilder(searchQuery.content.raw);
+        return qb.parsedString;
+=======
                    self.clear();
                    console.log('watchSearchStream');
                    self.set('*' + value.content.raw + '*');
                    self.doRequest();
                  });
+>>>>>>> e06051a658906b943a4351b5b394ff0e609b02b7
       },
       // send the results off the bus in a super functional way
       // cos that's how we do round here!
