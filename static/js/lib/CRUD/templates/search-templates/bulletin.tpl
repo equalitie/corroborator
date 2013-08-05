@@ -26,6 +26,9 @@
 
 
         <div id="bulletin-id-block-ne" class="header bulletin-not-expanded-edit">
+          <span class="id">
+            ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
+          </span>
 
           <!-- title -->
           <h2 class="title">
@@ -34,12 +37,12 @@
               <div lang="en">
                 <textarea name="title_en"
                           type="text"
-                          class="bulletin-field w-100p"></textarea>
+                          class="bulletin-field w-100p">{{model.title_en}}</textarea>
               </div>
               <div lang="ar">
                 <textarea name="title_ar"
                           type="text"
-                          class="bulletin-field w-100p"></textarea>
+                          class="bulletin-field w-100p">{{model.title_ar}}</textarea>
               </div>
               <span class="toggle">
                 <span lang="en">EN</span>
@@ -61,7 +64,7 @@
                   <span id="bulletin_confidence_score" class="value">0</span>
                   <input type="hidden" 
                          name="confidence_score"
-                         value="0"
+                         value="{{model.confidence_score}}"
                          class="bulletin-field">
 
                   <div class="score-editor">
@@ -92,10 +95,10 @@
               <div id="bulletin-assignment-block" class="bulletinAssigned  left">
                 <label>Assigned to</label>
 
-                <input type="text" class="with-clear is-assigned-to" value="">
+                <input type="text" class="with-clear is-assigned-to" value="{{model.bulletin_assigned_user}}">
                 <input type="hidden" 
                        name="assigned_user"
-                       value=""
+                       value="{{model.assigned_user}}"
                        class="bulletin-field" >
 
               <button id="clear-user" class="do-clear">
@@ -132,13 +135,13 @@
               <textarea id="bulletin_description_en"
                         name="bulletin_description_en"
                         type="text"
-                        class="bulletin-field w-100p"></textarea>
+                        class="bulletin-field w-100p">{{model.description_en}}</textarea>
             </div>
             <div lang="ar">
               <textarea id="bulletin_description_ar"
                         name="bulletin_description_ar"
                         type="text"
-                        class="bulletin-field w-100p"></textarea>
+                        class="bulletin-field w-100p">{{model.description_ar}}</textarea>
             </div>
             <span class="toggle">
               <span lang="en">EN</span>

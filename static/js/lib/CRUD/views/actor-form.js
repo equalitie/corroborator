@@ -56,7 +56,8 @@ define (
 
       // render the form
       render: function() {
-        var html = actorFormTmp();
+        var html = this.model !== undefined ? 
+          actorFormTmp({model: this.model.toJSON()}) : actorFormTmp({ model: {} });
         this.$el.empty()
                 .append(html);
       },
@@ -77,10 +78,13 @@ define (
       // send the form data on the crudBus, it will be picked up in data and 
       // persisted
       saveRequested: function() {
+        console.log('saveRequested', this.model.toJSON());
         var formContent = this.formContent();
         formContent = this.validateDateFields(formContent);
 
         if (this.model !== undefined) {
+          
+          this.model.set(formContent);
           this.model.save();
         }
         else {

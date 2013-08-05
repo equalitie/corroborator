@@ -49,7 +49,7 @@ define (
       events: {
         'click button#incident-action_save': 'saveRequested',
         'click button#clear-user'          : 'clearUser',
-        'click button.do-hide': 'requestCloseForm'
+        'click button.do-hide'             : 'requestCloseForm'
       },
 
       // define the fields that will have autocomplete enabled  
@@ -100,6 +100,7 @@ define (
       ],
 
       initialize: function() {
+        this.model = this.model !== undefined ? this.model : new Backbone.Model();
         this.render();
       },
 
@@ -125,7 +126,8 @@ define (
       },
 
       render: function() {
-        var html = incidentFormTmp();
+        console.log(this.model.toJSON());
+        var html = incidentFormTmp({model: this.model.toJSON()});
         this.$el = $(html);
       },
       // pull the data from the form
@@ -136,6 +138,7 @@ define (
       saveRequested: function() {
         var formContent = this.formContent();
         if (this.model !== undefined) {
+          this.model.set(formContent);
           this.model.save();
         }
         else {

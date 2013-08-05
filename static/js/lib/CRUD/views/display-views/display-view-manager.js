@@ -41,7 +41,8 @@ define (
       el: '.form_overlay',
       childViews: [],
       events: {
-        'click .do-hide': 'closeViewRequested'
+        'click .do-hide'       : 'closeViewRequested',
+        'click .do-select.edit': 'editRequested'
       },
 
       initialize: function() {
@@ -53,6 +54,12 @@ define (
         evt.preventDefault();
         this.destroyChildren();
         this.$el.children().remove();
+      },
+
+      editRequested: function() {
+        this.$el.children().remove();
+        _.last(this.childViews).requestEdit();
+        this.destroyChildren();
       },
 
       watchNavEvents: function() {

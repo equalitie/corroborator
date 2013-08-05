@@ -206,7 +206,8 @@ define (
             entityType: this.entityType,
             collection: collection,
             el        : field.containerid,
-            display   : field.display
+            display   : field.display,
+            content   : field.content
           });
           this.childViews.push(labelWidget);
         },

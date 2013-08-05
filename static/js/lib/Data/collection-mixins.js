@@ -95,54 +95,61 @@ define (
             model.set('checked', 'checked');
           }
         },
+
         // ### helper methods for persisting models with tastypie  
         // formats many to many fields  
         // removes empty foreign key fields  
         // removes empty date fields  
         ModelSyncMixin = {
-          formatManyToManyFields: function() {
-            _.chain(this.manyToManyFields)
-             .filter(this.filterEmptyFields, this)
-             .each(this.setEmptyArray, this);
+          parse: function(response) {
+            response.id = response.django_id;
+            return response;
+          },
 
+          //iterate over the many to many fields and format if necessary
+          formatManyToManyFields: function() {
             _.chain(this.manyToManyFields)
              .filter(this.filterSingleValueFields, this)
              .each(this.wrapAsArray, this);
           },
 
-          filterEmptyFields: function(key) {
-            return this.get(key) ==='';
-          },
-          setEmptyArray: function(key) {
-            this.set(key, []);
-          },
-
+          // filter out many to many fields that only have one value set
           filterSingleValueFields: function(key) {
             if (this.get(key) === undefined) {
               return false;
             }
-            return typeof(this.get(key) === 'string') &&
+            return typeof(this.get(key)) === 'string' &&
                    this.get(key).length > 0;
           },
 
+          // wrap many to many single value fields in an array - required
+          // by the backend
           wrapAsArray: function(key) {
-            return [this.get(key)];
+            console.log(key);
+             this.set(key, [this.get(key)]);
           },
 
+          // remove any date time or foreign key fields with no values
           removeEmptyDateFields: function() {
             _.each(this.dateFields, this.removeEmptyField, this);
           },
+
           removeEmptyDateTimeFields: function() {
             _.each(this.dateTimeFields, this.removeEmptyField, this);
           },
+
           removeEmptyForeignKeyFields: function() {
             _.each(this.foreignKeyFields, this.removeEmptyField, this);
           },
+
+          // remove any empty fields
           removeEmptyField: function(key) {
             if (this.get(key) === '') {
               this.unset(key);
             }
           },
+          // apply our formatting methods and then delegate to builtin
+          // backbone sync
           sync: function(method, model) {
             var createEditMethods = ['create', 'update'];
             if (_.contains(createEditMethods, method)) {

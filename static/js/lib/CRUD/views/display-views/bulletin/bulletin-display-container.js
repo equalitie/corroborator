@@ -6,12 +6,14 @@
 define (
   [
     'backbone', 'underscore', 'lib/Data/collections',
+    'lib/streams',
     'lib/CRUD/templates/display-templates/bulletin-display.tpl'
   ],
-  function (Backbone, _, Collections, bulletinDisplayTmp) {
+  function (Backbone, _, Collections, Streams, bulletinDisplayTmp) {
     'use strict';
 
     var BulletinDisplayView,
+        crudBus = Streams.crudBus,
         bulletinCollection = Collections.BulletinCollection;
 
     // ### BulletinDisplayView
@@ -29,6 +31,14 @@ define (
             .renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents();
+      },
+      requestEdit: function() {
+        crudBus.push({
+          type: 'edit_bulletin_request',
+          content: {
+            model: this.model
+          }
+        });
       },
       onDestroy: function() {
         this.destroyChildren();

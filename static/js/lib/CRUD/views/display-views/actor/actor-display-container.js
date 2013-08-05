@@ -6,12 +6,14 @@
 define (
   [
     'backbone', 'underscore', 'lib/Data/collections',
+    'lib/streams',
     'lib/CRUD/templates/display-templates/actor-display.tpl'
   ],
-  function (Backbone, _, Collections, actorDisplayTmp) {
+  function (Backbone, _, Collections, Streams, actorDisplayTmp) {
     'use strict';
 
     var ActorDisplayView,
+        crudBus = Streams.crudBus,
         actorCollection = Collections.ActorCollection;
 
     // ### ActorDisplayView
@@ -33,6 +35,15 @@ define (
       onDestroy: function() {
         this.destroyChildren();
       },
+      requestEdit: function() {
+        crudBus.push({
+          type: 'edit_actor_request',
+          content: {
+            model: this.model
+          }
+        });
+      },
+
       destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];

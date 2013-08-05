@@ -10,9 +10,11 @@
         <!-- start header fields -->
         <div class="header">
           <!-- id field - hide for new actor -->
+          {{#if model.id}}
           <span class="id">
-            ID <span id="view-actor-id" class="value out"></span>
+            ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
           </span>
+          {{/if}}
             
           <!-- actor name -->
           <div class="field clear-after">
@@ -20,11 +22,11 @@
             <span class="i18n with-en with-ar">
               <div lang="en">
                 <input type="text" name="fullname_en" id="fullname_en" 
-                  value="" class="actor-field w-100p">
+                  value="{{model.fullname_en}}" class="actor-field w-100p">
               </div>
               <div lang="ar">
                 <input type="text" name="fullname_ar" id="fullname_ar"
-                  value="" class="actor-field w-100p">
+                  value="{{model.fullname_ar}}" class="actor-field w-100p">
               </div>
               <span class="toggle">
                 <span lang="en">EN</span><span lang="ar">AR</span>
@@ -38,11 +40,11 @@
             <span class="i18n with-en with-ar">
               <div lang="en">
                 <input type="text" name="nickname_en" id="nickname_en" 
-                  value="" class="actor-field w-100p">
+                  value="{{model.nickname_en}}" class="actor-field w-100p">
               </div>
               <div lang="ar">
                 <input type="text" name="nickname_ar" id="nickname_ar" 
-                  value="" class="actor-field w-100p">
+                  value="{{model.nickname_ar}}" class="actor-field w-100p">
               </div>
               <span class="toggle">
                 <span lang="en">EN</span><span lang="ar">AR</span>
@@ -61,7 +63,7 @@
               <div id="sex_en" class="button combo">
         
                 <span class="T selected-option">Sex</span>
-                <input name="sex_en" type="hidden" value=""class="actor-field">
+                <input name="sex_en" type="hidden" value="{{model.sex_en}}"class="actor-field">
         
                 <ul class="options">
                   <li class="option selected">
@@ -78,7 +80,7 @@
               <div id="age_en" class="button combo">
         
                 <span class="T selected-option">Age</span>
-                <input name="age_en" type="hidden" value="" class="actor-field">
+                <input name="age_en" type="hidden" value="{{model.age_en}}" class="actor-field">
         
 
                 <ul class="options">
@@ -114,13 +116,13 @@
           <!-- Date of birth -->
           <div class="field clear-after is-birthdate field ">
             <label>Date of birth</label>
-            <input type="text" name="DOB" value="" class="w-50p" class="actor-field">
+            <input type="text" name="DOB" value="{{model.DOB}}" class="w-50p" class="actor-field">
           </div>
 
-          <!-- Date of birth -->
+          <!-- Place of birth -->
           <div class="field">
             <label>Place of birth</label>
-            <input id="actor_pob_hidden" name="POB" type="hidden" value="">
+            <input id="actor_pob_hidden" name="POB" type="hidden" value="{{model.POB}}">
             <input type="text" class="with-select w-50p ui-autocomplete-input" 
               id="actor_pob" value="" autocomplete="off">
             <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
@@ -138,41 +140,42 @@
           <!-- Occupation -->
           <div class="field is-occupation">
             <label>Occupation</label>
-            <input type="text" class="with-select w-30p" value="" 
+            <input type="text" class="with-select w-30p" value="{{model.occupation_en}}" 
               name="occupation_en" id="actor_occupation_en" class="actor-field">
           </div>
 
           <!-- Position -->
           <div class="field is-position">
             <label>Position (rank)</label>
-            <input type="text" class="with-select w-30p" value="" 
+            <input type="text" class="with-select w-30p" value="{{model.position_en}}" 
               name="position_en" id="actor_position_en" class="actor-field">
           </div>
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
             <label>Ethnicity</label>
-            <input type="text" class="with-select w-30p" value=""
+            <input type="text" class="with-select w-30p" value="{{model.ethnicity_en}}"
               name="ethnicity_en" id="actor_ethnicity_en" class="actor-field">
           </div>
 
           <!-- Nationality -->
           <div class="field is-nationality">
             <label>Nationality</label>
-            <input type="text" class="with-select w-30p" value=""
+            <input type="text" class="with-select w-30p" value="{{model.nationality_en}}"
               name="nationality_en" id="actor_nationality_en" class="actor-field">
           </div>
 
           <!-- Religion -->
           <div class="field is-religion">
             <label>Religion</label>
-            <input type="text" class="with-select w-30p" value=""
+            <input type="text" class="with-select w-30p" value="{{model.religion_en}}"
               name="religion_en" id="actor_religion_en" class="actor-field">
           </div>
 
           <!-- Spoken Dialects -->
           <div class="field is-dialect">
             <label>Spoken dialects</label>
-            <input type="text" class="with-select w-30p" name="spoken_dialect_en" value="" id="actor_spoken_dialect_en" class="actor-field">
+            <input type="text" class="with-select w-30p" name="spoken_dialect_en"
+              value="{{model.spoken_dialect_en}}" id="actor_spoken_dialect_en" class="actor-field">
           </div>
         </div>
 

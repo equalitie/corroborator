@@ -25,6 +25,7 @@ define(
         crudBus               = Streams.crudBus,
         searchBus             = Streams.crudBus,
         SuperCollection       = Mixins.SuperCollection,
+        ModelSyncMixin        = Mixins.ModelSyncMixin,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         Filters               = new Mixins.Filters(),
@@ -57,6 +58,7 @@ define(
       }
 
     });
+    _.extend(IncidentModel.prototype, ModelSyncMixin);
 
     // ### Incident Collection
     // provide sort, selection functionality  
@@ -90,7 +92,7 @@ define(
                .onValue(this.resetCollection.bind(this));
       },
       resetCollection: function(results) {
-        this.reset(results);
+        this.reset(results, {parse: true});
       },
       // watch for selections from the action combo box
       watchSelection: function() {

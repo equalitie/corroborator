@@ -6,6 +6,11 @@
   </div>
   <div id="view-placeholder-incident" class="body" style="bottom: 49px;">
     <form id="incident_form" class="incident_form">
+          {{#if model.id}}
+          <span class="id">
+            ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
+          </span>
+          {{/if}}
       <div class="Incident in-preview is-edited">
         <div class="Incident is-edited">
           <div class="col first span-66p hidden incident-expanded-edit">
@@ -34,7 +39,7 @@
                     type="text"
                     name="title_en"
                     class="incident-field
-                    w-100p"></textarea>
+                    w-100p">{{model.title_en}}</textarea>
                 </div>
                 <div lang="ar">
                   <textarea 
@@ -42,7 +47,7 @@
                     name="title_ar"
                     type="text"
                     class="incident-field
-                    w-100p"></textarea>
+                    w-100p">{{model.title_ar}}</textarea>
                 </div>
                 <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span>
                 </span>
@@ -58,8 +63,8 @@
                   <label>Reliability Score</label>
                   <span class="score">
 
-                    <span id="incident_confidence_score" class="value">0</span>
-                    <input type="hidden" class="incident-field" name="confidence_score" value="0">
+                    <span id="incident_confidence_score" class="value">{{model.confidence_score}}</span>
+                    <input type="hidden" class="incident-field" name="confidence_score" value="{{model.confidence_score}}">
 
 
                     <div class="score-editor">
@@ -86,8 +91,8 @@
                 <div id="incident-assignment-block" class="incidentAssigned left">
                   <label>Assigned to</label>
 
-                  <input type="text" class="with-clear is-assigned-to" value="">
-                  <input type="hidden" name="assigned_user" value="">
+                  <input type="text" class="with-clear is-assigned-to" value="{{model.incident_assigned_user}}">
+                  <input type="hidden" name="assigned_user" value="{{model.assigned_user}}">
 
                 <button id="clear-user" class="do-clear">
                   <span>✓</span>
@@ -132,13 +137,13 @@
                   <textarea 
                     id="description_en"
                     name="description_en"
-                    class="incident-field w-100p"></textarea>
+                    class="incident-field w-100p">{{model.description_en}}</textarea>
                 </div>
                 <div lang="ar">
                   <textarea 
                     id="description_ar"
                     name="description_ar"
-                    class="incident-field w-100p"></textarea>
+                    class="incident-field w-100p">{{model.description_ar}}</textarea>
                 </div>
             <span class="toggle">
             <span lang="en">EN</span><span lang="ar">AR</span>

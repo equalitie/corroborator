@@ -74,33 +74,45 @@ define (
       // represent free text input fields that will autocomplete
       // based on the content of the collection, these labels will
       // persist based on the model type in the collecion
-      labelFields: [
-        {
+      labelFields: {
+        sources: {
           containerid: '#bulletin-source-block',
           collection : SourceCollection,
           display: {
             field_name : 'sources',
             field_label: 'Sources'
+          },
+          content: {
+            values: 'sources',
+            labels: 'bulletin_sources'
           }
         },
-        {
+        labels: {
           containerid: '#bulletin-label-block',
           collection : LabelCollection,
           display: {
             field_name : 'labels',
             field_label: 'Labels'
+          },
+          content: {
+            values: 'labels',
+            labels: 'bulletin_labels'
           }
         },
-        {
+        locations: {
           containerid: '#bulletin-location-block',
           collection : LocationCollection,
           display: {
             field_name : 'locations',
             field_label: 'Locations'
+          },
+          content: {
+            values: 'locations',
+            labels: 'bulletin_locations'
           }
         },
 
-      ],
+      },
 
       // display a slider for scores
       sliderFields: [
@@ -119,8 +131,20 @@ define (
         
       // constructor
       initialize: function() {
-        this.childViews = [];
+        if(this.model !== undefined) {
+          this.setFieldDefaults();
+        }
+        else {
+          this.model = new Backbone.Model();
+        }
         this.render();
+      },
+      setFieldDefaults: function() {
+        _.each(this.labelFields, function(field, index) {
+          console.log(field);
+          field.content.labels = this.model.get(field.content.labels);
+          field.content.values = this.model.get(field.content.values);
+        }, this);
       },
 
       // remove DOM elements and cancel event handlers
@@ -146,6 +170,7 @@ define (
         var formContent = this.formContent();
         console.log(formContent);
         if (this.model !== undefined) {
+          this.model.set(formContent);
           this.model.save();
         }
         else {
@@ -161,26 +186,31 @@ define (
       renderChildren: function() {
         var commentForm = new CommentContainerView({
           el: '#bulletin-comment-block',
+          content: this.model.get(''),
           entityType: 'bulletin'
         });
 
         var eventForm = new EventContainerView({
           el: '#bulletin-event-block',
+          content: this.model.get(''),
           entityType: 'bulletin'
         });
 
         var actorSearchView = new ActorSearchView({
           el: '#bulletin-actor-list-block',
+          content: this.model.get(''),
           entityType: 'bulletin'
         });
 
         var bulletinSearchView = new BulletinSearchView({
           el: '#bulletin-bulletin-block',
+          content: this.model.get(''),
           entityType: 'bulletin'
         });
 
         var mediaSearchView = new MediaSearchView({
           el: '#bulletin-media-block',
+          content: this.model.get(''),
           entitytype: 'bulletin'
         });
 
@@ -197,7 +227,7 @@ define (
 
       // render the form
       render: function() {
-        var html = bulletinFormTmp();
+        var html = bulletinFormTmp({model: this.model.toJSON()});
         this.$el = $(html);
         return this;
       }

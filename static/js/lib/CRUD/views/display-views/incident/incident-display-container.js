@@ -6,12 +6,14 @@
 define (
   [
     'backbone', 'underscore', 'lib/Data/collections',
+    'lib/streams',
     'lib/CRUD/templates/display-templates/incident-display.tpl'
   ],
-  function (Backbone, _, Collections, incidentDisplayTmp) {
+  function (Backbone, _, Collections, Streams, incidentDisplayTmp) {
     'use strict';
 
     var IncidentDisplayView,
+        crudBus = Streams.crudBus,
         incidentCollection = Collections.IncidentCollection;
 
     // ### IncidentDisplayView
@@ -29,6 +31,14 @@ define (
             .renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents();
+      },
+      requestEdit: function() {
+        crudBus.push({
+          type: 'edit_incident_request',
+          content: {
+            model: this.model
+          }
+        });
       },
       onDestroy: function() {
         this.destroyChildren();
@@ -50,7 +60,6 @@ define (
       },
       render: function() {
         this.destroyChildren();
-        console.log(this.model.toJSON());
         var html = this.template({
           model: this.model.toJSON()
         });
