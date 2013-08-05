@@ -12,18 +12,25 @@ define (
   function (Backbone, _, Streams) {
     'use strict';
     var ActorRoleModel,
-        crudBus = Streams.crudBus;
+        crudBus = Streams.crudBus,
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        };
 
     // ### ActorRoleModel
     // 
     ActorRoleModel = Backbone.Model.extend({
-      idAttribute: 'resource_uri',
-      initialize: function() {
+      idAttribute: 'id',
+      initialize: function(options) {
+        if (this.get('resource_uri')) {
+          this.id = mapResourceUriToId(this.get('resource_uri'));
+          this.fetch();
+        }
       },
       url: function() {
         var base = '/api/v1/actorRole/';
         if (this.id) {
-          base = this.id;
+          base = base + this.id;
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;

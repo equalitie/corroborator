@@ -11,9 +11,11 @@ define (
     'lib/Data/actor',
     'lib/CRUD/data/ActorRoleCollection',
     'lib/CRUD/views/search-views/actor/actor-result',
+    'lib/Data/collections',
     'lib/CRUD/templates/search-templates/actor-search-field.tpl'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Actor, ActorRole, ActorResult,
+    Collections,
     actorSearchTmp) {
     'use strict';
     var ActorSearchView,
@@ -28,6 +30,7 @@ define (
         filterActorRelateRequest = function(value) {
           return value.type === 'relate_actor_request';
         };
+
 
     // ### ActorSearchView
     // Search for actors and display actors already associated with and entity
@@ -49,6 +52,7 @@ define (
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
+
         this.entityType = options.entityType;
         this.listenTo(this.collection, 'remove sync', this.renderSelectOptions.bind(this));
         this.renderCollection = new Backbone.Collection();
@@ -56,7 +60,23 @@ define (
         this.createActorCollection();
         this.listenForActorsAdded();
         this.listenForActorUpdate();
+
+        if (options.content) {
+          _.each(options.content, function(resourceUri) {
+            var initialActorModel = new ActorRoleModel({resource_uri: resourceUri});
+            this.listenTo(initialActorModel, 'sync', this.createRenderActor.bind(this));
+            this.collection.add(initialActorModel);
+          }, this);
+        }
+
         this.render();
+      },
+
+      createRenderActor: function(model) {
+        var allActors = Collections.ActorCollection.superCollection;
+        var actorModel = allActors.findWhere({resource_uri: model.get('actor')});
+        this.renderCollection.add(actorModel);
+        this.stopListening(model, 'sync', this.createRenderActor);
       },
 
       // create a collection to store all available actors
@@ -67,8 +87,10 @@ define (
         this.listenForAvailableActors();
         this.requestAvailableActors();
       },
+
+      // search solr for actors
       requestAvailableActors: function(inputText) {
-        var searchText = inputText !== undefined ? inputText : '';
+        var searchText = inputText !== undefined ? inputText : '*';
         // send a search request - handled in TextSearch
         crudBus.push({
           type: 'new_search',
@@ -80,11 +102,10 @@ define (
 
       // turn off event listeners and remove dom elements
       onDestroy: function() {
-        console.log(this.collection, 'destroy ActorSearchView');
         this.stopListening();
         this.collection = undefined;
         this.actorCollection = undefined;
-        //this.renderCollection = undefined;
+        this.renderCollection = undefined;
         this.destroySelectViews();
         this.destroyChildViews();
         this.unsubStreams();
@@ -102,6 +123,8 @@ define (
           content: {}
         });
       },
+
+      // clear the actor search box
       clearSearchRequested: function(evt) {
         evt.preventDefault();
         $(evt.currentTarget).siblings('input').val('');
@@ -139,24 +162,28 @@ define (
         this.unsubFunctions.push(subscriber);
       },
 
+      // update the relationship type
       processActorUpdateData: function(evt) {
         var model = evt.value().content.model,
             role_en = evt.value().content.relationship;
         this.updateActorRoleModel(model, role_en);
       },
 
+      // set the new role on the actor_role and save it
       updateActorRoleModel: function(model, role_en) {
         model.set('role_en', role_en);
         model.save();
         this.renderActors();
       },
 
+      // create a new actor role
       createNewActorRole: function(actorRoleData) {
         var actorRole = new ActorRoleModel(actorRoleData);
         this.collection.add(actorRole);
         actorRole.save();
       },
 
+      // see if the actor is already related to the entity
       existingActor: function(actorRoleData) {
         return this.collection
                    .chain()
@@ -168,6 +195,8 @@ define (
       },
 
 
+      // add the selected actor to the render collection
+      // and to the data collection
       addActorToCollections: function(evt) {
         var actorContent = evt.value().content;
         var actorRoleData = {
@@ -223,15 +252,12 @@ define (
       // unsubscribe from bacon event streams
       unsubStreams: function() {
         _.each(this.unsubFunctions, function(unsub) {
-          // evidence of memory leak here
-          // TODO - what is not getting destroyed??!
-          //console.log(unsub());
           unsub();
         });
         this.unsubFunctions = [];
       },
 
-      // render the list of related actors
+      // add an actor model to the render collection
       addActorToRenderCollection: function(actorModel) {
         this.renderCollection.add(actorModel);
       },
