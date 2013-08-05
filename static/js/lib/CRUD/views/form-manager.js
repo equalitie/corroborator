@@ -29,6 +29,18 @@ define (
           return createMap[value.type];
         },
 
+        mapEditEventToView = function(value) {
+          var editMap = {
+            edit_actor_request: ActorForm.ActorFormView,
+            edit_bulletin_request: BulletinForm.BulletinFormView,
+            edit_incident_request: IncidentForm.IncidentFormView
+          };
+          return {
+            view: editMap[value.type],
+            model: value.content.model
+          };
+        },
+
         // close embedded search box requested
         filterEmbeddedSearchClose = function(value) {
           return value.type === 'close_embedded_results';
@@ -52,6 +64,12 @@ define (
           return value.type === 'create_actor' ||
                  value.type === 'create_bulletin' ||
                  value.type === 'create_incident';
+        },
+
+        filterEditRequest = function(value) {
+          return value.type === 'edit_actor_request'    ||
+                 value.type === 'edit_bulletin_request' ||
+                 value.type === 'edit_incident_request';
         };
 
     // ### FormManagerView
@@ -88,12 +106,21 @@ define (
                  .onValue(function(view) {
                    self.replaceView(view);
                  });
+        crudBus.filter(filterEditRequest)
+               .map(mapEditEventToView)
+               .onValue(this.openEditView.bind(this));
 
         // watch for form close request
         crudBus.filter(filterCloseRequest)
                  .onValue(function() {
                    self.destroyCurrentView();
                  });
+      },
+
+      openEditView: function(value) {
+        this.destroyCurrentView();
+        this.currentView = new value.view({model: value.model});
+        this.render();
       },
 
       // replace the current form view with the requested one
@@ -104,7 +131,6 @@ define (
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
-        console.log('destroyCurrentView');
         
         if (this.currentView !== undefined) {
           this.currentView.destroy();

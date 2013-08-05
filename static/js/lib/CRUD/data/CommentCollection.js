@@ -18,20 +18,20 @@ define (
     // ### CommentModel
     // describe a single comment
     CommentModel = Backbone.Model.extend({
-      idAttribute: 'resource_uri',
+      idAttribute: 'id',
       initialize: function() {
       },
       url: function() {
         var base = '/api/v1/comment/';
-        if (this.id) {
-          base = this.id;
+        console.log(this.get('id'));
+        if (this.get('id')) {
+          base = base + this.get('id').toString();
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
           return base + urlvars;
       }
     });
-    _.extend(CommentModel.prototype, Mixins.ModelSyncMixin);
     
 
     // ### CommentCollection

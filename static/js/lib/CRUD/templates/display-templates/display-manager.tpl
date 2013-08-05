@@ -23,7 +23,7 @@
       <button class="do-select">
         <span class="text T">Select</span>
       </button>
-      <button class="do-select default">
+      <button class="do-select edit default">
         <span class="text T">Edit</span>
       </button>
     </div>

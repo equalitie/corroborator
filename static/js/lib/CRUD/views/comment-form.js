@@ -27,7 +27,10 @@ define (
         Formatter         = Mixins.Formatter,
         WidgetMixin       = Mixins.WidgetMixin,
         CommentModel      = CommentData.CommentModel,
-        CommentCollection = CommentData.CommentCollection;
+        CommentCollection = CommentData.CommentCollection,
+        mapResourceUriToId = function(resourceUri) {
+          return {id :_.last(resourceUri.match(/\/(\d+)\/$/))};
+        };
 
     // ### CommentContainerView
     // Hold the other two views
@@ -43,11 +46,13 @@ define (
         if (options.entityType === undefined) {
           throw 'Exception: entityType not set';
         }
-        this.collection = new CommentCollection();
-        this.collection.on('sync', this.renderSelectOptions, this);
+        var content = _.map(options.content, mapResourceUriToId);
+        this.collection = new CommentCollection(content);
+        console.log(this.collection);
         this.entityType = options.entityType;
         this.render()
             .renderChildren();
+        this.collection.on('sync', this.renderSelectOptions, this);
       },
 
       //destroy the view and it's children
@@ -66,6 +71,7 @@ define (
 
       // render all child display elements
       renderChildren: function() {
+        console.log('renderChildren');
         this.renderForm()
             .renderComments()
             .renderSelectOptions();
@@ -124,18 +130,17 @@ define (
     CommentFormView = Backbone.View.extend({
       //set the template
       template: commentFormTmp,
-      formElClass: 'comment-field',
+
+      entityType: 'comment',
       childViews: [],
       events: {
         'click .do-addComment': 'addCommentRequested'
       },
+
       // constructor
       initialize: function(options) {
-        if (options.entityType === undefined) {
-          throw 'Exception: undefined entityType';
-        }
         this.collection.on('edit', this.populateForm, this);
-        this.entityType = options.entityType;
+        //this.entityType = options.entityType;
         this.render();
       },
 
@@ -143,12 +148,16 @@ define (
       addCommentRequested: function(evt) {
         evt.preventDefault();
         if (this.model === undefined) { // new comment
+          var formContent = this.formContent();
           var comment = new CommentModel(this.formContent());
           comment.save();
+          console.log(comment);
           this.collection.add(comment);
         }
         else { // update existing comment
+          console.log(this.model);
           this.model.set(this.formContent());
+          console.log(this.model);
           this.model.save();
           this.model = undefined;
         }

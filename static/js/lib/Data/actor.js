@@ -105,7 +105,7 @@ define(
                .onValue(this.resetCollection.bind(this));
       },
       resetCollection: function(results) {
-        this.reset(results);
+        this.reset(results, {parse: true});
       },
 
 

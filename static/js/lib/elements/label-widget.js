@@ -42,7 +42,10 @@ define (
 
       // render a single filter
       render: function() {
-        var html = labelTmp({model: this.model.toJSON()});
+        var html = labelTmp({
+          model: this.model.toJSON(),
+          content: this.content
+        });
         this.$el.empty()
                 .append(html);
       }
@@ -64,8 +67,12 @@ define (
         if (this.collection === undefined) {
           throw 'Widget view requires collection';
         }
+
         // TODO reset these with existing values
         this.selectCollection = new Backbone.Collection();
+
+
+        // listend for add and remove events
         this.listenTo(this.selectCollection, 'add remove',
           this.renderSelected.bind(this));
         
@@ -75,39 +82,56 @@ define (
         this.listenTo(this.selectCollection, 'add remove',
           this.reinsertModel.bind(this));
 
+        // populate existing content
+        if (this.options.content !== undefined) {
+          this.content = this.options.content;
+          this.selectModelsFromResourceUri(this.content.values);
+        }
+
         this.templateVars = {
           display: options.display,
           entityType: this.entityType
         };
-        this.render();
+        this.render()
+            .renderSelected();
         this.initAutocomplete();
       },
 
       // enable the autocomplete functionality
       initAutocomplete: function() {
         var autocompleteSrc = this.collection.autoCompleteFormat(),
-            self = this,
             inputEl = this.$el.children('ul')
                               .children('li')
                               .children('input');
           inputEl.autocomplete({
           minLength: 0,
           source: autocompleteSrc,
-          select: function(event, ui) {
-            var selectedModel =
-              self.collection.chain()
-                  .filter(function(model) {
-                    return model.get('resource_uri') === ui.item.id;
-                  })
-                  .last()
-                  .value();
-              self.selectCollection.add(selectedModel);
-              self.collection.remove(selectedModel);
-              $(this).val('');
-              return false;
-          }
+          select: this.addToSelectedList.bind(this, inputEl)
         });
       },
+      addToSelectedList: function(inputEl, evt, ui) {
+        this.selectModelFromResourceUri(ui.item.id);
+        $(inputEl).val('');
+        return false;
+      },
+
+      selectModelsFromResourceUri: function(resourceUriList) {
+        _.each(resourceUriList, this.selectModelFromResourceUri, this);
+      },
+
+      selectModelFromResourceUri: function(resourceUri) {
+        var filterItemById = function(model) {
+          return model.get('resource_uri') === resourceUri;
+        };
+        var selectedModel = this.collection.chain()
+                                .filter(filterItemById)
+                                .last()
+                                .value();
+        this.selectCollection.add(selectedModel);
+        this.collection.remove(selectedModel);
+      },
+
+
       reinsertModel: function(model) {
         this.collection.add(model);
       },
@@ -127,10 +151,10 @@ define (
 
       // render the 
       renderSelected: function() {
-        console.log('renderSelected', this.selectCollection, this.collection);
         this.destroyChildViews();
         this.selectCollection.each(this.addToDisplayList, this);
         this.selectCollection.each(this.addToSelectList, this);
+        return this;
       },
 
       // add label view li to the ul in the view
@@ -160,6 +184,7 @@ define (
         var html = labelWidgetTmp(this.templateVars);
         this.$el.empty()
                 .append(html);
+        return this;
 
       }
     });

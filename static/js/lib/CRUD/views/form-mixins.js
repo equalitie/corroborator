@@ -103,12 +103,32 @@ define (
           this.enableDateTimeRangeFields();
           this.enableComboBoxes();
         },
+        populateWidgets: function() {
+          this.populateLabelFields();
+          this.populateSliderFields();
+        },
 
         disableWidgets: function() {
           this.disableDateFields();
           this.disableDateTimeFields();
           this.disableSliderFields();
           this.disableAutoCompleteFields();
+        },
+
+
+        // populate the label fields
+        populateLabelFields: function() {
+          _.each(this.labelFields, function(field, index) {
+            field.content.values = this.model.get(index);
+          }, this);
+        },
+
+        // populate the label fields
+        populateSliderFields: function() {
+          _.each(this.sliderFields, function(field, index) {
+            var value = this.model.get(index);
+            field.value = (value !== undefined) ? value : 50;
+          }, this);
         },
 
         // enable a jquery ui date field for date of birth
@@ -169,6 +189,7 @@ define (
         enableComboBoxes: function() {
           _.each(this.comboIds, this.enableComboBox, this);
         },
+
         enableComboBox: function(comboId) {
           var comboWidget = new ComboWidget(comboId);
           this.childViews.push(comboWidget);
@@ -206,7 +227,8 @@ define (
             entityType: this.entityType,
             collection: collection,
             el        : field.containerid,
-            display   : field.display
+            display   : field.display,
+            content   : field.content
           });
           this.childViews.push(labelWidget);
         },

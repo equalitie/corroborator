@@ -17,6 +17,7 @@
       'handlebars'     : 'components/handlebars/handlebars',
       'bacon'          : 'components/bacon/dist/Bacon',
       'bacon_ui'       : 'components/bacon-ui/Bacon.UI',
+      'q'              : 'components/q/q.js',
       // ajax solr stuff
       'core'           : 'components/ajax-solr/core',
       'managers'       : 'components/ajax-solr/managers',

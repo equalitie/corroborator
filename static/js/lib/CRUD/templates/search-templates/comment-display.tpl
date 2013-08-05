@@ -7,9 +7,9 @@
     </button>
   </div>
   <div class="content">
-  <div class="text T">{{model.comment_en}}</div>
+  <div class="text T">{{model.comments_en}}</div>
     <div class="meta">
-      <span class="created"> {{model.comment_created}}</span>
+      <span class="created"> {{dateFormat model.comment_created}}</span>
       by <span class="who"> cormac</span>
     <span class="bulletin_comment_status"> - {{model.status}}</span>
     </div>
