@@ -94,8 +94,11 @@ define(
       },
       watchSearchStream: function() {
         bus.filter(filterSearchRequestEvents)
-                 .map(this.parseQuery)
-                 .onValue(this.sendRequest.bind(this));
+                 .onValue(function(value){
+                   self.clear();
+                   self.set('*' + value.content.raw + '*');
+                   self.doRequest();
+                 });
       },
       watchQueryBuilderStream: function() {
         var self = this;
