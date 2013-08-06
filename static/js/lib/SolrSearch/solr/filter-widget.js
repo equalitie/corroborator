@@ -9,16 +9,19 @@ define(
     'backbone', 'underscore',
     'lib/streams',
     'lib/SolrSearch/solr/parse-filters',
+    'lib/SolrSearch/solr/query-builder',
     // solr shizz
     'core/Core',
     'core/AbstractFacetWidget'
   ], 
-  function(Backbone, _, Streams, ParseFilter) {
+  function(Backbone, _, Streams, ParseFilter, QueryBuilder) {
     'use strict';
     var FilterWidget,
         searchBus = Streams.searchBus,
         navBus    = Streams.navBus,
-
+        filterQueryBuilderEvents = function(value) {
+            return value.type === 'query_builder';
+        },
         filterSearchRequestEvents = function(value) {
           return value.type === 'new_search';
         },
@@ -70,6 +73,7 @@ define(
       init: function(){
         this.watchFilterEvents();
         this.watchSearchStream();
+        this.watchQueryBuilderStream();
         this.filterCollection = new Backbone.Collection();
         //this.filterCollection.on('reset', this.sendRequest, this);
       },
@@ -81,10 +85,13 @@ define(
       },
       populateFreeTextQueryString: function () {
         if (this.queryString.length) {
-          this.manager.store.addByValue('q', '*' + this.queryString + '*');
+          var parsedQueryString = this.parseQuery(this.queryString);
+          this.manager.store.addByValue('q', parsedQueryString );
+          this.sendRequest();
         }
         else {
           this.manager.store.addByValue('q', '*:*');
+          this.sendRequest();
         }
         return this;
       },
@@ -93,9 +100,7 @@ define(
       // empty the previous query, and rebuild a new one, then send the request
       // to solr
       sendRequest: function() {
-        this.emptyQueryStrings()
-            .populateFreeTextQueryString();
-
+      
         this.filterCollection
             .chain()
             .groupBy(function(model){return model.get('key');})
@@ -125,7 +130,18 @@ define(
           this.field = key;
         }
       },
-
+      watchQueryBuilderStream: function() {
+        var self = this;
+        searchBus.filter(filterQueryBuilderEvents)
+                 .onValue(function(value) {
+                    self.manager.store.addByValue('q', value.content.raw );
+                    self.sendRequest();
+                 });    
+      },
+      parseQuery: function(searchQuery) {
+        var qb = new QueryBuilder(searchQuery);
+        return qb.parsedString;
+      },
       watchSearchStream: function() {
         var self = this;
         searchBus.filter(filterSearchRequestEvents)
@@ -136,17 +152,18 @@ define(
 
       // watch for the addition and removal of filters
       watchFilterEvents: function() {
-        var self = this;
         searchBus.filter(function(value) {
                    return value.type === 
-                     'filter_event_add_' + self.manager.entity;
-                 })
+                     'filter_event_add_' + this.manager.entity;
+                 }.bind(this))
                  .map(mapFilterToValue)
                  .onValue(function(value) {
-                   self.filterCollection.reset(value);
-                   self.sendFilter = false;
-                   self.sendRequest();
-                 });
+                     
+                   this.filterCollection.reset(value);
+                   this.sendFilter = false;
+                   this.emptyQueryStrings()
+                    .populateFreeTextQueryString();
+                 }.bind(this));
       },
 
       

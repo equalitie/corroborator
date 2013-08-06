@@ -8,11 +8,15 @@ define(
   [
     'underscore',
     'lib/SolrSearch/solr/parse-filters',
+    'lib/SolrSearch/solr/query-builder',
     'core/AbstractTextWidget'
   ],
-  function(_, ParseFilter) {
+  function(_, ParseFilter, QueryBuilder) {
         // parse actor results from the result string
         var bus,
+            filterQueryBuilderEvents = function(value) {
+                return value.type === 'query_builder';
+            },
             filterSearchRequestEvents = function(value) {
               return value.type === 'new_search';
             },
@@ -86,11 +90,16 @@ define(
         }
         bus = this.bus;
         this.watchSearchStream();
-        
+        this.watchQueryBuilderStream();
       },
       watchSearchStream: function() {
-        var self = this;
         bus.filter(filterSearchRequestEvents)
+                 .map(this.parseQuery)
+                 .onValue(this.sendRequest.bind(this));
+      },
+      watchQueryBuilderStream: function() {
+        var self = this;
+        bus.filter(filterQueryBuilderEvents)
                  .onValue(function(value) {
                    self.clear();
                    self.set( value.content.raw);

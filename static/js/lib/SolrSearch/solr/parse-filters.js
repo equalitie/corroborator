@@ -18,22 +18,36 @@ define(
         fields = {
           actor: [
             'age_en_exact',
+            'age_ar_exact',
             'sex_en_exact',
+            'sex_ar_exact',
             'civilian_en_exact',
-            'nationality_en_exact'
+            'civilian_ar_exact',
+            'nationality_en_exact',
+            'nationality_ar_exact',
+            'occupation_en_exact',
+            'occupation_ar_exact',
+            'position_en_exact',
+            'position_ar_exact',
+            'ethnicity_en_exact',
+            'ethnicity_ar_exact',
+            'spoken_dialect_en',
+            'spoken_dialect_ar'
+            //'actor_created_exact',
+            //'dob_exact',
           ],
           // bulletin fields
           bulletin: [
             'bulletin_labels_exact',
-            'bulletin_assigned_exact',
+            'bulletin_assigned_user_exact',
             'most_recent_status_bulletin_exact',
-            'sources_exact'
+            'bulletin_sources_exact'
           ],
           // incident fields
           incident: [
             'incident_labels_exact', 
-            'incident_assigned_exact',
-            'crimes_exact',
+            'incident_assigned_user_exact',
+            'incident_crimes_exact',
             'most_recent_status_incident_exact'
           ]
         },

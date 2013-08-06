@@ -24,18 +24,39 @@ define(
 
         // facet fields
         fields = [ 
+          //Bulletin fields
           'bulletin_labels_exact',
           'bulletin_assigned_user_exact',
-          'incident_labels_exact', 
-          'incident_assigned_exact',
-          'incident_crimes_exact',
           'bulletin_sources_exact',
-          'civilian_en_exact',
-          'age_en_exact',
-          'sex_en_exact',
-          'nationality_en_exact',
+          'bulletin_created_exact',
           'most_recent_status_bulletin_exact',
-          'most_recent_status_incident_exact'
+          //Incident fields
+          'confidence_score_exact',
+          'incident_times_exact',
+          'incident_labels_exact', 
+          'incident_assigned_user_exact',
+          'incident_crimes_exact',
+          'incident_created_exact',
+          'most_recent_status_incident_exact',
+          //Actor fields
+          'age_en_exact',
+          'age_ar_exact',
+          'sex_en_exact',
+          'sex_ar_exact',
+          'civilian_en_exact',
+          'civilian_ar_exact',
+          'nationality_en_exact',
+          'nationality_ar_exact',
+          'occupation_en_exact',
+          'occupation_ar_exact',
+          'position_en_exact',
+          'position_ar_exact',
+          'ethnicity_en_exact',
+          'ethnicity_ar_exact',
+          'spoken_dialect_en',
+          'spoken_dialect_ar'
+/*          'dob_exact',
+          'actor_created_exact',*/
         ],
 
         // search parameters

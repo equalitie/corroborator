@@ -8,13 +8,17 @@ define (
     'backbone', 'underscore',
     'lib/streams',
     'lib/SolrSearch/solr/parse-filters',
+    'lib/SolrSearch/solr/query-builder',
     'core/Core',
     'core/AbstractTextWidget'
   ],
-  function (Backbone, _, Streams, ParseFilter) {
+  function (Backbone, _, Streams, ParseFilter, QueryBuilder) {
     'use strict';
     var EmbeddedSearchWidget,
         crudBus = Streams.crudBus,
+        filterQueryBuilderEvents = function(value) {
+            return value.type === 'query_builder';
+        },
         filterActors = function(element) {
           return element.django_ct.search(/actor/) > -1;
         },
@@ -35,17 +39,33 @@ define (
     EmbeddedSearchWidget = AjaxSolr.AbstractTextWidget.extend({
       init: function() {
         this.watchCrudStream();
+        this.watchQueryBuilderStream();
+      },
+      watchQueryBuilderStream: function() {
+        var self = this;
+        bus.filter(filterQueryBuilderEvents)
+                 .onValue(function(value) {
+                    self.clear();
+                    self.set( value.content.raw );
+                    self.doRequest();
+                 });    
+      },
+      sendRequest: function(searchQuery) {
+        this.clear();
+        this.set( searchQuery );
+        this.doRequest(); 
+      },
+      parseQuery: function(searchQuery) {
+        var qb = new QueryBuilder(searchQuery.content.raw);
+        return qb.parsedString;
       },
       // look for search requests on the crudBus
       watchCrudStream: function() {
         var self = this;
         crudBus.toEventStream()
                .filter(filterCrudSearchRequestEvents)
-               .onValue(function(value) {
-                 self.clear();
-                 self.set('*' + value.content.raw + '*');
-                 self.doRequest();
-               });
+                 .map(this.parseQuery)
+                 .onValue(this.sendRequest.bind(this));
       },
       // send the results off on the crudBus
       sendResults: function() {

@@ -31,10 +31,10 @@ define(
           return value.type === 'filter_event_bulletin';
         },
         filterTitles = {
-          'bulletin_assigned_exact'          : 'Assigned To',
+          'bulletin_assigned_user_exact'          : 'Assigned To',
           'most_recent_status_bulletin_exact': 'Status',
           'bulletin_labels_exact'            : 'Labels',
-          'sources_exact'                    : 'Sources'
+          'bulletin_sources_exact'                    : 'Sources'
         },
         // used to map the filters object to an array of objects with the 
         // key set as a field called key on each object
