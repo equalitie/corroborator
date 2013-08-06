@@ -101,7 +101,6 @@ define(
         var self = this;
         bus.filter(filterQueryBuilderEvents)
                  .onValue(function(value) {
-<<<<<<< HEAD
                     self.clear();
                     self.set( value.content.raw );
                     self.doRequest();
@@ -115,13 +114,6 @@ define(
       parseQuery: function(searchQuery) {
         var qb = new QueryBuilder(searchQuery.content.raw);
         return qb.parsedString;
-=======
-                   self.clear();
-                   console.log('watchSearchStream');
-                   self.set('*' + value.content.raw + '*');
-                   self.doRequest();
-                 });
->>>>>>> e06051a658906b943a4351b5b394ff0e609b02b7
       },
       // send the results off the bus in a super functional way
       // cos that's how we do round here!
