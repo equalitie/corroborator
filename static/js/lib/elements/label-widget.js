@@ -67,6 +67,7 @@ define (
         if (this.collection === undefined) {
           throw 'Widget view requires collection';
         }
+        this.multiple = options.multiple;
 
         // TODO reset these with existing values
         this.selectCollection = new Backbone.Collection();
@@ -90,7 +91,8 @@ define (
 
         this.templateVars = {
           display: options.display,
-          entityType: this.entityType
+          entityType: this.entityType,
+          multiple: this.multiple
         };
         this.render()
             .renderSelected();
@@ -127,6 +129,13 @@ define (
                                 .filter(filterItemById)
                                 .last()
                                 .value();
+        // remove the models form the select collection if this is a single
+        // value field
+        if (this.multiple === false) {
+          this.selectCollection.each(function(model) {
+            this.selectCollection.remove(model);
+          }, this);
+        }
         this.selectCollection.add(selectedModel);
         this.collection.remove(selectedModel);
       },

@@ -23,7 +23,7 @@ define (
     // templates/search-templates
     'lib/CRUD/templates/search-templates/incident.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins, Label, Crime,
+  function ($, _, Backbone, Streams, Mixins,  Label, Crime,
     ActorSearchView, BulletinSearchView, IncidentSearchView, CommentForm,
     EventForm, incidentFormTmp) {
 
@@ -71,6 +71,7 @@ define (
         crimes: {
           containerid: '#incident-crime-block',
           collection : CrimeCollection,
+          multiple: true,
           display: {
             field_name : 'crimes',
             field_label: 'Crimes'
@@ -82,6 +83,7 @@ define (
         labels: {
           containerid: '#incident-label-block',
           collection : LabelCollection,
+          multiple: true,
           display: {
             field_name : 'labels',
             field_label: 'Labels'
@@ -107,7 +109,6 @@ define (
 
       initialize: function() {
         this.model = this.model !== undefined ? this.model : new Backbone.Model();
-        console.log(this.model.toJSON());
         this.populateWidgets();
         this.render();
       },
@@ -144,7 +145,7 @@ define (
       },
       saveRequested: function() {
         var formContent = this.formContent();
-        if (this.model !== undefined) {
+        if (this.model.isNew() === false) {
           this.model.set(formContent);
           this.model.save();
         }

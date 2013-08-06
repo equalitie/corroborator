@@ -46,10 +46,10 @@ define(
 
     // ##Data representations
 
-    // ### Actor Model
-    // provide api endpoint for Actor model
+    // ### Incident Model
+    // provide api endpoint for Incident model
     var IncidentModel = Backbone.Model.extend({
-      idAttribute: 'django_id',
+      idAttribute: 'id',
       manyToManyFields: [
         'crimes', 'labels', 'incident_comments', 'times', 'actors_role',
         'ref_bulletins', 'ref_incidents'

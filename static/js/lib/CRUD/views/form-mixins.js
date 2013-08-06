@@ -190,8 +190,8 @@ define (
           _.each(this.comboIds, this.enableComboBox, this);
         },
 
-        enableComboBox: function(comboId) {
-          var comboWidget = new ComboWidget(comboId);
+        enableComboBox: function(comboDetails) {
+          var comboWidget = new ComboWidget(comboDetails);
           this.childViews.push(comboWidget);
         },
 
@@ -228,7 +228,8 @@ define (
             collection: collection,
             el        : field.containerid,
             display   : field.display,
-            content   : field.content
+            content   : field.content,
+            multiple  : field.multiple
           });
           this.childViews.push(labelWidget);
         },

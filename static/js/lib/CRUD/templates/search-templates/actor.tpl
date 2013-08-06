@@ -62,7 +62,13 @@
               <label>Sex</label>
               <div id="sex_en" class="button combo">
         
-                <span class="T selected-option">Sex</span>
+                <span class="T selected-option">
+                  {{#if model.sex_en}}
+                    {{model.sex_en}}
+                  {{else}}
+                    Sex
+                  {{/if}}
+                </span>
                 <input name="sex_en" type="hidden" value="{{model.sex_en}}"class="actor-field">
         
                 <ul class="options">
@@ -79,7 +85,13 @@
               <label>Child/Adult</label>
               <div id="age_en" class="button combo">
         
-                <span class="T selected-option">Age</span>
+                <span class="T selected-option">
+                  {{#if model.sex_en}}
+                    {{model.age_en}}
+                  {{else}}
+                    Age
+                  {{/if}}
+                </span>
                 <input name="age_en" type="hidden" value="{{model.age_en}}" class="actor-field">
         
 
@@ -97,7 +109,13 @@
               <label>Civilian/Non-civilian</label>
               <div id="civilian_en" class="button combo">
         
-                <span class="T selected-option">Civilian</span>
+                <span class="T selected-option">
+                  {{#if model.civilian_en}}
+                    {{model.civilian_en}}
+                  {{else}}
+                    Civilian
+                  {{/if}}
+                </span>
                 <input type="hidden" name="civilian_en" value="" class="actor-field">
         
 
@@ -116,25 +134,16 @@
           <!-- Date of birth -->
           <div class="field clear-after is-birthdate field ">
             <label>Date of birth</label>
-            <input type="text" name="DOB" value="{{model.DOB}}" class="w-50p" class="actor-field">
+            <input type="text" name="DOB" value="{{formDateFormat model.DOB}}"
+            class="w-50p actor-field">
           </div>
 
           <!-- Place of birth -->
-          <div class="field">
-            <label>Place of birth</label>
-            <input id="actor_pob_hidden" name="POB" type="hidden" value="{{model.POB}}">
-            <input type="text" class="with-select w-50p ui-autocomplete-input" 
-              id="actor_pob" value="" autocomplete="off">
-            <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+          <div id="actor-pob-block" class="field">
           </div>
 
           <!-- Current Location -->
-          <div class="field">
-            <label>Lives in</label>
-            <input id="actor_lives_in_hidden" name="current_location" type="hidden" value="">
-            <input type="text" class="with-select w-50p ui-autocomplete-input" 
-              id="actor_lives_in" value="" autocomplete="off">
-            <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+          <div id="actor-current-location-block" class="field">
           </div>
 
           <!-- Occupation -->
@@ -206,86 +215,35 @@
           </div>
           <!-- media search - search for actor images -->
           <div id="actor-media-block" class="field is-media">
-            <div class="actor-preview preview"> </div>
-            <label>Actor Image</label>
-
-        <div id="actor-media-search-block" class="search">
-              <input type="text" class="with-clear">
-              <button class="do-clear">
-                <span>✓</span>
-              </button>
-              <button class="do-search do-search-embedded medias">
-                <span>Search</span>
-              </button>
-        <button class="do-search upload-media">
-                <span>Upload New Media</span>
-              </button>
-            </div>
-            <ul class="actor-media media">
-        
-            </ul>
-
           </div>
-
-
-
         </div>
-
       </form>
       <!-- end form -->
     </div>
 
-          <div class="footer actions">
-            <div class="left">
-              <div class="when-overlay-expanded">
-                <button class="do-collapse">
-                  <span class="text T">Collapse »</span>
-                </button>
-              </div>
-              <div class="when-overlay-not_expanded">
-                <button class="do-expand">
-                  <span class="text T">« Expand</span>
-                </button>
-              </div>
-            </div>
-            <div class="right">
-    <span id="actor_action_result" class="hidden">
-      Result saved successfully.
-    </span>
-
-              <button id="actor-action_edit" class="do-select default hidden">
-                <span class="text T">Edit</span>
-              </button>
-    <div class="button combo invert is-default hidden">
-      <span class="T">
-        Save related as: 
-        <ul class="options">
-          <li>
-      <span class="text T actor-action_save_relate">Witness</span>
-          </li>
-          <li>
-      <span class="text T actor-action_save_relate">Victim</span>
-          </li>
-          <li>
-      <span class="text T actor-action_save_relate ">Killer</span>
-          </li>
-          <li>
-      <span class="text T actor-action_save_relate">Torturer</span>
-          </li>
-          <li>
-      <span class="text T actor-action_save_relate">Kidnapper</span>
-          </li>
-        </ul>
-      </span>
+  <div class="footer actions">
+    <div class="left">
+      <div class="when-overlay-expanded">
+        <button class="do-collapse">
+          <span class="text T">Collapse »</span>
+        </button>
+      </div>
+      <div class="when-overlay-not_expanded">
+        <button class="do-expand">
+          <span class="text T">« Expand</span>
+        </button>
+      </div>
     </div>
-              <button id="actor-action_cancel" class="hidden do-hide default">
-                <span class="text T">Cancel</span>
-              </button>
+    <div class="right">
 
-              <button id="actor-action_save" class="do-select default">
-                <span class="text T">Save</span>
-              </button>
+      <button id="actor-action_cancel" class="hidden do-hide default">
+        <span class="text T">Cancel</span>
+      </button>
 
-            </div>
-          </div>
+      <button id="actor-action_save" class="do-select default">
+        <span class="text T">Save</span>
+      </button>
+
+    </div>
+  </div>
 </div>

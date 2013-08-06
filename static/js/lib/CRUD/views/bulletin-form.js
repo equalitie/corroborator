@@ -78,6 +78,7 @@ define (
         sources: {
           containerid: '#bulletin-source-block',
           collection : SourceCollection,
+          multiple: true,
           display: {
             field_name : 'sources',
             field_label: 'Sources'
@@ -90,6 +91,7 @@ define (
         labels: {
           containerid: '#bulletin-label-block',
           collection : LabelCollection,
+          multiple: true,
           display: {
             field_name : 'labels',
             field_label: 'Labels'
@@ -102,6 +104,7 @@ define (
         locations: {
           containerid: '#bulletin-location-block',
           collection : LocationCollection,
+          multiple: true,
           display: {
             field_name : 'locations',
             field_label: 'Locations'
@@ -110,7 +113,7 @@ define (
             values: 'locations',
             labels: 'bulletin_locations'
           }
-        },
+        }
 
       },
 
@@ -159,8 +162,7 @@ define (
       // handle save click
       saveRequested: function() {
         var formContent = this.formContent();
-        console.log(formContent);
-        if (this.model !== undefined) {
+        if (this.model.isNew() === false) {
           this.model.set(formContent);
           this.model.save();
         }
@@ -201,9 +203,12 @@ define (
         });
 
         var mediaSearchView = new MediaSearchView({
-          el: '#bulletin-media-block',
-          content: this.model.get('medias'),
-          entitytype: 'bulletin'
+          el        : '#bulletin-media-block',
+          content   : this.model.get('medias'),
+          multiple  : true,
+          entitytype: 'bulletin',
+          label     : 'Related media',
+          name      : 'medias'
         });
 
 

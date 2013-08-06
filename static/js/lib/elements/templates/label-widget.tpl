@@ -5,6 +5,6 @@
   <input type="text" placeholder="{{ field_label }}">
   </li>
 </ul>
-<select multiple="true" name="{{display.field_name}}" class="hidden {{entityType}}-field">
+<select {{#if multiple}}multiple="true"{{/if}} name="{{display.field_name}}" class="hidden {{entityType}}-field">
 </select>
 

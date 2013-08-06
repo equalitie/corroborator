@@ -10,16 +10,20 @@ define (
     'lib/streams',
     'lib/CRUD/views/form-mixins',
     'lib/CRUD/views/search-views/actor/actor-search-field',
+    'lib/CRUD/views/search-views/media/media-search-field',
+    'lib/CRUD/data/LocationCollection',
     // templates
     'lib/CRUD/templates/search-templates/actor.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins, ActorSearchView, actorFormTmp) {
+  function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
+    Location, actorFormTmp) {
 
     var ActorFormView,
-        crudBus      = Streams.crudBus,
-        Formatter    = Mixins.Formatter,
-        WidgetMixin  = Mixins.WidgetMixin;
-        ConfirmMixin = Mixins.ConfirmMixin;
+        crudBus            = Streams.crudBus,
+        Formatter          = Mixins.Formatter,
+        WidgetMixin        = Mixins.WidgetMixin,
+        LocationCollection = Location.LocationCollection,
+        ConfirmMixin       = Mixins.ConfirmMixin;
 
     // ### ActorFormView
     // display create update form for actor
@@ -38,8 +42,39 @@ define (
       // ids of combo boxes
       comboIds: ['#sex_en', '#age_en', '#civilian_en'],
 
+      // represent free text input fields that will autocomplete
+      // based on the content of the collection, these labels will
+      // persist based on the model type in the collecion
+      labelFields: {
+        POB: {
+          containerid: '#actor-pob-block',
+          collection : LocationCollection,
+          multiple: false,
+          display: {
+            field_name : 'POB',
+            field_label: 'Place Of Birth'
+          },
+          content: {
+            values: 'POB',
+          }
+        },
+        current_location: {
+          containerid: '#actor-current-location-block',
+          collection : LocationCollection,
+          multiple: false,
+          display: {
+            field_name : 'current_location',
+            field_label: 'Current Location'
+          },
+          content: {
+            values: 'current_location',
+          }
+        }
+
+      },
       // constructor
       initialize: function() {
+        this.model = this.model !== undefined ? this.model : new Backbone.Model();
         this.render();
       },
 
@@ -78,13 +113,12 @@ define (
       // send the form data on the crudBus, it will be picked up in data and 
       // persisted
       saveRequested: function() {
-        console.log('saveRequested', this.model.toJSON());
         var formContent = this.formContent();
         formContent = this.validateDateFields(formContent);
+        this.model.set(formContent);
 
-        if (this.model !== undefined) {
+        if (this.model.isNew() === false) {
           
-          this.model.set(formContent);
           this.model.save();
         }
         else {
@@ -96,11 +130,21 @@ define (
       },
       // render the sub views
       renderChildren: function() {
-        var actorSearchView = new ActorSearchView({
-          el: '#actor-actor-search-block',
-          entityType: 'actor'
+        //var actorPobView = new
+        //var actorSearchView = new ActorSearchView({
+          //el: '#actor-actor-search-block',
+          //entityType: 'actor'
+        //});
+        //this.childViews.push(actorSearchView);
+        var mediaSearchView = new MediaSearchView({
+          el: '#actor-media-block',
+          content: this.model.get('media'),
+          entitytype: 'actor',
+          multiple: false,
+          label: 'Actor Image',
+          name: 'media'
         });
-        this.childViews.push(actorSearchView);
+        this.childViews.push(mediaSearchView);
       }
 
     });

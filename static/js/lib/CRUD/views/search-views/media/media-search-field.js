@@ -49,6 +49,9 @@ define (
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
+        this.label = options.label;
+        this.multiple = options.multiple;
+        this.name = options.name;
         this.listenTo(this.collection, 'sync reset add remove',
           this.renderMedias.bind(this));
         this.listenTo(this.collection, 'reset add remove',
@@ -95,13 +98,7 @@ define (
       // user clicked upload
       uploadMediasRequested: function(evt) {
         evt.preventDefault();
-        this.watchForUpload();
-        this.watchForUploadCancel();
         this.mediaUploadForm = new MediaFormView();
-      },
-      watchForUpload: function() {
-      },
-      watchForUploadCancel: function() {
       },
       // user clicked search
       searchMediasRequested: function(evt) {
@@ -150,10 +147,16 @@ define (
         var mediaModel = evt.value().content.model,
             existingMedia = this.existingMedia(mediaModel);
         if (existingMedia === undefined) { // create media
+          if (this.multiple === false) {
+            // remove each module individually so they reappear in
+            // search window
+            this.collection.each(function(model) {
+              this.collection.remove(model);
+            }, this);
+          }
           this.collection.add(mediaModel);
         }
       },
-
 
       // check if the media is already associated with this entity
       existingMedia: function(mediaModel) {
@@ -223,7 +226,12 @@ define (
 
       //render the input field and buttons
       render: function() {
-        var html = this.template();
+        console.log(this.label);
+        var html = this.template({
+          label: this.label,
+          multiple: this.multiple,
+          name: this.name
+        });
         this.$el.empty()
                 .append(html);
       }

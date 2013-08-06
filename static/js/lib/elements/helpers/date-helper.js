@@ -15,8 +15,17 @@ define (
     //  usage: {{dateFormat creation_date format="MMMM YYYY"}}
     Handlebars.registerHelper('dateFormat', function(context, block) {
       var formattedContext = context;
-      if (moment) {
+      if (moment && formattedContext !== undefined) {
         var f = block.hash.format || "MMM Do, YYYY";
+        formattedContext =  moment(context).format(f);
+      }
+      return formattedContext;
+    });
+
+    Handlebars.registerHelper('formDateFormat', function(context, block) {
+      var formattedContext = context;
+      if (moment && formattedContext !== undefined) {
+        var f = block.hash.format || "YYYY-MM-DD";
         formattedContext =  moment(context).format(f);
       }
       return formattedContext;

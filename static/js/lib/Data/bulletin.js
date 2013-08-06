@@ -62,11 +62,12 @@ define(
         if (options.resourceUri !== undefined) {
           var id = mapResourceUriToId(options.resourceUri);
           this.set('django_id', id);
+          this.set('id', id);
           this.set('resource_uri', options.resourceUri);
           this.fetch();
         }
       },
-      idAttribute: 'django_id',
+      idAttribute: 'id',
       url: function() {
         var base = '/api/v1/bulletin/';
         if (this.id) {
