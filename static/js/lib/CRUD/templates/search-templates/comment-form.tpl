@@ -5,6 +5,9 @@
           id="{{entityType}}_status" 
           class="comment-field">
     <option selected value="">Select Status</option>
+    {{#each statuses}}
+      <option value="{{this.resource_uri}}">{{this.comment_status}}</option>
+    {{/each}}
   </select>
 </div>
 

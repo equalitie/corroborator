@@ -13,13 +13,22 @@ define (
     'use strict';
     var CommentCollection,
         CommentModel,
-        StatusCollection;
+        StatusCollection,
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        };
 
     // ### CommentModel
     // describe a single comment
     CommentModel = Backbone.Model.extend({
       idAttribute: 'id',
-      initialize: function() {
+      initialize: function(options) {
+        if (options.resourceUri !== undefined) {
+          var id = mapResourceUriToId(options.resourceUri);
+          this.set('id', id);
+          this.set('resource_uri', options.resourceUri);
+          this.fetch();
+        }
       },
       url: function() {
         var base = '/api/v1/comment/';

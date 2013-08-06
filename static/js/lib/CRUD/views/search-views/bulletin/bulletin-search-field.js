@@ -48,12 +48,23 @@ define (
           this.collection = new Backbone.Collection();
         }
         this.entityType = options.entityType;
-        this.listenTo(this.collection, 'reset add remove',
+        this.listenTo(this.collection, 'sync reset add remove',
           this.renderBulletins.bind(this));
-        this.listenTo(this.collection, 'reset add remove',
+        this.listenTo(this.collection, 'sync reset add remove',
           this.renderSelectOptions.bind(this));
         this.listenForBulletinsAdded();
         this.render();
+        if (options.content) {
+          _.each(options.content, this.loadExistingContent, this);
+        }
+      },
+
+
+      loadExistingContent: function(resourceUri) {
+        var initialBulletinModel = new Bulletin.BulletinModel({
+          resourceUri: resourceUri
+        });
+        this.collection.add(initialBulletinModel);
       },
 
       requestAvailableBulletins: function(inputText) {
