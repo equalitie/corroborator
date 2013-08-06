@@ -93,6 +93,7 @@ define(
         this.watchQueryBuilderStream();
       },
       watchSearchStream: function() {
+        var self = this;
         bus.filter(filterSearchRequestEvents)
                  .onValue(function(value){
                    self.clear();
