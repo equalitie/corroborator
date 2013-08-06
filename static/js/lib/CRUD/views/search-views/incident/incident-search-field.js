@@ -48,12 +48,22 @@ define (
           this.collection = new Backbone.Collection();
         }
         this.entityType = options.entityType;
-        this.listenTo(this.collection, 'reset add remove',
+        this.listenTo(this.collection, 'reset add remove sync',
           this.renderIncidents.bind(this));
-        this.listenTo(this.collection, 'reset add remove',
+        this.listenTo(this.collection, 'reset add remove sync',
           this.renderSelectOptions.bind(this));
         this.listenForIncidentsAdded();
         this.render();
+        if (options.content) {
+          _.each(options.content, this.loadExistingContent, this);
+        }
+      },
+
+      loadExistingContent: function(resourceUri) {
+        var initialIncidentModel = new Incident.IncidentModel({
+          resourceUri: resourceUri
+        });
+        this.collection.add(initialIncidentModel);
       },
 
       requestAvailableIncidents: function(inputText) {
@@ -184,6 +194,7 @@ define (
 
       // render a single incident
       renderIncident: function(model) {
+        console.log(model);
         var resultView = new IncidentResult({
           model: model,
           collection: this.collection,

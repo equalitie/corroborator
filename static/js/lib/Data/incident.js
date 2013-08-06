@@ -29,6 +29,9 @@ define(
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         Filters               = new Mixins.Filters(),
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        },
         mapSort = function(value) {
           var sortMap = {
             'date': 'incident_created',
@@ -51,6 +54,15 @@ define(
         'crimes', 'labels', 'incident_comments', 'times', 'actors_role',
         'ref_bulletins', 'ref_incidents'
       ],
+      initialize: function(options) {
+        if (options.resourceUri !== undefined) {
+          var id = mapResourceUriToId(options.resourceUri);
+          this.set('django_id', id);
+          this.set('resource_uri', options.resourceUri);
+          this.id = id;
+          this.fetch();
+        }
+      },
       url: function() {
         var base = '/api/v1/incident/';
         if (this.id) {

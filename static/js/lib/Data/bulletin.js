@@ -31,6 +31,10 @@ define(
           return value.type === 'results_bulletin';
         },
 
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        },
+
         // map sort request to model field
         mapSort = function(value) {
           var sortMap = {
@@ -54,6 +58,14 @@ define(
         'sources', 'bulletin_comments', 'actors_role', 'times', 'medias',
         'locations', 'labels', 'ref_bulletins'
       ],
+      initialize: function(options) {
+        if (options.resourceUri !== undefined) {
+          var id = mapResourceUriToId(options.resourceUri);
+          this.set('django_id', id);
+          this.set('resource_uri', options.resourceUri);
+          this.fetch();
+        }
+      },
       idAttribute: 'django_id',
       url: function() {
         var base = '/api/v1/bulletin/';

@@ -54,6 +54,16 @@ define (
           this.renderSelectOptions.bind(this));
         this.listenForBulletinsAdded();
         this.render();
+        if (options.content) {
+          _.each(options.content, this.loadExistingContent, this);
+        }
+      },
+
+
+      loadExistingContent: function(resourceUri) {
+        var initialBulletinModel = new Bulletin.BulletinModel(
+          {}, {resourceUri: resourceUri});
+        this.collection.add(initialBulletinModel);
       },
 
       requestAvailableBulletins: function(inputText) {

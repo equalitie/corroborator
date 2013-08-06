@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // Display a form to add comments to the database and expose and input field
@@ -46,8 +46,8 @@ define (
         if (options.entityType === undefined) {
           throw 'Exception: entityType not set';
         }
-        var content = _.map(options.content, mapResourceUriToId);
-        this.collection = new CommentCollection(content);
+        this.content = options.content;
+        this.collection = new CommentCollection();
         this.entityType = options.entityType;
         this.render()
             .renderChildren();
@@ -90,7 +90,8 @@ define (
       renderComments: function() {
         var commentsDisplayView = new CommentsDisplayView({
           el: this.$el.children('ul.comments'),
-          collection: this.collection
+          collection: this.collection,
+          content: this.content
         });
         this.childViews.push(commentsDisplayView);
         return this;
@@ -190,7 +191,8 @@ define (
       render: function() {
         var html = this.template({
           entityType: this.entityType,
-          model: this.model
+          model: this.model,
+          statuses: Bootstrap.comment_statuses
         });
         this.$el.empty()
                 .append(html);
@@ -204,13 +206,22 @@ define (
     // 
     CommentsDisplayView = Backbone.View.extend({
       childViews: [],
-      initialize: function() {
-        this.collection.on('add remove change', this.render, this);
+      initialize: function(options) {
+        this.listenTo(this.collection, 'add remove change', this.render.bind(this));
         this.render();
+        if (options.content) {
+          _.each(options.content, this.loadExistingContent, this);
+        }
+      },
+      loadExistingContent: function(resourceUri) {
+        var initialCommentModel = new CommentModel({
+          resourceUri: resourceUri
+        });
+        this.collection.add(initialCommentModel);
       },
       destroy: function() {
         this.destroyChildren();
-        this.collection.off('add remove change', this.render, this);
+        this.stopListening();
         this.$el.remove();
         this.undelegateEvents();
       },
@@ -263,7 +274,14 @@ define (
 
       // render the comment
       render: function(evt) {
-        var html = this.template({model: this.model.toJSON()});
+        var renderJSON = this.model.toJSON(),
+            statuses = Bootstrap.comment_statuses,
+            searchField = {resource_uri: renderJSON.status};
+        console.log(renderJSON);
+        if (renderJSON.status) {
+          renderJSON.status = _.findWhere(statuses, searchField).comment_status;
+        }
+        var html = this.template({model: renderJSON});
         this.$el.empty().append(html);
       }
     });

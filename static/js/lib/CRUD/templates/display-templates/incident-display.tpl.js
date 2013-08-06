@@ -27,7 +27,7 @@ function program5(depth0,data) {
   
   var buffer = "", stack1, stack2;
   buffer += "\n    <ul class=\"tags group\">\n      ";
-  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.labels), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
+  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_labels), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    </ul>\n    ";
   return buffer;
@@ -61,7 +61,7 @@ function program6(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.location), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      </div>\n\n    </div>\n    ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.labels), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_labels), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  </div>\n\n  <div class=\"body\">\n    <div class=\"media\">\n      <div class=\"placeholder\">&nbsp;</div>\n    </div>\n    <div class=\"description\">\n      <h3>Description</h3>\n      "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

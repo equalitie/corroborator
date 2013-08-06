@@ -62,14 +62,16 @@ define (
         this.listenForActorUpdate();
 
         if (options.content) {
-          _.each(options.content, function(resourceUri) {
-            var initialActorModel = new ActorRoleModel({resource_uri: resourceUri});
-            this.listenTo(initialActorModel, 'sync', this.createRenderActor.bind(this));
-            this.collection.add(initialActorModel);
-          }, this);
+          _.each(options.content, this.loadExistingContent, this);
         }
 
         this.render();
+      },
+
+      loadExistingContent: function(resourceUri) {
+        var initialActorModel = new ActorRoleModel({resource_uri: resourceUri});
+        this.listenTo(initialActorModel, 'sync', this.createRenderActor.bind(this));
+        this.collection.add(initialActorModel);
       },
 
       createRenderActor: function(model) {

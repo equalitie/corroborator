@@ -159,6 +159,7 @@ define (
       renderChildren: function() {
         var commentForm = new CommentContainerView({
           el: '#incident-comment-block',
+          content: this.model.get('incident_comments'),
           entityType: this.entityType,
         });
         var actorForm = new ActorSearchView({
@@ -168,14 +169,17 @@ define (
         });
         var eventForm = new EventContainerView({
           el: '#incident-event-block',
+          content: this.model.get('times'),
           entityType: this.entityType
         });
         var bulletinSearchView = new BulletinSearchView({
           el: '#incident-bulletin-block',
+          content: this.model.get('ref_bulletins'),
           entityType: this.entityType
         });
         var incidentSearchView = new IncidentSearchView({
           el: '#incident-incident-block',
+          content: this.model.get('ref_incidents'),
           entityType: this.entityType
         });
         this.childViews.push(commentForm, actorForm, eventForm,

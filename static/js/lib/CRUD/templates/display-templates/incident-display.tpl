@@ -28,9 +28,9 @@
       </div>
 
     </div>
-    {{#if model.labels}}
+    {{#if model.incident_labels}}
     <ul class="tags group">
-      {{#each model.labels}}
+      {{#each model.incident_labels}}
       <li class="tag"> <span class="text">{{this}}</span> </li>
       {{/each}}
     </ul>
