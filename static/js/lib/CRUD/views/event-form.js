@@ -40,19 +40,19 @@ define (
         if (options.entityType === undefined) {
           throw 'Exception: entityType not set';
         }
+        this.content = options.content;
         this.collection = new EventData.EventCollection();
-        this.collection.on('sync', this.renderSelectOptions, this);
+        this.listenTo(this.collection, 'sync', this.renderSelectOptions.bind(this));
         this.entityType = options.entityType;
         this.render()
             .renderChildren();
       },
 
       //destroy the view and it's children
-      destroy: function() {
+      onDestroy: function() {
+        this.stopListening();
         this.destroyChildViews();
         this.destroySelectViews();
-        this.$el.remove();
-        this.undelegateEvents();
       },
       destroyChildViews: function() {
         _.invoke(this.childViews, 'destroy');
@@ -84,7 +84,8 @@ define (
       renderEventsDisplay: function() {
         var eventsDisplayView = new EventsDisplayView({
           el: this.$el.children('ul.events'),
-          collection: this.collection
+          collection: this.collection,
+          content: this.content
         });
         this.childViews.push(eventsDisplayView);
         return this;
@@ -128,9 +129,9 @@ define (
       selectViews: [],
 
       // specify slider fields
-      sliderFields: [
-        { // reliability score ( event )
-          sliderDiv : '#bulletin-event-block .score-editor .slider',
+      sliderFields: {
+        confidence_score: { // reliability score ( event )
+          sliderDiv : '#bulletin-event-block .score-editor .slider, #incident-event-block .score-editor .slider',
           formField : 'confidence_score',
           startPoint: 0,
           endPoint  : 100,
@@ -139,7 +140,7 @@ define (
           snap      : false,
           value     : 50 // TODO enable for update
         }
-      ],
+      },
 
       // specify a field to be built as a datetime range element
       dateTimeRangeFields: [
@@ -211,7 +212,7 @@ define (
 
       clearForm: function() {
         this.render();
-        this.sliderFields[0].value = 50;
+        this.sliderFields.confidence_score.value = 50;
 
         // TODO check for possible mem leak
         this.enableWidgets();
@@ -248,18 +249,29 @@ define (
     // 
     EventsDisplayView = Backbone.View.extend({
       childViews: [],
-      initialize: function() {
-        this.collection.on('add remove change', this.render, this);
+      initialize: function(options) {
+        this.listenTo(this.collection, 'add remove change', this.render.bind(this));
         this.render();
+        if (options.content) {
+          _.each(options.content, this.loadExistingContent, this);
+        }
       },
-      destroy: function() {
+
+      loadExistingContent: function(resourceUri) {
+        var initialEventModel = new EventData.EventModel({
+          resourceUri: resourceUri
+        });
+        this.collection.add(initialEventModel);
+      },
+
+
+      onDestroy: function() {
         this.destroyChildren();
-        this.collection.off('add remove change', this.render, this);
-        this.$el.remove();
-        this.undelegateEvents();
+        this.stopListening();
       },
       destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
       },
       render: function() {
         this.destroyChildren();
@@ -275,7 +287,7 @@ define (
     });
 
     // ### EventDisplayView
-    // display a single comment, handle edit/remove events
+    // display a single event, handle edit/remove events
     EventDisplayView = Backbone.View.extend({
       // define a template
       template: eventDisplayTmp,

@@ -14,7 +14,10 @@ define (
     var EventCollection,
         EventModel,
         ModelSyncMixin = Mixins.ModelSyncMixin,
-        StatusCollection;
+        StatusCollection,
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        };
 
     // ### EventModel
     // describe a single comment
@@ -23,13 +26,19 @@ define (
         'time_from',
         'time_to'
       ],
-      idAttribute: 'resource_uri',
-      initialize: function() {
+      idAttribute: 'id',
+      initialize: function(options) {
+        if (options.resourceUri !== undefined) {
+          var id = mapResourceUriToId(options.resourceUri);
+          this.set('id', id);
+          this.set('resource_uri', options.resourceUri);
+          this.fetch();
+        }
       },
       url: function() {
         var base = '/api/v1/timeInfo/';
         if (this.id) {
-          base = this.id;
+          base = base + this.id;
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
@@ -55,4 +64,3 @@ define (
     };
     
 });
-

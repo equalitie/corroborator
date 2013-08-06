@@ -45,16 +45,28 @@ define (
       // constructor
       // pass in collection of existing Medias related to this entity
       // or create a new one
-      initialize: function() {
+      initialize: function(options) {
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
-        this.listenTo(this.collection, 'reset add remove',
+        this.listenTo(this.collection, 'sync reset add remove',
           this.renderMedias.bind(this));
         this.listenTo(this.collection, 'reset add remove',
           this.renderSelectOptions.bind(this));
         this.listenForMediasAdded();
         this.render();
+        if (options.content) {
+          console.log(options.content);
+          _.each(options.content, this.loadExistingContent, this);
+        }
+      },
+
+      loadExistingContent: function(resourceUri) {
+        var initialMediaModel = new Media.MediaModel({
+          resourceUri: resourceUri
+        });
+        console.log(initialMediaModel);
+        this.collection.add(initialMediaModel);
       },
 
       requestAvailableMedias: function(inputText) {

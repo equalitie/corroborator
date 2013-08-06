@@ -16,6 +16,9 @@ define (
         searchBus = Streams.searchBus,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin = Mixins.ModelSelectionMixin,
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        },
         filterMediaResults = function(value) {
           return value.type === 'results_media';
         };
@@ -27,6 +30,14 @@ define (
     var MediaModel = Backbone.Model.extend({
       foreignKeyFields: ['POB', 'current_location', 'media'] ,
       idAttribute: 'django_id',
+      initialize: function(options) {
+        if (options.resourceUri !== undefined) {
+          var id = mapResourceUriToId(options.resourceUri);
+          this.set('django_id', id);
+          this.set('resource_uri', options.resourceUri);
+          this.fetch();
+        }
+      },
       url: function() {
         var base = '/api/v1/media/';
         if (this.id) {

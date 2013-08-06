@@ -175,33 +175,34 @@ define (
       // render out the child views - comment form, event form, add location,
       // add media, add actors, add related bulletins
       renderChildren: function() {
+        console.log(this.model.toJSON());
         var commentForm = new CommentContainerView({
           el: '#bulletin-comment-block',
-          content: this.model.get(''),
+          content: this.model.get('bulletin_comments'),
           entityType: 'bulletin'
         });
 
         var eventForm = new EventContainerView({
           el: '#bulletin-event-block',
-          content: this.model.get(''),
+          content: this.model.get('times'),
           entityType: 'bulletin'
         });
 
         var actorSearchView = new ActorSearchView({
           el: '#bulletin-actor-list-block',
-          content: this.model.get(''),
+          content: this.model.get('actors_role'),
           entityType: 'bulletin'
         });
 
         var bulletinSearchView = new BulletinSearchView({
           el: '#bulletin-bulletin-block',
-          content: this.model.get(''),
+          content: this.model.get('ref_bulletins'),
           entityType: 'bulletin'
         });
 
         var mediaSearchView = new MediaSearchView({
           el: '#bulletin-media-block',
-          content: this.model.get(''),
+          content: this.model.get('medias'),
           entitytype: 'bulletin'
         });
 
