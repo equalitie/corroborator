@@ -79,7 +79,7 @@ define (
     // of Solr Fuzzy search unless key '~' is already used in
     // the searchQuery.
     var QueryBuilder = function(searchQuery){
-        if(searchQuery.mength > 0) {
+        if(searchQuery.length > 0) {
             this.parsedString = parseQuery(searchQuery);
         }else{
             this.parsedString = "*:*";
