@@ -2,7 +2,7 @@ from django.contrib import admin
 from corroborator_app.models import\
     Incident, CrimeCategory, Actor, Bulletin, TimeInfo, Location, Source,\
     StatusUpdate, ActorRole, Label, SourceType, Comment, Media,\
-    PredefinedSearch
+    PredefinedSearch, ActorRelationship
 
 
 class CommentsInlineIn(admin.TabularInline):
@@ -101,6 +101,7 @@ admin.site.register(Label)
 admin.site.register(CrimeCategory)
 admin.site.register(Actor)
 admin.site.register(ActorRole)
+admin.site.register(ActorRelationship)
 admin.site.register(Media)
 admin.site.register(Comment)
 admin.site.register(PredefinedSearch)

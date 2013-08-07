@@ -165,7 +165,7 @@ define (
         this.render();
         this.$el.children()
                 .children('textarea')
-                .val(model.get('comments_en'));
+                .val(model.get('comment_en'));
         //todo set selected values
         //this.$el.children()
                 //.children('select')
@@ -187,27 +187,15 @@ define (
         this.undelegateEvents();
       },
 
-      prepareTemplateVars: function() {
-        var templateVars = {
-          entityType  : this.entityType,
-          model       : {},
-          statuses    : Bootstrap.comment_statuses,
-          userResource: Bootstrap.userResource
-        };
-        if (this.model) {
-          templateVars.model = this.model.toJSON();
-        }
-        return templateVars;
-      },
-
       // render the view
       render: function() {
-        var templateVars = this.prepareTemplateVars();
-        console.log('render', templateVars);
-        var html = this.template(templateVars);
+        var html = this.template({
+          entityType: this.entityType,
+          model: this.model,
+          statuses: Bootstrap.comment_statuses
+        });
         this.$el.empty()
                 .append(html);
-        //this.setTextareaContent();
         return this;
       }
     });
@@ -284,24 +272,14 @@ define (
         this.destroy();
       },
 
-      extractUserName: function() {
-      },
-
       // render the comment
       render: function(evt) {
         var renderJSON = this.model.toJSON(),
             statuses = Bootstrap.comment_statuses,
-            statusSearchField = {resource_uri: renderJSON.status},
-            users = Bootstrap.gl_ac_users_list,
-            userSearchField = {resource_uri: renderJSON.assigned_user};
-
+            searchField = {resource_uri: renderJSON.status};
+        console.log(renderJSON);
         if (renderJSON.status) {
-          renderJSON.status =
-            _.findWhere(statuses, statusSearchField).comment_status;
-        }
-        if (renderJSON.assigned_user) {
-          renderJSON.assigned_user =
-            _.findWhere(users, userSearchField).label;
+          renderJSON.status = _.findWhere(statuses, searchField).comment_status;
         }
         var html = this.template({model: renderJSON});
         this.$el.empty().append(html);

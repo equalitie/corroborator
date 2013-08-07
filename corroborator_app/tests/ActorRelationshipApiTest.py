@@ -10,12 +10,10 @@ class ActorRelationshipTestCase(ResourceTestCase):
         super(ActorRelationshipTestCase, self).setUp()
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        self.actor_a = Actor(fullname_ar='Test name ar', nickname_en='nick name', nickname_ar='nick name')
-        self.actor_a.save()
-        self.actor_b = Actor(fullname_ar='Test name ar', nickname_en='nick name', nickname_ar='nick name')
-        self.actor_b.save()
+        self.actor = Actor(fullname_ar='Test name ar', nickname_en='nick name', nickname_ar='nick name')
+        self.actor.save()
         fixture = AutoFixture(ActorRelationship, generate_m2m={1, 4})
-        actorRoles = fixture.create(10)
+        actorRelationshipps = fixture.create(10)
 
         try:
             self.api_key = ApiKey.objects.get(user=self.user)
@@ -39,8 +37,7 @@ class ActorRelationshipTestCase(ResourceTestCase):
     def test_actor_relationship_post(self):
         post_data = {
             'relation_status': "Parent",
-            'actor_a': "/api/v1/actor/{0}/".format(self.actor_a.pk),
-            'actor_b': "/api/v1/actor/{0}/".format(self.actor_b.pk),
+            'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
         }
         url = '/api/v1/actorRelationship/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -51,8 +48,7 @@ class ActorRelationshipTestCase(ResourceTestCase):
         url = '/api/v1/actorRelationship/{0}/?format=json{1}'.format(precreated_actor_rel.id, self.auth_string)
         put_data = {
             'relation_status': "Parent",
-            'actor_a': "/api/v1/actor/{0}/".format(self.actor_a.pk),
-            'actor_b': "/api/v1/actor/{0}/".format(self.actor_b.pk),
+            'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -63,13 +59,11 @@ class ActorRelationshipTestCase(ResourceTestCase):
             'objects': [
                 {
                     'relation_status': "Parent",
-                    'actor_a': "/api/v1/actor/{0}/".format(self.actor_a.pk),
-                    'actor_b': "/api/v1/actor/{0}/".format(self.actor_b.pk),
+                    'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
                 },
                 {
                     'relation_status': "Parent",
-                    'actor_a': "/api/v1/actor/{0}/".format(self.actor_a.pk),
-                    'actor_b': "/api/v1/actor/{0}/".format(self.actor_b.pk),
+                    'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
                 }
             ]
         }

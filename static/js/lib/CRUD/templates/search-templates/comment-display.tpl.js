@@ -11,9 +11,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "</div>\n    <div class=\"meta\">\n      <span class=\"created\"> ";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options)))
-    + "</span>\n      by <span class=\"who\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n    <span class=\"bulletin_comment_status\"> - "
+    + "</span>\n      by <span class=\"who\"> cormac</span>\n    <span class=\"bulletin_comment_status\"> - "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n    </div>\n  </div>\n  <div class=\"clearer\"> &nbsp;</div>\n";
   return buffer;

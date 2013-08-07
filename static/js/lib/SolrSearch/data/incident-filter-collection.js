@@ -31,7 +31,8 @@ define(
           'incident_assigned_exact': 'Assigned To',
           'most_recent_status_incident_exact': 'Status',
           'incident_labels_exact': 'Labels',
-          'crimes_exact': 'Crimes'
+          'crimes_exact': 'Crimes',
+          'incident_created_exact': 'Created date'
         },
         // used to map the filters object to an array of objects with the 
         // key set as a field called key on each object
