@@ -18,6 +18,7 @@ class CommentResource(ModelResource):
     """
     tastypie api implementation for Comment model
     """
+    assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
     class Meta:
         queryset = Comment.objects.all()
         resource_name = 'comment'

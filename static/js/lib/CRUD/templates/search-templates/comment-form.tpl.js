@@ -3,7 +3,7 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression, self=this;
+  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
 function program1(depth0,data) {
   
@@ -29,7 +29,15 @@ function program1(depth0,data) {
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  </select>\n</div>\n\n<div class=\"clearer\"></div>\n<!-- Comment content field -->\n<div class=\"add\">\n  <label>Comment</label><br/>\n  <textarea class=\"w-100p comment-comment comment-field\"\n            name=\"comments_en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</textarea>\n</div>\n<button class=\"do-addComment\">\n  <span class=\"T\">Save comment</span>\n</button>\n";
+    + "</textarea>\n</div>\n<input type=\"hidden\" name=\"assigned_user_name\" value=\"";
+  if (stack2 = helpers.userResource) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.userResource; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\" \n       class=\"comment-field\">\n<input type=\"hidden\" name=\"assigned_user\" value=\"";
+  if (stack2 = helpers.userResource) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.userResource; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "\" \n       class=\"comment-field\">\n<button class=\"do-addComment\">\n  <span class=\"T\">Save comment</span>\n</button>\n";
   return buffer;
   })
 

@@ -190,9 +190,10 @@ define (
       // render the view
       render: function() {
         var html = this.template({
-          entityType: this.entityType,
-          model: this.model,
-          statuses: Bootstrap.comment_statuses
+          entityType  : this.entityType,
+          model       : this.model,
+          statuses    : Bootstrap.comment_statuses,
+          userResource: Bootstrap.userResource
         });
         this.$el.empty()
                 .append(html);
@@ -272,14 +273,24 @@ define (
         this.destroy();
       },
 
+      extractUserName: function() {
+      },
+
       // render the comment
       render: function(evt) {
         var renderJSON = this.model.toJSON(),
             statuses = Bootstrap.comment_statuses,
-            searchField = {resource_uri: renderJSON.status};
-        console.log(renderJSON);
+            statusSearchField = {resource_uri: renderJSON.status},
+            users = Bootstrap.gl_ac_users_list,
+            userSearchField = {resource_uri: renderJSON.assigned_user};
+
         if (renderJSON.status) {
-          renderJSON.status = _.findWhere(statuses, searchField).comment_status;
+          renderJSON.status =
+            _.findWhere(statuses, statusSearchField).comment_status;
+        }
+        if (renderJSON.assigned_user) {
+          renderJSON.assigned_user =
+            _.findWhere(users, userSearchField).label;
         }
         var html = this.template({model: renderJSON});
         this.$el.empty().append(html);

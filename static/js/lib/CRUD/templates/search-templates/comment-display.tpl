@@ -10,7 +10,7 @@
   <div class="text T">{{model.comments_en}}</div>
     <div class="meta">
       <span class="created"> {{dateFormat model.comment_created}}</span>
-      by <span class="who"> cormac</span>
+      by <span class="who">{{model.assigned_user}}</span>
     <span class="bulletin_comment_status"> - {{model.status}}</span>
     </div>
   </div>

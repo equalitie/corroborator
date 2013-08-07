@@ -18,6 +18,10 @@
   <textarea class="w-100p comment-comment comment-field"
             name="comments_en">{{model.comments_en}}</textarea>
 </div>
+<input type="hidden" name="assigned_user_name" value="{{userResource}}" 
+       class="comment-field">
+<input type="hidden" name="assigned_user" value="{{userResource}}" 
+       class="comment-field">
 <button class="do-addComment">
   <span class="T">Save comment</span>
 </button>
