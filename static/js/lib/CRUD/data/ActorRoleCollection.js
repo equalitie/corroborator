@@ -30,7 +30,7 @@ define (
       url: function() {
         var base = '/api/v1/actorRole/';
         if (this.id) {
-          base = base + this.id;
+          base = base + this.id + '/';
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
