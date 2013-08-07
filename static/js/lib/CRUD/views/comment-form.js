@@ -165,7 +165,7 @@ define (
         this.render();
         this.$el.children()
                 .children('textarea')
-                .val(model.get('comment_en'));
+                .val(model.get('comments_en'));
         //todo set selected values
         //this.$el.children()
                 //.children('select')
@@ -277,7 +277,6 @@ define (
         var renderJSON = this.model.toJSON(),
             statuses = Bootstrap.comment_statuses,
             searchField = {resource_uri: renderJSON.status};
-        console.log(renderJSON);
         if (renderJSON.status) {
           renderJSON.status = _.findWhere(statuses, searchField).comment_status;
         }

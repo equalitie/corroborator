@@ -194,7 +194,6 @@ define (
 
       // render a single incident
       renderIncident: function(model) {
-        console.log(model);
         var resultView = new IncidentResult({
           model: model,
           collection: this.collection,
