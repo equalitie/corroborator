@@ -191,7 +191,7 @@ define (
         this.dateTimeRangeFields[0].from.value = model.get('time_from');
         this.dateTimeRangeFields[0].to.value = model.get('time_to');
 
-        this.sliderFields[0].value = model.get('confidence_score');
+        this.sliderFields.confidence_score.value = model.get('confidence_score');
         this.render();
         this.$el.children()
                 .children('textarea[name=comments_en]')

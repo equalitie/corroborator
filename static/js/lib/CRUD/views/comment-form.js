@@ -304,6 +304,7 @@ define (
           renderJSON.assigned_user =
             _.findWhere(users, userSearchField).label;
         }
+        console.log(renderJSON);
         var html = this.template({model: renderJSON});
         this.$el.empty().append(html);
       }
