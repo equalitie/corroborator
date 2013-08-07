@@ -57,6 +57,7 @@ define (
 
         // filter for close form request
         filterCloseRequest = function(value) {
+          console.log('filterCloseRequest');
           return value.type === 'close_form';
         },
 

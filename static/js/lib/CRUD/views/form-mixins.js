@@ -25,7 +25,8 @@ define (
         // dialog confirming that you want to exit the add/update
         disableConfirm: function() {
         },
-        requestCloseForm: function() {
+        requestCloseForm: function(evt) {
+          evt.preventDefault();
           var dialogHTML = $(confirmDialogTmp());
           dialogHTML.dialog({
             resizable: false,
@@ -181,7 +182,11 @@ define (
 
         enableDateField: function(dateFieldName) {
           $('input[name=' + dateFieldName + ']').datepicker({
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            maxDate: "+0D",
+            yearRange: "1930:2012",
+            changeYear: true
           });
         },
 

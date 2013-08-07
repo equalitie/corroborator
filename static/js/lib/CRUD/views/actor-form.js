@@ -37,7 +37,7 @@ define (
 
       // keys for date fields, these need to be validated and removed
       // from the model object if invalid
-      dateFields: ['DOB'], 
+      dateFields: ['DOB', 'POB'], 
 
       // ids of combo boxes
       comboIds: ['#sex_en', '#age_en', '#civilian_en'],
@@ -91,10 +91,10 @@ define (
 
       // render the form
       render: function() {
+        console.log(this.model);
         var html = this.model !== undefined ? 
           actorFormTmp({model: this.model.toJSON()}) : actorFormTmp({ model: {} });
-        this.$el.empty()
-                .append(html);
+        this.$el = $(html);
       },
 
 
@@ -107,7 +107,18 @@ define (
       // we need to remove DOB from the object if they do not have
       // valid dates - test it baby
       validateDateFields: function(formContent) {
-        return _.omit(formContent, this.dateFields);
+        var invalidKeys = [];
+        console.log(formContent);
+        _.each(formContent, function(value, key) {
+          if (_.indexOf(this.dateFields, key) !== -1 && this.validateDate(value)=== null) {
+            invalidKeys.push(key);
+          }
+        }, this);
+        return _.omit(formContent, invalidKeys);
+
+      },
+      validateDate: function(dateString) {
+        return dateString.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/);
       },
 
       // send the form data on the crudBus, it will be picked up in data and 

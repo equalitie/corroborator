@@ -135,7 +135,7 @@
           <div class="field clear-after is-birthdate field ">
             <label>Date of birth</label>
             <input type="text" name="DOB" value="{{formDateFormat model.DOB}}"
-            class="w-50p actor-field">
+            class="w-50p actor-field"/>
           </div>
 
           <!-- Place of birth -->

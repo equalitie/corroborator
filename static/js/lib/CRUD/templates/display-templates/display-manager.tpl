@@ -1,6 +1,6 @@
 <div data-wireframe="{{entityType}}-view" class="overlay WIREFRAME">
   <div class="header">
-    <button class="do-hide is-small">
+    <button class="display do-hide is-small">
       <span class="T">hide</span>
     </button>
   </div>

@@ -206,7 +206,7 @@ define (
           el        : '#bulletin-media-block',
           content   : this.model.get('medias'),
           multiple  : true,
-          entitytype: 'bulletin',
+          entityType: 'bulletin',
           label     : 'Related media',
           name      : 'medias'
         });
