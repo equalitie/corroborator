@@ -154,6 +154,7 @@ define (
 
       // render the datepicker template
       render: function() {
+        console.log('render');
         var html = dateRangeTmp();
         this.$el.append(html).addClass('filter');
       }
