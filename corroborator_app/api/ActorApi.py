@@ -12,6 +12,7 @@ from tastypie import fields
 
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
+from corroborator_app.api.ActorRelationshipApi import ActorRelationshipResource 
 
 from corroborator_app.models import Actor
 
@@ -31,7 +32,7 @@ class ActorResource(ModelResource):
     )
     media = fields.ForeignKey(MediaResource, 'media', null=True)
     actor_relationships = fields.ManyToManyField(
-        ActorRoleResource, 
+        ActorRelationshipResource, 
         'actor_relationships',
         null=True
     )
