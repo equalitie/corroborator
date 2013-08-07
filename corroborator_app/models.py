@@ -502,7 +502,7 @@ class Incident(models.Model):
     assigned_user = models.ForeignKey(User,null=True,blank=True)
 
     incident_comments = models.ManyToManyField(Comment,blank=True,null=True)
-    bulletins = models.ManyToManyField(Bulletin, blank=True, null=True)
+    ref_bulletins = models.ManyToManyField(Bulletin, blank=True, null=True)
     actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
     crimes = models.ManyToManyField(CrimeCategory, blank=True, null=True)
     labels = models.ManyToManyField(Label, blank=True, null=True)

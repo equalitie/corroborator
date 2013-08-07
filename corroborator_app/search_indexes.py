@@ -179,10 +179,11 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     ref_incidents = indexes.MultiValueField()
     locations = indexes.MultiValueField()
     labels = indexes.MultiValueField()
-    bulletins = indexes.MultiValueField()
+    ref_bulletins = indexes.MultiValueField()
     incident_actors_role = indexes.MultiValueField()
     crimes = indexes.MultiValueField()
     incident_comments = indexes.MultiValueField()
+    times = indexes.MultiValueField()
 
     def get_model(self):
         return Incident
@@ -216,12 +217,12 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return ['/api/v1/label/{0}/'.format(label.id) for label in object.labels.all()]
-    def prepare_bulletins(self, object):
+    def prepare_ref_bulletins(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
-        return ['/api/v1/bulletin/{0}/'.format(bulletin.id) for bulletin in object.bulletins.all()]
+        return ['/api/v1/bulletin/{0}/'.format(bulletin.id) for bulletin in object.ref_bulletins.all()]
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -278,7 +279,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
         """
         Returns count of Bulletin objects associated with a given Incident
         """
-        return object.bulletins.count()
+        return object.ref_bulletins.count()
 
     def prepare_incident_locations(self, object):
         """
