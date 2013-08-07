@@ -19,7 +19,7 @@ class ActorRelationshipResource(ModelResource):
     """
     tastypie api implementation for actor relationship model
     """
-    actor = fields.ForeignKey(ActorResource, 'actor_a', null=True)
+    actor = fields.ForeignKey(ActorResource, 'actor', null=True)
     class Meta:
         queryset = ActorRelationship.objects.all()
         resource_name = 'actorRelationship'
