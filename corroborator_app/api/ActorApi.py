@@ -1,7 +1,7 @@
 """
-Author: Cormac McGuire
-Date: 29-05-2013
-Create api for actor model, requires apikey auth
+Author: Bill Doran
+Date: 05-06-2013
+Create api for actor relationship model, requires apikey auth
 tests in tests/api/tests.py
 """
 
@@ -10,15 +10,12 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
+from corroborator_app.models import ActorRelationship
+from corroborator_app.models import Actor
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
-from corroborator_app.api.ActorRelationshipApi import ActorRelationshipResource 
 
-from corroborator_app.models import Actor
-
-__all__ = ('ActorResource', )
-
-
+__all__ = ('ActorRelationshipResource', 'ActorRsource')
 class ActorResource(ModelResource):
     """
     tastypie api implementation
@@ -32,13 +29,25 @@ class ActorResource(ModelResource):
     )
     media = fields.ForeignKey(MediaResource, 'media', null=True)
     actor_relationships = fields.ManyToManyField(
-        ActorRelationshipResource, 
+        'ActorRelationshipResource', 
         'actor_relationships',
         null=True
     )
     class Meta:
         queryset = Actor.objects.all()
         resource_name = 'actor'
+        authorization = Authorization()
+        authentication = ApiKeyAuthentication()
+        always_return_data = True
+
+class ActorRelationshipResource(ModelResource):
+    """
+    tastypie api implementation for actor relationship model
+    """
+    actor = fields.ForeignKey(ActorResource, 'actor', null=True)
+    class Meta:
+        queryset = ActorRelationship.objects.all()
+        resource_name = 'actorRelationship'
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
