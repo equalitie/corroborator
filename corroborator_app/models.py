@@ -154,7 +154,7 @@ class CrimeCategory(models.Model):
     ref_crime = models.ForeignKey('self', blank=True, null=True)
     parent = models.CharField(max_length=255, blank=True, null=True)
     def __unicode__(self):
-        return self.category_en
+        return self.name_en
 
 
 class SourceType(models.Model):
@@ -514,7 +514,6 @@ class Incident(models.Model):
 
     def __unicode__(self):
         return self.title_en
-
     def get_time_length(self):
         """
         This method returns the time range for a given Incident event.
