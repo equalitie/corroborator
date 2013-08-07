@@ -37,7 +37,7 @@ class ActorRelationshipTestCase(ResourceTestCase):
     def test_actor_relationship_post(self):
         post_data = {
             'relation_status': "Parent",
-            'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
+            'actor': "/api/v1/actor/{0}/".format(self.actor.pk),
         }
         url = '/api/v1/actorRelationship/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -48,7 +48,7 @@ class ActorRelationshipTestCase(ResourceTestCase):
         url = '/api/v1/actorRelationship/{0}/?format=json{1}'.format(precreated_actor_rel.id, self.auth_string)
         put_data = {
             'relation_status': "Parent",
-            'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
+            'actor': "/api/v1/actor/{0}/".format(self.actor.pk),
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -59,11 +59,11 @@ class ActorRelationshipTestCase(ResourceTestCase):
             'objects': [
                 {
                     'relation_status': "Parent",
-                    'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
+                    'actor': "/api/v1/actor/{0}/".format(self.actor.pk),
                 },
                 {
                     'relation_status': "Parent",
-                    'actor': "/api/v1/actor/{0}/".format(self.actor_a.pk),
+                    'actor': "/api/v1/actor/{0}/".format(self.actor.pk),
                 }
             ]
         }
