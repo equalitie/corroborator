@@ -30,7 +30,11 @@ class ActorResource(ModelResource):
         null=True
     )
     media = fields.ForeignKey(MediaResource, 'media', null=True)
-
+    actor_relationships = fields.ManyToManyField(
+        ActorRoleResource, 
+        'actor_relationships',
+        null=True
+    )
     class Meta:
         queryset = Actor.objects.all()
         resource_name = 'actor'
