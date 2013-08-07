@@ -41,8 +41,8 @@ define (
       el: '.form_overlay',
       childViews: [],
       events: {
-        'click .do-hide'       : 'closeViewRequested',
-        'click .do-select.edit': 'editRequested'
+        'click .display.do-hide': 'closeViewRequested',
+        'click .do-select.edit' : 'editRequested'
       },
 
       initialize: function() {

@@ -49,6 +49,7 @@ define (
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
+        this.entityType = options.entityType;
         this.label = options.label;
         this.multiple = options.multiple;
         this.name = options.name;
@@ -226,10 +227,11 @@ define (
 
       //render the input field and buttons
       render: function() {
-        console.log(this.label);
+        console.log(this.entityType);
         var html = this.template({
           label: this.label,
           multiple: this.multiple,
+          entityType: this.entityType,
           name: this.name
         });
         this.$el.empty()
