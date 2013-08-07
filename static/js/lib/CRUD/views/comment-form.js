@@ -165,7 +165,7 @@ define (
         this.render();
         this.$el.children()
                 .children('textarea')
-                .val(model.get('comment_en'));
+                .val(model.get('comments_en'));
         //todo set selected values
         //this.$el.children()
                 //.children('select')
@@ -187,16 +187,27 @@ define (
         this.undelegateEvents();
       },
 
-      // render the view
-      render: function() {
-        var html = this.template({
+      prepareTemplateVars: function() {
+        var templateVars = {
           entityType  : this.entityType,
-          model       : this.model,
+          model       : {},
           statuses    : Bootstrap.comment_statuses,
           userResource: Bootstrap.userResource
-        });
+        };
+        if (this.model) {
+          templateVars.model = this.model.toJSON();
+        }
+        return templateVars;
+      },
+
+      // render the view
+      render: function() {
+        var templateVars = this.prepareTemplateVars();
+        console.log('render', templateVars);
+        var html = this.template(templateVars);
         this.$el.empty()
                 .append(html);
+        //this.setTextareaContent();
         return this;
       }
     });

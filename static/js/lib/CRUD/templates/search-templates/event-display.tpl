@@ -9,9 +9,22 @@
 <div class="content">
   <div class="name">{{model.event_name_en}}</div>
   <div class="time">
-  from 
-  <span class="start">{{model.time_from}}</span> to  
-  <span class="end">{{model.time_to}}</span>
+  {{#if model.time_from}}
+    {{#if model.time_to}}
+      from 
+    {{/if}}
+  {{/if}}
+  {{#if model.time_from}}
+    <span class="start">{{dateFormat model.time_from}}</span>
+  {{/if}}
+  {{#if model.time_from}}
+    {{#if model.time_to}}
+     to 
+    {{/if}}
+  {{/if}}
+  {{#if model.time_to}}
+    <span class="end">{{dateFormat model.time_to}}</span>
+  {{/if}}
   </div>
 </div>
 <div class="clearer">&nbsp;</div>

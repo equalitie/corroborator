@@ -32,9 +32,8 @@ define (
       },
       url: function() {
         var base = '/api/v1/comment/';
-        console.log(this.get('id'));
         if (this.get('id')) {
-          base = base + this.get('id').toString();
+          base = base + this.id + '/';
         }
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;

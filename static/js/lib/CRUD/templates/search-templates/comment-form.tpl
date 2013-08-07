@@ -4,9 +4,14 @@
   <select name="status" 
           id="{{entityType}}_status" 
           class="comment-field">
-    <option selected value="">Select Status</option>
+    <option value="">Select Status</option>
     {{#each statuses}}
-      <option value="{{this.resource_uri}}">{{this.comment_status}}</option>
+      <option
+        {{#if_eq this.resource_uri compare=../model.status}}
+        selected="true"
+        {{/if_eq}}
+        value="{{this.resource_uri}}"
+      >{{this.comment_status}}</option>
     {{/each}}
   </select>
 </div>
@@ -18,8 +23,6 @@
   <textarea class="w-100p comment-comment comment-field"
             name="comments_en">{{model.comments_en}}</textarea>
 </div>
-<input type="hidden" name="assigned_user_name" value="{{userResource}}" 
-       class="comment-field">
 <input type="hidden" name="assigned_user" value="{{userResource}}" 
        class="comment-field">
 <button class="do-addComment">
