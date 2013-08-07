@@ -28,7 +28,6 @@ define (
           incident: IncidentDisplayView
         },
         extractEntity = function(value) {
-          console.log(value);
           return value.content;
         },
         filterEntityNav = function(value) {

@@ -26,7 +26,7 @@ function program3(depth0,data) {
   buffer += "  <td class=\"is-selector\">\n    <input type=\"checkbox\" "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.checked)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + ">\n  </td>\n  <td class=\"is-preview\">&nbsp;</td>\n  <td class=\"is-description\">\n    <a href=\"#incident/"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.django_id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">\n      <div class=\"title text i18n\">\n         \n        <span lang=\"en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.title_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n        <span lang=\"ar\">"

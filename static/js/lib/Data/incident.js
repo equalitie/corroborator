@@ -148,10 +148,7 @@ define(
         var self = this;
         crudBus.filter(function(value) { return value.type === 'create_new_incident'; })
                .onValue(function(value) {
-                 console.log(value);
-                 var incidentModel = new IncidentModel(value.content);
-                 incidentModel.save();
-                 self.add(incidentModel);
+                 self.add(value.content);
                });
       }
 

@@ -11,10 +11,13 @@ define (
     'lib/CRUD/views/bulletin-form',
     'lib/CRUD/views/incident-form',
     'lib/streams',
+    'lib/Data/actor',
+    'lib/Data/bulletin',
+    'lib/Data/incident',
     'lib/elements/overlay'
   ],
   function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams, 
-    Overlay) {
+    Actor, Bulletin, Incident, Overlay) {
 
     // ## Stream processing helpers
     // map nav events to the filter views we will be displaying
@@ -25,9 +28,18 @@ define (
         // pick the form view to match the create event
         mapCreateEventToView = function(value) {
           var createMap = {
-            create_actor: ActorForm.ActorFormView,
-            create_bulletin: BulletinForm.BulletinFormView,
-            create_incident: IncidentForm.IncidentFormView
+            create_actor: {
+              view: ActorForm.ActorFormView,
+              model: Actor.ActorModel
+            },
+            create_bulletin: {
+              view: BulletinForm.BulletinFormView,
+              model: Bulletin.BulletinModel
+            },
+            create_incident: {
+              view: IncidentForm.IncidentFormView,
+              model: Incident.IncidentModel
+            }
           };
           return createMap[value.type];
         },
@@ -129,8 +141,8 @@ define (
         var self = this;
         searchBus.filter(filterCreateRequest)
                  .map(mapCreateEventToView)
-                 .onValue(function(view) {
-                   self.replaceView(view);
+                 .onValue(function(viewModel) {
+                   self.replaceView(viewModel);
                  });
         crudBus.filter(filterEditRequest)
                .map(mapEditEventToView)
@@ -144,29 +156,34 @@ define (
       },
 
       openEditView: function(value) {
-        console.log('openEditView', value);
         this.model = value.model;
-        this.listenForSaveEvents();
         this.destroyCurrentView();
+        this.listenForSaveEvents();
         this.currentView = new value.view({model: value.model});
         this.render();
       },
 
       listenForSaveEvents: function() {
-        console.log('this.listenForSaveEvents');
         this.listenTo(this.model, 'request', this.showOverlay.bind(this));
         this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
       },
 
+      listenForCreateEvents: function() {
+        this.listenTo(this.model, 'create', this.showOverlay.bind(this));
+        this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
+      },
+
       // replace the current form view with the requested one
-      replaceView: function(View) {
+      replaceView: function(viewModel) {
         this.destroyCurrentView();
-        this.currentView = new View();
+        this.model = new viewModel.model({});
+        this.listenForSaveEvents();
+        this.currentView = new viewModel.view({model: this.model});
         this.render();
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
-        
+        this.stopListening();
         if (this.currentView !== undefined) {
           this.currentView.destroy();
           delete(this.currentView);

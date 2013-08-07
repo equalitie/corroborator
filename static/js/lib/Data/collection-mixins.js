@@ -102,7 +102,7 @@ define (
         // removes empty date fields  
         ModelSyncMixin = {
           parse: function(response) {
-            response.id = response.django_id;
+            response.id = response.django_id || response.id;
             return response;
           },
 
@@ -125,7 +125,6 @@ define (
           // wrap many to many single value fields in an array - required
           // by the backend
           wrapAsArray: function(key) {
-            console.log(key);
              this.set(key, [this.get(key)]);
           },
 

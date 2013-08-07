@@ -134,9 +134,6 @@ define (
         
       // constructor
       initialize: function() {
-        if(this.model === undefined) {
-          this.model = new Backbone.Model();
-        }
         this.populateWidgets();
         this.render();
       },
@@ -162,22 +159,19 @@ define (
       // handle save click
       saveRequested: function() {
         var formContent = this.formContent();
-        if (this.model.isNew() === false) {
-          this.model.set(formContent);
-          this.model.save();
-        }
-        else {
+        this.model.set(formContent);
+        if (this.model.isNew() === true) {
           crudBus.push({
             type: 'create_new_bulletin',
-            content: formContent
+            content: this.model
           });
         }
+        this.model.save();
       },
 
       // render out the child views - comment form, event form, add location,
       // add media, add actors, add related bulletins
       renderChildren: function() {
-        console.log(this.model.toJSON());
         var commentForm = new CommentContainerView({
           el: '#bulletin-comment-block',
           content: this.model.get('bulletin_comments'),

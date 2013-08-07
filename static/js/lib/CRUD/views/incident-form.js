@@ -108,7 +108,6 @@ define (
       },
 
       initialize: function() {
-        this.model = this.model !== undefined ? this.model : new Backbone.Model();
         this.populateWidgets();
         this.render();
       },
@@ -145,16 +144,14 @@ define (
       },
       saveRequested: function() {
         var formContent = this.formContent();
-        if (this.model.isNew() === false) {
-          this.model.set(formContent);
-          this.model.save();
-        }
-        else {
+        if (this.model.isNew() === true) {
           crudBus.push({
             type: 'create_new_incident',
-            content: formContent
+            content: this.model
           });
         }
+        this.model.set(formContent);
+        this.model.save();
       },
 
       renderChildren: function() {

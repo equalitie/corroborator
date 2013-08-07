@@ -3,7 +3,7 @@
       <input type="checkbox" {{model.checked}}>
     </div>
     <div class="actor-content">
-      <a href="#actor/{{model.django_id}}">
+      <a href="#actor/{{model.id}}">
         <div class="avatar">&nbsp;</div>
         <div class="content">
           <div class="L1">

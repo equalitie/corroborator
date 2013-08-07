@@ -154,10 +154,7 @@ define(
         var self = this;
         crudBus.filter(function(value) { return value.type === 'create_new_bulletin'; })
                .onValue(function(value) {
-                 console.log(value);
-                 var bulletinModel = new BulletinModel(value.content);
-                 bulletinModel.save();
-                 self.add(bulletinModel);
+                 self.add(value.content);
                });
       }
 

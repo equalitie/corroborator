@@ -85,7 +85,7 @@ function program14(depth0,data) {
     + "\">\n      <input type=\"checkbox\" "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.checked)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + ">\n    </div>\n    <div class=\"actor-content\">\n      <a href=\"#actor/"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.django_id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">\n        <div class=\"avatar\">&nbsp;</div>\n        <div class=\"content\">\n          <div class=\"L1\">\n            <div class=\"status\">\n              <span class=\"value\">Victim</span>\n            </div>\n            <p class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</p>\n            <p class=\"sex\">(F)</p>\n            <p class=\"age\">27</p>\n          </div>\n          <div class=\"L2\">\n              <p class=\"aka\">aka «"

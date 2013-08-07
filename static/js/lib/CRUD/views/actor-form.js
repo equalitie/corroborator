@@ -75,7 +75,6 @@ define (
       },
       // constructor
       initialize: function() {
-        this.model = this.model !== undefined ? this.model : new Backbone.Model();
         this.render();
       },
 
@@ -92,7 +91,6 @@ define (
 
       // render the form
       render: function() {
-        console.log(this.model);
         var html = this.model !== undefined ? 
           actorFormTmp({model: this.model.toJSON()}) : actorFormTmp({ model: {} });
         this.$el = $(html);
@@ -109,7 +107,6 @@ define (
       // valid dates - test it baby
       validateDateFields: function(formContent) {
         var invalidKeys = [];
-        console.log(formContent);
         _.each(formContent, function(value, key) {
           if (_.indexOf(this.dateFields, key) !== -1 && this.validateDate(value)=== null) {
             invalidKeys.push(key);
@@ -128,24 +125,17 @@ define (
         var formContent = this.formContent();
         formContent = this.validateDateFields(formContent);
         this.model.set(formContent);
-        if (this.model.isNew() === false) {
-          this.model.save();
-        }
-        else {
+        if (this.model.isNew() === true) {
           crudBus.push({
             type: 'create_new_actor',
-            content: formContent
+            content: this.model
           });
         }
+        this.model.save();
       },
+
       // render the sub views
       renderChildren: function() {
-        //var actorPobView = new
-        //var actorSearchView = new ActorSearchView({
-          //el: '#actor-actor-search-block',
-          //entityType: 'actor'
-        //});
-        //this.childViews.push(actorSearchView);
         var mediaSearchView = new MediaSearchView({
           el: '#actor-media-block',
           content: this.model.get('media'),

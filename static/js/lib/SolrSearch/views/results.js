@@ -38,12 +38,17 @@ define(
         'click .toggle lang:(en)': 'showEnglish',
         'click input[type="checkbox"]': 'selectActor'
       },
+
+      // constructor
       initialize: function(options) {
         this.index = options.index;
         this.listenTo(this.model, 'change', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
+        this.listenTo(this.model, 'sync', this.render.bind(this));
         this.render();
       },
+
+      // show longer version in list ( disabled )
       expandActor: function() {
         this.$el.children()
                 .children()
@@ -51,11 +56,15 @@ define(
                 .children('.actor-long-summary, .actor-summary')
                 .toggleClass('hidden');
       },
+
+      // check the checkbox
       selectActor: function(e) {
         var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';
         this.model.set({checked: checked}, {silent: true});
         this.model.collection.trigger('change');
       },
+
+      // render a single actor
       render: function() {
         this.$el.empty();
         var pos = this.index % 2 === 1 ? 'right': 'left';
