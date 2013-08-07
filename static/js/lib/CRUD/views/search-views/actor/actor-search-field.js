@@ -174,6 +174,7 @@ define (
       // set the new role on the actor_role and save it
       updateActorRoleModel: function(model, role_en) {
         model.set('role_en', role_en);
+        model.set('role_status', role_en);
         model.save();
         this.renderActors();
       },
@@ -203,6 +204,7 @@ define (
         var actorContent = evt.value().content;
         var actorRoleData = {
           role_en: actorContent.relationship,
+          role_status: actorContent.relationship,
           actor: actorContent.model.get('resource_uri')
         };
         this.createActorRoleEntity(actorRoleData);

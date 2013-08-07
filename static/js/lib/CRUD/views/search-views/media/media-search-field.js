@@ -60,7 +60,6 @@ define (
         this.listenForMediasAdded();
         this.render();
         if (options.content) {
-          console.log(options.content);
           _.each(options.content, this.loadExistingContent, this);
         }
       },
@@ -69,7 +68,6 @@ define (
         var initialMediaModel = new Media.MediaModel({
           resourceUri: resourceUri
         });
-        console.log(initialMediaModel);
         this.collection.add(initialMediaModel);
       },
 

@@ -65,9 +65,6 @@ define (
       removeActor: function(evt) {
         evt.preventDefault();
         this.collection.remove(this.model);
-        if (this.actorRoleModel !== undefined) {
-          this.actorRoleModel.destroy();
-        }
         crudBus.push({
           type: 'unrelate_actor_request',
           content: {

@@ -55,6 +55,7 @@ define(
         'ref_bulletins', 'ref_incidents'
       ],
       initialize: function(options) {
+        this.set('entityType', 'incident');
         if (options.resourceUri !== undefined) {
           var id = mapResourceUriToId(options.resourceUri);
           this.set('django_id', id);

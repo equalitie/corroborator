@@ -29,6 +29,7 @@ define (
     // display create update form for actor
     ActorFormView = Backbone.View.extend({
       childViews: [],
+      subscribers: [],
       entityType: 'actor',
       events: {
         'click button#actor-action_save': 'saveRequested',
@@ -127,9 +128,7 @@ define (
         var formContent = this.formContent();
         formContent = this.validateDateFields(formContent);
         this.model.set(formContent);
-
         if (this.model.isNew() === false) {
-          
           this.model.save();
         }
         else {

@@ -76,7 +76,6 @@ define (
         var templateVars = {
           model: this.model.toJSON(),
         };
-        console.log(this.model.toJSON());
         var html = this.template(templateVars);
         this.$el.append(html);
         this.setExtraClasses();

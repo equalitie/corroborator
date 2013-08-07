@@ -52,6 +52,9 @@ define(
     var ActorModel = Backbone.Model.extend({
       foreignKeyFields: ['POB', 'current_location', 'media'] ,
       idAttribute: 'id',
+      initialize: function() {
+        this.set('entityType', 'actor');
+      },
       url: function() {
         var base = '/api/v1/actor/';
         if (this.id) {

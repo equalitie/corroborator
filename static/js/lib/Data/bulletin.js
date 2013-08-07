@@ -59,6 +59,7 @@ define(
         'locations', 'labels', 'ref_bulletins'
       ],
       initialize: function(options) {
+        this.set('entityType', 'bulletin');
         if (options.resourceUri !== undefined) {
           var id = mapResourceUriToId(options.resourceUri);
           this.set('django_id', id);

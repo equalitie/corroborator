@@ -10,13 +10,16 @@ define (
     'lib/CRUD/views/actor-form',
     'lib/CRUD/views/bulletin-form',
     'lib/CRUD/views/incident-form',
-    'lib/streams'
+    'lib/streams',
+    'lib/elements/overlay'
   ],
-  function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams) {
+  function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams, 
+    Overlay) {
 
     // ## Stream processing helpers
     // map nav events to the filter views we will be displaying
-    var crudBus = Streams.crudBus,
+    var crudBus   = Streams.crudBus,
+        navBus    = Streams.navBus,
         searchBus = Streams.searchBus,
 
         // pick the form view to match the create event
@@ -57,7 +60,6 @@ define (
 
         // filter for close form request
         filterCloseRequest = function(value) {
-          console.log('filterCloseRequest');
           return value.type === 'close_form';
         },
 
@@ -83,6 +85,29 @@ define (
       initialize: function() {
         this.watchSearchStream();
         this.watchCrudStream();
+      },
+
+      showOverlay: function(model) {
+        this.overlay = new Overlay({
+          $targetEl: this.$el.children('.overlay'),
+          widthOffset: 20
+        });
+        this.overlay.showOverlay();
+      },
+
+      hideOverlay: function() {
+        this.overlay.displaySaved(this.returnToDisplayView.bind(this));
+      },
+
+      returnToDisplayView: function() {
+        navBus.push({
+          type: 'entity-display',
+          content: {
+            entity: this.model.get('entityType'),
+            id: this.model.get('id')
+          }
+        });
+        this.destroyCurrentView();
       },
 
       // watch for embedded searches being fired move the form position 
@@ -119,9 +144,18 @@ define (
       },
 
       openEditView: function(value) {
+        console.log('openEditView', value);
+        this.model = value.model;
+        this.listenForSaveEvents();
         this.destroyCurrentView();
         this.currentView = new value.view({model: value.model});
         this.render();
+      },
+
+      listenForSaveEvents: function() {
+        console.log('this.listenForSaveEvents');
+        this.listenTo(this.model, 'request', this.showOverlay.bind(this));
+        this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
       },
 
       // replace the current form view with the requested one
