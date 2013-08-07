@@ -46,7 +46,7 @@ for item in list(sys.path):
 
 # now start django
 #os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.dev'
-os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.prod'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings.staging'
 
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()

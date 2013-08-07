@@ -342,6 +342,7 @@ class Actor(models.Model):
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
 
     # Foreign Keys
+    actor_relationships = models.ManyToManyField(ActorRelationship, blank=True, null=True)
     POB = models.ForeignKey(Location, blank=True, null=True, 
         related_name='POB')
     current_location = models.ForeignKey(Location, blank=True, null=True, 
@@ -371,7 +372,7 @@ class Actor(models.Model):
 
 class ActorRelationship(models.Model):
     """
-    The Actor Relationship model cpatures the interrelation between actors.
+    The Actor Relationship model captures the interrelation between actors.
     This can include shared events,  familial connections,  insititutional 
     relationships or rank.
     """
@@ -385,13 +386,10 @@ class ActorRelationship(models.Model):
     relation_status = models.CharField('status',max_length=25, choices=RELATION)
     comments_en = models.TextField(blank=True,null=True)
     comments_ar = models.TextField(blank=True,null=True)
-    actor_a = models.ForeignKey(Actor, blank=True, null=True,
-        related_name='actor_a')
-    actor_b = models.ForeignKey(Actor, blank=True, null=True,
+    actor = models.ForeignKey(Actor, blank=True, null=True,
         related_name='actor_b')
     def __unicode__(self):
-        return self.actor_a.fullname_en + '-' + \
-        self.actor_b.fullname_en + ': ' + self.relation_status
+        return self.actor.fullname_en + ': ' + self.relation_status
 
 
 class ActorRole(models.Model):

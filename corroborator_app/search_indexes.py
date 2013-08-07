@@ -51,9 +51,25 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     resource_uri = indexes.CharField()
     POB = indexes.CharField()
     current_location = indexes.CharField()
+    actors_relationships = indexes.MultiValueField()
 
     def get_model(self):
         return Actor
+    def prepare_actor_relationships(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/actorRelationship/{0}/'.format(actor_relationship.id)
+        for actor_relationship in object.actor_reltaionships.all()]
+
+    def prepare_actors_role(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return ['/api/v1/actorRole/{0}/'.format(actor_role.id) for actor_role in object.actors_role.all()]
+
     def prepare_POB(self, object):
         """
         Returns the correctly formated uri related to this actor instance

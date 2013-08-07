@@ -59,8 +59,8 @@ define(
           'ethnicity_ar_exact': 'Ethnicity::ar',
           'spoken_dialect_en': 'Spoken Dialect::en',
           'spoken_dialect_ar': 'Spoken Dialect::ar',
-          //'actor_created_exact',
-          //'dob_exact',
+          'actor_created_exact': 'Created date',
+          'dob_exact': 'Date of birth',
         },
 
         // used to map the filters object to an array of objects with the 
