@@ -274,6 +274,8 @@ class Media(models.Model):
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     media_file = models.FileField(upload_to='media', storage=queued_s3storage)
+    media_thumb_file = models.FileField(upload_to='media',
+    storage=queued_s3storage, null=True)
     media_type = models.CharField('type', max_length=25, choices=TYPE)
     media_created = models.DateTimeField(auto_now_add=True)
 
