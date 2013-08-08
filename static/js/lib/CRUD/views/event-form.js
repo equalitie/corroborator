@@ -296,7 +296,7 @@ define (
       // define event handlers
       events: {
         'click .do-edit': 'editEvent',
-        'click .do-remove': 'removeEvent',
+        'click .do-remove': 'removeEvent'
       },
       // constructor - render the view
       initialize: function() {

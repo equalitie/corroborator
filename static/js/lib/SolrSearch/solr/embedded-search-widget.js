@@ -39,11 +39,12 @@ define (
     EmbeddedSearchWidget = AjaxSolr.AbstractTextWidget.extend({
       init: function() {
         this.watchCrudStream();
-        this.watchQueryBuilderStream();
+        //this.watchQueryBuilderStream();
       },
+      // TODO find out if is this doing anything
       watchQueryBuilderStream: function() {
         var self = this;
-        bus.filter(filterQueryBuilderEvents)
+        this.bus.filter(filterQueryBuilderEvents)
                  .onValue(function(value) {
                     self.clear();
                     self.set( value.content.raw );
@@ -72,8 +73,6 @@ define (
       },
       // called by super class
       afterRequest: function() {
-        console.log('afterRequest');
-        console.log(this.manager);
       }
     });
     return EmbeddedSearchWidget;

@@ -104,7 +104,7 @@ define (
           marks     : [0, 50, 100],
           snap      : false,
           value     : 50 // TODO enable for update
-        },
+        }
       },
 
       initialize: function() {
@@ -158,7 +158,7 @@ define (
         var commentForm = new CommentContainerView({
           el: '#incident-comment-block',
           content: this.model.get('incident_comments'),
-          entityType: this.entityType,
+          entityType: this.entityType
         });
         var actorForm = new ActorSearchView({
           el: '#incident-actor-list-block',

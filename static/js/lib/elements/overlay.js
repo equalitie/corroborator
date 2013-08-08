@@ -1,4 +1,4 @@
-/*global define, document*/
+/*global define, document, window*/
 // Author: Cormac McGuire
 // ### Description
 // Create an overlay for forms while they are saving
@@ -88,7 +88,7 @@ define (
       displaySaved: function(completedCallback) {
         this.createSavedText();
         this.completedCallback = completedCallback;
-        setTimeout(this.hideOverlay.bind(this), 250);
+        window.setTimeout(this.hideOverlay.bind(this), 250);
       },
 
       showOverlay: function() {

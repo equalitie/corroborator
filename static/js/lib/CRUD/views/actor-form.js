@@ -56,7 +56,7 @@ define (
             field_label: 'Place Of Birth'
           },
           content: {
-            values: 'POB',
+            values: 'POB'
           }
         },
         current_location: {
@@ -68,7 +68,7 @@ define (
             field_label: 'Current Location'
           },
           content: {
-            values: 'current_location',
+            values: 'current_location'
           }
         }
 
@@ -97,11 +97,6 @@ define (
       },
 
 
-      // pull the data from the form
-      formContent: function() {
-        var formArray = $('#actor_form').serializeArray();
-        return this.formArrayToData(formArray);
-      },
 
       // we need to remove DOB from the object if they do not have
       // valid dates - test it baby
