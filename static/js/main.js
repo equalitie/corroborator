@@ -7,11 +7,13 @@ define(
     'jquery', 'underscore',
     'lib/streams',
     'lib/elements/helpers/date-helper',
+    'lib/elements/helpers/ie-fixes',
     'lib/elements/helpers/view-close',
     'jquery_ui',
     'jquery_form',
     'jquery_time',
-    'jquery_slider'
+    'jquery_slider',
+    '
   ],
   function(Navigation, SolrSearch, CRUD, $, _, Streams) {
     'use strict';
