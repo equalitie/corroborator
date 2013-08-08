@@ -55,6 +55,7 @@ define(
         'ref_bulletins', 'ref_incidents'
       ],
       initialize: function(options) {
+        this.set('entityType', 'incident');
         if (options.resourceUri !== undefined) {
           var id = mapResourceUriToId(options.resourceUri);
           this.set('django_id', id);
@@ -147,10 +148,7 @@ define(
         var self = this;
         crudBus.filter(function(value) { return value.type === 'create_new_incident'; })
                .onValue(function(value) {
-                 console.log(value);
-                 var incidentModel = new IncidentModel(value.content);
-                 incidentModel.save();
-                 self.add(incidentModel);
+                 self.add(value.content);
                });
       }
 

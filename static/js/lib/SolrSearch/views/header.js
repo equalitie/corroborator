@@ -39,7 +39,6 @@ define(
           };
         },
         filterTabNav = function(value) {
-          console.log(value);
           return value.type === 'navigate';
         },
         filterActions = function(value) {

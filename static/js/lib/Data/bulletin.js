@@ -59,6 +59,7 @@ define(
         'locations', 'labels', 'ref_bulletins'
       ],
       initialize: function(options) {
+        this.set('entityType', 'bulletin');
         if (options.resourceUri !== undefined) {
           var id = mapResourceUriToId(options.resourceUri);
           this.set('django_id', id);
@@ -153,10 +154,7 @@ define(
         var self = this;
         crudBus.filter(function(value) { return value.type === 'create_new_bulletin'; })
                .onValue(function(value) {
-                 console.log(value);
-                 var bulletinModel = new BulletinModel(value.content);
-                 bulletinModel.save();
-                 self.add(bulletinModel);
+                 self.add(value.content);
                });
       }
 

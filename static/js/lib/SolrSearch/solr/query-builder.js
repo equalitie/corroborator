@@ -29,57 +29,61 @@ define (
 */
     'use strict';
     var eventIdentifier = 'query_builder',
-    parseQuery = function(searchQuery) {
-        var parsedString = '';
-        if(searchQuery.indexOf('~') == -1){
-            //Non-boolean strings
-            if(searchQuery.indexOf('&&') == -1 && 
-              searchQuery.indexOf('(') == -1 &&
-               searchQuery.indexOf('||') == -1){
-                parsedString = nonbooleanParse(searchQuery);
-            }    
-            //Boolean strings
-            else{
-                parsedString = booleanParse(searchQuery);
+        nonbooleanParse,
+        booleanParse,
+        parseQuery = function(searchQuery) {
+            var parsedString = '';
+            if(searchQuery.indexOf('~') === -1){
+                //Non-boolean strings
+                if (searchQuery.indexOf('&&') === -1 && 
+                    searchQuery.indexOf('(')  === -1 &&
+                    searchQuery.indexOf('||') === -1 ) {
+                    parsedString = nonbooleanParse(searchQuery);
+                }    
+                //Boolean strings
+                else{
+                    parsedString = booleanParse(searchQuery);
+                }
             }
-        }
-        return parsedString;
-    },
-    sendResult = function(searchQuery) {
-        Streams.searchBus.push({
-          type: eventIdentifier,
-          content: { 
-              raw: searchQuery
-          }
-        })
-    },
+            return parsedString;
+        },
+        sendResult = function(searchQuery) {
+            Streams.searchBus.push({
+              type: eventIdentifier,
+              content: { 
+                  raw: searchQuery
+              }
+            });
+        };
     booleanParse = function(item) {
-        var resultString = item;
-        var re = /([a-zA-Z]+)/g;
+        var resultString = item,
+            re = /([a-zA-Z]+)/g,
+            tokens = re.exec(item);
+            
         
-        while ((tokens = re.exec(item)) !== null){
+        while (tokens !== null){
             var elem = tokens[0];
             resultString = resultString.replace(elem, elem+'~');        
         }
-        console.log(resultString);
         return resultString;
-    },
+    };
+
     nonbooleanParse = function(item) {
         var tokens = item.split(' ');
         var resultString = '';
         _.each(tokens, function(token){
             resultString += token + '~ ';
         });
-        console.log(resultString);       
         return resultString;                 
     };      
+
     // ### ParseFilter
     // main function
     // augments user search queries to ensure proper use of
     // of Solr Fuzzy search unless key '~' is already used in
     // the searchQuery.
     var QueryBuilder = function(searchQuery){
-        if(searchQuery != undefined && searchQuery.length > 0) {
+        if(searchQuery !== undefined && searchQuery.length > 0) {
             this.parsedString = parseQuery(searchQuery);
         }else{
             this.parsedString = "*:*";

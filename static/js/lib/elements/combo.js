@@ -160,7 +160,7 @@ define(
       setSelectedText: function(selectedText) {
         this.$el.children('span.selected-option').text(selectedText);
         this.input.val(selectedText);
-      },
+      }
 
 
     };

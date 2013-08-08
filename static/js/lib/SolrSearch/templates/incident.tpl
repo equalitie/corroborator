@@ -3,7 +3,7 @@
   </td>
   <td class="is-preview">&nbsp;</td>
   <td class="is-description">
-    <a href="#incident/{{model.django_id}}">
+    <a href="#incident/{{model.id}}">
       <div class="title text i18n">
          
         <span lang="en">{{model.title_en}}</span>

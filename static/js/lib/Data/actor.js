@@ -52,6 +52,9 @@ define(
     var ActorModel = Backbone.Model.extend({
       foreignKeyFields: ['POB', 'current_location', 'media'] ,
       idAttribute: 'id',
+      initialize: function() {
+        this.set('entityType', 'actor');
+      },
       url: function() {
         var base = '/api/v1/actor/';
         if (this.id) {
@@ -149,9 +152,7 @@ define(
         var self = this;
         crudBus.filter(function(value) { return value.type === 'create_new_actor'; })
                .onValue(function(value) {
-                 var actorModel = new ActorModel(value.content);
-                 actorModel.save();
-                 self.add(actorModel);
+                 self.add(value.content);
                });
       }
 

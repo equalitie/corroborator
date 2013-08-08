@@ -104,11 +104,10 @@ define (
           marks     : [0, 50, 100],
           snap      : false,
           value     : 50 // TODO enable for update
-        },
+        }
       },
 
       initialize: function() {
-        this.model = this.model !== undefined ? this.model : new Backbone.Model();
         this.populateWidgets();
         this.render();
       },
@@ -145,23 +144,21 @@ define (
       },
       saveRequested: function() {
         var formContent = this.formContent();
-        if (this.model.isNew() === false) {
-          this.model.set(formContent);
-          this.model.save();
-        }
-        else {
+        if (this.model.isNew() === true) {
           crudBus.push({
             type: 'create_new_incident',
-            content: formContent
+            content: this.model
           });
         }
+        this.model.set(formContent);
+        this.model.save();
       },
 
       renderChildren: function() {
         var commentForm = new CommentContainerView({
           el: '#incident-comment-block',
           content: this.model.get('incident_comments'),
-          entityType: this.entityType,
+          entityType: this.entityType
         });
         var actorForm = new ActorSearchView({
           el: '#incident-actor-list-block',

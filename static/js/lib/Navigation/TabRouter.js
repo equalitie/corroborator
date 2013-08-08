@@ -45,7 +45,7 @@ define(
         'tab/:section'        : 'openSection',
         'bulletin/:bulletinId': 'openBulletin',
         'incident/:incidentId': 'openIncident',
-        'actor/:actorId'      : 'openActor',
+        'actor/:actorId'      : 'openActor'
       },
       initialize: function() {
         this.watchForResultNav();

@@ -36,7 +36,7 @@ class IncidentResource(ModelResource):
         'incident_comments',
         null=True
     )
-    bulletins = fields.ManyToManyField(BulletinResource, 'bulletins', null=True)
+    ref_bulletins = fields.ManyToManyField(BulletinResource, 'ref_bulletins', null=True)
     actors_role = fields.ManyToManyField(
         ActorRoleResource, 
         'actors_role',

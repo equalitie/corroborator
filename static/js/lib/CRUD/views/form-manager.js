@@ -10,21 +10,43 @@ define (
     'lib/CRUD/views/actor-form',
     'lib/CRUD/views/bulletin-form',
     'lib/CRUD/views/incident-form',
-    'lib/streams'
+    'lib/streams',
+    'lib/Data/actor',
+    'lib/Data/bulletin',
+    'lib/Data/incident',
+    'lib/elements/overlay'
   ],
-  function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams) {
+  function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams, 
+    Actor, Bulletin, Incident, Overlay) {
 
+    // Object {
+    // type: "action_combo_combined",
+    // navValue: "incident",
+    // action: true,
+    // option: "Update Selected"} 
+    //
     // ## Stream processing helpers
     // map nav events to the filter views we will be displaying
-    var crudBus = Streams.crudBus,
+    var crudBus   = Streams.crudBus,
+        navBus    = Streams.navBus,
         searchBus = Streams.searchBus,
 
         // pick the form view to match the create event
         mapCreateEventToView = function(value) {
           var createMap = {
-            create_actor: ActorForm.ActorFormView,
-            create_bulletin: BulletinForm.BulletinFormView,
-            create_incident: IncidentForm.IncidentFormView
+            create_actor: {
+              view: ActorForm.ActorFormView,
+              model: Actor.ActorModel
+              //collection: 
+            },
+            create_bulletin: {
+              view: BulletinForm.BulletinFormView,
+              model: Bulletin.BulletinModel
+            },
+            create_incident: {
+              view: IncidentForm.IncidentFormView,
+              model: Incident.IncidentModel
+            }
           };
           return createMap[value.type];
         },
@@ -57,7 +79,6 @@ define (
 
         // filter for close form request
         filterCloseRequest = function(value) {
-          console.log('filterCloseRequest');
           return value.type === 'close_form';
         },
 
@@ -85,6 +106,29 @@ define (
         this.watchCrudStream();
       },
 
+      showOverlay: function(model) {
+        this.overlay = new Overlay({
+          $targetEl: this.$el.children('.overlay'),
+          widthOffset: 20
+        });
+        this.overlay.showOverlay();
+      },
+
+      hideOverlay: function() {
+        this.overlay.displaySaved(this.returnToDisplayView.bind(this));
+      },
+
+      returnToDisplayView: function() {
+        navBus.push({
+          type: 'entity-display',
+          content: {
+            entity: this.model.get('entityType'),
+            id: this.model.get('id')
+          }
+        });
+        this.destroyCurrentView();
+      },
+
       // watch for embedded searches being fired move the form position 
       // accordingly
       watchCrudStream: function() {
@@ -104,8 +148,8 @@ define (
         var self = this;
         searchBus.filter(filterCreateRequest)
                  .map(mapCreateEventToView)
-                 .onValue(function(view) {
-                   self.replaceView(view);
+                 .onValue(function(viewModel) {
+                   self.replaceView(viewModel);
                  });
         crudBus.filter(filterEditRequest)
                .map(mapEditEventToView)
@@ -119,20 +163,34 @@ define (
       },
 
       openEditView: function(value) {
+        this.model = value.model;
         this.destroyCurrentView();
+        this.listenForSaveEvents();
         this.currentView = new value.view({model: value.model});
         this.render();
       },
 
+      listenForSaveEvents: function() {
+        this.listenTo(this.model, 'request', this.showOverlay.bind(this));
+        this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
+      },
+
+      listenForCreateEvents: function() {
+        this.listenTo(this.model, 'create', this.showOverlay.bind(this));
+        this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
+      },
+
       // replace the current form view with the requested one
-      replaceView: function(View) {
+      replaceView: function(viewModel) {
         this.destroyCurrentView();
-        this.currentView = new View();
+        this.model = new viewModel.model({});
+        this.listenForSaveEvents();
+        this.currentView = new viewModel.view({model: this.model});
         this.render();
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
-        
+        this.stopListening();
         if (this.currentView !== undefined) {
           this.currentView.destroy();
           delete(this.currentView);

@@ -149,42 +149,42 @@
           <!-- Occupation -->
           <div class="field is-occupation">
             <label>Occupation</label>
-            <input type="text" class="with-select w-30p" value="{{model.occupation_en}}" 
-              name="occupation_en" id="actor_occupation_en" class="actor-field">
+            <input type="text" class="actor-field with-select w-30p" value="{{model.occupation_en}}" 
+              name="occupation_en" id="actor_occupation_en">
           </div>
 
           <!-- Position -->
           <div class="field is-position">
             <label>Position (rank)</label>
-            <input type="text" class="with-select w-30p" value="{{model.position_en}}" 
-              name="position_en" id="actor_position_en" class="actor-field">
+            <input type="text" class="with-select actor-field w-30p" value="{{model.position_en}}" 
+              name="position_en" id="actor_position_en" >
           </div>
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
             <label>Ethnicity</label>
-            <input type="text" class="with-select w-30p" value="{{model.ethnicity_en}}"
-              name="ethnicity_en" id="actor_ethnicity_en" class="actor-field">
+            <input type="text" class="with-select actor-field w-30p" value="{{model.ethnicity_en}}"
+              name="ethnicity_en" id="actor_ethnicity_en" >
           </div>
 
           <!-- Nationality -->
           <div class="field is-nationality">
             <label>Nationality</label>
-            <input type="text" class="with-select w-30p" value="{{model.nationality_en}}"
-              name="nationality_en" id="actor_nationality_en" class="actor-field">
+            <input type="text" class="with-select actor-field w-30p" value="{{model.nationality_en}}"
+              name="nationality_en" id="actor_nationality_en">
           </div>
 
           <!-- Religion -->
           <div class="field is-religion">
             <label>Religion</label>
-            <input type="text" class="with-select w-30p" value="{{model.religion_en}}"
-              name="religion_en" id="actor_religion_en" class="actor-field">
+            <input type="text" class="with-select actor-field w-30p" value="{{model.religion_en}}"
+              name="religion_en" id="actor_religion_en" >
           </div>
 
           <!-- Spoken Dialects -->
           <div class="field is-dialect">
             <label>Spoken dialects</label>
-            <input type="text" class="with-select w-30p" name="spoken_dialect_en"
-              value="{{model.spoken_dialect_en}}" id="actor_spoken_dialect_en" class="actor-field">
+            <input type="text" class="with-select actor-field w-30p" name="spoken_dialect_en"
+              value="{{model.spoken_dialect_en}}" id="actor_spoken_dialect_en" >
           </div>
         </div>
 

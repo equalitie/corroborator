@@ -7,6 +7,7 @@ define(
     'jquery', 'underscore',
     'lib/streams',
     'lib/elements/helpers/date-helper',
+    'lib/elements/helpers/ie-fixes',
     'lib/elements/helpers/view-close',
     'jquery_ui',
     'jquery_form',
