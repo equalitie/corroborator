@@ -12,8 +12,7 @@ define(
     'jquery_ui',
     'jquery_form',
     'jquery_time',
-    'jquery_slider',
-    '
+    'jquery_slider'
   ],
   function(Navigation, SolrSearch, CRUD, $, _, Streams) {
     'use strict';
