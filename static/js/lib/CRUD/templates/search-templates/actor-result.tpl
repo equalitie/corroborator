@@ -94,7 +94,7 @@
           <ul class="options">
             {{#each roles}}
             <li>
-              <span class="text T">{{role}}</span>
+              <span data-role="{{this.key}}" class="text T">{{this.value}}</span>
             </li>
             {{/each}}
           </ul>
@@ -110,7 +110,7 @@
                 <ul class="options">
                   {{#each roles}}
                   <li>
-                    <span class="text T">{{role}}</span>
+                    <span data-role="{{this.key}}" class="text T">{{this.value}}</span>
                   </li>
                   {{/each}}
                 </ul>

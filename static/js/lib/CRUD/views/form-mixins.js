@@ -120,7 +120,11 @@ define (
         // populate the label fields
         populateLabelFields: function() {
           _.each(this.labelFields, function(field, index) {
-            field.content.values = this.model.get(index);
+            var values = this.model.get(index);
+            if (typeof(values) === 'string') {
+              values = [values];
+            }
+            field.content.values = values;
           }, this);
         },
 

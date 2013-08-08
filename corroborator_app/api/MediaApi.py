@@ -56,7 +56,6 @@ class MediaResource(MultipartResource, ModelResource):
         always_return_data = True
 
     def obj_create(self, bundle, **kwargs):
-        import sys
 
         if bundle.data['media_type'] == 'Picture':
             media_file = bundle.data['media_file']
@@ -66,7 +65,6 @@ class MediaResource(MultipartResource, ModelResource):
 
             bundle.data['media_thumb_file'] = media_thumb_file
         
-        print >> sys.stderr, bundle.data
         bundle = super( MediaResource, self ).obj_create( bundle, **kwargs )
         return bundle
 

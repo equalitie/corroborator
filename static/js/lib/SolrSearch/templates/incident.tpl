@@ -6,8 +6,8 @@
     <a href="#incident/{{model.id}}">
       <div class="title text i18n">
          
-        <span lang="en">{{model.title_en}}</span>
-        <span lang="ar">{{model.title_ar}}</span>
+        <div lang="en">{{model.title_en}}</div>
+        <div lang="ar">{{model.title_ar}}</div>
         <span class="toggle">
           <span lang="en">EN</span><span lang="ar">AR</span>
         </span>

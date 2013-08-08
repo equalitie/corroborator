@@ -6,17 +6,31 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "  <div class=\"span-70p\">\n    <label>Description</label><br>\n    <input type=\"text\" name=\"event_name_en\" \n      class=\"w-100p ";
+  buffer += "  <div class=\"span-70p\">\n\n    <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n        <label>Description</label>\n        <input type=\"text\" name=\"event_name_en\" \n          class=\"w-100p ";
   if (stack1 = helpers.entityType) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.entityType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "-field bulletin_event-description\"\n      value=\""
+    + "-field bulletin_event-description\"\n          value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n    <label>Comment</label><br>\n    <textarea name=\"comments_en\" class=\"w-100p bulletin_event-comment ";
+    + "\">\n      </div>\n      <div lang=\"ar\">\n        <input type=\"text\" name=\"event_name_ar\" \n          class=\"w-100p ";
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "-field\"></textarea>\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n    <span class=\"score\">\n      <span class=\"bulletin_event-cscore value\"></span>\n      <input type=\"hidden\" name=\"confidence_score\" \n        class=\"";
+    + "-field bulletin_event-description\"\n          value=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">\n      </div>\n      <span class=\"toggle\">\n        <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n      </span>\n    </div>\n\n\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n\n  <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n      <label>Comment</label>\n        <textarea \n          id=\"comments_en\"\n          name=\"comments_en\"\n          class=\"";
+  if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "-field w-100p\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</textarea>\n      </div>\n      <div lang=\"ar\">\n        <textarea \n          id=\"comments_ar\"\n          name=\"comments_ar\"\n          class=\"";
+  if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + "-field w-100p\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</textarea>\n      </div>\n  <span class=\"toggle\">\n  <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n  </span>\n  </div>\n\n\n  </div>\n\n\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n    <span class=\"score\">\n      <span class=\"bulletin_event-cscore value\"></span>\n      <input type=\"hidden\" name=\"confidence_score\" \n        class=\"";
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)

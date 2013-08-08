@@ -1,14 +1,50 @@
   <div class="span-70p">
-    <label>Description</label><br>
-    <input type="text" name="event_name_en" 
-      class="w-100p {{entityType}}-field bulletin_event-description"
-      value="{{model.event_name_en}}">
+
+    <div class="i18n with-en with-ar">
+      <div lang="en">
+        <label>Description</label>
+        <input type="text" name="event_name_en" 
+          class="w-100p {{entityType}}-field bulletin_event-description"
+          value="{{model.event_name_en}}">
+      </div>
+      <div lang="ar">
+        <input type="text" name="event_name_ar" 
+          class="w-100p {{entityType}}-field bulletin_event-description"
+          value="{{model.event_name_en}}">
+      </div>
+      <span class="toggle">
+        <span lang="en">EN</span><span lang="ar">AR</span>
+      </span>
+    </div>
+
+
   </div>
   <div class="clearer">&nbsp;</div>
   <div class="span-70p">
-    <label>Comment</label><br>
-    <textarea name="comments_en" class="w-100p bulletin_event-comment {{entityType}}-field"></textarea>
+
+  <div class="i18n with-en with-ar">
+      <div lang="en">
+      <label>Comment</label>
+        <textarea 
+          id="comments_en"
+          name="comments_en"
+          class="{{entityType}}-field w-100p">{{model.comments_en}}</textarea>
+      </div>
+      <div lang="ar">
+        <textarea 
+          id="comments_ar"
+          name="comments_ar"
+          class="{{entityType}}-field w-100p">{{model.comments_ar}}</textarea>
+      </div>
+  <span class="toggle">
+  <span lang="en">EN</span><span lang="ar">AR</span>
+  </span>
   </div>
+
+
+  </div>
+
+
   <div class="clearer">&nbsp;</div>
   <div class="span-70p">
     <span class="score">

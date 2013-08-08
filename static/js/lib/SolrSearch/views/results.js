@@ -8,7 +8,6 @@ define(
     'jquery', 'underscore', 'backbone', 'handlebars',
     'lib/streams',
     'lib/Data/collections',
-    'lib/elements/language',
     'lib/SolrSearch/templates/actor.tpl',
     'lib/SolrSearch/templates/actor-results.tpl',
     'lib/SolrSearch/templates/bulletin.tpl',
@@ -16,7 +15,7 @@ define(
     'lib/SolrSearch/templates/incident.tpl',
     'lib/SolrSearch/templates/incident-results.tpl'
   ],
-  function($, _, Backbone, Handlebars, Streams, Collections, Language,
+  function($, _, Backbone, Handlebars, Streams, Collections, 
     actorTmp, actorResultsTmp, bulletinTmp, bulletinResultsTmp,
     incidentTmp, incidentResultsTmp
   ) {
@@ -88,6 +87,7 @@ define(
       template: actorResultsTmp,
       childViews: [],
       initialize: function() {
+        this.addi18n();
         this.collection = Collections.ActorCollection;
         this.listenTo(this.collection, 'add sort reset', this.renderList.bind(this));
         this.render();
@@ -142,26 +142,18 @@ define(
     var IncidentResultView = Backbone.View.extend({
       tagName: 'tr',
       events: {
-        'click .toggle span': 'switchLanguage',
         'click input[type="checkbox"]': 'selectIncident'
       },
 
       // constructor
       initialize: function(options) {
+        this.addi18n();
         this.index = options.index;
         this.listenTo(this.model, 'change', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
       
-      // dom event handlers
-      switchLanguage: function(evt) {
-        var clickedElement = evt.currentTarget,
-            i18nElement = this.$el.children('td.is-description')
-                              .children('a')
-                              .children('div.i18n');
-        Language.toggleLanguage(clickedElement, i18nElement);
-      },
 
       // select an incident - user has clicked the checkbox
       selectIncident: function() {
@@ -247,26 +239,18 @@ define(
     var BulletinResultView = Backbone.View.extend({
       tagName: 'tr',
       events: {
-        'click .toggle span': 'switchLanguage',
         'click input[type="checkbox"]': 'selectBulletin'
       },
 
       // constructor
       initialize: function(options) {
+        this.addi18n();
         this.index = options.index;
         this.listenTo(this.model, 'change', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
 
-      // dom event handlers
-      switchLanguage: function(evt) {
-        var clickedElement = evt.currentTarget,
-            i18nElement = this.$el.children('td.is-description')
-                              .children('a')
-                              .children('div.i18n');
-        Language.toggleLanguage(clickedElement, i18nElement);
-      },
 
       // user clicked checkbox
       selectBulletin: function() {

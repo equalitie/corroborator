@@ -134,6 +134,7 @@ define (
         
       // constructor
       initialize: function() {
+        this.addi18n();
         this.populateWidgets();
         this.render();
       },
@@ -187,7 +188,8 @@ define (
         var actorSearchView = new ActorSearchView({
           el: '#bulletin-actor-list-block',
           content: this.model.get('actors_role'),
-          entityType: 'bulletin'
+          entityType: 'bulletin',
+          relationshipType: 'role'
         });
 
         var bulletinSearchView = new BulletinSearchView({

@@ -38,9 +38,11 @@ function program2(depth0,data) {
     + "_status\" \n          class=\"comment-field\">\n    <option value=\"\">Select Status</option>\n    ";
   stack1 = helpers.each.call(depth0, depth0.statuses, {hash:{},inverse:self.noop,fn:self.programWithDepth(1, program1, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  </select>\n</div>\n\n<div class=\"clearer\"></div>\n<!-- Comment content field -->\n<div class=\"add\">\n  <label>Comment</label><br/>\n  <textarea class=\"w-100p comment-comment comment-field\"\n            name=\"comments_en\">"
+  buffer += "\n  </select>\n</div>\n\n<div class=\"clearer\"></div>\n<!-- Comment content field -->\n<div class=\"add\">\n\n  <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n      <label>Comment</label>\n        <textarea \n          id=\"comments_en\"\n          name=\"comments_en\"\n          class=\"comment-field w-100p\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</textarea>\n</div>\n<input type=\"hidden\" name=\"assigned_user\" value=\"";
+    + "</textarea>\n      </div>\n      <div lang=\"ar\">\n        <textarea \n          id=\"comments_ar\"\n          name=\"comments_ar\"\n          class=\"comment-field w-100p\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</textarea>\n      </div>\n  <span class=\"toggle\">\n  <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n  </span>\n  </div>\n\n\n\n</div>\n\n\n<input type=\"hidden\" name=\"assigned_user\" value=\"";
   if (stack2 = helpers.userResource) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.userResource; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)

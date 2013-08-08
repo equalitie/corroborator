@@ -135,10 +135,10 @@ function program18(depth0,data) {
 function program20(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n            <li>\n              <span class=\"text T\">";
-  if (stack1 = helpers.role) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.role; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  buffer += "\n            <li>\n              <span data-role=\""
+    + escapeExpression(((stack1 = depth0.key),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\"text T\">"
+    + escapeExpression(((stack1 = depth0.value),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n            </li>\n            ";
   return buffer;
   }
@@ -146,10 +146,10 @@ function program20(depth0,data) {
 function program22(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n                  <li>\n                    <span class=\"text T\">";
-  if (stack1 = helpers.role) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.role; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  buffer += "\n                  <li>\n                    <span data-role=\""
+    + escapeExpression(((stack1 = depth0.key),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\"text T\">"
+    + escapeExpression(((stack1 = depth0.value),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n                  </li>\n                  ";
   return buffer;
   }

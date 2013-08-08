@@ -43,7 +43,7 @@
     </div>
     <div class="description">
       <h3>Description</h3>
-      {{model.description}}
+      {{model.description_en}}
     </div>
     <div class="comments">
       <h3>Comments</h3>

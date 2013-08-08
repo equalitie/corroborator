@@ -138,6 +138,7 @@ define (
 
       // constructor
       initialize: function(options) {
+        this.addi18n();
         this.collection.on('edit', this.populateForm, this);
         //this.entityType = options.entityType;
         this.render();
