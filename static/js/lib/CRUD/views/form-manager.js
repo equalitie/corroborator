@@ -19,6 +19,12 @@ define (
   function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams, 
     Actor, Bulletin, Incident, Overlay) {
 
+    // Object {
+    // type: "action_combo_combined",
+    // navValue: "incident",
+    // action: true,
+    // option: "Update Selected"} 
+    //
     // ## Stream processing helpers
     // map nav events to the filter views we will be displaying
     var crudBus   = Streams.crudBus,
@@ -31,6 +37,7 @@ define (
             create_actor: {
               view: ActorForm.ActorFormView,
               model: Actor.ActorModel
+              //collection: 
             },
             create_bulletin: {
               view: BulletinForm.BulletinFormView,

@@ -128,6 +128,7 @@ define(
                           }, combineBoth);
         watcher.filter(filterExecuteAction)
                .onValue(function(value) {
+                  console.log(value);
                   Streams.searchBus.push(value);
                 });
 

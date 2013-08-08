@@ -203,8 +203,6 @@ define (
       // render the view
       render: function() {
         var templateVars = this.prepareTemplateVars();
-        console.log(templateVars);
-        console.log('render', templateVars);
         var html = this.template(templateVars);
         this.$el.empty()
                 .append(html);
@@ -304,7 +302,6 @@ define (
           renderJSON.assigned_user =
             _.findWhere(users, userSearchField).label;
         }
-        console.log(renderJSON);
         var html = this.template({model: renderJSON});
         this.$el.empty().append(html);
       }

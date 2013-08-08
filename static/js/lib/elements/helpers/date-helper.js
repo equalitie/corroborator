@@ -32,7 +32,6 @@ define (
     });
 
     Handlebars.registerHelper('if_eq', function(context, options) {
-      console.log(context, options.hash.compare);
         if (context === options.hash.compare) {
           return options.fn(this);
         }
