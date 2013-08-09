@@ -15,6 +15,7 @@ from corroborator_app.models import Actor, ActorRole
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
+from haystack.management.commands import update_index
 
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
 
@@ -43,6 +44,12 @@ class ActorResource(ModelResource):
         authentication = ApiKeyAuthentication()
         always_return_data = True
 
+    def obj_create(self, bundle, **kwargs):
+        bundle = super( ActorResource, self )\
+            .obj_create( bundle, **kwargs )
+        update_index.Command().handle()
+        return bundle
+
     def dehydrate(self, bundle):
         bundle.data['count_incidents'] = ActorPrepMeta()\
             .prepare_count_incidents(bundle.obj)        
@@ -50,6 +57,10 @@ class ActorResource(ModelResource):
             .prepare_count_bulletins(bundle.obj)        
         bundle.data['roles'] = ActorPrepMeta()\
             .prepare_roles(bundle.obj)
+        bundle.data['actors_role'] = ActorPrepMeta()\
+            .prepare_actors_role(bundle.obj)
+        bundle.data['actors'] = ActorPrepMeta()\
+            .prepare_actors(bundle.obj)
         return bundle
 
 
