@@ -3590,3 +3590,46 @@ nav .do-search {
 .score-editor .score-editor .rail {
   border: none;
 }
+
+/* custom player skin */
+/* line 2, ../sass/_media.scss */
+.flowplayer {
+  width: 80%;
+  background-color: #222;
+  background-size: cover;
+  max-width: 800px;
+}
+
+/* line 3, ../sass/_media.scss */
+.flowplayer .fp-controls {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* line 4, ../sass/_media.scss */
+.flowplayer .fp-timeline {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* line 5, ../sass/_media.scss */
+.flowplayer .fp-progress {
+  background-color: #8f8989;
+}
+
+/* line 6, ../sass/_media.scss */
+.flowplayer .fp-buffer {
+  background-color: #f9f9f9;
+}
+
+/* line 8, ../sass/_media.scss */
+.media-result .do-relate {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+/* line 14, ../sass/_media.scss */
+img.media-image-thumbnail, img.media-video-thumbnail {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}

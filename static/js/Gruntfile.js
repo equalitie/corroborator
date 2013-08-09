@@ -44,7 +44,9 @@ module.exports = function(grunt) {
           // forms
           'lib/CRUD/templates/search-templates/media-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/media-search-field.tpl',
           'lib/CRUD/templates/search-templates/media-result.tpl.js'         : 'lib/CRUD/templates/search-templates/media-result.tpl',
+          'lib/CRUD/templates/search-templates/media-viewer.tpl.js'         : 'lib/CRUD/templates/search-templates/media-viewer.tpl',
           'lib/CRUD/templates/search-templates/media-form.tpl.js'           : 'lib/CRUD/templates/search-templates/media-form.tpl',
+
           'lib/CRUD/templates/search-templates/embedded-results.tpl.js'     : 'lib/CRUD/templates/search-templates/embedded-results.tpl',
           'lib/CRUD/templates/search-templates/confirm-dialog.tpl.js'       : 'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
           'lib/CRUD/templates/search-templates/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor.tpl',
