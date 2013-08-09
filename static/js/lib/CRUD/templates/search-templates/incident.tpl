@@ -104,6 +104,10 @@
                 <div class="clearer">&nbsp;</div>
 
                 <!-- incident labels -->
+                <div id="incident-location-block" class="field is-tags">
+                </div>
+
+                <!-- incident labels -->
                 <div id="incident-label-block" class="field is-tags">
                 </div>
 

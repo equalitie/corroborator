@@ -7,58 +7,71 @@
     <div class="infos">
       <h2 class="title">
         <span class="i18n with-en with-ar">
-          <span lang="en"><span class="name">{{model.fullname_en}}</span> (<span class="sex">{{model.sex_en}}</span>) <span class="age">{{model.age_en}}</span></span>
+          <span lang="en"><span class="name">{{model.fullname_en}}</span> (<span class="sex">{{model.sex_en}}</span>) <span class="age"></span></span>
           <span lang="ar">{{model.fullname_ar}}</span>
-          <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+          <span class="toggle">
+            <span lang="en">EN</span>
+            <span lang="ar">AR</span>
+          </span>
+        </span>
+      </h2>
       <div class="aka">{{model.nickname_en}}</div>
-      <div class="type">{{model.age_en}}, {{model.civilian_en}}</div>
+      <div class="type">
+        {{#if model.age_en}}
+          {{model.age_en}}
+          {{#if model.civilian_en}}, {{/if}}
+        {{/if}}
+        {{#if model.civilian_en}}
+          {{model.civilian_en}}
+        {{/if}}
+      </div>
     </div>
   </div>
   <div class="body">
     <table class="details">
-      <tbody><tr>
-          <th>Lives in</th>
-          <td></td>
+      <tbody>
+        {{#if model.current_location}}
+        <tr>
+          <th>Lives in </th>
+          <td>{{fetchLocation model.current_location}}</td>
         </tr>
+        {{/if}}
         <tr>
           <th>Born in</th>
-          <td>{{model.pob}}, 1989</td>
+          <td>
+            {{#if model.pob}}{{model.pob}}{{#if model.DOB}}, {{/if}}{{/if}}
+            {{#if model.DOB }}{{dateFormat model.DOB}}{{/if}}
+          </td>
         </tr>
+        {{#if model.nationality_en}}
         <tr>
           <th>Nationality</th>
           <td>{{model.nationality_en}}</td>
         </tr>
+        {{/if}}
+        {{#if model.ethnicity_en}}
         <tr>
           <th>Ethnicity</th>
-          <td>{{model.nationality_en}}</td>
+          <td>{{model.ethnicity_en}}</td>
         </tr>
+        {{/if}}
+        {{#if model.spoken_dialect_en}}
         <tr>
           <th>Speaks</th>
           <td>{{model.spoken_dialect_en}}</td>
         </tr>
+        {{/if}}
+        {{#if model.religion_en}}
         <tr>
           <th>Religion</th>
           <td>{{model.religion_en}}</td>
         </tr>
-        <!--<tr>-->
-          <!--<th>Spoken dialect</th>-->
-          <!--<td>Dialect, dialect</td>-->
-        <!--</tr>-->
-    </tbody></table>
-    <div class="actors group">
-      <h3>Related actors</h3>
-      <ul class="elements">
-      </ul>
-    </div>
-    <div class="incidents group">
-      <h3>Incidents</h3>
-      <ul class="elements">
-      </ul>
-    </div>
-    <div class="bulletins group">
-      <h3>Bulletins</h3>
-      <ul class="elements">
-      </ul>
-    </div>
+        {{/if}}
+      </tbody>
+    </table>
+    {{#if model.actors_role}}
+      <div class="actors group">
+      </div>
+    {{/if}}
   </div>
 </div>

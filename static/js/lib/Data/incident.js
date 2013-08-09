@@ -52,7 +52,7 @@ define(
       idAttribute: 'id',
       manyToManyFields: [
         'crimes', 'labels', 'incident_comments', 'times', 'actors_role',
-        'ref_bulletins', 'ref_incidents'
+        'ref_bulletins', 'ref_incidents', 'locations'
       ],
       initialize: function(options) {
         this.set('entityType', 'incident');

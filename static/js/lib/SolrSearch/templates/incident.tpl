@@ -13,23 +13,28 @@
         </span>
       </div>
       <div class="meta text">
-        <span class="actors">{{actors}}</span> actors involved
+        <span class="actors">{{model.count_actors}}</span> actors involved
       </div>
       <div class="details text">
         <span class="date">{{dateFormat model.incident_created}}</span>
         {{#if model.locations}}
-        in <span class="location">{{model.locations}}</span>
-        {{/if}}
-        {{#if model.sources}}
-        (<span class="sources">{{model.sources}}</span>)
+          in 
+          {{#each model.incident_locations}}
+            <span class="location">{{this}}</span>
+            {{#if @index}}
+            , 
+            {{/if}}
+          {{/each}}
         {{/if}}
       </div>
     </a>
   </td>
   <td class="is-status">
-    <span class="status">
-      <span class="text">reviewed</span>
-    </span>
+    {{#if model.most_recent_status_incident}}
+      <span class="status">
+        <span class="text">{{model.most_recent_status_incident}}</span>
+      </span>
+    {{/if}}
   </td>
   <td class="is-score">
     <span class="value">{{model.confidence_score}}</span>

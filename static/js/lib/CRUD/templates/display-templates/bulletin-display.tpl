@@ -26,17 +26,18 @@
         , in <span class="location">{{model.bulletin_location}}</span>
         {{/if}}
       </div>
+      {{#if model.bulletin_sources}}
       <div class="sources">
-        (<span class="source">BBC</span>, <span class="source">Al-Jazeerah</span>)
+          ({{commaSeparatedList model.bulletin_locations}})
       </div>
+      {{/if}}
     </div>
     <ul class="tags group">
+      {{#each model.bulletin_labels}}
       <li class="tag">
-      <span class="text">Lorem</span>
+      <span class="text">{{this}}</span>
       </li>
-      <li class="tag">
-      <span class="text">Ipsum</span>
-      </li>
+      {{/each}}
     </ul>
   </div>
   <div class="body">
@@ -44,20 +45,17 @@
       <div class="placeholder">&nbsp;</div>
     </div>
     <div class="description">{{model.description}}</div>
+    {{#if model.actors_role}}
     <div class="actors group">
-      <h3>Related actors</h3>
-      <ul class="elements">
-      </ul>
     </div>
+    {{/if}}
+    {{#if model.ref_incidents}}
     <div class="incidents group">
-      <h3>Incidents</h3>
-      <ul class="elements">
-      </ul>
     </div>
+    {{/if}}
+    {{#if model.ref_bulletins}}
     <div class="bulletins group">
-      <h3>Bulletins</h3>
-      <ul class="elements">
-      </ul>
     </div>
+    {{/if}}
   </div>
 </div>

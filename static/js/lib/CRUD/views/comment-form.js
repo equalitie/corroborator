@@ -231,7 +231,7 @@ define (
         });
         this.collection.add(initialCommentModel);
       },
-      destroy: function() {
+      onDestroy: function() {
         this.destroyChildren();
         this.stopListening();
         this.$el.remove();

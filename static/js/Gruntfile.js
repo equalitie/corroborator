@@ -44,7 +44,9 @@ module.exports = function(grunt) {
           // forms
           'lib/CRUD/templates/search-templates/media-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/media-search-field.tpl',
           'lib/CRUD/templates/search-templates/media-result.tpl.js'         : 'lib/CRUD/templates/search-templates/media-result.tpl',
+          'lib/CRUD/templates/search-templates/media-viewer.tpl.js'         : 'lib/CRUD/templates/search-templates/media-viewer.tpl',
           'lib/CRUD/templates/search-templates/media-form.tpl.js'           : 'lib/CRUD/templates/search-templates/media-form.tpl',
+
           'lib/CRUD/templates/search-templates/embedded-results.tpl.js'     : 'lib/CRUD/templates/search-templates/embedded-results.tpl',
           'lib/CRUD/templates/search-templates/confirm-dialog.tpl.js'       : 'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
           'lib/CRUD/templates/search-templates/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor.tpl',
@@ -64,11 +66,24 @@ module.exports = function(grunt) {
           'lib/CRUD/templates/search-templates/event-container.tpl.js'      : 'lib/CRUD/templates/search-templates/event-container.tpl',
           'lib/CRUD/templates/search-templates/event-form.tpl.js'           : 'lib/CRUD/templates/search-templates/event-form.tpl',
           'lib/CRUD/templates/search-templates/event-display.tpl.js'        : 'lib/CRUD/templates/search-templates/event-display.tpl',
+         
           // individual display
           'lib/CRUD/templates/display-templates/display-manager.tpl.js'     : 'lib/CRUD/templates/display-templates/display-manager.tpl',
           'lib/CRUD/templates/display-templates/actor-display.tpl.js'       : 'lib/CRUD/templates/display-templates/actor-display.tpl',
           'lib/CRUD/templates/display-templates/bulletin-display.tpl.js'    : 'lib/CRUD/templates/display-templates/bulletin-display.tpl',
           'lib/CRUD/templates/display-templates/incident-display.tpl.js'    : 'lib/CRUD/templates/display-templates/incident-display.tpl',
+
+          'lib/CRUD/templates/display-templates/misc/comment-container.tpl.js': 'lib/CRUD/templates/display-templates/misc/comment-container.tpl',
+          'lib/CRUD/templates/display-templates/misc/comment.tpl.js'        : 'lib/CRUD/templates/display-templates/misc/comment.tpl',
+
+          'lib/CRUD/templates/display-templates/actors/actor-container.tpl.js': 'lib/CRUD/templates/display-templates/actors/actor-container.tpl',
+          'lib/CRUD/templates/display-templates/actors/actor.tpl.js'        : 'lib/CRUD/templates/display-templates/actors/actor.tpl',
+
+          'lib/CRUD/templates/display-templates/incident/incident-container.tpl.js': 'lib/CRUD/templates/display-templates/incident/incident-container.tpl',
+          'lib/CRUD/templates/display-templates/incident/incident.tpl.js'        : 'lib/CRUD/templates/display-templates/incident/incident.tpl',
+
+          'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl.js': 'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl',
+          'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl.js'        : 'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl',
         }
       }
     },
@@ -146,7 +161,8 @@ module.exports = function(grunt) {
         'lib/elements/templates/*.tpl',
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/search-templates/*.tpl',
-        'lib/CRUD/templates/display-templates/*.tpl'
+        'lib/CRUD/templates/display-templates/*.tpl',
+        'lib/CRUD/templates/display-templates/*/*.tpl'
       ],
       tasks: ['handlebars',/* 'buster:dev', 'jshint', 'requirejs', 'docco'*/]
     }

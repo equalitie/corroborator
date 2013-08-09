@@ -7,9 +7,13 @@ define (
   [
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
+    'lib/CRUD/views/display-views/actor/actor-container',
+    'lib/CRUD/views/display-views/bulletin/bulletin-container',
+    'lib/CRUD/views/display-views/incident/incident-container',
     'lib/CRUD/templates/display-templates/bulletin-display.tpl'
   ],
-  function (Backbone, _, Collections, Streams, bulletinDisplayTmp) {
+  function (Backbone, _, Collections, Streams, 
+    ActorListView, BulletinListView, IncidentListView, bulletinDisplayTmp) {
     'use strict';
 
     var BulletinDisplayView,
@@ -53,9 +57,27 @@ define (
         return this;
       },
       renderRelatedBulletins: function() {
+        var bulletinsEl = this.$el.children()
+                               .children('.body')
+                               .children('.bulletins'),
+
+            content = this.model.get('ref_bulletins'),
+            bulletinsContainer = new BulletinListView({
+              el: bulletinsEl,
+              content: content
+            });
         return this;
       },
       renderRelatedIncidents: function() {
+        var incidentsEl = this.$el.children()
+                               .children('.body')
+                               .children('.incidents'),
+
+            content = this.model.get('ref_incidents'),
+            incidentsContainer = new IncidentListView({
+              el: incidentsEl,
+              content: content
+            });
         return this;
       },
       render: function() {

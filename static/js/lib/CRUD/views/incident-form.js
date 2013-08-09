@@ -12,6 +12,7 @@ define (
 
     'lib/CRUD/data/LabelCollection',
     'lib/CRUD/data/CrimeCollection',
+    'lib/CRUD/data/LocationCollection',
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
     'lib/CRUD/views/search-views/incident/incident-search-field',
@@ -23,7 +24,7 @@ define (
     // templates/search-templates
     'lib/CRUD/templates/search-templates/incident.tpl'
   ],
-  function ($, _, Backbone, Streams, Mixins,  Label, Crime,
+  function ($, _, Backbone, Streams, Mixins,  Label, Crime, Location,
     ActorSearchView, BulletinSearchView, IncidentSearchView, CommentForm,
     EventForm, incidentFormTmp) {
 
@@ -34,6 +35,7 @@ define (
         CommentContainerView = CommentForm.CommentContainerView,
         EventContainerView   = EventForm.EventContainerView,
         CrimeCollection      = Crime.CrimeCollection,
+        LocationCollection   = Location.LocationCollection,
         LabelCollection      = Label.LabelCollection,
         crudBus              = Streams.crudBus,
         userList     = function() {
@@ -90,6 +92,18 @@ define (
           },
           content: {
             values: 'labels'
+          }
+        },
+        locations: {
+          containerid: '#incident-location-block',
+          collection : LocationCollection,
+          multiple: true,
+          display: {
+            field_name : 'locations',
+            field_label: 'Locations'
+          },
+          content: {
+            values: 'locations',
           }
         }
       },

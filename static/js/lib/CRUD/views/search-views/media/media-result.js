@@ -8,8 +8,9 @@ define (
     'jquery', 'backbone',
     'lib/streams',
     'lib/CRUD/templates/search-templates/media-result.tpl',
+    'lib/CRUD/templates/search-templates/media-viewer.tpl'
   ],
-  function ($, Backbone, Streams, mediaResultTmp) {
+  function ($, Backbone, Streams, mediaResultTmp, mediaViewerTmp) {
     'use strict';
 
     var MediaResultView,
@@ -20,10 +21,12 @@ define (
     MediaResultView = Backbone.View.extend({
       template: mediaResultTmp,
       tagName: 'li',
-      className: 'medium',
+      className: 'medium media-result',
       events: {
         'click .do-relate': 'relateToEntity',
-        'click .do-remove': 'removeMedia'
+        'click .do-remove': 'removeMedia',
+        'click .media-image-thumbnail': 'openImageViewer',
+        'click .media-video-thumbnail': 'openVideoViewer'
       },
       // constructor
       initialize: function(options) {
@@ -34,6 +37,35 @@ define (
         this.type = options.type;
         this.render();
       },
+
+      openVideoViewer: function() {
+        console.log('openVideoViewer');
+        var dialogHtml = mediaViewerTmp({
+          video: true,
+          uri: this.model.get('uri')[0]
+        });
+        this.openDialog($(dialogHtml));
+      },
+
+      openImageViewer: function() {
+        console.log('openImageViewer');
+        var dialogHtml = mediaViewerTmp({
+          image: true,
+          uri: this.model.get('uri')[0],
+          alt: this.model.get('name_en')
+        });
+        this.openDialog($(dialogHtml));
+      },
+
+      openDialog: function($dialogHtml) {
+        console.log('openDialog');
+          $dialogHtml.dialog({
+            resizable: false,
+            height:    360,
+            modal:     true
+          });
+      },
+
       // send a message asking to relate this media to the current  
       // entity being edited
       relateToEntity: function(evt) {
@@ -73,6 +105,7 @@ define (
       render: function() {
         this.resetFlags();
         this.model.set(this.type, true);
+        console.log(this.model.toJSON());
         var templateVars = {
           model: this.model.toJSON(),
         };
