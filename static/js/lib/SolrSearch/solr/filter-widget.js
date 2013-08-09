@@ -113,7 +113,7 @@ define(
       addFacet: function(filterGroup, key) {
         this.setField(key);
         var queryString = _.reduce(filterGroup, this.groupFilters, '');
-        this.add('(' + queryString + ')');
+        this.add(queryString);
       },
 
       // reduce function to build an OR query string from filters
