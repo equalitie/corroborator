@@ -121,7 +121,7 @@ define(
         if (queryString.length > 0) {
           queryString = queryString + ' OR ';
         }
-        return queryString + model.get('filterName');
+        return queryString + '("' + model.get('filterName') + '")';
       },
 
       // set the field for a filter

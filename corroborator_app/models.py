@@ -436,7 +436,7 @@ class ActorRole(models.Model):
     comments_ar = models.TextField(blank=True,null=True)
     actor = models.ForeignKey(Actor,blank=True,null=True)
     def __unicode__(self):
-        if relation_status is not None:
+        if self.relation_status is not None:
             return self.actor.fullname_en + ': ' + self.relation_status
         else:
             return self.actor.fullname_en + ': ' + self.role_status

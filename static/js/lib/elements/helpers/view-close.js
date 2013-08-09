@@ -6,7 +6,7 @@
 define (
   [
     'backbone', 'underscore', 'jquery',
-    'lib/elements/Language'
+    'lib/elements/language'
   ],
   function (Backbone, _, $, Language) {
     'use strict';

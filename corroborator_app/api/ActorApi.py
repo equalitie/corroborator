@@ -14,8 +14,10 @@ from corroborator_app.models import ActorRelationship
 from corroborator_app.models import Actor, ActorRole
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
+from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 
-__all__ = ('ActorRelationshipResource', 'ActorRsource', 'ActorRoleResource', )
+__all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
+
 class ActorResource(ModelResource):
     """
     tastypie api implementation
@@ -33,6 +35,7 @@ class ActorResource(ModelResource):
         'actors_role',
         null=True
     )
+
     class Meta:
         queryset = Actor.objects.all()
         resource_name = 'actor'
@@ -40,6 +43,14 @@ class ActorResource(ModelResource):
         authentication = ApiKeyAuthentication()
         always_return_data = True
 
+    def dehydrate(self, bundle):
+        bundle.data['count_incidents'] = ActorPrepMeta()\
+            .prepare_count_incidents(bundle.obj)        
+        bundle.data['count_bulletins'] = ActorPrepMeta()\
+            .prepare_count_bulletins(bundle.obj)        
+        bundle.data['roles'] = ActorPrepMeta()\
+            .prepare_roles(bundle.obj)
+        return bundle
 
 
 class ActorRoleResource(ModelResource):
@@ -59,6 +70,7 @@ class ActorRelationshipResource(ModelResource):
     tastypie api implementation for actor relationship model
     """
     actor = fields.ForeignKey(ActorResource, 'actor', null=True)
+
     class Meta:
         queryset = ActorRelationship.objects.all()
         resource_name = 'actorRelationship'
