@@ -5,9 +5,11 @@
         <div class="score">
           <span class="value">{{model.confidence_score}}</span>
         </div>
+        {{#if model.most_recent_status_incident}}
         <div class="status">
           <span class="value">{{model.most_recent_status_incident}}</span>
         </div>
+        {{/if}}
       </div>
       <div class="title i18n">
          
