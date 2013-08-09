@@ -19,10 +19,15 @@ from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
+from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 
 __all__ = ('BulletinResource')
 
 class BulletinResource(ModelResource):
+    """
+    tastypie api implementation for Bulletin model
+    """
+
     # foreign key fields
     assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
     # ManyToManyFields
@@ -38,18 +43,48 @@ class BulletinResource(ModelResource):
         null=True
     )
     times = fields.ManyToManyField(TimeInfoResource, 'times', null=True)
-    medias = fields.ManyToManyField(MediaResource, 'medias',null=True)
-    locations = fields.ManyToManyField(LocationResource, 'locations',null=True)
-    labels = fields.ManyToManyField(LabelResource, 'labels',null=True)
-    ref_bulletins = fields.ManyToManyField('self', 'ref_bulletins',null=True)
+    medias = fields.ManyToManyField(
+        MediaResource, 
+        'medias', 
+        null=True
+    )
+    locations = fields.ManyToManyField(
+        LocationResource, 
+        'locations',
+        null=True
+    )
+    labels = fields.ManyToManyField(
+        LabelResource, 
+        'labels',
+        null=True
+    )
+    ref_bulletins = fields.ManyToManyField(
+        'self', 
+        'ref_bulletins',
+        null=True
+    )
 
-    """
-    tastypie api implementation for Bulletin model
-    """
     class Meta:
         queryset = Bulletin.objects.all()
         resource_name = 'bulletin'
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
-    
+    def dehydrate(self, bundle):
+        bundle.data['bulletin_locations'] = BulletinPrepMeta()\
+            .prepare_bulletin_locations(bundle.obj)
+        bundle.data['bulletin_labels'] = BulletinPrepMeta()\
+            .prepare_bulletin_labels(bundle.obj) 
+        bundle.data['bulletin_times'] = BulletinPrepMeta()\
+            .prepare_bulletin_times(bundle.obj) 
+        bundle.data['bulletin_sources'] = BulletinPrepMeta()\
+            .prepare_bulletin_sources(bundle.obj) 
+        bundle.data[''] = BulletinPrepMeta()\
+            .prepare_bulletin_assigned_user(bundle.obj) 
+        bundle.data['most_recent_status_bulletin'] = \
+            BulletinPrepMeta()\
+            .prepare_most_recent_status_bulletin(bundle.obj) 
+        bundle.data['count_actors'] = BulletinPrepMeta()\
+            .prepare_count_actors(bundle.obj)
+
+        return bundle

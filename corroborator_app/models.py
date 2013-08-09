@@ -344,8 +344,8 @@ class Actor(models.Model):
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
 
     # Foreign Keys
-    actor_relationships = models.ManyToManyField('ActorRelationship',
-    blank=True, null=True, related_name='actor_relationships')
+    actors_role = models.ManyToManyField('ActorRole',
+        blank=True, null=True, related_name='actors_role')
     POB = models.ForeignKey(Location, blank=True, null=True, 
         related_name='POB')
     current_location = models.ForeignKey(Location, blank=True, null=True, 
@@ -401,20 +401,45 @@ class ActorRole(models.Model):
     in relation to either an Incident or a Bulletin.
     """
     ROLE_STATUS = (
-        ('Killed','killed'),
-        ('Tortured', 'tortured'),
-        ('Wounded', 'wounded'),
-        ('Detained', 'detained'),
-        ('Kidnapped', 'kidnapped'),
+        ('K', 'Killed'),
+        ('T', 'Tortured'),
+        ('WO', 'Wounded'),
+        ('D', 'Detained'),
+        ('K', 'Kidnapped'),
+        ('WN', 'Witness'),
+    )
+    RELATION = (
+        ('P', 'Parent'),
+        ('S', 'Sibling'),
+        ('FM', 'Family member'),
+        ('SPO', 'Superior officer'),
+        ('SBO', 'Subordinate officer'),
     )
     role_en = models.CharField(max_length=255,blank=True,null=True)
     role_ar = models.CharField(max_length=255,blank=True,null=True)
-    role_status = models.CharField('status',max_length=25, choices=ROLE_STATUS)
+    role_status = models.CharField(
+        'status',
+        max_length=25,
+        choices=ROLE_STATUS,
+        blank=True,
+        null=True
+    )
+
+    relation_status = models.CharField(
+        'status',
+        max_length=25,
+        choices=RELATION,
+        blank=True,
+        null=True
+    )
     comments_en = models.TextField(blank=True,null=True)
     comments_ar = models.TextField(blank=True,null=True)
     actor = models.ForeignKey(Actor,blank=True,null=True)
     def __unicode__(self):
-        return self.actor.fullname_en + ': ' + self.role_status
+        if relation_status is not None:
+            return self.actor.fullname_en + ': ' + self.relation_status
+        else:
+            return self.actor.fullname_en + ': ' + self.role_status
 
 
 
