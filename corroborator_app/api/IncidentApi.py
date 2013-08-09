@@ -18,8 +18,9 @@ from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
-from corroborator_app.api.BulletinApi import BulletinResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
+from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
+
 
 from corroborator_app.models import Incident
 
@@ -36,7 +37,6 @@ class IncidentResource(ModelResource):
         'incident_comments',
         null=True
     )
-    ref_bulletins = fields.ManyToManyField(BulletinResource, 'ref_bulletins', null=True)
     actors_role = fields.ManyToManyField(
         ActorRoleResource, 
         'actors_role',
@@ -54,3 +54,25 @@ class IncidentResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+    def dehydrate(self, bundle):
+        bundle.data['incident_locations'] = IncidentPrepMeta()\
+            .prepare_incident_locations(bundle.obj)
+        bundle.data['incident_labels'] = IncidentPrepMeta()\
+            .prepare_incident_labels(bundle.obj) 
+        bundle.data['incident_times'] = IncidentPrepMeta()\
+            .prepare_incident_times(bundle.obj) 
+        bundle.data['incident_crimes'] = IncidentPrepMeta()\
+            .prepare_incident_crimes(bundle.obj) 
+        #bundle.data[''] = IncidentPrepMeta()\
+        #    .prepare_incident_assigned_user(bundle.obj) 
+        bundle.data['most_recent_status_incident'] = \
+            IncidentPrepMeta()\
+            .prepare_most_recent_status_incident(bundle.obj) 
+        bundle.data['count_actors'] = IncidentPrepMeta()\
+            .prepare_count_actors(bundle.obj)
+        bundle.data['count_bulletins'] = IncidentPrepMeta()\
+            .prepare_count_bulletins(bundle.obj)
+        bundle.data['count_incidents'] = IncidentPrepMeta()\
+            .prepare_count_incidents(bundle.obj)
+
+        return bundle
