@@ -39,8 +39,18 @@
     var solr_url = '{{ solr_url }}';
     var comment_statuses = [];
 
+    {%for relation in relation_status_set %}
+      gl_ac_relation_list.push({ 
+        key:"{{relation.key}}",
+        value: "{{relation.value}}"
+      });
+    {% endfor %}
+
     {%for role in role_status_set %}
-      gl_ac_role_list.push({ role:"{{role}}"});
+      gl_ac_role_list.push({ 
+        key:"{{role.key}}",
+        value: "{{role.value}}"
+      });
     {% endfor %}
 
 
@@ -51,10 +61,6 @@
         resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
       });
     {% endfor %}
-
-    {% for relation in relation_status_set %}
-      gl_ac_relation_list.push( {relation:"{{relation}}"} );
-    {% endfor %};
 
     {%for label in labels_set.all %}
       gl_ac_labels_list.push({

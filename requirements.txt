@@ -18,3 +18,4 @@ boto==2.9.5
 django-storages==1.1.8
 django-queued-storage==0.6
 lxml>3.0
+PIL==1.1.7

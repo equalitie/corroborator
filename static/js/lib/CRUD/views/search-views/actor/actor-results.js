@@ -20,6 +20,12 @@ define (
         filterActorRejected = function(value) {
           return value.type === 'unrelate_actor_request';
         },
+        mapContentToValue = function(value) {
+          return value.content;
+        },
+        filterRelationshipResponse = function(value) {
+          return value.type === 'actor_relationship_type_response';
+        },
         filterActorResults = function(value) {
           return value.type === 'results_actor';
         };
@@ -34,6 +40,8 @@ define (
         this.watchForRejectedActors();
       },
 
+      // watch for actor models that get removed from the actor entity
+      // and add them back to the list of available actors
       watchForRejectedActors: function() {
         var subscriber = 
           crudBus.toEventStream()
@@ -41,6 +49,7 @@ define (
                  .subscribe(this.addModelToCollection.bind(this));
         this.subscribers.push(subscriber);
       },
+
       addModelToCollection: function(evt) {
         var model = evt.value().content.model;
         var exists = this.collection.where({resource_uri: model.get('resource_uri')}).length;
@@ -67,10 +76,33 @@ define (
       },
 
       // render the search results
+      // called when collection listened to in superclass is updated
+      // (results.js initialize)
+      // TODO - change name to requestRenderResults
       renderResults: function() {
-        console.log(this.collection);
+        this.requestRelationshipType();
+      },
+
+      reallyRenderResults: function() {
         this.destroyChildren();
         this.collection.each(this.renderResult, this);
+      },
+
+      requestRelationshipType: function() {
+        var subscriber 
+          = crudBus.toEventStream()
+                   .filter(filterRelationshipResponse)
+                   .map(mapContentToValue)
+                   .subscribe(this.listenForRelationshipType.bind(this));
+        this.subscribers.push(subscriber);
+        crudBus.push({
+          type: 'request_actor_relationship_type'
+        });
+      },
+
+      listenForRelationshipType: function(evt) {
+        this.fieldName = evt.value();
+        this.reallyRenderResults();
       },
 
       // render a single result
@@ -78,6 +110,7 @@ define (
         var resultView = new ActorResult({
           model: model,
           type: 'result',
+          fieldName: this.fieldName,
           collection: this.collection
         });
         this.$el.children()

@@ -225,7 +225,6 @@ define (
 
       //render the input field and buttons
       render: function() {
-        console.log(this.entityType);
         var html = this.template({
           label: this.label,
           multiple: this.multiple,

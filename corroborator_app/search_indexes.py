@@ -65,6 +65,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         Actor instance
         """
         return ActorPrepMeta().prepare_roles(object)
+
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance

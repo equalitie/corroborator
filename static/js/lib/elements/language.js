@@ -19,19 +19,22 @@ define(
             return lang === requestedLang;
           }),
           langSelector = _.reduce(remainingLanguages, function(memo, lang) {
-            return memo + 'span:lang(' + lang + ')';
+            return memo + 'div:lang(' + lang + ')';
           }, '');
 
         //
         // the .toggle show is kind of gross but there seems to be a bug
         // whereby the span:lang(<lang>) seems to select the .toggle selector too
         //
-         i18nElement.children('span:lang(' + requestedLang + ')')
+         i18nElement.children('div:lang(' + requestedLang + ')')
                     .show()
                     .siblings(langSelector)
                     .hide()
                     .siblings('.toggle').show();
     };
+
+
+    // dom event handlers
 
     return {
       toggleLanguage: toggleLanguage

@@ -39,6 +39,7 @@ define (
         };
       },
       initialize: function() {
+        this.addi18n();
         this.render();
       },
       buildUrl: function() {

@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from tastypie.models import create_api_key
 from corroborator_app.api.ActorApi import ActorResource
-from corroborator_app.api.ActorRoleApi import ActorRoleResource
+from corroborator_app.api.ActorApi import ActorRoleResource
 from corroborator_app.api.ActorApi import ActorRelationshipResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource

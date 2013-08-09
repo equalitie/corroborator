@@ -37,6 +37,7 @@ define (
 
       // constructor
       initialize: function(options) {
+        this.addi18n();
         if (options.entityType === undefined) {
           throw 'Exception: entityType not set';
         }

@@ -38,7 +38,7 @@ define (
 
       // keys for date fields, these need to be validated and removed
       // from the model object if invalid
-      dateFields: ['DOB', 'POB'], 
+      dateFields: ['DOB'], 
 
       // ids of combo boxes
       comboIds: ['#sex_en', '#age_en', '#civilian_en'],
@@ -75,6 +75,8 @@ define (
       },
       // constructor
       initialize: function() {
+        this.addi18n();
+        this.populateWidgets();
         this.render();
       },
 
@@ -131,6 +133,7 @@ define (
 
       // render the sub views
       renderChildren: function() {
+        // show the media search view
         var mediaSearchView = new MediaSearchView({
           el: '#actor-media-block',
           content: this.model.get('media'),
@@ -139,6 +142,14 @@ define (
           label: 'Actor Image',
           name: 'media'
         });
+
+        var actorSearchView = new ActorSearchView({
+          el: '#actor-actor-list-block',
+          content: this.model.get('actors_role'),
+          entityType: 'actor',
+          relationshipType: 'relation'
+        });
+
         this.childViews.push(mediaSearchView);
       }
 
