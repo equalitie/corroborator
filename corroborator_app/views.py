@@ -105,7 +105,6 @@ def login_user(request):
         #return render_to_response('auth.html', RequestContext(request))
 
 def index(request, *args, **kwargs):
-    username = 'admin'
     if request.user.is_authenticated():
         username = request.user.username
         userid = request.user.id
@@ -116,15 +115,22 @@ def index(request, *args, **kwargs):
         ps_bulletin_list = []
         ps_actor_list = []
         labels_set = Label.objects.all()
+
         role_status_set = []
-        rs = ActorRole.ROLE_STATUS
-        for r in rs:
-            role_status_set.append(r[0])
+        roles = ActorRole.ROLE_STATUS
+        for role in roles:
+            role_status_set.append({
+                'key':role[0],
+                'value': role[1]}
+            )
 
         relation_status_set = []
-        rls = ActorRelationship.RELATION
-        for r in rls:
-            relation_status_set.append(r[0])
+        relations = ActorRole.RELATION
+        for relation in relations:
+            relation_status_set.append({
+                'key': relation[0],
+                'value': relation[1]}
+            )
 
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()
@@ -173,15 +179,22 @@ def new_index(request, *args, **kwargs):
         ps_bulletin_list = []
         ps_actor_list = []
         labels_set = Label.objects.all()
+
         role_status_set = []
-        rs = ActorRole.ROLE_STATUS
-        for r in rs:
-            role_status_set.append(r[0])
+        roles = ActorRole.ROLE_STATUS
+        for role in roles:
+            role_status_set.append({
+                'key':role[0],
+                'value': role[1]}
+            )
 
         relation_status_set = []
-        rls = ActorRelationship.RELATION
-        for r in rls:
-            relation_status_set.append(r[0])
+        relations = ActorRole.RELATION
+        for relation in relations:
+            relation_status_set.append({
+                'key': relation[0],
+                'value': relation[1]}
+            )
 
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()

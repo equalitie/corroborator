@@ -5,9 +5,10 @@
 
 define (
   [
-    'backbone'
+    'backbone', 'underscore', 'jquery',
+    'lib/elements/Language'
   ],
-  function (Backbone) {
+  function (Backbone, _, $, Language) {
     'use strict';
 
     Backbone.View.prototype.destroy = function() {
@@ -18,7 +19,19 @@ define (
         this.onDestroy();
       }
     };
-});
+
+    Backbone.View.prototype.addi18n = function() {
+      this.events = this.events || {};
+      _.extend(this.events, {'click .toggle span': 'switchLanguage'});
+      this.switchLanguage = function(evt) {
+        var clickedElement = evt.currentTarget,
+            i18nElement = $(evt.currentTarget).parent()
+                                              .parent();
+        Language.toggleLanguage(clickedElement, i18nElement);
+      };
+      this.delegateEvents();
+    };
+  });
 
 
 

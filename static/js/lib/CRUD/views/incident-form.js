@@ -163,7 +163,8 @@ define (
         var actorForm = new ActorSearchView({
           el: '#incident-actor-list-block',
           content: this.model.get('actors_role'),
-          entityType: this.entityType
+          entityType: this.entityType,
+          relationshipType: 'role'
         });
         var eventForm = new EventContainerView({
           el: '#incident-event-block',

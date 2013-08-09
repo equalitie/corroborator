@@ -54,6 +54,7 @@ class IncidentResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+
     def dehydrate(self, bundle):
         bundle.data['incident_locations'] = IncidentPrepMeta()\
             .prepare_incident_locations(bundle.obj)

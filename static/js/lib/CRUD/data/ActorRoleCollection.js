@@ -12,14 +12,15 @@ define (
   function (Backbone, _, Streams) {
     'use strict';
     var ActorRoleModel,
+        ActorRelationshipModel,
+        DjangoBaseModel,
         crudBus = Streams.crudBus,
         mapResourceUriToId = function(resourceUri) {
           return _.last(resourceUri.match(/\/(\d+)\/$/));
         };
 
-    // ### ActorRoleModel
-    // 
-    ActorRoleModel = Backbone.Model.extend({
+    // TODO refactor and reuse this across a bunch of models
+    DjangoBaseModel = Backbone.Model.extend({
       idAttribute: 'id',
       initialize: function(options) {
         if (this.get('resource_uri')) {
@@ -28,7 +29,7 @@ define (
         }
       },
       url: function() {
-        var base = '/api/v1/actorRole/';
+        var base = '/api/v1/'+ this.resourceName + '/';
         if (this.id) {
           base = base + this.id + '/';
         }
@@ -38,9 +39,21 @@ define (
       }
     });
 
+    // ### ActorRoleModel
+    // represent the ActorRole model
+    ActorRoleModel = DjangoBaseModel.extend({
+      resourceName: 'actorRole'
+    });
+
+    ActorRelationshipModel = DjangoBaseModel.extend({
+      resourceName: 'actorRelationship'
+    });
+
     return {
-      ActorRoleModel: ActorRoleModel
+      ActorRoleModel: ActorRoleModel,
+      ActorRelationshipModel: ActorRelationshipModel
     };
+
     
 });
 

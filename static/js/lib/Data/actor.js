@@ -51,6 +51,9 @@ define(
     // provide api endpoint for Actor model
     var ActorModel = Backbone.Model.extend({
       foreignKeyFields: ['POB', 'current_location', 'media'] ,
+      manyToManyFields: [
+        'actors_role'
+      ],
       idAttribute: 'id',
       initialize: function() {
         this.set('entityType', 'actor');

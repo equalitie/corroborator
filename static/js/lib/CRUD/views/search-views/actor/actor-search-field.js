@@ -3,6 +3,7 @@
 // ### Description
 // Search for actors, provide display of selected actors and select element
 // to store them for the containing form
+// TODO - there is way too much going on in here needs to be broken up
 
 define (
   [
@@ -20,12 +21,20 @@ define (
     'use strict';
     var ActorSearchView,
         ActorRoleModel = ActorRole.ActorRoleModel,
+        ActorRelationshipModel = ActorRole.ActorRelationshipModel,
         crudBus = Streams.crudBus,
+        fieldNameMap = {
+          role: 'role_status',
+          relation: 'relation_status'
+        },
         filterActorResults = function(value) {
           return value.type === 'results_actor';
         },
         filterActorUpdateRelationship = function(value) {
           return value.type === 'update_actor_relationship_request';
+        },
+        filterRelationshipTypeRequest = function(value) {
+          return value.type === 'request_actor_relationship_type';
         },
         filterActorRelateRequest = function(value) {
           return value.type === 'relate_actor_request';
@@ -37,7 +46,7 @@ define (
     // allows for adding of search results
     ActorSearchView = Backbone.View.extend({
       childViews: [],
-      unsubFunctions: [],
+      subscribers: [],
       events: {
         'click .do-search': 'searchActorsRequested',
         'click .do-clear' : 'clearSearchRequested'
@@ -52,6 +61,7 @@ define (
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
+        this.fieldName = fieldNameMap[options.relationshipType];
 
         this.entityType = options.entityType;
         this.listenTo(this.collection, 'remove sync', this.renderSelectOptions.bind(this));
@@ -60,6 +70,7 @@ define (
         this.createActorCollection();
         this.listenForActorsAdded();
         this.listenForActorUpdate();
+        this.listenForRelationshipTypeRequest();
 
         if (options.content) {
           _.each(options.content, this.loadExistingContent, this);
@@ -143,7 +154,7 @@ define (
                    var value = evt.value();
                    self.actorCollection.reset(value.content);
                  });
-       this.unsubFunctions.push(subscriber);
+       this.subscribers.push(subscriber);
       },
 
       // listen for an event specifying the actor who has been added
@@ -152,7 +163,7 @@ define (
           crudBus.toEventStream()
                  .filter(filterActorRelateRequest)
                  .subscribe(this.addActorToCollections.bind(this));
-       this.unsubFunctions.push(subscriber);
+       this.subscribers.push(subscriber);
       },
 
       // listen for actor updated request
@@ -161,20 +172,34 @@ define (
           crudBus.toEventStream()
                  .filter(filterActorUpdateRelationship)
                  .subscribe(this.processActorUpdateData.bind(this));
-        this.unsubFunctions.push(subscriber);
+        this.subscribers.push(subscriber);
+      },
+
+      // we have a list of actors and we want to know how to relate them
+      listenForRelationshipTypeRequest: function() {
+        var subscriber = 
+          crudBus.toEventStream()
+                 .filter(filterRelationshipTypeRequest)
+                 .subscribe(function(evt) {
+                   crudBus.push({
+                     type: 'actor_relationship_type_response',
+                     content: this.fieldName
+                   });
+                 }.bind(this));
+          this.subscribers.push(subscriber);
       },
 
       // update the relationship type
       processActorUpdateData: function(evt) {
         var model = evt.value().content.model,
-            role_en = evt.value().content.relationship;
-        this.updateActorRoleModel(model, role_en);
+            role = evt.value().content.relationship;
+        this.updateActorRoleModel(model, role);
       },
 
       // set the new role on the actor_role and save it
-      updateActorRoleModel: function(model, role_en) {
-        model.set('role_en', role_en);
-        model.set('role_status', role_en);
+      updateActorRoleModel: function(model, role) {
+        model.set('role_en', role);
+        model.set(this.fieldName, role);
         model.save();
         this.renderActors();
       },
@@ -201,12 +226,13 @@ define (
       // add the selected actor to the render collection
       // and to the data collection
       addActorToCollections: function(evt) {
-        var actorContent = evt.value().content;
-        var actorRoleData = {
+        var actorContent = evt.value().content,
+            actorRoleData = {
           role_en: actorContent.relationship,
-          role_status: actorContent.relationship,
           actor: actorContent.model.get('resource_uri')
         };
+        actorRoleData[this.fieldName] = actorContent.relationship_key;
+        console.log(this.fieldName, actorContent, actorRoleData);
         this.createActorRoleEntity(actorRoleData);
         this.addActorToRenderCollection(actorContent.model);
       },
@@ -220,7 +246,7 @@ define (
           this.createNewActorRole(actorRoleData);
         }
         else {
-          this.updateActorRoleModel(existingActor, actorRoleData.role_en);
+          this.updateActorRoleModel(existingActor, actorRoleData[this.fieldName]);
         }
       },
 
@@ -255,10 +281,10 @@ define (
 
       // unsubscribe from bacon event streams
       unsubStreams: function() {
-        _.each(this.unsubFunctions, function(unsub) {
+        _.each(this.subscribers, function(unsub) {
           unsub();
         });
-        this.unsubFunctions = [];
+        this.subscribers = [];
       },
 
       // add an actor model to the render collection
@@ -292,6 +318,7 @@ define (
       renderActor: function(model) {
         var resultView = new ActorResult({
           model: model,
+          fieldName: this.fieldName,
           actorRoleModel: _.last(this.collection.where({
             'actor': model.get('resource_uri')
           })),

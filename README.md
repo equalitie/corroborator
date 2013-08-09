@@ -6,6 +6,8 @@ Case management with data validation, corroboration, omission and duplication ch
 Installation
 ============
 
+
+
 virtualenv should be used for package management
 To install virtualenv
 [sudo] pip install virtualenv
@@ -17,6 +19,9 @@ virtualenv --python=python2.7 env --no-site-packages
 
 #### Install required packages
 env/bin/pip install -r requirements.txt
+
+#### Set up system celeryd install
+On Debian, the configuration file for celeryd exists in /etc/default/celeryd
 
 #### pull in git submodules
 git submodule init

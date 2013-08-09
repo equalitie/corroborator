@@ -31,8 +31,8 @@
           <div id="incident-id-block-ne" class="header incident-not-expanded-edit">
 
             <h2 class="title">
-              <label>Title
                 <span id="incident-title-block" class="i18n with-en with-ar">
+                <label>Title</label>
                 <div lang="en">
                   <textarea 
                     id="incident_title_en"
@@ -42,6 +42,7 @@
                     w-100p">{{model.title_en}}</textarea>
                 </div>
                 <div lang="ar">
+                  <label>Title</label>
                   <textarea 
                     id="incident_title_ar"
                     name="title_ar"
@@ -51,7 +52,6 @@
                 </div>
                 <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span>
                 </span>
-              </label>
             </h2>
           </div>
           <div id="incident-group-block-ne" class="body incident-not-expanded-edit">
@@ -133,18 +133,18 @@
 
             <!-- Description -->
             <div id="incident-description-block" class="field is-description">
-            <label>Description</label>
             <div class="i18n with-en with-ar">
+            <label>Description</label>
                 <div lang="en">
                   <textarea 
-                    id="description_en"
-                    name="description_en"
+                    id="incident_details_en"
+                    name="incident_details_en"
                     class="incident-field w-100p">{{model.description_en}}</textarea>
                 </div>
                 <div lang="ar">
                   <textarea 
-                    id="description_ar"
-                    name="description_ar"
+                    id="incident_details_ar"
+                    name="incident_details_ar"
                     class="incident-field w-100p">{{model.description_ar}}</textarea>
                 </div>
             <span class="toggle">

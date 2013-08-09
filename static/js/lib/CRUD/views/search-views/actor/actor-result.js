@@ -13,7 +13,11 @@ define (
     'use strict';
 
     var ActorResultView,
-        crudBus = Streams.crudBus;
+        crudBus = Streams.crudBus,
+        roleMap = {
+          role_status: Bootstrap.gl_ac_role_list,
+          relation_status: Bootstrap.gl_ac_relation_list
+        };
 
     // ### ActorResultView
     // 
@@ -33,6 +37,7 @@ define (
         if (options.actorRoleModel) {
           this.actorRoleModel = options.actorRoleModel;
         }
+        this.fieldName = options.fieldName;
         this.type = options.type;
         this.render();
       },
@@ -44,6 +49,7 @@ define (
           type: 'relate_actor_request',
           content: {
             relationship: $(evt.currentTarget).text(),
+            relationship_key: $(evt.currentTarget).data('role'),
             model: this.model
           }
         });
@@ -56,6 +62,7 @@ define (
           type: 'update_actor_relationship_request',
           content: {
             relationship: $(evt.currentTarget).text(),
+            relationship_key: $(evt.currentTarget).data('role'),
             model: this.actorRoleModel
           }
         });
@@ -85,8 +92,11 @@ define (
         this.model.set(this.type, true);
         var templateVars = {
           model: this.model.toJSON(),
-          roles: Bootstrap.gl_ac_role_list
+          roles: roleMap[this.fieldName],
+          fieldName: this.fieldName
         };
+        if (this.model.get('selected')) {
+        }
         if (this.actorRoleModel !== undefined) {
           templateVars.roleModel = this.actorRoleModel.toJSON();
         }
