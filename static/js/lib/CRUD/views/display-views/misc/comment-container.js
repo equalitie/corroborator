@@ -20,19 +20,12 @@ define (
         CommentView,
         CommentModel = Comment.CommentModel,
         ListView = CollectionViews.ListView,
-        ListLoadView = CollectionViews.ListLoadView;
+        ListLoadView = CollectionViews.ListLoadView,
+        ModelView = CollectionViews.ModelView;
 
 
-    CommentView = Backbone.View.extend({
-      template: commentTmp,
-      initialize: function() {
-        this.render();
-      },
-
-      render: function() {
-        var html = this.template({model: this.model.toJSON()});
-        this.$el.html(html);
-      }
+    CommentView = ModelView.extend({
+      template: commentTmp
     });
 
     // ### CommentContainerView
@@ -40,6 +33,7 @@ define (
     CommentListView = ListLoadView.extend({
       modelType: CommentModel,
       childView: CommentView,
+      childViews: [],
       fieldType: 'comments',
       containerTmp: commentContainerTmp,
 

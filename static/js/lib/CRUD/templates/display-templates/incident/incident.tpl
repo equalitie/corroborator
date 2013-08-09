@@ -20,7 +20,7 @@
     </div>
     <div class="L3">
       <div class="date-location">
-        <span class="date">{{dateFormat}}</span>
+        <span class="date">{{dateFormat model.incident_created}}</span>
         {{#if model.incident_location}}
         in <span class="location">Damas, Syriah</span>
         {{/if}}

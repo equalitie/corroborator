@@ -49,37 +49,19 @@
     {{/if}}
     {{#if model.incident_comments}}
     <div class="comments">
-      <h3>Comments</h3>
-      <div class="comments-list">
-        <div class="comment">
-          <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur congue enim sed lacus congue id feugiat nisl vestibulum. Sed suscipit ipsum vel diam consequa</div>
-          <div class="meta-history">
-            <span class="date">2013-05-03 15:35</span> by <span class="who">Martin Scholls</span>
-          </div>
-        </div>
-      </div>
     </div>
     {{/if}}
     <!-- end comments -->
     {{#if model.actors_role}}
-      <div class="actors group">
-        <h3>Related actors</h3>
-        <ul class="elements">
-        </ul>
-      </div>
+    <div class="actors group">
+    </div>
     {{/if}}
     {{#if model.ref_incidents}}
       <div class="incidents group">
-        <h3>Incidents</h3>
-        <ul class="elements">
-        </ul>
       </div>
     {{/if}}
     {{#if model.ref_bulletins}}
     <div class="bulletins group">
-      <h3>Bulletins</h3>
-      <ul class="elements">
-      </ul>
     </div>
     {{/if}}
   </div>

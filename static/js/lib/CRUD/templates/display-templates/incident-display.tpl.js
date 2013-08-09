@@ -53,25 +53,25 @@ function program8(depth0,data) {
 function program10(depth0,data) {
   
   
-  return "\n    <div class=\"comments\">\n      <h3>Comments</h3>\n      <div class=\"comments-list\">\n        <div class=\"comment\">\n          <div class=\"text\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur congue enim sed lacus congue id feugiat nisl vestibulum. Sed suscipit ipsum vel diam consequa</div>\n          <div class=\"meta-history\">\n            <span class=\"date\">2013-05-03 15:35</span> by <span class=\"who\">Martin Scholls</span>\n          </div>\n        </div>\n      </div>\n    </div>\n    ";
+  return "\n    <div class=\"comments\">\n    </div>\n    ";
   }
 
 function program12(depth0,data) {
   
   
-  return "\n      <div class=\"actors group\">\n        <h3>Related actors</h3>\n        <ul class=\"elements\">\n        </ul>\n      </div>\n    ";
+  return "\n    <div class=\"actors group\">\n    </div>\n    ";
   }
 
 function program14(depth0,data) {
   
   
-  return "\n      <div class=\"incidents group\">\n        <h3>Incidents</h3>\n        <ul class=\"elements\">\n        </ul>\n      </div>\n    ";
+  return "\n      <div class=\"incidents group\">\n      </div>\n    ";
   }
 
 function program16(depth0,data) {
   
   
-  return "\n    <div class=\"bulletins group\">\n      <h3>Bulletins</h3>\n      <ul class=\"elements\">\n      </ul>\n    </div>\n    ";
+  return "\n    <div class=\"bulletins group\">\n    </div>\n    ";
   }
 
   buffer += "<div class=\"Incident in-view\">\n  <div class=\"header\">\n    <span class=\"id\">\n      ID <span class=\"value out\">"

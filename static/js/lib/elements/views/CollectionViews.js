@@ -9,10 +9,9 @@ define (
   ],
   function (Backbone, _) {
     'use strict';
-    var ListView, ListSyncView;
+    var ListView, ListLoadView, ModelView, ListPrototype, ListLoadPrototype;
 
-    ListView = Backbone.View.extend({
-      childViews: [],
+    ListPrototype = {
       template: undefined,
       templateVars: {
       },
@@ -29,12 +28,12 @@ define (
       destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
       },
-
       render: function () {
         var html = this.containerTmp(this.templateVars);
         this.$el.html(html);
       },
       renderChildren: function() {
+        var html = this.containerTmp(this.templateVars);
         this.destroyChildren();
         this.collection.each(this.renderChild, this);
       },
@@ -45,9 +44,12 @@ define (
                 .append(childView.el);
       }
 
-    });
+    };
 
-    var ListLoadView = ListView.extend({
+    ListView = Backbone.View.extend();
+    _.extend(ListView.prototype, ListPrototype);
+
+    ListLoadPrototype = {
       
       loadFromList: function(list) {
         this.collection = new Backbone.Collection();
@@ -60,10 +62,26 @@ define (
         });
         this.collection.add(initialModel);
       }
+    };
+
+    ListLoadView = Backbone.View.extend();
+    _.extend(ListLoadView.prototype, ListLoadPrototype);
+    _.extend(ListLoadView.prototype, ListPrototype);
+
+    ModelView = Backbone.View.extend({
+      initialize: function() {
+        this.render();
+      },
+
+      render: function() {
+        var html = this.template({model: this.model.toJSON()});
+        this.$el.html(html);
+      }
     });
 
     return {
       ListView: ListView,
+      ModelView: ModelView,
       ListLoadView: ListLoadView
     };
 });

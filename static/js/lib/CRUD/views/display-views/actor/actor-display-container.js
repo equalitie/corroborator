@@ -7,9 +7,10 @@ define (
   [
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
+    'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/templates/display-templates/actor-display.tpl'
   ],
-  function (Backbone, _, Collections, Streams, actorDisplayTmp) {
+  function (Backbone, _, Collections, Streams, ActorListView, actorDisplayTmp) {
     'use strict';
 
     var ActorDisplayView,
@@ -28,9 +29,7 @@ define (
         this.model = actorCollection.superCollection.get(
           options.entityDetails.id);
         this.render()
-            .renderRelatedActors()
-            .renderRelatedBulletins()
-            .renderRelatedIndcidents();
+            .renderRelatedActors();
       },
       onDestroy: function() {
         this.destroyChildren();
@@ -49,18 +48,11 @@ define (
         this.childViews = [];
       },
       renderRelatedActors: function() {
-        //var relatedActors = this.model.get('re
-        //if (this.get('
-        return this;
-      },
-      renderRelatedBulletins: function() {
-        return this;
-      },
-      renderRelatedIndcidents: function() {
         return this;
       },
       render: function() {
         this.destroyChildren();
+        console.log(this.model.toJSON());
         var html = this.template({
           model: this.model.toJSON()
         });

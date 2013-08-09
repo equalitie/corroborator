@@ -75,6 +75,15 @@ module.exports = function(grunt) {
 
           'lib/CRUD/templates/display-templates/misc/comment-container.tpl.js': 'lib/CRUD/templates/display-templates/misc/comment-container.tpl',
           'lib/CRUD/templates/display-templates/misc/comment.tpl.js'        : 'lib/CRUD/templates/display-templates/misc/comment.tpl',
+
+          'lib/CRUD/templates/display-templates/actors/actor-container.tpl.js': 'lib/CRUD/templates/display-templates/actors/actor-container.tpl',
+          'lib/CRUD/templates/display-templates/actors/actor.tpl.js'        : 'lib/CRUD/templates/display-templates/actors/actor.tpl',
+
+          'lib/CRUD/templates/display-templates/incident/incident-container.tpl.js': 'lib/CRUD/templates/display-templates/incident/incident-container.tpl',
+          'lib/CRUD/templates/display-templates/incident/incident.tpl.js'        : 'lib/CRUD/templates/display-templates/incident/incident.tpl',
+
+          'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl.js': 'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl',
+          'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl.js'        : 'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl',
         }
       }
     },

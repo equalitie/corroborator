@@ -3,7 +3,7 @@
     <div class="avatar">&nbsp;</div>
     <div class="content">
       <div class="L1">
-        {{#if}}
+        {{#if model.roles_en}}
         <div class="status">
           <span class="value">{{model.roles_en}}</span>
         </div>

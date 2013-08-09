@@ -46,7 +46,44 @@ define (
           formattedContext = _.findWhere(users, userSearchField).label;
         }
         return formattedContext;
-        
+    });
+
+    Handlebars.registerHelper('fetchLocation', function(context, options) {
+        var formattedContext = context;
+        if (context !== undefined) {
+          var users = Bootstrap.locations,
+              userSearchField = {resource_uri: context};
+          formattedContext = _.findWhere(users, userSearchField).name_en;
+        }
+        return formattedContext;
+    });
+
+    Handlebars.registerHelper('sourceList', function(context, block) {
+      var ret = '',
+          start = '<span class="source">',
+          end = '</span>',
+          i=0, j=context.length;
+
+      for(i, j; i<j; i++) {
+        ret =  ret + start + context[i] + end;
+        if (i<j-1) {
+          ret =  ret + ', ';
+        }
+      }
+      return ret;
+    });
+
+    Handlebars.registerHelper('commaSeparatedList', function(context, block) {
+      var ret = "",
+          i=0, j=0;
+      console.log(block);
+      for(i=0, j=context.length; i<j; i++) {
+        ret = ret + context[i];
+        if (i<j-1) {
+          ret = ret + ", ";
+        }
+      }
+      return ret;
     });
 
 });
