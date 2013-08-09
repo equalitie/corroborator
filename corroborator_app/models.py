@@ -92,13 +92,9 @@ class Location(models.Model):
     to represent sub regions,  provinces,  towns,  cities,  etc.
     """
     LOC_TYPE = (
-        ('Village', 'village'),
-        ('Area', 'area'),
-        ('Province', 'province'),
-        ('City', 'city'),
-        ('Region', 'region'),
-        ('Country', 'country'),
-        ('Town', 'town'),
+        ('G', 'governates'),
+        ('D', 'districts'),
+        ('S', 'subdistricts'),
     )
     name_en = models.CharField(max_length=255)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
