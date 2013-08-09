@@ -8,11 +8,7 @@ Bill Doran 2013/08/08
 
 from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
-<<<<<<< HEAD
     Incident, Actor, Media, ActorRole
-=======
-    Incident, Actor, Media
->>>>>>> 43c3e11bc78566097148008af6f33d13bd76b494
  
 class ActorPrepMeta(): 
     def prepare_roles(self, object):
