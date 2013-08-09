@@ -17,6 +17,7 @@ from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from haystack.management.commands import update_index
 
+import sys
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
 
 class ActorResource(ModelResource):
@@ -47,8 +48,14 @@ class ActorResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_create( bundle, **kwargs )
+        print >> sys.stderr, 'in call for update index'
         update_index.Command().handle()
         return bundle
+
+    def obj_delete(self, bundle, **kwargs):
+        bundle.data['deleted'] = True
+        print >> sys.stderr, 'in call for faux delete'
+        self.obj_update(bundle, **kwargs)
 
     def dehydrate(self, bundle):
         bundle.data['count_incidents'] = ActorPrepMeta()\

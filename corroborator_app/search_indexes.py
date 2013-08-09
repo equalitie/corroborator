@@ -57,6 +57,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     roles = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
     actors = indexes.MultiValueField()
+    deleted = indexes.BooleanField()
 
     def get_model(self):
         return Actor
@@ -168,6 +169,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
     incident_comments_text = indexes.MultiValueField()
+    deleted = indexes.BooleanField()
 
 
     resource_uri = indexes.CharField()
@@ -313,6 +315,7 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
+    deleted = indexes.BooleanField()
     
     resource_uri = indexes.CharField()
     ref_bulletins = indexes.MultiValueField()

@@ -338,6 +338,11 @@ class Actor(models.Model):
     religion_ar = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_en = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
+    """
+    This field tracks whether the entitiy has been deleted and should thus be
+    ignored by the UI
+    """
+    deleted = models.BooleanField()
 
     # Foreign Keys
     actors_role = models.ManyToManyField('ActorRole',
@@ -459,6 +464,11 @@ class Bulletin(models.Model):
     confidence_score = models.IntegerField('confidence score')
     type = models.CharField('type', max_length=25, choices=TYPE, blank=True)
     bulletin_created = models.DateTimeField(auto_now_add=True)
+    """
+    This field tracks whether the entitiy has been deleted and should thus be
+    ignored by the UI
+    """
+    deleted = models.BooleanField()
 
     # foreign key fields
     assigned_user = models.ForeignKey(User, null=True, blank=True)
@@ -533,6 +543,11 @@ class Incident(models.Model):
     times = models.ManyToManyField(TimeInfo, blank=True,null=True)
     locations = models.ManyToManyField(Location,blank=True,null=True)
     ref_incidents = models.ManyToManyField('self',blank=True,null=True)
+    """
+    This field tracks whether the entitiy has been deleted and should thus be
+    ignored by the UI
+    """
+    deleted = models.BooleanField()
 
     def __unicode__(self):
         return self.title_en
