@@ -22,7 +22,10 @@ class ActorPrepMeta():
             ActorRole.objects.filter(actor__in=[object]).all()]
 
         result = roles + relations
-        return filter(None, result)
+        result = filter(None, result)
+
+        return list(set(result))
+
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance
