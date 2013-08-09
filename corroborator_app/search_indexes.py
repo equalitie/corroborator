@@ -56,6 +56,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
     current_location = indexes.CharField()
     roles = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
+    actors = indexes.MultiValueField()
 
     def get_model(self):
         return Actor
