@@ -41,10 +41,13 @@
     <div class="media">
       <div class="placeholder">&nbsp;</div>
     </div>
+    {{#if model.incident_details_en }}
     <div class="description">
       <h3>Description</h3>
-      {{model.description_en}}
+      {{model.incident_details_en}}
     </div>
+    {{/if}}
+    {{#if model.incident_comments}}
     <div class="comments">
       <h3>Comments</h3>
       <div class="comments-list">
@@ -56,21 +59,28 @@
         </div>
       </div>
     </div>
+    {{/if}}
     <!-- end comments -->
-    <div class="actors group">
-      <h3>Related actors</h3>
-      <ul class="elements">
-      </ul>
-    </div>
-    <div class="incidents group">
-      <h3>Incidents</h3>
-      <ul class="elements">
-      </ul>
-    </div>
+    {{#if model.actors_role}}
+      <div class="actors group">
+        <h3>Related actors</h3>
+        <ul class="elements">
+        </ul>
+      </div>
+    {{/if}}
+    {{#if model.ref_incidents}}
+      <div class="incidents group">
+        <h3>Incidents</h3>
+        <ul class="elements">
+        </ul>
+      </div>
+    {{/if}}
+    {{#if model.ref_bulletins}}
     <div class="bulletins group">
       <h3>Bulletins</h3>
       <ul class="elements">
       </ul>
     </div>
+    {{/if}}
   </div>
 </div>

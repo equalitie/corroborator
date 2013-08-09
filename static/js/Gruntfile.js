@@ -64,11 +64,15 @@ module.exports = function(grunt) {
           'lib/CRUD/templates/search-templates/event-container.tpl.js'      : 'lib/CRUD/templates/search-templates/event-container.tpl',
           'lib/CRUD/templates/search-templates/event-form.tpl.js'           : 'lib/CRUD/templates/search-templates/event-form.tpl',
           'lib/CRUD/templates/search-templates/event-display.tpl.js'        : 'lib/CRUD/templates/search-templates/event-display.tpl',
+         
           // individual display
           'lib/CRUD/templates/display-templates/display-manager.tpl.js'     : 'lib/CRUD/templates/display-templates/display-manager.tpl',
           'lib/CRUD/templates/display-templates/actor-display.tpl.js'       : 'lib/CRUD/templates/display-templates/actor-display.tpl',
           'lib/CRUD/templates/display-templates/bulletin-display.tpl.js'    : 'lib/CRUD/templates/display-templates/bulletin-display.tpl',
           'lib/CRUD/templates/display-templates/incident-display.tpl.js'    : 'lib/CRUD/templates/display-templates/incident-display.tpl',
+
+          'lib/CRUD/templates/display-templates/misc/comment-container.tpl.js': 'lib/CRUD/templates/display-templates/misc/comment-container.tpl',
+          'lib/CRUD/templates/display-templates/misc/comment.tpl.js'        : 'lib/CRUD/templates/display-templates/misc/comment.tpl',
         }
       }
     },
@@ -146,7 +150,8 @@ module.exports = function(grunt) {
         'lib/elements/templates/*.tpl',
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/search-templates/*.tpl',
-        'lib/CRUD/templates/display-templates/*.tpl'
+        'lib/CRUD/templates/display-templates/*.tpl',
+        'lib/CRUD/templates/display-templates/*/*.tpl'
       ],
       tasks: ['handlebars',/* 'buster:dev', 'jshint', 'requirejs', 'docco'*/]
     }

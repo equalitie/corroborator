@@ -15,14 +15,33 @@
         <span class="actors">{{total}}</span> actors involved
       </div>
       <div class="details text">
-        <span class="date">{{dateFormat model.bulletin_created}}</span> in <span class="location">{{model.location}}</span> (<span class="sources">{{model.sources}}</span>)
+        <span class="date">{{dateFormat model.bulletin_created}}</span>
+        {{#if model.bulletin_locations}}
+          in 
+          {{#each model.bulletin_locations}}
+            <span class="location">{{#if @index}}, {{/if}}{{this}}</span>
+          {{/each}}
+        {{/if}}
+
+        {{#if model.bulletin_sources}}
+          (
+          {{#each model.bulletin_sources}}
+            <span class="sources">{{this}}</span>
+            {{#if @index}}
+            , 
+            {{/if}}
+          {{/each}}
+          )
+        {{/if}}
       </div>
     </a>
     </td>
     <td class="is-status">
+    {{#if model.most_recent_status_bulletin}}
     <span class="status">
-    <span class="text">reviewed</span>
+    <span class="text">{{model.most_recent_status_bulletin}}</span>
     </span>
+    {{/if}}
     </td>
   <td class="is-score">
   <span class="value">{{model.confidence_score}}</span>

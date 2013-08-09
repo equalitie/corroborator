@@ -3,8 +3,67 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
+  var buffer = "", stack1, stack2, options, self=this, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
+function program1(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n          in \n          ";
+  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_locations), {hash:{},inverse:self.noop,fn:self.program(2, program2, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n        ";
+  return buffer;
+  }
+function program2(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n            <span class=\"location\">";
+  stack2 = helpers['if'].call(depth0, ((stack1 = data),stack1 == null || stack1 === false ? stack1 : stack1.index), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + "</span>\n          ";
+  return buffer;
+  }
+function program3(depth0,data) {
+  
+  
+  return ", ";
+  }
+
+function program5(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n          (\n          ";
+  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_sources), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n          )\n        ";
+  return buffer;
+  }
+function program6(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n            <span class=\"sources\">"
+    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+    + "</span>\n            ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = data),stack1 == null || stack1 === false ? stack1 : stack1.index), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n          ";
+  return buffer;
+  }
+function program7(depth0,data) {
+  
+  
+  return "\n            , \n            ";
+  }
+
+function program9(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    <span class=\"status\">\n    <span class=\"text\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </span>\n    ";
+  return buffer;
+  }
 
   buffer += "  <td class=\"is-selector\">\n    <input type=\"checkbox\" "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.checked)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -21,11 +80,16 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     + "</span> actors involved\n      </div>\n      <div class=\"details text\">\n        <span class=\"date\">";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_created), options)))
-    + "</span> in <span class=\"location\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.location)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span> (<span class=\"sources\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sources)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>)\n      </div>\n    </a>\n    </td>\n    <td class=\"is-status\">\n    <span class=\"status\">\n    <span class=\"text\">reviewed</span>\n    </span>\n    </td>\n  <td class=\"is-score\">\n  <span class=\"value\">"
+    + "</span>\n        ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_locations), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n\n        ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_sources), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n      </div>\n    </a>\n    </td>\n    <td class=\"is-status\">\n    ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    </td>\n  <td class=\"is-score\">\n  <span class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.confidence_score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n  </td>\n";
   return buffer;

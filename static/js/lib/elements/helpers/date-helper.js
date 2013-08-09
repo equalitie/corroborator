@@ -1,13 +1,13 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // define a date formatter helper to use in our templates
 
 define (
   [
-    'handlebars', 'moment'
+    'handlebars', 'moment', 'underscore'
   ],
-  function (Handlebars, moment) {
+  function (Handlebars, moment, _) {
     'use strict';
     //  format an ISO date using Moment.js
     //  http://momentjs.com/
@@ -36,6 +36,17 @@ define (
           return options.fn(this);
         }
         return options.inverse(this);
+    });
+
+    Handlebars.registerHelper('fetchUser', function(context, options) {
+        var formattedContext = context;
+        if (context !== undefined) {
+          var users = Bootstrap.gl_ac_users_list,
+              userSearchField = {resource_uri: context};
+          formattedContext = _.findWhere(users, userSearchField).label;
+        }
+        return formattedContext;
+        
     });
 
 });

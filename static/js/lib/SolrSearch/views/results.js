@@ -261,6 +261,7 @@ define(
 
       // render the bulletin
       render: function() {
+        console.log(this.model.toJSON());
         var html = bulletinTmp({
           model: this.model.toJSON()
         });
