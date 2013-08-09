@@ -90,26 +90,20 @@ define(
         }
         bus = this.bus;
         this.watchSearchStream();
-        this.watchQueryBuilderStream();
+      },
+      parseQuery: function(searchQuery) {
+        var qb = new QueryBuilder(searchQuery.content.raw);
+        return qb.parsedString; 
+      },
+      sendRequest: function(searchQuery) {
+        this.clear();
+        this.set( searchQuery );
+        this.doRequest(); 
       },
       watchSearchStream: function() {
-        var self = this;
         bus.filter(filterSearchRequestEvents)
-                 .onValue(function(value){
-                   self.clear();
-                   self.set('*' + value.content.raw + '*');
-                   self.doRequest();
-                 });
-      },
-      watchQueryBuilderStream: function() {
-        var self = this;
-        bus.filter(filterQueryBuilderEvents)
-                 .onValue(function(value) {
-                   self.clear();
-                   self.set( value.content.raw);
-                   self.set('*' + value.content.raw + '*');
-                   self.doRequest();
-                 });
+                 .map(this.parseQuery)
+                 .onValue(this.sendRequest.bind(this));
       },
       // send the results off the bus in a super functional way
       // cos that's how we do round here!
