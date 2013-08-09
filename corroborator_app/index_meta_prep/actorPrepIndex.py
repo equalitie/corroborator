@@ -33,6 +33,13 @@ class ActorPrepMeta():
         """
         return ['/api/v1/actorRole/{0}/'.format(actor_role.id) for actor_role in object.actors_role.all()]
 
+    def prepare_actors(self, object):
+        """
+        Returns array of tastypie uris for the given Actor object's associated
+        actors
+        """
+        return ['/api/v1/actor/{0}/'.format(actor_role.actor.id)\
+            for actor_role in object.actors_role.all()]
     def prepare_POB(self, object):
         """
         Returns the correctly formated uri related to this actor instance

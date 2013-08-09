@@ -65,7 +65,12 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         Actor instance
         """
         return ActorPrepMeta().prepare_roles(object)
-
+    def prepare_actors(self, object):
+        """
+        Returns an array of tastypi uris related to the Actor's
+        associated actors
+        """
+        return ActorPrepMeta().prepare_actors_role(object)
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance

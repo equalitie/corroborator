@@ -5,15 +5,12 @@ Create api for media model, requires apikey auth
 tests in tests/api/tests.py
 """
 
-import StringIO
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
-from PIL import Image
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from corroborator_app.models import Media
-
+from corroborator_app.utilities.imageTools import Thumbnailer
 __all__ = ('MediaResource', )
 
 class MultipartResource(object):
@@ -57,45 +54,14 @@ class MediaResource(MultipartResource, ModelResource):
 
     def obj_create(self, bundle, **kwargs):
 
-        if bundle.data['media_type'] == 'Picture':
+        if 'image' in bundle.data['media_file'].content_type:
             media_file = bundle.data['media_file']
             filename = bundle.data['name_en']
             
-            media_thumb_file = self.construct_thumb(media_file, filename)
-
+            media_thumb_file = Thumbnailer()\
+                .construct_thumb(media_file, filename)
             bundle.data['media_thumb_file'] = media_thumb_file
         
-        bundle = super( MediaResource, self ).obj_create( bundle, **kwargs )
+        bundle = super( MediaResource, self )\
+            .obj_create( bundle, **kwargs )
         return bundle
-
-    def construct_thumb(self, inbound_file, filename):
-        """
-        This function return a thumbnail version of the original file
-        to be saved for later display
-        """
-        size = (36, 36)
-        string_data = ""
-        for chunk in inbound_file.chunks():
-            string_data += chunk
-
-        stream = StringIO.StringIO(string_data)
-        image = Image.open(stream)
-        image.thumbnail(size, Image.ANTIALIAS)
-        background = Image.new('RGBA', size, (255, 255, 255, 0))
-        background.paste(
-            image,
-            ((size[0] - image.size[0]) / 2, (size[1] - image.size[1])/ 2)
-        )
-
-        thumb_name = filename + '_thumb' + '.jpg'
-        tempfile_io = StringIO.StringIO()
-        background.save(tempfile_io, format='JPEG')
-        media_thumb_file = InMemoryUploadedFile(
-                        tempfile_io, 
-                        None,
-                        thumb_name,
-                        'image/jpeg',
-                        tempfile_io.len, 
-                        None
-                        )
-        return media_thumb_file

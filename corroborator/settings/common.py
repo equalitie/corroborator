@@ -6,13 +6,14 @@ DEBUG = True
 
 AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
 AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 's3-us-west-2'
-#AWS_STORAGE_BUCKET_NAME = 'sjacvideotest'
+AWS_READ = 's3-us-west-2'
+AWS_STORAGE_BUCKET_NAME = 'sjacvideotest'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 MEDIA_DIRECTORY = '/sjacvideotest/media/'
-#S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-S3_URL = 'http://%s.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+S3_URL_READ = 'https://%s.amazonaws.com' % AWS_READ
 MEDIA_URL = S3_URL + '/'
+MEDIA_READ_URL = S3_URL_READ + '/'
 
 TEMPLATE_DEBUG = DEBUG
 
