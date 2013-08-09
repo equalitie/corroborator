@@ -2787,22 +2787,29 @@ table.bulletins tbody tr:last-child td, table.bulletins tbody tr.last td, table.
   margin-bottom: 270px;
 }
 
-/* line 2, ../sass/_hacks.scss */
+/*global $PAD_UNIT */
+/* line 3, ../sass/_hacks.scss */
 #search-navigation .search {
   float: left;
   margin-bottom: -2px;
   margin-left: 3.07692307692em;
   margin-right: 3.07692307692em;
 }
-/* line 7, ../sass/_hacks.scss */
+/* line 8, ../sass/_hacks.scss */
 #search-navigation .search input {
   font-size: 120%;
   min-width: 20em;
 }
 
-/* line 13, ../sass/_hacks.scss */
+/* line 14, ../sass/_hacks.scss */
 nav {
   border-bottom: 1px solid #a0a0a0;
+}
+
+/* line 21, ../sass/_hacks.scss */
+.incidents-list .in-list, .bulletins-list .in-list, .actors-list .in-list {
+  border: 1px solid #a0a0a0;
+  padding: 0.76923em;
 }
 
 /* line 1, ../sass/_buttons.scss */
