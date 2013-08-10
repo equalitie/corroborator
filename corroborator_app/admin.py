@@ -114,11 +114,15 @@ class PredefinedSearchAdmin(reversion.VersionAdmin):
     pass
 class CorrobAdminRev(reversion.VersionAdmin, CorrobAdmin):
     pass
+class CorrobAdminInRev(reversion.VersionAdmin, CorrobAdminIn):
+    pass
+class TimeInfoAdminRev(reversion.VersionAdmin, TimeInfoAdmin):
+    pass
 admin.site.register(Actor, ActorAdmin)
 admin.site.register(ActorRole, ActorRoleAdmin)
 admin.site.register(Bulletin, CorrobAdminRev)
 admin.site.register(StatusUpdate, StatusUpdateAdmin)
-admin.site.register(TimeInfo, TimeInfoAdmin)
+admin.site.register(TimeInfo, TimeInfoAdminRev)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Source, SourceAdmin)
 admin.site.register(SourceType, SourceTypeAdmin)
@@ -127,4 +131,4 @@ admin.site.register(CrimeCategory, CrimeCategoryAdmin)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(PredefinedSearch, PredefinedSearchAdmin)
-admin.site.register(Incident, CorrobAdminIn)
+admin.site.register(Incident, CorrobAdminInRev)
