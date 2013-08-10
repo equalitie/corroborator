@@ -3,7 +3,7 @@ from corroborator_app.models import\
     Incident, CrimeCategory, Actor, Bulletin, TimeInfo, Location, Source,\
     StatusUpdate, ActorRole, Label, SourceType, Comment, Media,\
     PredefinedSearch, ActorRelationship
-
+import reversion
 
 class CommentsInlineIn(admin.TabularInline):
     model = Incident.incident_comments.through
@@ -90,19 +90,45 @@ class StatusAdmin(admin.ModelAdmin):
 class TimeInfoAdmin(admin.ModelAdmin):
     list_display = ('time_from', 'time_to', 'comments_en', )
 
-
-admin.site.register(Bulletin, CorrobAdmin)
-admin.site.register(StatusUpdate)
-admin.site.register(TimeInfo, TimeInfoAdmin)
-admin.site.register(Location)
-admin.site.register(Source)
-admin.site.register(SourceType)
-admin.site.register(Label)
-admin.site.register(CrimeCategory)
-admin.site.register(Actor)
-admin.site.register(ActorRole)
-admin.site.register(ActorRelationship)
-admin.site.register(Media)
-admin.site.register(Comment)
-admin.site.register(PredefinedSearch)
-admin.site.register(Incident, CorrobAdminIn)
+class ActorAdmin(reversion.VersionAdmin):
+    pass
+class ActorRoleAdmin(reversion.VersionAdmin):
+    pass
+class StatusUpdateAdmin(reversion.VersionAdmin):
+    pass
+class LocationAdmin(reversion.VersionAdmin):
+    pass
+class SourceAdmin(reversion.VersionAdmin):
+    pass
+class SourceTypeAdmin(reversion.VersionAdmin):
+    pass
+class LabelAdmin(reversion.VersionAdmin):
+    pass
+class CrimeCategoryAdmin(reversion.VersionAdmin):
+    pass
+class MediaAdmin(reversion.VersionAdmin):
+    pass
+class CommentAdmin(reversion.VersionAdmin):
+    pass
+class PredefinedSearchAdmin(reversion.VersionAdmin):
+    pass
+class CorrobAdminRev(reversion.VersionAdmin, CorrobAdmin):
+    pass
+class CorrobAdminInRev(reversion.VersionAdmin, CorrobAdminIn):
+    pass
+class TimeInfoAdminRev(reversion.VersionAdmin, TimeInfoAdmin):
+    pass
+admin.site.register(Actor, ActorAdmin)
+admin.site.register(ActorRole, ActorRoleAdmin)
+admin.site.register(Bulletin, CorrobAdminRev)
+admin.site.register(StatusUpdate, StatusUpdateAdmin)
+admin.site.register(TimeInfo, TimeInfoAdminRev)
+admin.site.register(Location, LocationAdmin)
+admin.site.register(Source, SourceAdmin)
+admin.site.register(SourceType, SourceTypeAdmin)
+admin.site.register(Label, LabelAdmin)
+admin.site.register(CrimeCategory, CrimeCategoryAdmin)
+admin.site.register(Media, MediaAdmin)
+admin.site.register(Comment, CommentAdmin)
+admin.site.register(PredefinedSearch, PredefinedSearchAdmin)
+admin.site.register(Incident, CorrobAdminInRev)
