@@ -20,10 +20,10 @@
         <a href="#+mode=title" class="T title">title</a>
       </th>
       <th class="is-status sort-header">
-        <a href="#+mode=status" class="T status">status</a>
+        <a href="#+mode=status" class="T sort-status">status</a>
       </th>
       <th class="is-score sort-header">
-        <a href="#+mode=score" class="T score">score</a>
+        <a href="#+mode=score" class="T sort-score">score</a>
       </th>
     </tr>
   </thead>

@@ -9,9 +9,11 @@
         <span lang="ar">{{model.title_ar}}</span>
         <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
     <div class="group details">
+      {{#if model.bulletin_assigned_user}}
       <div class="assigned-to">
         <span class="value">{{model.bulletin_assigned_user}}</span>
       </div>
+      {{/if}}
       <div class="score">
         <span class="value">{{model.confidence_score}}</span>
       </div>
@@ -26,7 +28,7 @@
         , in <span class="location">{{model.bulletin_location}}</span>
         {{/if}}
       </div>
-      {{#if model.bulletin_sources}}
+      {{#if model.bulletin_locations}}
       <div class="sources">
           ({{commaSeparatedList model.bulletin_locations}})
       </div>

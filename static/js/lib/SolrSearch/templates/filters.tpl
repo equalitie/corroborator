@@ -6,9 +6,9 @@
   <a href="#" class="T title">title</a>
 </th>
 <th class="is-status sort-header">
-  <a href="#" class="T status">status</a>
+  <a href="#" class="T sort-status">status</a>
 </th>
 <th class="is-score sort-header">
-  <a href="#" class="T score">score</a>
+  <a href="#" class="T sort-score">score</a>
 </th>
 
