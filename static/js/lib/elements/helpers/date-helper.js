@@ -24,7 +24,7 @@ define (
 
     Handlebars.registerHelper('formDateFormat', function(context, block) {
       var formattedContext = context;
-      if (moment && formattedContext !== undefined) {
+      if (moment && formattedContext !== undefined && formattedContext) {
         var f = block.hash.format || "YYYY-MM-DD";
         formattedContext =  moment(context).format(f);
       }

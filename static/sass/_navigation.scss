@@ -1,25 +1,84 @@
-  // ========================================================================
-  // NAVIGATION
-  // ========================================================================
+
+.Header {
+  position: fixed;
+  top: 0em;
+  left: 0em;
+  right: 0em;
+  z-index: $Z_HEADER;
+  &, .menu {
+    background: $COLOR_HEADER_BG;
+    color: $COLOR_HEADER_TXT;
+  }
+  a, a:active, a:visited, a:hover {
+    color: $COLOR_HEADER_TXT;
+    text-decoration: none;
+  }
+  .title, .user, .sections {
+    display: block;
+    padding: $PAD_UNIT * 2;
+    padding-top: $PAD_UNIT / 4;
+    padding-bottom: $PAD_UNIT / 4;
+  }
+  .text {
+    font-size: 90%;
+  }
+  .title {
+    font-weight: bold;
+    float: left;
+  }
+  ul.sections {
+    float: right;
+    li {
+      padding-top: $PAD_UNIT / 4;
+      padding-bottom: $PAD_UNIT / 4;
+      opacity: 0.75;
+      margin-right: $PAD_UNIT;
+      &:hover {
+        opacity: 1;
+      }
+      &.current {
+        opacity: 1;
+        text-decoration: underline;
+      }
+    }
+  }
+  ul.user {
+    float: right;
+    border-left: 1px solid $COLOR_HEADER_BD;
+    padding-left: $PAD_UNIT;
+    margin-left: $PAD_UNIT;
+    position: relative;
+    .menu {
+      left: 0em;
+      right: 0em;
+      padding-left: $PAD_UNIT;
+    }
+  }
+}
+// ========================================================================
+// SEARCH
+// ========================================================================
 nav {
   border-bottom: 1px solid $COLOR_HEADER_BD;
   .search {
     float: left;
-    margin-left: $PAD_UNIT * 3;
+    margin-top: -$PAD_UNIT /2;
+    margin-bottom: 0em;
+    margin-left: $PAD_UNIT * 2;
     input {
       font-size: 120%;
       min-width: 20em;
       padding-right: 2em;
       margin-right: -1.5em;
-    }
-    button.do-search {
-      position: relative;
-      bottom: -1 * $PX;
+      display: inline-block;
     }
   }
-  .do-search {
-    margin-left: $PAD_UNIT / 2;
-    margin-top: 5px;
+}
+.search-combo {
+  position: relative;
+  .button.do-search {
+    top: -$PAD_UNIT /4;
+    position: absolute;
   }
 }
 

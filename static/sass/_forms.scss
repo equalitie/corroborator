@@ -2,8 +2,12 @@
   font-family: Helvetica, Arial, sans-serif;
   font-size: $FONT_SIZE * 1px;
   line-height: 1.25em;
-  box-sizing: border-box;
+  background: white;
+  @include box-sizing(border-box);
 }
+
+
+
 em {
   font-style: normal;
   font-weight: bold;
@@ -27,6 +31,11 @@ input {
     margin-right: -1.5em;
   }
 };
+.date-range input{
+  width: 80px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
 .message {
   border: 1px solid;

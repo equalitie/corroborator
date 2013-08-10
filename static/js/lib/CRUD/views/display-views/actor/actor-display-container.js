@@ -52,7 +52,6 @@ define (
       },
       render: function() {
         this.destroyChildren();
-        console.log(this.model.toJSON());
         var html = this.template({
           model: this.model.toJSON()
         });

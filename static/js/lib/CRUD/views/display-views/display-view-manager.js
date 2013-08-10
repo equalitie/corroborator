@@ -30,6 +30,9 @@ define (
         extractEntity = function(value) {
           return value.content;
         },
+        filterNavEvent = function(value) {
+          return value.type=== 'navigate';
+        },
         filterEntityNav = function(value) {
           return value.type === 'entity-display';
         };
@@ -40,6 +43,8 @@ define (
       template: displayManagerContainerTmp,
       el: '.form_overlay',
       childViews: [],
+      router: undefined,
+      currentTab: '',
       events: {
         'click .display.do-hide': 'closeViewRequested',
         'click .do-select.edit' : 'editRequested'
@@ -48,10 +53,12 @@ define (
       initialize: function() {
         this.watchNavEvents();
         this.watchCRUDEvents();
+        this.router = new Backbone.Router();
       },
 
       closeViewRequested: function(evt) {
         evt.preventDefault();
+        this.router.navigate('#tab/' + this.currentTab, {trigger: true});
         this.destroyChildren();
         this.$el.children().remove();
       },
@@ -71,12 +78,18 @@ define (
         this.renderContainer()
             .renderEntity(content);
       },
-      watchCRUDEvents: function() {},
+      watchCRUDEvents: function() {
+        navBus.filter(filterNavEvent)
+              .onValue(function(value) {
+                this.currentTab = value.content.entity;
+              }.bind(this));
+      },
       destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
       renderEntity: function(entityDetails) {
+        this.destroyChildren();
         var displayView = new viewMap[entityDetails.entity]({
           entityDetails: entityDetails
         });

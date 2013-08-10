@@ -36,16 +36,19 @@ define (
           var createMap = {
             create_actor: {
               view: ActorForm.ActorFormView,
-              model: Actor.ActorModel
+              model: Actor.ActorModel,
+              nav  : 'actor'
               //collection: 
             },
             create_bulletin: {
               view: BulletinForm.BulletinFormView,
-              model: Bulletin.BulletinModel
+              model: Bulletin.BulletinModel,
+              nav  : 'bulletin'
             },
             create_incident: {
               view: IncidentForm.IncidentFormView,
-              model: Incident.IncidentModel
+              model: Incident.IncidentModel,
+              nav  : 'incident'
             }
           };
           return createMap[value.type];
@@ -99,11 +102,14 @@ define (
     // and incidents
     var FormManagerView = Backbone.View.extend({
       el: '.form_overlay',
+      currentTab: '',
       currentView: undefined,
+      router: undefined,
       // constructor - watch for stream events
       initialize: function() {
         this.watchSearchStream();
         this.watchCrudStream();
+        this.router = new Backbone.Router();
       },
 
       showOverlay: function(model) {
@@ -182,12 +188,14 @@ define (
 
       // replace the current form view with the requested one
       replaceView: function(viewModel) {
+        this.currentTab = viewModel.nav;
         this.destroyCurrentView();
         this.model = new viewModel.model({});
         this.listenForSaveEvents();
         this.currentView = new viewModel.view({model: this.model});
         this.render();
       },
+
       // call the destroy method on the current view
       destroyCurrentView: function() {
         this.stopListening();

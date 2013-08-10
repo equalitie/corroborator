@@ -23,3 +23,69 @@ nav {
     padding: $PAD_UNIT/2;
   }
 }
+
+
+.columns.as-2 {
+  width: 100%;
+}
+
+.col.first {
+  position: fixed;
+  top: $TOP_DIST_COLS;
+  left: 0em;
+  bottom: 0em;
+  overflow: hidden;
+  width: 66.66666%;
+}
+
+.results-body {
+  bottom: 0em;
+  overflow: auto;
+  right: $PAD_UNIT;
+  left: $PAD_UNIT;
+  position: absolute;
+  top: 91px;
+}
+.results-body  .padding {
+    padding-left: $PAD_UNIT;
+  }
+
+.search-header {
+  position: absolute;
+  right: $PAD_UNIT;
+  left: 2*$PAD_UNIT;
+  top: 0em;
+}
+
+// LAST COLUMN
+
+.col.last {
+  width: 33.333333%;
+  right: 0em;
+  position: fixed;
+  bottom: 0em;
+  top: $TOP_DIST_COLS;
+  overflow: hidden;
+}
+.right-filters .header {
+  left: $PAD_UNIT;
+  right: 0em;
+  position: absolute;
+  top:0em;
+}
+
+.right-filters .body {
+  left: $PAD_UNIT;
+  right: 0em;
+  overflow: auto;
+  bottom: 0em;
+  position: absolute;
+}
+
+.right-filters .body .padding{
+  margin-right: 2* $PAD_UNIT;
+}
+
+.is-filters.filters {
+  margin-bottom: $PAD_UNIT;
+}

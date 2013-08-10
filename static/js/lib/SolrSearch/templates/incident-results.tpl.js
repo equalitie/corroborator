@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div class=\"padding\">\n  <table class=\"incidents\">\n    <tbody></tbody>\n  </table>\n</div>\n";
+  return "<table class=\"incidents\">\n  <tbody></tbody>\n</table>\n";
   })
 
 });

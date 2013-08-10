@@ -47,6 +47,7 @@ define(
           });
         }
       },
+
       // render the list items
       render: function() {
         var html = comboInnerTmp(this.model.toJSON());

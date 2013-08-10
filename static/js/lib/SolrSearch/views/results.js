@@ -84,6 +84,7 @@ define(
     // Show the results of a search for actors
     var ActorResultsView = Backbone.View.extend({
       //el: '.results-body',
+
       template: actorResultsTmp,
       childViews: [],
       initialize: function() {
@@ -168,8 +169,7 @@ define(
           model: this.model.toJSON()
         });
         this.$el.addClass('result REPEAT Incident in-table');
-        this.$el.empty()
-                .append(html);
+        this.$el.html(html);
         return this;
       },
       onDestroy: function() {
@@ -183,6 +183,7 @@ define(
       //el: '.results-body',
       childViews: [],
       template: incidentResultsTmp,
+      className: 'padding',
 
       // constructor
       initialize: function() {
@@ -214,7 +215,6 @@ define(
           index: index
         });
         this.$el.children()
-                .children()
                 .children()
                 .append(resultView.$el);
         this.childViews.push(resultView);
@@ -261,7 +261,6 @@ define(
 
       // render the bulletin
       render: function() {
-        console.log(this.model.toJSON());
         var html = bulletinTmp({
           model: this.model.toJSON()
         });
