@@ -140,7 +140,7 @@ def index(request, *args, **kwargs):
         print loc_set
         loc_set = Location.objects.all()
         #loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
-        loc_set = loc_set.values('name_en', 'latitude', 'longitude')
+        #loc_set = loc_set.values('name_en', 'latitude', 'longitude')
 
         #api details
         user = User.objects.get(username=username)
