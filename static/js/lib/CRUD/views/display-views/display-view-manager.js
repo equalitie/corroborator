@@ -44,18 +44,24 @@ define (
       el: '.form_overlay',
       childViews: [],
       router: undefined,
+      expanded: false,
       currentTab: '',
+
       events: {
-        'click .display.do-hide': 'closeViewRequested',
-        'click .do-select.edit' : 'editRequested'
+        'click .display.do-hide'  : 'closeViewRequested',
+        'click button.do-select'  : 'selectRequested',
+        'click button.do-expand'  : 'expandRequested',
+        'click button.do-collapse': 'collapseRequested',
+        'click .do-select.edit'   : 'editRequested'
       },
 
       initialize: function() {
         this.watchNavEvents();
-        this.watchCRUDEvents();
         this.router = new Backbone.Router();
       },
 
+      // close the display view - trigger a navigate to tab to allow
+      // for reselection of the entity
       closeViewRequested: function(evt) {
         evt.preventDefault();
         this.router.navigate('#tab/' + this.currentTab, {trigger: true});
@@ -63,31 +69,52 @@ define (
         this.$el.children().remove();
       },
 
+      // edit requested trigger the request edit function
+      // TODO - change this to be event driven
       editRequested: function() {
         this.$el.children().remove();
         _.last(this.childViews).requestEdit();
         this.destroyChildren();
       },
+      selectRequested: function() {
+        _.last(this.childViews).trigger('select');
+      },
+      expandRequested: function() {
+        _.last(this.childViews).trigger('expand');
+        this.$el.children().addClass('is-expanded');
+      },
 
+      collapseRequested: function() {
+        _.last(this.childViews).trigger('expand');
+        this.$el.children().removeClass('is-expanded');
+      },
+
+
+      // watch for navigate to entity events
       watchNavEvents: function() {
         navBus.filter(filterEntityNav)
               .map(extractEntity)
               .onValue(this.displayEntity.bind(this));
-      },
-      displayEntity: function(content) {
-        this.renderContainer()
-            .renderEntity(content);
-      },
-      watchCRUDEvents: function() {
+
         navBus.filter(filterNavEvent)
               .onValue(function(value) {
                 this.currentTab = value.content.entity;
               }.bind(this));
       },
+
+      // display an entity
+      displayEntity: function(content) {
+        this.renderContainer()
+            .renderEntity(content);
+      },
+
+      // destroy child views
       destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
+
+      // render an entity
       renderEntity: function(entityDetails) {
         this.destroyChildren();
         var displayView = new viewMap[entityDetails.entity]({
@@ -100,6 +127,8 @@ define (
         this.childViews.push(displayView);
         return this;
       },
+
+      // render the container
       renderContainer: function() {
         var html = this.template({
           entityType: this.entityType
@@ -112,4 +141,3 @@ define (
     return DisplayManagerView;
     
 });
-

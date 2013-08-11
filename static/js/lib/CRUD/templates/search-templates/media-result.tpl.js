@@ -9,7 +9,7 @@ function program1(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n    <img src=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_thumbnail)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_thumb_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"\n         class=\"media-image-thumbnail\"\n         alt=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"/>\n  ";
@@ -20,7 +20,7 @@ function program3(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n    <img src=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_thumbnail)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_thumb_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"  \n         class=\"media-video-thumbnail\"\n         alt=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"/>\n  ";

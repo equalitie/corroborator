@@ -1,11 +1,11 @@
 <div title="Media Viewer">
   {{#if_eq model.media_type compare='Picture' }}
-    <img src="{{model.media_thumbnail}}"
+    <img src="{{model.media_thumb_file}}"
          class="media-image-thumbnail"
          alt="{{model.name_en}}"/>
   {{/if_eq}}
   {{#if_eq model.media_type compare='Video' }}
-    <img src="{{model.media_thumbnail}}"  
+    <img src="{{model.media_thumb_file}}"  
          class="media-video-thumbnail"
          alt="{{model.name_en}}"/>
   {{/if_eq}}

@@ -8,9 +8,11 @@ define (
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
     'lib/CRUD/views/display-views/actor/actor-container',
-    'lib/CRUD/templates/display-templates/actor-display.tpl'
+    'lib/CRUD/templates/display-templates/actor-display.tpl',
+    'lib/CRUD/templates/display-templates/actors/expanded-actor-display.tpl',
   ],
-  function (Backbone, _, Collections, Streams, ActorListView, actorDisplayTmp) {
+  function (Backbone, _, Collections, Streams, ActorListView, 
+    actorDisplayTmp, expandedActorDisplayTmp) {
     'use strict';
 
     var ActorDisplayView,
@@ -22,17 +24,40 @@ define (
     ActorDisplayView = Backbone.View.extend({
       template: actorDisplayTmp,
       childViews: [],
+      expanded: false,
       initialize: function(options) {
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
         this.model = actorCollection.superCollection.get(
           options.entityDetails.id);
+        this.on('expand', this.toggleExpanded, this);
+        this.displayView();
+      },
+
+      // set the small template
+      displayView: function() {
         this.render()
             .renderRelatedActors();
       },
+
       onDestroy: function() {
+        this.stopListening();
         this.destroyChildren();
+      },
+
+      toggleExpanded: function() {
+        if (this.expanded === true) {
+          this.template = actorDisplayTmp;
+          this.$el.removeClass('span-60p');
+          this.displayView();
+          this.expanded = false;
+        }
+        else {
+          this.$el.addClass('span-60p');
+          this.displayView();
+          this.expanded = true;
+        }
       },
       requestEdit: function() {
         crudBus.push({
@@ -48,6 +73,11 @@ define (
         this.childViews = [];
       },
       renderRelatedActors: function() {
+        var actorsEl = this.$el.children()
+                               .children('.body')
+                               .children('.actors'),
+
+            content = this.model.get('actors_role');
         return this;
       },
       render: function() {

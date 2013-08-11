@@ -24,7 +24,7 @@ nav {
   }
 }
 
-
+// COLUMNS
 .columns.as-2 {
   width: 100%;
 }
@@ -38,24 +38,26 @@ nav {
   width: 66.66666%;
 }
 
+// ACTIONS BAR
+.col.first .header {
+  position: absolute;
+  right: $PAD_UNIT;
+  left: 2*$PAD_UNIT;
+  top: 0em;
+}
+
 .results-body {
   bottom: 0em;
   overflow: auto;
   right: $PAD_UNIT;
   left: $PAD_UNIT;
   position: absolute;
-  top: 91px;
+  top: 85px;
 }
 .results-body  .padding {
     padding-left: $PAD_UNIT;
   }
 
-.search-header {
-  position: absolute;
-  right: $PAD_UNIT;
-  left: 2*$PAD_UNIT;
-  top: 0em;
-}
 
 // LAST COLUMN
 
@@ -88,4 +90,10 @@ nav {
 
 .is-filters.filters {
   margin-bottom: $PAD_UNIT;
+}
+
+// VIEW - EXPANDED
+.Bulletin.is-expanded .span-66p .body, 
+.Incident.is-expanded .span-66p .body{
+  padding-right: 2 * $PAD_UNIT;
 }

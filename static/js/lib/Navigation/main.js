@@ -42,7 +42,7 @@ define(
 
     // stream processing helper
     var nonEmpty = function(x) {
-      return x.encoded.length > 0;
+      return true;
     };
 
     // create the input view that will read in a search from the user
@@ -84,13 +84,14 @@ define(
           newResult.type = 'intermediate';
         }
         if (value.search_request === true) {
-          newResult.type = 'new_search';
+          newResult.type = 'search_updated';
         }
         return newResult;
          
       }).filter(function(value) {
-        return value.type === 'new_search' && value.content !== undefined;
+        return value.type === 'search_updated' && value.content !== undefined;
       }).onValue(function(value) {
+        console.log(value);
         Streams.searchBus.push(value);
       });
     };

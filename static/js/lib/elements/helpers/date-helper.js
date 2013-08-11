@@ -24,7 +24,7 @@ define (
 
     Handlebars.registerHelper('formDateFormat', function(context, block) {
       var formattedContext = context;
-      if (moment && formattedContext !== undefined && formattedContext) {
+      if (moment && formattedContext) {
         var f = block.hash.format || "YYYY-MM-DD";
         formattedContext =  moment(context).format(f);
       }
@@ -40,7 +40,7 @@ define (
 
     Handlebars.registerHelper('fetchUser', function(context, options) {
         var formattedContext = context;
-        if (context !== undefined) {
+        if (context) {
           var users = Bootstrap.gl_ac_users_list,
               userSearchField = {resource_uri: context};
           formattedContext = _.findWhere(users, userSearchField).label;
@@ -70,13 +70,12 @@ define (
           ret =  ret + ', ';
         }
       }
-      return ret;
+      return new Handlebars.SafeString(ret);
     });
 
     Handlebars.registerHelper('commaSeparatedList', function(context, block) {
       var ret = "",
           i=0, j=0;
-      console.log(block);
       for(i=0, j=context.length; i<j; i++) {
         ret = ret + context[i];
         if (i<j-1) {

@@ -73,17 +73,26 @@ module.exports = function(grunt) {
           'lib/CRUD/templates/display-templates/bulletin-display.tpl.js'    : 'lib/CRUD/templates/display-templates/bulletin-display.tpl',
           'lib/CRUD/templates/display-templates/incident-display.tpl.js'    : 'lib/CRUD/templates/display-templates/incident-display.tpl',
 
+          'lib/CRUD/templates/display-templates/media/media-container.tpl.js': 'lib/CRUD/templates/display-templates/media/media-container.tpl',
+          'lib/CRUD/templates/display-templates/media/media.tpl.js': 'lib/CRUD/templates/display-templates/media/media.tpl',
+
           'lib/CRUD/templates/display-templates/misc/comment-container.tpl.js': 'lib/CRUD/templates/display-templates/misc/comment-container.tpl',
           'lib/CRUD/templates/display-templates/misc/comment.tpl.js'        : 'lib/CRUD/templates/display-templates/misc/comment.tpl',
 
+          'lib/CRUD/templates/display-templates/events/event-container.tpl.js': 'lib/CRUD/templates/display-templates/events/event-container.tpl',
+          'lib/CRUD/templates/display-templates/events/event.tpl.js'        : 'lib/CRUD/templates/display-templates/events/event.tpl',
+
           'lib/CRUD/templates/display-templates/actors/actor-container.tpl.js': 'lib/CRUD/templates/display-templates/actors/actor-container.tpl',
           'lib/CRUD/templates/display-templates/actors/actor.tpl.js'        : 'lib/CRUD/templates/display-templates/actors/actor.tpl',
+          'lib/CRUD/templates/display-templates/actors/expanded-actor-display.tpl.js': 'lib/CRUD/templates/display-templates/actors/expanded-actor-display.tpl',
 
           'lib/CRUD/templates/display-templates/incident/incident-container.tpl.js': 'lib/CRUD/templates/display-templates/incident/incident-container.tpl',
           'lib/CRUD/templates/display-templates/incident/incident.tpl.js'        : 'lib/CRUD/templates/display-templates/incident/incident.tpl',
+          'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl.js': 'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl',
 
           'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl.js': 'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl',
           'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl.js'        : 'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl',
+          'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl.js': 'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl',
         }
       }
     },

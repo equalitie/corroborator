@@ -5,14 +5,14 @@
 
 define (
   [
-    'backbone', 'underscore',
+    'backbone',
     'lib/Data/bulletin',
     'lib/elements/views/CollectionViews',
     'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl',
     'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl'
 
   ],
-  function (Backbone, _, Bulletin, CollectionViews, bulletinContainerTmp, bulletinTmp) {
+  function (Backbone, Bulletin, CollectionViews, bulletinContainerTmp, bulletinTmp) {
     'use strict';
 
     var ListLoadView = CollectionViews.ListLoadView,

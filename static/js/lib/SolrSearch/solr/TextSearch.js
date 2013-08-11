@@ -17,6 +17,9 @@ define(
             filterQueryBuilderEvents = function(value) {
                 return value.type === 'query_builder';
             },
+            filterSearchUpdateEvent = function(value) {
+              return value.type === 'update_current_results';
+            },
             filterSearchRequestEvents = function(value) {
               return value.type === 'new_search';
             },
@@ -95,15 +98,35 @@ define(
         var qb = new QueryBuilder(searchQuery.content.raw);
         return qb.parsedString; 
       },
+
+      // this is an auto update request - no need to reparse filters
+      sendUpdateRequest: function(searchQuery) {
+        this.shouldSendFilters = false;
+        this.sendRequest(searchQuery);
+      },
+
+      // new search - update filters
+      sendSearchRequest: function(searchQuery) {
+        this.shouldSendFilters = true;
+        this.sendRequest(searchQuery);
+      },
+
+      // send the request
       sendRequest: function(searchQuery) {
         this.clear();
         this.set( searchQuery );
         this.doRequest(); 
       },
+
+      // watch for search and update search result requests
       watchSearchStream: function() {
         bus.filter(filterSearchRequestEvents)
                  .map(this.parseQuery)
-                 .onValue(this.sendRequest.bind(this));
+                 .onValue(this.sendSearchRequest.bind(this));
+
+        bus.filter(filterSearchUpdateEvent)
+           .map(this.parseQuery)
+           .onValue(this.sendUpdateRequest.bind(this));
       },
       // send the results off the bus in a super functional way
       // cos that's how we do round here!

@@ -8,13 +8,17 @@ define (
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
     'lib/CRUD/views/display-views/misc/comment-container',
+    'lib/CRUD/views/display-views/misc/event-container',
     'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
-    'lib/CRUD/templates/display-templates/incident-display.tpl'
+    'lib/CRUD/templates/display-templates/incident-display.tpl',
+    'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl'
   ],
   function (Backbone, _, Collections, Streams, CommentContainer, 
-    ActorListView, BulletinListView, IncidentListView, incidentDisplayTmp) {
+    EventListView,
+    ActorListView, BulletinListView, IncidentListView,
+    incidentDisplayTmp, expandedIncidentDisplayTmp) {
     'use strict';
 
     var IncidentDisplayView,
@@ -26,19 +30,43 @@ define (
     // Display and incident and all its related fields
     IncidentDisplayView = Backbone.View.extend({
       template: incidentDisplayTmp,
+      expanded: false,
       childViews: [],
       initialize: function(options) {
+        console.log('init incident');
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
         this.model = incidentCollection.superCollection.get(
           options.entityDetails.id);
+        this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
+        this.displayView();
+      },
+
+      displayExpandedView: function() {
+        this.displayView()
+            .renderRelatedEvents();
+      },
+      displayView: function() {
         this.render()
             .renderRelatedComments()
             //.renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents();
+            return this;
+      },
+      toggleExpanded: function() {
+        if (this.expanded === true) {
+          this.template = incidentDisplayTmp;
+          this.expanded = false;
+          this.displayView();
+        }
+        else {
+          this.template = expandedIncidentDisplayTmp;
+          this.expanded = true;
+          this.displayExpandedView();
+        }
       },
       requestEdit: function() {
         crudBus.push({
@@ -47,13 +75,6 @@ define (
             model: this.model
           }
         });
-      },
-      onDestroy: function() {
-        this.destroyChildren();
-      },
-      destroyChildren: function() {
-        _.invoke(this.childViews, 'destroy');
-        this.childViews = [];
       },
       renderRelatedComments: function() {
         var commentsEl = this.$el.children()
@@ -78,14 +99,25 @@ define (
               content: content,
               roles: roles_en
             });
-        console.log(this.model.toJSON());
         return this;
       },
+      getBulletinEl: function() {
+        var bulletinsEl;
+        if (this.expanded === true) {
+          bulletinsEl = this.$el.children()
+                             .children()
+                             .children('.body')
+                             .children('.is-bulletins');
+        }
+        else {
+          bulletinsEl = this.$el.children()
+                             .children('.body')
+                             .children('.bulletins');
+        }
+        return bulletinsEl;
+      },
       renderRelatedBulletins: function() {
-        var bulletinsEl = this.$el.children()
-                               .children('.body')
-                               .children('.bulletins'),
-
+        var bulletinsEl = this.getBulletinEl(),
             content = this.model.get('ref_bulletins'),
             bulletinsContainer = new BulletinListView({
               el: bulletinsEl,
@@ -93,11 +125,23 @@ define (
             });
         return this;
       },
+      getIncidentsEl: function() {
+        var incidentsEl;
+        if (this.expanded === false) {
+          incidentsEl = this.$el.children()
+                             .children('.body')
+                             .children('.incidents');
+        }
+        else {
+          incidentsEl = this.$el.children()
+                             .children()
+                             .children('.body')
+                             .children('.is-incidents');
+        }
+        return incidentsEl;
+      },
       renderRelatedIncidents: function() {
-        var incidentsEl = this.$el.children()
-                               .children('.body')
-                               .children('.incidents'),
-
+        var incidentsEl = this.getIncidentsEl(),
             content = this.model.get('ref_incidents'),
             incidentsContainer = new IncidentListView({
               el: incidentsEl,
@@ -105,13 +149,40 @@ define (
             });
         return this;
       },
+
+      renderRelatedEvents: function() {
+        var eventsEl, content, incidentsContainer;
+        eventsEl = this.$el
+                       .children()
+                       .children()
+                       .children('.body')
+                       .children('.is-events');
+        content = this.model.get('times');
+        incidentsContainer = new EventListView({
+          el: eventsEl,
+          content: content
+        });
+        return this;
+      },
+
+      // render the container
       render: function() {
         this.destroyChildren();
+        this.$el.children().remove();
         var html = this.template({
           model: this.model.toJSON()
         });
         this.$el.html(html);
         return this;
+      },
+
+      onDestroy: function() {
+        this.stopListening();
+        this.destroyChildren();
+      },
+      destroyChildren: function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
       }
     });
 
