@@ -105,7 +105,6 @@ define (
       render: function() {
         this.resetFlags();
         this.model.set(this.type, true);
-        console.log(this.model.toJSON());
         var templateVars = {
           model: this.model.toJSON(),
         };

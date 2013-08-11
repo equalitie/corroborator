@@ -18,7 +18,7 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   
-  return "\n      <div class=\"is-media group\">\n        <h4>Media</h4>\n        <div class=\"preview\"></div>\n        <ul class=\"media\">\n          <li count=\"5\" class=\"medium REPEAT\">\n            <span class=\"type\">Photo</span>\n            <span class=\"date\">2013/Apr/21</span>\n          </li><li class=\"medium\">\n            <span class=\"type\">Photo</span>\n            <span class=\"date\">2013/Apr/21</span>\n          </li><li class=\"medium\">\n            <span class=\"type\">Photo</span>\n            <span class=\"date\">2013/Apr/21</span>\n          </li><li class=\"medium\">\n            <span class=\"type\">Photo</span>\n            <span class=\"date\">2013/Apr/21</span>\n          </li><li class=\"medium\">\n            <span class=\"type\">Photo</span>\n            <span class=\"date\">2013/Apr/21</span>\n          </li>\n        </ul>\n        <div class=\"clearer\"></div>\n      </div>\n      ";
+  return "\n      <div class=\"is-media group\">\n      </div>\n      ";
   }
 
 function program5(depth0,data) {
