@@ -281,8 +281,15 @@ class Media(models.Model):
         This method is primarily used by Django Haystack
         when populating the Solr index.
         """
-
         return self.media_file.url
+
+    def get_thumb_uri(self):
+        """
+        Return AWS Media file URL.
+        This method is primarily used by Django Haystack
+        when populating the Solr index.
+        """
+        return self.media_thumb_file.url
 
 
 

@@ -5,12 +5,13 @@ database model using Django Haystacks as an interface.
 from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media
+from celery_haystack.indexes import CelerySearchIndex
 
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
 
-class ActorIndex(indexes.SearchIndex, indexes.Indexable):
+class ActorIndex(CelerySearchIndex, indexes.Indexable):
     """
     This class manages the construction of the Actor Solr document.
     """
@@ -115,7 +116,7 @@ class ActorIndex(indexes.SearchIndex, indexes.Indexable):
         return ActorPrepMeta().prepare_count_bulletins(object)
 
 
-class MediaIndex(indexes.SearchIndex, indexes.Indexable):
+class MediaIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Media Solr document.
     """
@@ -127,6 +128,7 @@ class MediaIndex(indexes.SearchIndex, indexes.Indexable):
     faceted=True, null=True)
     uri = indexes.MultiValueField()
     resource_uri = indexes.CharField()
+    media_thumb_file = indexes.MultiValueField()
 
     def get_model(self):
         return Media
@@ -135,6 +137,8 @@ class MediaIndex(indexes.SearchIndex, indexes.Indexable):
         Returns URI of a given Media
         """
         return object.get_uri()
+    def prepare_media_thumb_file(self, object):
+        return object.get_thumb_uri()
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this media instance
@@ -143,7 +147,7 @@ class MediaIndex(indexes.SearchIndex, indexes.Indexable):
         return '/api/v1/media/{0}/'.format(object.id)
 
 
-class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
+class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Incident Solr document.
     """
@@ -165,7 +169,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
     incident_assigned_user = indexes.CharField(model_attr='assigned_user',
     faceted=True, null=True)
     assigned_user = indexes.CharField()
-    most_recent_status_incident = indexes.MultiValueField(faceted=True)
+    most_recent_status_incident = indexes.CharField(faceted=True)
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
     incident_comments_text = indexes.MultiValueField()
@@ -291,7 +295,7 @@ class IncidentIndex(indexes.SearchIndex, indexes.Indexable):
         return IncidentPrepMeta().prepare_incident_crimes(object)
 
 
-class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
+class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Bulletin Solr document.
     """
@@ -311,7 +315,7 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
     bulletin_assigned_user = indexes.CharField(model_attr='assigned_user', \
     faceted=True, null=True)
     assigned_user = indexes.CharField()
-    most_recent_status_bulletin = indexes.MultiValueField(faceted=True,
+    most_recent_status_bulletin = indexes.CharField(faceted=True,
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
@@ -426,7 +430,7 @@ class BulletinIndex(indexes.SearchIndex, indexes.Indexable):
         return BulletinPrepMeta().prepare_bulletin_times(object)
 
 
-class LocationIndex(indexes.SearchIndex, indexes.Indexable):
+class LocationIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Location Solr document.
     """

@@ -44,14 +44,14 @@ class ActorResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
-
+    """
     def obj_create(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_create( bundle, **kwargs )
         print >> sys.stderr, 'in call for update index'
         update_index.Command().handle()
         return bundle
-
+    """
     def obj_delete(self, bundle, **kwargs):
         bundle.data['deleted'] = True
         print >> sys.stderr, 'in call for faux delete'
