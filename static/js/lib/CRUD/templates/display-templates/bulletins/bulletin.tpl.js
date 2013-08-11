@@ -9,7 +9,7 @@ function program1(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n        <div class=\"status\">\n          <span class=\"value\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin)),stack1 == null || stack1 === false ? stack1 : stack1[0])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n        </div>\n        ";
   return buffer;
   }
@@ -36,7 +36,7 @@ function program5(depth0,data) {
   buffer += "<li class=\"REPEAT\">\n  <div class=\"Bulletin in-list\">\n    <div class=\"L1\">\n      <div class=\"meta\">\n        <div class=\"score\">\n          <span class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.confidence_score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n        </div>\n        ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin)),stack1 == null || stack1 === false ? stack1 : stack1[0]), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      </div>\n      <div class=\"title i18n\">\n         \n        <span lang=\"en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.title_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

@@ -20,7 +20,8 @@ define(
   function ($, _, Backbone, Bacon, Streams, Combo) {
     'use strict';
     var Collection = Backbone.Collection.extend();
-    var localBus = new Bacon.Bus();
+    var localBus = new Bacon.Bus(),
+        searchBus = Streams.searchBus;
 
     var isSearchRequest = function(value) {
       var model = value.content;
@@ -146,7 +147,6 @@ define(
       // filter search events of type new_search  
       // this adds new searches to the combo box  
       // TODO - handle saving the search  
-      //
       handleAddSearch: function() {
         var self = this;
         Streams.searchBus.toEventStream().toProperty()
@@ -155,7 +155,6 @@ define(
             self.fullCollection.add(value.search, { at: self.fullCollection.length - 1 });
             self.collection.add(value.search, { at: self.collection.length - 1 });
         });
-        window.searchBus = Streams.searchBus;
       }
 
     });

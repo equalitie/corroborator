@@ -5,9 +5,9 @@
         <div class="score">
           <span class="value">{{model.confidence_score}}</span>
         </div>
-        {{#if model.most_recent_status_bulletin.[0]}}
+        {{#if model.most_recent_status_bulletin}}
         <div class="status">
-          <span class="value">{{model.most_recent_status_bulletin.[0]}}</span>
+          <span class="value">{{model.most_recent_status_bulletin}}</span>
         </div>
         {{/if}}
       </div>
