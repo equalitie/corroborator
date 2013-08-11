@@ -21,27 +21,6 @@
       {{/if}}
       {{#if model.medias}}
       <div class="is-media group">
-        <h4>Media</h4>
-        <div class="preview"></div>
-        <ul class="media">
-          <li count="5" class="medium REPEAT">
-            <span class="type">Photo</span>
-            <span class="date">2013/Apr/21</span>
-          </li><li class="medium">
-            <span class="type">Photo</span>
-            <span class="date">2013/Apr/21</span>
-          </li><li class="medium">
-            <span class="type">Photo</span>
-            <span class="date">2013/Apr/21</span>
-          </li><li class="medium">
-            <span class="type">Photo</span>
-            <span class="date">2013/Apr/21</span>
-          </li><li class="medium">
-            <span class="type">Photo</span>
-            <span class="date">2013/Apr/21</span>
-          </li>
-        </ul>
-        <div class="clearer"></div>
       </div>
       {{/if}}
 

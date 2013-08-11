@@ -8,6 +8,7 @@ define (
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
     'lib/CRUD/views/display-views/misc/comment-container',
+    'lib/CRUD/views/display-views/misc/event-container',
     'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
@@ -15,6 +16,7 @@ define (
     'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl'
   ],
   function (Backbone, _, Collections, Streams, CommentContainer, 
+    EventListView,
     ActorListView, BulletinListView, IncidentListView,
     incidentDisplayTmp, expandedIncidentDisplayTmp) {
     'use strict';
@@ -31,6 +33,7 @@ define (
       expanded: false,
       childViews: [],
       initialize: function(options) {
+        console.log('init incident');
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
@@ -41,12 +44,17 @@ define (
         this.displayView();
       },
 
+      displayExpandedView: function() {
+        this.displayView()
+            .renderRelatedEvents();
+      },
       displayView: function() {
         this.render()
             .renderRelatedComments()
             //.renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents();
+            return this;
       },
       toggleExpanded: function() {
         if (this.expanded === true) {
@@ -57,7 +65,7 @@ define (
         else {
           this.template = expandedIncidentDisplayTmp;
           this.expanded = true;
-          this.displayView();
+          this.displayExpandedView();
         }
       },
       requestEdit: function() {
@@ -139,6 +147,21 @@ define (
               el: incidentsEl,
               content: content
             });
+        return this;
+      },
+
+      renderRelatedEvents: function() {
+        var eventsEl, content, incidentsContainer;
+        eventsEl = this.$el
+                       .children()
+                       .children()
+                       .children('.body')
+                       .children('.is-events');
+        content = this.model.get('times');
+        incidentsContainer = new EventListView({
+          el: eventsEl,
+          content: content
+        });
         return this;
       },
 

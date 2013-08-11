@@ -18,6 +18,7 @@
       'bacon'          : 'components/bacon/dist/Bacon',
       'bacon_ui'       : 'components/bacon-ui/Bacon.UI',
       'spin'           : 'components/spin.js/spin',
+      'flowplayer'     : 'components/flowplayer/dist/flowplayer',
       // ajax solr stuff
       'core'           : 'components/ajax-solr/core',
       'managers'       : 'components/ajax-solr/managers',
@@ -57,6 +58,9 @@
       },
       jquery_slider: {
         deps: ['jquery', 'jquery_ui', 'jquery_time']
+      },
+      flowplayer: {
+        deps: ['jquery']
       }
 
     }

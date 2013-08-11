@@ -137,7 +137,6 @@ def index(request, *args, **kwargs):
         sources_set = Source.objects.all()
         users_set = User.objects.all()
         loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
-        print loc_set
         loc_set = Location.objects.all()
         #loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
         #loc_set = loc_set.values('name_en', 'latitude', 'longitude')
