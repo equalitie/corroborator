@@ -92,7 +92,8 @@ nav {
   margin-bottom: $PAD_UNIT;
 }
 
-// RIGHT FORM - SMALL
-
-
-
+// VIEW - EXPANDED
+.Bulletin.is-expanded .span-66p .body, 
+.Incident.is-expanded .span-66p .body{
+  padding-right: 2 * $PAD_UNIT;
+}

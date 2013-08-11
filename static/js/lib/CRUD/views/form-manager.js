@@ -120,8 +120,9 @@ define (
         this.overlay.showOverlay();
       },
 
-      hideOverlay: function() {
+      hideOverlay: function(model) {
         this.overlay.displaySaved(this.returnToDisplayView.bind(this));
+        console.log(model);
       },
 
       returnToDisplayView: function() {

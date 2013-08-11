@@ -32,8 +32,8 @@ class ActorResource(ModelResource):
         null=True
     )
     media = fields.ForeignKey(MediaResource, 'media', null=True)
-    actor_relationships = fields.ManyToManyField(
-        'ActorRoleResource', 
+    actors_role = fields.ManyToManyField(
+        'corroborator_app.api.ActorRoleResource', 
         'actors_role',
         null=True
     )

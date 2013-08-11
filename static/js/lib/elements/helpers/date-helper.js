@@ -70,13 +70,12 @@ define (
           ret =  ret + ', ';
         }
       }
-      return ret;
+      return new Handlebars.SafeString(ret);
     });
 
     Handlebars.registerHelper('commaSeparatedList', function(context, block) {
       var ret = "",
           i=0, j=0;
-      console.log(block);
       for(i=0, j=context.length; i<j; i++) {
         ret = ret + context[i];
         if (i<j-1) {

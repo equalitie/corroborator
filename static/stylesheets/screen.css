@@ -2818,6 +2818,12 @@ nav {
   margin-bottom: 1.53846em;
 }
 
+/* line 97, ../sass/_hacks.scss */
+.Bulletin.is-expanded .span-66p .body,
+.Incident.is-expanded .span-66p .body {
+  padding-right: 3.07692em;
+}
+
 /* line 1, ../sass/_buttons.scss */
 button, .button {
   display: inline-block;
