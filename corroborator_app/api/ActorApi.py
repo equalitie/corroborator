@@ -15,7 +15,7 @@ from corroborator_app.models import Actor, ActorRole
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
-from haystack.management.commands import update_index
+from corroborator_app.tasks import update_object
 
 import sys
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
@@ -44,18 +44,26 @@ class ActorResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
-    """
+
+    def obj_delete(self, bundle, **kwargs):
+        bundle = super( ActorResource, self )\
+            .obj_delete( bundle, **kwargs )
+        update_object.apply_async()    
+        return bundle
+ 
+    def obj_update(self, bundle, **kwargs):
+        bundle = super( ActorResource, self )\
+            .obj_update( bundle, **kwargs )
+        update_object.apply_async()    
+        return bundle
+ 
     def obj_create(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_create( bundle, **kwargs )
         print >> sys.stderr, 'in call for update index'
-        update_index.Command().handle()
+        #update_index.Command().handle()
+        update_object.apply_async()    
         return bundle
-    """
-    def obj_delete(self, bundle, **kwargs):
-        bundle.data['deleted'] = True
-        print >> sys.stderr, 'in call for faux delete'
-        self.obj_update(bundle, **kwargs)
 
     def dehydrate(self, bundle):
         bundle.data['count_incidents'] = ActorPrepMeta()\
