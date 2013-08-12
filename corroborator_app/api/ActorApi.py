@@ -45,6 +45,12 @@ class ActorResource(ModelResource):
         authentication = ApiKeyAuthentication()
         always_return_data = True
 
+    def obj_update(self, bundle, **kwargs):
+        bundle = super( ActorResource, self )\
+            .obj_update( bundle, **kwargs )
+        update_object.apply_async()    
+        return bundle
+ 
     def obj_create(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_create( bundle, **kwargs )

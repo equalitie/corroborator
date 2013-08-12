@@ -16,6 +16,7 @@ from corroborator_app.api.LabelApi import LabelResource
 from corroborator_app.api.ActorRoleApi import ActorRoleResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
+from corroborator_app.api.BulletinApi import BulletinResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
@@ -48,13 +49,23 @@ class IncidentResource(ModelResource):
     times = fields.ManyToManyField(TimeInfoResource, 'times', null=True)
     locations = fields.ManyToManyField(LocationResource, 'locations', null=True)
     ref_incidents = fields.ManyToManyField('self', 'ref_incidents', null=True)
-
+    ref_bulletins = fields.ManyToManyField(
+        BulletinResource,
+        'ref_bulletins',
+        null=True
+    )
     class Meta:
         queryset = Incident.objects.all()
         resource_name = 'incident'
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+    def obj_update(self, bundle, **kwargs):
+        bundle = super( IncidentResource, self )\
+            .obj_update( bundle, **kwargs )
+        update_object.apply_async()
+        return bundle
+
     def obj_create(self, bundle, **kwargs):
         bundle = super( IncidentResource, self )\
             .obj_create( bundle, **kwargs )

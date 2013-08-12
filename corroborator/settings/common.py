@@ -1,7 +1,8 @@
 """
 Django settings for corroborator project.
 """
-
+import djcelery
+djcelery.setup_loader()
 DEBUG = True
 
 AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
@@ -128,7 +129,7 @@ INSTALLED_APPS = (
     'south',
     'tastypie',
     'reversion',
-
+    'celery_haystack',
     # custom apps
     'corroborator_app',
 )
