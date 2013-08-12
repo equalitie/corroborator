@@ -44,6 +44,11 @@
               </a>
             
               
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
               <a class="source" href="NavCombo.html">
                 NavCombo.js
               </a>
@@ -119,6 +124,11 @@
               </a>
             
               
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
               <a class="source" href="dialog.html">
                 dialog.js
               </a>
@@ -129,8 +139,28 @@
               </a>
             
               
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
               <a class="source" href="language.html">
                 language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
               </a>
             
               
@@ -195,9 +225,9 @@
             
             <div class="content"><div class='highlight'><pre>define (
   [
-    <span class="string">'underscore'</span>
+    <span class="string">'underscore'</span>, <span class="string">'backbone'</span>
   ],
-  <span class="function"><span class="keyword">function</span> <span class="params">(_)</span> {</span>
+  <span class="function"><span class="keyword">function</span> <span class="params">(_, Backbone)</span> {</span>
     <span class="string">'use strict'</span>;</pre></div></div>
             
         </li>
@@ -369,13 +399,197 @@ or filter</p>
           selectModelInList: <span class="keyword">function</span>(model) {
             model.set(<span class="string">'checked'</span>, <span class="string">'checked'</span>);
           }
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h3">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h3>helper methods for persisting models with tastypie</h3>
+<p>formats many to many fields<br>removes empty foreign key fields<br>removes empty date fields  </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        ModelSyncMixin = {
+          parse: <span class="keyword">function</span>(response) {
+            response.id = response.django_id || response.id;
+            <span class="keyword">return</span> response;
+          },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>iterate over the many to many fields and format if necessary</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          formatManyToManyFields: <span class="keyword">function</span>() {
+            _.chain(<span class="keyword">this</span>.manyToManyFields)
+             .filter(<span class="keyword">this</span>.filterSingleValueFields, <span class="keyword">this</span>)
+             .each(<span class="keyword">this</span>.wrapAsArray, <span class="keyword">this</span>);
+          },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>filter out many to many fields that only have one value set</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          filterSingleValueFields: <span class="keyword">function</span>(key) {
+            <span class="keyword">if</span> (<span class="keyword">this</span>.get(key) === <span class="literal">undefined</span>) {
+              <span class="keyword">return</span> <span class="literal">false</span>;
+            }
+            <span class="keyword">return</span> <span class="keyword">typeof</span>(<span class="keyword">this</span>.get(key)) === <span class="string">'string'</span> &amp;&amp;
+                   <span class="keyword">this</span>.get(key).length &gt; <span class="number">0</span>;
+          },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>wrap many to many single value fields in an array - required
+by the backend</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          wrapAsArray: <span class="keyword">function</span>(key) {
+             <span class="keyword">this</span>.set(key, [<span class="keyword">this</span>.get(key)]);
+          },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>remove any date time or foreign key fields with no values</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          removeEmptyDateFields: <span class="keyword">function</span>() {
+            _.each(<span class="keyword">this</span>.dateFields, <span class="keyword">this</span>.removeEmptyField, <span class="keyword">this</span>);
+          },
+
+          removeEmptyDateTimeFields: <span class="keyword">function</span>() {
+            _.each(<span class="keyword">this</span>.dateTimeFields, <span class="keyword">this</span>.removeEmptyField, <span class="keyword">this</span>);
+          },
+
+          removeEmptyForeignKeyFields: <span class="keyword">function</span>() {
+            _.each(<span class="keyword">this</span>.foreignKeyFields, <span class="keyword">this</span>.removeEmptyField, <span class="keyword">this</span>);
+          },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>remove any empty fields</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          removeEmptyField: <span class="keyword">function</span>(key) {
+            <span class="keyword">if</span> (<span class="keyword">this</span>.get(key) === <span class="string">''</span>) {
+              <span class="keyword">this</span>.unset(key);
+            }
+          },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>apply our formatting methods and then delegate to builtin
+backbone sync</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          sync: <span class="keyword">function</span>(method, model) {
+            <span class="keyword">var</span> createEditMethods = [<span class="string">'create'</span>, <span class="string">'update'</span>];
+            <span class="keyword">if</span> (_.contains(createEditMethods, method)) {
+              <span class="keyword">this</span>.removeEmptyForeignKeyFields();
+              <span class="keyword">this</span>.removeEmptyDateTimeFields();
+              <span class="keyword">this</span>.removeEmptyDateFields();
+              <span class="keyword">this</span>.formatManyToManyFields();
+            }
+            <span class="keyword">return</span> Backbone.sync.apply(<span class="keyword">this</span>, arguments);
+          }
         };
 
-  _.extend(Filters.prototype, filterFunctions);
+  _.extend(Filters.prototype, filterFunctions);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>create a collection that holds all elements</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> SuperCollection = {
+      createSuperCollection: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> initSuperCollection = _.once(<span class="keyword">this</span>.createInitialCollection);
+        <span class="keyword">this</span>.on(<span class="string">'reset'</span>, initSuperCollection, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.on(<span class="string">'add'</span>, <span class="keyword">this</span>.addToSuperCollection, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.on(<span class="string">'remove'</span>, <span class="keyword">this</span>.addToSuperCollection, <span class="keyword">this</span>);
+      },
+      createInitialCollection: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.superCollection = <span class="keyword">new</span> Backbone.Collection(<span class="keyword">this</span>.models);
+      },
+      addToSuperCollection: <span class="keyword">function</span>(model) {
+        <span class="keyword">this</span>.superCollection.add(model);
+      },
+      removeFromSuperCollection: <span class="keyword">function</span>(model) {
+        <span class="keyword">this</span>.superCollection.remove(model);
+      },
+      getList: <span class="keyword">function</span>(idArray) {
+
+      }
+    };
 
   <span class="keyword">return</span> {
+    SuperCollection      : SuperCollection,
     Filters              : Filters,
     PersistSelectionMixin: PersistSelectionMixin,
+    ModelSyncMixin       : ModelSyncMixin,
     ModelSelectionMixin  : ModelSelectionMixin
   };
 });</pre></div></div>

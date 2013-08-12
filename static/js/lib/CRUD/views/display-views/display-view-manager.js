@@ -77,7 +77,7 @@ define (
         this.destroyChildren();
       },
       selectRequested: function() {
-        _.last(this.childViews).trigger('select');
+        //_.last(this.childViews).trigger('select');
       },
       expandRequested: function() {
         _.last(this.childViews).trigger('expand');

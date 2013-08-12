@@ -44,6 +44,11 @@
               </a>
             
               
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
               <a class="source" href="NavCombo.html">
                 NavCombo.js
               </a>
@@ -119,6 +124,11 @@
               </a>
             
               
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
               <a class="source" href="dialog.html">
                 dialog.js
               </a>
@@ -129,8 +139,28 @@
               </a>
             
               
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
               <a class="source" href="language.html">
                 language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
               </a>
             
               
@@ -218,7 +248,7 @@ provided</p>
             <span class="keyword">return</span> lang === requestedLang;
           }),
           langSelector = _.reduce(remainingLanguages, <span class="keyword">function</span>(memo, lang) {
-            <span class="keyword">return</span> memo + <span class="string">'span:lang('</span> + lang + <span class="string">')'</span>;
+            <span class="keyword">return</span> memo + <span class="string">'div:lang('</span> + lang + <span class="string">')'</span>;
           }, <span class="string">''</span>);</pre></div></div>
             
         </li>
@@ -235,14 +265,27 @@ whereby the span:lang(<lang>) seems to select the .toggle selector too</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>         i18nElement.children(<span class="string">'span:lang('</span> + requestedLang + <span class="string">')'</span>)
+            <div class="content"><div class='highlight'><pre>         i18nElement.children(<span class="string">'div:lang('</span> + requestedLang + <span class="string">')'</span>)
                     .show()
                     .siblings(langSelector)
                     .hide()
                     .siblings(<span class="string">'.toggle'</span>).show();
-    };
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>dom event handlers</p>
 
-    <span class="keyword">return</span> {
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> {
       toggleLanguage: toggleLanguage
     };
 

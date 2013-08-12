@@ -44,6 +44,11 @@
               </a>
             
               
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
               <a class="source" href="NavCombo.html">
                 NavCombo.js
               </a>
@@ -119,6 +124,11 @@
               </a>
             
               
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
               <a class="source" href="dialog.html">
                 dialog.js
               </a>
@@ -129,8 +139,28 @@
               </a>
             
               
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
               <a class="source" href="language.html">
                 language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
               </a>
             
               
@@ -179,14 +209,17 @@
             <div class="content"><div class='highlight'><pre><span class="comment">/*global window, document, define, Bootstrap */</span>
 define(
   [
+    <span class="string">'underscore'</span>,
     <span class="string">'lib/SolrSearch/solr/manager'</span>,
+    <span class="string">'lib/SolrSearch/solr/search-reloader'</span>,
     <span class="string">'lib/SolrSearch/views/header'</span>,
     <span class="string">'lib/SolrSearch/views/results'</span>,
     <span class="string">'lib/SolrSearch/views/filters/filter-manager'</span>,
     <span class="string">'lib/SolrSearch/data/filter-collections'</span>,
     <span class="string">'lib/Data/collections'</span>
   ],
-  <span class="keyword">function</span>(SolrManager, Header, Results, FilterManager, FilterCollection, Collections) {
+  <span class="keyword">function</span>(_, SolrManager, SearchReloader, Header, Results, FilterManager,
+    FilterCollection, Collections) {
     <span class="string">'use strict'</span>;
     <span class="keyword">var</span> headerView,
         filterManager;
@@ -247,11 +280,14 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Do initial solr request</p>
+              <p>Do initial solr request
+pass the callback to ensure that the initial request has been
+done before anything else gets started</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      SolrManager.MainManager.doRequest();
+            <div class="content"><div class='highlight'><pre>      SearchReloader.init();
+      
     };
     <span class="keyword">return</span> {
       init: init

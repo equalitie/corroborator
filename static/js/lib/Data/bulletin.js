@@ -7,9 +7,10 @@ define(
   [
     'jquery', 'underscore', 'backbone',
     'lib/streams',
-    'lib/Data/collection-mixins'
+    'lib/Data/collection-mixins',
+    'lib/Data/comparator'
   ],
-  function($, _, Backbone, Streams, Mixins) {
+  function($, _, Backbone, Streams, Mixins, Comparator) {
     'use strict';
 
     var PersistSelectionMixin = Mixins.PersistSelectionMixin,
@@ -19,6 +20,7 @@ define(
         SuperCollection       = Mixins.SuperCollection,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
         Filters               = new Mixins.Filters(),
+        parseComparator       = Comparator.parseComparator,
         // ### Bulletin Specific filter stream processors
 
         // filter bulletin nav requests
@@ -38,9 +40,11 @@ define(
         // map sort request to model field
         mapSort = function(value) {
           var sortMap = {
-            'date': 'bulletin_created',
-            'title': 'title_en',
-            'score': 'confidence_score'
+            'date'    : 'bulletin_created',
+            'title'   : 'title_en',
+            'score'   : 'confidence_score',
+            'status'  : 'most_recent_status_bulletin',
+            'location': 'bulletin_locations'
           };
           return sortMap[value];
         };
@@ -100,7 +104,7 @@ define(
       },
       // models are sorted based on the result of this function
       comparator: function(model) {
-        return model.get(this.compareField);
+        return parseComparator(model.get(this.compareField));
       },
       // watch the search bus to update the bulletin collection when new  
       // bulletin results are received from solr

@@ -196,8 +196,8 @@ define(
         'click .location': 'sortLocation',
         'click .age': 'sortAge',
         'click .title': 'sortTitle',
-        'click .status': 'sortStatus',
-        'click .score': 'sortScore'
+        'click .sort-status': 'sortStatus',
+        'click .sort-score': 'sortScore'
       },
       initialize: function() {
         this.watchSortEvents();

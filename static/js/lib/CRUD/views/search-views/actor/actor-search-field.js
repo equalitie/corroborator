@@ -48,7 +48,7 @@ define (
       childViews: [],
       subscribers: [],
       events: {
-        'click .do-search': 'searchActorsRequested',
+        'click .do-search-embedded': 'searchActorsRequested',
         'click .do-clear' : 'clearSearchRequested'
       },
       template: actorSearchTmp,
@@ -98,7 +98,6 @@ define (
         //this.actorCollection.on('reset', this.updateRenderCollection, this);
         this.actorCollection.model = Actor.ActorModel;
         this.listenForAvailableActors();
-        this.requestAvailableActors();
       },
 
       // search solr for actors
@@ -106,7 +105,7 @@ define (
         var searchText = inputText !== undefined ? inputText : '*';
         // send a search request - handled in TextSearch
         crudBus.push({
-          type: 'new_search',
+          type: 'new_embedded_search',
           content: {
             raw: inputText
           }

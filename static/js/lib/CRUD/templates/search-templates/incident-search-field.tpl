@@ -2,7 +2,7 @@
 <div class="search">
   <input type="text" class="with-clear"/>
   <button class="do-clear"><span>✓</span></button>
-  <button class="do-search do-search-embedded incidents"><span>Search</span></button>
+  <button class="do-search-embedded incidents"><span>Search</span></button>
 </div>
 <ul class="elements elements-incidents-incidents">
 
