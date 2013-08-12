@@ -44,6 +44,11 @@
               </a>
             
               
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
               <a class="source" href="NavCombo.html">
                 NavCombo.js
               </a>
@@ -119,6 +124,11 @@
               </a>
             
               
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
               <a class="source" href="dialog.html">
                 dialog.js
               </a>
@@ -129,8 +139,28 @@
               </a>
             
               
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
               <a class="source" href="language.html">
                 language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
               </a>
             
               
@@ -298,26 +328,30 @@ Stream processing functions
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> filterSort = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.type === <span class="string">'filter_view'</span>;
-    };
-    <span class="keyword">var</span> getSortType = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> {
-        option: value.sort
-      };
-    };
-    <span class="keyword">var</span> filterActions = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.type === <span class="string">'action_combo'</span>;
-    };
-    <span class="keyword">var</span> extractResults = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.content;
-    };
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> navBus = Streams.navBus,
+        filterSort = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'filter_view'</span>;
+        },
+        getSortType = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> {
+            option: value.sort
+          };
+        },
+        filterTabNav = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'navigate'</span>;
+        },
+        filterActions = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'action_combo'</span>;
+        },
+        extractResults = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.content;
+        },
 
-    <span class="keyword">var</span> getActionType = <span class="keyword">function</span>(model) {
-     <span class="keyword">return</span> {
-       option: model.get(<span class="string">'name_en'</span>)
-     };
-    };</pre></div></div>
+        getActionType = <span class="keyword">function</span>(model) {
+          <span class="keyword">return</span> {
+            option: model.get(<span class="string">'name_en'</span>)
+          };
+        },</pre></div></div>
             
         </li>
         
@@ -332,20 +366,20 @@ Stream processing functions
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> combineBoth = <span class="keyword">function</span>(previous, newValue) {
-      <span class="keyword">if</span> (newValue.hasOwnProperty(<span class="string">'navValue'</span>)) {
-        previous.navValue = newValue.navValue;
-        previous.action = <span class="literal">false</span>;
-      }
-      <span class="keyword">if</span> (newValue.hasOwnProperty(<span class="string">'option'</span>)) {
-        previous.option = newValue.option;
-        previous.action = <span class="literal">true</span>;
-      }
-      <span class="keyword">return</span> previous;
-    };
-    <span class="keyword">var</span> filterExecuteAction = <span class="keyword">function</span>(value) {
-      <span class="keyword">return</span> value.action === <span class="literal">true</span>;
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        combineBoth = <span class="keyword">function</span>(previous, newValue) {
+          <span class="keyword">if</span> (newValue.hasOwnProperty(<span class="string">'navValue'</span>)) {
+            previous.navValue = newValue.navValue;
+            previous.action = <span class="literal">false</span>;
+          }
+          <span class="keyword">if</span> (newValue.hasOwnProperty(<span class="string">'option'</span>)) {
+            previous.option = newValue.option;
+            previous.action = <span class="literal">true</span>;
+          }
+          <span class="keyword">return</span> previous;
+        },
+        filterExecuteAction = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.action === <span class="literal">true</span>;
+        },</pre></div></div>
             
         </li>
         
@@ -360,14 +394,13 @@ Stream processing functions
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> createNavProperty = <span class="keyword">function</span>() {
-      <span class="keyword">var</span> mapNav = <span class="keyword">function</span>(value) {
-        <span class="keyword">return</span> { navValue: value };
-      };
-      <span class="keyword">return</span> Streams.navBus
-                    .toEventStream()
-                    .map(mapNav);
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        createNavProperty = <span class="keyword">function</span>() {
+          <span class="keyword">var</span> mapNav = <span class="keyword">function</span>(value) {
+            <span class="keyword">return</span> { navValue: value.content.entity };
+          };
+          <span class="keyword">return</span> navBus.toEventStream()
+                       .map(mapNav);
+        },</pre></div></div>
             
         </li>
         
@@ -382,9 +415,9 @@ Stream processing functions
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> identifyNewAction = <span class="keyword">function</span>(previous, newValue) {
-      <span class="keyword">return</span> previous.option === newValue.option;
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        identifyNewAction = <span class="keyword">function</span>(previous, newValue) {
+          <span class="keyword">return</span> previous.option === newValue.option;
+        };</pre></div></div>
             
         </li>
         
@@ -485,15 +518,30 @@ NUMBER OF ELEMENTS SELECTED VIEW
         <span class="keyword">this</span>.watchNav();
       },
       watchNav: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> self = <span class="keyword">this</span>;
-        createNavProperty().onValue(<span class="keyword">function</span>(value) {
-          self.collection = self.collections[value.navValue];
-          self.collection.on(<span class="string">'reset change remove destroy updateSelected'</span>, self.render, self);
-          self.collectionName = value.navValue;
-          self.render();
-        });
+        createNavProperty().onValue(<span class="keyword">this</span>.updateSelectedView.bind(<span class="keyword">this</span>));
                            
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>change the section we are watching</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      updateSelectedView: <span class="keyword">function</span>(value) {
+        <span class="keyword">this</span>.collection = <span class="keyword">this</span>.collections[value.navValue];
+        <span class="keyword">this</span>.collection.on(<span class="string">'reset change remove destroy updateSelected'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
+        <span class="keyword">this</span>.collectionName = value.navValue;
+        <span class="keyword">this</span>.render();
       },
+
       pluralise: <span class="keyword">function</span>(word, number) {
         <span class="keyword">if</span> (number !== <span class="number">1</span>) {
           word = word + <span class="string">'s'</span>;
@@ -520,11 +568,11 @@ NUMBER OF ELEMENTS SELECTED VIEW
         </li>
         
         
-        <li id="section-15">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>////////////////////////////////////////////////////////////////////
 FILTER VIEW
@@ -555,11 +603,11 @@ FILTER VIEW
         </li>
         
         
-        <li id="section-16">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>handle sort events from headers</p>
 
@@ -596,11 +644,11 @@ FILTER VIEW
         </li>
         
         
-        <li id="section-17">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>watch for nav to actor - swap out filters when change to and from</p>
 
@@ -664,11 +712,11 @@ FILTER VIEW
         </li>
         
         
-        <li id="section-18">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <h2>used to render the header container view</h2>
 <p>renders the ElementsSelectedView and the ActionComboView subviews</p>
@@ -704,11 +752,11 @@ FILTER VIEW
         </li>
         
         
-        <li id="section-19">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>render the number selected box</p>
 
@@ -722,11 +770,11 @@ FILTER VIEW
         </li>
         
         
-        <li id="section-20">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>render the actions</p>
 
@@ -737,11 +785,11 @@ FILTER VIEW
         </li>
         
         
-        <li id="section-21">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>needed because actions div has just been rendered</p>
 
@@ -758,11 +806,11 @@ FILTER VIEW
         </li>
         
         
-        <li id="section-22">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>expose our view as a module export</p>
 

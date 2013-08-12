@@ -44,6 +44,11 @@
               </a>
             
               
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
               <a class="source" href="NavCombo.html">
                 NavCombo.js
               </a>
@@ -119,6 +124,11 @@
               </a>
             
               
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
               <a class="source" href="dialog.html">
                 dialog.js
               </a>
@@ -129,8 +139,28 @@
               </a>
             
               
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
               <a class="source" href="language.html">
                 language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
               </a>
             
               
@@ -186,7 +216,6 @@ define(
     <span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'backbone'</span>, <span class="string">'handlebars'</span>,
     <span class="string">'lib/streams'</span>,
     <span class="string">'lib/Data/collections'</span>,
-    <span class="string">'lib/elements/language'</span>,
     <span class="string">'lib/SolrSearch/templates/actor.tpl'</span>,
     <span class="string">'lib/SolrSearch/templates/actor-results.tpl'</span>,
     <span class="string">'lib/SolrSearch/templates/bulletin.tpl'</span>,
@@ -194,7 +223,7 @@ define(
     <span class="string">'lib/SolrSearch/templates/incident.tpl'</span>,
     <span class="string">'lib/SolrSearch/templates/incident-results.tpl'</span>
   ],
-  <span class="keyword">function</span>($, _, Backbone, Handlebars, Streams, Collections, Language,
+  <span class="keyword">function</span>($, _, Backbone, Handlebars, Streams, Collections, 
     actorTmp, actorResultsTmp, bulletinTmp, bulletinResultsTmp,
     incidentTmp, incidentResultsTmp
   ) {
@@ -221,49 +250,7 @@ define(
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActorResultView = Backbone.View.extend({
       tagName: <span class="string">'li'</span>,
-      events: {
-        <span class="string">'click .actor-content'</span>: <span class="string">'expandActor'</span>,
-        <span class="string">'click .toggle lang:(ar)'</span>: <span class="string">'showArabic'</span>,
-        <span class="string">'click .toggle lang:(en)'</span>: <span class="string">'showEnglish'</span>,
-        <span class="string">'click input[type="checkbox"]'</span>: <span class="string">'selectActor'</span>
-      },
-      initialize: <span class="keyword">function</span>(options) {
-        <span class="keyword">this</span>.index = options.index;
-        <span class="keyword">this</span>.model.on(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.model.on(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.render();
-      },
-      expandActor: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.$el.children()
-                .children()
-                .children()
-                .children(<span class="string">'.actor-long-summary, .actor-summary'</span>)
-                .toggleClass(<span class="string">'hidden'</span>);
-      },
-      selectActor: <span class="keyword">function</span>(e) {
-        <span class="keyword">var</span> checked = (<span class="keyword">this</span>.model.get(<span class="string">'checked'</span>) !== <span class="string">'checked'</span>) ? <span class="string">'checked'</span> : <span class="string">''</span>;
-        <span class="keyword">this</span>.model.set({checked: checked}, {silent: <span class="literal">true</span>});
-        <span class="keyword">this</span>.model.collection.trigger(<span class="string">'change'</span>);
-      },
-      render: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.$el.empty();
-        <span class="keyword">var</span> pos = <span class="keyword">this</span>.index % <span class="number">2</span> === <span class="number">1</span> ? <span class="string">'right'</span>: <span class="string">'left'</span>;
-        <span class="keyword">var</span> html = actorTmp({
-          model: <span class="keyword">this</span>.model.toJSON(),
-          pos:pos
-        });
-        <span class="keyword">this</span>.$el.addClass(<span class="string">'result'</span>);
-        <span class="keyword">this</span>.$el.append(html);
-        <span class="keyword">return</span> <span class="keyword">this</span>;
-      },
-      destroy: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.remove();
-        <span class="keyword">this</span>.model.off(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.model.off(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
-      }
-
-    });</pre></div></div>
+      events: {</pre></div></div>
             
         </li>
         
@@ -274,17 +261,13 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>Show the results of a search for actors</p>
+              <p>&#39;click .actor-content&#39;: &#39;expandActor&#39;,</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActorResultsView = Backbone.View.extend({
-      el: <span class="string">'.results-body'</span>,
-      childViews: [],
-      initialize: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.collection = Collections.ActorCollection;
-        <span class="keyword">this</span>.collection.on(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.render();
+            <div class="content"><div class='highlight'><pre>        <span class="string">'click .toggle lang:(ar)'</span>: <span class="string">'showArabic'</span>,
+        <span class="string">'click .toggle lang:(en)'</span>: <span class="string">'showEnglish'</span>,
+        <span class="string">'click input[type="checkbox"]'</span>: <span class="string">'selectActor'</span>
       },</pre></div></div>
             
         </li>
@@ -296,16 +279,16 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>render container template</p>
+              <p>constructor</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> html = actorResultsTmp();
-        <span class="keyword">this</span>.$el.empty();
-        <span class="keyword">this</span>.$el.append(html);
-        <span class="keyword">this</span>.collection.each(<span class="keyword">this</span>.renderList, <span class="keyword">this</span>);
-        <span class="keyword">return</span> <span class="keyword">this</span>;
+            <div class="content"><div class='highlight'><pre>      initialize: <span class="keyword">function</span>(options) {
+        <span class="keyword">this</span>.index = options.index;
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'change'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'sync'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.render();
       },</pre></div></div>
             
         </li>
@@ -317,31 +300,17 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>render each of our actor results</p>
+              <p>show longer version in list ( disabled )</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      renderList: <span class="keyword">function</span>(model, index) {
-        <span class="keyword">var</span> resultView = <span class="keyword">new</span> ActorResultView({
-          model: model,
-          index: index
-        });
+            <div class="content"><div class='highlight'><pre>      expandActor: <span class="keyword">function</span>() {
         <span class="keyword">this</span>.$el.children()
                 .children()
                 .children()
-                .append(resultView.$el);
-        <span class="keyword">this</span>.childViews.push(resultView);
-      },
-
-      destroy: <span class="keyword">function</span>() {
-        _.each(<span class="keyword">this</span>.childViews, <span class="keyword">function</span>(view) {
-          view.destroy();
-        });
-        <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.collection.off(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render);
-        <span class="keyword">this</span>.$el.empty();
-      }
-    });</pre></div></div>
+                .children(<span class="string">'.actor-long-summary, .actor-summary'</span>)
+                .toggleClass(<span class="string">'hidden'</span>);
+      },</pre></div></div>
             
         </li>
         
@@ -352,24 +321,14 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>/////////////////////////////////////////////////////////////////////////</p>
-<h2>INCIDENT LIST DISPLAY</h2>
-<p>/////////////////////////////////////////////////////////////////////////</p>
-<p>render and individual result</p>
+              <p>check the checkbox</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> IncidentResultView = Backbone.View.extend({
-      tagName: <span class="string">'tr'</span>,
-      events: {
-        <span class="string">'click .toggle span'</span>: <span class="string">'switchLanguage'</span>,
-        <span class="string">'click input[type="checkbox"]'</span>: <span class="string">'selectIncident'</span>
-      },
-      initialize: <span class="keyword">function</span>(options) {
-        <span class="keyword">this</span>.index = options.index;
-        <span class="keyword">this</span>.model.on(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.model.on(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.render();
+            <div class="content"><div class='highlight'><pre>      selectActor: <span class="keyword">function</span>(e) {
+        <span class="keyword">var</span> checked = (<span class="keyword">this</span>.model.get(<span class="string">'checked'</span>) !== <span class="string">'checked'</span>) ? <span class="string">'checked'</span> : <span class="string">''</span>;
+        <span class="keyword">this</span>.model.set({checked: checked}, {silent: <span class="literal">true</span>});
+        <span class="keyword">this</span>.model.collection.trigger(<span class="string">'change'</span>);
       },</pre></div></div>
             
         </li>
@@ -381,36 +340,23 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>dom event handlers</p>
+              <p>render a single actor</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      switchLanguage: <span class="keyword">function</span>(evt) {
-        <span class="keyword">var</span> clickedElement = evt.currentTarget,
-            i18nElement = <span class="keyword">this</span>.$el.children(<span class="string">'td.is-description'</span>)
-                              .children(<span class="string">'a'</span>)
-                              .children(<span class="string">'div.i18n'</span>);
-        Language.toggleLanguage(clickedElement, i18nElement);
-      },
-      selectIncident: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> checked = (<span class="keyword">this</span>.model.get(<span class="string">'checked'</span>) !== <span class="string">'checked'</span>) ? <span class="string">'checked'</span> : <span class="string">''</span>;
-        <span class="keyword">this</span>.model.set({checked: checked}, {silent: <span class="literal">true</span>});
-        <span class="keyword">this</span>.model.collection.trigger(<span class="string">'change'</span>);
-      },
-      render: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> html = incidentTmp({
-          model: <span class="keyword">this</span>.model.toJSON()
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.$el.empty();
+        <span class="keyword">var</span> pos = <span class="keyword">this</span>.index % <span class="number">2</span> === <span class="number">1</span> ? <span class="string">'right'</span>: <span class="string">'left'</span>;
+        <span class="keyword">var</span> html = actorTmp({
+          model: <span class="keyword">this</span>.model.toJSON(),
+          pos:pos
         });
-        <span class="keyword">this</span>.$el.addClass(<span class="string">'result REPEAT Incident in-table'</span>);
-        <span class="keyword">this</span>.$el.empty()
-                .append(html);
+        <span class="keyword">this</span>.$el.addClass(<span class="string">'result'</span>);
+        <span class="keyword">this</span>.$el.append(html);
         <span class="keyword">return</span> <span class="keyword">this</span>;
       },
-      destroy: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.remove();
-        <span class="keyword">this</span>.model.off(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.model.off(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
+      onDestroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.model.stopListening();
       }
 
     });</pre></div></div>
@@ -428,46 +374,7 @@ define(
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> IncidentResultsView = Backbone.View.extend({
-      el: <span class="string">'.results-body'</span>,
-      childViews: [],
-
-      initialize: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.collection = Collections.IncidentCollection;
-        <span class="keyword">this</span>.collection.on(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.render();
-      },
-
-      render: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.$el.empty();
-        <span class="keyword">var</span> html = incidentResultsTmp();
-        <span class="keyword">this</span>.$el.empty().append(html);
-        <span class="keyword">this</span>.collection.each(<span class="keyword">this</span>.renderList, <span class="keyword">this</span>);
-        <span class="keyword">return</span> <span class="keyword">this</span>;
-      },
-
-      renderList: <span class="keyword">function</span>(model, index) {
-        <span class="keyword">var</span> resultView = <span class="keyword">new</span> IncidentResultView({
-          model: model,
-          index: index
-        });
-        <span class="keyword">this</span>.$el.children()
-                .children()
-                .children()
-                .append(resultView.$el);
-        <span class="keyword">this</span>.childViews.push(resultView);
-      },
-
-      destroy: <span class="keyword">function</span>() {
-        _.each(<span class="keyword">this</span>.childViews, <span class="keyword">function</span>(view) {
-          view.destroy();
-        });
-        <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.collection.off(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render);
-        <span class="keyword">this</span>.$el.empty();
-      }
-
-    });</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ActorResultsView = Backbone.View.extend({</pre></div></div>
             
         </li>
         
@@ -478,25 +385,18 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>/////////////////////////////////////////////////////////////////////////</p>
-<h2>BULLETIN LIST DISPLAY</h2>
-<p>/////////////////////////////////////////////////////////////////////////</p>
-<p>render and individual result</p>
+              <p>el: &#39;.results-body&#39;,</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> BulletinResultView = Backbone.View.extend({
-      tagName: <span class="string">'tr'</span>,
-      events: {
-        <span class="string">'click .toggle span'</span>: <span class="string">'switchLanguage'</span>,
-        <span class="string">'click input[type="checkbox"]'</span>: <span class="string">'selectBulletin'</span>
-      },
-
-      initialize: <span class="keyword">function</span>(options) {
-        <span class="keyword">this</span>.index = options.index;
-        <span class="keyword">this</span>.model.on(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.model.on(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
+            <div class="content"><div class='highlight'><pre>      template: actorResultsTmp,
+      childViews: [],
+      initialize: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.addi18n();
+        <span class="keyword">this</span>.collection = Collections.ActorCollection;
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.collection, <span class="string">'add sort reset'</span>, <span class="keyword">this</span>.renderList.bind(<span class="keyword">this</span>));
         <span class="keyword">this</span>.render();
+        <span class="keyword">this</span>.renderList();
       },</pre></div></div>
             
         </li>
@@ -508,41 +408,16 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
-              <p>dom event handlers</p>
+              <p>render container template</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      switchLanguage: <span class="keyword">function</span>(evt) {
-        <span class="keyword">var</span> clickedElement = evt.currentTarget,
-            i18nElement = <span class="keyword">this</span>.$el.children(<span class="string">'td.is-description'</span>)
-                              .children(<span class="string">'a'</span>)
-                              .children(<span class="string">'div.i18n'</span>);
-        Language.toggleLanguage(clickedElement, i18nElement);
-      },
-      selectBulletin: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> checked = (<span class="keyword">this</span>.model.get(<span class="string">'checked'</span>) !== <span class="string">'checked'</span>) ? <span class="string">'checked'</span> : <span class="string">''</span>;
-        <span class="keyword">this</span>.model.set({checked: checked}, {silent: <span class="literal">true</span>});
-        <span class="keyword">this</span>.model.collection.trigger(<span class="string">'change'</span>);
-      },
-
-      render: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> html = bulletinTmp({
-          model: <span class="keyword">this</span>.model.toJSON()
-        });
-        <span class="keyword">this</span>.$el.empty()
-                .addClass(<span class="string">'REPEAT Bulletin in-table'</span>)
-                .append(html);
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.$el.remove().unbind();
+        <span class="keyword">var</span> html = <span class="keyword">this</span>.template();
+        <span class="keyword">this</span>.$el.html(html);
         <span class="keyword">return</span> <span class="keyword">this</span>;
-      },
-
-      destroy: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.remove();
-        <span class="keyword">this</span>.model.off(<span class="string">'change'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.model.off(<span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy, <span class="keyword">this</span>);
-      }
-
-    });</pre></div></div>
+      },</pre></div></div>
             
         </li>
         
@@ -553,47 +428,15 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
-              <p>Show the results of a search for actors</p>
+              <p>render each of our actor results</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> BulletinResultsView = Backbone.View.extend({
-      el: <span class="string">'.results-body'</span>,
-      childViews: [],
-      initialize: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.collection = Collections.BulletinCollection;
-        <span class="keyword">this</span>.collection.on(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
-        <span class="keyword">this</span>.render();
-      },
-
-      render: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.$el.empty();
-        <span class="keyword">var</span> html = bulletinResultsTmp();
-        <span class="keyword">this</span>.$el.append(html);
-        <span class="keyword">this</span>.collection.each(<span class="keyword">this</span>.renderList, <span class="keyword">this</span>);
+            <div class="content"><div class='highlight'><pre>      renderList: <span class="keyword">function</span>(model, index) {
+        <span class="keyword">this</span>.destroyChildren();
+        <span class="keyword">this</span>.collection.each(<span class="keyword">this</span>.renderItem, <span class="keyword">this</span>);
         <span class="keyword">return</span> <span class="keyword">this</span>;
-      },
-      renderList: <span class="keyword">function</span>(model, index, list) {
-        <span class="keyword">var</span> resultView = <span class="keyword">new</span> BulletinResultView({
-          model: model,
-          index: index
-        });
-        <span class="keyword">this</span>.$el.children()
-                .children()
-                .children()
-                .append(resultView.$el);
-        <span class="keyword">this</span>.childViews.push(resultView);
-      },
-      destroy: <span class="keyword">function</span>() {
-        _.each(<span class="keyword">this</span>.childViews, <span class="keyword">function</span>(view) {
-          view.destroy();
-        });
-        <span class="keyword">this</span>.undelegateEvents();
-        <span class="keyword">this</span>.$el.empty();
-        <span class="keyword">this</span>.collection.off(<span class="string">'add sort reset'</span>, <span class="keyword">this</span>.render);
-      }
-
-    });</pre></div></div>
+      },</pre></div></div>
             
         </li>
         
@@ -604,19 +447,32 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <p>////////////////////////////////////////////////////////////////////////</p>
-<h2>show/display results logic</h2>
-<p>////////////////////////////////////////////////////////////////////////</p>
+              <p>render a single actor result</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    
-    <span class="keyword">var</span> currentView;
-    <span class="keyword">var</span> destroy = <span class="function"><span class="keyword">function</span> <span class="params">(view)</span> {</span>
-      <span class="keyword">if</span> (view !== <span class="literal">undefined</span>) {
-        view.destroy();
+            <div class="content"><div class='highlight'><pre>      renderItem: <span class="keyword">function</span>(model, index) {
+        <span class="keyword">var</span> resultView = <span class="keyword">new</span> ActorResultView({
+          model: model,
+          index: index
+        });
+        <span class="keyword">this</span>.$el.children()
+                .children()
+                .children()
+                .append(resultView.$el);
+        <span class="keyword">this</span>.childViews.push(resultView);
+      },
+
+      destroyChildren:<span class="keyword">function</span>() {
+        _.invoke(<span class="keyword">this</span>.childViews, <span class="string">'destroy'</span>);
+        <span class="keyword">this</span>.childViews = [];
+      },
+
+      onDestroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.destroyChildren();
+        <span class="keyword">this</span>.stopListening();
       }
-    };</pre></div></div>
+    });</pre></div></div>
             
         </li>
         
@@ -627,11 +483,18 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-13">&#182;</a>
               </div>
-              <p>show the actor search results view</p>
+              <p>/////////////////////////////////////////////////////////////////////////</p>
+<h2>INCIDENT LIST DISPLAY</h2>
+<p>/////////////////////////////////////////////////////////////////////////</p>
+<p>render and individual result</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> showActors = <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> IncidentResultView = Backbone.View.extend({
+      tagName: <span class="string">'tr'</span>,
+      events: {
+        <span class="string">'click input[type="checkbox"]'</span>: <span class="string">'selectIncident'</span>
+      },</pre></div></div>
             
         </li>
         
@@ -642,11 +505,17 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-14">&#182;</a>
               </div>
-              <p>destroy current view</p>
+              <p>constructor</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      destroy(currentView);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      initialize: <span class="keyword">function</span>(options) {
+        <span class="keyword">this</span>.addi18n();
+        <span class="keyword">this</span>.index = options.index;
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'change'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.render();
+      },</pre></div></div>
             
         </li>
         
@@ -657,13 +526,15 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>show actor view</p>
+              <p>select an incident - user has clicked the checkbox</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      currentView = <span class="keyword">new</span> ActorResultsView();
-    };
-    <span class="keyword">var</span> showBulletins = <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      selectIncident: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> checked = (<span class="keyword">this</span>.model.get(<span class="string">'checked'</span>) !== <span class="string">'checked'</span>) ? <span class="string">'checked'</span> : <span class="string">''</span>;
+        <span class="keyword">this</span>.model.set({checked: checked}, {silent: <span class="literal">true</span>});
+        <span class="keyword">this</span>.model.collection.trigger(<span class="string">'change'</span>);
+      },</pre></div></div>
             
         </li>
         
@@ -674,11 +545,23 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>destroy current view</p>
+              <p>render the incident</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      destroy(currentView);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> html = incidentTmp({
+          model: <span class="keyword">this</span>.model.toJSON()
+        });
+        <span class="keyword">this</span>.$el.addClass(<span class="string">'result REPEAT Incident in-table'</span>);
+        <span class="keyword">this</span>.$el.html(html);
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+      },
+      onDestroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.stopListening();
+      }
+
+    });</pre></div></div>
             
         </li>
         
@@ -689,13 +572,11 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              <p>show actor view</p>
+              <p>Show the results of a search for actors</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      currentView = <span class="keyword">new</span> BulletinResultsView();
-    };
-    <span class="keyword">var</span> showIncidents = <span class="keyword">function</span>() {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> IncidentResultsView = Backbone.View.extend({</pre></div></div>
             
         </li>
         
@@ -706,11 +587,13 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              <p>destroy current view</p>
+              <p>el: &#39;.results-body&#39;,</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      destroy(currentView);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      childViews: [],
+      template: incidentResultsTmp,
+      className: <span class="string">'padding'</span>,</pre></div></div>
             
         </li>
         
@@ -721,19 +604,16 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
-              <p>show actor view</p>
+              <p>constructor</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      currentView = <span class="keyword">new</span> IncidentResultsView();
-    };
-
-    <span class="keyword">var</span> displayInicidents = <span class="keyword">function</span>() {};
-    <span class="keyword">var</span> displayBulletins = <span class="keyword">function</span>() {};
-
-    <span class="keyword">var</span> actorClicked = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value === <span class="string">'actor'</span>; };
-    <span class="keyword">var</span> incidentClicked = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value === <span class="string">'incident'</span>; };
-    <span class="keyword">var</span> bulletinClicked = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value === <span class="string">'bulletin'</span>; };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      initialize: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.collection = Collections.IncidentCollection;
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.collection, <span class="string">'add sort reset'</span>, <span class="keyword">this</span>.renderList.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.render();
+        <span class="keyword">this</span>.renderList();
+      },</pre></div></div>
             
         </li>
         
@@ -744,13 +624,16 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
-              <p>////////////////////////////////////////////////////////////////////////</p>
-<h2>init/destroy</h2>
-<p>////////////////////////////////////////////////////////////////////////</p>
+              <p>render container template</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> init = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.$el.remove().unbind();
+        <span class="keyword">var</span> html = <span class="keyword">this</span>.template();
+        <span class="keyword">this</span>.$el.html(html);
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+      },</pre></div></div>
             
         </li>
         
@@ -761,27 +644,379 @@ define(
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
+              <p>render each of our actor results</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      renderList: <span class="keyword">function</span>(model, index) {
+        <span class="keyword">this</span>.destroyChildren();
+        <span class="keyword">this</span>.collection.each(<span class="keyword">this</span>.renderItem, <span class="keyword">this</span>);
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>render a single incident</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      renderItem: <span class="keyword">function</span>(model, index, list) {
+        <span class="keyword">var</span> resultView = <span class="keyword">new</span> IncidentResultView({
+          model: model,
+          index: index
+        });
+        <span class="keyword">this</span>.$el.children()
+                .children()
+                .append(resultView.$el);
+        <span class="keyword">this</span>.childViews.push(resultView);
+      },
+
+      destroyChildren:<span class="keyword">function</span>() {
+        _.invoke(<span class="keyword">this</span>.childViews, <span class="string">'destroy'</span>);
+        <span class="keyword">this</span>.childViews = [];
+      },
+      onDestroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.destroyChildren();
+        <span class="keyword">this</span>.stopListening();
+      }
+
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>/////////////////////////////////////////////////////////////////////////</p>
+<h2>BULLETIN LIST DISPLAY</h2>
+<p>/////////////////////////////////////////////////////////////////////////</p>
+<p>render and individual result</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> BulletinResultView = Backbone.View.extend({
+      tagName: <span class="string">'tr'</span>,
+      events: {
+        <span class="string">'click input[type="checkbox"]'</span>: <span class="string">'selectBulletin'</span>
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>constructor</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      initialize: <span class="keyword">function</span>(options) {
+        <span class="keyword">this</span>.addi18n();
+        <span class="keyword">this</span>.index = options.index;
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'change'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.render();
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>user clicked checkbox</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      selectBulletin: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> checked = (<span class="keyword">this</span>.model.get(<span class="string">'checked'</span>) !== <span class="string">'checked'</span>) ? <span class="string">'checked'</span> : <span class="string">''</span>;
+        <span class="keyword">this</span>.model.set({checked: checked}, {silent: <span class="literal">true</span>});
+        <span class="keyword">this</span>.model.collection.trigger(<span class="string">'change'</span>);
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>render the bulletin</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> html = bulletinTmp({
+          model: <span class="keyword">this</span>.model.toJSON()
+        });
+        <span class="keyword">this</span>.$el.empty()
+                .addClass(<span class="string">'REPEAT Bulletin in-table'</span>)
+                .append(html);
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>remove event listeners</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      onDestroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.stopListening();
+      }
+
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Show the results of a search for actors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> BulletinResultsView = Backbone.View.extend({</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>el: &#39;.results-body&#39;,</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      childViews: [],
+      template: bulletinResultsTmp,
+      initialize: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.collection = Collections.BulletinCollection;
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.collection, <span class="string">'add sort reset'</span>, <span class="keyword">this</span>.renderList.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.render();
+        <span class="keyword">this</span>.renderList();
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>render container template</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      render: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.$el.remove().unbind();
+        <span class="keyword">var</span> html = <span class="keyword">this</span>.template();
+        <span class="keyword">this</span>.$el.html(html);
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>render each of our actor results</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      renderList: <span class="keyword">function</span>(model, index) {
+        <span class="keyword">this</span>.destroyChildren();
+        <span class="keyword">this</span>.collection.each(<span class="keyword">this</span>.renderItem, <span class="keyword">this</span>);
+        <span class="keyword">return</span> <span class="keyword">this</span>;
+      },
+      renderItem: <span class="keyword">function</span>(model, index, list) {
+        <span class="keyword">var</span> resultView = <span class="keyword">new</span> BulletinResultView({
+          model: model,
+          index: index
+        });
+        <span class="keyword">this</span>.$el.children()
+                .children()
+                .children()
+                .append(resultView.$el);
+        <span class="keyword">this</span>.childViews.push(resultView);
+      },
+      destroyChildren:<span class="keyword">function</span>() {
+        _.invoke(<span class="keyword">this</span>.childViews, <span class="string">'destroy'</span>);
+        <span class="keyword">this</span>.childViews = [];
+      },
+      onDestroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.destroyChildren();
+        <span class="keyword">this</span>.stopListening();
+      }
+
+    });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////////</p>
+<h2>show/display results logic</h2>
+<p>////////////////////////////////////////////////////////////////////////</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    
+    <span class="keyword">var</span> currentView,
+        viewMap = {
+          actor: ActorResultsView,
+          bulletin: BulletinResultsView,
+          incident: IncidentResultsView
+        },
+        displayCurrentView = <span class="function"><span class="keyword">function</span> <span class="params">(view)</span> {</span>
+          <span class="keyword">if</span> (currentView !== <span class="literal">undefined</span>) {
+            $(<span class="string">'.results-body'</span>).append(currentView.$el);
+          }
+        },
+        destroy = <span class="function"><span class="keyword">function</span> <span class="params">(view)</span> {</span>
+          <span class="keyword">if</span> (view !== <span class="literal">undefined</span>) {
+            view.destroy();
+          }
+        },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>show the actor search results view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        showResultsView = <span class="keyword">function</span>(entity) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>destroy current view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          destroy(currentView);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>show actor view</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          currentView = <span class="keyword">new</span> viewMap[entity]();
+          displayCurrentView();
+        },
+
+        filterTabNav = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value.type === <span class="string">'navigate'</span>; },
+        mapNavToEntity = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value.content.entity; },
+        actorClicked = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value === <span class="string">'actor'</span>; },
+        incidentClicked = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value === <span class="string">'incident'</span>; },
+        bulletinClicked = <span class="keyword">function</span>(value) { <span class="keyword">return</span> value === <span class="string">'bulletin'</span>; };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>////////////////////////////////////////////////////////////////////////</p>
+<h2>init</h2>
+<p>////////////////////////////////////////////////////////////////////////
+TODO - handle initial load if bulletin selected path sent</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> init = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
               <p>connect to the navStream to choose our initial result display</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="keyword">var</span> actorsSelected = Streams.navProperty
-                                  .filter(actorClicked)
-                                  .onValue(showActors);
+            <div class="content"><div class='highlight'><pre>      <span class="keyword">var</span> tabSelected = Streams.navProperty
+                               .filter(filterTabNav)
+                               .map(mapNavToEntity)
+                               .onValue(showResultsView);
+
                                   
-      <span class="keyword">var</span> incidentSelected = Streams.navProperty
-                                    .filter(incidentClicked)
-                                    .onValue(showIncidents);
-
-      <span class="keyword">var</span> bulletinSelected = Streams.navProperty
-                                    .filter(bulletinClicked)
-                                    .onValue(showBulletins);
-
     };
 
     <span class="keyword">return</span> {
-      init: init,
-      destroy: destroy
+      init: init
     };
 
 });</pre></div></div>

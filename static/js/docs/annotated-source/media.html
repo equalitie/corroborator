@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>media.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="actor.html">
+                actor.js
+              </a>
+            
+              
+              <a class="source" href="bulletin.html">
+                bulletin.js
+              </a>
+            
+              
+              <a class="source" href="collection-mixins.html">
+                collection-mixins.js
+              </a>
+            
+              
+              <a class="source" href="collections.html">
+                collections.js
+              </a>
+            
+              
+              <a class="source" href="incident.html">
+                incident.js
+              </a>
+            
+              
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
+              <a class="source" href="NavCombo.html">
+                NavCombo.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter.html">
+                TabRouter.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="TabRouter-test.html">
+                TabRouter-test.js
+              </a>
+            
+              
+              <a class="source" href="main.html">
+                main.js
+              </a>
+            
+              
+              <a class="source" href="date-range-test.html">
+                date-range-test.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher-test.html">
+                dispatcher-test.js
+              </a>
+            
+              
+              <a class="source" href="filter-test.html">
+                filter-test.js
+              </a>
+            
+              
+              <a class="source" href="querybuilder-tests.html">
+                querybuilder-tests.js
+              </a>
+            
+              
+              <a class="source" href="textsearch-test.html">
+                textsearch-test.js
+              </a>
+            
+              
+              <a class="source" href="header.html">
+                header.js
+              </a>
+            
+              
+              <a class="source" href="results.html">
+                results.js
+              </a>
+            
+              
+              <a class="source" href="manager.html">
+                manager.js
+              </a>
+            
+              
+              <a class="source" href="dispatcher.html">
+                dispatcher.js
+              </a>
+            
+              
+              <a class="source" href="combo.html">
+                combo.js
+              </a>
+            
+              
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
+              <a class="source" href="dialog.html">
+                dialog.js
+              </a>
+            
+              
+              <a class="source" href="input.html">
+                input.js
+              </a>
+            
+              
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
+              <a class="source" href="language.html">
+                language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
+              </a>
+            
+              
+              <a class="source" href="combo-test.html">
+                combo-test.js
+              </a>
+            
+              
+              <a class="source" href="dialog-test.html">
+                dialog-test.js
+              </a>
+            
+              
+              <a class="source" href="input-test.html">
+                input-test.js
+              </a>
+            
+              
+              <a class="source" href="streams.html">
+                streams.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>media.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="comment">/*global define, Bootstrap*/</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Author: Cormac McGuire</p>
+<h3>Description</h3>
+<p>This file represents the media models </p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>define (
+  [
+    <span class="string">'backbone'</span>, <span class="string">'underscore'</span>,
+    <span class="string">'lib/streams'</span>,
+    <span class="string">'lib/Data/collection-mixins'</span>
+  ],
+  <span class="function"><span class="keyword">function</span> <span class="params">(Backbone, _, Streams, Mixins)</span> {</span>
+    <span class="string">'use strict'</span>;
+
+    <span class="keyword">var</span> crudBus   = Streams.crudBus,
+        searchBus = Streams.searchBus,
+        PersistSelectionMixin = Mixins.PersistSelectionMixin,
+        ModelSelectionMixin = Mixins.ModelSelectionMixin,
+        mapResourceUriToId = <span class="keyword">function</span>(resourceUri) {
+          <span class="keyword">return</span> _.last(resourceUri.match(<span class="regexp">/\/(\d+)\/$/</span>));
+        },
+        filterMediaResults = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'results_media'</span>;
+        };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap for-h2">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <h2>Data representations</h2>
+<h3>Media Model</h3>
+<p>provide api endpoint for Media model</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> MediaModel = Backbone.Model.extend({
+      foreignKeyFields: [<span class="string">'POB'</span>, <span class="string">'current_location'</span>, <span class="string">'media'</span>] ,
+      idAttribute: <span class="string">'django_id'</span>,
+      initialize: <span class="keyword">function</span>(options) {
+        <span class="keyword">if</span> (options.resourceUri !== <span class="literal">undefined</span>) {
+          <span class="keyword">var</span> id = mapResourceUriToId(options.resourceUri);
+          <span class="keyword">this</span>.set(<span class="string">'django_id'</span>, id);
+          <span class="keyword">this</span>.set(<span class="string">'resource_uri'</span>, options.resourceUri);
+          <span class="keyword">this</span>.fetch();
+        }
+      },
+      url: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> base = <span class="string">'/api/v1/media/'</span>;
+        <span class="keyword">if</span> (<span class="keyword">this</span>.id) {
+          base = <span class="keyword">this</span>.get(<span class="string">'resource_uri'</span>);
+        }
+        <span class="keyword">var</span> urlvars = <span class="string">"?format=json&amp;username="</span> +
+        Bootstrap.username + <span class="string">"&amp;api_key="</span> + Bootstrap.apiKey;
+          <span class="keyword">return</span> base + urlvars;
+      }
+    });
+
+    <span class="keyword">var</span> SimpleMediaCollection = Backbone.Collection.extend({
+      model: MediaModel
+
+    });
+    <span class="keyword">return</span> {
+      MediaModel: MediaModel,
+      SimpleMediaCollection: SimpleMediaCollection
+    };
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

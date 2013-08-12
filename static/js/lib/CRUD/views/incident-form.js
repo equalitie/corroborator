@@ -103,7 +103,7 @@ define (
             field_label: 'Locations'
           },
           content: {
-            values: 'locations',
+            values: 'locations'
           }
         }
       },

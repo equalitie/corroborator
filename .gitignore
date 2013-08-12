@@ -13,3 +13,5 @@ Gemfile.lock
 Guardfile
 config.rb
 corroborator/wsgidev.py
+static/js/reports
+static/js/oldreports

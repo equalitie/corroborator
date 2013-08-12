@@ -143,6 +143,36 @@ module.exports = function(grunt) {
       }
     },
 
+    plato: {
+      dev: {
+        options: {
+          exclude: /\.tpl\.js/
+        },
+        files: {
+          'reports': [
+            'lib/*.js',
+            'lib/**/*.js',
+            'lib/**/**/*.js',
+            'lib/**/**/**/*.js',
+            'lib/**/**/**/**/*.js'
+          ]
+        }
+      },
+      olddev: {
+        options: {
+          exclude: /\.tpl\.js/
+        },
+        files: {
+         'oldreports': [
+          'trash/ajax-manager.js',
+          'trash/corroborator-hash-link-reader.js',
+          'trash/corroborator-util.js',
+          'trash/widgets/*.js'
+         ]
+        }
+      }
+    },
+
     docco: {
       docs: {
         src: [
@@ -173,7 +203,7 @@ module.exports = function(grunt) {
         'lib/CRUD/templates/display-templates/*.tpl',
         'lib/CRUD/templates/display-templates/*/*.tpl'
       ],
-      tasks: ['handlebars',/* 'buster:dev', 'jshint', 'requirejs', 'docco'*/]
+      tasks: ['handlebars'/*, 'buster:dev'*/, 'jshint', 'requirejs', 'docco']
     }
   });
 
@@ -184,6 +214,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-docco2');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-plato');
+
 
   // This is the default task being executed if Grunt
   // is called without any further parameter.
@@ -193,7 +225,9 @@ module.exports = function(grunt) {
       'handlebars',
       'jshint',
       'buster',
-      'requirejs'
+      'requirejs',
+      'plato'
+
     ]
   );
 

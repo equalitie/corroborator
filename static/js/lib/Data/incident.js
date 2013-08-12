@@ -9,9 +9,10 @@ define(
   [
     'jquery', 'underscore', 'backbone',
     'lib/streams',
-    'lib/Data/collection-mixins'
+    'lib/Data/collection-mixins',
+    'lib/Data/comparator'
   ],
-  function($, _, Backbone, Streams, Mixins) {
+  function($, _, Backbone, Streams, Mixins, Comparator) {
     'use strict';
     // ### event stream processing helpers
     // particular to actors
@@ -29,6 +30,7 @@ define(
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         Filters               = new Mixins.Filters(),
+        parseComparator       = Comparator.parseComparator,
         mapResourceUriToId = function(resourceUri) {
           return _.last(resourceUri.match(/\/(\d+)\/$/));
         },
@@ -36,8 +38,9 @@ define(
           var sortMap = {
             'date': 'incident_created',
             'title': 'title_en',
-            'score': 'confidence_score'
-            //'status': ''
+            'score': 'confidence_score',
+            'status': 'most_recent_status_incident',
+            'location': 'incident_locations'
           };
           return sortMap[value];
         };
@@ -97,8 +100,9 @@ define(
 
       // models are sorted based on the result of this function
       comparator: function(model) {
-        return model.get(this.compareField);
+        return parseComparator(model.get(this.compareField));
       },
+
       // watch the search bus to update the incident collection when new  
       // incident results are received from solr
       watchEventStream: function() {
@@ -132,7 +136,6 @@ define(
       // listen for sort request events  
       // these originate from header.js in SolrSearch views
       watchSort: function() {
-        var self = this;
         Streams.searchBus.filter(function(value) {
           return value.type === 'filter_view_combined';
         })
@@ -140,9 +143,9 @@ define(
         .map(Filters.extractOption)
         .map(mapSort)
         .onValue(function (value) {
-          self.compareField = value;
-          self.sort();
-        });
+          this.compareField = value;
+          this.sort();
+        }.bind(this));
       },
       watchCreate: function() {
         var self = this;

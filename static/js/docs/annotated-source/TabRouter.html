@@ -44,6 +44,11 @@
               </a>
             
               
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
               <a class="source" href="NavCombo.html">
                 NavCombo.js
               </a>
@@ -119,6 +124,11 @@
               </a>
             
               
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
               <a class="source" href="dialog.html">
                 dialog.js
               </a>
@@ -129,8 +139,28 @@
               </a>
             
               
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
               <a class="source" href="language.html">
                 language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
               </a>
             
               
@@ -191,19 +221,28 @@
 <h3>TabRouter</h3>
 <p>Backbone Router<br>handles clicks on the three tabs and sends messages into the navStream
 defined in streams.js based on this  </p>
+<p>TODO: handle bogey urls</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>define(
   [
-    <span class="string">'jquery'</span>, <span class="string">'backbone'</span>,
+    <span class="string">'jquery'</span>, <span class="string">'backbone'</span>, <span class="string">'underscore'</span>,
     <span class="string">'lib/streams'</span>,
     <span class="string">'lib/Data/collections'</span>
   ],
-  <span class="keyword">function</span>($, Backbone, Streams, Collections) {
+  <span class="keyword">function</span>($, Backbone, _, Streams, Collections) {
     <span class="string">'use strict'</span>;
     <span class="keyword">var</span> tabRouter,
-        tabView;</pre></div></div>
+        navBus = Streams.navBus,
+        tabView,
+
+        filterTabNav = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'navigate'</span>;
+        },
+        filterEntityNav = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span> value.type === <span class="string">'entity-display'</span>;
+        },</pre></div></div>
             
         </li>
         
@@ -218,9 +257,9 @@ defined in streams.js based on this  </p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> convertToElement = <span class="keyword">function</span>(className) {
-      <span class="keyword">return</span>  <span class="string">'li.is-'</span> + className + <span class="string">'s'</span>;
-    };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        convertToElement = <span class="keyword">function</span>(value) {
+          <span class="keyword">return</span>  <span class="string">'li.is-'</span> + value.content.entity + <span class="string">'s'</span>;
+        };</pre></div></div>
             
         </li>
         
@@ -233,19 +272,64 @@ defined in streams.js based on this  </p>
               </div>
               <h2>TabRouter</h2>
 <p>handle tab clicks
-push an event to the navBus when the user clicks on a tab</p>
+push an event to the navBus when the user clicks on a tab or a result  </p>
+<p>For the initial navigate if a user is on an individual result
+we also want to open the filters and results at this point</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> TabRouter = Backbone.Router.extend({
       routes: {
-        <span class="string">''</span>: <span class="string">'openSection'</span>,
-        <span class="string">'tab/:section'</span>: <span class="string">'openSection'</span>
+        <span class="string">''</span>                    : <span class="string">'openSection'</span>,
+        <span class="string">'tab/:section'</span>        : <span class="string">'openSection'</span>,
+        <span class="string">'bulletin/:bulletinId'</span>: <span class="string">'openBulletin'</span>,
+        <span class="string">'incident/:incidentId'</span>: <span class="string">'openIncident'</span>,
+        <span class="string">'actor/:actorId'</span>      : <span class="string">'openActor'</span>
       },
+      initialize: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.watchForResultNav();
+      },
+      watchForResultNav: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> unsub = 
+          navBus.toEventStream()
+                .filter(filterEntityNav)
+                .subscribe(<span class="keyword">this</span>.navigateToSection.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.unsubNavSubscriber = _.once(unsub);
+      },
+
+      navigateToSection: <span class="keyword">function</span>(evt) {
+        <span class="keyword">this</span>.openSection(evt.value().entity);
+      },
+
       openSection: <span class="keyword">function</span>(section) {
+        <span class="keyword">this</span>.unsubNavSubscriber();
         section = section === <span class="literal">undefined</span> ? <span class="string">'incident'</span>: section;
-        Streams.navBus.push(section);
+        navBus.push({
+          type: <span class="string">'navigate'</span>,
+          content: {
+            entity: section
+          }
+        });
+      },
+      openBulletin: <span class="keyword">function</span>(bulletinId) {
+        <span class="keyword">this</span>.openEntity(<span class="string">'bulletin'</span>, bulletinId);
+      },
+      openIncident: <span class="keyword">function</span>(incidentId) {
+        <span class="keyword">this</span>.openEntity(<span class="string">'incident'</span>, incidentId);
+      },
+      openActor: <span class="keyword">function</span>(actorId) {
+        <span class="keyword">this</span>.openEntity(<span class="string">'actor'</span>, actorId);
+      },
+      openEntity: <span class="keyword">function</span>(type, id) {
+        navBus.push({
+          type: <span class="string">'entity-display'</span>,
+          content: {
+            entity: type,
+            id    : id
+          }
+        });
       }
+
     });</pre></div></div>
             
         </li>
@@ -267,9 +351,19 @@ push an event to the navBus when the user clicks on a tab</p>
       initialize: <span class="keyword">function</span>() {
         Streams.navBus.toEventStream()
                       .toProperty()
+                      .filter(filterTabNav)
                       .map(convertToElement)
                       .onValue(<span class="keyword">this</span>.updateTabClass);
         <span class="keyword">this</span>.watchCollectionCounts();
+        <span class="keyword">this</span>.initCollectionCounts();
+      },
+      initCollectionCounts: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.setCollectionCount(<span class="string">'bulletin'</span>, Collections.BulletinCollection.length);
+        <span class="keyword">this</span>.setCollectionCount(<span class="string">'actor'</span>, Collections.ActorCollection.length);
+        <span class="keyword">this</span>.setCollectionCount(<span class="string">'incident'</span>, Collections.IncidentCollection.length);
+      },
+      setCollectionCount: <span class="keyword">function</span>(entity, count) {
+        $(<span class="string">'.'</span> + entity + <span class="string">'-count'</span>).empty().append(count);
       },</pre></div></div>
             
         </li>
@@ -288,16 +382,13 @@ change</p>
             
             <div class="content"><div class='highlight'><pre>      watchCollectionCounts: <span class="keyword">function</span>() {
         Collections.BulletinCollection.on(<span class="string">'add destroy reset'</span>, <span class="keyword">function</span>() {
-          $(<span class="string">'.bulletin-count'</span>).empty()
-                              .append(Collections.BulletinCollection.length);
+          <span class="keyword">this</span>.setCollectionCount(<span class="string">'bulletin'</span>, Collections.BulletinCollection.length);
         }, <span class="keyword">this</span>);
         Collections.ActorCollection.on(<span class="string">'add destroy change reset'</span>, <span class="keyword">function</span>() {
-          $(<span class="string">'.actor-count'</span>).empty()
-                           .append(Collections.ActorCollection.length);
+          <span class="keyword">this</span>.setCollectionCount(<span class="string">'actor'</span>, Collections.ActorCollection.length);
         }, <span class="keyword">this</span>);
         Collections.IncidentCollection.on(<span class="string">'add destroy reset'</span>, <span class="keyword">function</span>() {
-          $(<span class="string">'.incident-count'</span>).empty()
-                              .append(Collections.IncidentCollection.length);
+          <span class="keyword">this</span>.setCollectionCount(<span class="string">'incident'</span>, Collections.IncidentCollection.length);
         }, <span class="keyword">this</span>);
       },</pre></div></div>
             

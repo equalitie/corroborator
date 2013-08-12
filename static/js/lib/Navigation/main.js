@@ -91,7 +91,6 @@ define(
       }).filter(function(value) {
         return value.type === 'search_updated' && value.content !== undefined;
       }).onValue(function(value) {
-        console.log(value);
         Streams.searchBus.push(value);
       });
     };

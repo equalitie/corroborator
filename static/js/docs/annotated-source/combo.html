@@ -44,6 +44,11 @@
               </a>
             
               
+              <a class="source" href="media.html">
+                media.js
+              </a>
+            
+              
               <a class="source" href="NavCombo.html">
                 NavCombo.js
               </a>
@@ -119,6 +124,11 @@
               </a>
             
               
+              <a class="source" href="date-time-range.html">
+                date-time-range.js
+              </a>
+            
+              
               <a class="source" href="dialog.html">
                 dialog.js
               </a>
@@ -129,8 +139,28 @@
               </a>
             
               
+              <a class="source" href="label-widget.html">
+                label-widget.js
+              </a>
+            
+              
               <a class="source" href="language.html">
                 language.js
+              </a>
+            
+              
+              <a class="source" href="overlay.html">
+                overlay.js
+              </a>
+            
+              
+              <a class="source" href="select-option.html">
+                select-option.js
+              </a>
+            
+              
+              <a class="source" href="slider-input.html">
+                slider-input.js
               </a>
             
               
@@ -246,7 +276,10 @@ global dispatcher for sending events</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> Collection = Backbone.Collection.extend();</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> Collection = Backbone.Collection.extend(),
+        ItemView,
+        ComboView,
+        ComboWidget;</pre></div></div>
             
         </li>
         
@@ -262,7 +295,7 @@ global dispatcher for sending events</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ItemView = Backbone.View.extend({
+            <div class="content"><div class='highlight'><pre>    ItemView = Backbone.View.extend({
       events: {
         <span class="string">'click'</span>: <span class="string">'itemClicked'</span>
       },
@@ -331,7 +364,7 @@ individual items</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="keyword">var</span> ComboView = Backbone.View.extend({
+            <div class="content"><div class='highlight'><pre>    ComboView = Backbone.View.extend({
       eventIdentifier: <span class="string">'combo'</span>,
       events: {
         <span class="string">'click .combo-main'</span>: <span class="string">'mainElementClicked'</span>
@@ -372,7 +405,7 @@ individual items</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="keyword">this</span>.collection.on(<span class="string">'add remove reset'</span>, <span class="keyword">this</span>.render, <span class="keyword">this</span>);
+            <div class="content"><div class='highlight'><pre>        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.collection, <span class="string">'add remove reset'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
       },</pre></div></div>
             
         </li>
@@ -393,6 +426,9 @@ individual items</p>
           type: <span class="keyword">this</span>.eventIdentifier,
           content: <span class="keyword">this</span>.primary
         });
+      },
+      onDestroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.stopListening();
       },</pre></div></div>
             
         </li>
@@ -485,8 +521,58 @@ individual items</p>
         <li id="section-17">
             <div class="annotation">
               
-              <div class="pilwrap ">
+              <div class="pilwrap for-h3">
                 <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <h3>ComboWidget</h3>
+<p>input form combo dropdown, this accepts the container element, when a 
+user selects an option it updates the displayed option and the hidden
+field used to store the choice</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    ComboWidget = <span class="keyword">function</span>(el){
+      <span class="keyword">this</span>.setElement(el);
+      <span class="keyword">this</span>.setInput();
+      <span class="keyword">this</span>.createClickHandler();
+    };
+    ComboWidget.prototype = {
+      setElement: <span class="keyword">function</span>(el) {
+        <span class="keyword">this</span>.$el = $(el);
+      },
+      setInput: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.input = $(<span class="string">'input[name='</span>+ <span class="keyword">this</span>.$el.attr(<span class="string">'id'</span>) + <span class="string">']'</span>); 
+      },
+      destroy: <span class="keyword">function</span>() {
+        <span class="keyword">this</span>.$el.off(<span class="string">'click'</span>);
+        <span class="keyword">this</span>.$el.removeData().unbind();
+        <span class="keyword">this</span>.$el.remove();
+      },
+      createClickHandler: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        <span class="keyword">this</span>.$el.children()
+                .children(<span class="string">'li'</span>)
+                .click(<span class="keyword">function</span>() {
+                  <span class="keyword">var</span> selectedText = $(<span class="keyword">this</span>).children(<span class="string">'span'</span>).text();
+                  self.setSelectedText(selectedText);
+                });
+      },
+      setSelectedText: <span class="keyword">function</span>(selectedText) {
+        <span class="keyword">this</span>.$el.children(<span class="string">'span.selected-option'</span>).text(selectedText);
+        <span class="keyword">this</span>.input.val(selectedText);
+      }
+
+
+    };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>expose the collection and container view as a module export</p>
 
@@ -494,7 +580,8 @@ individual items</p>
             
             <div class="content"><div class='highlight'><pre>    <span class="keyword">return</span> {
       View: ComboView,
-      Collection: Collection
+      Collection: Collection,
+      ComboWidget: ComboWidget
     };
 });</pre></div></div>
             

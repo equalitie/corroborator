@@ -12,20 +12,23 @@ define(
   [
     'jquery', 'underscore', 'backbone',
     'lib/streams',
-    'lib/Data/collection-mixins'
+    'lib/Data/collection-mixins',
+    'lib/Data/comparator'
   ],
-  function($, _, Backbone, Streams, Mixins) {
+  function($, _, Backbone, Streams, Mixins, Comparator) {
     'use strict';
 
 
-    var crudBus   = Streams.crudBus,
-        searchBus = Streams.searchBus,
-        SuperCollection = Mixins.SuperCollection,
+    var crudBus               = Streams.crudBus,
+        searchBus             = Streams.searchBus,
+        SuperCollection       = Mixins.SuperCollection,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
-        ModelSelectionMixin = Mixins.ModelSelectionMixin,
-        ModelSyncMixin = Mixins.ModelSyncMixin,
-        Filters = new Mixins.Filters(),
-    // ### event stream processing helpers
+        ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        ModelSyncMixin        = Mixins.ModelSyncMixin,
+        Filters               = new Mixins.Filters(),
+        parseComparator       = Comparator.parseComparator,
+
+        // ### event stream processing helpers
         filterActorResults = function(value) {
           return value.type === 'results_actor';
         },
@@ -34,8 +37,9 @@ define(
         },
         mapSort = function(value) {
           var sortMap = {
-            'date': 'actor_created',
-            'title': 'fullname_en'
+            'date' : 'actor_created',
+            'title': 'fullname_en',
+            'age'  : 'age_en'
           };
           return sortMap[value];
         },
@@ -98,7 +102,7 @@ define(
       },
       // sort is implemented based on the result of this function
       comparator: function(model) {
-        return model.get(this.compareField);
+        return parseComparator(model.get(this.compareField));
       },
       setComparatorField: function() {
       },
