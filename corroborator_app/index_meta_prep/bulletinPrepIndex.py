@@ -11,6 +11,15 @@ from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media
  
 class BulletinPrepMeta():
+    def prepare_bulletin_actor_roles(self, object):
+        """
+        Returns a full list of the roles played by actors associate
+        with this object
+        """
+        roles = [actor_role.get_role_status_display() for actor_role in
+            object.actors_role.all()]
+        return roles
+
     def prepare_assigned_user(self, object):
         if object.assigned_user != None:
             return '/api/v1/user/{0}/'.format(object.assigned_user.id)
@@ -47,6 +56,7 @@ class BulletinPrepMeta():
         for the tastypie api
         """
         return ['/api/v1/actorRole/{0}/'.format(actor_role.id) for actor_role in object.actors_role.all()]
+
     def prepare_sources(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance

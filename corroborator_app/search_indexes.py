@@ -56,12 +56,20 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     POB = indexes.CharField()
     current_location = indexes.CharField()
     roles = indexes.MultiValueField()
+    actor_actor_roles = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
     actors = indexes.MultiValueField()
     deleted = indexes.BooleanField()
 
     def get_model(self):
         return Actor
+    def prepare_actor_actor_roles(self, object):
+        """
+        Returns a list of all roles and relationships associated with this
+        Actor instance
+        """
+        return ActorPrepMeta().prepare_actor_actor_roles(object)
+
     def prepare_roles(self, object):
         """
         Returns a list of all roles and relationships associated with this
@@ -73,7 +81,7 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         Returns an array of tastypi uris related to the Actor's
         associated actors
         """
-        return ActorPrepMeta().prepare_actors_role(object)
+        return ActorPrepMeta().prepare_actors(object)
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -178,6 +186,8 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
 
     resource_uri = indexes.CharField()
     actors_role = indexes.MultiValueField()
+    actors = indexes.MultiValueField()
+
     incident_crimes = indexes.MultiValueField(faceted=True)
     ref_incidents = indexes.MultiValueField()
     locations = indexes.MultiValueField()
@@ -222,13 +232,26 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_ref_bulletins(object)
-
+    def prepare_incident_actor_roles(self, object):
+        """
+        Returns a list of all roles and relationships associated with this
+        Actor instance
+        """
+        return IncidentPrepMeta().prepare_incident_actor_roles(object)
+    def prepare_actors(self, object):
+        """
+        Returns an array of tastypi uris related to the Actor's
+        associated actors
+        """
+        return ActorPrepMeta().prepare_actors(object)
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
-        return IncidentPrepMeta().prepare_actors_role(object)
+        return ActorPrepMeta().prepare_actors_role(object)
+
+
     def prepare_crimes(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -327,6 +350,9 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     locations = indexes.MultiValueField()
     labels = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
+    bulletin_actor_roles = indexes.MultiValueField()
+    actors = indexes.MultiValueField()
+
     sources = indexes.MultiValueField()
     bulletin_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
@@ -362,12 +388,25 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_labels(object)
+    def prepare_bulletin_actor_roles(self, object):
+        """
+        Returns a list of all roles and relationships associated with this
+        Actor instance
+        """
+        return BulletinPrepMeta().prepare_bulletin_actor_roles(object)
+    def prepare_actors(self, object):
+        """
+        Returns an array of tastypi uris related to the Actor's
+        associated actors
+        """
+        return ActorPrepMeta().prepare_actors(object)
     def prepare_actors_role(self, object):
         """
-        Returns the correctly formated uri related to this bulletin instance
+        Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
-        return BulletinPrepMeta().prepare_actors_role(object)
+        return ActorPrepMeta().prepare_actors_role(object)
+
     def prepare_sources(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance

@@ -60,6 +60,13 @@ class IncidentResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+
+    def obj_update(self, bundle, **kwargs):
+        bundle = super( IncidentResource, self )\
+            .obj_delete( bundle, **kwargs )
+        update_object.apply_async()
+        return bundle
+ 
     def obj_update(self, bundle, **kwargs):
         bundle = super( IncidentResource, self )\
             .obj_update( bundle, **kwargs )
@@ -71,11 +78,7 @@ class IncidentResource(ModelResource):
             .obj_create( bundle, **kwargs )
         update_object.apply_async()
         return bundle
-    """
-    def obj_delete(self, bundle, **kwargs):
-        bundle.data['deleted'] = True
-        self.obj_update(bundle, **kwargs)
-    """
+        
     def dehydrate(self, bundle):
         bundle.data['incident_locations'] = IncidentPrepMeta()\
             .prepare_incident_locations(bundle.obj)

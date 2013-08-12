@@ -45,6 +45,12 @@ class ActorResource(ModelResource):
         authentication = ApiKeyAuthentication()
         always_return_data = True
 
+    def obj_delete(self, bundle, **kwargs):
+        bundle = super( ActorResource, self )\
+            .obj_delete( bundle, **kwargs )
+        update_object.apply_async()    
+        return bundle
+ 
     def obj_update(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_update( bundle, **kwargs )
@@ -58,12 +64,7 @@ class ActorResource(ModelResource):
         #update_index.Command().handle()
         update_object.apply_async()    
         return bundle
-    """
-    def obj_delete(self, bundle, **kwargs):
-        bundle.data['deleted'] = True
-        print >> sys.stderr, 'in call for faux delete'
-        self.obj_update(bundle, **kwargs)
-    """
+
     def dehydrate(self, bundle):
         bundle.data['count_incidents'] = ActorPrepMeta()\
             .prepare_count_incidents(bundle.obj)        

@@ -72,6 +72,12 @@ class BulletinResource(ModelResource):
         authentication = ApiKeyAuthentication()
         always_return_data = True
 
+    def obj_delete(self, bundle, **kwargs):
+        bundle = super( BulletinResource, self )\
+            .obj_delete( bundle, **kwargs )
+        update_object.apply_async()    
+        return bundle
+ 
     def obj_update(self, bundle, **kwargs):
         bundle = super( BulletinResource, self )\
             .obj_update( bundle, **kwargs )
