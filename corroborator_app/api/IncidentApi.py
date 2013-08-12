@@ -20,8 +20,8 @@ from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
-from haystack.management.commands import update_index
 
+from corroborator_app.tasks import update_object
 
 from corroborator_app.models import Incident
 
@@ -55,17 +55,16 @@ class IncidentResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
-
     def obj_create(self, bundle, **kwargs):
         bundle = super( IncidentResource, self )\
             .obj_create( bundle, **kwargs )
-        update_index.Command().handle()
+        update_object.apply_async()
         return bundle
-
+    """
     def obj_delete(self, bundle, **kwargs):
         bundle.data['deleted'] = True
         self.obj_update(bundle, **kwargs)
-
+    """
     def dehydrate(self, bundle):
         bundle.data['incident_locations'] = IncidentPrepMeta()\
             .prepare_incident_locations(bundle.obj)

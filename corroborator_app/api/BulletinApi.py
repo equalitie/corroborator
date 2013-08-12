@@ -20,7 +20,7 @@ from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
-from haystack.management.commands import update_index
+from corroborator_app.tasks import update_object
 
 __all__ = ('BulletinResource')
 
@@ -75,13 +75,13 @@ class BulletinResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         bundle = super( BulletinResource, self )\
             .obj_create( bundle, **kwargs )
-        update_index.Command().handle()
+        update_object.apply_async()    
         return bundle
-       
+    """
     def obj_delete(self, bundle, **kwargs):
         bundle.data['deleted'] = True
         self.obj_update(bundle, **kwargs)
-
+    """
 
     def dehydrate(self, bundle):
         bundle.data['bulletin_locations'] = BulletinPrepMeta()\
