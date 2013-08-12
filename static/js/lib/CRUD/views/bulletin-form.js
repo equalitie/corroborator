@@ -18,7 +18,7 @@ define (
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
     // templates/search-templates
-    'lib/CRUD/templates/search-templates/bulletin.tpl'
+    'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,
     ActorSearchView, BulletinSearchView, MediaSearchView,

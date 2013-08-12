@@ -13,7 +13,7 @@ define (
     'lib/CRUD/views/search-views/media/media-search-field',
     'lib/CRUD/data/LocationCollection',
     // templates
-    'lib/CRUD/templates/search-templates/actor.tpl'
+    'lib/CRUD/templates/search-templates/actor/actor.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
     Location, actorFormTmp) {

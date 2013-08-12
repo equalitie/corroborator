@@ -22,7 +22,7 @@ define (
     'lib/CRUD/views/event-form',
 
     // templates/search-templates
-    'lib/CRUD/templates/search-templates/incident.tpl'
+    'lib/CRUD/templates/search-templates/incident/incident.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,  Label, Crime, Location,
     ActorSearchView, BulletinSearchView, IncidentSearchView, CommentForm,

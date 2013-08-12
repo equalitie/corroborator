@@ -9,7 +9,7 @@ define (
   [
     'backbone', 'jquery', 'lib/streams',
     'lib/Data/media',
-    'lib/CRUD/templates/search-templates/media-form.tpl'
+    'lib/CRUD/templates/search-templates/media/media-form.tpl'
   ],
   function (Backbone, $, Streams, Media,  mediaFormTmp) {
     'use strict';

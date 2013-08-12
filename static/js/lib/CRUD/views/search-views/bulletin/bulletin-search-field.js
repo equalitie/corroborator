@@ -10,7 +10,7 @@ define (
     'lib/elements/select-option',
     'lib/Data/bulletin',
     'lib/CRUD/views/search-views/bulletin/bulletin-result',
-    'lib/CRUD/templates/search-templates/bulletin-search-field.tpl'
+    'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Bulletin, BulletinResult,
     bulletinSearchTmp) {
