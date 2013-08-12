@@ -81,12 +81,18 @@ define (
       },
       expandRequested: function() {
         _.last(this.childViews).trigger('expand');
+        this.expandView();
+      },
+      expandView: function() {
         this.$el.children().addClass('is-expanded');
+      },
+      collapseView: function() {
+        this.$el.children().removeClass('is-expanded');
       },
 
       collapseRequested: function() {
         _.last(this.childViews).trigger('expand');
-        this.$el.children().removeClass('is-expanded');
+        this.collapseView();
       },
 
 
@@ -104,8 +110,15 @@ define (
 
       // display an entity
       displayEntity: function(content) {
+        this.expanded = content.expanded;
         this.renderContainer()
             .renderEntity(content);
+        if (this.expanded) {
+          this.expandView();
+        }
+        else {
+          this.collapseView();
+        }
       },
 
       // destroy child views

@@ -43,16 +43,19 @@ module.exports = function(grunt) {
 
           // forms
           'lib/CRUD/templates/search-templates/actor/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor/actor.tpl',
+          'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl.js'       : 'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl',
           'lib/CRUD/templates/search-templates/actor/actor-result.tpl.js'         : 'lib/CRUD/templates/search-templates/actor/actor-result.tpl',
           'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl',
 
           'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl.js'             : 'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl',
+          'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl.js'    : 'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl',
           'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl.js'      : 'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl',
           'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl.js': 'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl',
 
           'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl.js': 'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl',
           'lib/CRUD/templates/search-templates/incident/incident-result.tpl.js'      : 'lib/CRUD/templates/search-templates/incident/incident-result.tpl',
           'lib/CRUD/templates/search-templates/incident/incident.tpl.js'             : 'lib/CRUD/templates/search-templates/incident/incident.tpl',
+          'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl.js'    : 'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl',
 
           'lib/CRUD/templates/search-templates/media/media-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/media/media-search-field.tpl',
           'lib/CRUD/templates/search-templates/media/media-result.tpl.js'         : 'lib/CRUD/templates/search-templates/media/media-result.tpl',
@@ -206,6 +209,7 @@ module.exports = function(grunt) {
         'lib/elements/templates/*.tpl',
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/search-templates/*.tpl',
+        'lib/CRUD/templates/search-templates/*/*.tpl',
         'lib/CRUD/templates/display-templates/*.tpl',
         'lib/CRUD/templates/display-templates/*/*.tpl'
       ],

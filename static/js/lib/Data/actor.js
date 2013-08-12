@@ -115,7 +115,16 @@ define(
                .onValue(this.resetCollection.bind(this));
       },
       resetCollection: function(results) {
-        this.reset(results, {parse: true});
+        if (this.length !==0) {
+          _.map(results, function(result) {
+            result.id = result.django_id;
+          });
+          this.set(results);
+          this.trigger('reset');
+        }
+        else {
+          this.reset(results, {parse: true});
+        }
       },
 
 

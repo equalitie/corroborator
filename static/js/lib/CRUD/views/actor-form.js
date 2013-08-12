@@ -13,10 +13,11 @@ define (
     'lib/CRUD/views/search-views/media/media-search-field',
     'lib/CRUD/data/LocationCollection',
     // templates
-    'lib/CRUD/templates/search-templates/actor/actor.tpl'
+    'lib/CRUD/templates/search-templates/actor/actor.tpl',
+    'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
-    Location, actorFormTmp) {
+    Location, actorFormTmp, expandedActorFormTmp) {
 
     var ActorFormView,
         crudBus            = Streams.crudBus,
@@ -28,12 +29,16 @@ define (
     // ### ActorFormView
     // display create update form for actor
     ActorFormView = Backbone.View.extend({
+      template: actorFormTmp,
+      className: 'actor-overlay overlay WIREFRAME',
       childViews: [],
       subscribers: [],
       entityType: 'actor',
+      expanded: false,
       events: {
-        'click button#actor-action_save': 'saveRequested',
-        'click button.do-hide': 'requestCloseForm'
+        'click button#actor-action_save'  : 'saveRequested',
+        'click button#expanded-actor-save': 'saveRequested',
+        'click button.do-hide'            : 'requestCloseForm'
       },
 
       // keys for date fields, these need to be validated and removed
@@ -74,28 +79,49 @@ define (
 
       },
       // constructor
-      initialize: function() {
+      initialize: function(options) {
+        this.setTemplate();
         this.addi18n();
         this.populateWidgets();
-        this.render();
+        this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
+        // a little trickery here 
+        this.expanded = ! options.expanded;
+        this.toggleExpanded();
+      },
+
+      // set the template for the form
+      setTemplate: function() {
+        this.template = this.expanded ? expandedActorFormTmp: actorFormTmp;
+      },
+
+      // toggle the expanded switch and render the form
+      toggleExpanded: function() {
+        if (this.expanded === true) {
+          this.expanded = false;
+          this.$el.removeClass('is-expanded');
+          this.setTemplate();
+        }
+        else {
+          this.expanded = true;
+          this.$el.addClass('is-expanded');
+          this.setTemplate();
+        }
+        this.render()
+            .renderChildren()
+            .enableWidgets();
       },
 
       // remove the dom elements and all associated events
       onDestroy: function() {
-        this.destroyChildViews();
+        this.disableWidgets();
+        this.destroyChildren();
+        this.stopListening();
       },
       
       // destroy the sub views
-      destroyChildViews: function() {
+      destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
-      },
-
-      // render the form
-      render: function() {
-        var html = this.model !== undefined ? 
-          actorFormTmp({model: this.model.toJSON()}) : actorFormTmp({ model: {} });
-        this.$el = $(html);
       },
 
 
@@ -131,8 +157,16 @@ define (
         this.model.save();
       },
 
+      // render the form
+      render: function() {
+        var html = this.template({model: this.model.toJSON()});
+        this.$el.html(html);
+        return this;
+      },
+
       // render the sub views
       renderChildren: function() {
+        this.destroyChildren();
         // show the media search view
         var mediaSearchView = new MediaSearchView({
           el: '#actor-media-block',
@@ -151,6 +185,7 @@ define (
         });
 
         this.childViews.push(mediaSearchView);
+        return this;
       }
 
     });

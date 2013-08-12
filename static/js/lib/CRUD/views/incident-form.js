@@ -22,16 +22,17 @@ define (
     'lib/CRUD/views/event-form',
 
     // templates/search-templates
-    'lib/CRUD/templates/search-templates/incident/incident.tpl'
+    'lib/CRUD/templates/search-templates/incident/incident.tpl',
+    'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,  Label, Crime, Location,
     ActorSearchView, BulletinSearchView, IncidentSearchView, CommentForm,
-    EventForm, incidentFormTmp) {
+    EventForm, incidentFormTmp, expandedIncidentFormTmp) {
 
     var IncidentFormView,
         Formatter    = Mixins.Formatter,
         ConfirmMixin = Mixins.ConfirmMixin,
-        WidgetMixin  = Mixins.WidgetMixin,
+        WidgetMixin          = Mixins.WidgetMixin,
         CommentContainerView = CommentForm.CommentContainerView,
         EventContainerView   = EventForm.EventContainerView,
         CrimeCollection      = Crime.CrimeCollection,

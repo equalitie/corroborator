@@ -18,7 +18,8 @@ define (
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
     // templates/search-templates
-    'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl'
+    'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl',
+    'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,
     ActorSearchView, BulletinSearchView, MediaSearchView,
@@ -26,7 +27,7 @@ define (
     Source, Label, Location,
     // views
     CommentForm, EventForm,
-    bulletinFormTmp) {
+    bulletinFormTmp, expandedBulletinFormTmp) {
 
     var BulletinFormView,
         crudBus              = Streams.crudBus,
@@ -46,6 +47,7 @@ define (
     // ### BulletinFormView
     // display create/update form for bulletins
     BulletinFormView = Backbone.View.extend({
+      className: 'bulletin-overlay overlay WIREFRAME',
       entityType: 'bulletin',
       // class name for all input fields to be processed as a bulletin
       // allows us to nest fields that and exclude them from the 
@@ -133,16 +135,43 @@ define (
       ],
         
       // constructor
-      initialize: function() {
+      initialize: function(options) {
         this.addi18n();
         this.populateWidgets();
         this.render();
+        this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
+        // a little trickery here 
+        this.expanded = ! options.expanded;
+        this.toggleExpanded();
+      },
+
+      // set the template for the form
+      setTemplate: function() {
+        this.template = this.expanded ? expandedBulletinFormTmp: bulletinFormTmp;
+      },
+
+      // toggle the expanded switch and render the form
+      toggleExpanded: function() {
+        if (this.expanded === true) {
+          this.expanded = false;
+          this.$el.removeClass('is-expanded');
+          this.setTemplate();
+        }
+        else {
+          this.expanded = true;
+          this.$el.addClass('is-expanded');
+          this.setTemplate();
+        }
+        this.render()
+            .renderChildren()
+            .enableWidgets();
       },
 
       // remove DOM elements and cancel event handlers
       onDestroy: function() {
         this.disableWidgets();
         this.destroyChildViews();
+        this.stopListening();
       },
       
       // destroy the sub views
@@ -221,7 +250,7 @@ define (
       // render the form
       render: function() {
         var html = bulletinFormTmp({model: this.model.toJSON()});
-        this.$el = $(html);
+        this.$el.html(html);
         return this;
       }
     });

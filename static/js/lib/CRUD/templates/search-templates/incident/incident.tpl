@@ -174,12 +174,12 @@
   <div class="footer actions">
     <div class="left">
       <div class="when-overlay-expanded">
-        <button class="do-collapse">
+        <button class="do-collapse-form">
           <span class="text T">Collapse »</span>
         </button>
       </div>
       <div class="when-overlay-not_expanded">
-        <button class="do-expand">
+        <button class="do-expand-form">
           <span class="text T">« Expand</span>
         </button>
       </div>

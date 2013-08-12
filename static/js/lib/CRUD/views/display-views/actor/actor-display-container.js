@@ -29,10 +29,16 @@ define (
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
+        console.log(options.entityDetails);
+        this.expanded = options.entityDetails.expanded === undefined ?
+          false : options.entityDetails.expanded;
+        console.log(this.expanded);
+          
         this.model = actorCollection.superCollection.get(
           options.entityDetails.id);
         this.on('expand', this.toggleExpanded, this);
-        this.displayView();
+        this.expanded = !this.expanded;
+        this.toggleExpanded();
       },
 
       // set the small template
@@ -48,22 +54,22 @@ define (
 
       toggleExpanded: function() {
         if (this.expanded === true) {
-          this.template = actorDisplayTmp;
-          this.$el.removeClass('span-60p');
-          this.displayView();
           this.expanded = false;
+          this.displayView();
+          this.$el.removeClass('span-60p');
         }
         else {
-          this.$el.addClass('span-60p');
-          this.displayView();
           this.expanded = true;
+          this.displayView();
+          this.$el.addClass('span-60p');
         }
       },
       requestEdit: function() {
         crudBus.push({
           type: 'edit_actor_request',
           content: {
-            model: this.model
+            model: this.model,
+            expanded: this.expanded
           }
         });
       },

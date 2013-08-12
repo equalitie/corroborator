@@ -1,20 +1,17 @@
   <div class="header">
     <button class="do-hide is-small">
-      <span class="T">close</span>
+      <span class="t">Hide</span>
     </button>
   </div>
-  <div id="view-placeholder-actor" class="body" style="bottom: 50px;">
-    <form id="actor_form">
-      <div class="Actor in-preview is-edited">
-        <!-- start header fields -->
+  <div class="body" style="bottom: 49px;">
+    <div class="first span-66p">
+      <div class="Actor is-edited is-expanded">
         <div class="header">
-          <!-- id field - hide for new actor -->
           {{#if model.id}}
           <span class="id">
-            ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
+            ID <span class="value out">{{model.id}}</span>
           </span>
           {{/if}}
-            
           <!-- actor name -->
           <div class="field clear-after">
             <label>Name</label>
@@ -52,9 +49,9 @@
           </div>
 
         </div>
-        <!-- end form header -->
+        <!-- end header -->
 
-        <!-- start form body -->
+        <!-- start body -->
         <div class="body">
           <div class="group details">
             <div class="field span-33p">
@@ -130,6 +127,7 @@
             </div>
           </div>
 
+
           <!-- Date of birth -->
           <div class="field clear-after is-birthdate field ">
             <label>Date of birth</label>
@@ -152,12 +150,14 @@
               name="occupation_en" id="actor_occupation_en">
           </div>
 
+
           <!-- Position -->
           <div class="field is-position">
             <label>Position (rank)</label>
             <input type="text" class="with-select actor-field w-30p" value="{{model.position_en}}" 
               name="position_en" id="actor_position_en" >
           </div>
+
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
@@ -186,12 +186,8 @@
             <input type="text" class="with-select actor-field w-30p" name="spoken_dialect_en"
               value="{{model.spoken_dialect_en}}" id="actor_spoken_dialect_en" >
           </div>
-        </div>
 
-        <!-- end form body -->
-
-
-          <!-- searches for actors: why? -->
+          <!-- Actor Field -->
           <div id="actor-actor-list-block" class="field is-actors">
             <label>Actors</label>
             <div id="actor-actor-search-block" class="search">
@@ -207,36 +203,32 @@
         
             </ul>
           </div>
+
           <!-- media search - search for actor images -->
           <div id="actor-media-block" class="field is-media">
           </div>
-        </div>
-      </form>
-      <!-- end form -->
-    </div>
 
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </div>
   <div class="footer actions">
     <div class="left">
       <div class="when-overlay-expanded">
-        <button class="do-collapse">
-          <span class="text T">Collapse »</span>
+        <button class="do-collapse-form">
+          <span class="text t">» collapse</span>
         </button>
       </div>
       <div class="when-overlay-not_expanded">
-        <button class="do-expand-form">
-          <span class="text T">« Expand</span>
+        <button class="do-expand">
+          <span class="text t">« expand</span>
         </button>
       </div>
     </div>
     <div class="right">
-
-      <button id="actor-action_cancel" class="hidden do-hide default">
-        <span class="text T">Cancel</span>
+      <button id="expanded-actor-save" class="do-save">
+        <span class="text t">Save</span>
       </button>
-
-      <button id="actor-action_save" class="do-select default">
-        <span class="text T">Save</span>
-      </button>
-
     </div>
   </div>
