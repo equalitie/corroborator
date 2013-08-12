@@ -20,3 +20,4 @@ django-queued-storage==0.6
 lxml>3.0
 Pillow==2.1.0
 django-reversion==1.7.1
+celery-haystack==0.7.2
