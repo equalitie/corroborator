@@ -289,8 +289,10 @@ class Media(models.Model):
         This method is primarily used by Django Haystack
         when populating the Solr index.
         """
-        return self.media_thumb_file.url
-
+        if self.media_thumb_file.name:
+            return self.media_thumb_file.url
+        else:
+            return ''
 
 
 class Actor(models.Model):
