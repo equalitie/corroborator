@@ -134,6 +134,7 @@ define(
         var self = this;
         searchBus.filter(filterQueryBuilderEvents)
                  .onValue(function(value) {
+                   console.log('filterQueryBuilderEvents');
                     self.manager.store.addByValue('q', value.content.raw );
                     self.sendRequest();
                  });    

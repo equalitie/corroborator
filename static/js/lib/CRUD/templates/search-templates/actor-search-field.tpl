@@ -4,7 +4,7 @@
   <button class="do-clear">
     <span>✓</span>
   </button>
-  <button class="do-search do-search-embedded actors">
+  <button class="do-search-embedded actors">
     <span>Search</span>
   </button>
 </div>

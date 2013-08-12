@@ -34,7 +34,7 @@ define (
       childViews: [],
       unsubFunctions: [],
       events: {
-        'click .do-search': 'searchIncidentsRequested',
+        'click .do-search-embedded': 'searchIncidentsRequested',
         'click .do-clear' : 'clearSearchRequested'
       },
       template: incidentSearchTmp,
@@ -70,7 +70,7 @@ define (
         var searchText = inputText !== undefined ? inputText : '';
         // send a search request - handled in TextSearch
         crudBus.push({
-          type: 'new_search',
+          type: 'new_embedded_search',
           content: {
             raw: searchText
           }

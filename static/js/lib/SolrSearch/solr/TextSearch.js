@@ -13,9 +13,11 @@ define(
   ],
   function(_, ParseFilter, QueryBuilder) {
         // parse actor results from the result string
-        var bus,
-            filterQueryBuilderEvents = function(value) {
+        var filterQueryBuilderEvents = function(value) {
                 return value.type === 'query_builder';
+            },
+            filterEmbeddedSearchEvent = function(value) {
+              return value.type === 'new_embedded_search';
             },
             filterSearchUpdateEvent = function(value) {
               return value.type === 'update_current_results';
@@ -48,31 +50,31 @@ define(
             },
 
             // send the results off to the search bus
-            pushActorResults = function(actors) {
+            pushActorResults = function(actors, bus) {
               bus.push({
                 type: 'results_actor',
                 content: actors
               }); 
             },
-            pushBulletinResults = function(bulletins) {
+            pushBulletinResults = function(bulletins, bus) {
               bus.push({
                 type: 'results_bulletin',
                 content: bulletins
               }); 
             },
-            pushMediaResults = function(locations) {
+            pushMediaResults = function(locations, bus) {
               bus.push({
                 type: 'results_media',
                 content: locations
               }); 
             };
-            pushLocationResults = function(locations) {
+            pushLocationResults = function(locations, bus) {
               bus.push({
                 type: 'results_location',
                 content: locations
               }); 
             };
-            pushIncidentResults = function(incidents) {
+            pushIncidentResults = function(incidents, bus) {
               bus.push({
                 type: 'results_incident',
                 content: incidents
@@ -91,7 +93,6 @@ define(
         if (this.bus === undefined) {
           throw 'you must specify a communication bus for results';
         }
-        bus = this.bus;
         this.watchSearchStream();
       },
       parseQuery: function(searchQuery) {
@@ -111,6 +112,11 @@ define(
         this.sendRequest(searchQuery);
       },
 
+      sendEmbeddedSearchRequest: function(searchQuery) {
+        this.sendRequest(searchQuery);
+        this.shouldSendFilters = false;
+      },
+
       // send the request
       sendRequest: function(searchQuery) {
         this.clear();
@@ -120,11 +126,16 @@ define(
 
       // watch for search and update search result requests
       watchSearchStream: function() {
-        bus.filter(filterSearchRequestEvents)
+        this.bus.filter(filterEmbeddedSearchEvent)
+                .map(this.parseQuery)
+                .onValue(this.sendEmbeddedSearchRequest.bind(this));
+
+        this.bus.filter(filterSearchRequestEvents)
                  .map(this.parseQuery)
                  .onValue(this.sendSearchRequest.bind(this));
 
-        bus.filter(filterSearchUpdateEvent)
+
+        this.bus.filter(filterSearchUpdateEvent)
            .map(this.parseQuery)
            .onValue(this.sendUpdateRequest.bind(this));
       },
@@ -136,31 +147,31 @@ define(
         pushActorResults(
           _.chain(searchResults)
            .filter(filterActors)
-           .value()
+           .value(), this.bus
         );
 
         pushBulletinResults(
           _.chain(searchResults)
            .filter(filterBulletin)
-           .value()
+           .value(), this.bus
         );
          
         pushIncidentResults(
           _.chain(searchResults)
            .filter(filterIncident)
-           .value()
+           .value(), this.bus
         );
          
         pushMediaResults(
           _.chain(searchResults)
            .filter(filterMedia)
-           .value()
+           .value(), this.bus
         );
 
         pushLocationResults(
           _.chain(searchResults)
            .filter(filterLocation)
-           .value()
+           .value(), this.bus
         );
       },
       sendFilters: function(filters) {

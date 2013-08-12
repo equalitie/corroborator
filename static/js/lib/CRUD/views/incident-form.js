@@ -195,8 +195,8 @@ define (
           content: this.model.get('ref_incidents'),
           entityType: this.entityType
         });
-        this.childViews.push(commentForm, actorForm, eventForm,
-          bulletinSearchView, incidentSearchView);
+        //this.childViews.push(commentForm, actorForm, eventForm,
+          //bulletinSearchView, incidentSearchView);
       }
     });
     _.extend(IncidentFormView.prototype, ConfirmMixin);

@@ -34,7 +34,7 @@ define (
       childViews: [],
       unsubFunctions: [],
       events: {
-        'click .do-search': 'searchBulletinsRequested',
+        'click .do-search-embedded': 'searchBulletinsRequested',
         'click .do-clear' : 'clearSearchRequested'
       },
       template: bulletinSearchTmp,

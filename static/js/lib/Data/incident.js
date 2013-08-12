@@ -24,7 +24,7 @@ define(
           return value.type === 'results_incident';
         },
         crudBus               = Streams.crudBus,
-        searchBus             = Streams.crudBus,
+        searchBus             = Streams.searchBus,
         SuperCollection       = Mixins.SuperCollection,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
@@ -107,13 +107,22 @@ define(
       // incident results are received from solr
       watchEventStream: function() {
         var self = this;
-        Streams.searchBus.toProperty()
-               .filter(filterIncidentResults)
-               .map(Filters.extractResults)
-               .onValue(this.resetCollection.bind(this));
+        searchBus.toProperty()
+                 .filter(filterIncidentResults)
+                 .map(Filters.extractResults)
+                 .onValue(this.resetCollection.bind(this));
       },
       resetCollection: function(results) {
-        this.reset(results, {parse: true});
+        if (this.length !==0) {
+          _.map(results, function(result) {
+            result.id = result.django_id;
+          });
+          this.set(results);
+          this.trigger('reset');
+        }
+        else {
+          this.reset(results, {parse: true});
+        }
       },
       // watch for selections from the action combo box
       watchSelection: function() {

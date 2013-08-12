@@ -150,7 +150,7 @@ define(
       initialize: function(options) {
         this.addi18n();
         this.index = options.index;
-        this.listenTo(this.model, 'change', this.render.bind(this));
+        this.listenTo(this.model, 'change, sync', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
@@ -246,7 +246,7 @@ define(
       initialize: function(options) {
         this.addi18n();
         this.index = options.index;
-        this.listenTo(this.model, 'change', this.render.bind(this));
+        this.listenTo(this.model, 'change, sync', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
