@@ -43,7 +43,8 @@ define (
         crudBus.push({
           type: 'edit_bulletin_request',
           content: {
-            model: this.model
+            model: this.model,
+            expanded: this.expanded
           }
         });
       },
@@ -77,74 +78,58 @@ define (
         }
       },
 
-      // render the related actors
-      renderRelatedActors: function() {
-        var actorsEl = this.$el.children()
-                               .children('.body')
-                               .children('.actors'),
-
-            content = this.model.get('actors_role');
-            //actorsContainer = new ActorListView({
-              //el: actorsEl,
-              //content: content
-            //});
-        return this;
-      },
-
-      // get the bulletin containing el for normal and expanded view
-      getBulletinEl: function() {
-        var bulletinsEl;
+      // get the containing el for normal and expanded view
+      getContainerEl: function(className) {
+        var el;
         if (this.expanded === true) {
-          bulletinsEl = this.$el.children()
-                             .children()
-                             .children('.body')
-                             .children('.is-bulletins');
+          el = this.$el.children()
+                       .children()
+                       .children('.body')
+                       .children('.is-' + className);
         }
         else {
-          bulletinsEl = this.$el.children()
-                             .children('.body')
-                             .children('.bulletins');
+          el = this.$el.children()
+                       .children('.body')
+                       .children('.' + className);
         }
-        return bulletinsEl;
+        return el;
+      },
+      // render the related actors
+      renderRelatedActors: function() {
+        var actorsEl, actorsContainer, content;
+        actorsEl = this.getContainerEl('actors');
+        content = this.model.get('actors');
+        console.log(this.model.toJSON());
+        actorsContainer = new ActorListView({
+          el: actorsEl,
+          content: content
+          //roles
+        });
+        return this;
       },
 
       // render the related bulletins
       renderRelatedBulletins: function() {
-        var bulletinsEl = this.getBulletinEl(),
+        var bulletinsEl, content, bulletinsContainer;
+        bulletinsEl = this.getContainerEl('bulletins');
 
-            content = this.model.get('ref_bulletins'),
-            bulletinsContainer = new BulletinListView({
-              el: bulletinsEl,
-              content: content
-            });
+        content = this.model.get('ref_bulletins');
+        bulletinsContainer = new BulletinListView({
+          el: bulletinsEl,
+          content: content
+        });
         return this;
-      },
-
-      // get the el that will hold our incidents
-      getIncidentsEl: function() {
-        var incidentsEl;
-        if (this.expanded === true) {
-          incidentsEl = this.$el.children()
-                             .children('.body')
-                             .children('.incidents');
-        }
-        else {
-          incidentsEl = this.$el.children()
-                             .children()
-                             .children('.body')
-                             .children('.is-incidents');
-        }
-        return incidentsEl;
       },
 
       // render the related incidents
       renderRelatedIncidents: function() {
-        var incidentsEl = this.getIncidentsEl(),
-            content = this.model.get('ref_incidents'),
-            incidentsContainer = new IncidentListView({
-              el: incidentsEl,
-              content: content
-            });
+        var incidentsEl, content, incidentsContainer; 
+        incidentsContainer = this.getContainerEl('incidents');
+        content = this.model.get('ref_incidents');
+        incidentsContainer = new IncidentListView({
+          el: incidentsEl,
+          content: content
+        });
         return this;
       },
 

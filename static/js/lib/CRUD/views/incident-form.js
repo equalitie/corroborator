@@ -46,8 +46,10 @@ define (
     // ### IncidentFormView
     // display create/update form for incidents
     IncidentFormView = Backbone.View.extend({
+      className: 'incident-overlay overlay WIREFRAME',
       entityType: 'incident',
       formElClass: 'incident_form',
+      template: incidentFormTmp,
       childViews: [],
       events: {
         'click button#incident-action_save': 'saveRequested',
@@ -122,9 +124,36 @@ define (
         }
       },
 
-      initialize: function() {
+      initialize: function(options) {
+        this.addi18n();
         this.populateWidgets();
         this.render();
+        this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
+        // a little trickery here 
+        this.expanded = ! options.expanded;
+        this.toggleExpanded();
+      },
+
+      // set the template for the form
+      setTemplate: function() {
+        this.template = this.expanded ? incidentFormTmp: expandedIncidentFormTmp;
+      },
+
+      // toggle the expanded switch and render the form
+      toggleExpanded: function() {
+        if (this.expanded === true) {
+          this.$el.removeClass('is-expanded');
+          this.setTemplate();
+          this.expanded = false;
+        }
+        else {
+          this.$el.addClass('is-expanded');
+          this.setTemplate();
+          this.expanded = true;
+        }
+        this.render()
+            .renderChildren()
+            .enableWidgets();
       },
 
       // handle clear user click
@@ -138,19 +167,23 @@ define (
         this.enableSliderFields();
         this.enableLabelFields();
       },
+
       onDestroy: function() {
-        this.destroyChildViews();
+        this.disableWidgets();
+        this.destroyChildren();
+        this.stopListening();
       },
 
       // destroy the sub views
-      destroyChildViews: function() {
+      destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
 
       render: function() {
-        var html = incidentFormTmp({model: this.model.toJSON()});
-        this.$el = $(html);
+        var html = this.template({model: this.model.toJSON()});
+        this.$el.html(html);
+        return this;
       },
       // pull the data from the form
       formContent: function() {
@@ -196,8 +229,9 @@ define (
           content: this.model.get('ref_incidents'),
           entityType: this.entityType
         });
-        //this.childViews.push(commentForm, actorForm, eventForm,
-          //bulletinSearchView, incidentSearchView);
+        this.childViews.push(commentForm, actorForm, eventForm,
+          bulletinSearchView, incidentSearchView);
+        return this;
       }
     });
     _.extend(IncidentFormView.prototype, ConfirmMixin);

@@ -53,7 +53,9 @@ define(
 
 
     // ### Bulletin Model
-    // provide api endpoint for Bulletin model
+    // provide api endpoint for Bulletin model  
+    // if resourceUri is set in the options the model will
+    // auto fetch it's data
     var BulletinModel = Backbone.Model.extend({
       foreignKeyFields: [
         'assigned_user'

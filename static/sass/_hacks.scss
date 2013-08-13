@@ -97,3 +97,9 @@ nav {
 .Incident.is-expanded .span-66p .body{
   padding-right: 2 * $PAD_UNIT;
 }
+
+.Incident.is-edited.is-expanded .span-33p,
+.Bulletin.is-edited.is-expanded .span-33p {
+  width: 29%;
+  padding-left: 2*$PAD_UNIT;
+}

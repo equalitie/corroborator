@@ -139,6 +139,12 @@ define (
         this.overlay.displaySaved(this.returnToDisplayView.bind(this));
       },
 
+      // save faild - notify user and hide the overlay
+      saveFailed: function(model, xhr, options) {
+        console.log(model, xhr, options);
+        this.overlay.displayError(this.returnToDisplayView.bind(this));
+      },
+
       // close the form and send message to opent the
       // display view
       returnToDisplayView: function() {
@@ -202,11 +208,13 @@ define (
       listenForSaveEvents: function() {
         this.listenTo(this.model, 'request', this.showOverlay.bind(this));
         this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
+        this.listenTo(this.model, 'error', this.saveFailed.bind(this));
       },
 
       listenForCreateEvents: function() {
         this.listenTo(this.model, 'create', this.showOverlay.bind(this));
         this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
+        this.listenTo(this.model, 'error', this.saveFailed.bind(this));
       },
 
       // replace the current form view with the requested one

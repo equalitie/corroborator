@@ -53,6 +53,7 @@ define (
       // allows us to nest fields that and exclude them from the 
       // serialised array
       formElClass: 'bulletin-field',
+      template: bulletinFormTmp,
       //store a reference to our child views so we can destroy them
       childViews: [],
       // define events to be handled
@@ -147,20 +148,20 @@ define (
 
       // set the template for the form
       setTemplate: function() {
-        this.template = this.expanded ? expandedBulletinFormTmp: bulletinFormTmp;
+        this.template = this.expanded ? bulletinFormTmp: expandedBulletinFormTmp;
       },
 
       // toggle the expanded switch and render the form
       toggleExpanded: function() {
         if (this.expanded === true) {
-          this.expanded = false;
           this.$el.removeClass('is-expanded');
           this.setTemplate();
+          this.expanded = false;
         }
         else {
-          this.expanded = true;
           this.$el.addClass('is-expanded');
           this.setTemplate();
+          this.expanded = true;
         }
         this.render()
             .renderChildren()
@@ -170,12 +171,12 @@ define (
       // remove DOM elements and cancel event handlers
       onDestroy: function() {
         this.disableWidgets();
-        this.destroyChildViews();
+        this.destroyChildren();
         this.stopListening();
       },
       
       // destroy the sub views
-      destroyChildViews: function() {
+      destroyChildren: function() {
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
@@ -249,7 +250,7 @@ define (
 
       // render the form
       render: function() {
-        var html = bulletinFormTmp({model: this.model.toJSON()});
+        var html = this.template({model: this.model.toJSON()});
         this.$el.html(html);
         return this;
       }

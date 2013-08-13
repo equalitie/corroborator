@@ -24,10 +24,12 @@
             <span class="location">{{fetchLocation model.current_location}}</span>
           {{/if}}
           {{#if model.occupation_en}}
-            lives in 
-            , works as a <span class="occupation">secretary</span>
+            works as a <span class="occupation">secretary</span>
           {{/if}}
-          <br>involved in <span class="incidents-count">{{model.count_incidents}} incidents</span>
+          {{#if model.count_incidents}}
+          <br>involved in 
+          <span class="incidents-count">{{model.count_incidents}} incidents</span>
+          {{/if}}
         </div>
       </div>
     </div>

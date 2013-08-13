@@ -35,6 +35,9 @@ define(
         filterActor = function(value) {
           return value.navValue === 'actor';
         },
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        },
         mapSort = function(value) {
           var sortMap = {
             'date' : 'actor_created',
@@ -52,15 +55,24 @@ define(
     // ##Data representations
 
     // ### Actor Model
-    // provide api endpoint for Actor model
+    // provide api endpoint for Actor model  
+    // if resourceUri is set in the options the model will
+    // auto fetch it's data
     var ActorModel = Backbone.Model.extend({
       foreignKeyFields: ['POB', 'current_location', 'media'] ,
       manyToManyFields: [
         'actors_role'
       ],
       idAttribute: 'id',
-      initialize: function() {
+      initialize: function(options) {
         this.set('entityType', 'actor');
+        if (options.resourceUri !== undefined) {
+          var id = mapResourceUriToId(options.resourceUri);
+          this.set('django_id', id);
+          this.set('id', id);
+          this.set('resource_uri', options.resourceUri);
+          this.fetch();
+        }
       },
       url: function() {
         var base = '/api/v1/actor/';

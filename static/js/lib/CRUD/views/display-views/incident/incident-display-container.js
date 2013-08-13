@@ -51,7 +51,7 @@ define (
       displayView: function() {
         this.render()
             .renderRelatedComments()
-            //.renderRelatedActors()
+            .renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents();
             return this;
@@ -72,7 +72,8 @@ define (
         crudBus.push({
           type: 'edit_incident_request',
           content: {
-            model: this.model
+            model: this.model,
+            expanded: this.expanded
           }
         });
       },
@@ -89,64 +90,52 @@ define (
         return this;
       },
       renderRelatedActors: function() {
-        var actorsEl = this.$el.children()
-                               .children('.body')
-                               .children('.actors'),
-            content = this.model.get('actors_role'),
-            roles_en = this.model.get('actors_role_en'),
-            actorsContainer = new ActorListView({
-              el: actorsEl,
-              content: content,
-              roles: roles_en
-            });
+        var actorsEl, content, roles_en, actorsContainer;
+        actorsEl = this.getContainerEl('actors');
+        content = this.model.get('actors');
+        roles_en = this.model.get('actors_role_en');
+        console.log(this.model.toJSON());
+        actorsContainer = new ActorListView({
+          el: actorsEl,
+          content: content,
+          roles: roles_en
+        });
         return this;
       },
-      getBulletinEl: function() {
-        var bulletinsEl;
+      // get the containing el for normal and expanded view
+      getContainerEl: function(className) {
+        var el;
         if (this.expanded === true) {
-          bulletinsEl = this.$el.children()
-                             .children()
-                             .children('.body')
-                             .children('.is-bulletins');
+          el = this.$el.children()
+                       .children()
+                       .children('.body')
+                       .children('.is-' + className);
         }
         else {
-          bulletinsEl = this.$el.children()
-                             .children('.body')
-                             .children('.bulletins');
+          el = this.$el.children()
+                       .children('.body')
+                       .children('.' + className);
         }
-        return bulletinsEl;
+        return el;
       },
       renderRelatedBulletins: function() {
-        var bulletinsEl = this.getBulletinEl(),
-            content = this.model.get('ref_bulletins'),
-            bulletinsContainer = new BulletinListView({
-              el: bulletinsEl,
-              content: content
-            });
+        var bulletinsEl, content, bulletinsContainer;
+        bulletinsEl = this.getContainerEl('bulletins');
+        content = this.model.get('ref_bulletins');
+        bulletinsContainer = new BulletinListView({
+          el: bulletinsEl,
+          content: content
+        });
         return this;
       },
-      getIncidentsEl: function() {
-        var incidentsEl;
-        if (this.expanded === false) {
-          incidentsEl = this.$el.children()
-                             .children('.body')
-                             .children('.incidents');
-        }
-        else {
-          incidentsEl = this.$el.children()
-                             .children()
-                             .children('.body')
-                             .children('.is-incidents');
-        }
-        return incidentsEl;
-      },
       renderRelatedIncidents: function() {
-        var incidentsEl = this.getIncidentsEl(),
-            content = this.model.get('ref_incidents'),
-            incidentsContainer = new IncidentListView({
-              el: incidentsEl,
-              content: content
-            });
+        var incidentsEl, content, incidentsContainer;
+        incidentsEl = this.getContainerEl('incidents');
+        content = this.model.get('ref_incidents');
+        incidentsContainer = new IncidentListView({
+          el: incidentsEl,
+          content: content
+        });
         return this;
       },
 

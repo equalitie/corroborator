@@ -2824,6 +2824,13 @@ nav {
   padding-right: 3.07692em;
 }
 
+/* line 102, ../sass/_hacks.scss */
+.Incident.is-edited.is-expanded .span-33p,
+.Bulletin.is-edited.is-expanded .span-33p {
+  width: 29%;
+  padding-left: 3.07692em;
+}
+
 /* line 1, ../sass/_buttons.scss */
 button, .button {
   display: inline-block;

@@ -1,4 +1,4 @@
-  <div class="body" style="bottom: 46px;">
+  <div class="body" style="bottom: 49px;">
     <div class="Bulletin is-edited is-expanded">
       <div class="first span-66p">
         <div class="header">
@@ -105,13 +105,6 @@
               </div>
               <!-- end score slider -->
 
-              <div class="is-status left">
-                <label>Status</label>
-                <select>
-                  <option>Created</option>
-                  <option>Reviewed</option>
-                </select>
-              </div>
 
             <!-- Assigned to field name='assigned_user' -->
               <div id="bulletin-assignment-block" class="bulletinAssigned  left">
@@ -192,7 +185,7 @@
     <div class="actions clear-after when-not_revision">
       <div class="left">
         <div class="when-overlay-expanded">
-          <button class="do-collapse">
+          <button class="do-collapse-form">
             <span class="text t">» collapse</span>
           </button>
         </div>
@@ -203,7 +196,6 @@
         </div>
       </div>
       <div class="right">
-        <span class="text t">cancel or</span>
         <button class="do-select do-toggleRevision default">
           <span class="text t">Save changes</span>
         </button>

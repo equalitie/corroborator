@@ -78,12 +78,36 @@ define (
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
-      renderRelatedActors: function() {
-        var actorsEl = this.$el.children()
-                               .children('.body')
-                               .children('.actors'),
 
-            content = this.model.get('actors_role');
+      // get the containing el for normal and expanded view
+      getContainerEl: function(className) {
+        var el;
+        if (this.expanded === true) {
+          el = this.$el.children()
+                       .children()
+                       .children('.body')
+                       .children('.is-' + className);
+        }
+        else {
+          el = this.$el.children()
+                       .children('.body')
+                       .children('.' + className);
+        }
+        return el;
+      },
+
+      // render the related Actors
+      renderRelatedActors: function() {
+        var actorsEl, content, roles_en, actorsContainer;
+        actorsEl = this.getContainerEl('actors');
+        content = this.model.get('actors');
+        roles_en = this.model.get('actors_role_en');
+        console.log(this.model.toJSON());
+        actorsContainer = new ActorListView({
+          el: actorsEl,
+          content: content,
+          roles: roles_en
+        });
         return this;
       },
       render: function() {

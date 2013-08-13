@@ -67,12 +67,14 @@ define (
       },*/
 
       hideOverlay: function() {
-        this.$overlayEl.remove();
         this.completedCallback();
+        this.$overlayEl.removeData().unbind();
+        this.$overlayEl.children().remove();
+        this.$overlayEl.remove();
       },
 
-      createSavedText: function() {
-        var $savedTextEl = $('<p>' + this.successText + '</p>');
+      displayCompletedText: function(message) {
+        var $savedTextEl = $('<p>' + message + '</p>');
         $savedTextEl.css('color', 'white');
         $savedTextEl.css('text-align', 'center');
         $savedTextEl.css('font-size', '18px');
@@ -85,10 +87,16 @@ define (
 
       },
 
-      displaySaved: function(completedCallback) {
-        this.createSavedText();
+      displayError: function(completedCallback) {
+        this.displayCompletedText(this.errorText);
         this.completedCallback = completedCallback;
-        window.setTimeout(this.hideOverlay.bind(this), 250);
+        window.setTimeout(this.hideOverlay.bind(this), 500);
+      },
+
+      displaySaved: function(completedCallback) {
+        this.displayCompletedText(this.successText);
+        this.completedCallback = completedCallback;
+        window.setTimeout(this.hideOverlay.bind(this), 500);
       },
 
       showOverlay: function() {
