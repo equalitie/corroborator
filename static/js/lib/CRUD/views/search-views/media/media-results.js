@@ -26,10 +26,11 @@ define (
 
     // ### MediaResultsView
     // Specific results view for displaying medias
-    MediaResultsView = EmbeddedSearchResultsView.extend({
+    MediaResultsView = Backbone.View.extend({
       entityType: 'media',
       // watch the event stream for new medias
       watchCrudStream: function() {
+        console.log('watchCrudStream media');
         this.watchForSearchResults();
         this.watchForRejectedMedias();
       },
@@ -52,7 +53,6 @@ define (
       },
       // watch for media results and set the collection to them when they arrive
       watchForSearchResults: function() {
-        console.log('watchForSearchResults media');
         var subscriber = 
           crudBus.toEventStream()
                  .filter(filterMediaResults)
@@ -70,6 +70,7 @@ define (
 
       // render the search results
       renderResults: function() {
+        console.log('renderResults');
         this.destroyChildren();
         this.collection.each(this.renderResult, this);
       },
@@ -88,6 +89,8 @@ define (
                 .append(resultView.$el);
       },
     });
+
+    _.extend(MediaResultsView.prototype, EmbeddedSearchResultsView);
     
     return {
       MediaResultsView: MediaResultsView
