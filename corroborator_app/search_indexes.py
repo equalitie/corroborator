@@ -56,14 +56,14 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     POB = indexes.CharField()
     current_location = indexes.CharField()
     roles = indexes.MultiValueField()
-    actor_actor_roles = indexes.MultiValueField()
+    actor_roles_status = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
     actors = indexes.MultiValueField()
     deleted = indexes.BooleanField()
 
     def get_model(self):
         return Actor
-    def prepare_actor_actor_roles(self, object):
+    def prepare_actor_roles_status(self, object):
         """
         Returns a list of all roles and relationships associated with this
         Actor instance
@@ -137,6 +137,7 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
     uri = indexes.MultiValueField()
     resource_uri = indexes.CharField()
     media_thumb_file = indexes.MultiValueField()
+    media_file_type = indexes.CharField(model_attr="media_file_type", null=True)
 
     def get_model(self):
         return Media
@@ -193,7 +194,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     locations = indexes.MultiValueField()
     labels = indexes.MultiValueField()
     ref_bulletins = indexes.MultiValueField()
-    incident_actors_role = indexes.MultiValueField()
+    actor_roles_status = indexes.MultiValueField()
     crimes = indexes.MultiValueField()
     incident_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
@@ -232,7 +233,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_ref_bulletins(object)
-    def prepare_incident_actor_roles(self, object):
+    def prepare_actor_roles_status(self, object):
         """
         Returns a list of all roles and relationships associated with this
         Actor instance
@@ -350,7 +351,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     locations = indexes.MultiValueField()
     labels = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
-    bulletin_actor_roles = indexes.MultiValueField()
+    actor_roles_status = indexes.MultiValueField()
     actors = indexes.MultiValueField()
 
     sources = indexes.MultiValueField()
@@ -388,7 +389,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_labels(object)
-    def prepare_bulletin_actor_roles(self, object):
+    def prepare_actor_roles_status(self, object):
         """
         Returns a list of all roles and relationships associated with this
         Actor instance
