@@ -102,17 +102,20 @@ define(
 
       // this is an auto update request - no need to reparse filters
       sendUpdateRequest: function(searchQuery) {
-        this.shouldSendFilters = false;
+        this.shouldSendResults = false;
+        this.shouldSendFilters = true;
         this.sendRequest(searchQuery);
       },
 
       // new search - update filters
       sendSearchRequest: function(searchQuery) {
+        this.shouldSendResults = false;
         this.shouldSendFilters = true;
         this.sendRequest(searchQuery);
       },
 
       sendEmbeddedSearchRequest: function(searchQuery) {
+        this.shouldSendResults = true;
         this.sendRequest(searchQuery);
         this.shouldSendFilters = false;
       },
@@ -183,7 +186,9 @@ define(
       afterRequest: function () {
         var searchResults = this.manager.response.response.docs,
             filters = this.manager.response.facet_counts.facet_fields;
-        this.sendResults(searchResults);
+        if (this.shouldSendResults === true) {
+          this.sendResults(searchResults);
+        }
         if (this.shouldSendFilters === true) {
           this.sendFilters(filters);
         }

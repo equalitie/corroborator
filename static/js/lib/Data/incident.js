@@ -25,7 +25,6 @@ define(
         },
         crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
-        SuperCollection       = Mixins.SuperCollection,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
@@ -91,7 +90,6 @@ define(
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
-        this.createSuperCollection();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -168,7 +166,6 @@ define(
     // add our mixins to the collection
     _.extend(IncidentCollection.prototype, PersistSelectionMixin);
     _.extend(IncidentCollection.prototype, ModelSelectionMixin);
-    _.extend(IncidentCollection.prototype, SuperCollection);
 
   return {
     IncidentModel: IncidentModel,

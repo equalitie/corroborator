@@ -32,7 +32,7 @@ define (
         this.expanded = options.entityDetails.expanded === undefined ?
           false : options.entityDetails.expanded;
           
-        this.model = actorCollection.superCollection.get(
+        this.model = actorCollection.get(
           options.entityDetails.id);
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.expanded = !this.expanded;

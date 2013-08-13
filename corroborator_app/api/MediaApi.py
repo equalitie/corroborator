@@ -61,7 +61,10 @@ class MediaResource(MultipartResource, ModelResource):
             media_thumb_file = Thumbnailer()\
                 .construct_thumb(media_file, filename)
             bundle.data['media_thumb_file'] = media_thumb_file
-        
+
+        parts = media_file.name.split('.')
+        media_file_type = parts[len(parts)-1]
+        bundle.data['media_file_type'] = media_file_type        
         bundle = super( MediaResource, self )\
             .obj_create( bundle, **kwargs )
         return bundle
