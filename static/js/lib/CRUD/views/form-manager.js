@@ -110,7 +110,7 @@ define (
       router: undefined,
       events: {
         'click .do-expand-form'  : 'expandFormRequested',
-        'click .do-collapse-form': 'expandFormRequested'
+        'click .do-collapse-form': 'expandFormRequested',
       },
       // constructor - watch for stream events
       initialize: function() {
@@ -121,7 +121,20 @@ define (
 
       expandFormRequested: function() {
         this.expanded = ! this.expanded;
+        if (this.expanded === false) {
+          this.moveFormToMiddle();
+        }
+        else {
+          this.$el.children().removeClass('is-middle');
+        }
         this.currentView.trigger('expand');
+      },
+
+      // move the edit form to the middle on collapse if embed is open
+      moveFormToMiddle: function() {
+        if (this.embeddedFormOpen === true) {
+          this.$el.children(':first-child').addClass('is-middle');
+        }
       },
 
       // display a semi opaque overlay above the form to prevent futher 
@@ -164,12 +177,14 @@ define (
       watchCrudStream: function() {
         crudBus.filter(filterEmbeddedSearchRequest)
                .onValue(function() {
+                 this.embeddedFormOpen = true;
                  if (!this.expanded) {
                    this.$el.children().addClass('is-middle');
                  }
                }.bind(this));
         crudBus.filter(filterEmbeddedSearchClose)
                .onValue(function() {
+                 this.embeddedFormOpen = false;
                  this.$el.children().removeClass('is-middle');
                }.bind(this));
       },

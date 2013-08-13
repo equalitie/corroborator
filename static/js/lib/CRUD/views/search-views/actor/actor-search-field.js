@@ -86,7 +86,7 @@ define (
       },
 
       createRenderActor: function(model) {
-        var allActors = Collections.ActorCollection.superCollection;
+        var allActors = Collections.ActorCollection;
         var actorModel = allActors.findWhere({resource_uri: model.get('actor')});
         this.renderCollection.add(actorModel);
         this.stopListening(model, 'sync', this.createRenderActor);

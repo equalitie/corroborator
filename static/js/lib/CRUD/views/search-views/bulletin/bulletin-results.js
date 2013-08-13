@@ -26,7 +26,7 @@ define (
 
     // ### BulletinResultsView
     // Specific results view for displaying bulletins
-    BulletinResultsView = EmbeddedSearchResultsView.extend({
+    BulletinResultsView = Backbone.View.extend({
       entityType: 'bulletin',
       // watch the event stream for new bulletins
       watchCrudStream: function() {
@@ -86,7 +86,7 @@ define (
                 .append(resultView.$el);
       },
     });
-    
+    _.extend(BulletinResultsView.prototype, EmbeddedSearchResultsView);
     return {
       BulletinResultsView: BulletinResultsView
     };

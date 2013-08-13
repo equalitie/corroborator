@@ -1,4 +1,3 @@
-<div data-wireframe="incident-view" class="incident-overlay overlay WIREFRAME">
   <div class="header">
     <button class="do-hide is-small">
       <span class="T">close</span>
@@ -209,4 +208,3 @@
 
     </div>
   </div>
-</div>

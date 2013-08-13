@@ -15,7 +15,7 @@ define (
         crudBus = Streams.crudBus;
     // ### EmbeddedSearchResultsView
     // 
-    EmbeddedSearchResultsView = Backbone.View.extend({
+    EmbeddedSearchResultsView = {
       events: {
         'click .do-hideResults': 'closeResults'
       },
@@ -26,6 +26,7 @@ define (
       // store a list of stream subscribers
       subscribers: [],
       initialize: function() {
+        console.log('initialize results');
         this.render();
         this.watchCrudStream();
         this.collection = new Backbone.Collection();
@@ -41,12 +42,18 @@ define (
         });
       },
 
-      watchCrudStream: function() {},
 
       // destroy this view
       onDestroy: function() {
         this.stopListening();
         this.destroyChildren();
+        this.removeSubscribers();
+      },
+
+      removeSubscribers: function() {
+        _.each(this.subscribers, function(unsub) {
+          unsub();
+        });
       },
 
       // ask all child views to destroy
@@ -58,9 +65,10 @@ define (
                 .empty();
       },
       resetCollection: function(evt) {
+        console.log(evt.value());
         this.collection.reset(evt.value().content);
       }
-    });
+    };
 
     
     return {

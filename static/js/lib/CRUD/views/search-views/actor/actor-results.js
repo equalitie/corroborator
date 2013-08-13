@@ -32,10 +32,11 @@ define (
 
     // ### ActorResultsView
     // Specific results view for displaying actors
-    ActorResultsView = EmbeddedSearchResultsView.extend({
+    ActorResultsView = Backbone.View.extend({
       entityType: 'actor',
       // watch the event stream for new actors
       watchCrudStream: function() {
+        console.log('watchCrudStream actors');
         this.watchForSearchResults();
         this.watchForRejectedActors();
       },
@@ -119,6 +120,7 @@ define (
                 .append(resultView.$el);
       },
     });
+    _.extend(ActorResultsView.prototype, EmbeddedSearchResultsView);
     
     return {
       ActorResultsView: ActorResultsView

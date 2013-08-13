@@ -26,7 +26,7 @@ define (
 
     // ### IncidentResultsView
     // Specific results view for displaying incidents
-    IncidentResultsView = EmbeddedSearchResultsView.extend({
+    IncidentResultsView = Backbone.View.extend({
       entityType: 'incident',
       // watch the event stream for new incidents
       watchCrudStream: function() {
@@ -86,6 +86,7 @@ define (
                 .append(resultView.$el);
       },
     });
+    _.extend(IncidentResultsView.prototype, EmbeddedSearchResultsView);
     
     return {
       IncidentResultsView: IncidentResultsView
