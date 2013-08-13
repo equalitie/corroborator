@@ -1,0 +1,122 @@
+
+  <script type="text/javascript">
+  var Bootstrap = (function() {
+    var gl_s3_aws_media_url = '{{ MEDIA_URL }}';
+    var gl_ac_role_list = [];
+    var gl_ac_relation_list = [];
+    var gl_ac_crimes_list = [];
+    var special_global_ac_sources_list = [];
+    var gl_ac_loc_set = [];
+    var gl_ac_labels_list = [];
+    var gl_ac_loc_ac_set = [];
+    var gl_ac_users_list = [];
+    var solr_url = '{{ solr_url }}';
+    var comment_statuses = [];
+
+    {%for relation in relation_status_set %}
+      gl_ac_relation_list.push({ 
+        key:"{{relation.key}}",
+        value: "{{relation.value}}"
+      });
+    {% endfor %}
+
+    {%for role in role_status_set %}
+      gl_ac_role_list.push({ 
+        key:"{{role.key}}",
+        value: "{{role.value}}"
+      });
+    {% endfor %}
+
+
+    {%for comment_status in status_set %}
+      comment_statuses.push({
+        comment_status:"{{comment_status.status_en}}",
+        id:"/api/v1/statusUpdate/{{comment_status.id}}/",
+        resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
+      });
+    {% endfor %}
+
+    {%for label in labels_set.all %}
+      gl_ac_labels_list.push({
+        name_en:"{{label.name_en}}",
+        id:"{{label.id}}",
+        resource_uri:"/api/v1/label/{{label.id}}/"
+      });
+    {% endfor %}
+
+    {%for user in users_set.all %}
+      gl_ac_users_list.push({
+        label:"{{user.username}}",
+        id:"/api/v1/user/{{user.id}}/",
+        resource_uri:"/api/v1/user/{{user.id}}/"
+      });
+    {% endfor %}
+
+    {%for crime in crimes_set.all %}
+      gl_ac_crimes_list.push({
+        name_en:"{{crime.name_en}}",
+        id:"{{crime.id}}",
+        resource_uri:"/api/v1/crimeCategory/{{crime.id}}/"
+      });
+    {% endfor %}
+
+    {%for source in sources_set.all %}
+      special_global_ac_sources_list.push({
+        name_en:"{{source.name_en}}",
+        name_ar:"{{source.name_ar}}",
+        id:"{{source.id}}",
+        resource_uri:"/api/v1/source/{{source.id}}/"
+      });
+    {% endfor %}
+
+    {%for loc in loc_set.all %}
+      gl_ac_loc_set.push({
+        name_en:"{{loc.name_en}}",
+        name_ar:"{{loc.name_ar}}",
+        latitude:"{{loc.latitude}}",
+        longtitude: "{{loc.longitude}}",
+        loc_type: "{{loc.loc_type}}",
+        parent_text: "{{parent_text}}",
+        description_en: "{{description_en}}",
+        description_ar: "{{description_ar}}",
+        parent_location: "{{parent_location}}",
+        resource_uri: "/api/v1/location/{{loc.id}}/"
+      });
+    {% endfor %}
+
+    //consolidate our init data under one variable
+    return {
+        gl_s3_aws_media_url: '{{ MEDIA_URL }}',
+        gl_username: '{{username}}',
+        gl_userid: '{{userid}}',
+        gl_ac_role_list: gl_ac_role_list,
+        gl_ac_relation_list: gl_ac_relation_list,
+        crimes: gl_ac_crimes_list,
+        sources: special_global_ac_sources_list,
+        labels: gl_ac_labels_list,
+        locations: gl_ac_loc_set,
+        gl_ac_users_list: gl_ac_users_list,
+        comment_statuses: comment_statuses,
+        solr_url: solr_url
+    }
+
+  }());
+  var Bootstrap = Bootstrap || {};
+  (function(Bootstrap) {
+    var predefinedSearchList = [];
+    {%for search in ps_list %}
+    predefinedSearchList.push({
+      id: {{search.id}},
+      request: '{{search.search_request}}',
+      name_en: '{{search.name_en}}',
+      name_ar: '{{search.name_en}}',
+      type: '{{search.search_type}}'
+    });
+    {%endfor%}
+    Bootstrap.predefinedSearchList = predefinedSearchList;
+    Bootstrap.username = '{{username}}';
+    Bootstrap.userResource = '/api/v1/user/{{userid}}/';
+    Bootstrap.apiKey = '{{api_key}}';
+
+  }(Bootstrap));
+  </script>
