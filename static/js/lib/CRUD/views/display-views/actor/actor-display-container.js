@@ -29,14 +29,12 @@ define (
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
-        console.log(options.entityDetails);
         this.expanded = options.entityDetails.expanded === undefined ?
           false : options.entityDetails.expanded;
-        console.log(this.expanded);
           
         this.model = actorCollection.superCollection.get(
           options.entityDetails.id);
-        this.on('expand', this.toggleExpanded, this);
+        this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.expanded = !this.expanded;
         this.toggleExpanded();
       },

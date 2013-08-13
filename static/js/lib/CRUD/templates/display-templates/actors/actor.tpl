@@ -1,4 +1,3 @@
-<li class="REPEAT">
   <div class="Actor in-list">
     <div class="avatar">&nbsp;</div>
     <div class="content">
@@ -34,4 +33,3 @@
       </div>
     </div>
   </div>
-</li>

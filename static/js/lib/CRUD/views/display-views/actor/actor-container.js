@@ -21,6 +21,8 @@ define (
         ActorModel = Actor.ActorModel;
 
     ActorView = ModelView.extend({
+      tagName: 'li',
+      className: 'REPEAT',
       template: actorTmp
     });
 
@@ -34,7 +36,6 @@ define (
       containerTmp: actorContainerTmp,
 
       initialize: function(options) {
-        console.log(options.content);
         this.render();
         this.collection = new Backbone.Collection();
         this.loadFromList(options.content);

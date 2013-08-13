@@ -33,7 +33,6 @@ define (
       expanded: false,
       childViews: [],
       initialize: function(options) {
-        console.log('init incident');
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
@@ -41,7 +40,10 @@ define (
         this.model = incidentCollection.superCollection.get(
           options.entityDetails.id);
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
-        this.displayView();
+        this.expanded = options.entityDetails.expanded === undefined ?
+          false : options.entityDetails.expanded;
+        this.expanded = !this.expanded;
+        this.toggleExpanded();
       },
 
       displayExpandedView: function() {
@@ -94,7 +96,6 @@ define (
         actorsEl = this.getContainerEl('actors');
         content = this.model.get('actors');
         roles_en = this.model.get('actors_role_en');
-        console.log(this.model.toJSON());
         actorsContainer = new ActorListView({
           el: actorsEl,
           content: content,

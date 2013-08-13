@@ -125,6 +125,7 @@ define (
       },
 
       initialize: function(options) {
+        console.log(options);
         this.addi18n();
         this.populateWidgets();
         this.render();
@@ -195,7 +196,8 @@ define (
         if (this.model.isNew() === true) {
           crudBus.push({
             type: 'create_new_incident',
-            content: this.model
+            content: this.model,
+            expanded: this.expanded
           });
         }
         this.model.set(formContent);

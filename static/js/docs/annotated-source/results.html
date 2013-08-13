@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="comparator.html">
+                comparator.js
+              </a>
+            
+              
               <a class="source" href="incident.html">
                 incident.js
               </a>
@@ -106,11 +111,6 @@
               
               <a class="source" href="results.html">
                 results.js
-              </a>
-            
-              
-              <a class="source" href="manager.html">
-                manager.js
               </a>
             
               
@@ -512,7 +512,7 @@ define(
             <div class="content"><div class='highlight'><pre>      initialize: <span class="keyword">function</span>(options) {
         <span class="keyword">this</span>.addi18n();
         <span class="keyword">this</span>.index = options.index;
-        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'change'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'change, sync'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
         <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy.bind(<span class="keyword">this</span>));
         <span class="keyword">this</span>.render();
       },</pre></div></div>
@@ -727,7 +727,7 @@ define(
             <div class="content"><div class='highlight'><pre>      initialize: <span class="keyword">function</span>(options) {
         <span class="keyword">this</span>.addi18n();
         <span class="keyword">this</span>.index = options.index;
-        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'change'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
+        <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'change, sync'</span>, <span class="keyword">this</span>.render.bind(<span class="keyword">this</span>));
         <span class="keyword">this</span>.listenTo(<span class="keyword">this</span>.model, <span class="string">'destroy'</span>, <span class="keyword">this</span>.destroy.bind(<span class="keyword">this</span>));
         <span class="keyword">this</span>.render();
       },</pre></div></div>

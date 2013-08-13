@@ -48,7 +48,7 @@ function program9(depth0,data) {
   return buffer;
   }
 
-  buffer += "<li class=\"REPEAT\">\n  <div class=\"Actor in-list\">\n    <div class=\"avatar\">&nbsp;</div>\n    <div class=\"content\">\n      <div class=\"L1\">\n        ";
+  buffer += "  <div class=\"Actor in-list\">\n    <div class=\"avatar\">&nbsp;</div>\n    <div class=\"content\">\n      <div class=\"L1\">\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.roles_en), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        <span class=\"name\">"
@@ -69,7 +69,7 @@ function program9(depth0,data) {
   buffer += "\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        </div>\n      </div>\n    </div>\n  </div>\n</li>\n";
+  buffer += "\n        </div>\n      </div>\n    </div>\n  </div>\n";
   return buffer;
   })
 

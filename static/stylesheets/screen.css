@@ -2831,6 +2831,11 @@ nav {
   padding-left: 3.07692em;
 }
 
+/* line 108, ../sass/_hacks.scss */
+.Actor.in-list {
+  min-height: 80px;
+}
+
 /* line 1, ../sass/_buttons.scss */
 button, .button {
   display: inline-block;

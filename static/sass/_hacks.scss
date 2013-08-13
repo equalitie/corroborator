@@ -103,3 +103,8 @@ nav {
   width: 29%;
   padding-left: 2*$PAD_UNIT;
 }
+
+// RELATED ACTORS
+.Actor.in-list {
+  min-height: 80px;
+}

@@ -174,7 +174,7 @@
       </div>
     </div>
     <div class="right">
-      <button class="do-save do-toggleRevision default">
+      <button id="incident-action_save" class="do-save do-toggleRevision default">
         <span class="text t">Save changes</span>
       </button>
     </div>

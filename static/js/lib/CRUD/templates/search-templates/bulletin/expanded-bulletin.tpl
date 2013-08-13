@@ -196,7 +196,7 @@
         </div>
       </div>
       <div class="right">
-        <button class="do-select do-toggleRevision default">
+        <button id="bulletin-action_save" class="do-select do-toggleRevision default">
           <span class="text t">Save changes</span>
         </button>
       </div>
