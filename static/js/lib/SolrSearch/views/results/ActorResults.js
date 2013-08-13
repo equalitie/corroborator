@@ -28,10 +28,23 @@ define (
       // constructor
       initialize: function(options) {
         this.index = options.index;
-        this.listenTo(this.model, 'change', this.render.bind(this));
-        this.listenTo(this.model, 'destroy', this.destroy.bind(this));
+        this.listenTo(this.model, 'change', this.updateView.bind(this));
         this.listenTo(this.model, 'sync', this.render.bind(this));
+        this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
+      },
+
+      updateView: function(model) {
+        if (_.isEqual(model.changed ,{checked: 'checked'})) {
+          console.log(this.$el);
+          this.$el.children()
+                  .children('.is-selector')
+                  .children('input[type=checkbox]')
+                  .attr('checked', 'checked');
+        }
+        else {
+          this.render();
+        }
       },
 
       // show longer version in list ( disabled )
@@ -78,10 +91,11 @@ define (
       initialize: function() {
         this.addi18n();
         this.collection = Collections.ActorCollection;
-        this.listenTo(this.collection, 'sort reset', this.renderList.bind(this));
-        this.listenTo(this.collection, 'add', this.addItem.bind(this));
+        this.listenTo(this.collection, 'add', this.renderItem.bind(this));
+        this.listenTo(this.collection, 'sort', this.sortRequested.bind(this));
+        this.listenTo(this.collection, 'reset', this.renderStart.bind(this));
         this.render();
-        this.renderList();
+        this.renderStart();
       },
 
       //render container template
@@ -92,19 +106,32 @@ define (
         return this;
       },
 
-      // render each of our actor results
-      renderList: function(model, index) {
-        this.destroyChildren();
-        this.collection.each(this.renderItem, this);
-        return this;
+      chunkSize: 30,
+      loadAfter: 10,
+      currentPage: 0,
+      handleScroll: function(evt) {
+        var currentPosition, nextLoad, slice, start, end;
+        currentPosition = this.$el.scrollTop();
+        if (currentPosition > this.loadAfter * this.listElementHeight) {
+          this.loadAfter = this.loadAfter + this.chunkSize;
+          start = this.currentPage * this.chunkSize;
+          end   = start + this.chunkSize;
+          slice = this.collection.slice(start, end);
+          _.each(slice, this.renderItem, this);
+        }
+      },
+      
+      sortRequested: function() {
+        this.renderStart();
+        this.$el.scrollTop(0);
       },
 
-      addItem: function(model) {
-        var debugOnce = _.once(function() {
-          console.trace();
-        });
-        //debugOnce();
-        //console.debug('addItem', model);
+      renderStart: function() {
+        this.destroyChildren();
+        var renderInitial = this.collection.slice(0, 30);
+        this.currentPage = 1;
+        this.loadAfter = 10;
+        _.each(renderInitial, this.renderItem, this);
       },
 
       // render a single actor result

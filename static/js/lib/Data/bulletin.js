@@ -169,7 +169,8 @@ define(
                .onValue(function(value) {
                  self.add(value.content);
                });
-      }
+      },
+
 
     });
     _.extend(BulletinCollection.prototype, PersistSelectionMixin);
