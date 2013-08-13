@@ -36,13 +36,14 @@ class CrimesInlineIn(admin.TabularInline):
 
 
 class CorrobAdminIn(admin.ModelAdmin):
+    """
     inlines = [
         TimeInfoInlineIn, CommentsInlineIn, LocationInlineIn,
         ActorsRoleInlineIn, LabelInlineIn, CrimesInlineIn
     ]
     list_display = ('title_en',  'incident_details_en', )
     exclude = ('times', 'locations', 'actors_role', 'incident_comments', 'labels', 'crimes')
-
+    """
 
 class LocationInline(admin.TabularInline):
     model = Bulletin.locations.through
@@ -69,13 +70,14 @@ class LabelInline(admin.TabularInline):
 
 
 class CorrobAdmin(admin.ModelAdmin):
+    """
     inlines = [
         TimeInfoInline, LocationInline, SourceInline,
         ActorsRoleInline, LabelInline,
     ]
     list_display = ('title_en', 'description_en', )
     exclude = ('times', 'locations', 'sources', 'actors_role', 'labels')
-
+    """
 
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('status_en', 'description_en', )
