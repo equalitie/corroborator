@@ -32,7 +32,7 @@ define (
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
-        this.model = bulletinCollection.superCollection.get(
+        this.model = bulletinCollection.get(
           options.entityDetails.id);
         this.displayView();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));

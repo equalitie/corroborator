@@ -141,6 +141,7 @@ define (
 
       // create a model to be passed to teh ajax solr library
       createFilterModel: function(filterString, filterDisplay) {
+        //var key = this.key || this.entityType + '_created_exact';
         var model = new Backbone.Model({
           key              : this.entityType + '_created_exact',
           type             : this.entityType,

@@ -21,7 +21,6 @@ define(
 
     var crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
-        SuperCollection       = Mixins.SuperCollection,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
@@ -106,7 +105,6 @@ define(
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
-        this.createSuperCollection();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -188,7 +186,6 @@ define(
     // add our mixins to the collection
     _.extend(ActorCollection.prototype, PersistSelectionMixin);
     _.extend(ActorCollection.prototype, ModelSelectionMixin);
-    _.extend(ActorCollection.prototype, SuperCollection);
 
 
     return {

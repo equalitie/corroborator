@@ -37,7 +37,7 @@ define (
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
-        this.model = incidentCollection.superCollection.get(
+        this.model = incidentCollection.get(
           options.entityDetails.id);
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.expanded = options.entityDetails.expanded === undefined ?
