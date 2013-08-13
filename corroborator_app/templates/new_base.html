@@ -1,196 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
   <head>
+    <title>Corroborator</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fonts/iconic-fill/font.css" />
-    <!--<link rel="stylesheet" href="{{ STATIC_URL }}js/components/leaflet/dist/leaflet.css" type="text/css" media="screen" charset="utf-8">-->
-    <link rel="stylesheet" href="{{ STATIC_URL}}js/components/jquery.ui/dist/jquery-ui.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL}}js/components/flowplayer/dist/skin/minimalist.css" />
-    <link rel="stylesheet" href="{{ STATIC_URL}}js/components/jquery-timepicker-addon/jquery-ui-timepicker-addon.css" />
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/screen.css" />
+    {% include "includes/styles.html" %}
 
-    <script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/components/modernizr/modernizr.js"> </script>
-    <script data-main="{{STATIC_URL}}js/loader" type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/components/requirejs/require.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="{{STATIC_URL}}js/components/requirejs/require.js"/></script>
-<!--    <script type="text/javascript" charset="utf-8">
-      require.config({
-          paths: {
-              //Comment out this line to go back to loading
-              //the non-optimized main.js source file.
-              "main": "{{STATIC_URL}}js/dist/build"
-          }
-      });
-      require(["main"]);
-    </script>-->
+    <script type="text/javascript"
+            charset="utf-8"
+            src="{{STATIC_URL}}js/components/modernizr/modernizr.js"> </script>
 
 
 
-
-<script type="text/javascript" >
-  var Bootstrap = (function() {
-    var gl_s3_aws_media_url = '{{ MEDIA_URL }}';
-    var gl_ac_role_list = [];
-    var gl_ac_relation_list = [];
-    var gl_ac_crimes_list = [];
-    var special_global_ac_sources_list = [];
-    var gl_ac_loc_set = [];
-    var gl_ac_labels_list = [];
-    var gl_ac_loc_ac_set = [];
-    var gl_ac_users_list = [];
-    var solr_url = '{{ solr_url }}';
-    var comment_statuses = [];
-
-    {%for relation in relation_status_set %}
-      gl_ac_relation_list.push({ 
-        key:"{{relation.key}}",
-        value: "{{relation.value}}"
-      });
-    {% endfor %}
-
-    {%for role in role_status_set %}
-      gl_ac_role_list.push({ 
-        key:"{{role.key}}",
-        value: "{{role.value}}"
-      });
-    {% endfor %}
+    {% include "includes/bootstrap.html" %}
 
 
-    {%for comment_status in status_set %}
-      comment_statuses.push({
-        comment_status:"{{comment_status.status_en}}",
-        id:"/api/v1/statusUpdate/{{comment_status.id}}/",
-        resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
-      });
-    {% endfor %}
-
-    {%for label in labels_set.all %}
-      gl_ac_labels_list.push({
-        name_en:"{{label.name_en}}",
-        id:"{{label.id}}",
-        resource_uri:"/api/v1/label/{{label.id}}/"
-      });
-    {% endfor %}
-
-    {%for user in users_set.all %}
-      gl_ac_users_list.push({
-        label:"{{user.username}}",
-        id:"/api/v1/user/{{user.id}}/",
-        resource_uri:"/api/v1/user/{{user.id}}/"
-      });
-    {% endfor %}
-
-    {%for crime in crimes_set.all %}
-      gl_ac_crimes_list.push({
-        name_en:"{{crime.name_en}}",
-        id:"{{crime.id}}",
-        resource_uri:"/api/v1/crimeCategory/{{crime.id}}/"
-      });
-    {% endfor %}
-
-    {%for source in sources_set.all %}
-      special_global_ac_sources_list.push({
-        name_en:"{{source.name_en}}",
-        name_ar:"{{source.name_ar}}",
-        id:"{{source.id}}",
-        resource_uri:"/api/v1/source/{{source.id}}/"
-      });
-    {% endfor %}
-
-    {%for loc in loc_set.all %}
-      gl_ac_loc_set.push({
-        name_en:"{{loc.name_en}}",
-        name_ar:"{{loc.name_ar}}",
-        latitude:"{{loc.latitude}}",
-        longtitude: "{{loc.longitude}}",
-        loc_type: "{{loc.loc_type}}",
-        parent_text: "{{parent_text}}",
-        description_en: "{{description_en}}",
-        description_ar: "{{description_ar}}",
-        parent_location: "{{parent_location}}",
-        resource_uri: "/api/v1/location/{{loc.id}}/"
-      });
-    {% endfor %}
-
-    //consolidate our init data under one variable
-    return {
-        gl_s3_aws_media_url: '{{ MEDIA_URL }}',
-        gl_username: '{{username}}',
-        gl_userid: '{{userid}}',
-        gl_ac_role_list: gl_ac_role_list,
-        gl_ac_relation_list: gl_ac_relation_list,
-        crimes: gl_ac_crimes_list,
-        sources: special_global_ac_sources_list,
-        labels: gl_ac_labels_list,
-        locations: gl_ac_loc_set,
-        gl_ac_users_list: gl_ac_users_list,
-        comment_statuses: comment_statuses,
-        solr_url: solr_url
-    }
-
-  }());
-</script>
-
-{% block script %}
-{% endblock %}
+    {% block script %}
+    {% endblock %}
 
 
   </head>
 
 
   <body class="use-base">
-  {% block dialog %}
-  {% endblock %}
-    <!-- what is this used for? -->
-    <div id="map_data_conduit"></div>
-
-    <!-- our ... loading yokey -->
-    <div id="loadingSpinner" class="hidden">
-      <div id="fountainG">
-        <div id="fountainG_1" class="fountainG"> </div>
-        <div id="fountainG_2" class="fountainG"> </div>
-        <div id="fountainG_3" class="fountainG"> </div>
-        <div id="fountainG_4" class="fountainG"> </div>
-        <div id="fountainG_5" class="fountainG"> </div>
-        <div id="fountainG_6" class="fountainG"> </div>
-        <div id="fountainG_7" class="fountainG"> </div>
-        <div id="fountainG_8" class="fountainG"> </div>
-      </div>
-    </div>
-
     <div id="Application" lang="en" class="Application">
       <!-- top navigation area -->
-      <nav class="Header">
-        <h1 class="title text T">Corroborator</h1>
-        <ul class="user">
-          <li class="hover-expandable">
-            <a href="/home/" class="text T">{{username}}</a>
-            <ul class="when-hover menu">
-              <li>
-                <a href="user-settings" class="text T">Settings</a>
-              </li>
-              <li>
-                <a href="/logout/" class="text T">Logout</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <ul class="sections list-h">
-          <li class="current">
-            <a href="/corroborator/" class="text T">Search</a>
-          </li>
-          <li>
-            <a href="/admin/" class="text T">Administration</a>
-          </li>
-          <li>
-            <a href="monitoring" class="text T">Monitoring</a>
-          </li>
-          <li>
-            <a href="monitoring" class="text T">Batch import</a>
-          </li>
-        </ul>
-        <div class="clearer">&nbsp;</div>
-      </nav>
+      {% block top_nav %}
+      {% endblock %}
       <!-- end top navigation area -->
 
       <div class="Content">
@@ -201,10 +37,6 @@
 
     </div>
     <!-- end Application -->
-
-    <!-- confirm_dialog used for jquery ui dialog i presume -->
-    <div id="confirm_dialog" title="">
-    </div>
 
   </body>
 </html>

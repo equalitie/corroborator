@@ -169,7 +169,7 @@ define(
                .onValue(function(value) {
                  self.add(value.content);
                });
-      },
+      }
 
 
     });

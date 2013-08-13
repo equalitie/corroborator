@@ -110,7 +110,7 @@ define (
       router: undefined,
       events: {
         'click .do-expand-form'  : 'expandFormRequested',
-        'click .do-collapse-form': 'expandFormRequested',
+        'click .do-collapse-form': 'expandFormRequested'
       },
       // constructor - watch for stream events
       initialize: function() {

@@ -125,21 +125,21 @@ module.exports = function(grunt) {
         'lib/SolrSearch/widgets/manager.js'
       ]
     },
-    buster: { // test standard script
-      dev: {
-        options: {
-          growl: true
-        }
-      },
-      production: { // tests minified script
-        options: {
-          growl: true
-        }
+    //buster: { // test standard script
+      //dev: {
+        //options: {
+          //growl: true
+        //}
+      //},
+      //production: { // tests minified script
+        //options: {
+          //growl: true
+        //}
         //test: {
           //config: 'test/buster.js'
         //}
-      }
-    },
+      //}
+    //},
     // concatenate and minify using the require r.js script
     requirejs: {
       compile: {
@@ -234,7 +234,7 @@ module.exports = function(grunt) {
     [
       'handlebars',
       'jshint',
-      'buster',
+      //'buster',
       'requirejs',
       'plato'
 
