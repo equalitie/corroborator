@@ -17,7 +17,6 @@ define(
         crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
-        SuperCollection       = Mixins.SuperCollection,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
         Filters               = new Mixins.Filters(),
         parseComparator       = Comparator.parseComparator,
@@ -98,7 +97,6 @@ define(
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
-        this.createSuperCollection();
         // event handlers for these are in the PersistSelectionMixin
         // TODO: have the mixin set these some way
         this.on('change', this.updateSelectedIdList, this);
@@ -176,7 +174,6 @@ define(
     });
     _.extend(BulletinCollection.prototype, PersistSelectionMixin);
     _.extend(BulletinCollection.prototype, ModelSelectionMixin);
-    _.extend(BulletinCollection.prototype, SuperCollection);
 
   return {
     BulletinModel: BulletinModel,

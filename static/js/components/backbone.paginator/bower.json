@@ -1,0 +1,8 @@
+{
+  "name": "backbone.paginator",
+  "version": "0.8.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/addyosmani/backbone.paginator.git"
+  }
+}

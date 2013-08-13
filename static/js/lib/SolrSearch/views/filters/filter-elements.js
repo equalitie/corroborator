@@ -43,10 +43,12 @@ define(
 
       // render the filter group
       render: function() {
-        var html = filterGroupTmp({model: this.model.toJSON()});
-        this.$el.empty()
-                .append(html);
-        this.renderFilters();
+        if (this.collection.length > 0) {
+          var html = filterGroupTmp({model: this.model.toJSON()});
+          this.$el.empty()
+                  .append(html);
+          this.renderFilters();
+        }
       },
 
       // iterate over the filters with a render function
@@ -95,6 +97,7 @@ define(
         this.collection.remove(this.model);
       },
       render: function() {
+        //console.log(this.model.toJSON());
         var html = singleFilterTmp({model: this.model.toJSON()});
         this.$el.empty()
                 .append(html);

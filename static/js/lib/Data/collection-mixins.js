@@ -163,30 +163,8 @@ define (
 
   _.extend(Filters.prototype, filterFunctions);
 
-    // create a collection that holds all elements
-    var SuperCollection = {
-      createSuperCollection: function() {
-        var initSuperCollection = _.once(this.createInitialCollection);
-        this.on('reset', initSuperCollection, this);
-        this.on('add', this.addToSuperCollection, this);
-        this.on('remove', this.addToSuperCollection, this);
-      },
-      createInitialCollection: function() {
-        this.superCollection = new Backbone.Collection(this.models);
-      },
-      addToSuperCollection: function(model) {
-        this.superCollection.add(model);
-      },
-      removeFromSuperCollection: function(model) {
-        this.superCollection.remove(model);
-      },
-      getList: function(idArray) {
-
-      }
-    };
 
   return {
-    SuperCollection      : SuperCollection,
     Filters              : Filters,
     PersistSelectionMixin: PersistSelectionMixin,
     ModelSyncMixin       : ModelSyncMixin,
