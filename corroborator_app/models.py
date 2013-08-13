@@ -45,7 +45,7 @@ class Comment(models.Model):
     systems audit trail. It can be related to either Bulletins or Incidents.
     """
     assigned_user = models.ForeignKey(User, blank=True, null=True)
-    status = models.ForeignKey(StatusUpdate)
+    status = models.ForeignKey(StatusUpdate, blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
     comment_created = models.DateTimeField(auto_now_add=True)
@@ -485,7 +485,7 @@ class Bulletin(models.Model):
 
     # ManyToManyFields
     sources = models.ManyToManyField(Source, blank=True, null=True)
-    bulletin_comments = models.ManyToManyField(Comment)
+    bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
     labels = models.ManyToManyField(Label, blank=True, null=True)
     times = models.ManyToManyField(TimeInfo, blank=True, null=True)
 
@@ -545,7 +545,7 @@ class Incident(models.Model):
 
     assigned_user = models.ForeignKey(User, blank=True, null=True)
 
-    incident_comments = models.ManyToManyField(Comment)
+    incident_comments = models.ManyToManyField(Comment, blank=True, null=True)
     ref_bulletins = models.ManyToManyField(Bulletin, blank=True, null=True)
     actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
     crimes = models.ManyToManyField(CrimeCategory, blank=True, null=True)
