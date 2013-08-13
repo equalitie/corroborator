@@ -11,7 +11,7 @@ define (
     'lib/Data/media',
     'lib/CRUD/views/search-views/media/media-result',
     'lib/CRUD/views/search-views/media/media-form',
-    'lib/CRUD/templates/search-templates/media-search-field.tpl'
+    'lib/CRUD/templates/search-templates/media/media-search-field.tpl'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Media, MediaResult,
     MediaFormView, mediaSearchTmp) {

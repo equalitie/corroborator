@@ -7,8 +7,8 @@ define (
   [
     'jquery', 'backbone',
     'lib/streams',
-    'lib/CRUD/templates/search-templates/media-result.tpl',
-    'lib/CRUD/templates/search-templates/media-viewer.tpl'
+    'lib/CRUD/templates/search-templates/media/media-result.tpl',
+    'lib/CRUD/templates/search-templates/media/media-viewer.tpl'
   ],
   function ($, Backbone, Streams, mediaResultTmp, mediaViewerTmp) {
     'use strict';

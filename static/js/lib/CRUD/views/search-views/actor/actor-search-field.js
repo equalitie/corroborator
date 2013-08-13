@@ -13,7 +13,7 @@ define (
     'lib/CRUD/data/ActorRoleCollection',
     'lib/CRUD/views/search-views/actor/actor-result',
     'lib/Data/collections',
-    'lib/CRUD/templates/search-templates/actor-search-field.tpl'
+    'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Actor, ActorRole, ActorResult,
     Collections,

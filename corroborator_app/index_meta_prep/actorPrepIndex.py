@@ -11,6 +11,14 @@ from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media, ActorRole
  
 class ActorPrepMeta(): 
+    def prepare_actor_actor_roles(self, object):
+        """
+        Returns a full list of the roles played by actors associate
+        with this object
+        """
+        roles = [actor_role.get_relation_status_display() for actor_role in
+            object.actors_role.all()]
+        return roles
     def prepare_roles(self, object):
         """
         Returns a full list of all roles and relationships associated

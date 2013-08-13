@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<h3>Bulletins</h3>\n<ul class=\"elements bulletins-list\">\n</ul>\n";
+  return "<h3>Related Bulletins</h3>\n<ul class=\"elements bulletins-list\">\n</ul>\n<div class=\"clearer\"></div>\n";
   })
 
 });

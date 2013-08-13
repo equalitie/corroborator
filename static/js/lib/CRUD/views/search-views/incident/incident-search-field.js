@@ -10,7 +10,7 @@ define (
     'lib/elements/select-option',
     'lib/Data/incident',
     'lib/CRUD/views/search-views/incident/incident-result',
-    'lib/CRUD/templates/search-templates/incident-search-field.tpl'
+    'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Incident, IncidentResult,
     incidentSearchTmp) {

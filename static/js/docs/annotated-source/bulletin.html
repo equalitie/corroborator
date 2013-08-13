@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="comparator.html">
+                comparator.js
+              </a>
+            
+              
               <a class="source" href="incident.html">
                 incident.js
               </a>
@@ -106,11 +111,6 @@
               
               <a class="source" href="results.html">
                 results.js
-              </a>
-            
-              
-              <a class="source" href="manager.html">
-                manager.js
               </a>
             
               
@@ -225,9 +225,10 @@
   [
     <span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'backbone'</span>,
     <span class="string">'lib/streams'</span>,
-    <span class="string">'lib/Data/collection-mixins'</span>
+    <span class="string">'lib/Data/collection-mixins'</span>,
+    <span class="string">'lib/Data/comparator'</span>
   ],
-  <span class="keyword">function</span>($, _, Backbone, Streams, Mixins) {
+  <span class="keyword">function</span>($, _, Backbone, Streams, Mixins, Comparator) {
     <span class="string">'use strict'</span>;
 
     <span class="keyword">var</span> PersistSelectionMixin = Mixins.PersistSelectionMixin,
@@ -236,7 +237,8 @@
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         SuperCollection       = Mixins.SuperCollection,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
-        Filters               = <span class="keyword">new</span> Mixins.Filters(),</pre></div></div>
+        Filters               = <span class="keyword">new</span> Mixins.Filters(),
+        parseComparator       = Comparator.parseComparator,</pre></div></div>
             
         </li>
         
@@ -292,9 +294,11 @@
             
             <div class="content"><div class='highlight'><pre>        mapSort = <span class="keyword">function</span>(value) {
           <span class="keyword">var</span> sortMap = {
-            <span class="string">'date'</span>: <span class="string">'bulletin_created'</span>,
-            <span class="string">'title'</span>: <span class="string">'title_en'</span>,
-            <span class="string">'score'</span>: <span class="string">'confidence_score'</span>
+            <span class="string">'date'</span>    : <span class="string">'bulletin_created'</span>,
+            <span class="string">'title'</span>   : <span class="string">'title_en'</span>,
+            <span class="string">'score'</span>   : <span class="string">'confidence_score'</span>,
+            <span class="string">'status'</span>  : <span class="string">'most_recent_status_bulletin'</span>,
+            <span class="string">'location'</span>: <span class="string">'bulletin_locations'</span>
           };
           <span class="keyword">return</span> sortMap[value];
         };</pre></div></div>
@@ -310,7 +314,8 @@
               </div>
               <h2>Data representations</h2>
 <h3>Bulletin Model</h3>
-<p>provide api endpoint for Bulletin model</p>
+<p>provide api endpoint for Bulletin model<br>if resourceUri is set in the options the model will
+auto fetch it&#39;s data</p>
 
             </div>
             
@@ -401,7 +406,7 @@ TODO: have the mixin set these some way</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>      comparator: <span class="keyword">function</span>(model) {
-        <span class="keyword">return</span> model.get(<span class="keyword">this</span>.compareField);
+        <span class="keyword">return</span> parseComparator(model.get(<span class="keyword">this</span>.compareField));
       },</pre></div></div>
             
         </li>
@@ -425,7 +430,16 @@ TODO: have the mixin set these some way</p>
                .onValue(<span class="keyword">this</span>.resetCollection.bind(<span class="keyword">this</span>));
       },
       resetCollection: <span class="keyword">function</span>(results) {
-        <span class="keyword">this</span>.reset(results, {parse: <span class="literal">true</span>});
+        <span class="keyword">if</span> (<span class="keyword">this</span>.length !==<span class="number">0</span>) {
+          _.map(results, <span class="keyword">function</span>(result) {
+            result.id = result.django_id;
+          });
+          <span class="keyword">this</span>.set(results);
+          <span class="keyword">this</span>.trigger(<span class="string">'reset'</span>);
+        }
+        <span class="keyword">else</span> {
+          <span class="keyword">this</span>.reset(results, {parse: <span class="literal">true</span>});
+        }
       },</pre></div></div>
             
         </li>

@@ -31,6 +31,7 @@ define (
         navBus    = Streams.navBus,
         searchBus = Streams.searchBus,
 
+
         // pick the form view to match the create event
         mapCreateEventToView = function(value) {
           var createMap = {
@@ -62,7 +63,8 @@ define (
           };
           return {
             view: editMap[value.type],
-            model: value.content.model
+            model: value.content.model,
+            expanded: value.content.expanded
           };
         },
 
@@ -104,7 +106,12 @@ define (
       el: '.form_overlay',
       currentTab: '',
       currentView: undefined,
+      expanded: false,
       router: undefined,
+      events: {
+        'click .do-expand-form'  : 'expandFormRequested',
+        'click .do-collapse-form': 'expandFormRequested'
+      },
       // constructor - watch for stream events
       initialize: function() {
         this.watchSearchStream();
@@ -112,6 +119,13 @@ define (
         this.router = new Backbone.Router();
       },
 
+      expandFormRequested: function() {
+        this.expanded = ! this.expanded;
+        this.currentView.trigger('expand');
+      },
+
+      // display a semi opaque overlay above the form to prevent futher 
+      // edits during save
       showOverlay: function(model) {
         this.overlay = new Overlay({
           $targetEl: this.$el.children('.overlay'),
@@ -120,17 +134,26 @@ define (
         this.overlay.showOverlay();
       },
 
+      // save complete hide the overlay
       hideOverlay: function(model) {
         this.overlay.displaySaved(this.returnToDisplayView.bind(this));
-        console.log(model);
       },
 
+      // save faild - notify user and hide the overlay
+      saveFailed: function(model, xhr, options) {
+        console.log(model, xhr, options);
+        this.overlay.displayError(this.returnToDisplayView.bind(this));
+      },
+
+      // close the form and send message to opent the
+      // display view
       returnToDisplayView: function() {
         navBus.push({
           type: 'entity-display',
           content: {
             entity: this.model.get('entityType'),
-            id: this.model.get('id')
+            id: this.model.get('id'),
+            expanded: this.expanded
           }
         });
         this.destroyCurrentView();
@@ -139,15 +162,16 @@ define (
       // watch for embedded searches being fired move the form position 
       // accordingly
       watchCrudStream: function() {
-        var self = this;
         crudBus.filter(filterEmbeddedSearchRequest)
                .onValue(function() {
-                 self.$el.children().addClass('is-middle');
-               });
+                 if (!this.expanded) {
+                   this.$el.children().addClass('is-middle');
+                 }
+               }.bind(this));
         crudBus.filter(filterEmbeddedSearchClose)
                .onValue(function() {
-                 self.$el.children().removeClass('is-middle');
-               });
+                 this.$el.children().removeClass('is-middle');
+               }.bind(this));
       },
 
       // watch for a request to create an entity
@@ -170,21 +194,27 @@ define (
       },
 
       openEditView: function(value) {
+        this.expanded = value.expanded;
         this.model = value.model;
         this.destroyCurrentView();
         this.listenForSaveEvents();
-        this.currentView = new value.view({model: value.model});
+        this.currentView = new value.view({
+          model: value.model,
+          expanded: value.expanded
+        });
         this.render();
       },
 
       listenForSaveEvents: function() {
         this.listenTo(this.model, 'request', this.showOverlay.bind(this));
         this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
+        this.listenTo(this.model, 'error', this.saveFailed.bind(this));
       },
 
       listenForCreateEvents: function() {
         this.listenTo(this.model, 'create', this.showOverlay.bind(this));
         this.listenTo(this.model, 'sync', this.hideOverlay.bind(this));
+        this.listenTo(this.model, 'error', this.saveFailed.bind(this));
       },
 
       // replace the current form view with the requested one
@@ -209,10 +239,9 @@ define (
       // render the form, calls enable widgets to enable the dropdowns and
       // date widgets, this must be done after the form has rendered
       render: function() {
-        this.$el.empty()
-                .append(this.currentView.$el);
-        this.currentView.renderChildren();
-        this.currentView.enableWidgets();
+        this.$el.html(this.currentView.$el);
+        this.currentView.renderChildren()
+                        .enableWidgets();
       }
     });
 

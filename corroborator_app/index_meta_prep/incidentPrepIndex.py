@@ -11,6 +11,15 @@ from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media
  
 class IncidentPrepMeta():
+    def prepare_incident_actor_roles(self, object):
+        """
+        Returns a full list of the roles played by actors associate
+        with this object
+        """
+        roles = [actor_role.get_role_status_display() for actor_role in
+            object.actors_role.all()]
+        return roles
+
     def prepare_assigned_user(self, object):
         if object.assigned_user != None:
             return '/api/v1/user/{0}/'.format(object.assigned_user.id)

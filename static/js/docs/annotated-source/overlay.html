@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="comparator.html">
+                comparator.js
+              </a>
+            
+              
               <a class="source" href="incident.html">
                 incident.js
               </a>
@@ -106,11 +111,6 @@
               
               <a class="source" href="results.html">
                 results.js
-              </a>
-            
-              
-              <a class="source" href="manager.html">
-                manager.js
               </a>
             
               
@@ -287,12 +287,14 @@
       },*/</span>
 
       hideOverlay: <span class="keyword">function</span>() {
-        <span class="keyword">this</span>.$overlayEl.remove();
         <span class="keyword">this</span>.completedCallback();
+        <span class="keyword">this</span>.$overlayEl.removeData().unbind();
+        <span class="keyword">this</span>.$overlayEl.children().remove();
+        <span class="keyword">this</span>.$overlayEl.remove();
       },
 
-      createSavedText: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> $savedTextEl = $(<span class="string">'&lt;p&gt;'</span> + <span class="keyword">this</span>.successText + <span class="string">'&lt;/p&gt;'</span>);
+      displayCompletedText: <span class="keyword">function</span>(message) {
+        <span class="keyword">var</span> $savedTextEl = $(<span class="string">'&lt;p&gt;'</span> + message + <span class="string">'&lt;/p&gt;'</span>);
         $savedTextEl.css(<span class="string">'color'</span>, <span class="string">'white'</span>);
         $savedTextEl.css(<span class="string">'text-align'</span>, <span class="string">'center'</span>);
         $savedTextEl.css(<span class="string">'font-size'</span>, <span class="string">'18px'</span>);
@@ -305,10 +307,16 @@
 
       },
 
-      displaySaved: <span class="keyword">function</span>(completedCallback) {
-        <span class="keyword">this</span>.createSavedText();
+      displayError: <span class="keyword">function</span>(completedCallback) {
+        <span class="keyword">this</span>.displayCompletedText(<span class="keyword">this</span>.errorText);
         <span class="keyword">this</span>.completedCallback = completedCallback;
-        window.setTimeout(<span class="keyword">this</span>.hideOverlay.bind(<span class="keyword">this</span>), <span class="number">250</span>);
+        window.setTimeout(<span class="keyword">this</span>.hideOverlay.bind(<span class="keyword">this</span>), <span class="number">500</span>);
+      },
+
+      displaySaved: <span class="keyword">function</span>(completedCallback) {
+        <span class="keyword">this</span>.displayCompletedText(<span class="keyword">this</span>.successText);
+        <span class="keyword">this</span>.completedCallback = completedCallback;
+        window.setTimeout(<span class="keyword">this</span>.hideOverlay.bind(<span class="keyword">this</span>), <span class="number">500</span>);
       },
 
       showOverlay: <span class="keyword">function</span>() {

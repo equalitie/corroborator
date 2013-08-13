@@ -36,10 +36,19 @@ function program5(depth0,data) {
 function program7(depth0,data) {
   
   
-  return "\n            lives in \n            , works as a <span class=\"occupation\">secretary</span>\n          ";
+  return "\n            works as a <span class=\"occupation\">secretary</span>\n          ";
   }
 
-  buffer += "<li class=\"REPEAT\">\n  <div class=\"Actor in-list\">\n    <div class=\"avatar\">&nbsp;</div>\n    <div class=\"content\">\n      <div class=\"L1\">\n        ";
+function program9(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n          <br>involved in \n          <span class=\"incidents-count\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " incidents</span>\n          ";
+  return buffer;
+  }
+
+  buffer += "  <div class=\"Actor in-list\">\n    <div class=\"avatar\">&nbsp;</div>\n    <div class=\"content\">\n      <div class=\"L1\">\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.roles_en), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        <span class=\"name\">"
@@ -57,9 +66,10 @@ function program7(depth0,data) {
   buffer += "\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n          <br>involved in <span class=\"incidents-count\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " incidents</span>\n        </div>\n      </div>\n    </div>\n  </div>\n</li>\n";
+  buffer += "\n          ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n        </div>\n      </div>\n    </div>\n  </div>\n";
   return buffer;
   })
 

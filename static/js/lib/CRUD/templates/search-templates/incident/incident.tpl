@@ -6,11 +6,11 @@
   </div>
   <div id="view-placeholder-incident" class="body" style="bottom: 49px;">
     <form id="incident_form" class="incident_form">
-          {{#if model.id}}
-          <span class="id">
-            ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
-          </span>
-          {{/if}}
+      {{#if model.id}}
+      <span class="id">
+        ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
+      </span>
+      {{/if}}
       <div class="Incident in-preview is-edited">
         <div class="Incident is-edited">
           <div class="col first span-66p hidden incident-expanded-edit">
@@ -161,10 +161,14 @@
           <div id="incident-actor-list-block" class="field is-actors">
           </div>
 
+          <!-- Bulletin selection block -->
           <div id="incident-bulletin-block" class="field is-bulletins">
           </div>
+
+          <!-- Incident selection block -->
           <div id="incident-incident-block" class="field is-incidents">
           </div>
+
           </div>
         </div>
 
@@ -174,12 +178,12 @@
   <div class="footer actions">
     <div class="left">
       <div class="when-overlay-expanded">
-        <button class="do-collapse">
+        <button class="do-collapse-form">
           <span class="text T">Collapse »</span>
         </button>
       </div>
       <div class="when-overlay-not_expanded">
-        <button class="do-expand">
+        <button class="do-expand-form">
           <span class="text T">« Expand</span>
         </button>
       </div>

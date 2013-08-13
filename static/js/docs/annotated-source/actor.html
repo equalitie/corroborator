@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="comparator.html">
+                comparator.js
+              </a>
+            
+              
               <a class="source" href="incident.html">
                 incident.js
               </a>
@@ -106,11 +111,6 @@
               
               <a class="source" href="results.html">
                 results.js
-              </a>
-            
-              
-              <a class="source" href="manager.html">
-                manager.js
               </a>
             
               
@@ -228,19 +228,21 @@
   [
     <span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'backbone'</span>,
     <span class="string">'lib/streams'</span>,
-    <span class="string">'lib/Data/collection-mixins'</span>
+    <span class="string">'lib/Data/collection-mixins'</span>,
+    <span class="string">'lib/Data/comparator'</span>
   ],
-  <span class="keyword">function</span>($, _, Backbone, Streams, Mixins) {
+  <span class="keyword">function</span>($, _, Backbone, Streams, Mixins, Comparator) {
     <span class="string">'use strict'</span>;
 
 
-    <span class="keyword">var</span> crudBus   = Streams.crudBus,
-        searchBus = Streams.searchBus,
-        SuperCollection = Mixins.SuperCollection,
+    <span class="keyword">var</span> crudBus               = Streams.crudBus,
+        searchBus             = Streams.searchBus,
+        SuperCollection       = Mixins.SuperCollection,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
-        ModelSelectionMixin = Mixins.ModelSelectionMixin,
-        ModelSyncMixin = Mixins.ModelSyncMixin,
-        Filters = <span class="keyword">new</span> Mixins.Filters(),</pre></div></div>
+        ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        ModelSyncMixin        = Mixins.ModelSyncMixin,
+        Filters               = <span class="keyword">new</span> Mixins.Filters(),
+        parseComparator       = Comparator.parseComparator,</pre></div></div>
             
         </li>
         
@@ -261,10 +263,14 @@
         filterActor = <span class="keyword">function</span>(value) {
           <span class="keyword">return</span> value.navValue === <span class="string">'actor'</span>;
         },
+        mapResourceUriToId = <span class="keyword">function</span>(resourceUri) {
+          <span class="keyword">return</span> _.last(resourceUri.match(<span class="regexp">/\/(\d+)\/$/</span>));
+        },
         mapSort = <span class="keyword">function</span>(value) {
           <span class="keyword">var</span> sortMap = {
-            <span class="string">'date'</span>: <span class="string">'actor_created'</span>,
-            <span class="string">'title'</span>: <span class="string">'fullname_en'</span>
+            <span class="string">'date'</span> : <span class="string">'actor_created'</span>,
+            <span class="string">'title'</span>: <span class="string">'fullname_en'</span>,
+            <span class="string">'age'</span>  : <span class="string">'age_en'</span>
           };
           <span class="keyword">return</span> sortMap[value];
         },</pre></div></div>
@@ -297,7 +303,8 @@
               </div>
               <h2>Data representations</h2>
 <h3>Actor Model</h3>
-<p>provide api endpoint for Actor model</p>
+<p>provide api endpoint for Actor model<br>if resourceUri is set in the options the model will
+auto fetch it&#39;s data</p>
 
             </div>
             
@@ -307,8 +314,15 @@
         <span class="string">'actors_role'</span>
       ],
       idAttribute: <span class="string">'id'</span>,
-      initialize: <span class="keyword">function</span>() {
+      initialize: <span class="keyword">function</span>(options) {
         <span class="keyword">this</span>.set(<span class="string">'entityType'</span>, <span class="string">'actor'</span>);
+        <span class="keyword">if</span> (options.resourceUri !== <span class="literal">undefined</span>) {
+          <span class="keyword">var</span> id = mapResourceUriToId(options.resourceUri);
+          <span class="keyword">this</span>.set(<span class="string">'django_id'</span>, id);
+          <span class="keyword">this</span>.set(<span class="string">'id'</span>, id);
+          <span class="keyword">this</span>.set(<span class="string">'resource_uri'</span>, options.resourceUri);
+          <span class="keyword">this</span>.fetch();
+        }
       },
       url: <span class="keyword">function</span>() {
         <span class="keyword">var</span> base = <span class="string">'/api/v1/actor/'</span>;
@@ -388,7 +402,7 @@ TODO: have the mixin set these some way</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>      comparator: <span class="keyword">function</span>(model) {
-        <span class="keyword">return</span> model.get(<span class="keyword">this</span>.compareField);
+        <span class="keyword">return</span> parseComparator(model.get(<span class="keyword">this</span>.compareField));
       },
       setComparatorField: <span class="keyword">function</span>() {
       },</pre></div></div>
@@ -414,7 +428,16 @@ results are received from solr</p>
                .onValue(<span class="keyword">this</span>.resetCollection.bind(<span class="keyword">this</span>));
       },
       resetCollection: <span class="keyword">function</span>(results) {
-        <span class="keyword">this</span>.reset(results, {parse: <span class="literal">true</span>});
+        <span class="keyword">if</span> (<span class="keyword">this</span>.length !==<span class="number">0</span>) {
+          _.map(results, <span class="keyword">function</span>(result) {
+            result.id = result.django_id;
+          });
+          <span class="keyword">this</span>.set(results);
+          <span class="keyword">this</span>.trigger(<span class="string">'reset'</span>);
+        }
+        <span class="keyword">else</span> {
+          <span class="keyword">this</span>.reset(results, {parse: <span class="literal">true</span>});
+        }
       },</pre></div></div>
             
         </li>

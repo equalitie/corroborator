@@ -53,7 +53,9 @@ define(
 
 
     // ### Bulletin Model
-    // provide api endpoint for Bulletin model
+    // provide api endpoint for Bulletin model  
+    // if resourceUri is set in the options the model will
+    // auto fetch it's data
     var BulletinModel = Backbone.Model.extend({
       foreignKeyFields: [
         'assigned_user'
@@ -116,7 +118,16 @@ define(
                .onValue(this.resetCollection.bind(this));
       },
       resetCollection: function(results) {
-        this.reset(results, {parse: true});
+        if (this.length !==0) {
+          _.map(results, function(result) {
+            result.id = result.django_id;
+          });
+          this.set(results);
+          this.trigger('reset');
+        }
+        else {
+          this.reset(results, {parse: true});
+        }
       },
 
 

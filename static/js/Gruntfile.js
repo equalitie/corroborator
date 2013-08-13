@@ -42,30 +42,39 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/map-container.tpl.js'   : 'lib/SolrSearch/templates/map-container.tpl',
 
           // forms
-          'lib/CRUD/templates/search-templates/media-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/media-search-field.tpl',
-          'lib/CRUD/templates/search-templates/media-result.tpl.js'         : 'lib/CRUD/templates/search-templates/media-result.tpl',
-          'lib/CRUD/templates/search-templates/media-viewer.tpl.js'         : 'lib/CRUD/templates/search-templates/media-viewer.tpl',
-          'lib/CRUD/templates/search-templates/media-form.tpl.js'           : 'lib/CRUD/templates/search-templates/media-form.tpl',
+          'lib/CRUD/templates/search-templates/actor/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor/actor.tpl',
+          'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl.js'       : 'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl',
+          'lib/CRUD/templates/search-templates/actor/actor-result.tpl.js'         : 'lib/CRUD/templates/search-templates/actor/actor-result.tpl',
+          'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl',
+
+          'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl.js'             : 'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl',
+          'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl.js'    : 'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl',
+          'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl.js'      : 'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl',
+          'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl.js': 'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl',
+
+          'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl.js': 'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl',
+          'lib/CRUD/templates/search-templates/incident/incident-result.tpl.js'      : 'lib/CRUD/templates/search-templates/incident/incident-result.tpl',
+          'lib/CRUD/templates/search-templates/incident/incident.tpl.js'             : 'lib/CRUD/templates/search-templates/incident/incident.tpl',
+          'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl.js'    : 'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl',
+
+          'lib/CRUD/templates/search-templates/media/media-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/media/media-search-field.tpl',
+          'lib/CRUD/templates/search-templates/media/media-result.tpl.js'         : 'lib/CRUD/templates/search-templates/media/media-result.tpl',
+          'lib/CRUD/templates/search-templates/media/media-viewer.tpl.js'         : 'lib/CRUD/templates/search-templates/media/media-viewer.tpl',
+          'lib/CRUD/templates/search-templates/media/media-form.tpl.js'           : 'lib/CRUD/templates/search-templates/media/media-form.tpl',
 
           'lib/CRUD/templates/search-templates/embedded-results.tpl.js'     : 'lib/CRUD/templates/search-templates/embedded-results.tpl',
           'lib/CRUD/templates/search-templates/confirm-dialog.tpl.js'       : 'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
-          'lib/CRUD/templates/search-templates/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor.tpl',
-          'lib/CRUD/templates/search-templates/actor-result.tpl.js'         : 'lib/CRUD/templates/search-templates/actor-result.tpl',
-          'lib/CRUD/templates/search-templates/actor-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/actor-search-field.tpl',
-          'lib/CRUD/templates/search-templates/incident-search-field.tpl.js': 'lib/CRUD/templates/search-templates/incident-search-field.tpl',
-          'lib/CRUD/templates/search-templates/incident-result.tpl.js'      : 'lib/CRUD/templates/search-templates/incident-result.tpl',
-          'lib/CRUD/templates/search-templates/incident.tpl.js'             : 'lib/CRUD/templates/search-templates/incident.tpl',
+
           //'lib/CRUD/templates/search-templates/location-search-field.tpl.js': 'lib/CRUD/templates/search-templates/location-search-field.tpl',
           //'lib/CRUD/templates/search-templates/location-result.tpl.js'      : 'lib/CRUD/templates/search-templates/location-result.tpl',
-          'lib/CRUD/templates/search-templates/bulletin.tpl.js'             : 'lib/CRUD/templates/search-templates/bulletin.tpl',
-          'lib/CRUD/templates/search-templates/bulletin-result.tpl.js'      : 'lib/CRUD/templates/search-templates/bulletin-result.tpl',
-          'lib/CRUD/templates/search-templates/bulletin-search-field.tpl.js': 'lib/CRUD/templates/search-templates/bulletin-search-field.tpl',
-          'lib/CRUD/templates/search-templates/comment-container.tpl.js'    : 'lib/CRUD/templates/search-templates/comment-container.tpl',
-          'lib/CRUD/templates/search-templates/comment-form.tpl.js'         : 'lib/CRUD/templates/search-templates/comment-form.tpl',
-          'lib/CRUD/templates/search-templates/comment-display.tpl.js'      : 'lib/CRUD/templates/search-templates/comment-display.tpl',
-          'lib/CRUD/templates/search-templates/event-container.tpl.js'      : 'lib/CRUD/templates/search-templates/event-container.tpl',
-          'lib/CRUD/templates/search-templates/event-form.tpl.js'           : 'lib/CRUD/templates/search-templates/event-form.tpl',
-          'lib/CRUD/templates/search-templates/event-display.tpl.js'        : 'lib/CRUD/templates/search-templates/event-display.tpl',
+          //
+          'lib/CRUD/templates/search-templates/comment/comment-container.tpl.js'    : 'lib/CRUD/templates/search-templates/comment/comment-container.tpl',
+          'lib/CRUD/templates/search-templates/comment/comment-form.tpl.js'         : 'lib/CRUD/templates/search-templates/comment/comment-form.tpl',
+          'lib/CRUD/templates/search-templates/comment/comment-display.tpl.js'      : 'lib/CRUD/templates/search-templates/comment/comment-display.tpl',
+
+          'lib/CRUD/templates/search-templates/event/event-container.tpl.js'      : 'lib/CRUD/templates/search-templates/event/event-container.tpl',
+          'lib/CRUD/templates/search-templates/event/event-form.tpl.js'           : 'lib/CRUD/templates/search-templates/event/event-form.tpl',
+          'lib/CRUD/templates/search-templates/event/event-display.tpl.js'        : 'lib/CRUD/templates/search-templates/event/event-display.tpl',
          
           // individual display
           'lib/CRUD/templates/display-templates/display-manager.tpl.js'     : 'lib/CRUD/templates/display-templates/display-manager.tpl',
@@ -200,6 +209,7 @@ module.exports = function(grunt) {
         'lib/elements/templates/*.tpl',
         'lib/SolrSearch/templates/*.tpl',
         'lib/CRUD/templates/search-templates/*.tpl',
+        'lib/CRUD/templates/search-templates/*/*.tpl',
         'lib/CRUD/templates/display-templates/*.tpl',
         'lib/CRUD/templates/display-templates/*/*.tpl'
       ],

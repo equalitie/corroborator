@@ -1,4 +1,3 @@
-<div data-wireframe="bulletin-view" class="bulletin-overlay overlay WIREFRAME">
   <div class="header">
     <button class="do-hide is-small">
       <span class="T">close</span>
@@ -26,9 +25,11 @@
 
 
         <div id="bulletin-id-block-ne" class="header bulletin-not-expanded-edit">
+          {{#if model.id}}
           <span class="id">
-            ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
+            ID <span id="view-actor-id" class="value out">{{model.id}}</span>
           </span>
+          {{/if}}
 
           <!-- title -->
           <h2 class="title">
@@ -122,12 +123,14 @@
           <!-- Event block -->
           <div id="bulletin-event-block" class="field is-events clear">
           </div>
-        <div id="bulletin-location-block" class="field is-locations">
-        </div>
+          <!-- location bloack -->
+          <div id="bulletin-location-block" class="field is-locations">
+          </div>
 
-        <div id="bulletin-media-block" class="field is-media">
-        </div>
+          <div id="bulletin-media-block" class="field is-media">
+          </div>
 
+        <!-- description -->
         <div id="bulletin-description-block" class="field is-description">
           <label>Description</label>
           <div class="i18n with-en with-ar">
@@ -165,12 +168,12 @@
   <div class="footer actions">
     <div class="left">
       <div class="when-overlay-expanded">
-        <button class="do-collapse">
+        <button class="do-collapse-form">
           <span class="text T">Collapse »</span>
         </button>
       </div>
       <div class="when-overlay-not_expanded">
-        <button class="do-expand">
+        <button class="do-expand-form">
           <span class="text T">« Expand</span>
         </button>
       </div>
@@ -200,4 +203,3 @@
       </button>
     </div>
   </div>
-</div>

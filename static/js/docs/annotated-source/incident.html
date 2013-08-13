@@ -39,6 +39,11 @@
               </a>
             
               
+              <a class="source" href="comparator.html">
+                comparator.js
+              </a>
+            
+              
               <a class="source" href="incident.html">
                 incident.js
               </a>
@@ -106,11 +111,6 @@
               
               <a class="source" href="results.html">
                 results.js
-              </a>
-            
-              
-              <a class="source" href="manager.html">
-                manager.js
               </a>
             
               
@@ -225,9 +225,10 @@
   [
     <span class="string">'jquery'</span>, <span class="string">'underscore'</span>, <span class="string">'backbone'</span>,
     <span class="string">'lib/streams'</span>,
-    <span class="string">'lib/Data/collection-mixins'</span>
+    <span class="string">'lib/Data/collection-mixins'</span>,
+    <span class="string">'lib/Data/comparator'</span>
   ],
-  <span class="keyword">function</span>($, _, Backbone, Streams, Mixins) {
+  <span class="keyword">function</span>($, _, Backbone, Streams, Mixins, Comparator) {
     <span class="string">'use strict'</span>;</pre></div></div>
             
         </li>
@@ -252,12 +253,13 @@
           <span class="keyword">return</span> value.type === <span class="string">'results_incident'</span>;
         },
         crudBus               = Streams.crudBus,
-        searchBus             = Streams.crudBus,
+        searchBus             = Streams.searchBus,
         SuperCollection       = Mixins.SuperCollection,
         ModelSyncMixin        = Mixins.ModelSyncMixin,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         Filters               = <span class="keyword">new</span> Mixins.Filters(),
+        parseComparator       = Comparator.parseComparator,
         mapResourceUriToId = <span class="keyword">function</span>(resourceUri) {
           <span class="keyword">return</span> _.last(resourceUri.match(<span class="regexp">/\/(\d+)\/$/</span>));
         },
@@ -265,7 +267,12 @@
           <span class="keyword">var</span> sortMap = {
             <span class="string">'date'</span>: <span class="string">'incident_created'</span>,
             <span class="string">'title'</span>: <span class="string">'title_en'</span>,
-            <span class="string">'score'</span>: <span class="string">'confidence_score'</span></pre></div></div>
+            <span class="string">'score'</span>: <span class="string">'confidence_score'</span>,
+            <span class="string">'status'</span>: <span class="string">'most_recent_status_incident'</span>,
+            <span class="string">'location'</span>: <span class="string">'incident_locations'</span>
+          };
+          <span class="keyword">return</span> sortMap[value];
+        };</pre></div></div>
             
         </li>
         
@@ -273,25 +280,8 @@
         <li id="section-4">
             <div class="annotation">
               
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>&#39;status&#39;: &#39;&#39;</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>          };
-          <span class="keyword">return</span> sortMap[value];
-        };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
               <div class="pilwrap for-h2">
-                <a class="pilcrow" href="#section-5">&#182;</a>
+                <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
               <h2>Data representations</h2>
 <h3>Incident Model</h3>
@@ -331,11 +321,11 @@
         </li>
         
         
-        <li id="section-6">
+        <li id="section-5">
             <div class="annotation">
               
               <div class="pilwrap for-h3">
-                <a class="pilcrow" href="#section-6">&#182;</a>
+                <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
               <h3>Incident Collection</h3>
 <p>provide sort, selection functionality<br>stores incidents </p>
@@ -355,11 +345,11 @@
         </li>
         
         
-        <li id="section-7">
+        <li id="section-6">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
               <p>event handlers for these are in the PersistSelectionMixin
 TODO: have the mixin set these some way</p>
@@ -373,18 +363,51 @@ TODO: have the mixin set these some way</p>
         </li>
         
         
-        <li id="section-8">
+        <li id="section-7">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-8">&#182;</a>
+                <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
               <p>models are sorted based on the result of this function</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>      comparator: <span class="keyword">function</span>(model) {
-        <span class="keyword">return</span> model.get(<span class="keyword">this</span>.compareField);
+        <span class="keyword">return</span> parseComparator(model.get(<span class="keyword">this</span>.compareField));
+      },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>watch the search bus to update the incident collection when new<br>incident results are received from solr</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      watchEventStream: <span class="keyword">function</span>() {
+        <span class="keyword">var</span> self = <span class="keyword">this</span>;
+        searchBus.toProperty()
+                 .filter(filterIncidentResults)
+                 .map(Filters.extractResults)
+                 .onValue(<span class="keyword">this</span>.resetCollection.bind(<span class="keyword">this</span>));
+      },
+      resetCollection: <span class="keyword">function</span>(results) {
+        <span class="keyword">if</span> (<span class="keyword">this</span>.length !==<span class="number">0</span>) {
+          _.map(results, <span class="keyword">function</span>(result) {
+            result.id = result.django_id;
+          });
+          <span class="keyword">this</span>.set(results);
+          <span class="keyword">this</span>.trigger(<span class="string">'reset'</span>);
+        }
+        <span class="keyword">else</span> {
+          <span class="keyword">this</span>.reset(results, {parse: <span class="literal">true</span>});
+        }
       },</pre></div></div>
             
         </li>
@@ -395,30 +418,6 @@ TODO: have the mixin set these some way</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
-              </div>
-              <p>watch the search bus to update the incident collection when new<br>incident results are received from solr</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>      watchEventStream: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> self = <span class="keyword">this</span>;
-        Streams.searchBus.toProperty()
-               .filter(filterIncidentResults)
-               .map(Filters.extractResults)
-               .onValue(<span class="keyword">this</span>.resetCollection.bind(<span class="keyword">this</span>));
-      },
-      resetCollection: <span class="keyword">function</span>(results) {
-        <span class="keyword">this</span>.reset(results, {parse: <span class="literal">true</span>});
-      },</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-10">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p>watch for selections from the action combo box</p>
 
@@ -445,18 +444,17 @@ TODO: have the mixin set these some way</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-10">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-10">&#182;</a>
               </div>
               <p>listen for sort request events<br>these originate from header.js in SolrSearch views</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>      watchSort: <span class="keyword">function</span>() {
-        <span class="keyword">var</span> self = <span class="keyword">this</span>;
         Streams.searchBus.filter(<span class="keyword">function</span>(value) {
           <span class="keyword">return</span> value.type === <span class="string">'filter_view_combined'</span>;
         })
@@ -464,9 +462,9 @@ TODO: have the mixin set these some way</p>
         .map(Filters.extractOption)
         .map(mapSort)
         .onValue(<span class="function"><span class="keyword">function</span> <span class="params">(value)</span> {</span>
-          self.compareField = value;
-          self.sort();
-        });
+          <span class="keyword">this</span>.compareField = value;
+          <span class="keyword">this</span>.sort();
+        }.bind(<span class="keyword">this</span>));
       },
       watchCreate: <span class="keyword">function</span>() {
         <span class="keyword">var</span> self = <span class="keyword">this</span>;
@@ -481,11 +479,11 @@ TODO: have the mixin set these some way</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-11">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-11">&#182;</a>
               </div>
               <p>add our mixins to the collection</p>
 

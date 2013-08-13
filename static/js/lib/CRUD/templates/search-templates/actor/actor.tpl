@@ -1,4 +1,3 @@
-<div class="actor-overlay overlay WIREFRAME">
   <div class="header">
     <button class="do-hide is-small">
       <span class="T">close</span>
@@ -159,6 +158,7 @@
             <input type="text" class="with-select actor-field w-30p" value="{{model.position_en}}" 
               name="position_en" id="actor_position_en" >
           </div>
+
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
             <label>Ethnicity</label>
@@ -190,12 +190,6 @@
 
         <!-- end form body -->
 
-          <!-- 
-            embedded search bit 
-            TODO: q: does this need it's own template
-                  a: yes it does
-                  a1: we'll see, so we will
-          -->
 
           <!-- searches for actors: why? -->
           <div id="actor-actor-list-block" class="field is-actors">
@@ -229,7 +223,7 @@
         </button>
       </div>
       <div class="when-overlay-not_expanded">
-        <button class="do-expand">
+        <button class="do-expand-form">
           <span class="text T">« Expand</span>
         </button>
       </div>
@@ -246,4 +240,3 @@
 
     </div>
   </div>
-</div>

@@ -29,10 +29,14 @@ define (
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
+        this.expanded = options.entityDetails.expanded === undefined ?
+          false : options.entityDetails.expanded;
+          
         this.model = actorCollection.superCollection.get(
           options.entityDetails.id);
-        this.on('expand', this.toggleExpanded, this);
-        this.displayView();
+        this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
+        this.expanded = !this.expanded;
+        this.toggleExpanded();
       },
 
       // set the small template
@@ -48,22 +52,22 @@ define (
 
       toggleExpanded: function() {
         if (this.expanded === true) {
-          this.template = actorDisplayTmp;
-          this.$el.removeClass('span-60p');
-          this.displayView();
           this.expanded = false;
+          this.displayView();
+          this.$el.removeClass('span-60p');
         }
         else {
-          this.$el.addClass('span-60p');
-          this.displayView();
           this.expanded = true;
+          this.displayView();
+          this.$el.addClass('span-60p');
         }
       },
       requestEdit: function() {
         crudBus.push({
           type: 'edit_actor_request',
           content: {
-            model: this.model
+            model: this.model,
+            expanded: this.expanded
           }
         });
       },
@@ -72,12 +76,36 @@ define (
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
-      renderRelatedActors: function() {
-        var actorsEl = this.$el.children()
-                               .children('.body')
-                               .children('.actors'),
 
-            content = this.model.get('actors_role');
+      // get the containing el for normal and expanded view
+      getContainerEl: function(className) {
+        var el;
+        if (this.expanded === true) {
+          el = this.$el.children()
+                       .children()
+                       .children('.body')
+                       .children('.is-' + className);
+        }
+        else {
+          el = this.$el.children()
+                       .children('.body')
+                       .children('.' + className);
+        }
+        return el;
+      },
+
+      // render the related Actors
+      renderRelatedActors: function() {
+        var actorsEl, content, roles_en, actorsContainer;
+        actorsEl = this.getContainerEl('actors');
+        content = this.model.get('actors');
+        roles_en = this.model.get('actors_role_en');
+        console.log(this.model.toJSON());
+        actorsContainer = new ActorListView({
+          el: actorsEl,
+          content: content,
+          roles: roles_en
+        });
         return this;
       },
       render: function() {

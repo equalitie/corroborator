@@ -24,14 +24,12 @@ class Thumbnailer():
         stream = StringIO.StringIO(string_data)
         image = Image.open(stream)
         image.thumbnail(size, Image.ANTIALIAS)
-        image = image.convert('1')
+        #image = image.convert('1')
         image_size = image.size
-        #thumb = image.crop( (0, 0, size[0], size[1]) )
         offset_x = max( (size[0] - image_size[0]) / 2, 0 )
         offset_y = max( (size[1] - image_size[1]) / 2, 0 )
         offset_tuple = (offset_x, offset_y)
 
-        #thumb = ImageChops.offset(thumb, offset_x, offset_y)
         background = Image.new('RGBA', size, (208, 208, 208, 1))
         background.paste(
             image,
