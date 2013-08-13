@@ -44,8 +44,8 @@ class Comment(models.Model):
     This object represents a system comment and acts as part of the
     systems audit trail. It can be related to either Bulletins or Incidents.
     """
-    assigned_user = models.ForeignKey(User, null=True, blank=True)
-    status = models.ForeignKey(StatusUpdate, blank=True, null=True)
+    assigned_user = models.ForeignKey(User, blank=True, null=True)
+    status = models.ForeignKey(StatusUpdate)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
     comment_created = models.DateTimeField(auto_now_add=True)
@@ -274,6 +274,7 @@ class Media(models.Model):
     storage=queued_s3storage, null=True)
     media_type = models.CharField('type', max_length=25, choices=TYPE)
     media_created = models.DateTimeField(auto_now_add=True)
+    media_file_type = models.CharField(max_length=255, blank=True, null=True)
 
     def get_uri(self):
         """
@@ -480,11 +481,11 @@ class Bulletin(models.Model):
     deleted = models.BooleanField()
 
     # foreign key fields
-    assigned_user = models.ForeignKey(User, null=True, blank=True)
+    assigned_user = models.ForeignKey(User, blank=True, null=True)
 
     # ManyToManyFields
     sources = models.ManyToManyField(Source, blank=True, null=True)
-    bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
+    bulletin_comments = models.ManyToManyField(Comment)
     labels = models.ManyToManyField(Label, blank=True, null=True)
     times = models.ManyToManyField(TimeInfo, blank=True, null=True)
 
@@ -542,9 +543,9 @@ class Incident(models.Model):
     title_ar = models.TextField(blank=True,null=True)
     incident_created = models.DateTimeField(auto_now_add=True)
 
-    assigned_user = models.ForeignKey(User,null=True,blank=True)
+    assigned_user = models.ForeignKey(User, blank=True, null=True)
 
-    incident_comments = models.ManyToManyField(Comment,blank=True,null=True)
+    incident_comments = models.ManyToManyField(Comment)
     ref_bulletins = models.ManyToManyField(Bulletin, blank=True, null=True)
     actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
     crimes = models.ManyToManyField(CrimeCategory, blank=True, null=True)
