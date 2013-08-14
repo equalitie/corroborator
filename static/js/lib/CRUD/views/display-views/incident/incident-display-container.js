@@ -7,6 +7,7 @@ define (
   [
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
+    'lib/CRUD/views/map-view',
     'lib/CRUD/views/display-views/misc/comment-container',
     'lib/CRUD/views/display-views/misc/event-container',
     'lib/CRUD/views/display-views/actor/actor-container',
@@ -15,9 +16,8 @@ define (
     'lib/CRUD/templates/display-templates/incident-display.tpl',
     'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl'
   ],
-  function (Backbone, _, Collections, Streams, CommentContainer, 
-    EventListView,
-    ActorListView, BulletinListView, IncidentListView,
+  function (Backbone, _, Collections, Streams, CoordinateDisplayView, CommentContainer,
+    EventListView, ActorListView, BulletinListView, IncidentListView,
     incidentDisplayTmp, expandedIncidentDisplayTmp) {
     'use strict';
 
@@ -48,7 +48,8 @@ define (
 
       displayExpandedView: function() {
         this.displayView()
-            .renderRelatedEvents();
+            .renderRelatedEvents()
+            .renderMap();
       },
       displayView: function() {
         this.render()
@@ -148,11 +149,26 @@ define (
                        .children('.body')
                        .children('.is-events');
         content = this.model.get('times');
+        console.log(this.model.toJSON());
         incidentsContainer = new EventListView({
           el: eventsEl,
           content: content
         });
         return this;
+      },
+      renderMap: function() {
+        var mapEl, content, mapContainer, collection;
+        mapEl = this.getContainerEl('incident-map');
+        content = _.map(this.model.get('locations'), function(uri) {
+          return { resourceUri: uri };
+        });
+        console.log(mapEl);
+        mapContainer = new CoordinateDisplayView({
+          el: mapEl,
+          content: content
+        });
+        return this;
+
       },
 
       // render the container

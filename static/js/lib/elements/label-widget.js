@@ -72,11 +72,20 @@ define (
         // TODO reset these with existing values
         this.selectCollection = new Backbone.Collection();
 
+        this.bus = options.bus;
+        this.eventIdentifier = options.eventIdentifier;
 
-        // listend for add and remove events
+        // listend for add and remove events to the selected collection
         this.listenTo(this.selectCollection, 'add remove',
           this.renderSelected.bind(this));
+
+        this.listenTo(this.selectCollection, 'add',
+          this.dispatchLabelAddedEvent.bind(this));
         
+        this.listenTo(this.selectCollection, 'remove',
+          this.dispatchLabelRemovedEvent.bind(this));
+        
+        // listen for add and remove events for the available collection
         this.listenTo(this.collection, 'add remove',
           this.initAutocomplete.bind(this));
         
@@ -151,11 +160,37 @@ define (
         this.stopListening();
       },
 
+      // tidy up
       destroyChildViews: function() {
         _.invoke(this.displayViews, 'destroy');
         _.invoke(this.selectViews, 'destroy');
         this.displayViews = [];
         this.selectViews  = [];
+      },
+
+      // push the add event out if a bus has been defined
+      dispatchLabelAddedEvent: function(value) {
+        this.dispatchLabelEvent({
+          action: 'add',
+          content: value
+        });
+      },
+      // let the world know that we have removed a label
+      dispatchLabelRemovedEvent: function(value) {
+        this.dispatchLabelEvent({
+          action: 'remove',
+          content: value
+        });
+      },
+
+      // send the add/remove event out on the bus
+      dispatchLabelEvent: function(eventInfo) {
+        if (this.bus !== undefined) {
+          this.bus.push({
+            type: this.eventIdentifier + '_label_' + eventInfo.action,
+            content: eventInfo.content
+          });
+        }
       },
 
       // render the 

@@ -2836,6 +2836,15 @@ nav {
   min-height: 80px;
 }
 
+/* line 116, ../sass/_hacks.scss */
+.Incident.in-view .map,
+.Actor.is-edited .map,
+.Incident.is-edited .map,
+.Bulletin.is-edited .map {
+  height: 200px;
+  background-color: #f0f0f0;
+}
+
 /* line 1, ../sass/_buttons.scss */
 button, .button {
   display: inline-block;

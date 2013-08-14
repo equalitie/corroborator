@@ -149,6 +149,9 @@
         <!-- Locations -->
         <div id="incident-location-block" class="field is-locations">
         </div>
+        <!-- map block -->
+        <div id="incident-map-block" class="field"></div>
+
 
         <!-- incident labels -->
         <div id="incident-location-block" class="field is-tags">

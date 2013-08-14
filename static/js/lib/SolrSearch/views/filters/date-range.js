@@ -90,6 +90,8 @@ define (
         else {
           throw 'entityType required by Date range view';
         }
+        this.title = options.title;
+        this.filterKey = options.filterKey;
         this.render();
         this.createDatePickers();
       },
@@ -99,12 +101,18 @@ define (
           defaultDate: '-1w',
           changeMonth: true,
           dateFormat: 'yy-mm-dd',
+          maxDate: "+0D",
+          yearRange: "1930:2012",
+          changeYear: true,
           numberOfMonths: 1,
           onClose: this.onCloseFrom.bind(this)
         });
         this.$el.children('.to-date').datepicker({
           defaultDate: '+1w',
           changeMonth: true,
+          maxDate: "+0D",
+          yearRange: "1930:2012",
+          changeYear: true,
           dateFormat: 'yy-mm-dd',
           numberOfMonths: 1,
           onClose: this.onCloseTo.bind(this)
@@ -141,9 +149,9 @@ define (
 
       // create a model to be passed to teh ajax solr library
       createFilterModel: function(filterString, filterDisplay) {
-        //var key = this.key || this.entityType + '_created_exact';
+        var key = this.filterKey || this.entityType + '_created_exact';
         var model = new Backbone.Model({
-          key              : this.entityType + '_created_exact',
+          key              : key,
           type             : this.entityType,
           dateFilter       : true,
           filterName       : filterString,
@@ -155,7 +163,9 @@ define (
 
       // render the datepicker template
       render: function() {
-        var html = dateRangeTmp();
+        var html = dateRangeTmp({
+          title: this.title
+        });
         this.$el.append(html).addClass('filter');
       }
     });

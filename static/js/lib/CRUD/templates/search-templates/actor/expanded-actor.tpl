@@ -139,9 +139,15 @@
           <div id="actor-pob-block" class="field">
           </div>
 
+          <!-- map block -->
+          <div id="actor-pob-map-block" class="field"></div>
+
           <!-- Current Location -->
           <div id="actor-current-location-block" class="field">
           </div>
+
+          <!-- map block -->
+          <div id="actor-current-map-block" class="field"></div>
 
           <!-- Occupation -->
           <div class="field is-occupation">

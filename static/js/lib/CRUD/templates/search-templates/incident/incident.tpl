@@ -106,6 +106,9 @@
                 <div id="incident-location-block" class="field is-tags">
                 </div>
 
+                <!-- map block -->
+                <div id="incident-map-block" class="field"></div>
+
                 <!-- incident labels -->
                 <div id="incident-label-block" class="field is-tags">
                 </div>

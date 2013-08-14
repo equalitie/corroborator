@@ -138,11 +138,11 @@ define(
       },
 
       watchForFilterSelect: function() {
-        var self = this;
         searchBus.filter(filterActorFilterEvents)
                  .onValue(function (value) {
-                   self.add(value.content.filter);
-                 });
+                   console.log(value.content.filter);
+                   this.add(value.content.filter);
+                 }.bind(this));
       },
 
       watchForFilterReset: function() {

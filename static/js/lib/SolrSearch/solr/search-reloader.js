@@ -27,6 +27,11 @@ define (
       });
     };
 
+    // filter search text updates
+    filterSearchUpdateRequest = function(value) {
+      return value.type === 'search_updated';
+    };
+
     // listen on the search bus for new search events
     listenForSearchEvents = function() {
       searchBus.toEventStream()
@@ -35,10 +40,6 @@ define (
                .onValue(updateSearchValue);
     };
  
-    // filter search text updates
-    filterSearchUpdateRequest = function(value) {
-      return value.type === 'search_updated';
-    };
  
     // map stream content to search object
     mapToSearchObject = function(value) {

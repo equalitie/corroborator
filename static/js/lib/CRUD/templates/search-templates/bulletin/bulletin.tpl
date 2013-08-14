@@ -123,9 +123,14 @@
           <!-- Event block -->
           <div id="bulletin-event-block" class="field is-events clear">
           </div>
-          <!-- location bloack -->
+
+
+          <!-- location block -->
           <div id="bulletin-location-block" class="field is-locations">
           </div>
+
+          <!-- map block -->
+          <div id="bulletin-map-block" class="is-bulletin-map field"></div>
 
           <div id="bulletin-media-block" class="field is-media">
           </div>

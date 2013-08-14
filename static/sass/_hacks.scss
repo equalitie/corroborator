@@ -108,3 +108,12 @@ nav {
 .Actor.in-list {
   min-height: 80px;
 }
+
+// FORMS
+.Incident.in-view .map, 
+.Actor.is-edited .map, 
+.Incident.is-edited .map, 
+.Bulletin.is-edited .map {
+  height: 200px;
+  background-color: #f0f0f0;
+}

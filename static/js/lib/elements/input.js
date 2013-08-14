@@ -13,11 +13,12 @@
 define(
   [
     'jquery', 'underscore', 'backbone', 'bacon',
-    'lib/dispatcher',
+    'lib/streams',
     'bacon_ui'
   ],
-  function ($, _, Backbone, Bacon, dispatcher) {
+  function ($, _, Backbone, Bacon, Streams) {
     'use strict';
+    var searchBus = Streams.searchBus;
     // ## InputView
     // Declare the view that will describe our input field
     var InputView = Backbone.View.extend({
@@ -29,17 +30,21 @@ define(
       // constructor  
       // create our template function
       initialize: function(options) {
-        if (options.dispatcher !== undefined) {
-          dispatcher = options.dispatcher;
-        }
         this.createProperty();
-        dispatcher.on('clear_input', this.clearInput, this);
         this.template = _.template('<input type="textfield">');
       },
 
       // clear the contents of the input box
       clearInput: function() {
         this.$el.children('input').val('');
+        this.sendText('');
+      },
+      getInput: function() {
+        var inputText = this.$el.children('input').val();
+        return {
+          raw: inputText,
+          encoded: window.encodeURI(inputText)
+        };
       },
 
       // create a property to track the text in the search box
@@ -72,10 +77,11 @@ define(
       // deprecated - we are using event streams
       sendText: function(inputText) {
         var textToSend = {
-          raw: inputText,
-          encoded: window.encodeURI(inputText)
         };
-        dispatcher.trigger('enter_pressed', textToSend);
+        searchBus.push({
+          type: 'search_updated',
+          content: textToSend
+        });
 
       },
       // render the input field

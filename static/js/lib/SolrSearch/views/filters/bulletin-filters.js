@@ -52,7 +52,8 @@ define(
       createDateRangeWidget: function() {
         this.dateRangeView = new DateRangeView({
           el: '.date-range',
-          entityType: 'bulletin'
+          entityType: 'bulletin',
+          title: 'Bulletin created between'
         });
       },
 
