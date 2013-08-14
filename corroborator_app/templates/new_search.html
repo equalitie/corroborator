@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block script %}
+
+  {% load socketio_tags %}
+  {% socketio %}
+
   {% include "includes/dev_script.html" %}
 {% endblock %}
 

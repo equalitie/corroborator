@@ -6,11 +6,12 @@
 
 define (
   [
-    'lib/streams'
+    'lib/streams', //'socketio'
   ],
-  function (Streams) {
+  function (Streams, io) {
     'use strict';
 
+    console.log(io);
     var searchBus = Streams.searchBus, intervalId,
         init, listenForSearchEvents, updateSearchValue, mapToSearchObject,
         restartTimer, sendSearches, filterSearchUpdateRequest,

@@ -14,6 +14,7 @@ INSTALLED_APPS += (
     'autofixture',
     'interntest',
     'debug_toolbar',
+    'django_socketio',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
