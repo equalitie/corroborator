@@ -6,16 +6,15 @@
 
 define (
   [
-    'lib/streams', //'socketio'
+    'lib/streams', 'socketio'
   ],
   function (Streams, io) {
     'use strict';
 
-    console.log(io);
     var searchBus = Streams.searchBus, intervalId,
         init, listenForSearchEvents, updateSearchValue, mapToSearchObject,
         restartTimer, sendSearches, filterSearchUpdateRequest,
-        triggerInitialSearch;
+        triggerInitialSearch, createSocket;
 
     // send the initial search that will populate our application
     triggerInitialSearch = function() {
@@ -26,6 +25,7 @@ define (
           encoded: ''
         }
       });
+      //createSocket();
     };
 
     // filter search text updates
@@ -39,6 +39,18 @@ define (
                .filter(filterSearchUpdateRequest)
                .map(mapToSearchObject)
                .onValue(updateSearchValue);
+    };
+
+    createSocket = function() {
+      var socket = new io.Socket();
+      socket.connect('http://localhost:8080');
+      socket.on('connect', function() {
+        console.log('connected');
+        //socket.subscribe('corroborator_solr_update');
+      });
+      socket.on('message', function() {
+        console.log('message');
+      });
     };
  
  

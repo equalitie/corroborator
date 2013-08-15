@@ -27,7 +27,7 @@ urlpatterns = patterns('',
 #jobs app
 urlpatterns += patterns(
     '',
-    (r'^interntest/', include('interntest.urls')),
+    url("", include('django_socketio.urls')),
 )
 
 # API Resources
