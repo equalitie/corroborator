@@ -100,7 +100,6 @@ define (
         actorsEl = this.getContainerEl('actors');
         content = this.model.get('actors');
         roles_en = this.model.get('actors_role_en');
-        console.log(this.model.toJSON());
         actorsContainer = new ActorListView({
           el: actorsEl,
           content: content,

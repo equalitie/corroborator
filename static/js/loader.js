@@ -23,15 +23,15 @@
       'core'           : 'components/ajax-solr/core',
       'managers'       : 'components/ajax-solr/managers',
       'widgets'        : 'components/ajax-solr/widgets',
-      //'socketio'       : 'socket.io',
+      'socketio'       : 'socket.io',
     },
     shim: {
       underscore: {
         exports: '_'
       },
-      //socketio: {
-        //exports: 'io'
-      //},
+      socketio: {
+        exports: 'io'
+      },
       backbone: {
         deps: ['underscore', 'jquery'],
         exports: 'Backbone'

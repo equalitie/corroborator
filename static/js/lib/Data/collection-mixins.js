@@ -100,7 +100,7 @@ define (
         // formats many to many fields  
         // removes empty foreign key fields  
         // removes empty date fields  
-        ModelSyncMixin = {
+        ModelSaveMixin = {
           parse: function(response) {
             response.id = response.django_id || response.id;
             return response;
@@ -111,7 +111,24 @@ define (
             _.chain(this.manyToManyFields)
              .filter(this.filterSingleValueFields, this)
              .each(this.wrapAsArray, this);
+             return this;
           },
+          //iterate over the many to many fields and format if necessary
+          formatEmptyManyToManyFields: function() {
+            _.chain(this.manyToManyFields)
+             .filter(this.filterEmptyFields, this)
+             .each(this.createEmptyArray, this);
+             return this;
+          },
+          
+          createEmptyArray: function(key) {
+            this.set(key, []);
+          },
+          
+          filterEmptyFields: function(key) {
+            return this.get(key) === undefined;
+          },
+
 
           // filter out many to many fields that only have one value set
           filterSingleValueFields: function(key) {
@@ -131,14 +148,17 @@ define (
           // remove any date time or foreign key fields with no values
           removeEmptyDateFields: function() {
             _.each(this.dateFields, this.removeEmptyField, this);
+            return this;
           },
 
           removeEmptyDateTimeFields: function() {
             _.each(this.dateTimeFields, this.removeEmptyField, this);
+            return this;
           },
 
           removeEmptyForeignKeyFields: function() {
             _.each(this.foreignKeyFields, this.removeEmptyField, this);
+            return this;
           },
 
           // remove any empty fields
@@ -146,16 +166,18 @@ define (
             if (this.get(key) === '') {
               this.unset(key);
             }
+            return this;
           },
           // apply our formatting methods and then delegate to builtin
           // backbone sync
           sync: function(method, model) {
             var createEditMethods = ['create', 'update'];
             if (_.contains(createEditMethods, method)) {
-              this.removeEmptyForeignKeyFields();
-              this.removeEmptyDateTimeFields();
-              this.removeEmptyDateFields();
-              this.formatManyToManyFields();
+              this.removeEmptyForeignKeyFields()
+                  .removeEmptyDateTimeFields()
+                  .removeEmptyDateFields()
+                  .formatManyToManyFields()
+                  .formatEmptyManyToManyFields();
             }
             return Backbone.sync.apply(this, arguments);
           }
@@ -167,7 +189,7 @@ define (
   return {
     Filters              : Filters,
     PersistSelectionMixin: PersistSelectionMixin,
-    ModelSyncMixin       : ModelSyncMixin,
+    ModelSaveMixin       : ModelSaveMixin,
     ModelSelectionMixin  : ModelSelectionMixin
   };
 });

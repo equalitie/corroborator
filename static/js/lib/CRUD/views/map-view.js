@@ -104,6 +104,7 @@ define (
       // display a map centred on syria  
       // create a map attribute on the view object
       displayMap: function() {
+        console.log(this.$el);
         var mapElement, map, zoom_level, tileLayerUrl;
         // set the map options
         mapElement  = this.$el.children('.map').children().get(0);
@@ -127,20 +128,18 @@ define (
 
       // callback fired when a location gets added
       placeMarker: function(model) {
-        console.log(arguments);
         var marker, latlng, lat, lng;
         lat = model.get('latitude'); 
-        lng = model.get('longtitude');
+        lng = model.get('longitude');
         if (lat && lng) {
           latlng = [lat, lng];
           marker = this.createMarker(latlng);
-          model.set('marker', marker);
+          model.attributes.marker = marker;//access directly to avoid change event
         }
       },
 
       // create a marker and add it to the map
       createMarker: function (latlng) {
-        console.log('createMarker');
         var marker = L.marker(latlng, {
           draggable: false,
           riseOnHover: true
@@ -151,7 +150,6 @@ define (
 
       // callback fired when location gets removed from the collection
       removeMarker: function(model) {
-        console.log(model);
         var marker = model.get('marker');
         this.destroyMarker(marker);
       },

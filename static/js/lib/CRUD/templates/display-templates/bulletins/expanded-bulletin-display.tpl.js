@@ -76,10 +76,10 @@ function program17(depth0,data) {
 function program19(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n      <div class=\"is-locations group\">\n        <h4>Locations</h4>\n        <div class=\"locations\">\n          <div class=\"map\"></div>\n          ";
+  buffer += "\n      <div class=\"is-locations group\">\n        <h4>Locations</h4>\n        <div class=\"locations\">\n          ";
   stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_locations), {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        </div>\n      </div>\n      ";
+  buffer += "\n        </div>\n      </div>\n      <div class=\"is-bulletin-map map\"></div>\n      ";
   return buffer;
   }
 function program20(depth0,data) {

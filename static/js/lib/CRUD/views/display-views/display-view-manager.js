@@ -80,8 +80,9 @@ define (
         //_.last(this.childViews).trigger('select');
       },
       expandRequested: function() {
+          this.expandView();
         _.last(this.childViews).trigger('expand');
-        this.expandView();
+        
       },
       expandView: function() {
         this.$el.children().addClass('is-expanded');

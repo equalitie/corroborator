@@ -46,4 +46,6 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-STATIC_ROOT = '/var/www/corroborator/static/'
+STATIC_URL = '/static/'
+
+STATIC_ROOT = '/Users/cormac/work/programming/python/djangodev/corroborator/static/'

@@ -1,8 +1,0 @@
-{
-  "name": "socket.io",
-  "version": "0.9.15",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/LearnBoost/socket.io"
-  }
-}

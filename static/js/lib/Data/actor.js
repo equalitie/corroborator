@@ -23,7 +23,7 @@ define(
         searchBus             = Streams.searchBus,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
-        ModelSyncMixin        = Mixins.ModelSyncMixin,
+        ModelSaveMixin        = Mixins.ModelSaveMixin,
         Filters               = new Mixins.Filters(),
         parseComparator       = Comparator.parseComparator,
 
@@ -83,7 +83,7 @@ define(
           return base + urlvars;
       }
     });
-    _.extend(ActorModel.prototype, ModelSyncMixin);
+    _.extend(ActorModel.prototype, ModelSaveMixin);
 
     var SimpleActorCollection = Backbone.Collection.extend({
       model: ActorModel,
