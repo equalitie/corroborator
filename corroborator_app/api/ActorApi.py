@@ -48,21 +48,22 @@ class ActorResource(ModelResource):
     def obj_delete(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_delete( bundle, **kwargs )
-        update_object.apply_async()    
+        username = bundle.request.GET['username']
+        update_object.delay(user)    
         return bundle
  
     def obj_update(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_update( bundle, **kwargs )
-        update_object.apply_async()    
+        username = bundle.request.GET['username']
+        update_object.delay(username)    
         return bundle
  
     def obj_create(self, bundle, **kwargs):
         bundle = super( ActorResource, self )\
             .obj_create( bundle, **kwargs )
-        print >> sys.stderr, 'in call for update index'
-        #update_index.Command().handle()
-        update_object.apply_async()    
+        username = bundle.request.GET['username']
+        update_object.delay(user)    
         return bundle
 
     def dehydrate(self, bundle):

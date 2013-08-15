@@ -12,6 +12,15 @@ from django.db.models import Min,  Max
 from django.contrib.auth.models import User
 from queued_storage.backends import QueuedStorage
 
+class SolrUpdate(models.Model):
+    """
+    Store most recent solr index update 
+    used by the UI to poll for newest updates
+    """
+    user = models.ForeignKey(User)
+    update_timestamp = models.DateTimeField(auto_now=True)
+ 
+
 class PredefinedSearch(models.Model):
     """
     This object stores past searches for a given user as a URL string

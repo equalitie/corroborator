@@ -75,19 +75,22 @@ class BulletinResource(ModelResource):
     def obj_delete(self, bundle, **kwargs):
         bundle = super( BulletinResource, self )\
             .obj_delete( bundle, **kwargs )
-        update_object.apply_async()    
+        username = bundle.request.GET['username']
+        update_object.delay(user)    
         return bundle
  
     def obj_update(self, bundle, **kwargs):
         bundle = super( BulletinResource, self )\
             .obj_update( bundle, **kwargs )
-        update_object.apply_async()    
+        username = bundle.request.GET['username']
+        update_object.delay(user)    
         return bundle
  
     def obj_create(self, bundle, **kwargs):
         bundle = super( BulletinResource, self )\
             .obj_create( bundle, **kwargs )
-        update_object.apply_async()    
+        username = bundle.request.GET['username']
+        update_object.delay(user)    
         return bundle
     """
     def obj_delete(self, bundle, **kwargs):
