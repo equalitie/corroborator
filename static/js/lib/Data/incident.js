@@ -25,7 +25,7 @@ define(
         },
         crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
-        ModelSyncMixin        = Mixins.ModelSyncMixin,
+        ModelSaveMixin        = Mixins.ModelSaveMixin,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         Filters               = new Mixins.Filters(),
@@ -77,7 +77,7 @@ define(
       }
 
     });
-    _.extend(IncidentModel.prototype, ModelSyncMixin);
+    _.extend(IncidentModel.prototype, ModelSaveMixin);
 
     // ### Incident Collection
     // provide sort, selection functionality  

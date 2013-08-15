@@ -17,7 +17,7 @@ define(
         crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
-        ModelSyncMixin        = Mixins.ModelSyncMixin,
+        ModelSaveMixin        = Mixins.ModelSaveMixin,
         Filters               = new Mixins.Filters(),
         parseComparator       = Comparator.parseComparator,
         // ### Bulletin Specific filter stream processors
@@ -84,7 +84,7 @@ define(
           return base + urlvars;
       }
     });
-    _.extend(BulletinModel.prototype, ModelSyncMixin);
+    _.extend(BulletinModel.prototype, ModelSaveMixin);
 
     // ### Bulletin Collection
     // provide sort, selection functionality  

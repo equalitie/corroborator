@@ -2838,6 +2838,8 @@ nav {
 
 /* line 113, ../sass/_hacks.scss */
 .Incident.in-view .map,
+.Bulletin.in-view .map,
+.Actor.in-view .map,
 .Actor.is-edited .map,
 .Incident.is-edited .map,
 .Bulletin.is-edited .map {

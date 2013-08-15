@@ -63,10 +63,32 @@ define (
           return intValue.toString() === value ? intValue : value;
         },
 
+        createDefaultKeyList: function() {
+          var reduceToKeyList = function(formEl) {
+            return $(formEl).attr('name');
+          };
+          return _.map($('.' + this.entityType + '-field'), reduceToKeyList);
+        },
+
+        mergeObjectArrays: function(keyArray, newDataArray) {
+          var dataKeys = _.keys(newDataArray);
+          keyArray = _.reduce(keyArray, function(memo, key){
+            memo[key] = newDataArray[key];
+            return memo;
+          }, {});
+          return keyArray;
+
+        },
+
+
         // pull the data from the form
         formContent: function() {
+          var defaultKeyList = this.createDefaultKeyList();
           var formArray = $('.' + this.entityType + '-field').serializeArray();
-          return this.formArrayToData(formArray);
+                   
+          var data = this.formArrayToData(formArray);
+          data = this.mergeObjectArrays(defaultKeyList, data); 
+          return data;
         },
 
         // reduce an array of objects

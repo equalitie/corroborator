@@ -199,7 +199,7 @@ define (
           relationshipType: 'relation'
         });
 
-        this.childViews.push(mediaSearchView);
+        this.childViews.push(mediaSearchView, actorSearchView);
         return this;
       }
 

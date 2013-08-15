@@ -36,6 +36,9 @@ define (
         filterRelationshipTypeRequest = function(value) {
           return value.type === 'request_actor_relationship_type';
         },
+        filterActorUnRelateRequest = function(value) {
+          return value.type === 'unrelate_actor_request';
+        },
         filterActorRelateRequest = function(value) {
           return value.type === 'relate_actor_request';
         };
@@ -69,6 +72,7 @@ define (
         this.listenTo(this.renderCollection, 'add remove', this.renderActors.bind(this));
         this.createActorCollection();
         this.listenForActorsAdded();
+        this.listenForActorsRemoved();
         this.listenForActorUpdate();
         this.listenForRelationshipTypeRequest();
 
@@ -162,6 +166,15 @@ define (
           crudBus.toEventStream()
                  .filter(filterActorRelateRequest)
                  .subscribe(this.addActorToCollections.bind(this));
+       this.subscribers.push(subscriber);
+      },
+
+      // listen for an event specifying the actor who has been removed
+      listenForActorsRemoved: function() {
+        var subscriber = 
+          crudBus.toEventStream()
+                 .filter(filterActorUnRelateRequest)
+                 .subscribe(this.removeActorFromCollections.bind(this));
        this.subscribers.push(subscriber);
       },
 
@@ -280,6 +293,7 @@ define (
 
       // unsubscribe from bacon event streams
       unsubStreams: function() {
+        console.log('unsubStreams');
         _.each(this.subscribers, function(unsub) {
           unsub();
         });
@@ -300,10 +314,12 @@ define (
       
 
       // an actor has been removed propogate to the collecgtions
-      unselectActor: function(model) {
+      removeActorFromCollections: function(evt) {
+        var model = evt.value().content.model;
         var findModel = function(actorRoleModel) {
           return actorRoleModel.get('actor') === model.get('resource_uri');
         };
+
         this.collection.remove(this.collection.find(findModel));
       },
 

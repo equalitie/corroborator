@@ -11,11 +11,12 @@ define (
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
     'lib/CRUD/views/display-views/media/media-container',
+    'lib/CRUD/views/map-view',
     'lib/CRUD/templates/display-templates/bulletin-display.tpl',
     'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl'
   ],
   function (Backbone, _, Collections, Streams, 
-    ActorListView, BulletinListView, IncidentListView, MediaListView,
+    ActorListView, BulletinListView, IncidentListView, MediaListView, CoordinateDisplayView,
     bulletinDisplayTmp, expandedBulletinDisplayTmp) {
     'use strict';
 
@@ -56,7 +57,8 @@ define (
       // render expanded view
       displayExpandedView: function() {
         this.displayView()
-            .renderRelatedMedia();
+            .renderRelatedMedia()
+            .renderMap();
       },
 
       // display view and standard elements
@@ -103,7 +105,6 @@ define (
         var actorsEl, actorsContainer, content;
         actorsEl = this.getContainerEl('actors');
         content = this.model.get('actors');
-        console.log(this.model.toJSON());
         actorsContainer = new ActorListView({
           el: actorsEl,
           content: content
@@ -151,6 +152,21 @@ define (
         });
         return this;
       },
+      renderMap: function() {
+        var mapEl, content, mapContainer, collection;
+        mapEl = this.getContainerEl('bulletin-map');
+        content = _.map(this.model.get('locations'), function(uri) {
+          return { resourceUri: uri };
+        });
+        mapContainer = new CoordinateDisplayView({
+          el: mapEl,
+          content: content
+        });
+        return this;
+
+      },
+
+
 
       // render the container
       render: function() {
