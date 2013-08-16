@@ -13,9 +13,17 @@ define (
 
     var searchBus = Streams.searchBus, intervalId,
         init, listenForSearchEvents, updateSearchValue, mapToSearchObject,
-        restartTimer, sendSearches, filterSearchUpdateRequest,
-        triggerInitialSearch, createSocket;
+        restartTimer, sendSearches, filterSearchUpdateRequest, 
+        filterSearchStringRequest, listenForSearchStringRequest,
+        triggerInitialSearch, createSocket, sendSearchString,
+        currentSearchObject;
 
+    currentSearchObject = {
+      content: {
+        encoded: '',
+        raw: ''
+      }
+    };
     // send the initial search that will populate our application
     triggerInitialSearch = function() {
       searchBus.push({
@@ -40,16 +48,34 @@ define (
                .map(mapToSearchObject)
                .onValue(updateSearchValue);
     };
+    filterSearchStringRequest = function(value) {
+      return value.type === 'search_string_request';
+    };
+
+    // listen for a search string request
+    listenForSearchStringRequest = function() {
+      searchBus.toEventStream()
+               .filter(filterSearchStringRequest)
+               .onValue(sendSearchString);
+    };
+
+    // send back the current search string
+    sendSearchString = function(value) {
+      searchBus.push({
+        type: 'search_string_result_' + value.content.key,
+        content: {
+          searchString: currentSearchObject.content.encoded
+        }
+      });
+    };
 
     createSocket = function() {
       var socket = new io.Socket();
       socket.connect('http://localhost:8080');
       socket.on('connect', function() {
-        console.log('connected');
         //socket.subscribe('corroborator_solr_update');
       });
       socket.on('message', function() {
-        console.log('message');
       });
     };
  
@@ -65,6 +91,7 @@ define (
     // new search received update the search object
     updateSearchValue = function(searchObject) {
       sendSearches(searchObject, true);
+      currentSearchObject = searchObject;
     };
   
     // send the search object - check for restart
@@ -88,6 +115,7 @@ define (
     };
  
     init = function() {
+      listenForSearchStringRequest();
       listenForSearchEvents();
       triggerInitialSearch();
     };

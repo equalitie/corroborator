@@ -12,54 +12,65 @@ define (
   function (_, Backbone, FilterCollectionElements, Streams) {
     'use strict';
     // used by actor/bulletin/incident collections to create groups of filters
-    var searchBus = Streams.searchBus,
-        FilterGroupCollection = FilterCollectionElements.FilterGroupCollection,
-        FilterGroupMixin = {
-          // store a flat collection of all filters
-          // iterate over filter groups to create collections
-          createFilterGroupCollections: function(groups) {
-            // empty the collection before we add the new filters
-            this.reset([], {silent: true});
-            this.allFilters.reset([]);
-            _.each(groups, this.createFilterGroupCollection, this);
-            this.trigger('reset');
-          },
+    var searchBus, filterFilterListRequest, 
+        FilterGroupCollection, FilterGroupMixin, SelectedFilterMixin;
 
-          sendResetEvent: function() {
-            searchBus.push({
-              type: 'filter_group_updated',
-              content: this.allFilters,
-              entity: this.entityType
-            });
-          },
+    searchBus = Streams.searchBus;
+    FilterGroupCollection = FilterCollectionElements.FilterGroupCollection;
 
-          // create collections for each filter group  
-          // we create this as a model that gets added to this collection
-          createFilterGroupCollection: function(group) {
-            // remove the key and title from the passed in filters
-            var filters = _.omit(group, ['key', 'title']);
-            var filterGroupCollection = new FilterGroupCollection();
-            filterGroupCollection.groupKey = group.key;
-            _.each(filters, function(numItems, filterName) {
-              var filterModel = new Backbone.Model({
-                key              : group.key,
-                title            : group.title,
-                numItems         : numItems,
-                filterName       : filterName,
-                displayFilterName: filterName,
-                type             : this.entityType
-              });
-              filterGroupCollection.add(filterModel);
-              this.allFilters.add(filterModel);
-            }, this);
+    filterFilterListRequest = function(value) {
+      return value.type === 'filter_list_request';
+    };
 
-            this.add({
-                groupKey: group.key,
-                groupTitle: group.title,
-                collection: filterGroupCollection
-            });
-          }
-        },
+    // Shared code across the different entities Filter group classes
+    FilterGroupMixin = {
+      // store a flat collection of all filters
+      // iterate over filter groups to create collections
+      createFilterGroupCollections: function(groups) {
+        // empty the collection before we add the new filters
+        this.reset([], {silent: true});
+        this.allFilters.reset([]);
+        _.each(groups, this.createFilterGroupCollection, this);
+        this.trigger('reset');
+      },
+
+      sendResetEvent: function() {
+        searchBus.push({
+          type: 'filter_group_updated',
+          content: this.allFilters,
+          entity: this.entityType
+        });
+      },
+
+      // create collections for each filter group  
+      // we create this as a model that gets added to this collection
+      createFilterGroupCollection: function(group) {
+        // remove the key and title from the passed in filters
+        var filters = _.omit(group, ['key', 'title']);
+        var filterGroupCollection = new FilterGroupCollection();
+        filterGroupCollection.groupKey = group.key;
+        _.each(filters, function(numItems, filterName) {
+          var filterModel = new Backbone.Model({
+            key              : group.key,
+            title            : group.title,
+            numItems         : numItems,
+            filterName       : filterName,
+            displayFilterName: filterName,
+            type             : this.entityType
+          });
+          filterGroupCollection.add(filterModel);
+          this.allFilters.add(filterModel);
+        }, this);
+
+        this.add({
+            groupKey: group.key,
+            groupTitle: group.title,
+            collection: filterGroupCollection
+        });
+      }
+    };
+
+    // selected filter mixin
     SelectedFilterMixin = {
       // find a model that matches the filter passed on from the searchBus
       findMatchingModel: function(filterModel) {
@@ -85,6 +96,23 @@ define (
           
         }, this);
 
+      },
+
+      watchForFilterRequest: function() {
+        searchBus.toEventStream()
+                 .filter(filterFilterListRequest)
+                 .onValue(this.sendCurrentFilters.bind(this));
+      },
+
+      sendCurrentFilters: function(value) {
+        console.log(this);
+        searchBus.push({
+          type: 'filter_list_result_' + value.content.key,
+          content: {
+            entityType: this.entityType,
+            filters: this
+          }
+        });
       },
 
       // remove previous date filter from selected filters if it exists

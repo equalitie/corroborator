@@ -124,6 +124,7 @@ define(
     // It also needs to update the counts if a currently selected filters numbers
     // have updated, and remove the filter if it doesn't apply
     var SelectedActorFilterCollection = Backbone.Collection.extend({
+      entityType: 'actor',
       initialize: function(options) {
         this.watchSearchStream();
         this.on('add remove', this.sendFilter, this);
@@ -135,6 +136,7 @@ define(
       watchSearchStream: function() {
         this.watchForFilterSelect();
         this.watchForFilterReset();
+        this.watchForFilterRequest();
       },
 
       watchForFilterSelect: function() {
