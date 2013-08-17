@@ -137,6 +137,7 @@ define(
         this.watchForFilterSelect();
         this.watchForFilterReset();
         this.watchForFilterRequest();
+        this.watchForFilterEmptyRequest();
       },
 
       watchForFilterSelect: function() {
@@ -147,6 +148,10 @@ define(
                  }.bind(this));
       },
 
+
+
+      // a new text search has been run, remove all filters which no longer
+      // are relevant
       watchForFilterReset: function() {
         var self = this;
         // this receives the new models from the

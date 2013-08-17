@@ -9,17 +9,20 @@ define(
     'lib/streams',
     'lib/Data/actor',
     'lib/Data/bulletin',
-    'lib/Data/incident'
+    'lib/Data/incident',
+    'lib/Data/saved-search-collection'
   ],
-  function($, _, Backbone, Streams, Actor, Bulletin, Incident) {
-    var actorCollection = new Actor.ActorCollection();
-    var bulletinCollection = new Bulletin.BulletinCollection();
-    var incidentCollection = new Incident.IncidentCollection();
+  function($, _, Backbone, Streams, Actor, Bulletin, Incident, SavedSearch) {
+    var actorCollection       = new Actor.ActorCollection();
+    var bulletinCollection    = new Bulletin.BulletinCollection();
+    var incidentCollection    = new Incident.IncidentCollection();
+    var savedSearchCollection = new SavedSearch.SavedSearchCollection();
 
   return {
     ActorCollection: actorCollection,
     BulletinCollection: bulletinCollection,
-    IncidentCollection: incidentCollection
+    IncidentCollection: incidentCollection,
+    SavedSearchCollection: savedSearchCollection
   };
 
 });

@@ -104,6 +104,7 @@ define(
                    self.sendFilter();
                  });
 
+        this.watchForFilterEmptyRequest();
       },
 
       sendFilter: function(filterModel) {

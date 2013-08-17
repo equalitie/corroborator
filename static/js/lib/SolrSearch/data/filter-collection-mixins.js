@@ -82,6 +82,38 @@ define (
                    .last()
                    .value();
       },
+
+      watchForFilterEmptyRequest: function() {
+        var self = this;
+        searchBus.filter(function(value) {return value.type === 'empty_selected_filters';})
+                 .onValue(function(value) {
+                   console.log(self);
+                   self.removeFilters();
+                 });
+      },
+     
+      removeFilters: function() {
+        var filterModel;
+        if (this.length > 0) {
+          filterModel = this.first();
+          this.remove(filterModel);
+          searchBus.push({
+            type: 'remove_filter',
+            content: filterModel
+          });
+          this.removeFilters();
+        }
+        else {
+          this.sendFiltersEmptyEvent();
+        }
+      },
+      sendFiltersEmptyEvent: function() {
+        searchBus.push({
+          type: 'filter_empty',
+          entityType: this.entityType
+        });
+      },
+
       // if the search results from free text search do not contain
       // one of the selected filters, remove it
       removeRedundantFilters: function(allFilters) {
@@ -104,13 +136,20 @@ define (
                  .onValue(this.sendCurrentFilters.bind(this));
       },
 
+      // turn all the filter models int json objects
+      serializedFilter: function() {
+        return this.map(function(filterModels) {
+          return filterModels.toJSON();
+        });
+      },
+
       sendCurrentFilters: function(value) {
         console.log(this);
         searchBus.push({
           type: 'filter_list_result_' + value.content.key,
           content: {
             entityType: this.entityType,
-            filters: this
+            filters: this.serializedFilter()
           }
         });
       },

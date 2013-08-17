@@ -16,7 +16,6 @@ define(
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
     FilterElements, Mixins, DateRange, incidentFiltersTmp) {
     var IncidentFilterView,
-        FilterGroupView = FilterElements.FilterGroupView,
         DateRangeView = DateRange.DateRangeView,
         FilterViewMixin = Mixins.FilterViewMixin,
         IncidentFilterCollection = FilterCollection.IncidentFilterCollection,
