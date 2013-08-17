@@ -1,26 +1,11 @@
 {% extends "new_base.html" %}
 
-{% block script %}
-  <script type="text/javascript">
-  var Bootstrap = Bootstrap || {};
-  (function(Bootstrap) {
-    var predefinedSearchList = [];
-    {%for search in ps_list %}
-    predefinedSearchList.push({
-      id: {{search.id}},
-      request: '{{search.search_request}}',
-      name_en: '{{search.name_en}}',
-      name_ar: '{{search.name_en}}',
-      type: '{{search.search_type}}'
-    });
-    {%endfor%}
-    Bootstrap.predefinedSearchList = predefinedSearchList;
-    Bootstrap.username = '{{username}}';
-    Bootstrap.userResource = '/api/v1/user/{{userid}}/';
-    Bootstrap.apiKey = '{{api_key}}';
+{% block top_nav %}
+  {% include "nav/top_menu.html" %}
+{% endblock %}
 
-  }(Bootstrap));
-  </script>
+{% block script %}
+  {% include "includes/prod_script.html" %}
 {% endblock %}
 
 {% block content%}
@@ -37,61 +22,11 @@
   <!-- dropdown combo box -->
   <div class='search-combo'>
   </div>
-    <!-- end dropdown combo box -->
+  <!-- end dropdown combo box -->
 
-    <!-- save search -->
-    <!--<span id="predefined-search" class="hidden predefined">-->
-      <!--<input id="predfiend-search-name"class="w-30p"/>-->
+<!-- end search area -->
 
-      <!-- save search buttons -->
-      <!--<button id="save_current_search" class="do-search do-search-main is-default">-->
-        <!--<span class="text T">Save</span>-->
-      <!--</button>-->
-      <!--<button id="cancel_current_search" class="do-search do-search-main is-default">-->
-        <!--<span class="text T">Cancel</span>-->
-      <!--</button>-->
-
-    <!--</span>-->
-    <!-- end save search -->
-
-    <!-- search spinner -->
-    <span id="main_spinner" class="hidden">
-      <img style="z-index: 100; width: 24px; height: 24px; vertical-align: middle;" src="/static/images/ajax-loader.gif">
-    </span>
-    <!-- end search spinner -->
-  <!-- end search area -->
-
-  <div class="tabs">
-    <ul>
-      <li class="is-incidents">
-        <a href="#tab/incident" id="incidents-tab">
-          <span class="text">
-            <span class="label T">Incidents</span>
-            <span class="incident-count count"></span>
-          </span>
-        </a>
-      </li>
-      <li class="is-bulletins">
-        <a id="bulletins-tab" href="#tab/bulletin">
-          <span class="text">
-            <span class="label T">Bulletins</span>
-            <span class="bulletin-count count"></span>
-          </span>
-        </a>
-      </li>
-
-      <li class="is-actors">
-        <a href="#tab/actor" id="actors-tab">
-         <span class="text">
-          <span class="label T">Actors</span>
-          <span class="actor-count count"></span>
-        </span>
-
-      </a>
-    </li>
-  </ul>
-  <div class="clearer">&nbsp;</div>
-</div>
+{% include "nav/tabs.html" %}
 </nav>
 
 
