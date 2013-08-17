@@ -19,15 +19,14 @@ define (
     localBus = new Bacon.Bus();
     // look for a request to save a search
     filterSaveSearchRequest = function(value) {
-      return value.type === 'save_search_request';
+      return value.type === 'save_search_form_request';
     };
 
     // Send a request to get the details of the current search
     SearchDetailFinder = function(){};
 
     SearchDetailFinder.prototype = {
-      filters        : {},
-
+      filters    : {},
       subscribers: [],
 
       // start listening for search requests
@@ -47,8 +46,10 @@ define (
 
       // send requests for the current search string and selected
       // filters
-      requestSearchDetails: function() {
+      requestSearchDetails: function(evt) {
+        var title = evt.value().content.searchTitle;
         this.clearOldDetails()
+            .setTitle(title)
             .sendFilterRequest()
             .sendSearchStringRequest();
       },
@@ -57,6 +58,13 @@ define (
       clearOldDetails: function() {
         this.filters = {};
         this.searchString = undefined;
+        this.searchTitle = undefined;
+        return this;
+      },
+
+      // set the saved search title
+      setTitle: function(title) {
+        this.searchTitle = title;
         return this;
       },
 
@@ -143,8 +151,9 @@ define (
           searchBus.push({
             type: 'send_saved_search',
             content: {
+              searchTitle : this.searchTitle,
               searchString: this.searchString,
-              filters: this.filters
+              filters     : this.filters
             }
           });
         }

@@ -88,6 +88,7 @@ define(
         this.watchForFilterSelect();
         this.watchForFilterReset();
         this.watchForFilterRequest();
+        this.watchForFilterEmptyRequest();
       },
 
       // watch for a filter being clicked on

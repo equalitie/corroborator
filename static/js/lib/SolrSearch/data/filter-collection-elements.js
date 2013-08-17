@@ -21,6 +21,9 @@ define (
         filterSelectedItem = function(value) {
           return value.type === 'selected_item';
         },
+        filterPredefinedSearch = function(value) {
+          return value.type === 'predefined_search';
+        },
         extractContent = function(value) {
           return value.content;
         },
@@ -32,10 +35,12 @@ define (
     FilterGroupCollection = Backbone.Collection.extend({
       // this needs to be set when creating a filter group collection
       groupKey: '',
+      subscribers: [],
       // constructor
       initialize: function() {
         this.watchSearchStream();
         this.watchSelectedItemUpdate();
+        this.watchForPredefinedSearch();
       },
       // watch for removeFilter events
       watchSearchStream: function() {
@@ -49,29 +54,45 @@ define (
                    self.add(value.content);
                  });
       },
+      watchForPredefinedSearch: function() {
+        var subscriber =
+        searchBus.filter(filterPredefinedSearch)
+                 .subscribe(this.updateFilterGroups.bind(this));
+        this.subscribers.push(subscriber);
+      },
+
       watchSelectedItemUpdate: function() {
-          
-        var filterName,
-            filterKey,
-            self = this;
-           
-        searchBus.filter(filterSelectedItem)
-                 .map(extractContent)
-                 .onValue(function(selectedFilterModel) {
+        var subscriber = 
+          searchBus.filter(filterSelectedItem)
+                   .map(extractContent)
+                   .subscribe(this.updateSelectedItem.bind(this));
+        this.subscribers.push(subscriber);
+      },
+
+      updateFilterGroups: function(evt) {
+      },
+
+      updateSelectedItem: function(evt) {
+        var selectedFilterModel, filterName, filterKey;
+          selectedFilterModel = evt.value();
           filterName = selectedFilterModel.get('filterName');
           filterKey  = selectedFilterModel.get('key');
-          var filter = self.chain()
-                           .filter(function (model) {
-                             return model.get('key') === filterKey &&
-                                    model.get('filterName') === filterName;
-                           })
-                           .last()
-                           .value();
+          this.removeFilter(filterKey, filterName);
+      },
+
+      removeSelectedFilter: function(filterKey, filterName) {
+          var filter = 
+            this.chain()
+                .filter(function (model) {
+                  return model.get('key') === filterKey &&
+                         model.get('filterName') === filterName;
+                })
+                .last()
+                .value();
           
           if (filter !== undefined) {
-            self.remove(filter);
+            this.remove(filter);
           }
-        });
       }
     });
 

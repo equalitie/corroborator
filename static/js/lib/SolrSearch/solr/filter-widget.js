@@ -75,6 +75,7 @@ define(
         this.watchSearchStream();
         this.watchQueryBuilderStream();
         this.filterCollection = new Backbone.Collection();
+        this.doRequest = _.debounce(this.doRequest, 300);
         //this.filterCollection.on('reset', this.sendRequest, this);
       },
 
@@ -95,12 +96,13 @@ define(
         }
         return this;
       },
+      
+      
 
 
       // empty the previous query, and rebuild a new one, then send the request
       // to solr
       sendRequest: function() {
-      
         this.filterCollection
             .chain()
             .groupBy(function(model){return model.get('key');})

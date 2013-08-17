@@ -7,10 +7,12 @@ define(
     'lib/SolrSearch/views/header',
     'lib/SolrSearch/views/results',
     'lib/SolrSearch/views/filters/filter-manager',
-    'lib/SolrSearch/persist/search-saver'
+    'lib/SolrSearch/persist/search-saver',
+    'lib/SolrSearch/persist/save-search-dialog',
+    'lib/SolrSearch/persist/apply-saved-search'
   ],
   function(_, SolrManager, SearchReloader, Header, Results, FilterManager,
-    SearchDetailFinder) {
+    SearchDetailFinder, SaveDialog, SearchLoader) {
     'use strict';
     var headerView,
         searchDetailFinder,
@@ -31,6 +33,12 @@ define(
       // start a watcher for save search requests
       searchDetailFinder = new SearchDetailFinder();
       searchDetailFinder.init();
+
+      // create a watcher to open a dialog for search requests
+      SaveDialog.init();
+
+      // create a watcher to load saved searches on request
+      SearchLoader.init();
     };
     return {
       init: init

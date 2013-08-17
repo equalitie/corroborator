@@ -17,7 +17,8 @@ define(
         SelectedFilterView,
         SelectedFiltersView,
         FilterView,
-        searchBus = Streams.searchBus;
+        searchBus = Streams.searchBus,
+        filterResetRequest;
 
     // ### FilterGroupView
     // Render a group of filters
@@ -115,6 +116,7 @@ define(
       initialize: function(options) {
         this.type = options.type;
         this.listenTo(this.collection, 'add', this.render.bind(this));
+        this.listenTo(this.collection, 'reset', this.render.bind(this));
         this.listenTo(this.collection, 'add', this.showFilters.bind(this));
         this.listenTo(this.collection, 'remove',
           this.shouldBeHidden.bind(this));
@@ -123,9 +125,8 @@ define(
         this.render();
         this.shouldBeHidden();
       },
-
+      
       // unhide the view
-      // how ugly is this!!
       showFilters: function() {
         this.$el.children()
                 .children()
