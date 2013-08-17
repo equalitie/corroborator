@@ -76,6 +76,9 @@ define(
     // ### SelectedIncidentFilterCollection
     // Maintain a list of selected incident filters 
     var SelectedIncidentFilterCollection = Backbone.Collection.extend({
+      entityType: 'incident',
+
+      // start our event listeners and strema watchers
       initialize: function(options) {
         this.watchSearchStream();
         this.on('add remove', this.sendFilter, this);
@@ -84,7 +87,10 @@ define(
       watchSearchStream: function() {
         this.watchForFilterSelect();
         this.watchForFilterReset();
+        this.watchForFilterRequest();
       },
+
+      // watch for a filter being clicked on
       watchForFilterSelect: function() {
         var self = this;
         searchBus.filter(filterIncidentFilterEvents)
@@ -103,6 +109,7 @@ define(
                  });
       },
 
+      // send a filter request
       sendFilter: function(filterModel) {
         Streams.searchBus.push({
           type: 'filter_event_add_incident',

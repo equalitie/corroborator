@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+    url("", include("django_socketio.urls")),
     url(r'^logout/$', 'django.contrib.auth.views.logout',{'next_page': '/login'}),
     url(r'^login/$', 'corroborator_app.views.login_user'),
     url(r'^admin/', include(admin.site.urls)),
@@ -27,7 +28,7 @@ urlpatterns = patterns('',
 #jobs app
 urlpatterns += patterns(
     '',
-    (r'^interntest/', include('interntest.urls')),
+    url("", include('django_socketio.urls')),
 )
 
 # API Resources

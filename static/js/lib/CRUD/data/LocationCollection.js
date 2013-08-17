@@ -5,20 +5,30 @@
 
 define (
   [
-    'backbone'
+    'backbone', 'underscore'
   ],
-  function (Backbone) {
+  function (Backbone, _) {
     'use strict';
     
     var LocationCollection,
         LocationModel,
-        locationCollection;
+        locationCollection,
+        mapResourceUriToId = function(resourceUri) {
+          return _.last(resourceUri.match(/\/(\d+)\/$/));
+        };
+
 
     // ### LocationModel
     // relates to an individual source
     LocationModel = Backbone.Model.extend({
       
-      initialize: function() {
+      initialize: function(options) {
+        if (options.resourceUri !== undefined) {
+          var id = mapResourceUriToId(options.resourceUri);
+          this.set('id', id);
+          this.set('resource_uri', options.resourceUri);
+          this.fetch();
+        }
       },
       url: function() {
         var base = '/api/v1/location/';

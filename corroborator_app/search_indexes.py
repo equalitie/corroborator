@@ -4,12 +4,22 @@ database model using Django Haystacks as an interface.
 """
 from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
-    Incident, Actor, Media
+    Incident, Actor, Media, SolrUpdate
 from celery_haystack.indexes import CelerySearchIndex
 
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
+
+class SolrUpdateIndex(CelerySearchIndex, indexes.Indexable):
+    """
+    This class manages the storage of the Solr Update models state
+    """
+    text = indexes.CharField(document=True)
+    update_timestamp = indexes.DateTimeField(model_attr='update_timestamp')
+    user = indexes.CharField(model_attr='user') 
+    def get_model(self):
+        return SolrUpdate
 
 class ActorIndex(CelerySearchIndex, indexes.Indexable):
     """

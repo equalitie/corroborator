@@ -84,12 +84,12 @@
       <div class="is-locations group">
         <h4>Locations</h4>
         <div class="locations">
-          <div class="map"></div>
           {{#each model.incident_locations}}
           <div class="location">{{this}}</div>
           {{/each}}
         </div>
       </div>
+      <div class="is-incident-map map"></div>
       {{/if}}
       {{#if model.incident_labels}}
       <div class="is-tags group">

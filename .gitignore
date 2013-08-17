@@ -4,6 +4,7 @@
 env
 sitestatic
 sitestatic/*
+corroborator/settings/dev.py
 media/*
 apache/*
 *.sublime-project

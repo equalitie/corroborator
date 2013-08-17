@@ -45,7 +45,8 @@ define(
       createDateRangeWidget: function() {
         this.dateRangeView = new DateRangeView({
           el: '.date-range',
-          entityType: 'incident'
+          entityType: 'incident',
+          title: 'Incident Created between'
         });
       },
 

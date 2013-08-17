@@ -255,8 +255,7 @@ define (
       // date widgets, this must be done after the form has rendered
       render: function() {
         this.$el.html(this.currentView.$el);
-        this.currentView.renderChildren()
-                        .enableWidgets();
+        this.currentView.toggleExpanded();
       }
     });
 

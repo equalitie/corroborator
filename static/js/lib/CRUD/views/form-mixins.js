@@ -10,10 +10,12 @@ define (
     'lib/elements/combo',
     'lib/elements/label-widget',
     'lib/elements/date-time-range',
+    'lib/CRUD/views/map-view',
     'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
     'jquery_slider'
   ],
-  function ($, _, Streams, Combo, LabelWidget, DateTimeRangeView, confirmDialogTmp) {
+  function ($, _, Streams, Combo, LabelWidget, DateTimeRangeView,
+    CoordinateDisplayView, confirmDialogTmp) {
     'use strict';
     var ComboWidget  = Combo.ComboWidget,
         crudBus = Streams.crudBus,
@@ -61,10 +63,32 @@ define (
           return intValue.toString() === value ? intValue : value;
         },
 
+        createDefaultKeyList: function() {
+          var reduceToKeyList = function(formEl) {
+            return $(formEl).attr('name');
+          };
+          return _.map($('.' + this.entityType + '-field'), reduceToKeyList);
+        },
+
+        mergeObjectArrays: function(keyArray, newDataArray) {
+          var dataKeys = _.keys(newDataArray);
+          keyArray = _.reduce(keyArray, function(memo, key){
+            memo[key] = newDataArray[key];
+            return memo;
+          }, {});
+          return keyArray;
+
+        },
+
+
         // pull the data from the form
         formContent: function() {
+          var defaultKeyList = this.createDefaultKeyList();
           var formArray = $('.' + this.entityType + '-field').serializeArray();
-          return this.formArrayToData(formArray);
+                   
+          var data = this.formArrayToData(formArray);
+          data = this.mergeObjectArrays(defaultKeyList, data); 
+          return data;
         },
 
         // reduce an array of objects
@@ -103,6 +127,7 @@ define (
           this.enableDateTimeFields();
           this.enableDateTimeRangeFields();
           this.enableComboBoxes();
+          this.enableMapFields();
         },
         populateWidgets: function() {
           this.populateLabelFields();
@@ -227,18 +252,33 @@ define (
           
         },
 
+        enableMapFields: function() {
+          _.each(this.mapFields, this.enableMapField, this);
+        },
+
+        enableMapField: function(field) {
+          var mapView = new CoordinateDisplayView({
+            el: field.containerid,
+            locationSource: field.locationSource,
+            bus: field.bus
+          });
+          this.childViews.push(mapView);
+        },
+
         enableLabelFields: function() {
           _.each(this.labelFields, this.enableLabelField, this);
         },
         enableLabelField: function(field) {
           var collection = new field.collection();
           var labelWidget = new LabelWidget({
-            entityType: this.entityType,
-            collection: collection,
-            el        : field.containerid,
-            display   : field.display,
-            content   : field.content,
-            multiple  : field.multiple
+            entityType     : this.entityType,
+            collection     : collection,
+            el             : field.containerid,
+            display        : field.display,
+            content        : field.content,
+            multiple       : field.multiple,
+            bus            : field.bus,
+            eventIdentifier: field.eventIdentifier,
           });
           this.childViews.push(labelWidget);
         },

@@ -25,7 +25,7 @@ define(
   function(_, InputView, NavCombo, Dialog, TabRouter, Streams) {
     'use strict';
     var textEntered,
-        textProperty;
+        textProperty, inputView;
 
     // create our combo box view
     var createComboBox = function() {
@@ -47,11 +47,12 @@ define(
 
     // create the input view that will read in a search from the user
     var createInputView = function () {
-      var inputView = new InputView({
+      inputView = new InputView({
         el: '.search'
       });
       textEntered = inputView.textProperty.map(nonEmpty);
       textProperty = inputView.textProperty;
+      return inputView;
     };
 
     // watch for search events
@@ -63,36 +64,14 @@ define(
         return {
           search_request: e.type === 'search_request'
         };
-      });
+      })
+      .onValue(function(value){
+        Streams.searchBus.push({
+          type: 'search_updated',
+          content: inputView.getInput()
+        });
+      }.bind(this));
 
-      var merged = searchRequested.merge(textProperty.toEventStream());
-      var navStream = Streams.navBus.toEventStream().map(function(value) {
-        return {
-          domain: value
-        };
-      });
-      merged = merged.merge(navStream);
-
-      merged.scan({}, function(oldResult, value) {
-        var newResult = oldResult;
-        if (value.encoded) {
-          newResult.content = value;
-          newResult.type = 'intermediate';
-        }
-        if (value.domain) {
-          newResult.domain = value.domain;
-          newResult.type = 'intermediate';
-        }
-        if (value.search_request === true) {
-          newResult.type = 'search_updated';
-        }
-        return newResult;
-         
-      }).filter(function(value) {
-        return value.type === 'search_updated' && value.content !== undefined;
-      }).onValue(function(value) {
-        Streams.searchBus.push(value);
-      });
     };
 
     // create the dialog that we will use to save a user's search

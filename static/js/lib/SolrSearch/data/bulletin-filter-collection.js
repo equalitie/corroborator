@@ -31,11 +31,11 @@ define(
           return value.type === 'filter_event_bulletin';
         },
         filterTitles = {
-          'bulletin_assigned_user_exact'          : 'Assigned To',
+          'bulletin_assigned_user_exact'     : 'Assigned To',
           'most_recent_status_bulletin_exact': 'Status',
           'bulletin_labels_exact'            : 'Labels',
-          'bulletin_sources_exact'                    : 'Sources',
-          'bulletin_created_exact': 'Created date'
+          'bulletin_sources_exact'           : 'Sources',
+          'bulletin_created_exact'           : 'Created date'
         },
         // used to map the filters object to an array of objects with the 
         // key set as a field called key on each object
@@ -81,12 +81,14 @@ define(
     // ### SelectedBulletinFilterCollection
     // Maintain a list of selected bulletin filters 
     var SelectedBulletinFilterCollection = Backbone.Collection.extend({
+      entityType: 'bulletin',
       initialize: function(options) {
         this.watchSearchStream();
         this.on('add remove', this.sendFilter, this);
         this.on('add', this.removeExistingDateFilters, this);
       },
       watchSearchStream: function() {
+        this.watchForFilterRequest();
         var self = this;
         // look for filters being added 
         searchBus.filter(filterBulletinFilterEvents)

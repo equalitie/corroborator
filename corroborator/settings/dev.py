@@ -14,6 +14,7 @@ INSTALLED_APPS += (
     'autofixture',
     'interntest',
     'debug_toolbar',
+    'django_socketio',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)
@@ -45,4 +46,6 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-STATIC_ROOT = '/var/www/corroborator/static/'
+STATIC_URL = '/static/'
+
+STATIC_ROOT = '/Users/cormac/work/programming/python/djangodev/corroborator/static/'

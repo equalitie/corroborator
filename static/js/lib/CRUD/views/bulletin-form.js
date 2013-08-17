@@ -105,9 +105,11 @@ define (
           }
         },
         locations: {
-          containerid: '#bulletin-location-block',
-          collection : LocationCollection,
-          multiple: true,
+          containerid    : '#bulletin-location-block',
+          collection     : LocationCollection,
+          multiple       : true,
+          bus            : crudBus,
+          eventIdentifier: 'bulletin_map',
           display: {
             field_name : 'locations',
             field_label: 'Locations'
@@ -119,6 +121,13 @@ define (
         }
 
       },
+      mapFields: [
+        {
+          containerid: '#bulletin-map-block',
+          locationSource: 'bulletin_map_label',
+          bus: crudBus
+        }
+      ],
 
       // display a slider for scores
       sliderFields: [
@@ -139,11 +148,9 @@ define (
       initialize: function(options) {
         this.addi18n();
         this.populateWidgets();
-        this.render();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here 
         this.expanded = ! options.expanded;
-        this.toggleExpanded();
       },
 
       // set the template for the form

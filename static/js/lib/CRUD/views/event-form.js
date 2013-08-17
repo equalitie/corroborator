@@ -200,7 +200,7 @@ define (
         this.$el.children()
                 .children('textarea[name=comments_ar]')
                 .val(model.get('comments_ar'));
-        this.enableWidgets();
+        //this.enableWidgets();
       },
       // check if we are editing the model that is being deleted  
       // empty the form if it is

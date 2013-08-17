@@ -52,7 +52,9 @@ define(
       createDateRangeWidget: function() {
         this.dateRangeView = new DateRangeView({
           el: '.date-range',
-          entityType: 'actor'
+          entityType: 'actor',
+          filterKey: 'dob_exact',
+          title: 'Date of birth between'
         });
       },
 

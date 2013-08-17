@@ -9,7 +9,7 @@ a {
   text-decoration: none;
 }
 
-/* line 55, ../sass/_mixins.scss */
+/* line 54, ../sass/_mixins.scss */
 .Application button.combo.invert:hover .options,
 .Application .button.combo.invert:hover .options {
   display: block;
@@ -17,13 +17,13 @@ a {
   bottom: 100%;
 }
 
-/* line 61, ../sass/_mixins.scss */
+/* line 60, ../sass/_mixins.scss */
 .Application button.combo.is-small,
 .Application .button.combo.is-small {
   min-width: auto;
 }
 
-/* line 66, ../sass/_mixins.scss */
+/* line 65, ../sass/_mixins.scss */
 .Application button.combo.is-small .options,
 .Application .button.combo.is-small .options {
   left: -1px;
@@ -31,13 +31,13 @@ a {
   border-width: 0 1px 1px;
 }
 
-/* line 73, ../sass/_mixins.scss */
+/* line 72, ../sass/_mixins.scss */
 .Application button.combo.is-small .options li,
 .Application .button.combo.is-small .options li {
   margin: 0;
 }
 
-/* line 78, ../sass/_mixins.scss */
+/* line 77, ../sass/_mixins.scss */
 .Application button.combo.is-small span:after,
 .Application .button.combo.is-small span:after {
   display: none;
@@ -361,7 +361,7 @@ button, button:active, a, a:active {
   text-align: left;
 }
 
-/* line 19, ../sass/_base.scss */
+/* line 18, ../sass/_base.scss */
 .no-animation *,
 .no-animation .animated {
   transition-property: none !important;
@@ -398,14 +398,14 @@ button, button:active, a, a:active {
   line-height: 1.25em;
 }
 
-/* line 54, ../sass/_base.scss */
+/* line 52, ../sass/_base.scss */
 .use-base button,
 .use-base tr td,
 .use-base tr th {
   font-size: 100%;
 }
 
-/* line 62, ../sass/_base.scss */
+/* line 58, ../sass/_base.scss */
 .use-base a,
 .use-base a:active,
 .use-base a:hover,
@@ -447,7 +447,7 @@ button, button:active, a, a:active {
   -ms-user-select: none;
 }
 
-/* line 95, ../sass/_base.scss */
+/* line 94, ../sass/_base.scss */
 .use-base input:focus,
 .use-base textarea:focus {
   outline: none;
@@ -463,14 +463,14 @@ button, button:active, a, a:active {
   cursor: pointer;
 }
 
-/* line 109, ../sass/_base.scss */
+/* line 107, ../sass/_base.scss */
 .use-base .action,
 .use-base .button,
 .use-base button {
   cursor: pointer;
 }
 
-/* line 114, ../sass/_base.scss */
+/* line 113, ../sass/_base.scss */
 .use-base table td,
 .use-base table th {
   color: #000000;
@@ -482,7 +482,7 @@ button, button:active, a, a:active {
   vertical-align: top;
 }
 
-/* line 127, ../sass/_base.scss */
+/* line 124, ../sass/_base.scss */
 .use-base .nolinks a,
 .use-base .nolinks a:active,
 .use-base .nolinks a:visited,
@@ -491,7 +491,7 @@ button, button:active, a, a:active {
   text-decoration: none;
 }
 
-/* line 135, ../sass/_base.scss */
+/* line 132, ../sass/_base.scss */
 .use-base .lighlinks a,
 .use-base .lighlinks a:active,
 .use-base .lighlinks a:visited,
@@ -505,7 +505,7 @@ button, button:active, a, a:active {
   text-decoration: underline;
 }
 
-/* line 145, ../sass/_base.scss */
+/* line 144, ../sass/_base.scss */
 .use-base ul,
 .use-base li {
   margin: 0;
@@ -520,7 +520,7 @@ button, button:active, a, a:active {
   list-style-type: disc;
 }
 
-/* line 159, ../sass/_base.scss */
+/* line 157, ../sass/_base.scss */
 .use-base ul.nolist,
 .use-base ul.list-h,
 .use-base ul.list-v {
@@ -528,7 +528,7 @@ button, button:active, a, a:active {
   margin: 0;
 }
 
-/* line 166, ../sass/_base.scss */
+/* line 164, ../sass/_base.scss */
 .use-base ul.nolist li,
 .use-base ul.list-h li,
 .use-base ul.list-v li {
@@ -703,7 +703,7 @@ button, button:active, a, a:active {
   clear: both;
 }
 
-/* line 316, ../sass/_base.scss */
+/* line 315, ../sass/_base.scss */
 .use-base .last-clear-after > *:last-child:after,
 .use-base .last-clear-after > .last:after {
   content: "";
@@ -1009,7 +1009,7 @@ button, button:active, a, a:active {
   width: 600px;
 }
 
-/* line 574, ../sass/_base.scss */
+/* line 569, ../sass/_base.scss */
 .use-base .col > .header,
 .use-base .col > .body,
 .use-base .col > .footer,
@@ -1020,7 +1020,7 @@ button, button:active, a, a:active {
   padding-right: 20px;
 }
 
-/* line 584, ../sass/_base.scss */
+/* line 579, ../sass/_base.scss */
 .use-base .col.first > .header,
 .use-base .col.first > .body,
 .use-base .col.first > .footer,
@@ -1030,7 +1030,7 @@ button, button:active, a, a:active {
   padding-left: 0px !important;
 }
 
-/* line 593, ../sass/_base.scss */
+/* line 588, ../sass/_base.scss */
 .use-base .col.last > .header,
 .use-base .col.last > .body,
 .use-base .col.last > .footer,
@@ -1154,7 +1154,7 @@ button, button:active, a, a:active {
   width: 11.111%;
 }
 
-/* line 698, ../sass/_base.scss */
+/* line 691, ../sass/_base.scss */
 .use-base .by-2,
 .use-base .by-3,
 .use-base .by-4,
@@ -1166,7 +1166,7 @@ button, button:active, a, a:active {
   margin-right: -20px;
 }
 
-/* line 709, ../sass/_base.scss */
+/* line 702, ../sass/_base.scss */
 .use-base .by-2 .by-element > *,
 .use-base .by-3 .by-element > *,
 .use-base .by-4 .by-element > *,
@@ -1267,14 +1267,14 @@ button, button:active, a, a:active {
   margin: -1px;
 }
 
-/* line 791, ../sass/_base.scss */
+/* line 789, ../sass/_base.scss */
 .use-base #Templates,
 .use-base .template,
 .use-base .templates {
   display: none !important;
 }
 
-/* line 796, ../sass/_base.scss */
+/* line 795, ../sass/_base.scss */
 .use-base #Data,
 .use-base .data {
   display: none !important;
@@ -2818,13 +2818,13 @@ nav {
   margin-bottom: 1.53846em;
 }
 
-/* line 97, ../sass/_hacks.scss */
+/* line 96, ../sass/_hacks.scss */
 .Bulletin.is-expanded .span-66p .body,
 .Incident.is-expanded .span-66p .body {
   padding-right: 3.07692em;
 }
 
-/* line 102, ../sass/_hacks.scss */
+/* line 101, ../sass/_hacks.scss */
 .Incident.is-edited.is-expanded .span-33p,
 .Bulletin.is-edited.is-expanded .span-33p {
   width: 29%;
@@ -2834,6 +2834,17 @@ nav {
 /* line 108, ../sass/_hacks.scss */
 .Actor.in-list {
   min-height: 80px;
+}
+
+/* line 113, ../sass/_hacks.scss */
+.Incident.in-view .map,
+.Bulletin.in-view .map,
+.Actor.in-view .map,
+.Actor.is-edited .map,
+.Incident.is-edited .map,
+.Bulletin.is-edited .map {
+  height: 200px;
+  background-color: #f0f0f0;
 }
 
 /* line 1, ../sass/_buttons.scss */
@@ -3722,3 +3733,5 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   height: 100px;
   cursor: pointer;
 }
+
+/*@ sourceMappingURL=screen.css.map */

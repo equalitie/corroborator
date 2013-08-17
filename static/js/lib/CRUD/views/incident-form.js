@@ -101,6 +101,8 @@ define (
           containerid: '#incident-location-block',
           collection : LocationCollection,
           multiple: true,
+          bus: crudBus,
+          eventIdentifier: 'incident_map',
           display: {
             field_name : 'locations',
             field_label: 'Locations'
@@ -110,6 +112,14 @@ define (
           }
         }
       },
+      
+      mapFields: [
+        {
+          containerid: '#incident-map-block',
+          locationSource: 'incident_map_label',
+          bus: crudBus
+        }
+      ],
       sliderFields: {
         confidence_score: { // confidence_score
           sliderDiv : '#incident-score-block .score-editor .slider',
@@ -128,11 +138,9 @@ define (
         console.log(options);
         this.addi18n();
         this.populateWidgets();
-        this.render();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here 
         this.expanded = ! options.expanded;
-        this.toggleExpanded();
       },
 
       // set the template for the form

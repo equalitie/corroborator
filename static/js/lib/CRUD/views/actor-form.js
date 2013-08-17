@@ -56,6 +56,8 @@ define (
           containerid: '#actor-pob-block',
           collection : LocationCollection,
           multiple: false,
+          bus: crudBus,
+          eventIdentifier: 'actor_pob',
           display: {
             field_name : 'POB',
             field_label: 'Place Of Birth'
@@ -68,6 +70,8 @@ define (
           containerid: '#actor-current-location-block',
           collection : LocationCollection,
           multiple: false,
+          bus: crudBus,
+          eventIdentifier: 'actor_current',
           display: {
             field_name : 'current_location',
             field_label: 'Current Location'
@@ -78,15 +82,26 @@ define (
         }
 
       },
+      mapFields: [
+        {
+          containerid: '#actor-current-map-block',
+          locationSource: 'actor_current_label',
+          bus: crudBus
+        },
+        {
+          containerid: '#actor-pob-map-block',
+          locationSource: 'actor_pob_label',
+          bus: crudBus
+        }
+      ],
       // constructor
       initialize: function(options) {
         this.setTemplate();
         this.addi18n();
         this.populateWidgets();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
-        // a little trickery here 
+        // a little trickery here - cos we use toggleExpanded to render the view
         this.expanded = ! options.expanded;
-        this.toggleExpanded();
       },
 
       // set the template for the form
@@ -184,7 +199,7 @@ define (
           relationshipType: 'relation'
         });
 
-        this.childViews.push(mediaSearchView);
+        this.childViews.push(mediaSearchView, actorSearchView);
         return this;
       }
 

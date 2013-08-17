@@ -39,7 +39,9 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/selected-filters.tpl.js': 'lib/SolrSearch/templates/selected-filters.tpl',
           'lib/SolrSearch/templates/date-range.tpl.js'      : 'lib/SolrSearch/templates/date-range.tpl',
           'lib/SolrSearch/templates/selected-filter.tpl.js' : 'lib/SolrSearch/templates/selected-filter.tpl',
-          'lib/SolrSearch/templates/map-container.tpl.js'   : 'lib/SolrSearch/templates/map-container.tpl',
+
+          // dialogs
+          'lib/SolrSearch/templates/save-search-dialog.tpl.js': 'lib/SolrSearch/templates/save-search-dialog.tpl',
 
           // forms
           'lib/CRUD/templates/search-templates/actor/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor/actor.tpl',
@@ -76,6 +78,9 @@ module.exports = function(grunt) {
           'lib/CRUD/templates/search-templates/event/event-form.tpl.js'           : 'lib/CRUD/templates/search-templates/event/event-form.tpl',
           'lib/CRUD/templates/search-templates/event/event-display.tpl.js'        : 'lib/CRUD/templates/search-templates/event/event-display.tpl',
          
+          // form and display
+          'lib/CRUD/templates/map-container.tpl.js'   : 'lib/CRUD/templates/map-container.tpl',
+
           // individual display
           'lib/CRUD/templates/display-templates/display-manager.tpl.js'     : 'lib/CRUD/templates/display-templates/display-manager.tpl',
           'lib/CRUD/templates/display-templates/actor-display.tpl.js'       : 'lib/CRUD/templates/display-templates/actor-display.tpl',

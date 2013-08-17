@@ -7,13 +7,13 @@ define(
     'lib/SolrSearch/views/header',
     'lib/SolrSearch/views/results',
     'lib/SolrSearch/views/filters/filter-manager',
-    'lib/SolrSearch/data/filter-collections',
-    'lib/Data/collections'
+    'lib/SolrSearch/persist/search-saver'
   ],
   function(_, SolrManager, SearchReloader, Header, Results, FilterManager,
-    FilterCollection, Collections) {
+    SearchDetailFinder) {
     'use strict';
     var headerView,
+        searchDetailFinder,
         filterManager;
 
     var init = function() {
@@ -27,7 +27,10 @@ define(
       // pass the callback to ensure that the initial request has been
       // done before anything else gets started
       SearchReloader.init();
-      
+
+      // start a watcher for save search requests
+      searchDetailFinder = new SearchDetailFinder();
+      searchDetailFinder.init();
     };
     return {
       init: init
