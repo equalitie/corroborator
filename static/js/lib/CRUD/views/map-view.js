@@ -28,6 +28,7 @@ define (
       tagName: 'div',
       subscribers: [],
       initialize: function(options) {
+        this.listenTo(this, 'resize', this.updateMapSize.bind(this));
         this.locationSource = options.locationSource;
         this.collection = options.collection;
         this.bus = options.bus;
@@ -38,6 +39,10 @@ define (
             .registerSubscribers()
             .render()
             .displayMap();
+      },
+
+      updateMapSize: function() {
+        this.map.invalidateSize();
       },
 
       // create a collection that will store the currently rendered markers
@@ -86,7 +91,7 @@ define (
 
       // remove subscribers and any extraneous map shizzle
       onDestroy: function() {
-        //this.map.off('click', this.onMapClick);
+        this.stopListening();
         _.each(this.subscribers, function(unsub) {unsub();});
       },
 
@@ -97,14 +102,12 @@ define (
 
       // add a new location to the collection
       removeLocation: function(evt) {
-        console.log(evt.value().content);
         this.collection.remove(evt.value().content);
       },
 
       // display a map centred on syria  
       // create a map attribute on the view object
       displayMap: function() {
-        console.log(this.$el);
         var mapElement, map, zoom_level, tileLayerUrl;
         // set the map options
         mapElement  = this.$el.children('.map').children().get(0);
@@ -123,7 +126,6 @@ define (
         }).addTo(map);
 
         this.map = map;
-        console.log('map created');
       },
 
       // callback fired when a location gets added

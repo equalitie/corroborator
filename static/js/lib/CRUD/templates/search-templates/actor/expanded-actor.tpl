@@ -5,8 +5,10 @@
   </div>
   <div class="body" style="bottom: 49px;">
     <div class="first span-66p">
+      <!-- switch class here is-expanded -> in-preview -->
       <div class="Actor is-edited is-expanded">
         <div class="header">
+          <!-- id field - hide for new actor -->
           {{#if model.id}}
           <span class="id">
             ID <span class="value out">{{model.id}}</span>
@@ -127,7 +129,6 @@
             </div>
           </div>
 
-
           <!-- Date of birth -->
           <div class="field clear-after is-birthdate field ">
             <label>Date of birth</label>
@@ -143,8 +144,7 @@
           <div id="actor-pob-map-block" class="field"></div>
 
           <!-- Current Location -->
-          <div id="actor-current-location-block" class="field">
-          </div>
+          <div id="actor-current-location-block" class="field"></div>
 
           <!-- map block -->
           <div id="actor-current-map-block" class="field"></div>
@@ -156,14 +156,12 @@
               name="occupation_en" id="actor_occupation_en">
           </div>
 
-
           <!-- Position -->
           <div class="field is-position">
             <label>Position (rank)</label>
             <input type="text" class="with-select actor-field w-30p" value="{{model.position_en}}" 
               name="position_en" id="actor_position_en" >
           </div>
-
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
@@ -206,7 +204,6 @@
               </button>
             </div>
             <ul class="elements elements-actor">
-        
             </ul>
           </div>
 
@@ -227,7 +224,7 @@
         </button>
       </div>
       <div class="when-overlay-not_expanded">
-        <button class="do-expand">
+        <button class="do-expand-form">
           <span class="text t">« expand</span>
         </button>
       </div>

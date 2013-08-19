@@ -119,3 +119,9 @@ nav {
   height: 200px;
   background-color: #f0f0f0;
 }
+
+.is-preview .body .span-66p {
+  width: 100%;
+  margin-right: $PAD_UNIT;
+  float: none;
+}

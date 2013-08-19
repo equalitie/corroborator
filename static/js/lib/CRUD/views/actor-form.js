@@ -13,11 +13,10 @@ define (
     'lib/CRUD/views/search-views/media/media-search-field',
     'lib/CRUD/data/LocationCollection',
     // templates
-    'lib/CRUD/templates/search-templates/actor/actor.tpl',
-    'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl'
+    'lib/CRUD/templates/search-templates/actor/actor.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
-    Location, actorFormTmp, expandedActorFormTmp) {
+    Location, actorFormTmp) {
 
     var ActorFormView,
         crudBus            = Streams.crudBus,
@@ -96,35 +95,63 @@ define (
       ],
       // constructor
       initialize: function(options) {
-        this.setTemplate();
         this.addi18n();
         this.populateWidgets();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here - cos we use toggleExpanded to render the view
         this.expanded = ! options.expanded;
-      },
-
-      // set the template for the form
-      setTemplate: function() {
-        this.template = this.expanded ? expandedActorFormTmp: actorFormTmp;
+        this.displayForm  = this.displayFormFunction();
       },
 
       // toggle the expanded switch and render the form
       toggleExpanded: function() {
+        this.displayForm();
         if (this.expanded === true) {
           this.expanded = false;
           this.$el.removeClass('is-expanded');
-          this.setTemplate();
+          this.$el.addClass('is-preview');
+          this.$el.children('.body')
+                  .children('.first')
+                  .children('.Actor')
+                  .removeClass('is-expanded')
+                  .addClass('in-preview');
+
+          this.$el.children('.body')
+                  .children('.first')
+                  .removeClass('span-66p');
         }
         else {
           this.expanded = true;
           this.$el.addClass('is-expanded');
-          this.setTemplate();
+          this.$el.removeClass('is-preview');
+          this.$el.children('.body')
+                  .children('.first')
+                  .children('.Actor')
+                  .addClass('is-expanded')
+                  .removeClass('in-preview');
+          this.$el.children('.body')
+                  .children('.first')
+                  .addClass('span-66p');
         }
-        this.render()
-            .renderChildren()
-            .enableWidgets();
+        this.sendResizeEvent();
       },
+
+      sendResizeEvent: function() {
+        _.each(this.childViews, function(view) {
+          view.trigger('resize');
+        });
+      },
+
+      // return a function that creates the form only once
+      displayFormFunction: function() {
+        return _.once(function() {
+          this.render()
+              .renderChildren()
+              .enableWidgets();
+        });
+      },
+
+      
 
       // remove the dom elements and all associated events
       onDestroy: function() {

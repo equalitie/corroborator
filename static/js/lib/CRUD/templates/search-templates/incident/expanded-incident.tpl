@@ -1,3 +1,8 @@
+<div class="header">
+  <button class="do-hide is-small">
+    <span class="T">close</span>
+  </button>
+</div>
 <div class="body" style="bottom: 49px;">
   <div class="Incident is-edited is-expanded">
     <div class="first span-66p">
@@ -33,6 +38,60 @@
           </span>
         </div>
       </div>
+    </div>
+    <div class="last span-33p">
+      <div class="group details">
+        <div class="field clear-after">
+
+          <!-- score slider -->
+          <div id="incident-score-block" class="is-score right">
+            <label>Reliability Score</label>
+            <span class="score">
+
+              <span id="incident_confidence_score" class="value">
+                {{model.confidence_score}}
+              </span>
+              <input type="hidden" 
+                      class="incident-field"
+                      name="confidence_score"
+                      value="{{model.confidence_score}}">
+              <div class="score-editor">
+                <div class="rail">
+                  <div class="slider"></div>  
+                  <!-- <div class="cursor">&nbsp;</div> -->
+                  <div class="axis">
+                    <div class="start">
+                      <span class="label">0%</span>
+                    </div>
+                    <div class="middle">
+                      <span class="label">50%</span>
+                    </div>
+                    <div class="end">
+                      <span class="label">100%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+              
+          <!-- Assigned to user -->
+          <div id="incident-assignment-block" class="incidentAssigned left">
+            <label>Assigned to</label>
+
+            <input type="text" class="with-clear is-assigned-to"
+              value="{{model.incident_assigned}}">
+            <input type="hidden" name="assigned_user"
+              value="{{model.assigned_user}}">
+
+          <button id="clear-user" class="do-clear">
+            <span>✓</span>
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="first span-66p">
 
       <!-- end header -->
       <div class="body">
@@ -91,56 +150,6 @@
     <!-- second column -->
     <div class="last span-33p">
       <div class="body">
-        <div class="group details">
-          <div class="field clear-after">
-
-            <!-- score slider -->
-            <div id="incident-score-block" class="is-score right">
-              <label>Reliability Score</label>
-              <span class="score">
-
-                <span id="incident_confidence_score" class="value">
-                  {{model.confidence_score}}
-                </span>
-                <input type="hidden" 
-                        class="incident-field"
-                        name="confidence_score"
-                        value="{{model.confidence_score}}">
-                <div class="score-editor">
-                  <div class="rail">
-                    <div class="slider"></div>  
-                    <!-- <div class="cursor">&nbsp;</div> -->
-                    <div class="axis">
-                      <div class="start">
-                        <span class="label">0%</span>
-                      </div>
-                      <div class="middle">
-                        <span class="label">50%</span>
-                      </div>
-                      <div class="end">
-                        <span class="label">100%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </span>
-            </div>
-                
-            <!-- Assigned to user -->
-            <div id="incident-assignment-block" class="incidentAssigned left">
-              <label>Assigned to</label>
-
-              <input type="text" class="with-clear is-assigned-to"
-                value="{{model.incident_assigned}}">
-              <input type="hidden" name="assigned_user"
-                value="{{model.assigned_user}}">
-
-            <button id="clear-user" class="do-clear">
-              <span>✓</span>
-            </button>
-            </div>
-          </div>
-        </div>
 
         <!-- events -->
         <div id="incident-event-block" class="field is-events clear">

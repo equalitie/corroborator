@@ -35,7 +35,6 @@ define (
         }
         this.model = bulletinCollection.get(
           options.entityDetails.id);
-        this.displayView();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.expanded = options.entityDetails.expanded === undefined ?
           false : options.entityDetails.expanded;

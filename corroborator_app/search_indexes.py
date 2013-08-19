@@ -4,22 +4,33 @@ database model using Django Haystacks as an interface.
 """
 from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
-    Incident, Actor, Media, SolrUpdate
+    Incident, Actor, Media, SolrUpdate, PredefinedSearch
 from celery_haystack.indexes import CelerySearchIndex
 
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
 
-class SolrUpdateIndex(CelerySearchIndex, indexes.Indexable):
+class PredefinedSearchIndex(CelerySearchIndex, indexes.Indexable):
     """
-    This class manages the storage of the Solr Update models state
     """
     text = indexes.CharField(document=True)
-    update_timestamp = indexes.DateTimeField(model_attr='update_timestamp')
-    user = indexes.CharField(model_attr='user') 
+    user = indexes.CharField(model_attr='user')
+    search_type = indexes.CharField(model_attr='search_type')
+    search_string = indexes.CharField(model_attr='search_string')
+    actor_filters = indexes.CharField(model_attr='actor_filters')
+    bulletin_filters = indexes.CharField(model_attr='bulletin_filters')
+    incident_filters = indexes.CharField(model_attr='incident_filters')
+    resource_uri = indexes.CharField()
+
     def get_model(self):
-        return SolrUpdate
+        return PredefinedSearch
+    def prepare_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        return '/api/v1/predefinedSearch/{0}/'.format(object.id) 
 
 class ActorIndex(CelerySearchIndex, indexes.Indexable):
     """

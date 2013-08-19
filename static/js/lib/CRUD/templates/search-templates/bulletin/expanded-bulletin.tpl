@@ -1,3 +1,8 @@
+  <div class="header">
+    <button class="do-hide is-small">
+      <span class="T">close</span>
+    </button>
+  </div>
   <div class="body" style="bottom: 49px;">
     <div class="Bulletin is-edited is-expanded">
       <div class="first span-66p">
@@ -129,8 +134,12 @@
           <div id="bulletin-event-block" class="field is-events clear">
           </div>
 
+          <!-- location block -->
           <div id="bulletin-location-block" class="field is-locations">
           </div>
+
+          <!-- map block -->
+          <div id="bulletin-map-block" class="is-bulletin-map field"></div>
 
           <!-- Labels field -->
           <div id="bulletin-label-block" class="field is-tags">
@@ -190,7 +199,7 @@
           </button>
         </div>
         <div class="when-overlay-not_expanded">
-          <button class="do-expand">
+          <button class="do-expand-form">
             <span class="text t">« expand</span>
           </button>
         </div>

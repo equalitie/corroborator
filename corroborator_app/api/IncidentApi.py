@@ -65,21 +65,21 @@ class IncidentResource(ModelResource):
         bundle = super( IncidentResource, self )\
             .obj_delete( bundle, **kwargs )
         username = bundle.request.GET['username']
-        update_object.delay(user)    
+        update_object.delay(username)    
         return bundle
  
     def obj_update(self, bundle, **kwargs):
         bundle = super( IncidentResource, self )\
             .obj_update( bundle, **kwargs )
         username = bundle.request.GET['username']
-        update_object.delay(user)    
+        update_object.delay(username)    
         return bundle
 
     def obj_create(self, bundle, **kwargs):
         bundle = super( IncidentResource, self )\
             .obj_create( bundle, **kwargs )
         username = bundle.request.GET['username']
-        update_object.delay(user)    
+        update_object.delay(username)    
         return bundle
         
     def dehydrate(self, bundle):
