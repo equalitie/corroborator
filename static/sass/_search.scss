@@ -1,6 +1,3 @@
-.Content {
-  margin-top: $PAD_UNIT * 3;
-}
 // ========================================================================
 // COLUMNS CONTENT
 // ========================================================================
@@ -270,15 +267,26 @@
     also contains item selection dropdown
 */
 .Selection {
-  background: $COLOR_SELECTION_BG;
-  border: 1px solid $COLOR_SELECTION_BD;
-  padding: $PAD_UNIT / 2;
+  height: $ACTION_BAR_HEIGHT;
+  background-color: $ACTION_BG_COLOR;
+  color: white;
   .description {
+    padding: $PAD_UNIT/2;
     margin-top: 0.25em + 1 * $PX;
     float: left;
   }
   .actions {
     float: right;
+    .button.combo {
+      @include combo_large(
+        $bg_color: $ACTION_BG_COLOR,
+        $height: $ACTION_BAR_HEIGHT,
+        $width: 10em,
+        $highlight_color: #d96859,
+        $border_color: #ca5b4d
+      );
+    }
+      border-left: 1px solid #ca5b4d;
   }
   &:after {
     content: '';

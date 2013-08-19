@@ -1,4 +1,4 @@
-
+// top menu links
 .Header {
   position: fixed;
   top: 0em;
@@ -6,11 +6,11 @@
   right: 0em;
   z-index: $Z_HEADER;
   &, .menu {
-    background: $COLOR_HEADER_BG;
-    color: $COLOR_HEADER_TXT;
+    background: $HEADER_MENU_BG;
+    color: $HEADER_UNSELECTED_COLOR;
   }
-  a, a:active, a:visited, a:hover {
-    color: $COLOR_HEADER_TXT;
+  a{
+    color: $HEADER_UNSELECTED_COLOR;
     text-decoration: none;
   }
   .title, .user, .sections {
@@ -18,12 +18,14 @@
     padding: $PAD_UNIT * 2;
     padding-top: $PAD_UNIT / 4;
     padding-bottom: $PAD_UNIT / 4;
+    color: $HEADER_SELECTED_COLOR;
   }
   .text {
     font-size: 90%;
   }
   .title {
-    font-weight: bold;
+    font-size: 15px;
+    @include open_sans_bold;
     float: left;
   }
   ul.sections {
@@ -39,6 +41,9 @@
       &.current {
         opacity: 1;
         text-decoration: underline;
+        a {
+          color: $HEADER_SELECTED_COLOR;
+        }
       }
     }
   }
@@ -58,23 +63,41 @@
 // ========================================================================
 // SEARCH
 // ========================================================================
-nav {
-  border-bottom: 1px solid $COLOR_HEADER_BD;
+.Content {
+  background-color: $TAB_AREA_BG;
+  //padding-top: 3*$PAD_UNIT;
+}
+
+// search input box
+nav#search-navigation {
+  margin-top:$HEADER_HEIGHT;
   .search {
+    padding-top: 1.5em;
     float: left;
     margin-top: -$PAD_UNIT /2;
     margin-bottom: 0em;
     margin-left: $PAD_UNIT * 2;
     input {
-      font-size: 120%;
-      min-width: 20em;
+      @include open_sans;
+      background-color: $TAB_AREA_BG;
+      border: 1px solid $BORDER_GREY;
+      color: white;
+      font-size: 12px;
+      height: 30px;
+      min-width: 23em;
       padding-right: 2em;
       margin-right: -1.5em;
-      display: inline-block;
+    }
+    // clear button
+    button.do-clear{
+      @include clear_button($bg_color:$BORDER_GREY, $fg_color:#000); 
     }
   }
 }
+
 .search-combo {
+  float: left;
+  margin-top: 1.35em;
   position: relative;
   .button.do-search {
     top: -$PAD_UNIT /4;
@@ -88,30 +111,27 @@ nav {
     margin-right: $PAD_UNIT * 2;
   }
   li {
+    padding-top: 1em;
     float: left;
+    height: $TAB_HEIGHT;
     display: block;
-    border-top: 1px solid $COLOR_TAB_BD;
-    margin-bottom: -1px;
+    border-bottom: 4px solid $BORDER_GREY;
     min-width: 70 * $PX;
     text-align: center;
-    margin-left: $PAD_UNIT / 2;
+    margin-left: 3px;
     position: relative;
     z-index: 1;
     a {
-      border-left: 1px solid $COLOR_TAB_BD;
-      border-right: 1px solid $COLOR_TAB_BD;
       display: block;
     }
     .text {
+      color: white;
       display: block;
       padding-bottom: 5px;
       padding-top: $PAD_UNIT / 4 / 1.1;
       padding-left: $PAD_UNIT / 1.1;
       padding-right: $PAD_UNIT / 1.1;
-      border-top: 4 * $PX solid #e0e0e0;
       font-size: 110%;
-      font-weight: bold;
-      line-height: 1em;
     }
     .count {
       padding-left: 0.25em;
@@ -121,8 +141,11 @@ nav {
       margin-left: 0em;
     }
     &:hover, &.current {
-      background: white;
+      background-color: $SELECTED_TAB_BG;
     }
+  }
+  li.current {
+    border-bottom: 4px solid $SELECTED_TAB_BORDER;
   }
 }
 
