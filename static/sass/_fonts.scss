@@ -1,0 +1,19 @@
+@mixin open_sans {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+@mixin open_sans_bold {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 700;
+}
+
+@mixin iconic_fill {
+  font-family: IconicFill, sans-serif;
+}
+
+
+em {
+  font-style: normal;
+  @include open_sans_bold;
+};
