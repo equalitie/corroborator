@@ -64,17 +64,7 @@ body {
       font-size: 90%;
     }
   }
-  .filter {
-    label {
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 90%;
-    }
-    margin-bottom: $PAD_UNIT / 2;
-    &:last-child {
-      margin-bottom: 0em;
-    }
-  }
+  
   .filter.is-map {
     .field {
       position: relative;
@@ -442,11 +432,7 @@ ul.media {
 }
 
 .tag, .sources.editor .source, .crime {
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 0.5em;
-  border: 1px solid $COLOR_TAG_BD;
-  line-height: 1em;
+ 
   > span {
     padding: 0.25em;
     display: inline-block;

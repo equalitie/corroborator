@@ -144,8 +144,14 @@ nav#search-navigation {
       background-color: $SELECTED_TAB_BG;
     }
   }
-  li.current {
-    border-bottom: 4px solid $SELECTED_TAB_BORDER;
+  li.current.is-incidents {
+    border-bottom: 4px solid $SELECTED_INCIDENT_BORDER;
+  }
+  li.current.is-actors {
+    border-bottom: 4px solid $SELECTED_ACTOR_BORDER;
+  }
+  li.current.is-bulletins {
+    border-bottom: 4px solid $SELECTED_BULLETIN_BORDER;
   }
 }
 

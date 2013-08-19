@@ -20,7 +20,7 @@
     }
   }
   .group.is-creator {
-    margin-top: $PAD_UNIT / 2;
+    margin-top: 1px;
     min-height: 4em;
   }
 }
@@ -39,6 +39,7 @@
     }
   &.last {
     //float: left;
+    margin-right: $PAD_UNIT;
     }
   }
 }
@@ -250,9 +251,6 @@
     }
   }
   > .body {
-    border: 1px solid $COLOR_TABLE_BD;
-    border-right: 2px solid $COLOR_TABLE_BD;
-    border-bottom: 2px solid $COLOR_TABLE_BD;
     position: absolute;
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;

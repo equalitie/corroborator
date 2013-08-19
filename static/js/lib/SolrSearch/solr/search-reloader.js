@@ -6,9 +6,9 @@
 
 define (
   [
-    'lib/streams', 'jquery'
+    'lib/streams', 'jquery', 'underscore'
   ],
-  function (Streams, $) {
+  function (Streams, $, _) {
     'use strict';
 
     var searchBus = Streams.searchBus, intervalId,
@@ -16,7 +16,7 @@ define (
         restartTimer, sendSearches, filterSearchUpdateRequest, 
         filterSearchStringRequest, listenForSearchStringRequest,
         triggerInitialSearch, sendSearchString, pollForUpdates, getApiUrl,
-        currentSearchObject;
+        currentSearchObject, previousUpdate;
 
     currentSearchObject = {
       content: {
@@ -91,10 +91,11 @@ define (
   
     pollForUpdates = function(searchObject) {
       var success = function(response) {
-        console.log(response);
-      };
-      var error = function() {
-        console.log('error', arguments);
+        var lastUpdate = _.last(response.objects);
+        if (!_.isEqual(previousUpdate, lastUpdate)) {
+          sendSearches(searchObject, false);
+          previousUpdate = lastUpdate;
+        }
       };
       $.ajax({
         url : getApiUrl(),

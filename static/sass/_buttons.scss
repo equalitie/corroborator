@@ -26,6 +26,7 @@
   $height: 3em,
   $text_color: black
 ) {
+  text-transform:uppercase;
   background-color: $background_color;
   color: $text_color;
   height: $height;
@@ -33,10 +34,16 @@
   border: none;
 
 }
+@mixin button_icon(
+){
+  &:after {
+    
+  }
+}
 
-@mixin create_button () {
+@mixin create_button ($bg_color:black) {
   @include button(
-    $background_color: #a6bb59,
+    $background_color: $bg_color,
     $text_color: #fff,
     $height: $ACTION_BAR_HEIGHT
   );
@@ -175,8 +182,14 @@
       //@include background-image(linear-gradient(top, #FAFAFA, #d4d4d4));
     }
   }
-  button.create {
-    @include create_button;
+  button.create.do-create-incident {
+    @include create_button($bg_color:$SELECTED_INCIDENT_BORDER);
+  }
+  button.create.do-create-actor {
+    @include create_button($bg_color:$SELECTED_ACTOR_BORDER);
+  }
+  button.create.do-create-bulletin {
+    @include create_button($bg_color:$SELECTED_BULLETIN_BORDER);
   }
 
   button.is-small,.button.is-small {

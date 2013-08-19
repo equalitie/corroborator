@@ -10,6 +10,8 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
+from django.contrib.auth.models import User
+
 from corroborator_app.models import SolrUpdate
 from corroborator_app.api.UserApi import UserResource
 

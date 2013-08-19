@@ -1,3 +1,4 @@
+// styling for the data entry forms
 .Application{ 
   input, textarea {
   font-family: Helvetica, Arial, sans-serif;
@@ -7,8 +8,8 @@
   @include box-sizing(border-box);
   }
 }
-
-
+// input borders
+$COLOR_INPUT_BD: #ddd2c7;
 
 input, textarea {
   border: 1px solid $COLOR_INPUT_BD;
@@ -64,4 +65,31 @@ input {
   &.show-message {
     display: block;
   }
+}
+
+@mixin form_panel($top_border:grey) {
+  border-top: 5px solid $top_border;
+  border-left:1px solid #b7b6b2;
+  border-right:1px solid #b7b6b2;
+}
+// BULLETIN FORM
+.bulletin-overlay {
+    @include form_panel($top_border:$SELECTED_BULLETIN_BORDER);
+    &+div {
+      @include form_panel($top_border:$SELECTED_BULLETIN_BORDER);
+    }
+}
+
+.incident-overlay {
+   @include form_panel($top_border:$SELECTED_INCIDENT_BORDER);
+    &+div {
+      @include form_panel($top_border:$SELECTED_INCIDENT_BORDER);
+    }
+}
+
+.actor-overlay {
+   @include form_panel($top_border:$SELECTED_ACTOR_BORDER);
+    &+div {
+      @include form_panel($top_border:$SELECTED_ACTOR_BORDER);
+    }
 }
