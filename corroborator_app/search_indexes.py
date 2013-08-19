@@ -32,16 +32,6 @@ class PredefinedSearchIndex(CelerySearchIndex, indexes.Indexable):
         """
         return '/api/v1/predefinedSearch/{0}/'.format(object.id) 
 
-class SolrUpdateIndex(CelerySearchIndex, indexes.Indexable):
-    """
-    This class manages the storage of the Solr Update models state
-    """
-    text = indexes.CharField(document=True)
-    update_timestamp = indexes.DateTimeField(model_attr='update_timestamp')
-    user = indexes.CharField(model_attr='user') 
-    def get_model(self):
-        return SolrUpdate
-
 class ActorIndex(CelerySearchIndex, indexes.Indexable):
     """
     This class manages the construction of the Actor Solr document.
