@@ -25,11 +25,6 @@ urlpatterns = patterns('',
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_actor'),
 )
 
-#jobs app
-urlpatterns += patterns(
-    '',
-    url("", include('django_socketio.urls')),
-)
 
 # API Resources
 from tastypie.api import Api
@@ -37,7 +32,8 @@ from corroborator_app.api import ActorResource, ActorRoleResource, \
 ActorRelationshipResource, CommentResource, CrimeCategoryResource, \
 IncidentResource, BulletinResource, LabelResource, MediaResource, \
 PredefinedSearchResource, SourceResource, SourceTypeResource, \
-LocationResource, StatusUpdateResource, TimeInfoResource, UserResource
+LocationResource, StatusUpdateResource, TimeInfoResource, UserResource, \
+SolrUpdateResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(ActorResource())
@@ -56,6 +52,7 @@ v1_api.register(LocationResource())
 v1_api.register(StatusUpdateResource())
 v1_api.register(TimeInfoResource())
 v1_api.register(UserResource())
+v1_api.register(SolrUpdateResource())
 
 urlpatterns += patterns('',
     (r'^api/', include(v1_api.urls)),
