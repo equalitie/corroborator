@@ -29,9 +29,11 @@ define(
                  value.entity === 'actor';
         },
         
+        // actor filters returned
         filterActorFilters = function(value) {
           return value.type === 'parse_filters_actor';
         },
+
         filterSelectedItemEvents = function(value) {
           return value.type === 'selected_item_actor';
         },
@@ -86,6 +88,7 @@ define(
     // by a view displaying it's contents
     var ActorFilterCollection = Backbone.Collection.extend({
       selectedFilters: undefined,
+      filterGroupCollections: [],
       entityType: 'actor',
       allFilters: new Backbone.Collection(),
 
@@ -137,16 +140,20 @@ define(
         this.watchForFilterSelect();
         this.watchForFilterReset();
         this.watchForFilterRequest();
+        this.watchForFilterEmptyRequest();
       },
 
       watchForFilterSelect: function() {
         searchBus.filter(filterActorFilterEvents)
                  .onValue(function (value) {
-                   console.log(value.content.filter);
                    this.add(value.content.filter);
                  }.bind(this));
       },
 
+
+
+      // a new text search has been run, remove all filters which no longer
+      // are relevant
       watchForFilterReset: function() {
         var self = this;
         // this receives the new models from the

@@ -10,16 +10,16 @@
 define(
   [
     // vendor
-    'jquery', 'underscore', 'backbone',
-    'bacon',
-    //
+    'jquery', 'underscore', 'backbone', 'bacon',
+    // event streams
     'lib/streams',
     // local libs
-    'lib/elements/combo'
+    'lib/elements/combo',
+    'lib/Data/collections'
   ],
-  function ($, _, Backbone, Bacon, Streams, Combo) {
+  function ($, _, Backbone, Bacon, Streams, Combo, Collections) {
     'use strict';
-    var Collection = Backbone.Collection.extend();
+    var Collection = Collections.SavedSearchCollection;
     var localBus = new Bacon.Bus(),
         searchBus = Streams.searchBus;
 
@@ -32,9 +32,7 @@ define(
     };
     var isSavedSearch = function(value) {
       var model = value.content;
-      return model.get('type') === 'actor' ||
-             model.get('type') === 'incident' ||
-             model.get('type') === 'bulletin';
+      return model.get('type') === 'predefined_search';
     };
 
     var isSaveSearchRequest = function(value) {
@@ -45,7 +43,7 @@ define(
     var dispatchSavedSearch = function (value) {
       var model = value.content;
       Streams.searchBus.push({
-        type: 'saved_search',
+        type: 'predefined_search',
         content: model
       });
     };
@@ -95,7 +93,7 @@ define(
      * we add the save search item in here
      */
     var createFullCollection = function() {
-      var fullCollection = new Collection(Bootstrap.predefinedSearchList);
+      var fullCollection = Collection.reset(Bootstrap.predefinedSearchList);
       var item = {
         name_en: 'Save current search...',
         search_request: 'save_search',
@@ -115,47 +113,12 @@ define(
 
       // init the view setting the default item if provided
       initialize: function(options) {
-        this.fullCollection = createFullCollection();
-        this.collection = this.fullCollection.clone();
+        this.collection = createFullCollection();
+        //this.collection = this.fullCollection.clone();
         options.bus = localBus;
         Combo.View.prototype.initialize.call(this, options);
-        this.handleNavigation();
-        this.handleAddSearch();
-      },
-
-       // register a handler for navigation events
-      handleNavigation: function() {
-        Streams.navBus.toProperty()
-            .onValue(this.updateCollection, this);
-      },
-
-       // this function is called in response to a navigate event being pushed
-      updateCollection: function(context, value) {
-        var self = context,
-            models,
-            filterFunction;
-
-        filterFunction = function (model) {
-          var type = model.get('type');
-          return type === value || type === 'default';
-        };
-
-        models = self.fullCollection.filter(filterFunction);
-        self.collection.reset(models);
-      },
-
-      // filter search events of type new_search  
-      // this adds new searches to the combo box  
-      // TODO - handle saving the search  
-      handleAddSearch: function() {
-        var self = this;
-        Streams.searchBus.toEventStream().toProperty()
-          .filter(isSearch)
-          .onValue(function(value) {
-            self.fullCollection.add(value.search, { at: self.fullCollection.length - 1 });
-            self.collection.add(value.search, { at: self.collection.length - 1 });
-        });
       }
+
 
     });
 

@@ -25,7 +25,7 @@ define(
         },
         filterGroupUpdated = function(value) {
           return value.type === 'filter_group_updated' &&
-                 value.entity === 'bulletin';
+                 value.entity === 'incident';
         },
         filterTitles = {
           'incident_assigned_exact': 'Assigned To',
@@ -55,6 +55,7 @@ define(
     var IncidentFilterCollection = Backbone.Collection.extend({
       entityType: 'incident',
       allFilters: new Backbone.Collection(),
+      filterGroupCollections: [],
       initialize: function() {
         this.watchSearchStream();
         this.on('reset', this.sendResetEvent, this);
@@ -88,6 +89,7 @@ define(
         this.watchForFilterSelect();
         this.watchForFilterReset();
         this.watchForFilterRequest();
+        this.watchForFilterEmptyRequest();
       },
 
       // watch for a filter being clicked on
@@ -99,6 +101,10 @@ define(
                  });
       },
 
+      // called after the text search fires, this checks all the selected
+      // filters and updates the totals associated with them(in case they are 
+      // removed and displayed normally again) it then sends the filter
+      // off to the filter widget to be reapplied
       watchForFilterReset: function() {
         var self = this;
         searchBus.filter(filterGroupUpdated)
