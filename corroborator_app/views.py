@@ -560,7 +560,7 @@ def lookup_actor(request, actor_id, mode):
             RequestContext(request)
         )
 
-    elif mode == 'multisave'
+    elif mode == 'multisave':
         if request.method == "POST" and request.is_ajax():
             element_data = json.loads(request.raw_post_data)
             multi_save_actors(element_data)
