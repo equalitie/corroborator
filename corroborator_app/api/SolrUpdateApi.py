@@ -1,7 +1,7 @@
 """
-Author: Cormac McGuire
-Date: 29-05-2013
-Create api for PredefinedSearch model, requires apikey auth
+Author: Bill Doran
+Date: 15-08-2013
+Create api for solr update model, requires apikey auth
 tests in tests/api/tests.py
 """
 
@@ -10,19 +10,22 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
+from corroborator_app.models import SolrUpdate
 from corroborator_app.api.UserApi import UserResource
-from corroborator_app.models import PredefinedSearch
 
-__all__ = ('PredefinedSearchResource', )
+__all__ = ('SolrUpdateResource',)
 
-class PredefinedSearchResource(ModelResource):
+class SolrUpdateResource(ModelResource):
+
+    user = fields.ForeignKey(UserResource, 'user')
     """
     tastypie api implementation
     """
-     user = fields.ForeignKey(UserResource, 'user', null=True)
     class Meta:
-        queryset = PredefinedSearch.objects.all()
-        resource_name = 'predefinedSearch'
+        queryset = SolrUpdate.objects.all()
+        resource_name = 'solrUpdate'
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+
+

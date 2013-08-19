@@ -28,9 +28,14 @@ class PredefinedSearch(models.Model):
     """
     name_en = models.CharField(max_length=255)
     name_ar = models.CharField(max_length=255)
-    search_request = models.TextField(blank=True, null=True)
+    search_request = models.TextField(blank=True,null=True)
     user = models.ForeignKey(User, null=True, blank=True)
-    search_type = models.CharField(max_length=255)
+    search_type = models.TextField(null=True, blank=True)
+    search_title = models.TextField(null=True, blank=True)
+    search_string = models.TextField(null=True, blank=True)
+    actor_filters = models.TextField(null=True, blank=True)
+    incident_filters = models.TextField(null=True, blank=True)
+    bulletin_filters = models.TextField(null=True, blank=True)
 
 
 class StatusUpdate(models.Model):

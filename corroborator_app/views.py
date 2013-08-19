@@ -18,7 +18,7 @@ from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
 from django.utils import simplejson as json
 from django.db.models import Count
 from tastypie.models import ApiKey
-
+from corroborator_app.multisave import multi_save_actors, multisave_entities
 def login_user(request):
     state = "Please log in below..."
     username = password = ''
@@ -465,75 +465,6 @@ def save_element(element_data, element_id, mode):
 
     b.save()
     return b
-
-def multi_save_entities(element_data, mode):
-    list_entities = []
-    statusid = ''
-    comment_ids = []
-    actor_role_ids = []
-    cscore = 0
-    userid = ''
-    if len(element_data['confidence_scores']) > 0:
-        cscore = int(element_data['confidence_scores'][0]['confidence_score']) if element_data['confidence_scores'][0]['confidence_score'] != '' else 0
-    if len(element_data['users']) > 0:
-        userid = element_data['users'][0]['user'] if element_data['users'][0]['user'] != '' else None
-
-    if len(element_data['statuses']) > 0:
-        statusid = int(element_data['statuses'][0]['status']) if element_data['statuses'][0]['status'] != '' else None
-    if mode == 'incident':
-        list_entities = incident.objects.filter(id__in=element_data['incidents'])
-    elif mode == 'bulletin':
-        list_entities = bulletin.objects.filter(id__in=element_data['bulletins'])
-    else:
-        list_entities = actor.objects.filter(id__in=element_data['actors'])
-
-    for item in list_entities:
-        if mode == 'bulletin' or mode == 'incident':
-            item.confidence_score=cscore
-            item.status_id=statusid
-            item.assigned_user_id = userid
-            if len(element_data['new_comments']) > 0:
-                for comment_e in element_data['new_comments']:
-                    created_date = datetime.datetime.strptime(comment_e['comment_created'], '%Y-%m-%dT%H:%M:%S.%fZ')
-                    comment_local = comment(comments_en=comment_e['comments_en'], assigned_user_id=comment_e['assigned_user'], status_id=comment_e['status_id'], comment_created=created_date)
-                    comment_local.save()
-                    comment_ids.append(comment_local.id)
-            if len(comment_ids) > 0:
-                if mode == 'incident':
-                    item.incident_comments.add(*comment_ids)
-                else:
-                    item.bulletin_comments.add(*comment_ids)
-            if len(element_data['labels']) > 0:
-                labeling_ids = map(int, element_data['labels'])
-                item.labels.add(*labeling_ids)
-            for a in element_data['actors']:
-                actor_local = actor.objects.get(pk=int(a['id']))
-                role_local = role(role_status=a['status_en'], actor_id=int(a['id']))
-                role_local.save()
-                actor_role_ids.append(role_local.id)
-            if len(actor_role_ids) > 0:
-                item.actors_role.add(*actor_role_ids)
-            if mode == 'incident':
-                if len(element_data['crimes']) > 0:
-                    crime_ids = map(int, element_data['crimes'])
-                    item.crimes.add(*crime_ids)
-                if len( element_data['relate_incidents']) > 0:
-                    incident_ids = map(int, element_data['relate_incidents'])
-                    item.ref_incidents.add(*incident_ids)
-                if len( element_data['relate_bulletins']) > 0:
-                    bulletin_ids = map(int, element_data['relate_bulletins'])
-                    item.bulletins.add(*bulletin_ids)
-
-            else:
-                if len(element_data['sources']) > 0:
-                    source_ids = map(int, element_data['sources'])
-                    item.sources.add(*source_ids)
-                if len( element_data['relate_bulletins']) > 0:
-                    bulletin_ids = map(int, element_data['relate_bulletins'])
-                    item.ref_bulletins.add(*bulletin_ids)
-            item.save()
-
-
 def lookup_incident(request, incident_id, mode):
     username = request.user.username
     userid = request.user.id
@@ -629,41 +560,13 @@ def lookup_actor(request, actor_id, mode):
             RequestContext(request)
         )
 
-    elif mode == 'multisave':
-        actorData = json.loads(request.raw_post_data)
-        list_actors = Actor.objects.filter(id__in=actorData['update_actors'])
-        for item in list_actors:
-            item.sex_en = actorData['sex_en']
-            item.age_en = actorData['age_en']
-            item.position_en = actorData['position_en']
-            item.occupation_en = actorData['occupation_en']
-            item.ethnicity_en = actorData['ethnicity_en']
-            item.nationality_en = actorData['nationality_en']
-            item.spoken_dialect_en = actorData['spoken_dialect_en']
-            item.religion_en = actorData['religion_en']
-            item.civilian_en = actorData['civilian_en']
-            item.sex_ar = ''
-            item.age_ar = ''
-            item.ethnicity_ar = ''
-            item.religion_ar = ''
-            item.spoken_dialect_ar = ''
-            item.civilian_ar = ''
-            item.position_ar = ''
-            item.occupation_ar = ''
-            item.nationality_ar = ''
-            item.save()
-        actor_relations = []
-        for a in actorData['relate_actors']:
-            relation_local = ActorRelationship(
-                relation_status=a['status_en'],
-                actor_a_id=actor_result.id,
-                actor_b_id=int(a['id'])
-            )
-            relation_local.save()
-
+    elif mode == 'multisave'
+        if request.method == "POST" and request.is_ajax():
+            element_data = json.loads(request.raw_post_data)
+            multi_save_actors(element_data)
         return render_to_response(
-            'actor_new.html',
-            {'success': 'Actors saved successfully'},
+            'incident_multi_save_result.html',
+            {'incident_result': 'success'},
             RequestContext(request)
         )
     elif mode == 'save':
