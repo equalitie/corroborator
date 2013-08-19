@@ -82,7 +82,6 @@ define (
         'scroll': 'handleScroll'
       },
       initialize: function() {
-        console.log(this.$el);
         this.collection = Collections.BulletinCollection;
         this.listenTo(this.collection, 'add', this.renderItem.bind(this));
         this.listenTo(this.collection, 'sort', this.sortRequested.bind(this));
