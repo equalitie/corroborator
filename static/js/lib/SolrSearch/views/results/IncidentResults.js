@@ -25,7 +25,8 @@ define (
       initialize: function(options) {
         this.addi18n();
         this.index = options.index;
-        this.listenTo(this.model, 'change, sync', this.render.bind(this));
+        this.listenTo(this.model, 'change', this.updateView.bind(this));
+        this.listenTo(this.model, 'sync', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
       },
@@ -36,6 +37,17 @@ define (
         var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';
         this.model.set({checked: checked}, {silent: true});
         this.model.collection.trigger('change');
+      },
+
+      updateView: function(model) {
+        if (_.isEqual(model.changed ,{checked: 'checked'})) {
+          this.$el.children('.is-selector')
+                  .children('input[type=checkbox]')
+                  .attr('checked', 'checked');
+        }
+        else {
+          this.render();
+        }
       },
 
       // render the incident

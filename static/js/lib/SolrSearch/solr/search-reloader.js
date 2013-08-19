@@ -1,4 +1,4 @@
-/*global define, window*/
+/*global define, window, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // Listen for a search request and pass it on, start a timer that fires the
@@ -6,17 +6,17 @@
 
 define (
   [
-    'lib/streams', 'socketio'
+    'lib/streams', 'jquery', 'underscore'
   ],
-  function (Streams, io) {
+  function (Streams, $, _) {
     'use strict';
 
     var searchBus = Streams.searchBus, intervalId,
         init, listenForSearchEvents, updateSearchValue, mapToSearchObject,
         restartTimer, sendSearches, filterSearchUpdateRequest, 
         filterSearchStringRequest, listenForSearchStringRequest,
-        triggerInitialSearch, createSocket, sendSearchString,
-        currentSearchObject;
+        triggerInitialSearch, sendSearchString, pollForUpdates, getApiUrl,
+        currentSearchObject, previousUpdate;
 
     currentSearchObject = {
       content: {
@@ -33,7 +33,6 @@ define (
           encoded: ''
         }
       });
-      //createSocket();
     };
 
     // filter search text updates
@@ -69,17 +68,6 @@ define (
       });
     };
 
-    createSocket = function() {
-      var socket = new io.Socket();
-      socket.connect('http://localhost:8080');
-      socket.on('connect', function() {
-        //socket.subscribe('corroborator_solr_update');
-      });
-      socket.on('message', function() {
-      });
-    };
- 
- 
     // map stream content to search object
     mapToSearchObject = function(value) {
       return {
@@ -93,7 +81,28 @@ define (
       sendSearches(searchObject, true);
       currentSearchObject = searchObject;
     };
+
+    getApiUrl = function() {
+      var url = '/api/v1/solrUpdate/';
+      var urlvars = "?format=json&username=" +
+      Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
+      return url + urlvars;
+    };
   
+    pollForUpdates = function(searchObject) {
+      var success = function(response) {
+        var lastUpdate = _.last(response.objects);
+        if (!_.isEqual(previousUpdate, lastUpdate)) {
+          sendSearches(searchObject, false);
+          previousUpdate = lastUpdate;
+        }
+      };
+      $.ajax({
+        url : getApiUrl(),
+        success: success
+      });
+    };
+
     // send the search object - check for restart
     sendSearches = function(searchObject, isRestartRequired) {
       var search_type = 'update_current_results';
@@ -109,8 +118,8 @@ define (
  
     // restart the timer that periodically resends the search
     restartTimer = function(searchObject) {
-      //window.clearInterval(intervalId);
-      //intervalId = window.setInterval(sendSearches, 5000, searchObject, false);
+      window.clearInterval(intervalId);
+      intervalId = window.setInterval(pollForUpdates, 5000, searchObject, false);
       return 'new_search';
     };
  

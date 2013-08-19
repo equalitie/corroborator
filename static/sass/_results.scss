@@ -1,0 +1,121 @@
+
+// ===========================================================================
+// RESULTS STYLING
+// ===========================================================================
+
+// wrapper for table
+.results-body {
+  bottom: 0em;
+  overflow: auto;
+  right: $PAD_UNIT;
+  left: $PAD_UNIT;
+  position: absolute;
+  top: 88px;
+}
+.results-body  .padding {
+    padding-left: $PAD_UNIT;
+}
+
+//all tables
+
+table.bulletins,table.incidents,table.actors {
+  width: 100%;
+  .is-preview {
+    min-width: 2.5em;
+  }
+  .is-status {
+    width: 4em;
+  }
+  .is-score {
+    width: 3.5em;
+  }
+  tbody {
+    td: {
+      border-color: $RESULT_LIST_BORDER;
+    }
+    tr:first-child, tr.first {
+      td {
+        border-top: 0px solid transparent;
+      }
+    }
+    tr:last-child, tr.last {
+      td {
+        border-bottom: 0px solid transparent;
+      }
+    }
+  }
+}
+
+span.status {
+  display: inline-block;
+  padding: 0.25em;
+  background-color: $HEADER_SELECTED_COLOR;
+  color: #fff;
+  @include open_sans_semi_bold;
+  text-transform: uppercase;
+  > span {
+    font-size: 70%;
+  }
+}
+
+.Bulletin.in-table,.Incident.in-table {
+  td {
+    border-top: 1px solid $RESULT_LIST_BORDER;
+    border-bottom: 1px solid $RESULT_LIST_BORDER;
+    background-color: #f5f0ec;
+    color: #646362;
+    padding: 0.5em;
+  }
+  td.is-selector {
+    vertical-align: middle;
+    text-align: center;
+    width: 1.5em;
+    border-left: 1px solid $RESULT_LIST_BORDER;
+  }
+  td.is-preview {
+    background-color: $COLOR_MEDIA_BG;
+  }
+  td.is-description {
+    a {
+      &, &:active, &:visited, &:hover {
+        text-decoration: none;
+      }
+    }
+    > a:after {
+      content: "";
+      clear: both;
+      display: block;
+    }
+    .title {
+      line-height: 1.25em;
+      font-weight: bold;
+    }
+    .details {
+      float: left;
+      font-size: 90%;
+    }
+    .meta {
+      float: right;
+      font-size: 90%;
+    }
+  }
+  td.is-status {
+    vertical-align: middle;
+    text-align: center;
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  td.is-score {
+    vertical-align: middle;
+    text-align: center;
+    border-left: 1px solid $RESULT_LIST_BORDER;
+    border-right: 1px solid $RESULT_LIST_BORDER;
+    .value {
+      font-size: 180%;
+      font-weight: bold;
+    }
+  }
+  &:hover td {
+    background-color: $COLOR_SELECTABLE_HOVER;
+  }
+}

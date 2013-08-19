@@ -1,3 +1,8 @@
+body {
+  background-color: #e1e0db;
+}
+
+
 .Application {
   .editable {
     .when-edit {
@@ -59,17 +64,7 @@
       font-size: 90%;
     }
   }
-  .filter {
-    label {
-      text-transform: uppercase;
-      font-weight: bold;
-      font-size: 90%;
-    }
-    margin-bottom: $PAD_UNIT / 2;
-    &:last-child {
-      margin-bottom: 0em;
-    }
-  }
+  
   .filter.is-map {
     .field {
       position: relative;
@@ -185,17 +180,6 @@ ul.elements {
   }
 }
 
-.status {
-  display: inline-block;
-  border-radius: 0.25em;
-  padding: 0.25em;
-  border: 1px solid $COLOR_TAG_BD;
-  background-color: $COLOR_TAG_BG;
-  text-transform: uppercase;
-  > span {
-    font-size: 70%;
-  }
-}
 
 .score {
   display: inline-block;
@@ -448,11 +432,7 @@ ul.media {
 }
 
 .tag, .sources.editor .source, .crime {
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 0.5em;
-  border: 1px solid $COLOR_TAG_BD;
-  line-height: 1em;
+ 
   > span {
     padding: 0.25em;
     display: inline-block;
@@ -1046,66 +1026,6 @@ ul.media {
   }
 }
 
-table.bulletins,table.incidents,table.actors {
-  width: 100%;
-  border-collapse: collapse;
-  .is-preview {
-    min-width: 2.5em;
-  }
-  .is-status {
-    width: 4em;
-  }
-  .is-score {
-    width: 3.5em;
-  }
-  thead {
-    th {
-      padding-top: 1.25em;
-      padding-bottom: 0.25em;
-      border-bottom: 1px solid $COLOR_TABLE_BD;
-    }
-    th.is-status {
-      text-align: center;
-    }
-    a {
-      font-size: 90%;
-      &, &:active, &:visited, &:hover {
-        color: $COLOR_TXT;
-        text-decoration: none;
-      }
-      &:hover {
-        text-decoration: underline;
-      }
-      text-transform: uppercase;
-      font-weight: normal;
-      margin-left: 1em;
-      &:first-child {
-        margin-left: 0em;
-      }
-      &.current {
-        font-weight: bold;
-      }
-      &.is-descending:after {
-        content:"\2193";
-        font-family: IconicFill;
-        font-size: 80%;
-        padding-left: 0.25em;
-      }
-    }
-  }
-  tbody {
-    tr:first-child, tr.first {
-      td {
-        border-top: 0px solid transparent;
-      }
-    }
-    tr:last-child, tr.last {
-      td {
-        border-bottom: 0px solid transparent;
-      }
-    }
-  }
-}
 
 .when-empty {
   display: none;

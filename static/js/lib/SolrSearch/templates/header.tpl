@@ -9,7 +9,7 @@
   </div>
 </div>
 
-<table class="incidents">
+<table class="sort-headers">
   <thead>
     <tr class="filters">
       <th class="is-selector">&nbsp;</th>

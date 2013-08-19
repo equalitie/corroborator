@@ -11,10 +11,6 @@
   }
 }
 
-nav {
-  border-bottom: 1px solid #a0a0a0;
-}
-
 .do-search {
 }
 .incidents-list, .bulletins-list, .actors-list{
@@ -46,17 +42,6 @@ nav {
   top: 0em;
 }
 
-.results-body {
-  bottom: 0em;
-  overflow: auto;
-  right: $PAD_UNIT;
-  left: $PAD_UNIT;
-  position: absolute;
-  top: 85px;
-}
-.results-body  .padding {
-    padding-left: $PAD_UNIT;
-  }
 
 
 // LAST COLUMN
@@ -82,10 +67,6 @@ nav {
   overflow: auto;
   bottom: 0em;
   position: absolute;
-}
-
-.right-filters .body .padding{
-  margin-right: 2* $PAD_UNIT;
 }
 
 .is-filters.filters {
