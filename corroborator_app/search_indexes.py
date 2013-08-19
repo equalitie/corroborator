@@ -11,7 +11,7 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
 
-class PredefinedSearchIndex(CelerySearchIndex, index.Indexable):
+class PredefinedSearchIndex(CelerySearchIndex, indexes.Indexable):
     """
     """
     text = indexes.CharField(document=True)
