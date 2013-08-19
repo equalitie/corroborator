@@ -57,6 +57,7 @@ define(
     // This collection stores the filters related to bulletins
     var BulletinFilterCollection = Backbone.Collection.extend({
       entityType: 'bulletin',
+      filterGroupCollections: [],
       allFilters: new Backbone.Collection(),
       initialize: function() {
         this.watchSearchStream();

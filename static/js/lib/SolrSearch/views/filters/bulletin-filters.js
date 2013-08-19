@@ -27,6 +27,7 @@ define(
     // display a list of filters for bulletins
     BulletinFilterView = Backbone.View.extend({
       el: '.right-filters',
+      filterGroupViews: [],
       events: {
         'click button.do-create-bulletin': 'createBulletinPressed'
       },
@@ -35,7 +36,7 @@ define(
         this.render();
         this.collection = FilterCollection.BulletinFilterCollection;
         this.renderExistingCollection();
-        this.collection.on('reset', this.renderFilterGroups, this);
+        this.listenTo(this.collection, 'reset', this.renderFilterGroups.bind(this));
         this.createSelectedFiltersGroup();
         this.createDateRangeWidget();
       },

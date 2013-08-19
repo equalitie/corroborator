@@ -16,7 +16,6 @@ define (
     var FilterGroupView = FilterElements.FilterGroupView,
         FilterViewMixin = {
           
-          filterGroupViews: [],
         
           // unset event handlers and destroy DOM elements
           destroy: function() {
@@ -24,16 +23,14 @@ define (
             this.selectedFiltersView.destroy();
             this.selectedFiltersView = undefined;
             this.undelegateEvents();
-            this.collection.off('reset', this.renderFilterGroups);
+            this.stopListening();
             this.$el.empty();
             this.$el.unbind();
           },
           
           // destroy the subviews
           destroyFilterGroupViews: function() {
-            _.each(this.filterGroupViews, function(view) {
-              view.destroy();
-            });
+            _.invoke(this.filterGroupViews, 'destroy');
             this.filterGroupViews = [];
           },
 
