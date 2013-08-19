@@ -27,7 +27,14 @@ define (
         extractContent = function(value) {
           return value.content;
         },
-        searchBus = Streams.searchBus;
+        searchBus = Streams.searchBus,
+
+        createFilterDirectLoadRequest = function(entityType) {
+          return function(value) {
+            return value.type === 'filter_event_collection_load_' + entityType;
+          };
+        };
+
 
     // ### FilterGroupCollection
     // Collection to store the groups of filters associated with
@@ -37,7 +44,7 @@ define (
       groupKey: '',
       subscribers: [],
       // constructor
-      initialize: function() {
+      initialize: function(options) {
         this.watchSearchStream();
         this.watchSelectedItemUpdate();
         this.watchForPredefinedSearch();
@@ -54,6 +61,37 @@ define (
                    self.add(value.content);
                  });
       },
+
+
+      createFilterNameFilter: function(filterName) {
+        return function(model) {
+          return model.get('filterName') === filterName;
+        };
+      },
+
+      watchForFilterLoadRequest: function(entityType) {
+        this.entityType = entityType;
+        var loadFilter = createFilterDirectLoadRequest(entityType);
+        searchBus.toEventStream()
+                 .filter(loadFilter)
+                 .onValue(this.findAndLoadFilter.bind(this));
+      },
+
+      findAndLoadFilter: function(value) {
+        var nameFilter = this.createFilterNameFilter(value.content.get('filterName'));
+        var model = this.chain()
+                         .filter(nameFilter)
+                         .last()
+                         .value();
+        this.remove(model);
+        searchBus.push({
+          type: 'filter_event_' + this.entityType,
+          content: {
+            filter: model
+          }
+        });
+      },
+
       watchForPredefinedSearch: function() {
         var subscriber =
         searchBus.filter(filterPredefinedSearch)
@@ -77,7 +115,7 @@ define (
           selectedFilterModel = evt.value();
           filterName = selectedFilterModel.get('filterName');
           filterKey  = selectedFilterModel.get('key');
-          this.removeFilter(filterKey, filterName);
+          this.removeSelectedFilter(filterKey, filterName);
       },
 
       removeSelectedFilter: function(filterKey, filterName) {

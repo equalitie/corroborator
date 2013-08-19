@@ -18,8 +18,22 @@ define(
         SelectedFiltersView,
         FilterView,
         searchBus = Streams.searchBus,
-        filterResetRequest;
+        filterResetRequest,
+        createFilterLoadContentFunction,
+        createFilterLoadFunction;
 
+    createFilterLoadContentFunction = function(filterName, key) {
+      return function (value) {
+        return value.content.get('filterName') === filterName
+        &&     value.content.get('key')        === key;
+      };
+    };
+
+    createFilterLoadFunction = function(entityType) {
+      return function (value) {
+        return value.type === 'filter_event_unload_' + entityType;
+      };
+    };
     // ### FilterGroupView
     // Render a group of filters
     FilterGroupView = Backbone.View.extend({
@@ -31,7 +45,7 @@ define(
       // constructor
       initialize: function() {
         this.collection = this.model.get('collection');
-        this.listenTo(this.collection, 'add remove', this.render.bind(this));
+        this.listenTo(this.collection, 'add', this.renderFilter.bind(this));
         this.render();
       },
 
@@ -54,7 +68,7 @@ define(
 
       // iterate over the filters with a render function
       renderFilters: function() {
-        this.filtersViews = this.collection.map(this.renderFilter, this);
+        this.filterViews = this.collection.map(this.renderFilter, this);
       },
 
       // render a single filter
@@ -78,27 +92,48 @@ define(
         'click .text': 'filterRequested'
       },
       initialize: function() {
-        this.uniqueId = _.uniqueId();
         this.render();
+        this.typeFilterFunction =
+          createFilterLoadFunction(this.model.get('type'));
+        this.contentFilter = createFilterLoadContentFunction(
+          this.model.get('filterName'),
+          this.model.get('key')
+        );
+        this.listenForExternalRequests();
       },
+
+
+      listenForExternalRequests: function() {
+        this.subscriber = 
+          searchBus.toEventStream()
+                   .filter(this.typeFilterFunction)
+                   .filter(this.contentFilter)
+                   .subscribe(this.externalFilterRequested.bind(this));
+      },
+
+      externalFilterRequested: function() {
+        this.destroy();
+      },
+
+      onDestroy: function() {
+        this.subscriber();
+      },
+
       // the user has clicked on the filter  
       // send the filter name and key to the event stream
       filterRequested: function(e) {
-        var filter =  $(e.currentTarget).children()
-                                        .data('filter');
-        var field =  $(e.currentTarget).children()
-                                        .data('key');
         searchBus.push({
           type: 'filter_event_' + this.model.get('type'),
           content: {
             filter: this.model
           }
         });
-        this.destroy();
         this.collection.remove(this.model);
+        this.destroy();
       },
+
+      // render the filter
       render: function() {
-        //console.log(this.model.toJSON());
         var html = singleFilterTmp({model: this.model.toJSON()});
         this.$el.empty()
                 .append(html);

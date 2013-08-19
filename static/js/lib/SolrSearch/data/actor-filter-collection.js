@@ -29,9 +29,11 @@ define(
                  value.entity === 'actor';
         },
         
+        // actor filters returned
         filterActorFilters = function(value) {
           return value.type === 'parse_filters_actor';
         },
+
         filterSelectedItemEvents = function(value) {
           return value.type === 'selected_item_actor';
         },
@@ -86,6 +88,7 @@ define(
     // by a view displaying it's contents
     var ActorFilterCollection = Backbone.Collection.extend({
       selectedFilters: undefined,
+      filterGroupCollections: [],
       entityType: 'actor',
       allFilters: new Backbone.Collection(),
 
@@ -143,7 +146,6 @@ define(
       watchForFilterSelect: function() {
         searchBus.filter(filterActorFilterEvents)
                  .onValue(function (value) {
-                   console.log(value.content.filter);
                    this.add(value.content.filter);
                  }.bind(this));
       },

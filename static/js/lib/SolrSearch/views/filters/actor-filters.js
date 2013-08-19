@@ -34,6 +34,7 @@ define(
     // display a list of filters for actors
     ActorFilterView = Backbone.View.extend({
       el: '.right-filters',
+      filterGroupViews: [],
       events : {
         'click button.do-create-actor': 'createActorPressed'
       },
@@ -44,7 +45,7 @@ define(
         this.render();
         this.collection = ActorFilterCollection;
         this.renderExistingCollection();
-        this.collection.on('reset', this.renderFilterGroups, this);
+        this.listenTo(this.collection, 'reset', this.renderFilterGroups.bind(this));
         this.createSelectedFiltersGroup();
         this.createDateRangeWidget();
       },

@@ -27,6 +27,7 @@ define(
     // display a list of filters for incidents
     IncidentFilterView = Backbone.View.extend({
       el: '.right-filters',
+      filterGroupViews: [],
       events: {
         'click button.do-create-incident': 'createIncidentPressed'
       },
@@ -36,7 +37,7 @@ define(
         this.render();
         this.collection = IncidentFilterCollection;
         this.renderExistingCollection();
-        this.collection.on('reset', this.renderFilterGroups, this);
+        this.listenTo(this.collection, 'reset', this.renderFilterGroups.bind(this));
         this.createSelectedFiltersGroup();
         this.createDateRangeWidget();
       },
