@@ -19,7 +19,7 @@ class PredefinedSearchResource(ModelResource):
     """
     tastypie api implementation
     """
-     user = fields.ForeignKey(UserResource, 'user', null=True)
+    user = fields.ForeignKey(UserResource, 'user', null=True)
     class Meta:
         queryset = PredefinedSearch.objects.all()
         resource_name = 'predefinedSearch'
