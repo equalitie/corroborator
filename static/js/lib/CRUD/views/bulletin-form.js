@@ -18,8 +18,7 @@ define (
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
     // templates/search-templates
-    'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl',
-    'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl'
+    'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,
     ActorSearchView, BulletinSearchView, MediaSearchView,
@@ -27,7 +26,7 @@ define (
     Source, Label, Location,
     // views
     CommentForm, EventForm,
-    bulletinFormTmp, expandedBulletinFormTmp) {
+    bulletinFormTmp) {
 
     var BulletinFormView,
         crudBus              = Streams.crudBus,
@@ -151,28 +150,42 @@ define (
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here 
         this.expanded = ! options.expanded;
-      },
-
-      // set the template for the form
-      setTemplate: function() {
-        this.template = this.expanded ? bulletinFormTmp: expandedBulletinFormTmp;
+        this.displayForm = this.displayFormFunction();
       },
 
       // toggle the expanded switch and render the form
       toggleExpanded: function() {
+        this.displayForm();
+        var $body = this.$el.children('.body')
+                            .children('.Bulletin');
+
         if (this.expanded === true) {
           this.$el.removeClass('is-expanded');
-          this.setTemplate();
+          $body.children('.first')
+               .removeClass('span-66p');
+          $body.children('.last')
+               .removeClass('span-33p');
+          $body.removeClass('is-expanded');
           this.expanded = false;
         }
         else {
           this.$el.addClass('is-expanded');
-          this.setTemplate();
+          $body.children('.first')
+               .addClass('span-66p');
+          $body.children('.last')
+               .addClass('span-33p');
+          $body.addClass('is-expanded');
           this.expanded = true;
         }
-        this.render()
-            .renderChildren()
-            .enableWidgets();
+      },
+
+      // return a function that creates the form only once
+      displayFormFunction: function() {
+        return _.once(function() {
+          this.render()
+              .renderChildren()
+              .enableWidgets();
+        });
       },
 
       // remove DOM elements and cancel event handlers

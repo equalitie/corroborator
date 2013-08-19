@@ -2847,6 +2847,13 @@ nav {
   background-color: #f0f0f0;
 }
 
+/* line 123, ../sass/_hacks.scss */
+.is-preview .body .span-66p {
+  width: 100%;
+  margin-right: 1.53846em;
+  float: none;
+}
+
 /* line 1, ../sass/_buttons.scss */
 button, .button {
   display: inline-block;
