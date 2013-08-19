@@ -133,6 +133,13 @@ define (
                   .children('.first')
                   .addClass('span-66p');
         }
+        this.sendResizeEvent();
+      },
+
+      sendResizeEvent: function() {
+        _.each(this.childViews, function(view) {
+          view.trigger('resize');
+        });
       },
 
       // return a function that creates the form only once

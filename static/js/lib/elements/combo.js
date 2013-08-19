@@ -141,6 +141,7 @@ define(
       setElement: function(el) {
         this.$el = $(el);
       },
+      trigger: function() {},
       setInput: function() {
         this.input = $('input[name='+ this.$el.attr('id') + ']'); 
       },

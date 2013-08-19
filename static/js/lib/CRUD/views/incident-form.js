@@ -167,6 +167,13 @@ define (
           $body.addClass('is-expanded');
           this.expanded = true;
         }
+        this.sendResizeEvent();
+      },
+
+      sendResizeEvent: function() {
+        _.each(this.childViews, function(view) {
+          view.trigger('resize');
+        });
       },
 
       // return a function that creates the form only once
