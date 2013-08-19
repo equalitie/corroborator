@@ -21,6 +21,7 @@ from corroborator_app.api.SourceApi import SourceResource
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.SourceTypeApi import SourceTypeResource
 from corroborator_app.api.StatusUpdateApi import StatusUpdateResource
+from corroborator_app.api.SolrUpdateApi import SolrUpdateResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
 
 models.signals.post_save.connect(create_api_key, sender=User)
