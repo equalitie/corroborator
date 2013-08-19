@@ -1,17 +1,46 @@
+@include font-face(
+  "IconicFill", 
+  font-files(
+    "fonts/iconic-fill/iconic_fill.ttf",
+    "fonts/iconic-fill/iconic_fill.eot",
+    "fonts/iconic-fill/iconic_fill.woff",
+    "fonts/iconic-fill/iconic_fill.otf"
+    )
+  );
+
+@include font-face(
+  "Open Sans", 
+  font-files(
+    "fonts/opensans/OpenSans-Regular.ttf")
+  );
+ 
+@include font-face(
+  "Open Sans Semi Bold", 
+  font-files(
+    "fonts/opensans/OpenSans-Semibold.ttf")
+  );
+ 
+@include font-face(
+  "Open Sans Bold", 
+  font-files(
+    "fonts/opensans/OpenSans-Bold.ttf")
+  );
+
 @mixin open_sans {
   font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
+}
+
+@mixin open_sans_semi_bold {
+  font-family: 'Open Sans Semi Bold', sans-serif;
 }
 
 @mixin open_sans_bold {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
+  font-family: 'Open Sans Bold', sans-serif;
 }
 
 @mixin iconic_fill {
   font-family: IconicFill, sans-serif;
 }
-
 
 em {
   font-style: normal;

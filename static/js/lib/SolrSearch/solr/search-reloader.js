@@ -15,7 +15,7 @@ define (
         init, listenForSearchEvents, updateSearchValue, mapToSearchObject,
         restartTimer, sendSearches, filterSearchUpdateRequest, 
         filterSearchStringRequest, listenForSearchStringRequest,
-        triggerInitialSearch, createSocket, sendSearchString,
+        triggerInitialSearch, sendSearchString,
         currentSearchObject;
 
     currentSearchObject = {
@@ -33,7 +33,6 @@ define (
           encoded: ''
         }
       });
-      //createSocket();
     };
 
     // filter search text updates
@@ -69,17 +68,6 @@ define (
       });
     };
 
-    createSocket = function() {
-      var socket = new io.Socket();
-      socket.connect('http://localhost:8080');
-      socket.on('connect', function() {
-        //socket.subscribe('corroborator_solr_update');
-      });
-      socket.on('message', function() {
-      });
-    };
- 
- 
     // map stream content to search object
     mapToSearchObject = function(value) {
       return {

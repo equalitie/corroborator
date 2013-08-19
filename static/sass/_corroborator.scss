@@ -190,17 +190,6 @@ ul.elements {
   }
 }
 
-.status {
-  display: inline-block;
-  border-radius: 0.25em;
-  padding: 0.25em;
-  border: 1px solid $COLOR_TAG_BD;
-  background-color: $COLOR_TAG_BG;
-  text-transform: uppercase;
-  > span {
-    font-size: 70%;
-  }
-}
 
 .score {
   display: inline-block;
@@ -1051,66 +1040,6 @@ ul.media {
   }
 }
 
-table.bulletins,table.incidents,table.actors {
-  width: 100%;
-  border-collapse: collapse;
-  .is-preview {
-    min-width: 2.5em;
-  }
-  .is-status {
-    width: 4em;
-  }
-  .is-score {
-    width: 3.5em;
-  }
-  thead {
-    th {
-      padding-top: 1.25em;
-      padding-bottom: 0.25em;
-      border-bottom: 1px solid $COLOR_TABLE_BD;
-    }
-    th.is-status {
-      text-align: center;
-    }
-    a {
-      font-size: 90%;
-      &, &:active, &:visited, &:hover {
-        color: $COLOR_TXT;
-        text-decoration: none;
-      }
-      &:hover {
-        text-decoration: underline;
-      }
-      text-transform: uppercase;
-      font-weight: normal;
-      margin-left: 1em;
-      &:first-child {
-        margin-left: 0em;
-      }
-      &.current {
-        font-weight: bold;
-      }
-      &.is-descending:after {
-        content:"\2193";
-        font-family: IconicFill;
-        font-size: 80%;
-        padding-left: 0.25em;
-      }
-    }
-  }
-  tbody {
-    tr:first-child, tr.first {
-      td {
-        border-top: 0px solid transparent;
-      }
-    }
-    tr:last-child, tr.last {
-      td {
-        border-bottom: 0px solid transparent;
-      }
-    }
-  }
-}
 
 .when-empty {
   display: none;

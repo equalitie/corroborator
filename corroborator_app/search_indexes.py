@@ -16,7 +16,7 @@ class PredefinedSearchIndex(CelerySearchIndex, indexes.Indexable):
     """
     text = indexes.CharField(document=True)
     user = indexes.CharField(model_attr='user')
-    search_type = indexes.Charfield(model_attr='search_type')
+    search_type = indexes.CharField(model_attr='search_type')
     search_string = index.CharField(model_attr='search_string')
     actor_filters = index.CharField(model_attr='actor_filters')
     bulletin_filters = index.CharField(model_attr='bulletin_filters')
