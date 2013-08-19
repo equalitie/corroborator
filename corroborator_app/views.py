@@ -18,7 +18,7 @@ from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
 from django.utils import simplejson as json
 from django.db.models import Count
 from tastypie.models import ApiKey
-from corroborator_app.multisave import multi_save_actors, multisave_entities
+from corroborator_app.multisave import multi_save_actors, multi_save_entities
 def login_user(request):
     state = "Please log in below..."
     username = password = ''
@@ -131,7 +131,7 @@ def index(request, *args, **kwargs):
                 'key': relation[0],
                 'value': relation[1]}
             )
-
+        predefined_search_set = PredefinedSearch.objects.all()
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()
         sources_set = Source.objects.all()
@@ -150,6 +150,7 @@ def index(request, *args, **kwargs):
             {
                 'role_status_set': role_status_set,
                 'relation_status_set': relation_status_set,
+                'predefined_search_set': predefined_search_set,
                 'sources_set': sources_set,
                 'labels_set': labels_set,
                 'crimes_set': crimes_set,
@@ -194,7 +195,7 @@ def new_index(request, *args, **kwargs):
                 'key': relation[0],
                 'value': relation[1]}
             )
-
+        predefined_search_set = PredefinedSearch.objects.all()
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()
         sources_set = Source.objects.all()
@@ -560,7 +561,7 @@ def lookup_actor(request, actor_id, mode):
             RequestContext(request)
         )
 
-    elif mode == 'multisave'
+    elif mode == 'multisave':
         if request.method == "POST" and request.is_ajax():
             element_data = json.loads(request.raw_post_data)
             multi_save_actors(element_data)

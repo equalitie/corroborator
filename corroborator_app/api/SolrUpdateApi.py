@@ -27,5 +27,8 @@ class SolrUpdateResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
-
+    def dehydrate(self, bundle):
+        tempUser = User.objects.get(id=bundle.obj.user.id)
+        bundle.data['update_username'] = tempUser.username
+        return bundle 
 

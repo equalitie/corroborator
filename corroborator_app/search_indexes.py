@@ -17,11 +17,11 @@ class PredefinedSearchIndex(CelerySearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True)
     user = indexes.CharField(model_attr='user')
     search_type = indexes.CharField(model_attr='search_type')
-    search_string = index.CharField(model_attr='search_string')
-    actor_filters = index.CharField(model_attr='actor_filters')
-    bulletin_filters = index.CharField(model_attr='bulletin_filters')
-    incident_filters = index.CharField(model_attr='incident_filters')
-    resource_uri = index.CharField()
+    search_string = indexes.CharField(model_attr='search_string')
+    actor_filters = indexes.CharField(model_attr='actor_filters')
+    bulletin_filters = indexes.CharField(model_attr='bulletin_filters')
+    incident_filters = indexes.CharField(model_attr='incident_filters')
+    resource_uri = indexes.CharField()
 
     def get_model(self):
         return PredefinedSearch
