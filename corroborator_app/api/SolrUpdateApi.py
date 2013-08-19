@@ -29,6 +29,6 @@ class SolrUpdateResource(ModelResource):
         always_return_data = True
     def dehydrate(self, bundle):
         tempUser = User.objects.get(id=bundle.obj.user.id)
-        bundle.data['username'] = tempUser.username
+        bundle.data['update_username'] = tempUser.username
         return bundle 
 
