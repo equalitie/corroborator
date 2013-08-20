@@ -52,7 +52,7 @@ define (
         'click button.do-select'  : 'selectRequested',
         'click button.do-expand'  : 'expandRequested',
         'click button.do-collapse': 'collapseRequested',
-        'click .do-select.edit'   : 'editRequested'
+        'click .do-edit'          : 'editRequested'
       },
 
       initialize: function() {
@@ -112,7 +112,7 @@ define (
       // display an entity
       displayEntity: function(content) {
         this.expanded = content.expanded;
-        this.renderContainer()
+        this.renderContainer(content)
             .renderEntity(content);
         if (this.expanded) {
           this.expandView();
@@ -143,10 +143,8 @@ define (
       },
 
       // render the container
-      renderContainer: function() {
-        var html = this.template({
-          entityType: this.entityType
-        });
+      renderContainer: function(content) {
+        var html = this.template(content);
         this.$el.append(html);
         return this;
       }

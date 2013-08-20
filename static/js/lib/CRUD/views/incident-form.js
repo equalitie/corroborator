@@ -134,13 +134,15 @@ define (
       },
 
       initialize: function(options) {
-        console.log(options);
         this.addi18n();
         this.populateWidgets();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here 
         this.expanded = ! options.expanded;
         this.displayForm = this.displayFormFunction();
+      },
+
+      populateSimpleElements: function() {
       },
 
 
@@ -210,7 +212,10 @@ define (
       },
 
       render: function() {
-        var html = this.template({model: this.model.toJSON()});
+        console.log(this.model.toJSON());
+        var html = this.template({
+          model: this.model.toJSON()
+        });
         this.$el.html(html);
         return this;
       },

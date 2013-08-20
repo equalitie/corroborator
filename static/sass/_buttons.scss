@@ -22,6 +22,7 @@
 
 @mixin button (
   $background_color: white,
+  $hover_color: false,
   $border: none,
   $height: 3em,
   $text_color: black
@@ -32,6 +33,13 @@
   height: $height;
   line-height: $height -0.05em;
   border: none;
+  @if $hover_color == false {
+    $hover_color: darken($background_color, 10%);
+  }
+  &:hover {
+    background-color: $hover_color;
+  }
+
 
 }
 @mixin button_icon(
@@ -189,7 +197,9 @@
     @include create_button($bg_color:$SELECTED_ACTOR_BORDER);
   }
   button.create.do-create-bulletin {
-    @include create_button($bg_color:$SELECTED_BULLETIN_BORDER);
+    @include create_button(
+      $bg_color:$SELECTED_BULLETIN_BORDER
+    );
   }
 
   button.is-small,.button.is-small {

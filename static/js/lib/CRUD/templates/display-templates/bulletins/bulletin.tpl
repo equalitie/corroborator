@@ -6,9 +6,9 @@
           <span class="value">{{model.confidence_score}}</span>
         </div>
         {{#if model.most_recent_status_bulletin}}
-        <div class="status">
+        <span class="status">
           <span class="value">{{model.most_recent_status_bulletin}}</span>
-        </div>
+        </span>
         {{/if}}
       </div>
       <div class="title i18n">

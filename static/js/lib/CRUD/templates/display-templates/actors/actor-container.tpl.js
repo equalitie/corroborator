@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "  <h3>Related actors</h3>\n  <ul class=\"elements actors-list\">\n  </ul>\n  <div class=\"clearer\"></div>\n";
+  return "  <h3 class=\"title\">Related actors</h3>\n  <ul class=\"elements actors-list\">\n  </ul>\n  <div class=\"clearer\"></div>\n";
   })
 
 });

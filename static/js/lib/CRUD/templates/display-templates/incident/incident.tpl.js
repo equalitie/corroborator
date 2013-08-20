@@ -8,9 +8,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <div class=\"status\">\n          <span class=\"value\">"
+  buffer += "\n        <span class=\"status\">\n          <span class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_incident)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n        </div>\n        ";
+    + "</span>\n        </span>\n        ";
   return buffer;
   }
 

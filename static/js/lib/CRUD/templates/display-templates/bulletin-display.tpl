@@ -17,11 +17,14 @@
       <div class="score">
         <span class="value">{{model.confidence_score}}</span>
       </div>
-      {{#if model.bulletin_status}}
-      <div class="status">
-        <span class="value">{{model.bulletin_status}}</span>
-      </div>
+      {{#if model.most_recent_status_bulletin}}
+      <span class="status">
+        <span class="value">{{model.most_recent_status_bulletin}}</span>
+      </span>
       {{/if}}
+      <div class="events">
+        
+      </div>
       <div class="date-location">
         <span class="date">{{dateFormat model.bulletin_created}}</span>
         {{#if model.bulletin_location}}

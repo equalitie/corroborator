@@ -115,13 +115,13 @@
               <textarea 
                 id="incident_details_en"
                 name="incident_details_en"
-                class="incident-field w-100p">{{model.description_en}}</textarea>
+                class="incident-field w-100p">{{model.incident_details_en}}</textarea>
             </div>
             <div lang="ar">
               <textarea 
                 id="incident_details_ar"
                 name="incident_details_ar"
-                class="incident-field w-100p">{{model.description_ar}}</textarea>
+                class="incident-field w-100p">{{model.incident_details_ar}}</textarea>
             </div>
             <span class="toggle">
               <span lang="en">EN</span><span lang="ar">AR</span>

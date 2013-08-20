@@ -42,7 +42,31 @@
   font-family: IconicFill, sans-serif;
 }
 
+@mixin helvetica {
+  font-family: Helvetica, sans-serif;
+}
+
 em {
   font-style: normal;
   @include open_sans_bold;
 };
+
+@mixin large_header {
+  @include open_sans_bold;
+  color: $DISPLAY_TEXT_DARK;
+  font-size: 27px;
+  line-height: 27px;
+}
+
+@mixin medium_header {
+  @include open_sans_bold;
+  color: $DISPLAY_TEXT_DARK;
+  font-size: 16px;
+}
+
+@mixin small_header {
+  @include open_sans;
+  color: $DISPLAY_TEXT_MID;
+  text-transform: uppercase;
+  font-size: 14px;
+}
