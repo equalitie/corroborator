@@ -141,24 +141,6 @@ h3.title {
   height: 2 * $PAD_UNIT;
 }
 
-$FOOTER_BUTTON_COLOR: $BRIGHT_RED;
-$FOOTER_BUTTON_HOVER_COLOR: #d96859;
-
-@mixin bottom_button ($width, $border) {
-    @include button(
-      $background_color: $FOOTER_BUTTON_COLOR,
-      $hover_color: #d96859,
-      $text_color: white
-    );
-    height: 100%;
-    border: none;
-    border-left: $border;
-    border-right: $border;
-    width: $width;
-    float: left;
-    padding-left: 0px;
-    padding-right: 0px;
-}
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;

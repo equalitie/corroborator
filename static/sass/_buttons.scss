@@ -171,6 +171,23 @@
     }
 }
 
+
+@mixin bottom_button ($width, $border) {
+    @include button(
+      $background_color: $FOOTER_BUTTON_COLOR,
+      $hover_color: #d96859,
+      $text_color: white
+    );
+    height: 100%;
+    border: none;
+    border-left: $border;
+    border-right: $border;
+    width: $width;
+    float: left;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
   button, .button {
     display: inline-block;
     //padding: 3 * $PX;

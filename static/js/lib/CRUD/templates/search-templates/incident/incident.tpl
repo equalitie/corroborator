@@ -172,23 +172,19 @@
   </div>
 </div>
 <div class="footer with-revision">
-  <div class="actions clear-after when-not_revision">
-    <div class="left">
-      <div class="when-overlay-expanded">
-        <button class="do-collapse-form">
-          <span class="text t">» collapse</span>
-        </button>
-      </div>
-      <div class="when-overlay-not_expanded">
-        <button class="do-expand-form">
-          <span class="text t">« expand</span>
-        </button>
-      </div>
-    </div>
-    <div class="right">
-      <button id="incident-action_save" class="do-save do-toggleRevision default">
-        <span class="text t">Save changes</span>
+  <div class="actions form when-not_revision">
+    <div class="when-overlay-expanded">
+      <button class="do-collapse-form">
+        <span class="text t">» collapse</span>
       </button>
     </div>
+    <div class="when-overlay-not_expanded">
+      <button class="do-expand-form">
+        <span class="text t">« expand</span>
+      </button>
+    </div>
+    <button id="incident-action_save" class="do-save do-toggleRevision default">
+      <span class="text t">Save changes</span>
+    </button>
   </div>
 </div>

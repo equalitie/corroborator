@@ -216,22 +216,18 @@
       <div class="clearer"></div>
     </div>
   </div>
-  <div class="footer actions">
-    <div class="left">
-      <div class="when-overlay-expanded">
-        <button class="do-collapse-form">
-          <span class="text t">» collapse</span>
-        </button>
-      </div>
-      <div class="when-overlay-not_expanded">
-        <button class="do-expand-form">
-          <span class="text t">« expand</span>
-        </button>
-      </div>
-    </div>
-    <div class="right">
-      <button id="expanded-actor-save" class="do-save">
-        <span class="text t">Save</span>
+  <div class="footer actions form">
+    <div class="when-overlay-expanded">
+      <button class="do-collapse-form">
+        <span class="text t">» collapse</span>
       </button>
     </div>
+    <div class="when-overlay-not_expanded">
+      <button class="do-expand-form">
+        <span class="text t">« expand</span>
+      </button>
+    </div>
+    <button id="expanded-actor-save" class="do-save">
+      <span class="text t">Save</span>
+    </button>
   </div>
