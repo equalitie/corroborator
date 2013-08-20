@@ -47,6 +47,13 @@ class BulletinTestCase(ResourceTestCase):
         )
 
         self.source.save()
+        self.source = Source(
+            reliability_score=0,
+            name_en='test source 2',
+            source_type_id=self.sourceType.pk
+        )
+
+        self.source.save()
         self.label = Label(name_en='test label')
         self.label.save()
         
@@ -99,6 +106,26 @@ class BulletinTestCase(ResourceTestCase):
         unauth_url = '/api/v1/bulletin/?format=json'
         response = self.api_client.get(unauth_url)
         self.assertEqual(response.status_code, 401)
+
+    def test_bulletin_mass_update(self):
+        b = Bulletin.objects.all()[0]
+        url = 'https://dev.corroborator.org/corroborator/bulletin/0/multisave/?format=json{1}'.format(b.id, self.auth_string)
+        put_data = {
+            'bulletins':['/api/v1/bulletin/1/','/api/v1/bulletin/1/',],
+            'confidence_score':11,
+            'assigned_user': '/api/v1/user/1/',
+            'actorsRoles':[{'actor':'/api/v1/actor/1/','role_en':'Killed','role_status':'K',},],
+            'sources': ['/api/v1/source/1/',],
+            'labels': ['/api/v1/label/1/',],
+            'locations': ['/api/v1/location/1/',],
+            'ref_bulletins': ['/api/v1/bulletin/1/',],
+            'ref_incidents': ['/api/v1/incident/1/',],
+            'locations': ['/api/v1/location/1/',],
+        }
+
+        response = self.api_client.put(url, data=put_data)
+        self.assertEqual(response.status_code, 200)
+
 
     def test_bulletin_post(self):
         post_data = {

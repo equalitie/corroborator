@@ -87,6 +87,26 @@ class IncidentTestCase(ResourceTestCase):
         response = self.api_client.post(url, data=post_data)
         self.assertEqual(response.status_code, 201)
 
+    def test_incident_mass_update(self):
+        i = Incident.objects.all()[0]
+        url = 'https://dev.corroborator.org/corroborator/incident/0/multisave/?format=json{1}'.format(i.id, self.auth_string)
+        put_data = {
+            'incidents':['/api/v1/incident/1/','/api/v1/incident/1/',],
+            'confidence_score':11,
+            'assigned_user': '/api/v1/user/1/',
+            'actorsRoles':[{'actor':'/api/v1/actor/1/','role_en':'Killed','role_status':'K',},],
+            'crimes': ['/api/v1/crimeCategory/1/',],
+            'labels': ['/api/v1/label/1/',],
+            'locations': ['/api/v1/location/1/',],
+            'ref_bulletins': ['/api/v1/bulletin/1/',],
+            'ref_incidents': ['/api/v1/incident/1/',],
+            'locations': ['/api/v1/location/1/',],
+        }
+
+        response = self.api_client.put(url, data=put_data)
+        print response.content
+        self.assertEqual(response.status_code, 200)
+
     def test_incident_put(self):
         i = Incident.objects.all()[0]
         url = '/api/v1/incident/{0}/?format=json{1}'.format(i.id, self.auth_string)
