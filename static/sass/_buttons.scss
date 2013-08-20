@@ -1,32 +1,56 @@
-  button, .button {
-    display: inline-block;
-    padding: 3 * $PX;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    border: 2px solid $COLOR_BUTTON_BD;
-    //margin: 0em;
-    border-radius: 4 * $PX;
-    background: #e8e8e8;
-    @include background-image(linear-gradient(top, #e8e8e8, #d4d4d4));
-    a, a:active, a:visited, a:hover {
-      text-decoration: none;
-      color: $COLOR_TXT;
+@mixin clear_button($bg_color:#404040, $fg_color:#FFF) {
+    text-shadow: none;
+    border: 0px solid transparent;
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    left: -7 * $PX;
+    background: $bg_color;
+    width: 12 * $PX;
+    height: 12 * $PX;
+    line-height: 0em;
+    border-radius: 6 * $PX;
+    > span {
+      color: $fg_color;
+      @include iconic_fill;
+      position: relative;
+      left: 0 * $PX;
+      line-height: 12 * $PX / 0.7;
+      font-size: 65%;
     }
-    //text-shadow: 1px 1px 1px $COLOR_BUTTON_BG.brighten(15)
-    &:hover {
-      background: #fafafa;
-      @include background-image(linear-gradient(top, #FAFAFA, #d4d4d4));
-    }
+}
+
+@mixin button (
+  $background_color: white,
+  $border: none,
+  $height: 3em,
+  $text_color: black
+) {
+  text-transform:uppercase;
+  background-color: $background_color;
+  color: $text_color;
+  height: $height;
+  line-height: $height -0.05em;
+  border: none;
+
+}
+@mixin button_icon(
+){
+  &:after {
+    
   }
-  button.create {
-    background: #959595;
-    @include background-image(linear-gradient(top, #959595, #696969));
-    //text-shadow: -1px -1px 1px #959595.darken(15)
-    color: white;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
-  }
-  button.combo, .button.combo {
+}
+
+@mixin create_button ($bg_color:black) {
+  @include button(
+    $background_color: $bg_color,
+    $text_color: #fff,
+    $height: $ACTION_BAR_HEIGHT
+  );
+  width: 100%;
+}
+
+@mixin combo_small {
     position: relative;
     display: inline-block;
     padding-right: 2.5em;
@@ -52,24 +76,12 @@
     .options {
       display: none;
       position: absolute;
-      left: -2px;
-      right: -2px;
       padding-top: 0.5em;
       background: #d4d4d4;
-      border: 2px solid $COLOR_BUTTON_BD;
       border-top: 0px solid transparent;
-      border-radius: 0em 0em 4 * $PX 4 * $PX;
       z-index: $Z_MENU;
       text-align: left;
       li {
-        margin: 3 * $PX;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-        padding-left: 0.5em;
-        padding-right: 0.5em;
-        .text:hover {
-          color: $COLOR_OPTION_SELECTED_TXT;
-        }
       };
     };
     &:hover .options {
@@ -91,11 +103,99 @@
       }
     }
   }
+
+  button.combo, .button.combo {
+    @include combo_small;
+  }
+
+@mixin combo_large(
+  $bg_color: #d4d4d4,
+  $height: 2.25em,
+  $width: 7em,
+  $highlight_color: #d4d4d4,
+  $border_color: #b4b4b4,
+  $border_bottom: false
+){
+    position: relative;
+    display: inline-block;
+    min-width: $width;
+    height: $height;
+    line-height: $height;
+    background-color: $bg_color;
+    text-transform: uppercase;
+    > span:after {
+      position: absolute;
+      z-index: 3;
+      display: block;
+      top: 0em;
+      bottom: 0em;
+      right: 0em;
+      width: 1.75em;
+      line-height: $height;
+      text-align: center;
+      content: '\2193';
+      font-family: "IconicFill";
+      border-left: 1px solid $border_color;
+    }
+    .options {
+      display: none;
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      background-color: $bg_color;
+      @if $border_bottom {
+        border-top: 1px solid $border_bottom;
+      }
+      z-index: $Z_MENU;
+      text-align: left;
+      li {
+        margin:none;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        &:hover {
+          background-color:$highlight_color;
+        }
+      };
+    };
+    &:hover .options {
+      display: block;
+      height: auto;
+    }
+}
+
+  button, .button {
+    display: inline-block;
+    //padding: 3 * $PX;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    //border: 2px solid $COLOR_BUTTON_BD;
+    //margin: 0em;
+    //background: #e8e8e8;
+    //@include background-image(linear-gradient(top, #e8e8e8, #d4d4d4));
+    a, a:active, a:visited, a:hover {
+      text-decoration: none;
+      color: $COLOR_TXT;
+    }
+    //text-shadow: 1px 1px 1px $COLOR_BUTTON_BG.brighten(15)
+    &:hover {
+      //background: #fafafa;
+      //@include background-image(linear-gradient(top, #FAFAFA, #d4d4d4));
+    }
+  }
+  button.create.do-create-incident {
+    @include create_button($bg_color:$SELECTED_INCIDENT_BORDER);
+  }
+  button.create.do-create-actor {
+    @include create_button($bg_color:$SELECTED_ACTOR_BORDER);
+  }
+  button.create.do-create-bulletin {
+    @include create_button($bg_color:$SELECTED_BULLETIN_BORDER);
+  }
+
   button.is-small,.button.is-small {
     padding: 3 * $PX;
     padding-top: 0em;
     padding-bottom: 0em;
-    border-radius: 0.2em;
     border-width: 1px;
     .text {
       font-size: 70%;
@@ -103,26 +203,6 @@
     };
   }
   button.do-clear {
-    text-shadow: none;
-    border: 0px solid transparent;
-    padding: 0px;
-    margin: 0px;
-    position: relative;
-    left: -7 * $PX;
-    top: 1 * $PX;
-    background: #404040;
-    width: 12 * $PX;
-    height: 12 * $PX;
-    line-height: 0em;
-    border-radius: 6 * $PX;
-    > span {
-      color: white;
-      font-family: IconicFill, sans-serif;
-      position: relative;
-      top: -1 * $PX;
-      left: 0 * $PX;
-      line-height: 12 * $PX / 0.7;
-      font-size: 65%;
-    }
+    @include clear_button;
   }
 

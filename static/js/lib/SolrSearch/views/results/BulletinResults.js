@@ -43,7 +43,6 @@ define (
 
       updateView: function(model) {
         if (_.isEqual(model.changed ,{checked: 'checked'})) {
-          console.log(this.$el);
           this.$el.children('.is-selector')
                   .children('input[type=checkbox]')
                   .attr('checked', 'checked');
