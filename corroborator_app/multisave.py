@@ -4,11 +4,14 @@ import calendar
 from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
     TimeInfo, Location, Source, StatusUpdate, ActorRole, Label, SourceType,\
     Media, Comment, PredefinedSearch, ActorRelationship
+from corroborator_app.tasks import update_object
 
-def multi_save_actors(element_data):
+def multi_save_actors(element_data, username):
     actor_role_ids = []
     actorData = element_data
-    list_actors = Actor.objects.filter(id__in=actorData['update_actors'])
+    list_actors = Actor.objects.filter(
+        id__in=batch_parse_id_from_uri(actorData['actors'])
+    )
     for item in list_actors:
         item.age_en = actorData['age_en']
         item.age_ar = actorData['age_ar']
@@ -28,37 +31,72 @@ def multi_save_actors(element_data):
         item.religion_ar = actorData['religion_ar']
         item.civilian_en = actorData['civilian_en']
         item.civilian_ar = actorData['civilian_ar']
+        item.POB_id =\
+            parse_id_from_uri(actorData['POB'])
+        item.current_location_id =\
+            parse_id_from_uri(actorData['current_location'])
         item.save()
-    for a in element_data['actors']:
-        actor_local = Actor.objects.get(pk=int(a['id']))
-        role_local = ActorRole(relation_status=a['status_en'], actor_id=int(a['id']))
-        role_local.save()
-        actor_role_ids.append(role_local.id)
-    if len(actor_role_ids) > 0:
-        item.actors_role.add(*actor_role_ids)
+        for a in element_data['actorsRoles']:
+            localID = parse_id_from_uri(a['actor'])
+            #actor_local = Actor.objects.get(pk=int(a['resource_uri']))
+            role_local = ActorRole(relation_status=a['relation_status'],\
+                actor_id=int(localID), role_en=a['role_en'])
+            role_local.save()
+            actor_role_ids.append(role_local.id)
+        if len(actor_role_ids) > 0:
+            item.actors_role.add(*actor_role_ids)
+    
+    update_object.delay(username)    
+    
+    actorData['actorRoles'] = generate_uris(actor_role_ids, 'actorRole')
+
+    return actorData
+
+def generate_uris(batch, entity):
+    new_uris = []
+    for id in batch:
+        new_uri = '/api/v1/{0}/{1}/'.format(entity, id)
+        new_uris.append(new_uri)
+
+    return new_uris
+
+def parse_id_from_uri(uri):
+    tokens = uri.split('/')
+    print 'test'
+    id=tokens[len(tokens)-2]
+    return id
+
+def batch_parse_id_from_uri(batch):
+    localBatch = []
+    for item in batch:
+        tokens = item.split('/')
+        localBatch.append(tokens[len(tokens)-2])
+        
+    return localBatch
 
 
-def multi_save_entities(element_data, mode):
+def multi_save_entities(element_data, mode, username):
     list_entities = []
     statusid = ''
     comment_ids = []
     actor_role_ids = []
     cscore = 0
     userid = ''
-    if len(element_data['confidence_scores']) > 0:
-        cscore=int(element_data['confidence_scores'][0]['confidence_score']) if element_data['confidence_scores'][0]['confidence_score'] != '' else 0
-    if len(element_data['users']) > 0:
-        userid = element_data['users'][0]['user'] if element_data['users'][0]['user'] !=  '' else None
+    id_list = []
+    if element_data['confidence_score'] != '':
+        cscore=element_data['confidence_score']
+    if element_data['assigned_user'] != '':
+        userid = element_data['assigned_user'].split('/')
+        userid = userid[len(userid)-1]
 
-    if len(element_data['statuses']) > 0:
-        statusid = int(element_data['statuses'][0]['status']) if element_data['statuses'][0]['status'] !=  '' else None
     if mode  ==  'incident':
-        list_entities = Incident.objects.filter(id__in=element_data['incidents'])
+        list_entities = Incident.objects.filter(
+            id__in=batch_parse_id_from_uri(element_data['incidents'])
+        )
     elif mode  ==  'bulletin':
-        list_entities = Bulletin.objects.filter(id__in=element_data['bulletins'])
-    else:
-        list_entities = Actor.objects.filter(id__in=element_data['actors'])
-
+        list_entities = Bulletin.objects.filter(
+            id__in=batch_parse_id_from_uri(element_data['bulletins'])
+        )
     for item in list_entities:
         if mode  ==  'bulletin' or mode  ==  'incident':
             item.confidence_score = cscore
@@ -78,33 +116,58 @@ def multi_save_entities(element_data, mode):
                     item.bulletin_comments.add(*comment_ids)
             """        
             if len(element_data['labels']) > 0:
-                labeling_ids = map(int, element_data['labels'])
+                localLabels = batch_parse_id_from_uri(
+                    element_data['labels']
+                )
+                labeling_ids = map(int, localLabels)
                 item.labels.add(*labeling_ids)
-            for a in element_data['actors']:
-                actor_local = Actor.objects.get(pk=int(a['id']))
-                role_local = ActorRole(role_status=a['status_en'], actor_id=int(a['id']))
+            for a in element_data['actorsRoles']:
+                #actor_local = Actor.objects.get(pk=int(a['id']))
+                localID = parse_id_from_uri(a['actor'])
+                role_local = ActorRole(role_status=a['role_status'],\
+                    actor_id=int(localID), role_en=a['role_en'])
                 role_local.save()
                 actor_role_ids.append(role_local.id)
             if len(actor_role_ids) > 0:
                 item.actors_role.add(*actor_role_ids)
+            if len( element_data['locations']) > 0:
+                localLocations = batch_parse_id_from_uri(
+                    element_data['locations']
+                )
+                location_ids = map(int, localLocations)
+                item.locations.add(*location_ids)
+            if len( element_data['ref_bulletins']) > 0:
+                localBulletins = batch_parse_id_from_uri(
+                    element_data['ref_bulletins']
+                )
+                bulletin_ids = map(int, localBulletins)
+                item.ref_bulletins.add(*bulletin_ids)
             if mode  ==  'incident':
                 if len(element_data['crimes']) > 0:
-                    crime_ids = map(int, element_data['crimes'])
+                    localCrimes = batch_parse_id_from_uri(
+                        element_data['crimes']
+                    )
+                    crime_ids = map(int, localCrimes)
                     item.crimes.add(*crime_ids)
-                if len( element_data['relate_incidents']) > 0:
-                    incident_ids = map(int, element_data['relate_incidents'])
+                if len( element_data['ref_incidents']) > 0:
+                    localIncidents = batch_parse_id_from_uri(
+                        element_data['ref_incidents']
+                    )
+                    incident_ids = map(int, localIncidents)
                     item.ref_incidents.add(*incident_ids)
-                if len( element_data['relate_bulletins']) > 0:
-                    bulletin_ids = map(int, element_data['relate_bulletins'])
-                    item.bulletins.add(*bulletin_ids)
-
             else:
                 if len(element_data['sources']) > 0:
-                    source_ids = map(int, element_data['sources'])
+                    localSources = batch_parse_id_from_uri(
+                        element_data['sources']
+                    )
+                    source_ids = map(int, localSources)
                     item.sources.add(*source_ids)
-                if len( element_data['relate_bulletins']) > 0:
-                    bulletin_ids = map(int, element_data['relate_bulletins'])
-                    item.ref_bulletins.add(*bulletin_ids)
-            item.save()
+            
+            id_list.append(item.save())
+            
+    update_object.delay(username)    
+    element_data['actorRoles'] = generate_uris(actor_role_ids, 'actorRole')
+
+    return element_data
 
 
