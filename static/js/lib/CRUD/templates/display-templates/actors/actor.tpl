@@ -7,7 +7,7 @@
           <span class="value">{{model.roles_en}}</span>
         </div>
         {{/if}}
-        <span class="name">{{model.fullname_en}}</span>
+        <div class="name">{{model.fullname_en}}</div>
         <span class="sex">{{model.sex_en}}</span>
         <span class="age">{{model.age_en}}</span>
         <div class="L2">

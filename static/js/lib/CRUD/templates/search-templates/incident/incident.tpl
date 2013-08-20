@@ -115,13 +115,13 @@
               <textarea 
                 id="incident_details_en"
                 name="incident_details_en"
-                class="incident-field w-100p">{{model.description_en}}</textarea>
+                class="incident-field w-100p">{{model.incident_details_en}}</textarea>
             </div>
             <div lang="ar">
               <textarea 
                 id="incident_details_ar"
                 name="incident_details_ar"
-                class="incident-field w-100p">{{model.description_ar}}</textarea>
+                class="incident-field w-100p">{{model.incident_details_ar}}</textarea>
             </div>
             <span class="toggle">
               <span lang="en">EN</span><span lang="ar">AR</span>
@@ -172,23 +172,19 @@
   </div>
 </div>
 <div class="footer with-revision">
-  <div class="actions clear-after when-not_revision">
-    <div class="left">
-      <div class="when-overlay-expanded">
-        <button class="do-collapse-form">
-          <span class="text t">» collapse</span>
-        </button>
-      </div>
-      <div class="when-overlay-not_expanded">
-        <button class="do-expand-form">
-          <span class="text t">« expand</span>
-        </button>
-      </div>
-    </div>
-    <div class="right">
-      <button id="incident-action_save" class="do-save do-toggleRevision default">
-        <span class="text t">Save changes</span>
+  <div class="actions form when-not_revision">
+    <div class="when-overlay-expanded">
+      <button class="do-collapse-form">
+        <span class="text t">» collapse</span>
       </button>
     </div>
+    <div class="when-overlay-not_expanded">
+      <button class="do-expand-form">
+        <span class="text t">« expand</span>
+      </button>
+    </div>
+    <button id="incident-action_save" class="do-save do-toggleRevision default">
+      <span class="text t">Save changes</span>
+    </button>
   </div>
 </div>

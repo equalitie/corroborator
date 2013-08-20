@@ -1,0 +1,164 @@
+// ======================================================================
+// PREVIEW AND EXPANDED VIEW
+// ======================================================================
+$DISPLAY_TEXT_LIGHT: #b5afa7;
+$DISPLAY_TEXT_MID: #8c8b8a;
+$DISPLAY_TEXT_DARK: #626262;
+
+$DISPLAY_BORDER: #b7b6b2;
+
+$TAG_COLOR: #fd6d5a;
+
+.incident-view .body,
+.actor-view .body,
+.bulletin-view .body {
+  bottom: 40px;
+}
+
+@mixin tag_style {
+  @include open_sans_semi_bold;
+  color: $TAG_COLOR;
+  border: 1px solid $TAG_COLOR;
+  float: left;
+  margin-right: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+@mixin display_outline($header_color) {
+  border-left: solid 1px $DISPLAY_BORDER;
+  border-top: 5px solid $header_color;
+}
+
+// HEADER COLORS
+.incident-view {
+  @include display_outline($SELECTED_INCIDENT_BORDER);
+}
+
+.bulletin-view {
+  @include display_outline($SELECTED_BULLETIN_BORDER);
+}
+
+.actor-view {
+  @include display_outline($SELECTED_ACTOR_BORDER);
+}
+
+// INTER DISPLAY ELEMENT SPACING
+.detail {
+  margin-top: $PAD_UNIT;
+  clear: left;
+}
+
+h2.title {
+  @include large_header;
+}
+
+h3.title {
+  @include small_header;
+}
+
+// PREVIEW STYLES
+// SPECIFIC FIELDS
+.assigned-to {
+  @include open_sans_semi_bold;
+  text-transform: uppercase;
+  float: left;
+  clear: left;
+  color: $DISPLAY_TEXT_LIGHT;
+  font-size: 14px;
+}
+
+.score {
+  color: $DISPLAY_TEXT_MID;
+  font-size: 15px;
+  @include open_sans_bold;
+}
+
+.tags.group .tag {
+  @include tag_style;
+}
+.field {
+  clear: left;
+}
+
+.date-location {
+  clear: both;
+}
+
+.crimes {
+  .tag {
+    @include tag_style;
+    margin-left: 2px;
+    .do-clear {
+      @include clear_button($bg_color: $TAG_COLOR, $fg_color: #fff);
+    }
+  }
+}
+.description {
+  color: $DISPLAY_TEXT_MID;
+}
+
+// RELATED ENTITIES
+
+.in-list {
+  color: $DISPLAY_TEXT_MID;
+  border: 1px solid $DISPLAY_BORDER;
+  .name {
+    margin-top: 0.5em;
+    @include medium_header;
+  }
+  .L1, .L2 {
+    @include open_sans;
+    font-size: 14px;
+  }
+  .L2 {
+    margin-bottom: $PAD_UNIT /2;
+  }
+  .L3 {
+    margin-bottom: $PAD_UNIT /2;
+    font-weight: normal;
+    font-size: 12px;
+    @include helvetica;
+    span {
+      font-size: 12px;
+    }
+  }
+  .involved {
+    font-weight: bold;
+  }
+  .title {
+    @include medium_header;
+  }
+}
+
+// BOTTOM BUTTONS
+.overlay .footer {
+  border-bottom: 0px solid $COLOR_TABLE_BD;
+  bottom: 0em;
+  position: absolute;
+  left: 0em;
+  right: $PAD_UNIT;
+  height: 2 * $PAD_UNIT;
+}
+
+.when-overlay-not_expanded,
+.when-overlay-expanded {
+  width: 20%;
+  height: 100%;
+  float: left;
+  button.do-expand { 
+    @include bottom_button(100%, none);
+  }
+  button.do-collapse {
+    @include bottom_button(100%, none);
+  }
+}
+
+button.do-select {
+  @include bottom_button(
+    60%, 1px solid $FOOTER_BUTTON_HOVER_COLOR)
+}
+
+button.do-edit {
+  @include bottom_button(20%, none)
+}

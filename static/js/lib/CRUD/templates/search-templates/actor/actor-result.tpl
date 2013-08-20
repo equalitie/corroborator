@@ -1,5 +1,4 @@
 <div class="Actor in-list embedded">
-  <div class="actor-content">
     <div class="avatar">&nbsp;</div>
     <div class="content">
       <div class="L1">
@@ -126,5 +125,4 @@
         </div>
       </div>
    </div> 
- </div>
 </div>

@@ -195,23 +195,19 @@
         </div>
       </div>
     </div>
-    <div class="actions clear-after when-not_revision">
-      <div class="left">
-        <div class="when-overlay-expanded">
-          <button class="do-collapse-form">
-            <span class="text t">» collapse</span>
-          </button>
-        </div>
-        <div class="when-overlay-not_expanded">
-          <button class="do-expand-form">
-            <span class="text t">« expand</span>
-          </button>
-        </div>
-      </div>
-      <div class="right">
-        <button id="bulletin-action_save" class="do-select do-toggleRevision default">
-          <span class="text t">Save changes</span>
+    <div class="actions form when-not_revision">
+      <div class="when-overlay-expanded">
+        <button class="do-collapse-form">
+          <span class="text t">» collapse</span>
         </button>
       </div>
+      <div class="when-overlay-not_expanded">
+        <button class="do-expand-form">
+          <span class="text t">« expand</span>
+        </button>
+      </div>
+      <button id="bulletin-action_save" class="do-save">
+        <span class="text t">Save</span>
+      </button>
     </div>
   </div>

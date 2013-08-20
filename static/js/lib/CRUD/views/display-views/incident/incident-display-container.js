@@ -30,6 +30,7 @@ define (
     // Display and incident and all its related fields
     IncidentDisplayView = Backbone.View.extend({
       template: incidentDisplayTmp,
+      className: 'Incident in-view',
       expanded: false,
       childViews: [],
       initialize: function(options) {
@@ -47,16 +48,16 @@ define (
       },
 
       displayExpandedView: function() {
-        this.displayView()
-            .renderRelatedEvents()
-            .renderMap();
+        this.displayView();
       },
       displayView: function() {
         this.render()
             .renderRelatedComments()
             .renderRelatedActors()
             .renderRelatedBulletins()
-            .renderRelatedIncidents();
+            .renderRelatedIncidents()
+            .renderMap()
+            .renderRelatedEvents();
             return this;
       },
       toggleExpanded: function() {
@@ -114,8 +115,7 @@ define (
                        .children('.is-' + className);
         }
         else {
-          el = this.$el.children()
-                       .children('.body')
+          el = this.$el.children('.body')
                        .children('.' + className);
         }
         return el;
@@ -143,13 +143,20 @@ define (
 
       renderRelatedEvents: function() {
         var eventsEl, content, incidentsContainer;
-        eventsEl = this.$el
-                       .children()
-                       .children()
-                       .children('.body')
-                       .children('.is-events');
+        if (this.expanded) {
+          eventsEl = this.$el
+                         .children()
+                         .children()
+                         .children('.body')
+                         .children('.is-events');
+        }
+        else {
+          eventsEl = this.$el
+                         .children('.header')
+                         .children('.group')
+                         .children('.events');
+        }
         content = this.model.get('times');
-        console.log(this.model.toJSON());
         incidentsContainer = new EventListView({
           el: eventsEl,
           content: content
@@ -162,7 +169,6 @@ define (
         content = _.map(this.model.get('locations'), function(uri) {
           return { resourceUri: uri };
         });
-        console.log(mapEl);
         mapContainer = new CoordinateDisplayView({
           el: mapEl,
           content: content

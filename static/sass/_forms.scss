@@ -72,7 +72,8 @@ input {
   border-left:1px solid #b7b6b2;
   border-right:1px solid #b7b6b2;
 }
-// BULLETIN FORM
+
+// FORM TOP BORDERS
 .bulletin-overlay {
     @include form_panel($top_border:$SELECTED_BULLETIN_BORDER);
     &+div {
@@ -92,4 +93,32 @@ input {
     &+div {
       @include form_panel($top_border:$SELECTED_ACTOR_BORDER);
     }
+}
+
+// BOTTOM BUTTONS
+.form.actions {
+  background-color: $BRIGHT_RED;
+  width: 100%;
+  height: 100%;
+}
+
+.when-overlay-not_expanded,
+.when-overlay-expanded {
+  width: 20%;
+  height: 100%;
+  float: left;
+  button.do-expand-form { 
+    @include bottom_button(100%, none);
+    border-right: 1px solid $BRIGHT_RED_HOVER;
+  }
+  button.do-collapse-form {
+    @include bottom_button(100%, none);
+    border-right: 1px solid $BRIGHT_RED_HOVER;
+  }
+}
+
+button.do-save {
+  @include bottom_button(20%, none);
+  float: right;
+  border-left: 1px solid $BRIGHT_RED_HOVER;
 }

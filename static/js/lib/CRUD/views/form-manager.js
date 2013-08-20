@@ -217,7 +217,9 @@ define (
           model: value.model,
           expanded: value.expanded
         });
+        
         this.render();
+        this.makeFormModal();
       },
 
       listenForSaveEvents: function() {
@@ -240,6 +242,11 @@ define (
         this.listenForSaveEvents();
         this.currentView = new viewModel.view({model: this.model});
         this.render();
+        this.makeFormModal();
+      },
+
+      makeFormModal: function() {
+        this.$el.prepend('<div class="cover WIREFRAME"></div>');
       },
 
       // call the destroy method on the current view
@@ -250,6 +257,7 @@ define (
           delete(this.currentView);
           this.currentView = undefined;
         }
+        this.$el.children('.cover').remove();
       },
       // render the form, calls enable widgets to enable the dropdowns and
       // date widgets, this must be done after the form has rendered

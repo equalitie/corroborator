@@ -597,32 +597,7 @@ ul.media {
     margin-left: 0.3em;
   }
 }
-.in-list.embedded {
-  border: 1px solid $COLOR_TABLE_BD;
-  padding: $PAD_UNIT / 2;
-  &:after {
-    content: "";
-  }
-}
-.in-list {
-  //border: 1px solid $COLOR_TABLE_BD;
-  //padding: $PAD_UNIT / 2;
-  &:after {
-    //content: "";
-    clear: both;
-    display: block;
-    height: 0em;
-  }
-  .L1 {
-    font-size: 100%;
-  }
-  .L2 {
-    margin-bottom: 0.75em;
-  }
-  .L3 {
-    font-size: 80%;
-  }
-}
+
 
 
 .Revision-editor {
@@ -707,25 +682,10 @@ ul.media {
   .description {
     margin-top: 0.75em;
   }
-  .title {
-    font-size: 140%;
-    margin-top: 0.25em;
-    line-height: 1.25em;
-    font-weight: bold;
-  }
-  .assigned-to {
-    float: left;
-    clear: left;
-  }
   .score, .status {
     float: right;
   }
-  .date-location {
-    clear: both;
-    .date, .location {
-      font-weight: bold;
-    }
-  }
+  
   .details {
     margin-top: 0.75em;
   }
@@ -1021,9 +981,7 @@ ul.media {
       float: right;
     }
   }
-  .involved {
-    font-weight: bold;
-  }
+ 
 }
 
 

@@ -1,4 +1,3 @@
-<div class="Incident in-view">
   <div class="header">
     <span class="id">
       ID <span class="value out">{{model.django_id}}</span>
@@ -15,11 +14,12 @@
       <div class="score">
         <span class="value">{{model.confidence_score}}</span>
       </div>
-      {{#if model.status}}
-      <div class="status">
-        <span class="value">{{model.status}}</span>
-      </div>
+      {{#if model.most_recent_status_incident}}
+      <span class="status">
+        <span class="value">{{model.most_recent_status_incident}}</span>
+      </span>
       {{/if}}
+
       <div class="date-location">
         <span class="date">{{dateFormat model.incident_created}}</span>
         {{#if model.location}}
@@ -27,9 +27,15 @@
         {{/if}}
       </div>
 
+      {{#if model.times}}
+      <div class="events detail">
+      </div>
+      {{/if}}
+
+
     </div>
     {{#if model.incident_labels}}
-    <ul class="tags group">
+    <ul class="tags group detail">
       {{#each model.incident_labels}}
       <li class="tag"> <span class="text">{{this}}</span> </li>
       {{/each}}
@@ -38,31 +44,31 @@
   </div>
 
   <div class="body">
-    <div class="media">
+    <div class="incident-map map detail"></div>
+    <div class="media detail">
       <div class="placeholder">&nbsp;</div>
     </div>
     {{#if model.incident_details_en }}
-    <div class="description">
-      <h3>Description</h3>
+    <div class="description detail">
+      <h3 class="title">Description</h3>
       {{model.incident_details_en}}
     </div>
     {{/if}}
     {{#if model.incident_comments}}
-    <div class="comments">
+    <div class="comments detail">
     </div>
     {{/if}}
     <!-- end comments -->
     {{#if model.actors_role}}
-    <div class="actors group">
+    <div class="actors group detail">
     </div>
     {{/if}}
     {{#if model.ref_incidents}}
-      <div class="incidents group">
+      <div class="incidents group detail">
       </div>
     {{/if}}
     {{#if model.ref_bulletins}}
-    <div class="bulletins group">
+    <div class="bulletins group detail">
     </div>
     {{/if}}
   </div>
-</div>
