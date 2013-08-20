@@ -4,6 +4,8 @@ from django.test.client import Client
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
 from corroborator_app.models import Actor
+from corroborator_app.models import Incident, CrimeCategory, Location, Actor, \
+    ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label
 
 class ActorTestCase(ResourceTestCase):
     def setUp(self):
@@ -12,6 +14,10 @@ class ActorTestCase(ResourceTestCase):
         self.user.save()
         fixture = AutoFixture(Actor)
         actors = fixture.create(10)
+        self.location = Location(name_en='test location', loc_type='Village')
+        self.location.save()
+        self.actor = Actor(fullname_en='Test Actor',fullname_ar='Test name ar',nickname_en='nick name',nickname_ar='nick name')
+        self.actor.save()
     
 
         try:
@@ -88,7 +94,7 @@ class ActorTestCase(ResourceTestCase):
         }
 
         response = self.api_client.put(url, data=put_data)
-        print response
+        print response.content
         self.assertEqual(response.status_code, 200)
 
        

@@ -190,7 +190,6 @@ def lookup_bulletin(request, bulletin_id, mode):
         element_data = json.loads(request.raw_post_data)
         response_data = json.dumps(multi_save_entities(element_data,
             'bulletin', username))
-        print response_data
     return HttpResponse(response_data, mimetype='application/json')
 
 def lookup_incident(request, incident_id, mode):
@@ -201,15 +200,13 @@ def lookup_incident(request, incident_id, mode):
         element_data = json.loads(request.raw_post_data)
         response_data = json.dumps(multi_save_entities(element_data,
             'incident', username))
-        print response_data
     return HttpResponse(response_data, mimetype='application/json')
 
 def lookup_actor(request, actor_id, mode):
     username = request.GET.get('username')
     response_data = []
     if mode == 'multisave':
-        if request.method == "POST" and request.is_ajax():
-            element_data = json.loads(request.raw_post_data)
-            response_data = json.dumps(multi_save_actors(element_data,
-                username))
+        element_data = json.loads(request.raw_post_data)
+        response_data = json.dumps(multi_save_actors(element_data,
+            username))
     return HttpResponse(response_data, mimetype='application/json')
