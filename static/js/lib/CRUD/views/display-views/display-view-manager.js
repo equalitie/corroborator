@@ -8,14 +8,14 @@
 
 define (
   [
-    'backbone', 'underscore',
+    'backbone', 'underscore', 'jquery',
     'lib/streams',
     'lib/CRUD/views/display-views/actor/actor-display-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-display-container',
     'lib/CRUD/views/display-views/incident/incident-display-container',
     'lib/CRUD/templates/display-templates/display-manager.tpl'
   ],
-  function (Backbone, _, Streams,
+  function (Backbone, _, $, Streams,
     ActorDisplayView, BulletinDisplayView, IncidentDisplayView,
     displayManagerContainerTmp) {
     'use strict';
@@ -76,9 +76,26 @@ define (
         _.last(this.childViews).requestEdit();
         this.destroyChildren();
       },
-      selectRequested: function() {
-        //_.last(this.childViews).trigger('select');
+      selectRequested: function(evt) {
+         var selected = this.model.get('checked') === 'checked' ?
+           true : false;
+         if (selected === true) {
+           this.model.unset('checked');
+         }
+         else {
+           this.model.set('checked', 'checked');
+         }
       },
+      updateChecked: function(model) {
+        var changingClass = model.get('checked') === 'checked' ?
+          '.selected' : '.unselected';
+        this.$selectionEl.children(changingClass)
+                         .removeClass('hidden')
+                         .siblings()
+                         .addClass('hidden');
+
+      },
+
       expandRequested: function() {
           this.expandView();
         _.last(this.childViews).trigger('expand');
@@ -141,15 +158,30 @@ define (
         //trigger a resize to be passed on to the map views
         //to get over them being rendered when not actually in the dom
         displayView.trigger('resize');
+        this.model = displayView.model;
+        this.updateSelectListener();
         this.childViews.push(displayView);
         return this;
+      },
+
+      updateSelectListener: function() {
+        this.stopListening();
+        this.listenTo(this.model, 'change', this.updateChecked.bind(this));
+        this.updateChecked(this.model);
       },
 
       // render the container
       renderContainer: function(content) {
         var html = this.template(content);
         this.$el.append(html);
+        this.setSelectionEl();
         return this;
+      },
+      setSelectionEl: function() {
+        this.$selectionEl = this.$el.children()
+                                .children('.footer.actions')
+                                .children('.do-select')
+                                .children('.selection');
       }
     });
 

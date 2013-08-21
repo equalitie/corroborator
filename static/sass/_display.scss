@@ -131,7 +131,9 @@ h3.title {
   }
 }
 
+// ========================================
 // BOTTOM BUTTONS
+// ========================================
 .overlay .footer {
   border-bottom: 0px solid $COLOR_TABLE_BD;
   bottom: 0em;
@@ -161,4 +163,13 @@ button.do-select {
 
 button.do-edit {
   @include bottom_button(20%, none)
+}
+
+// select checkbox
+div.selection {
+  height: 6px;
+  width: 6px;
+  @include corrob_icon_attach_before;
+  padding-right: 5px;
+  display: inline-block;
 }

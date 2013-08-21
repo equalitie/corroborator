@@ -50,7 +50,7 @@ function program8(depth0,data) {
 function program10(depth0,data) {
   
   
-  return "\n        <div class=\"incident-map map\"></div>\n      ";
+  return "\n        <div class=\"incident-map map detail\"></div>\n      ";
   }
 
 function program12(depth0,data) {
