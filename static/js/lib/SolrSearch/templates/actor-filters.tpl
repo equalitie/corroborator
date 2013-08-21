@@ -2,6 +2,7 @@
   <div class="padding">
     <div class="group is-creator">
       <button class="do-create-actor create">
+        <span aria-hidden="true" data-icon="E"></span>
         <span class="text T">New actor</span>
       </button>
     </div>

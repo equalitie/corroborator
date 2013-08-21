@@ -14,7 +14,7 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "  <div class=\"header\">\n    <button class=\"do-hide is-small\">\n      <span class=\"T\">close</span>\n    </button>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"Bulletin is-edited is-expanded\">\n      <div class=\"first span-66p\">\n        <div class=\"header\">\n          ";
+  buffer += "  <div class=\"header\">\n    <a href=\"#\" class=\"display do-hide is-small\">\n      <span aria-hidden=\"true\" data-icon=\"Y\"></span>\n      <span class=\"screen-reader-text\">Hide</span>\n    </a>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"Bulletin is-edited is-expanded\">\n      <div class=\"first span-66p\">\n        <div class=\"header\">\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          <div class=\"field is-title\">\n            <label>Title</label>\n            <span class=\"i18n with-en with-ar\">\n              <div lang=\"en\">\n                <textarea type=\"text\" class=\"w-100p\">"

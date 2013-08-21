@@ -2,6 +2,7 @@
   <div class="padding">
     <div class="group is-creator">
       <button class="do-create-bulletin create">
+        <span aria-hidden="true" data-icon="E"></span>
         <span class="text T">New bulletin</span>
       </button>
     </div>

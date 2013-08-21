@@ -55,6 +55,7 @@
     $text_color: #fff,
     $height: $ACTION_BAR_HEIGHT
   );
+  @include corrob_icon_attach_before;
   width: 100%;
 }
 
@@ -233,3 +234,13 @@
     @include clear_button;
   }
 
+.do-hide {
+  height: 15px;
+  padding-left: 8px;
+  @include button(
+    $background_color: transparent,
+    $hover_color: transparent
+  );
+  display: inline-block;
+  @include corrob_icon_attach_before;
+}

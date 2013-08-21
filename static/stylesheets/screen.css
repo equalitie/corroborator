@@ -3,8 +3,15 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 1, ../sass/_fonts.scss */
+.screen-reader-text {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
 @font-face {
-  font-family: "Corroboricon";
+  font-family: "corroborator";
   src: url(/static/fonts/corroborator/corroborator.ttf) format('truetype'), url(/static/fonts/corroborator/corroborator.eot) format('embedded-opentype'), url(/static/fonts/corroborator/corroborator.woff) format('woff'), url(/static/fonts/corroborator/corroborator.otf) format('opentype');
 }
 
@@ -28,10 +35,11 @@
   src: url(/static/fonts/opensans/OpenSans-Bold.ttf) format('truetype');
 }
 
-/* line 58, ../sass/_fonts.scss */
+/* line 77, ../sass/_fonts.scss */
 em {
   font-style: normal;
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* line 1, ../sass/_texto.scss */
@@ -2710,7 +2718,7 @@ ul.media li.medium:hover .do-remove {
   float: none;
 }
 
-/* line 115, ../sass/_buttons.scss */
+/* line 116, ../sass/_buttons.scss */
 button.combo, .button.combo {
   position: relative;
   display: inline-block;
@@ -2718,7 +2726,7 @@ button.combo, .button.combo {
   padding-left: 0.75em;
   min-width: 5em;
 }
-/* line 67, ../sass/_buttons.scss */
+/* line 68, ../sass/_buttons.scss */
 button.combo > span:after, .button.combo > span:after {
   position: absolute;
   z-index: 3;
@@ -2733,11 +2741,11 @@ button.combo > span:after, .button.combo > span:after {
   font-family: "IconicFill";
   border-left: 2px solid #666666;
 }
-/* line 81, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 button.combo:hover > span:after, .button.combo:hover > span:after {
   display: none;
 }
-/* line 84, ../sass/_buttons.scss */
+/* line 85, ../sass/_buttons.scss */
 button.combo .options, .button.combo .options {
   display: none;
   position: absolute;
@@ -2747,43 +2755,43 @@ button.combo .options, .button.combo .options {
   z-index: 10;
   text-align: left;
 }
-/* line 95, ../sass/_buttons.scss */
+/* line 96, ../sass/_buttons.scss */
 button.combo:hover .options, .button.combo:hover .options {
   display: block;
   height: auto;
 }
-/* line 99, ../sass/_buttons.scss */
+/* line 100, ../sass/_buttons.scss */
 button.combo.is-small, .button.combo.is-small {
   min-width: auto;
 }
-/* line 101, ../sass/_buttons.scss */
+/* line 102, ../sass/_buttons.scss */
 button.combo.is-small .options, .button.combo.is-small .options {
   left: -1px;
   right: -1px;
   border-width: 0 1px 1px;
 }
-/* line 105, ../sass/_buttons.scss */
+/* line 106, ../sass/_buttons.scss */
 button.combo.is-small .options li, .button.combo.is-small .options li {
   margin: 0;
 }
-/* line 109, ../sass/_buttons.scss */
+/* line 110, ../sass/_buttons.scss */
 button.combo.is-small span:after, .button.combo.is-small span:after {
   display: none;
 }
 
-/* line 191, ../sass/_buttons.scss */
+/* line 192, ../sass/_buttons.scss */
 button, .button {
   display: inline-block;
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-/* line 200, ../sass/_buttons.scss */
+/* line 201, ../sass/_buttons.scss */
 button a, button a:active, button a:visited, button a:hover, .button a, .button a:active, .button a:visited, .button a:hover {
   text-decoration: none;
   color: #202020;
 }
 
-/* line 210, ../sass/_buttons.scss */
+/* line 211, ../sass/_buttons.scss */
 button.create.do-create-incident {
   text-transform: uppercase;
   background-color: #6bcad8;
@@ -2797,8 +2805,16 @@ button.create.do-create-incident {
 button.create.do-create-incident:hover {
   background-color: #43bccd;
 }
+/* line 50, ../sass/_fonts.scss */
+button.create.do-create-incident [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+}
 
-/* line 213, ../sass/_buttons.scss */
+/* line 214, ../sass/_buttons.scss */
 button.create.do-create-actor {
   text-transform: uppercase;
   background-color: #f1be33;
@@ -2812,8 +2828,16 @@ button.create.do-create-actor {
 button.create.do-create-actor:hover {
   background-color: #e2a90f;
 }
+/* line 50, ../sass/_fonts.scss */
+button.create.do-create-actor [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+}
 
-/* line 216, ../sass/_buttons.scss */
+/* line 217, ../sass/_buttons.scss */
 button.create.do-create-bulletin {
   text-transform: uppercase;
   background-color: #b5cd5f;
@@ -2827,21 +2851,29 @@ button.create.do-create-bulletin {
 button.create.do-create-bulletin:hover {
   background-color: #a1be3b;
 }
+/* line 50, ../sass/_fonts.scss */
+button.create.do-create-bulletin [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+}
 
-/* line 222, ../sass/_buttons.scss */
+/* line 223, ../sass/_buttons.scss */
 button.is-small, .button.is-small {
   padding: 0.23077em;
   padding-top: 0em;
   padding-bottom: 0em;
   border-width: 1px;
 }
-/* line 227, ../sass/_buttons.scss */
+/* line 228, ../sass/_buttons.scss */
 button.is-small .text, .button.is-small .text {
   font-size: 70%;
   text-transform: uppercase;
 }
 
-/* line 232, ../sass/_buttons.scss */
+/* line 233, ../sass/_buttons.scss */
 button.do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -2863,6 +2895,31 @@ button.do-clear > span {
   left: 0em;
   line-height: 1.31868em;
   font-size: 65%;
+}
+
+/* line 237, ../sass/_buttons.scss */
+.do-hide {
+  height: 15px;
+  padding-left: 8px;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: black;
+  height: 3em;
+  line-height: 3em -0.05em;
+  border: none;
+  display: inline-block;
+}
+/* line 39, ../sass/_buttons.scss */
+.do-hide:hover {
+  background-color: transparent;
+}
+/* line 50, ../sass/_fonts.scss */
+.do-hide [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* line 3, ../sass/_forms.scss */
@@ -3096,6 +3153,7 @@ button.do-save:hover {
 .Header .title {
   font-size: 15px;
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   float: left;
 }
 /* line 31, ../sass/_navigation.scss */
@@ -3157,6 +3215,7 @@ nav#search-navigation .search {
 /* line 80, ../sass/_navigation.scss */
 nav#search-navigation .search input {
   font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
   background-color: #212020;
   border: 1px solid #3f3e3d;
   color: white;
@@ -3644,7 +3703,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   background-color: #fd6d5a;
   text-transform: uppercase;
 }
-/* line 134, ../sass/_buttons.scss */
+/* line 135, ../sass/_buttons.scss */
 .Selection .actions .button.combo > span:after {
   position: absolute;
   z-index: 3;
@@ -3659,7 +3718,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   font-family: "IconicFill";
   border-left: 1px solid #ca5b4d;
 }
-/* line 148, ../sass/_buttons.scss */
+/* line 149, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options {
   display: none;
   position: absolute;
@@ -3669,17 +3728,17 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   z-index: 10;
   text-align: left;
 }
-/* line 159, ../sass/_buttons.scss */
+/* line 160, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li {
   margin: none;
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-/* line 163, ../sass/_buttons.scss */
+/* line 164, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li:hover {
   background-color: #d96859;
 }
-/* line 168, ../sass/_buttons.scss */
+/* line 169, ../sass/_buttons.scss */
 .Selection .actions .button.combo:hover .options {
   display: block;
   height: auto;
@@ -3718,6 +3777,7 @@ table.sort-headers thead a {
   font-size: 90%;
   text-transform: uppercase;
   font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
   margin-left: 1em;
 }
 /* line 66, ../sass/_header.scss */
@@ -3736,6 +3796,7 @@ table.sort-headers thead a:first-child {
 /* line 79, ../sass/_header.scss */
 table.sort-headers thead a.current {
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 /* line 82, ../sass/_header.scss */
 table.sort-headers thead a.is-descending:after {
@@ -3796,6 +3857,7 @@ span.status {
   background-color: #e9c37b;
   color: #fff;
   font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
 }
 /* line 56, ../sass/_results.scss */
@@ -3955,6 +4017,7 @@ span.status > span {
 /* line 52, ../sass/_display.scss */
 h2.title {
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   color: #626262;
   font-size: 27px;
   line-height: 27px;
@@ -3963,6 +4026,7 @@ h2.title {
 /* line 56, ../sass/_display.scss */
 h3.title {
   font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
   color: #8c8b8a;
   text-transform: uppercase;
   font-size: 14px;
@@ -3971,6 +4035,7 @@ h3.title {
 /* line 62, ../sass/_display.scss */
 .assigned-to {
   font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
   float: left;
   clear: left;
@@ -3983,11 +4048,13 @@ h3.title {
   color: #8c8b8a;
   font-size: 15px;
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* line 77, ../sass/_display.scss */
 .tags.group .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   color: #fd6d5a;
   border: 1px solid #fd6d5a;
   float: left;
@@ -4009,6 +4076,7 @@ h3.title {
 /* line 89, ../sass/_display.scss */
 .crimes .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   color: #fd6d5a;
   border: 1px solid #fd6d5a;
   float: left;
@@ -4055,12 +4123,14 @@ h3.title {
 .in-list .name {
   margin-top: 0.5em;
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   color: #626262;
   font-size: 16px;
 }
 /* line 110, ../sass/_display.scss */
 .in-list .L1, .in-list .L2 {
   font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
   font-size: 14px;
 }
 /* line 114, ../sass/_display.scss */
@@ -4085,11 +4155,12 @@ h3.title {
 /* line 129, ../sass/_display.scss */
 .in-list .title {
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   color: #626262;
   font-size: 16px;
 }
 
-/* line 135, ../sass/_display.scss */
+/* line 137, ../sass/_display.scss */
 .overlay .footer {
   border-bottom: 0px solid #a0a0a0;
   bottom: 0em;
@@ -4099,14 +4170,14 @@ h3.title {
   height: 3.07692em;
 }
 
-/* line 144, ../sass/_display.scss */
+/* line 146, ../sass/_display.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 149, ../sass/_display.scss */
+/* line 151, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-expand,
 .when-overlay-expanded button.do-expand {
   text-transform: uppercase;
@@ -4129,7 +4200,7 @@ h3.title {
 .when-overlay-expanded button.do-expand:hover {
   background-color: #d96859;
 }
-/* line 152, ../sass/_display.scss */
+/* line 154, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-collapse,
 .when-overlay-expanded button.do-collapse {
   text-transform: uppercase;
@@ -4153,7 +4224,7 @@ h3.title {
   background-color: #d96859;
 }
 
-/* line 157, ../sass/_display.scss */
+/* line 159, ../sass/_display.scss */
 button.do-select {
   text-transform: uppercase;
   background-color: #fd6d5a;
@@ -4175,7 +4246,7 @@ button.do-select:hover {
   background-color: #d96859;
 }
 
-/* line 162, ../sass/_display.scss */
+/* line 164, ../sass/_display.scss */
 button.do-edit {
   text-transform: uppercase;
   background-color: #fd6d5a;
@@ -4195,6 +4266,22 @@ button.do-edit {
 /* line 39, ../sass/_buttons.scss */
 button.do-edit:hover {
   background-color: #d96859;
+}
+
+/* line 169, ../sass/_display.scss */
+div.selection {
+  height: 6px;
+  width: 6px;
+  padding-right: 5px;
+  display: inline-block;
+}
+/* line 50, ../sass/_fonts.scss */
+div.selection [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 /*@ sourceMappingURL=screen.css.map */

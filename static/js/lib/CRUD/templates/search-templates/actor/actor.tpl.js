@@ -59,7 +59,7 @@ function program13(depth0,data) {
   return "\n                    Civilian\n                  ";
   }
 
-  buffer += "  <div class=\"header\">\n    <button class=\"do-hide is-small\">\n      <span class=\"t\">Hide</span>\n    </button>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"first span-66p\">\n      <!-- switch class here is-expanded -> in-preview -->\n      <div class=\"Actor is-edited is-expanded\">\n        <div class=\"header\">\n          <!-- id field - hide for new actor -->\n          ";
+  buffer += "  <div class=\"header\">\n    <a href=\"#\" class=\"display do-hide is-small\">\n      <span aria-hidden=\"true\" data-icon=\"Y\"></span>\n      <span class=\"screen-reader-text\">Hide</span>\n    </a>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"first span-66p\">\n      <!-- switch class here is-expanded -> in-preview -->\n      <div class=\"Actor is-edited is-expanded\">\n        <div class=\"header\">\n          <!-- id field - hide for new actor -->\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          <!-- actor name -->\n          <div class=\"field clear-after\">\n            <label>Name</label>\n            <span class=\"i18n with-en with-ar\">\n              <div lang=\"en\">\n                <input type=\"text\" name=\"fullname_en\" id=\"fullname_en\" \n                  value=\""

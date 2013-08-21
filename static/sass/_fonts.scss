@@ -1,5 +1,10 @@
+.screen-reader-text {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
 @include font-face(
-  "Corroboricon", 
+  "corroborator", 
   font-files(
     "/static/fonts/corroborator/corroborator.ttf",
     "/static/fonts/corroborator/corroborator.eot",
@@ -34,17 +39,31 @@
   font-files(
     "/static/fonts/opensans/OpenSans-Bold.ttf")
   );
-
+@mixin corrob_icon_attach {
+    font-family: "corroborator";
+    text-transform: none;
+    content: attr(data-icon);
+    speak: none;
+  -webkit-font-smoothing: antialiased;
+}
+@mixin corrob_icon_attach_before {
+  [data-icon]:before {
+    @include corrob_icon_attach;
+  }
+}
 @mixin open_sans {
   font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 @mixin open_sans_semi_bold {
   font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 @mixin open_sans_bold {
   font-family: 'Open Sans Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 @mixin iconic_fill {

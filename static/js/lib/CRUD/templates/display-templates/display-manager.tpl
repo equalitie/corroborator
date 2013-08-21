@@ -1,8 +1,9 @@
 <div data-wireframe="{{entity}}-view" class="{{entity}}-view overlay WIREFRAME">
   <div class="header">
-    <button class="display do-hide is-small">
-      <span class="T">hide</span>
-    </button>
+    <a href="#" class="display do-hide is-small">
+      <span aria-hidden="true" data-icon="Y"></span>
+      <span class="screen-reader-text">Hide</span>
+    </a>
   </div>
   <div class="body">
   </div>
@@ -18,6 +19,15 @@
       </button>
     </div>
       <button class="do-select">
+        <div class="selection">
+          <span class="selected hidden">
+            <span aria-hidden="true" data-icon="&#x54;"></span>
+            <span class="screen-reader-text">selected</span>
+          </span>
+          <span class="unselected">
+            <span class="screen-reader-text">unselected</span>
+          </span>
+        </div>
         <span class="text T">Select</span>
       </button>
       <button class="do-edit edit default">

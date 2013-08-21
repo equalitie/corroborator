@@ -1,7 +1,8 @@
   <div class="header">
-    <button class="do-hide is-small">
-      <span class="T">close</span>
-    </button>
+    <a href="#" class="display do-hide is-small">
+      <span aria-hidden="true" data-icon="Y"></span>
+      <span class="screen-reader-text">Hide</span>
+    </a>
   </div>
   <div class="body" style="bottom: 49px;">
     <div class="Bulletin is-edited is-expanded">
