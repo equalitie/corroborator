@@ -46,6 +46,9 @@
     </ul>
   </div>
   <div class="body">
+    {{#if model.locations}}
+    <div class="bulletin-map map"></div>
+    {{/if}}
     <div class="media">
       <div class="placeholder">&nbsp;</div>
     </div>

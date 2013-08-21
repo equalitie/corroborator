@@ -138,6 +138,9 @@ define (
                 .children('.body')
                 .append(displayView.$el);
 
+        //trigger a resize to be passed on to the map views
+        //to get over them being rendered when not actually in the dom
+        displayView.trigger('resize');
         this.childViews.push(displayView);
         return this;
       },

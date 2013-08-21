@@ -212,7 +212,6 @@ define (
       },
 
       render: function() {
-        console.log(this.model.toJSON());
         var html = this.template({
           model: this.model.toJSON()
         });

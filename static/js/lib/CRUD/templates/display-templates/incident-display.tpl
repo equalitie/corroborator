@@ -44,7 +44,9 @@
   </div>
 
   <div class="body">
-    <div class="incident-map map detail"></div>
+      {{#if model.incident_locations}}
+        <div class="incident-map map"></div>
+      {{/if}}
     <div class="media detail">
       <div class="placeholder">&nbsp;</div>
     </div>
