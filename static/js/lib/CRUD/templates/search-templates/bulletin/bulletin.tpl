@@ -17,10 +17,21 @@
             <label>Title</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
-                <textarea type="text" class="w-100p">{{model.title_en}}</textarea>
-              </div>
-              <div lang="ar">
-                <textarea type="text" class="w-100p">{{mdoel.title_ar}}</textarea>
+              <textarea 
+                id="incident_title_en"
+                type="text"
+                name="title_en"
+                class="bulletin-field
+                w-100p">{{model.title_en}}</textarea>
+            </div>
+            <div lang="ar">
+              <label>Title</label>
+              <textarea 
+                id="incident_title_ar"
+                name="title_ar"
+                type="text"
+                class="bulletin-field
+                w-100p">{{model.title_ar}}</textarea>
               </div>
               <span class="toggle">
                 <span lang="en">EN</span><span lang="ar">AR</span>

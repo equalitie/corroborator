@@ -160,11 +160,11 @@ define(
                 });
       },
       setSelectedText: function(selectedText) {
-        this.$el.children('span.selected-option').text(selectedText);
+        this.$el.children('span.selected-option')
+                .text(selectedText)
+                .append('<span aria-hidden="true" data-icon="K"></span>');
         this.input.val(selectedText);
       }
-
-
     };
 
 
