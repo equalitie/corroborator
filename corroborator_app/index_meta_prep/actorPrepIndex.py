@@ -86,7 +86,7 @@ class ActorPrepMeta():
         Return AWS URL for associated thumbnail media
         """
         if object.media != None:
-            return object.media.get_thumb_uri()
+            return object.media.media_thumb_file.name
         else:
             return ''
     def prepare_count_incidents(self, object):
