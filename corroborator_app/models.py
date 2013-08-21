@@ -12,6 +12,13 @@ from django.db.models import Min,  Max
 from django.contrib.auth.models import User
 from queued_storage.backends import QueuedStorage
 
+import reversion
+from reversion.models import Revision
+
+class VersionStatus(models.Model):
+    revision = models.OneToOneField(Revision)  # This is required
+    status = models.CharField(max_length=255)
+
 class SolrUpdate(models.Model):
     """
     Store most recent solr index update 
@@ -296,6 +303,7 @@ class Media(models.Model):
         This method is primarily used by Django Haystack
         when populating the Solr index.
         """
+
         return self.media_file.url
 
     def get_thumb_uri(self):

@@ -81,6 +81,14 @@ class ActorPrepMeta():
             return '/api/v1/media/{0}/'.format(object.media.id)
         else:
             return ''
+    def prepare_thumbnail_url(self, object):
+        """
+        Return AWS URL for associated thumbnail media
+        """
+        if object.media != None:
+            return object.media.get_thumb_uri()
+        else:
+            return ''
     def prepare_count_incidents(self, object):
         """
         Returns count of incident objects associated with a given Actor

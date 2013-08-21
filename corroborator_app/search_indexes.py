@@ -81,6 +81,7 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     actors_role = indexes.MultiValueField()
     actors = indexes.MultiValueField()
     deleted = indexes.BooleanField()
+    thumbnail_url = indexes.CharField()
 
     def get_model(self):
         return Actor
@@ -133,6 +134,11 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         Returns media uri of image associated with given Actor
         """
         return ActorPrepMeta().prepare_media(object)
+    def prepare_thumbnail_url(self, object):
+        """
+        Returns thumbnail AWS url
+        """
+        return ActorPrepMeta().prepare_thumbnail_url(object)
     def prepare_count_incidents(self, object):
         """
         Returns count of incident objects associated with a given Actor
