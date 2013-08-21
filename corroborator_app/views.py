@@ -6,6 +6,7 @@ Author: Bill Doran
 """
 import datetime
 import calendar
+from django.db.models import Q
 from django.core import serializers
 from django.shortcuts import render_to_response, get_object_or_404, render
 from django.contrib.auth import authenticate,  login
@@ -137,9 +138,9 @@ def new_index(request, *args, **kwargs):
                 'key': relation[0],
                 'value': relation[1]}
             )
-        predefined_search_set = PredefinedSearch.objects.filter(user_id=userid)
-        global_predefined_search_set = PredefinedSearch.objects.filter(make_global=True)
-        predefined_search_set.extend(global_predefined_search_set)
+        predefined_search_set = PredefinedSearch.objects.filter(
+            Q(user_id=userid) | Q(make_global=True)
+        )
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()
         sources_set = Source.objects.all()
