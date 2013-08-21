@@ -123,7 +123,11 @@ define(
         if (queryString.length > 0) {
           queryString = queryString + ' OR ';
         }
-        return queryString + '("' + model.get('filterName') + '")';
+        if(model.get('filterName').indexOf(' TO ') == -1){
+            return queryString + '("' + model.get('filterName') + '")';
+        }else{
+            return queryString + '(' + model.get('filterName') + ')';
+        }
       },
 
       // set the field for a filter
