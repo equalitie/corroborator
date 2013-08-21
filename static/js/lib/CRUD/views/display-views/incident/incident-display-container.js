@@ -173,15 +173,17 @@ define (
       },
       renderMap: function() {
         var mapEl, content, mapContainer, collection;
-        mapEl = this.getContainerEl('incident-map');
-        content = _.map(this.model.get('locations'), function(uri) {
-          return { resourceUri: uri };
-        });
-        mapContainer = new CoordinateDisplayView({
-          el: mapEl,
-          content: content
-        });
-        this.childViews.push(mapContainer);
+        if (this.model.get('locations') !== undefined) {
+          mapEl = this.getContainerEl('incident-map');
+          content = _.map(this.model.get('locations'), function(uri) {
+            return { resourceUri: uri };
+          });
+          mapContainer = new CoordinateDisplayView({
+            el: mapEl,
+            content: content
+          });
+          this.childViews.push(mapContainer);
+        }
         return this;
 
       },
