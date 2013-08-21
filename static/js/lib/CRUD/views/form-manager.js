@@ -154,7 +154,6 @@ define (
 
       // save faild - notify user and hide the overlay
       saveFailed: function(model, xhr, options) {
-        console.log(model, xhr, options);
         this.overlay.displayError(this.returnToDisplayView.bind(this));
       },
 

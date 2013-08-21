@@ -42,7 +42,7 @@ define (
       },
 
       updateMapSize: function() {
-        this.map.invalidateSize();
+        this.map.invalidateSize(false);
       },
 
       // create a collection that will store the currently rendered markers

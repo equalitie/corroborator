@@ -36,6 +36,7 @@ define (
         this.model = bulletinCollection.get(
           options.entityDetails.id);
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
+        this.listenTo(this, 'resize', this.sendResizeEvent.bind(this));
         this.expanded = options.entityDetails.expanded === undefined ?
           false : options.entityDetails.expanded;
         this.expanded = !this.expanded;
@@ -56,8 +57,7 @@ define (
       // render expanded view
       displayExpandedView: function() {
         this.displayView()
-            .renderRelatedMedia()
-            .renderMap();
+            .renderRelatedMedia();
       },
 
       // display view and standard elements
@@ -65,7 +65,8 @@ define (
         this.render()
             .renderRelatedActors()
             .renderRelatedBulletins()
-            .renderRelatedIncidents();
+            .renderRelatedIncidents()
+            .renderMap();
         return this;
       },
 
@@ -81,6 +82,12 @@ define (
           this.expanded = true;
           this.displayExpandedView();
         }
+      },
+
+      sendResizeEvent: function() {
+        _.each(this.childViews, function(view) {
+          view.trigger('resize');
+        });
       },
 
       // get the containing el for normal and expanded view
@@ -161,8 +168,8 @@ define (
           el: mapEl,
           content: content
         });
+        this.childViews.push(mapContainer);
         return this;
-
       },
 
 

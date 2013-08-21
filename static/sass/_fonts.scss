@@ -1,4 +1,13 @@
 @include font-face(
+  "Corroboricon", 
+  font-files(
+    "/static/fonts/corroborator/corroborator.ttf",
+    "/static/fonts/corroborator/corroborator.eot",
+    "/static/fonts/corroborator/corroborator.woff",
+    "/static/fonts/corroborator/corroborator.otf"
+    )
+  );
+@include font-face(
   "IconicFill", 
   font-files(
     "/static/fonts/iconic-fill/iconic_fill.ttf",

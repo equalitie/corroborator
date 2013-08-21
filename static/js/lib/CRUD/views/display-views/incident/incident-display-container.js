@@ -16,9 +16,9 @@ define (
     'lib/CRUD/templates/display-templates/incident-display.tpl',
     'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl'
   ],
-  function (Backbone, _, Collections, Streams, CoordinateDisplayView, CommentContainer,
-    EventListView, ActorListView, BulletinListView, IncidentListView,
-    incidentDisplayTmp, expandedIncidentDisplayTmp) {
+  function (Backbone, _, Collections, Streams, CoordinateDisplayView,
+    CommentContainer, EventListView, ActorListView, BulletinListView,
+    IncidentListView, incidentDisplayTmp, expandedIncidentDisplayTmp) {
     'use strict';
 
     var IncidentDisplayView,
@@ -41,6 +41,7 @@ define (
         this.model = incidentCollection.get(
           options.entityDetails.id);
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
+        this.listenTo(this, 'resize', this.sendResizeEvent.bind(this));
         this.expanded = options.entityDetails.expanded === undefined ?
           false : options.entityDetails.expanded;
         this.expanded = !this.expanded;
@@ -72,6 +73,13 @@ define (
           this.displayExpandedView();
         }
       },
+
+      sendResizeEvent: function() {
+        _.each(this.childViews, function(view) {
+          view.trigger('resize');
+        });
+      },
+
       requestEdit: function() {
         crudBus.push({
           type: 'edit_incident_request',
@@ -173,6 +181,7 @@ define (
           el: mapEl,
           content: content
         });
+        this.childViews.push(mapContainer);
         return this;
 
       },
