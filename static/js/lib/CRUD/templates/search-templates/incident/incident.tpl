@@ -81,8 +81,11 @@
             <label>Assigned to</label>
 
             <input type="text" class="with-clear is-assigned-to"
-              value="{{model.incident_assigned}}">
-            <input type="hidden" name="assigned_user"
+              value="{{model.incident_assigned_user}}">
+            <input
+              type="hidden"
+              name="assigned_user"
+              class="incident-field"
               value="{{model.assigned_user}}">
 
           <button id="clear-user" class="do-clear">
@@ -109,7 +112,7 @@
         </div>
 
         <!-- Description -->
-        <div id="incident-description-block" class="field is-description">
+        <div id="incident-description-block" class="field detail is-description">
           <div class="i18n with-en with-ar">
             <label>Description</label>
             <div lang="en">

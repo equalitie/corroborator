@@ -122,3 +122,11 @@ button.do-save {
   float: right;
   border-left: 1px solid $BRIGHT_RED_HOVER;
 }
+
+// LABEL FIELDS
+.tags {
+  @include clearfix;
+  .tag {
+    margin-bottom: 2px;
+  }
+}

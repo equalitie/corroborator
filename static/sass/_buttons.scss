@@ -27,7 +27,6 @@
   $height: 3em,
   $text_color: black
 ) {
-  text-transform:uppercase;
   background-color: $background_color;
   color: $text_color;
   height: $height;
@@ -42,12 +41,6 @@
 
 
 }
-@mixin button_icon(
-){
-  &:after {
-    
-  }
-}
 
 @mixin create_button ($bg_color:black) {
   @include button(
@@ -55,6 +48,7 @@
     $text_color: #fff,
     $height: $ACTION_BAR_HEIGHT
   );
+  text-transform:uppercase;
   @include corrob_icon_attach_before;
   width: 100%;
 }
@@ -64,11 +58,13 @@
   $color: black,
   $hover_color: grey,
   $hover_text: black,
-  $width: 10em
+  $width: 10em,
+  $height: 1.2em
 ){
   $padding_left: 0.75em;
    background-color: $bg_color;
    color: $color;
+   height: $height;
    padding-top: 5px;
    padding-bottom: 5px;
     position: relative;

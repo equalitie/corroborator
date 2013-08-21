@@ -2718,10 +2718,11 @@ ul.media li.medium:hover .do-remove {
   float: none;
 }
 
-/* line 170, ../sass/_buttons.scss */
+/* line 166, ../sass/_buttons.scss */
 .field button.combo, .field .button.combo {
   background-color: #ddd2c7;
   color: black;
+  height: 1.2em;
   padding-top: 5px;
   padding-bottom: 5px;
   position: relative;
@@ -2737,7 +2738,7 @@ ul.media li.medium:hover .do-remove {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 79, ../sass/_buttons.scss */
+/* line 75, ../sass/_buttons.scss */
 .field button.combo [data-icon]:before, .field .button.combo [data-icon]:before {
   display: block;
   width: 3em;
@@ -2745,7 +2746,7 @@ ul.media li.medium:hover .do-remove {
   right: 0em;
   text-align: right;
 }
-/* line 86, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 .field button.combo .options, .field .button.combo .options {
   min-width: 9.5em;
   right: 0.75em;
@@ -2756,7 +2757,7 @@ ul.media li.medium:hover .do-remove {
   z-index: 10;
   text-align: left;
 }
-/* line 95, ../sass/_buttons.scss */
+/* line 91, ../sass/_buttons.scss */
 .field button.combo .options li, .field .button.combo .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -2764,25 +2765,26 @@ ul.media li.medium:hover .do-remove {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 101, ../sass/_buttons.scss */
+/* line 97, ../sass/_buttons.scss */
 .field button.combo .options li:hover, .field .button.combo .options li:hover {
   color: black;
   background-color: #a38568;
 }
-/* line 107, ../sass/_buttons.scss */
+/* line 103, ../sass/_buttons.scss */
 .field button.combo:hover .options, .field .button.combo:hover .options {
   display: block;
 }
-/* line 178, ../sass/_buttons.scss */
+/* line 174, ../sass/_buttons.scss */
 .field.span-33p {
   clear: none;
   float: left;
 }
 
-/* line 187, ../sass/_buttons.scss */
+/* line 183, ../sass/_buttons.scss */
 .when-related .button.combo {
   background-color: #b7b6b2;
   color: black;
+  height: 1.2em;
   padding-top: 5px;
   padding-bottom: 5px;
   position: relative;
@@ -2798,7 +2800,7 @@ ul.media li.medium:hover .do-remove {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 79, ../sass/_buttons.scss */
+/* line 75, ../sass/_buttons.scss */
 .when-related .button.combo [data-icon]:before {
   display: block;
   width: 3em;
@@ -2806,7 +2808,7 @@ ul.media li.medium:hover .do-remove {
   right: 0em;
   text-align: right;
 }
-/* line 86, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 .when-related .button.combo .options {
   min-width: 16.5em;
   right: 0.75em;
@@ -2817,7 +2819,7 @@ ul.media li.medium:hover .do-remove {
   z-index: 10;
   text-align: left;
 }
-/* line 95, ../sass/_buttons.scss */
+/* line 91, ../sass/_buttons.scss */
 .when-related .button.combo .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -2825,39 +2827,39 @@ ul.media li.medium:hover .do-remove {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 101, ../sass/_buttons.scss */
+/* line 97, ../sass/_buttons.scss */
 .when-related .button.combo .options li:hover {
   color: black;
   background-color: #6b6a65;
 }
-/* line 107, ../sass/_buttons.scss */
+/* line 103, ../sass/_buttons.scss */
 .when-related .button.combo:hover .options {
   display: block;
 }
 
-/* line 214, ../sass/_buttons.scss */
+/* line 210, ../sass/_buttons.scss */
 button, .button {
   display: inline-block;
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-/* line 223, ../sass/_buttons.scss */
+/* line 219, ../sass/_buttons.scss */
 button a, button a:active, button a:visited, button a:hover, .button a, .button a:active, .button a:visited, .button a:hover {
   text-decoration: none;
   color: #202020;
 }
 
-/* line 233, ../sass/_buttons.scss */
+/* line 229, ../sass/_buttons.scss */
 button.create.do-create-incident {
-  text-transform: uppercase;
   background-color: #6bcad8;
   color: white;
   height: 4em;
   line-height: 4em -0.05em;
   border: none;
+  text-transform: uppercase;
   width: 100%;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 button.create.do-create-incident:hover {
   background-color: #43bccd;
 }
@@ -2870,17 +2872,17 @@ button.create.do-create-incident [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 236, ../sass/_buttons.scss */
+/* line 232, ../sass/_buttons.scss */
 button.create.do-create-actor {
-  text-transform: uppercase;
   background-color: #f1be33;
   color: white;
   height: 4em;
   line-height: 4em -0.05em;
   border: none;
+  text-transform: uppercase;
   width: 100%;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 button.create.do-create-actor:hover {
   background-color: #e2a90f;
 }
@@ -2893,17 +2895,17 @@ button.create.do-create-actor [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 239, ../sass/_buttons.scss */
+/* line 235, ../sass/_buttons.scss */
 button.create.do-create-bulletin {
-  text-transform: uppercase;
   background-color: #b5cd5f;
   color: white;
   height: 4em;
   line-height: 4em -0.05em;
   border: none;
+  text-transform: uppercase;
   width: 100%;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 button.create.do-create-bulletin:hover {
   background-color: #a1be3b;
 }
@@ -2916,20 +2918,20 @@ button.create.do-create-bulletin [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 245, ../sass/_buttons.scss */
+/* line 241, ../sass/_buttons.scss */
 button.is-small, .button.is-small {
   padding: 0.23077em;
   padding-top: 0em;
   padding-bottom: 0em;
   border-width: 1px;
 }
-/* line 250, ../sass/_buttons.scss */
+/* line 246, ../sass/_buttons.scss */
 button.is-small .text, .button.is-small .text {
   font-size: 70%;
   text-transform: uppercase;
 }
 
-/* line 255, ../sass/_buttons.scss */
+/* line 251, ../sass/_buttons.scss */
 button.do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -2953,11 +2955,10 @@ button.do-clear > span {
   font-size: 65%;
 }
 
-/* line 259, ../sass/_buttons.scss */
+/* line 255, ../sass/_buttons.scss */
 .do-hide {
   height: 15px;
   padding-left: 8px;
-  text-transform: uppercase;
   background-color: transparent;
   color: black;
   height: 3em;
@@ -2965,7 +2966,7 @@ button.do-clear > span {
   border: none;
   display: inline-block;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 .do-hide:hover {
   background-color: transparent;
 }
@@ -3105,7 +3106,6 @@ input.with-clear {
 /* line 110, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-expand-form,
 .when-overlay-expanded button.do-expand-form {
-  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
   height: 3em;
@@ -3121,7 +3121,7 @@ input.with-clear {
   padding-right: 0px;
   border-right: 1px solid #ca5b4d;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-expand-form:hover,
 .when-overlay-expanded button.do-expand-form:hover {
   background-color: #d96859;
@@ -3129,7 +3129,6 @@ input.with-clear {
 /* line 114, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-collapse-form,
 .when-overlay-expanded button.do-collapse-form {
-  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
   height: 3em;
@@ -3145,7 +3144,7 @@ input.with-clear {
   padding-right: 0px;
   border-right: 1px solid #ca5b4d;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-collapse-form:hover,
 .when-overlay-expanded button.do-collapse-form:hover {
   background-color: #d96859;
@@ -3153,7 +3152,6 @@ input.with-clear {
 
 /* line 120, ../sass/_forms.scss */
 button.do-save {
-  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
   height: 3em;
@@ -3170,9 +3168,19 @@ button.do-save {
   float: right;
   border-left: 1px solid #ca5b4d;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 button.do-save:hover {
   background-color: #d96859;
+}
+
+/* line 127, ../sass/_forms.scss */
+.tags {
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 129, ../sass/_forms.scss */
+.tags .tag {
+  margin-bottom: 2px;
 }
 
 /* line 2, ../sass/_navigation.scss */
@@ -3379,6 +3387,7 @@ nav#search-navigation .search button.do-clear > span {
 .search-combo .do-search {
   background-color: #2b2a2a;
   color: white;
+  height: 1.2em;
   padding-top: 5px;
   padding-bottom: 5px;
   position: relative;
@@ -3394,7 +3403,7 @@ nav#search-navigation .search button.do-clear > span {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 79, ../sass/_buttons.scss */
+/* line 75, ../sass/_buttons.scss */
 .search-combo .do-search [data-icon]:before {
   display: block;
   width: 3em;
@@ -3402,7 +3411,7 @@ nav#search-navigation .search button.do-clear > span {
   right: 0em;
   text-align: right;
 }
-/* line 86, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 .search-combo .do-search .options {
   min-width: 10.5em;
   right: 0.75em;
@@ -3413,7 +3422,7 @@ nav#search-navigation .search button.do-clear > span {
   z-index: 10;
   text-align: left;
 }
-/* line 95, ../sass/_buttons.scss */
+/* line 91, ../sass/_buttons.scss */
 .search-combo .do-search .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -3421,12 +3430,12 @@ nav#search-navigation .search button.do-clear > span {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 101, ../sass/_buttons.scss */
+/* line 97, ../sass/_buttons.scss */
 .search-combo .do-search .options li:hover {
   color: #e9c37b;
   background-color: black;
 }
-/* line 107, ../sass/_buttons.scss */
+/* line 103, ../sass/_buttons.scss */
 .search-combo .do-search:hover .options {
   display: block;
 }
@@ -3741,7 +3750,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   background-color: #fd6d5a;
   text-transform: uppercase;
 }
-/* line 129, ../sass/_buttons.scss */
+/* line 125, ../sass/_buttons.scss */
 .Selection .actions .button.combo > span:after {
   position: absolute;
   z-index: 3;
@@ -3756,7 +3765,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   font-family: "IconicFill";
   border-left: 1px solid #ca5b4d;
 }
-/* line 143, ../sass/_buttons.scss */
+/* line 139, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options {
   display: none;
   position: absolute;
@@ -3766,17 +3775,17 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   z-index: 10;
   text-align: left;
 }
-/* line 154, ../sass/_buttons.scss */
+/* line 150, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li {
   margin: none;
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-/* line 158, ../sass/_buttons.scss */
+/* line 154, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li:hover {
   background-color: #d96859;
 }
-/* line 163, ../sass/_buttons.scss */
+/* line 159, ../sass/_buttons.scss */
 .Selection .actions .button.combo:hover .options {
   display: block;
   height: auto;
@@ -4308,7 +4317,6 @@ h3.title {
 /* line 150, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-expand,
 .when-overlay-expanded button.do-expand {
-  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
   height: 3em;
@@ -4323,7 +4331,7 @@ h3.title {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-expand:hover,
 .when-overlay-expanded button.do-expand:hover {
   background-color: #d96859;
@@ -4331,7 +4339,6 @@ h3.title {
 /* line 153, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-collapse,
 .when-overlay-expanded button.do-collapse {
-  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
   height: 3em;
@@ -4346,7 +4353,7 @@ h3.title {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-collapse:hover,
 .when-overlay-expanded button.do-collapse:hover {
   background-color: #d96859;
@@ -4354,7 +4361,6 @@ h3.title {
 
 /* line 158, ../sass/_display.scss */
 button.do-select {
-  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
   height: 3em;
@@ -4369,14 +4375,13 @@ button.do-select {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 button.do-select:hover {
   background-color: #d96859;
 }
 
 /* line 163, ../sass/_display.scss */
 button.do-edit {
-  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
   height: 3em;
@@ -4391,7 +4396,7 @@ button.do-edit {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 39, ../sass/_buttons.scss */
+/* line 38, ../sass/_buttons.scss */
 button.do-edit:hover {
   background-color: #d96859;
 }
