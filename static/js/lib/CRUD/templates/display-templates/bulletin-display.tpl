@@ -22,22 +22,23 @@
         <span class="value">{{model.most_recent_status_bulletin}}</span>
       </span>
       {{/if}}
-      <div class="events">
-        
+      {{#if model.times}}
+      <div class="events detail">
       </div>
+      {{/if}}
       <div class="date-location">
         <span class="date">{{dateFormat model.bulletin_created}}</span>
-        {{#if model.bulletin_location}}
-        , in <span class="location">{{model.bulletin_location}}</span>
+        {{#if model.bulletin_locations}}
+         in <span class="location">{{commaSeparatedList model.bulletin_locations}}</span>
         {{/if}}
       </div>
-      {{#if model.bulletin_locations}}
+      {{#if model.bulletin_sources}}
       <div class="sources">
-          ({{commaSeparatedList model.bulletin_locations}})
+          ({{commaSeparatedList model.bulletin_sources}})
       </div>
       {{/if}}
     </div>
-    <ul class="tags group">
+    <ul class="tags group detail">
       {{#each model.bulletin_labels}}
       <li class="tag">
       <span class="text">{{this}}</span>
@@ -47,12 +48,17 @@
   </div>
   <div class="body">
     {{#if model.locations}}
-    <div class="bulletin-map map"></div>
+    <div class="bulletin-map map detail"></div>
     {{/if}}
     <div class="media">
       <div class="placeholder">&nbsp;</div>
     </div>
-    <div class="description">{{model.description}}</div>
+    {{#if model.bulletin_description_en }}
+    <div class="description detail">
+      <h3 class="title">Description</h3>
+      {{model.bulletin_description_en}}
+    </div>
+    {{/if}}
     {{#if model.actors_role}}
     <div class="actors group">
     </div>

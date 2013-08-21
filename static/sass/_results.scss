@@ -1,4 +1,4 @@
-
+$RESULT_BG_COLOR: #f5f0ec;
 // ===========================================================================
 // RESULTS STYLING
 // ===========================================================================
@@ -10,7 +10,7 @@
   right: $PAD_UNIT;
   left: $PAD_UNIT;
   position: absolute;
-  top: 88px;
+  top: 89px;
 }
 .results-body  .padding {
     padding-left: $PAD_UNIT;
@@ -62,7 +62,7 @@ span.status {
   td {
     border-top: 1px solid $RESULT_LIST_BORDER;
     border-bottom: 1px solid $RESULT_LIST_BORDER;
-    background-color: #f5f0ec;
+    background-color: $RESULT_BG_COLOR;
     color: #646362;
     padding: 0.5em;
   }
@@ -119,3 +119,61 @@ span.status {
     background-color: $COLOR_SELECTABLE_HOVER;
   }
 }
+
+.actors.table {
+  
+  li.result {
+    width: 50%;
+    float: left;
+    box-sizing: border-box;
+    position:relative;
+  }
+  .Actor {
+    &:hover > div {
+      cursor: pointer;
+      background-color: $COLOR_SELECTABLE_HOVER;
+    }
+    &:hover > div.is-selector {
+      border-right: 1px solid $COLOR_SELECTABLE_HOVER;
+    }
+  }
+  .is-selector {
+    width: 18px;
+    float:left;
+    border: 1px solid $COLOR_TABLE_BD;
+    border-right: 1px solid $RESULT_BG_COLOR;
+    margin-right: -1px;
+    background-color: $RESULT_BG_COLOR;
+  }
+  .actor-content {
+    height: 10em;
+    @include clearfix;
+    border: 1px solid $COLOR_TABLE_BD;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: $RESULT_BG_COLOR;
+  }
+  .sex, .age {
+    float: left;
+  }
+  .aka {
+    width: 100%;
+  }
+  .name {
+    @include one_line_ellipsis($width:65%, $height: 16px);
+  }
+  .aka {
+    @include one_line_ellipsis($width:80%, $height: 16px);
+  }
+  .works-as, .lives-in {
+    @include one_line_ellipsis($width:50%, $height: 16px);
+  }
+  .L1, .L2, .L3 {
+    width: 100%;
+    position: relative;
+  }
+  .L3 p {
+    float:left;
+  }
+}
+

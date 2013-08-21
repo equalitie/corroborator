@@ -106,6 +106,7 @@
             <div class="button combo is-default">
               <span class="T">
                 Related as: {{roleModel.role_en}} 
+                <span aria-hidden="true" data-icon="&#x4b;"></span>
                 <ul class="options">
                   {{#each roles}}
                   <li>

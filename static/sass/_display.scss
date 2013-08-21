@@ -1,11 +1,6 @@
 // ======================================================================
 // PREVIEW AND EXPANDED VIEW
 // ======================================================================
-$DISPLAY_TEXT_LIGHT: #b5afa7;
-$DISPLAY_TEXT_MID: #8c8b8a;
-$DISPLAY_TEXT_DARK: #626262;
-
-$DISPLAY_BORDER: #b7b6b2;
 
 $TAG_COLOR: #fd6d5a;
 
@@ -129,6 +124,10 @@ h3.title {
   .title {
     @include medium_header;
   }
+}
+
+.Actor.in-list.search-results {
+  border: none;
 }
 
 // ========================================

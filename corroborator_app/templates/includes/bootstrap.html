@@ -12,7 +12,19 @@
     var gl_ac_users_list = [];
     var solr_url = '{{ solr_url }}';
     var comment_statuses = [];
-
+    var predefined_list = [];
+    {% for pds in predefined_search_set.all %}
+        predefined_list.push({
+            search_type:"{{pds.search_type}}",
+            search_title:"{{pds.search_title}}",
+            search_string:'{{pds.search_string}}',
+            actor_filters:'{{pds.actor_filters}}',
+            bulletin_filters:'{{pds.bulletin_filters}}',
+            incident_filters:'{{pds.incident_filters}}',
+            resource_uri:'/api/v1/predefinedSearch/{{pds.id}}/',
+            id: '{{pds.id}}'
+        });
+    {% endfor %}
     {%for relation in relation_status_set %}
       gl_ac_relation_list.push({ 
         key:"{{relation.key}}",

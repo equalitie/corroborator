@@ -213,7 +213,7 @@ define (
         var mediaSearchView = new MediaSearchView({
           el: '#actor-media-block',
           content: this.model.get('media'),
-          entitytype: 'actor',
+          entityType: 'actor',
           multiple: false,
           label: 'Actor Image',
           name: 'media'

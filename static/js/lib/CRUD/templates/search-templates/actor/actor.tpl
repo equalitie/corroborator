@@ -67,6 +67,7 @@
                   {{else}}
                     Sex
                   {{/if}}
+                <span aria-hidden="true" data-icon="&#x4b;"></span>
                 </span>
                 <input name="sex_en" type="hidden" value="{{model.sex_en}}"class="actor-field">
         
@@ -90,6 +91,7 @@
                   {{else}}
                     Age
                   {{/if}}
+                <span aria-hidden="true" data-icon="&#x4b;"></span>
                 </span>
                 <input name="age_en" type="hidden" value="{{model.age_en}}" class="actor-field">
         
@@ -114,6 +116,7 @@
                   {{else}}
                     Civilian
                   {{/if}}
+                <span aria-hidden="true" data-icon="&#x4b;"></span>
                 </span>
                 <input type="hidden" name="civilian_en" value="" class="actor-field">
         
