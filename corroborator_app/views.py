@@ -157,6 +157,7 @@ def new_index(request, *args, **kwargs):
                 'role_status_set': role_status_set,
                 'relation_status_set': relation_status_set,
                 'sources_set': sources_set,
+                'predefined_search_set': predefined_search_set,
                 'labels_set': labels_set,
                 'crimes_set': crimes_set,
                 'status_set': status_set,
