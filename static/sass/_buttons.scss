@@ -59,62 +59,56 @@
   width: 100%;
 }
 
-@mixin combo_small {
+@mixin combo_small(
+  $bg_color: white,
+  $color: black,
+  $hover_color: grey,
+  $hover_text: black,
+  $width: 10em
+){
+  $padding_left: 0.75em;
+   background-color: $bg_color;
+   color: $color;
+   padding-top: 5px;
+   padding-bottom: 5px;
     position: relative;
     display: inline-block;
-    padding-right: 2.5em;
-    padding-left: 0.75em;
-    min-width: 5em;
-    > span:after {
-      position: absolute;
-      z-index: 3;
+    padding-left: $padding_left;
+    min-width: $width;
+    @include corrob_icon_attach_before;
+    [data-icon]:before {
       display: block;
-      top: 0em;
-      bottom: 0em;
+      width: 3em;
+      float: right;
       right: 0em;
-      width: 1.75em;
-      line-height: 2.25em;
-      text-align: center;
-      content: '\2193';
-      font-family: "IconicFill";
-      border-left: 2px solid $COLOR_BUTTON_BD;
-    }
-    &:hover > span:after {
-      display: none;
+      text-align: right;
     }
     .options {
+      min-width: $width + 0.5em;
+      right: $padding_left;
       display: none;
       position: absolute;
-      padding-top: 0.5em;
-      background: #d4d4d4;
+      margin-top: 6px;
       border-top: 0px solid transparent;
       z-index: $Z_MENU;
       text-align: left;
       li {
-      };
+        padding-left: $padding_left;
+        width: 100%;
+        background-color: $bg_color;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        &:hover {
+          color: $hover_text;
+          background-color: darken($bg_color, 30%);
+        }
+      }
     };
     &:hover .options {
       display: block;
-      height: auto;
-    }
-    &.is-small {
-      min-width: auto;
-      .options {
-        left: -1px;
-        right: -1px;
-        border-width: 0 1px 1px;
-        li {
-          margin: 0;
-        };
-      };
-      span:after {
-        display: none;
-      }
-    }
-  }
+      //height: auto;
 
-  button.combo, .button.combo {
-    @include combo_small;
+    }
   }
 
 @mixin combo_large(
@@ -171,6 +165,34 @@
       height: auto;
     }
 }
+
+.field {
+  button.combo, .button.combo {
+    @include combo_small(
+    $bg_color: $COLOR_INPUT_BD,
+    $color: black,
+    $width: 9em
+
+    );
+  }
+  &.span-33p {
+    clear: none;
+    float: left;
+  }
+}
+.when-related {
+  .right button {
+    //@include button;
+  }
+  .button.combo {
+    @include combo_small(
+    $bg_color: $DISPLAY_BORDER,
+    $color: black,
+    $width: 16em
+    );
+  }
+}
+
 
 
 @mixin bottom_button ($width, $border) {
