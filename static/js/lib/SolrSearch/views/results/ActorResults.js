@@ -59,7 +59,7 @@ define (
       selectActor: function(e) {
         var checked = (this.model.get('checked') !== 'checked') ? 'checked' : '';
         this.model.set({checked: checked}, {silent: true});
-        this.model.collection.trigger('change');
+        this.model.trigger('change', this.model);
       },
 
       // render a single actor

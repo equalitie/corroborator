@@ -3744,35 +3744,40 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   height: auto;
 }
 
-/* line 42, ../sass/_header.scss */
+/* line 38, ../sass/_header.scss */
+#number-selected {
+  color: white;
+}
+
+/* line 46, ../sass/_header.scss */
 table.sort-headers {
   border-left: 1px solid #bfbfba;
   border-right: 1px solid #bfbfba;
   background-color: #5e5c5c;
   width: 100%;
 }
-/* line 47, ../sass/_header.scss */
+/* line 51, ../sass/_header.scss */
 table.sort-headers .is-preview {
   min-width: 2.5em;
 }
-/* line 50, ../sass/_header.scss */
+/* line 54, ../sass/_header.scss */
 table.sort-headers .is-status {
   width: 7.3em;
 }
-/* line 53, ../sass/_header.scss */
+/* line 57, ../sass/_header.scss */
 table.sort-headers .is-score {
   width: 5em;
 }
-/* line 57, ../sass/_header.scss */
+/* line 61, ../sass/_header.scss */
 table.sort-headers thead th {
   padding-top: 1.25em;
   padding-bottom: 0.25em;
 }
-/* line 61, ../sass/_header.scss */
+/* line 65, ../sass/_header.scss */
 table.sort-headers thead th.is-status {
   text-align: center;
 }
-/* line 64, ../sass/_header.scss */
+/* line 68, ../sass/_header.scss */
 table.sort-headers thead a {
   font-size: 90%;
   text-transform: uppercase;
@@ -3780,25 +3785,25 @@ table.sort-headers thead a {
   -webkit-font-smoothing: antialiased;
   margin-left: 1em;
 }
-/* line 66, ../sass/_header.scss */
+/* line 70, ../sass/_header.scss */
 table.sort-headers thead a, table.sort-headers thead a:active, table.sort-headers thead a:visited, table.sort-headers thead a:hover {
   color: #e9c37b;
   text-decoration: none;
 }
-/* line 70, ../sass/_header.scss */
+/* line 74, ../sass/_header.scss */
 table.sort-headers thead a:hover {
   text-decoration: underline;
 }
-/* line 76, ../sass/_header.scss */
+/* line 80, ../sass/_header.scss */
 table.sort-headers thead a:first-child {
   margin-left: 0em;
 }
-/* line 79, ../sass/_header.scss */
+/* line 83, ../sass/_header.scss */
 table.sort-headers thead a.current {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-/* line 82, ../sass/_header.scss */
+/* line 86, ../sass/_header.scss */
 table.sort-headers thead a.is-descending:after {
   content: "\2193";
   font-family: IconicFill;
