@@ -100,21 +100,8 @@ def multi_save_entities(element_data, mode, username):
     for item in list_entities:
         if mode  ==  'bulletin' or mode  ==  'incident':
             item.confidence_score = cscore
-            #item.status_id=statusid
             item.assigned_user_id = userid
-            """
-            if len(element_data['new_comments']) > 0:
-                for comment_e in element_data['new_comments']:
-                    created_date = datetime.datetime.strptime(comment_e['comment_created'], '%Y-%m-%dT%H:%M:%S.%fZ')
-                    comment_local = Comment(comments_en=comment_e['comments_en'], assigned_user_id=comment_e['assigned_user'], status_id=comment_e['status_id'], comment_created=created_date)
-                    comment_local.save()
-                    comment_ids.append(comment_local.id)
-            if len(comment_ids) > 0:
-                if mode  ==  'incident':
-                    item.incident_comments.add(*comment_ids)
-                else:
-                    item.bulletin_comments.add(*comment_ids)
-            """        
+
             if len(element_data['labels']) > 0:
                 localLabels = batch_parse_id_from_uri(
                     element_data['labels']
@@ -122,7 +109,6 @@ def multi_save_entities(element_data, mode, username):
                 labeling_ids = map(int, localLabels)
                 item.labels.add(*labeling_ids)
             for a in element_data['actorsRoles']:
-                #actor_local = Actor.objects.get(pk=int(a['id']))
                 localID = parse_id_from_uri(a['actor'])
                 role_local = ActorRole(role_status=a['role_status'],\
                     actor_id=int(localID), role_en=a['role_en'])

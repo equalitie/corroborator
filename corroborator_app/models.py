@@ -36,7 +36,7 @@ class PredefinedSearch(models.Model):
     actor_filters = models.TextField(null=True, blank=True)
     incident_filters = models.TextField(null=True, blank=True)
     bulletin_filters = models.TextField(null=True, blank=True)
-
+    make_global = models.BooleanField()
 
 class StatusUpdate(models.Model):
     """
