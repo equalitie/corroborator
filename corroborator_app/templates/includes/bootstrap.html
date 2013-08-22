@@ -24,8 +24,10 @@
             {% endautoescape %}
             resource_uri:     '/api/v1/predefinedSearch/{{pds.id}}/',
             id:               '{{pds.id}}',
+            // some stuff just for frontend purposes
             name_en:          "{{pds.search_title}}",
-            search_request:   "predefined_search"
+            search_request:   "predefined_search",
+            type:             "predefined_search"
         });
     {% endfor %}
     {%for relation in relation_status_set %}
@@ -104,7 +106,7 @@
         predefined_list: predefined_list,
         gl_s3_aws_media_url: '{{ MEDIA_URL }}',
         username: '{{username}}',
-        userResource: '/api/v1/user/{{userid}}',
+        userResource: '/api/v1/user/{{userid}}/',
         apiKey: '{{api_key}}',
         gl_userid: '{{userid}}',
         gl_ac_role_list: gl_ac_role_list,

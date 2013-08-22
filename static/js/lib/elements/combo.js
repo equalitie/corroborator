@@ -29,19 +29,19 @@ define(
     // used to render an item from the collection passed in
     ItemView = Backbone.View.extend({
       events: {
-        'click': 'itemClicked'
+        'click .select-search': 'itemClicked',
+        'click .delete-saved-search': 'deleteClicked'
       },
       tagName: 'li',
       initialize: function(options) {
         this.eventIdentifier = options.eventIdentifier;
         this.bus = options.bus;
-        this.bus.log();
         this.render();
       },
       // handle a click on one of the list items  
       // push an item onto the bus when received
       itemClicked: function() {
-        console.log(this.eventIdentifier);
+        console.log('itemClicked');
         if (this.bus) {
           this.bus.push({
             type: this.eventIdentifier,
@@ -49,10 +49,13 @@ define(
           });
         }
       },
+      deleteClicked: function() {
+        this.model.destroy();
+        this.destroy();
+      },
 
       // render the list items
       render: function() {
-        console.log(this.model.toJSON());
         var html = comboInnerTmp(this.model.toJSON());
         this.$el.append(html);
         this.$el.addClass('option selected');

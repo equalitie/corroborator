@@ -11,7 +11,7 @@ define(
   [
     // vendor
     'jquery', 'underscore', 'backbone', 'bacon',
-    // event streams
+   // event streams
     'lib/streams',
     // local libs
     'lib/elements/combo',

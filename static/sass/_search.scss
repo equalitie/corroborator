@@ -7,10 +7,29 @@
     @include combo_small(
     $bg_color: $TAB_SELECTED_BG,
     $color: white,
+    $width: 14em,
     $hover_text: $HEADER_SELECTED_COLOR
     );
   }
+  .options li.option {
+    padding: 0px;
+    span.text {
+      [data-icon]:before {
+        color: grey;
+        font-size: 8px;
+        width: 10%;
+        padding-right: 5px;
+        padding-top: 9px;
+      }
+      span.select-search {
+        padding:0.5em;
+        display: inline-block;
+        width: 78%;
+      }
+    }
+  }
 }
+
 // ========================================================================
 // COLUMNS CONTENT
 // ========================================================================

@@ -14,7 +14,7 @@ define (
     'use strict';
     var watchForSaveSearchRequest, init, displayDialog, searchBus,
         SaveSearchDialogView, filterSaveSearchRequest, checkLength,
-        filterSaveSearchResponseResult;
+        filterSaveSearchResponseResult, saveSearchDialog;
 
     searchBus = Streams.searchBus;
 
@@ -37,7 +37,7 @@ define (
     };
 
     displayDialog = function() {
-      var saveSearchDialog = new SaveSearchDialogView();
+      saveSearchDialog = new SaveSearchDialogView();
     };
 
     // ## Save search dialog
@@ -90,11 +90,14 @@ define (
           buttons: {
             'Save Search': this.saveSearchRequested.bind(this),
              'Cancel': function() {
-               $(this).dialog('close');
-               self.destroy();
+               self.closeDialog();
              }
           }
         });
+      },
+      closeDialog: function() {
+        this.$el.dialog('close');
+        this.destroy();
       },
 
       // respond to click on save button
@@ -143,6 +146,7 @@ define (
           this.updateTips(successText);
         }
         window.setTimeout(function() {
+          saveSearchDialog.closeDialog();
           this.destroy();
         }.bind(this), 500);
       },

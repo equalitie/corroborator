@@ -12,12 +12,29 @@ define (
     'use strict';
 
     var SavedSearchModel, SavedSearchCollection, filterSaveSearch,
-        searchBus;
+        searchBus, sendSuccessEvent, sendErrorEvent;
 
     searchBus = Streams.searchBus;
 
     filterSaveSearch = function (value) {
       return value.type === 'send_saved_search';
+    };
+    sendSuccessEvent = function() {
+      console.log('success');
+      searchBus.push({
+        type: 'save_search_response_result',
+        content: {
+          success: true
+        }
+      });
+    };
+    sendErrorEvent = function() {
+      searchBus.push({
+        type: 'save_search_response_result',
+        content: {
+          error: true
+        }
+      });
     };
 
     // ### SavedSearchModel
@@ -40,6 +57,7 @@ define (
     // ### SavedSearchCollection
     // store a collection of saved searches
     SavedSearchCollection = Backbone.Collection.extend({
+      model: SavedSearchModel,
       initialize: function() {
         this.reset(Bootstrap.predefined_list);
         this.watchForNewSavedSearch();
@@ -63,7 +81,10 @@ define (
         });
         savedSearchModel.set('user', Bootstrap.userResource);
         this.add(savedSearchModel, {at: 0});
-        savedSearchModel.save();
+        savedSearchModel.save(savedSearchModel.attributes, {
+          success: sendSuccessEvent,
+          error: sendErrorEvent
+        });
       }
     });
 
