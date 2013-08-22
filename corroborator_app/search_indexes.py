@@ -184,7 +184,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     count_actors = indexes.IntegerField()
     count_bulletins = indexes.IntegerField()
     count_incidents = indexes.IntegerField()
-    incident_assigned_user = indexes.CharField(model_attr='assigned_user',
+    incident_assigned_user = indexes.CharField(default='unassigned',model_attr='assigned_user',
     faceted=True, null=True)
     assigned_user = indexes.CharField()
     most_recent_status_incident = indexes.CharField(faceted=True)
