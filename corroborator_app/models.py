@@ -61,9 +61,9 @@ class Comment(models.Model):
     This object represents a system comment and acts as part of the
     systems audit trail. It can be related to either Bulletins or Incidents.
     """
-    assigned_user = models.ForeignKey(User, blank=True, null=True)
-    status = models.ForeignKey(StatusUpdate, blank=True, null=True)
-    comments_en = models.TextField(blank=True, null=True)
+    assigned_user = models.ForeignKey(User)
+    status = models.ForeignKey(StatusUpdate)
+    comments_en = models.TextField(blank=True)
     comments_ar = models.TextField(blank=True, null=True)
     comment_created = models.DateTimeField(auto_now_add=True)
 
@@ -343,8 +343,8 @@ class Actor(models.Model):
         ('Child', 'child'),
     )
 
-    fullname_en = models.CharField(max_length=255, blank=True, null=True)
-    fullname_ar = models.CharField(max_length=255, blank=True, null=True)
+    fullname_en = models.CharField(max_length=255)
+    fullname_ar = models.CharField(max_length=255, blank=True)
     nickname_en = models.CharField(max_length=255, blank=True, null=True)
     nickname_ar = models.CharField(max_length=255, blank=True, null=True)
     age_en = models.CharField(max_length=255, choices=AGE_TYPE_EN, blank=True)
@@ -484,8 +484,8 @@ class Bulletin(models.Model):
         ('Report', 'report'),
         ('News', 'news'),
     )
-    title_en = models.CharField(max_length=255, blank=True, null=True)
-    title_ar = models.CharField(max_length=255, blank=True, default='')
+    title_en = models.CharField(max_length=255)
+    title_ar = models.CharField(max_length=255, blank=True)
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, default='')
     uri = models.CharField('Media Link', max_length=255, blank=True, null=True)
@@ -557,8 +557,8 @@ class Incident(models.Model):
     incident_details_en = models.TextField(blank=True,null=True)
     incident_details_ar = models.TextField(blank=True,null=True)
     confidence_score = models.IntegerField('confidence score',max_length=3)
-    title_en = models.TextField(blank=True,null=True)
-    title_ar = models.TextField(blank=True,null=True)
+    title_en = models.TextField()
+    title_ar = models.TextField(blank=True)
     incident_created = models.DateTimeField(auto_now_add=True)
 
     assigned_user = models.ForeignKey(User, blank=True, null=True)
