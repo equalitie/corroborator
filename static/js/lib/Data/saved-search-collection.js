@@ -20,7 +20,6 @@ define (
       return value.type === 'send_saved_search';
     };
     sendSuccessEvent = function() {
-      console.log('success');
       searchBus.push({
         type: 'save_search_response_result',
         content: {
@@ -75,6 +74,7 @@ define (
           actor_filters   : searchModel.filters.actor,
           bulletin_filters: searchModel.filters.bulletin,
           incident_filters: searchModel.filters.incident,
+          make_global     : searchModel.globalFlag,
           name_en         : searchModel.searchTitle,
           search_request  : 'predefined_search',
           type            : 'predefined_search'

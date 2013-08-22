@@ -41,7 +41,6 @@ define(
       // handle a click on one of the list items  
       // push an item onto the bus when received
       itemClicked: function() {
-        console.log('itemClicked');
         if (this.bus) {
           this.bus.push({
             type: this.eventIdentifier,

@@ -102,25 +102,32 @@ define (
 
       // respond to click on save button
       saveSearchRequested: function() {
-        var formValid, titleEl;
+        var formValid, titleEl, makeGlobalEl, global;
         formValid = true;
         titleEl = this.$el
                       .children()
                       .children('#search-title');
+
+        global = this.$el
+                     .children()
+                     .children()
+                     .children('#search-global').prop('checked') === true;
+
         formValid = this.checkLength(titleEl, 'Search title', 3, 16);
         if(formValid === true) {
-          this.dispatchSaveRequest(titleEl.val());
+          this.dispatchSaveRequest(titleEl.val(), global);
           this.watchForSaveResult();
           this.updateTips('Saving search');
         }
       },
 
       // send off the save request
-      dispatchSaveRequest: function (title) {
+      dispatchSaveRequest: function (title, global) {
         searchBus.push({
           type: 'save_search_form_request',
           content: {
-            searchTitle: title
+            searchTitle: title,
+            global: global
           }
         });
       },
