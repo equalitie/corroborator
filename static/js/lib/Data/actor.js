@@ -59,7 +59,7 @@ define(
         'civilian_en', 'position_en', 'position_ar',
         'occupation_en', 'occupation_ar', 'ethnicity_en', 'ethnicity_ar',
         'nationality_en', 'nationality_ar', 'religion_en', 'religion_ar',
-        'spoken_dialect_en', 'spoken_dialect_ar', 'current_location', 'POB'
+        'spoken_dialect_en', 'spoken_dialect_ar', 'current_location'
       ],
       //foreignKeyFields: ['current_location', 'POB'] ,
       url: '/corroborator/actor/0/multisave/',
