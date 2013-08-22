@@ -44,6 +44,8 @@ define (
                 else{
                     parsedString = booleanParse(searchQuery);
                 }
+            }else{
+                parsedString = searchQuery;
             }
             return parsedString;
         },
