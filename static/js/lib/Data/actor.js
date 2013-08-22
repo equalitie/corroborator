@@ -59,14 +59,14 @@ define(
         'civilian_en', 'position_en', 'position_ar',
         'occupation_en', 'occupation_ar', 'ethnicity_en', 'ethnicity_ar',
         'nationality_en', 'nationality_ar', 'religion_en', 'religion_ar',
-        'spoken_dialect_en', 'spoken_dialect_ar'
+        'spoken_dialect_en', 'spoken_dialect_ar', 'current_location'
       ],
-      foreignKeyFields: ['current_location'] ,
+      //foreignKeyFields: ['current_location', 'POB'] ,
       url: '/corroborator/actor/0/multisave/',
       formatSaveMultiple: function() {
-        this.set('actors',
-          this.get('actors').map(this.formatActorCollectionForSave, this));
-        this.unset('actors_role');
+        this.set('actorsRoles',
+          this.get('relatedActors').map(this.formatActorCollectionForSave, this));
+        this.unset('relatedActors');
         return this.toJSON();
       },
       formatActorCollectionForSave: function(model) {

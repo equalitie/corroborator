@@ -157,50 +157,50 @@ def index(request, *args, **kwargs):
     else:
         return render_to_response('auth.html', RequestContext(request))
 
+def lookup_bulletin(request, bulletin_id, mode):
+    """
+    This method is used to implement mass update for bulletins
+    It is a work around for lack of incremental update in tastypie
+    """
+    response_data = []
+    if mode == 'multisave':
+        #if request.method == "POST" and request.is_ajax():
+        element_data = json.loads(request.raw_post_data)
 
+        username = element_data['username']
+        response_data = multi_save_entities(element_data,
+            'bulletin', username)
+    return HttpResponse(response_data, mimetype='application/json')
+
+def lookup_incident(request, incident_id, mode):
+    """
+    This method is used to implement mass update for bulletins
+    It is a work around for lack of incremental update in tastypie
+    """
+
+    response_data = []
+    if mode == 'multisave':
+        #if request.method == "POST" and request.is_ajax():
+        element_data = json.loads(request.raw_post_data)
+        username = element_data['username']
+        response_data = multi_save_entities(element_data,
+            'incident', username)
+    return HttpResponse(response_data, mimetype='application/json')
+
+def lookup_actor(request, actor_id, mode):
+    """
+    This method is used to implement mass update for bulletins
+    It is a work around for lack of incremental update in tastypie
+    """
+    response_data = []
+    if mode == 'multisave':
+        element_data = json.loads(request.raw_post_data)
+        username = element_data['username']
+        response_data = multi_save_actors(element_data,
+            username)
+    return HttpResponse(response_data, mimetype='application/json')
 ##############################################################################
 # FORMATTERS - FOR BOOTSTRAP
 ##############################################################################
 
 
-##############################################################################
-# OLD METHODS - FOR DELETION?
-##############################################################################
-
-def home(request, *args, **kwargs):
-    if request.user.is_authenticated():
-        bulletins = Bulletin.objects.filter(assigned_user_id=request.user.id)
-        incidents = Incident.objects.filter(assigned_user_id=request.user.id)
-        username = request.user.username
-        return render(request, 'user_home.html', {'username': username, 'b': bulletins, 'i': incidents})
-    else:
-        return render_to_response('auth.html', RequestContext(request))
-
-def lookup_bulletin(request, bulletin_id, mode):
-    username = request.GET.get('username')
-    response_data = []
-    if mode == 'multisave':
-        #if request.method == "POST" and request.is_ajax():
-        element_data = json.loads(request.raw_post_data)
-        response_data = json.dumps(multi_save_entities(element_data,
-            'bulletin', username))
-    return HttpResponse(response_data, mimetype='application/json')
-
-def lookup_incident(request, incident_id, mode):
-    username = request.GET.get('username')
-    response_data = []
-    if mode == 'multisave':
-        #if request.method == "POST" and request.is_ajax():
-        element_data = json.loads(request.raw_post_data)
-        response_data = json.dumps(multi_save_entities(element_data,
-            'incident', username))
-    return HttpResponse(response_data, mimetype='application/json')
-
-def lookup_actor(request, actor_id, mode):
-    username = request.GET.get('username')
-    response_data = []
-    if mode == 'multisave':
-        element_data = json.loads(request.raw_post_data)
-        response_data = json.dumps(multi_save_actors(element_data,
-            username))
-    return HttpResponse(response_data, mimetype='application/json')

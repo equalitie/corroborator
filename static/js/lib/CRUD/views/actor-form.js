@@ -206,7 +206,7 @@ define (
           });
         }
         if (this.multiple === true) {
-          this.model.set('actors', this.actorSearchView.collection);
+          this.model.set('relatedActors', this.actorSearchView.collection);
           this.model.saveMultiple();
         }
         else {

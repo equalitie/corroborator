@@ -44,6 +44,8 @@ define (
                 else{
                     parsedString = booleanParse(searchQuery);
                 }
+            }else{
+                parsedString = searchQuery;
             }
             return parsedString;
         },
@@ -63,7 +65,8 @@ define (
         
         while (tokens !== null){
             var elem = tokens[0];
-            resultString = resultString.replace(elem, elem+'~');        
+            var search_symbol = (elem.length < 3)?'*~':'~';
+            resultString = resultString.replace(elem, elem+search_symbol);        
         }
         return resultString;
     };
@@ -72,7 +75,8 @@ define (
         var tokens = item.split(' ');
         var resultString = '';
         _.each(tokens, function(token){
-            resultString += token + '~ ';
+            var search_symbol = (token.length < 3)?'*~ ':'~ ';
+            resultString += token + search_symbol;
         });
         return resultString;                 
     };      

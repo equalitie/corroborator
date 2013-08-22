@@ -3338,12 +3338,12 @@ button.do-save:hover {
   padding: 0em;
   padding-bottom: 0.76923em;
 }
-/* line 211, ../sass/_forms.scss */
+/* line 212, ../sass/_forms.scss */
 .Actor.in-list.embedded .stats {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 214, ../sass/_forms.scss */
+/* line 215, ../sass/_forms.scss */
 .Actor.in-list.embedded .button.combo {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
