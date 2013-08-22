@@ -2,7 +2,6 @@
 // PREVIEW AND EXPANDED VIEW
 // ======================================================================
 
-$TAG_COLOR: #fd6d5a;
 
 .incident-view .body,
 .actor-view .body,
@@ -10,15 +9,6 @@ $TAG_COLOR: #fd6d5a;
   bottom: 40px;
 }
 
-@mixin tag_style {
-  @include open_sans_semi_bold;
-  color: $TAG_COLOR;
-  border: 1px solid $TAG_COLOR;
-  float: left;
-  margin-right: 1em;
-  padding-left: 1em;
-  padding-right: 1em;
-}
 
 @mixin display_outline($header_color) {
   border-left: solid 1px $DISPLAY_BORDER;
@@ -83,15 +73,6 @@ h3.title {
   clear: both;
 }
 
-.crimes {
-  .tag {
-    @include tag_style;
-    margin-left: 2px;
-    .do-clear {
-      @include clear_button($bg_color: $TAG_COLOR, $fg_color: #fff);
-    }
-  }
-}
 .description {
   color: $DISPLAY_TEXT_MID;
 }
@@ -170,6 +151,7 @@ button.do-edit {
   @include bottom_button(20%, none)
 }
 
+
 // select checkbox
 div.selection {
   height: 6px;
@@ -178,3 +160,5 @@ div.selection {
   padding-right: 5px;
   display: inline-block;
 }
+
+

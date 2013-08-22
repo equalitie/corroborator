@@ -29,7 +29,10 @@ $SELECTED_FILTER_BG: #f4a77c;
     }
     li.option {
       background-color:white;
-      padding: 5px;
+      padding: 2px; 
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-bottom:3px;
     }
 }
 @mixin selected_filter(

@@ -289,6 +289,7 @@ define (
       },
 
       replaceUpdateView: function(viewMap) {
+        this.expanded = false;
         var selected = getSelectedEntities(viewMap.nav);
         this.multiple = true;
         if (selected.length > 0) {
@@ -309,6 +310,7 @@ define (
 
       // replace the current form view with the requested one
       replaceView: function(viewModel) {
+        this.expanded = false;
         this.currentTab = viewModel.nav;
         this.destroyCurrentView();
         this.model = new viewModel.model({});
