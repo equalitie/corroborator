@@ -9,37 +9,48 @@
   }
 }
 // input borders
-$COLOR_INPUT_BD: #ddd2c7;
 
 input, textarea {
   border: 1px solid $COLOR_INPUT_BD;
-  padding: 4 * $PX;
+  padding-left: 4 * $PX;
+  padding-left: 4 * $PX;
+  height: $INPUT_HEIGHT;
+  margin-top: -1px;
 }
+
+// SAVE SEARCH DIALOG INPUT
+input#search-title {
+  border: 1px solid $COLOR_INPUT_BD;
+  width: 100%;
+}
+
 input {
   display: inline-block;
   &.is-label {
-    //color: $COLOR_TXT.brighten(25)
  
   }
   &.with-select {
-    //color: $COLOR_TXT.brighten(25)
  
   }
   &.with-clear {
     padding-right: 2em;
-    margin-right: -1.5em;
+    margin-right: -1.6em;
   }
 };
 .date-range input{
   width: 80px;
-  margin-left: 10px;
-  margin-right: 10px;
+  //margin-left: 10px;
+  //margin-right: 10px;
 }
 
+
+
+// SAVE MEDIA MESSAGES
 .message {
   border: 1px solid;
   height: 10px;
 }
+
 .fail {
   padding: $PAD_UNIT / 2;
   background-color: #ffeeee;
@@ -50,6 +61,7 @@ input {
     display: block;
   }
 }
+
 
 .success {
   padding: $PAD_UNIT / 2;
@@ -67,13 +79,13 @@ input {
   }
 }
 
+// FORM TOP BORDERS AND CONTAINER
 @mixin form_panel($top_border:grey) {
   border-top: 5px solid $top_border;
   border-left:1px solid #b7b6b2;
   border-right:1px solid #b7b6b2;
 }
 
-// FORM TOP BORDERS
 .bulletin-overlay {
     @include form_panel($top_border:$SELECTED_BULLETIN_BORDER);
     &+div {
@@ -108,16 +120,19 @@ input {
   height: 100%;
   float: left;
   button.do-expand-form { 
+    text-transform: uppercase;
     @include bottom_button(100%, none);
     border-right: 1px solid $BRIGHT_RED_HOVER;
   }
   button.do-collapse-form {
+    text-transform: uppercase;
     @include bottom_button(100%, none);
     border-right: 1px solid $BRIGHT_RED_HOVER;
   }
 }
 
 button.do-save {
+  text-transform: uppercase;
   @include bottom_button(20%, none);
   float: right;
   border-left: 1px solid $BRIGHT_RED_HOVER;

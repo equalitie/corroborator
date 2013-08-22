@@ -35,11 +35,13 @@ define(
       initialize: function(options) {
         this.eventIdentifier = options.eventIdentifier;
         this.bus = options.bus;
+        this.bus.log();
         this.render();
       },
       // handle a click on one of the list items  
       // push an item onto the bus when received
       itemClicked: function() {
+        console.log(this.eventIdentifier);
         if (this.bus) {
           this.bus.push({
             type: this.eventIdentifier,
@@ -50,6 +52,7 @@ define(
 
       // render the list items
       render: function() {
+        console.log(this.model.toJSON());
         var html = comboInnerTmp(this.model.toJSON());
         this.$el.append(html);
         this.$el.addClass('option selected');

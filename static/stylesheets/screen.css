@@ -2718,17 +2718,29 @@ ul.media li.medium:hover .do-remove {
   float: none;
 }
 
-/* line 166, ../sass/_buttons.scss */
+/* line 171, ../sass/_buttons.scss */
 .field button.combo, .field .button.combo {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #ddd2c7;
   color: black;
   height: 1.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
+  margin: 0px;
+  width: 9em;
   padding-top: 5px;
   padding-bottom: 5px;
   position: relative;
   display: inline-block;
   padding-left: 0.75em;
-  min-width: 9em;
+  text-transform: none;
+}
+/* line 42, ../sass/_buttons.scss */
+.field button.combo:hover, .field .button.combo:hover {
+  background-color: #cab8a7;
 }
 /* line 50, ../sass/_fonts.scss */
 .field button.combo [data-icon]:before, .field .button.combo [data-icon]:before {
@@ -2738,7 +2750,7 @@ ul.media li.medium:hover .do-remove {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 75, ../sass/_buttons.scss */
+/* line 81, ../sass/_buttons.scss */
 .field button.combo [data-icon]:before, .field .button.combo [data-icon]:before {
   display: block;
   width: 3em;
@@ -2746,8 +2758,9 @@ ul.media li.medium:hover .do-remove {
   right: 0em;
   text-align: right;
 }
-/* line 82, ../sass/_buttons.scss */
+/* line 88, ../sass/_buttons.scss */
 .field button.combo .options, .field .button.combo .options {
+  text-transform: none;
   min-width: 9.5em;
   right: 0.75em;
   display: none;
@@ -2757,7 +2770,7 @@ ul.media li.medium:hover .do-remove {
   z-index: 10;
   text-align: left;
 }
-/* line 91, ../sass/_buttons.scss */
+/* line 98, ../sass/_buttons.scss */
 .field button.combo .options li, .field .button.combo .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -2765,32 +2778,43 @@ ul.media li.medium:hover .do-remove {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 97, ../sass/_buttons.scss */
+/* line 104, ../sass/_buttons.scss */
 .field button.combo .options li:hover, .field .button.combo .options li:hover {
   color: black;
   background-color: #a38568;
 }
-/* line 103, ../sass/_buttons.scss */
+/* line 110, ../sass/_buttons.scss */
 .field button.combo:hover .options, .field .button.combo:hover .options {
   display: block;
 }
-/* line 174, ../sass/_buttons.scss */
+/* line 179, ../sass/_buttons.scss */
 .field.span-33p {
   clear: none;
   float: left;
 }
 
-/* line 183, ../sass/_buttons.scss */
+/* line 188, ../sass/_buttons.scss */
 .when-related .button.combo {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #b7b6b2;
   color: black;
   height: 1.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
+  margin: 0px;
+  width: 16em;
   padding-top: 5px;
   padding-bottom: 5px;
   position: relative;
   display: inline-block;
   padding-left: 0.75em;
-  min-width: 16em;
+}
+/* line 42, ../sass/_buttons.scss */
+.when-related .button.combo:hover {
+  background-color: #9e9d98;
 }
 /* line 50, ../sass/_fonts.scss */
 .when-related .button.combo [data-icon]:before {
@@ -2800,7 +2824,7 @@ ul.media li.medium:hover .do-remove {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 75, ../sass/_buttons.scss */
+/* line 81, ../sass/_buttons.scss */
 .when-related .button.combo [data-icon]:before {
   display: block;
   width: 3em;
@@ -2808,8 +2832,9 @@ ul.media li.medium:hover .do-remove {
   right: 0em;
   text-align: right;
 }
-/* line 82, ../sass/_buttons.scss */
+/* line 88, ../sass/_buttons.scss */
 .when-related .button.combo .options {
+  text-transform: none;
   min-width: 16.5em;
   right: 0.75em;
   display: none;
@@ -2819,7 +2844,7 @@ ul.media li.medium:hover .do-remove {
   z-index: 10;
   text-align: left;
 }
-/* line 91, ../sass/_buttons.scss */
+/* line 98, ../sass/_buttons.scss */
 .when-related .button.combo .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -2827,39 +2852,32 @@ ul.media li.medium:hover .do-remove {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 97, ../sass/_buttons.scss */
+/* line 104, ../sass/_buttons.scss */
 .when-related .button.combo .options li:hover {
   color: black;
   background-color: #6b6a65;
 }
-/* line 103, ../sass/_buttons.scss */
+/* line 110, ../sass/_buttons.scss */
 .when-related .button.combo:hover .options {
   display: block;
 }
 
-/* line 210, ../sass/_buttons.scss */
-button, .button {
-  display: inline-block;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-}
-/* line 219, ../sass/_buttons.scss */
-button a, button a:active, button a:visited, button a:hover, .button a, .button a:active, .button a:visited, .button a:hover {
-  text-decoration: none;
-  color: #202020;
-}
-
-/* line 229, ../sass/_buttons.scss */
+/* line 215, ../sass/_buttons.scss */
 button.create.do-create-incident {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #6bcad8;
   color: white;
   height: 4em;
-  line-height: 4em -0.05em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   text-transform: uppercase;
   width: 100%;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 button.create.do-create-incident:hover {
   background-color: #43bccd;
 }
@@ -2872,17 +2890,22 @@ button.create.do-create-incident [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 232, ../sass/_buttons.scss */
+/* line 218, ../sass/_buttons.scss */
 button.create.do-create-actor {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #f1be33;
   color: white;
   height: 4em;
-  line-height: 4em -0.05em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   text-transform: uppercase;
   width: 100%;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 button.create.do-create-actor:hover {
   background-color: #e2a90f;
 }
@@ -2895,17 +2918,22 @@ button.create.do-create-actor [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 235, ../sass/_buttons.scss */
+/* line 221, ../sass/_buttons.scss */
 button.create.do-create-bulletin {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #b5cd5f;
   color: white;
   height: 4em;
-  line-height: 4em -0.05em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   text-transform: uppercase;
   width: 100%;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 button.create.do-create-bulletin:hover {
   background-color: #a1be3b;
 }
@@ -2918,20 +2946,25 @@ button.create.do-create-bulletin [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 241, ../sass/_buttons.scss */
-button.is-small, .button.is-small {
-  padding: 0.23077em;
-  padding-top: 0em;
-  padding-bottom: 0em;
-  border-width: 1px;
-}
-/* line 246, ../sass/_buttons.scss */
-button.is-small .text, .button.is-small .text {
-  font-size: 70%;
+/* line 227, ../sass/_buttons.scss */
+button {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
+  background-color: #ddd2c7;
+  color: white;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
+  margin: 0px;
+}
+/* line 42, ../sass/_buttons.scss */
+button:hover {
+  background-color: #cab8a7;
 }
 
-/* line 251, ../sass/_buttons.scss */
+/* line 230, ../sass/_buttons.scss */
 button.do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -2955,18 +2988,23 @@ button.do-clear > span {
   font-size: 65%;
 }
 
-/* line 255, ../sass/_buttons.scss */
+/* line 234, ../sass/_buttons.scss */
 .do-hide {
   height: 15px;
   padding-left: 8px;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: transparent;
   color: black;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   display: inline-block;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 .do-hide:hover {
   background-color: transparent;
 }
@@ -2990,36 +3028,43 @@ button.do-clear > span {
   box-sizing: border-box;
 }
 
-/* line 14, ../sass/_forms.scss */
+/* line 13, ../sass/_forms.scss */
 input, textarea {
   border: 1px solid #ddd2c7;
-  padding: 0.30769em;
+  padding-left: 0.30769em;
+  padding-left: 0.30769em;
+  height: 2em;
+  margin-top: -1px;
 }
 
-/* line 18, ../sass/_forms.scss */
+/* line 22, ../sass/_forms.scss */
+input#search-title {
+  border: 1px solid #ddd2c7;
+  width: 100%;
+}
+
+/* line 27, ../sass/_forms.scss */
 input {
   display: inline-block;
 }
-/* line 28, ../sass/_forms.scss */
+/* line 35, ../sass/_forms.scss */
 input.with-clear {
   padding-right: 2em;
-  margin-right: -1.5em;
+  margin-right: -1.6em;
 }
 
-/* line 33, ../sass/_forms.scss */
+/* line 40, ../sass/_forms.scss */
 .date-range input {
   width: 80px;
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
-/* line 39, ../sass/_forms.scss */
+/* line 49, ../sass/_forms.scss */
 .message {
   border: 1px solid;
   height: 10px;
 }
 
-/* line 43, ../sass/_forms.scss */
+/* line 54, ../sass/_forms.scss */
 .fail {
   padding: 0.76923em;
   background-color: #ffeeee;
@@ -3027,12 +3072,12 @@ input.with-clear {
   color: #ff9999;
   display: none;
 }
-/* line 49, ../sass/_forms.scss */
+/* line 60, ../sass/_forms.scss */
 .fail.show-message {
   display: block;
 }
 
-/* line 54, ../sass/_forms.scss */
+/* line 66, ../sass/_forms.scss */
 .success {
   padding: 0.76923em;
   background-color: #eeffee;
@@ -3040,77 +3085,83 @@ input.with-clear {
   color: #55ff55;
   display: none;
 }
-/* line 59, ../sass/_forms.scss */
+/* line 71, ../sass/_forms.scss */
 .success a {
   color: #55ff55;
   text-decoration: underline;
 }
-/* line 65, ../sass/_forms.scss */
+/* line 77, ../sass/_forms.scss */
 .success.show-message {
   display: block;
 }
 
-/* line 77, ../sass/_forms.scss */
+/* line 89, ../sass/_forms.scss */
 .bulletin-overlay {
   border-top: 5px solid #b5cd5f;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 79, ../sass/_forms.scss */
+/* line 91, ../sass/_forms.scss */
 .bulletin-overlay + div {
   border-top: 5px solid #b5cd5f;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 84, ../sass/_forms.scss */
+/* line 96, ../sass/_forms.scss */
 .incident-overlay {
   border-top: 5px solid #6bcad8;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 86, ../sass/_forms.scss */
+/* line 98, ../sass/_forms.scss */
 .incident-overlay + div {
   border-top: 5px solid #6bcad8;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 91, ../sass/_forms.scss */
+/* line 103, ../sass/_forms.scss */
 .actor-overlay {
   border-top: 5px solid #f1be33;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 93, ../sass/_forms.scss */
+/* line 105, ../sass/_forms.scss */
 .actor-overlay + div {
   border-top: 5px solid #f1be33;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 99, ../sass/_forms.scss */
+/* line 111, ../sass/_forms.scss */
 .form.actions {
   background-color: #fd6d5a;
   width: 100%;
   height: 100%;
 }
 
-/* line 105, ../sass/_forms.scss */
+/* line 117, ../sass/_forms.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 110, ../sass/_forms.scss */
+/* line 122, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-expand-form,
 .when-overlay-expanded button.do-expand-form {
+  text-transform: uppercase;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   height: 100%;
   border: none;
   border-left: none;
@@ -3121,19 +3172,25 @@ input.with-clear {
   padding-right: 0px;
   border-right: 1px solid #ca5b4d;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-expand-form:hover,
 .when-overlay-expanded button.do-expand-form:hover {
   background-color: #d96859;
 }
-/* line 114, ../sass/_forms.scss */
+/* line 127, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-collapse-form,
 .when-overlay-expanded button.do-collapse-form {
+  text-transform: uppercase;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   height: 100%;
   border: none;
   border-left: none;
@@ -3144,19 +3201,25 @@ input.with-clear {
   padding-right: 0px;
   border-right: 1px solid #ca5b4d;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-collapse-form:hover,
 .when-overlay-expanded button.do-collapse-form:hover {
   background-color: #d96859;
 }
 
-/* line 120, ../sass/_forms.scss */
+/* line 134, ../sass/_forms.scss */
 button.do-save {
+  text-transform: uppercase;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   height: 100%;
   border: none;
   border-left: none;
@@ -3168,17 +3231,17 @@ button.do-save {
   float: right;
   border-left: 1px solid #ca5b4d;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 button.do-save:hover {
   background-color: #d96859;
 }
 
-/* line 127, ../sass/_forms.scss */
+/* line 142, ../sass/_forms.scss */
 .tags {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 129, ../sass/_forms.scss */
+/* line 144, ../sass/_forms.scss */
 .tags .tag {
   margin-bottom: 2px;
 }
@@ -3385,15 +3448,26 @@ nav#search-navigation .search button.do-clear > span {
 
 /* line 6, ../sass/_search.scss */
 .search-combo .do-search {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #2b2a2a;
   color: white;
   height: 1.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
+  margin: 0px;
+  width: 12em;
   padding-top: 5px;
   padding-bottom: 5px;
   position: relative;
   display: inline-block;
   padding-left: 0.75em;
-  min-width: 10em;
+}
+/* line 42, ../sass/_buttons.scss */
+.search-combo .do-search:hover {
+  background-color: #111111;
 }
 /* line 50, ../sass/_fonts.scss */
 .search-combo .do-search [data-icon]:before {
@@ -3403,7 +3477,7 @@ nav#search-navigation .search button.do-clear > span {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 75, ../sass/_buttons.scss */
+/* line 81, ../sass/_buttons.scss */
 .search-combo .do-search [data-icon]:before {
   display: block;
   width: 3em;
@@ -3411,9 +3485,10 @@ nav#search-navigation .search button.do-clear > span {
   right: 0em;
   text-align: right;
 }
-/* line 82, ../sass/_buttons.scss */
+/* line 88, ../sass/_buttons.scss */
 .search-combo .do-search .options {
-  min-width: 10.5em;
+  text-transform: none;
+  min-width: 12.5em;
   right: 0.75em;
   display: none;
   position: absolute;
@@ -3422,7 +3497,7 @@ nav#search-navigation .search button.do-clear > span {
   z-index: 10;
   text-align: left;
 }
-/* line 91, ../sass/_buttons.scss */
+/* line 98, ../sass/_buttons.scss */
 .search-combo .do-search .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -3430,12 +3505,12 @@ nav#search-navigation .search button.do-clear > span {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 97, ../sass/_buttons.scss */
+/* line 104, ../sass/_buttons.scss */
 .search-combo .do-search .options li:hover {
   color: #e9c37b;
   background-color: black;
 }
-/* line 103, ../sass/_buttons.scss */
+/* line 110, ../sass/_buttons.scss */
 .search-combo .do-search:hover .options {
   display: block;
 }
@@ -3600,13 +3675,7 @@ nav#search-navigation .search button.do-clear > span {
   padding-bottom: 0.5em;
   z-index: 1;
 }
-/* line 198, ../sass/_search.scss */
-.overlay > .header .do-hide {
-  padding-top: 0em;
-  text-transform: uppercase;
-  padding-bottom: 0em;
-}
-/* line 204, ../sass/_search.scss */
+/* line 199, ../sass/_search.scss */
 .overlay > .body {
   position: absolute;
   overflow: -moz-scrollbars-vertical;
@@ -3617,36 +3686,36 @@ nav#search-navigation .search button.do-clear > span {
   bottom: 0em;
   background: white;
 }
-/* line 213, ../sass/_search.scss */
+/* line 208, ../sass/_search.scss */
 .overlay > .body > * {
   margin: 0.76923em;
 }
-/* line 218, ../sass/_search.scss */
+/* line 213, ../sass/_search.scss */
 .overlay.is-expanded {
   width: 100%;
 }
-/* line 220, ../sass/_search.scss */
+/* line 215, ../sass/_search.scss */
 .overlay.is-expanded .when-overlay-expanded {
   display: block;
 }
-/* line 223, ../sass/_search.scss */
+/* line 218, ../sass/_search.scss */
 .overlay.is-expanded .when-overlay-not_expanded {
   display: none;
 }
-/* line 226, ../sass/_search.scss */
+/* line 221, ../sass/_search.scss */
 .overlay.is-expanded > .body, .overlay.is-expanded > .footer {
   left: 1.53846em;
 }
-/* line 231, ../sass/_search.scss */
+/* line 226, ../sass/_search.scss */
 .overlay:hover, .overlay:hover.hidden {
   display: block !important;
 }
 
-/* line 236, ../sass/_search.scss */
+/* line 231, ../sass/_search.scss */
 .overlay.is-middle {
   right: 33%;
 }
-/* line 238, ../sass/_search.scss */
+/* line 233, ../sass/_search.scss */
 .overlay.is-middle > .header, .overlay.is-middle > .body, .overlay.is-middle > .footer {
   right: 0em;
 }
@@ -3750,7 +3819,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   background-color: #fd6d5a;
   text-transform: uppercase;
 }
-/* line 125, ../sass/_buttons.scss */
+/* line 130, ../sass/_buttons.scss */
 .Selection .actions .button.combo > span:after {
   position: absolute;
   z-index: 3;
@@ -3765,7 +3834,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   font-family: "IconicFill";
   border-left: 1px solid #ca5b4d;
 }
-/* line 139, ../sass/_buttons.scss */
+/* line 144, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options {
   display: none;
   position: absolute;
@@ -3775,17 +3844,17 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   z-index: 10;
   text-align: left;
 }
-/* line 150, ../sass/_buttons.scss */
+/* line 155, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li {
   margin: none;
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-/* line 154, ../sass/_buttons.scss */
+/* line 159, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li:hover {
   background-color: #d96859;
 }
-/* line 159, ../sass/_buttons.scss */
+/* line 164, ../sass/_buttons.scss */
 .Selection .actions .button.combo:hover .options {
   display: block;
   height: auto;
@@ -4317,11 +4386,17 @@ h3.title {
 /* line 150, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-expand,
 .when-overlay-expanded button.do-expand {
+  text-transform: uppercase;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   height: 100%;
   border: none;
   border-left: none;
@@ -4331,19 +4406,25 @@ h3.title {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-expand:hover,
 .when-overlay-expanded button.do-expand:hover {
   background-color: #d96859;
 }
-/* line 153, ../sass/_display.scss */
+/* line 154, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-collapse,
 .when-overlay-expanded button.do-collapse {
+  text-transform: uppercase;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   height: 100%;
   border: none;
   border-left: none;
@@ -4353,19 +4434,25 @@ h3.title {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 .when-overlay-not_expanded button.do-collapse:hover,
 .when-overlay-expanded button.do-collapse:hover {
   background-color: #d96859;
 }
 
-/* line 158, ../sass/_display.scss */
+/* line 160, ../sass/_display.scss */
 button.do-select {
+  text-transform: uppercase;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   height: 100%;
   border: none;
   border-left: 1px solid #d96859;
@@ -4375,18 +4462,23 @@ button.do-select {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 button.do-select:hover {
   background-color: #d96859;
 }
 
-/* line 163, ../sass/_display.scss */
+/* line 166, ../sass/_display.scss */
 button.do-edit {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
   background-color: #fd6d5a;
   color: white;
-  height: 3em;
-  line-height: 3em -0.05em;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   height: 100%;
   border: none;
   border-left: none;
@@ -4396,12 +4488,12 @@ button.do-edit {
   padding-left: 0px;
   padding-right: 0px;
 }
-/* line 38, ../sass/_buttons.scss */
+/* line 42, ../sass/_buttons.scss */
 button.do-edit:hover {
   background-color: #d96859;
 }
 
-/* line 168, ../sass/_display.scss */
+/* line 171, ../sass/_display.scss */
 div.selection {
   height: 6px;
   width: 6px;

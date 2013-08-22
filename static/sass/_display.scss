@@ -148,14 +148,17 @@ h3.title {
   height: 100%;
   float: left;
   button.do-expand { 
+    text-transform: uppercase;
     @include bottom_button(100%, none);
   }
   button.do-collapse {
+    text-transform: uppercase;
     @include bottom_button(100%, none);
   }
 }
 
 button.do-select {
+  text-transform: uppercase;
   @include bottom_button(
     60%, 1px solid $FOOTER_BUTTON_HOVER_COLOR)
 }

@@ -21,17 +21,21 @@
 }
 
 @mixin button (
-  $background_color: white,
+  $background_color: $COLOR_INPUT_BD,
   $hover_color: false,
   $border: none,
-  $height: 3em,
-  $text_color: black
+  $height: $INPUT_HEIGHT,
+  $text_color: white
 ) {
+  @include open_sans_semi_bold;
+  text-transform: uppercase;
   background-color: $background_color;
   color: $text_color;
   height: $height;
-  line-height: $height -0.05em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   border: none;
+  margin: 0px;
   @if $hover_color == false {
     $hover_color: darken($background_color, 10%);
   }
@@ -58,19 +62,21 @@
   $color: black,
   $hover_color: grey,
   $hover_text: black,
-  $width: 10em,
+  $width: 12em,
   $height: 1.2em
 ){
   $padding_left: 0.75em;
-   background-color: $bg_color;
-   color: $color;
-   height: $height;
+  @include button(
+    $background_color: $bg_color,
+    $text_color: $color,
+    $height: $height
+  );
+  width: $width;
    padding-top: 5px;
    padding-bottom: 5px;
     position: relative;
     display: inline-block;
     padding-left: $padding_left;
-    min-width: $width;
     @include corrob_icon_attach_before;
     [data-icon]:before {
       display: block;
@@ -80,6 +86,7 @@
       text-align: right;
     }
     .options {
+      text-transform: none;
       min-width: $width + 0.5em;
       right: $padding_left;
       display: none;
@@ -102,8 +109,6 @@
     };
     &:hover .options {
       display: block;
-      //height: auto;
-
     }
   }
 
@@ -168,8 +173,8 @@
     $bg_color: $COLOR_INPUT_BD,
     $color: black,
     $width: 9em
-
     );
+    text-transform: none;
   }
   &.span-33p {
     clear: none;
@@ -207,25 +212,6 @@
     padding-right: 0px;
 }
 
-  button, .button {
-    display: inline-block;
-    //padding: 3 * $PX;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
-    //border: 2px solid $COLOR_BUTTON_BD;
-    //margin: 0em;
-    //background: #e8e8e8;
-    //@include background-image(linear-gradient(top, #e8e8e8, #d4d4d4));
-    a, a:active, a:visited, a:hover {
-      text-decoration: none;
-      color: $COLOR_TXT;
-    }
-    //text-shadow: 1px 1px 1px $COLOR_BUTTON_BG.brighten(15)
-    &:hover {
-      //background: #fafafa;
-      //@include background-image(linear-gradient(top, #FAFAFA, #d4d4d4));
-    }
-  }
   button.create.do-create-incident {
     @include create_button($bg_color:$SELECTED_INCIDENT_BORDER);
   }
@@ -238,15 +224,8 @@
     );
   }
 
-  button.is-small,.button.is-small {
-    padding: 3 * $PX;
-    padding-top: 0em;
-    padding-bottom: 0em;
-    border-width: 1px;
-    .text {
-      font-size: 70%;
-      text-transform: uppercase;
-    };
+  button {
+    @include button;
   }
   button.do-clear {
     @include clear_button;
@@ -257,7 +236,8 @@
   padding-left: 8px;
   @include button(
     $background_color: transparent,
-    $hover_color: transparent
+    $hover_color: transparent,
+    $text_color: black
   );
   display: inline-block;
   @include corrob_icon_attach_before;

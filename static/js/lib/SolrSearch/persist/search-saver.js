@@ -17,6 +17,7 @@ define (
 
     searchBus = Streams.searchBus;
     localBus = new Bacon.Bus();
+
     // look for a request to save a search
     filterSaveSearchRequest = function(value) {
       return value.type === 'save_search_form_request';

@@ -26,11 +26,7 @@ class PredefinedSearch(models.Model):
     This object stores past searches for a given user as a URL string
     that represents all filters applied for a given search type.
     """
-    name_en = models.CharField(max_length=255)
-    name_ar = models.CharField(max_length=255)
-    search_request = models.TextField(blank=True,null=True)
     user = models.ForeignKey(User, null=True, blank=True)
-    search_type = models.TextField(null=True, blank=True)
     search_title = models.TextField(null=True, blank=True)
     search_string = models.TextField(null=True, blank=True)
     actor_filters = models.TextField(null=True, blank=True)

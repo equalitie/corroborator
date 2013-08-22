@@ -59,12 +59,14 @@ define (
         encoded: ''
       },
 
+      // watch the nav bus for the current selected entity
       watchCurrentTab: function() {
         navBus.toEventStream()
               .filter(filterNavigate)
               .onValue(this.setCurrentLocation.bind(this));
       },
 
+      // store the current entity
       setCurrentLocation: function(value) {
         this.currentLocation = value.content.entity;
       },

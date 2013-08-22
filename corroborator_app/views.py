@@ -6,6 +6,8 @@ Author: Bill Doran
 """
 import datetime
 import calendar
+import logging
+import json
 from django.db.models import Q
 from django.core import serializers
 from django.shortcuts import render_to_response, get_object_or_404, render
@@ -20,6 +22,38 @@ from django.utils import simplejson as json
 from django.db.models import Count
 from tastypie.models import ApiKey
 from corroborator_app.multisave import multi_save_actors, multi_save_entities
+
+
+
+
+def format_predefined_search(predef_object):
+    """
+    format the predefined search filters into a javascript readable
+    format
+    """
+    predef_object.actor_filters =\
+        format_filters(predef_object.actor_filters)
+    predef_object.bulletin_filters =\
+        format_filters(predef_object.bulletin_filters)
+    predef_object.incident_filters =\
+        format_filters(predef_object.incident_filters)
+    return predef_object
+
+def format_filters(filter_field):
+    """
+    format a single filter
+    """
+    return json.dumps(filter_field).replace("u\'","\'").strip('"')
+
+    
+
+def get_solr_url(path):
+    if path.find('new_corroborator') > -1:
+        solr_path = 'http://127.0.0.1:8983/solr/collection1/'
+    else:
+        solr_path = 'https://sjac.corroborator.org/solr/collection1/'
+    return solr_path
+
 def login_user(request):
     state = "Please log in below..."
     username = password = ''
@@ -46,17 +80,21 @@ def login_user(request):
     return render_to_response('auth.html', {'state':state, \
     'username': username}, RequestContext(request))
 
+###############################################################################
+# MAIN VIEW METHODS - 
+###############################################################################
+
 
 def index(request, *args, **kwargs):
+    """
+    main view method - this renders the production app page and adds all
+    bootstrap variables required - this is used at / and /corroborator
+    TODO - handle formatting of lists outside the view function
+    """
     if request.user.is_authenticated():
         username = request.user.username
         userid = request.user.id
 
-        ps_list = PredefinedSearch.objects.filter(
-            user_id = request.user.id).order_by('search_type')
-        ps_incident_list = []
-        ps_bulletin_list = []
-        ps_actor_list = []
         labels_set = Label.objects.all()
 
         role_status_set = []
@@ -74,81 +112,17 @@ def index(request, *args, **kwargs):
                 'key': relation[0],
                 'value': relation[1]}
             )
-        predefined_search_set = PredefinedSearch.objects.all()
-        crimes_set = CrimeCategory.objects.all()
-        status_set = StatusUpdate.objects.all()
-        sources_set = Source.objects.all()
-        users_set = User.objects.all()
-        #loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
-        loc_set = Location.objects.all()
-        #loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
-        #loc_set = loc_set.values('name_en', 'latitude', 'longitude')
 
-        #api details
-        user = User.objects.get(username=username)
-        api = ApiKey.objects.get(user=user)
-
-        return render(
-            request, 'new_search.html',
-            {
-                'role_status_set': role_status_set,
-                'relation_status_set': relation_status_set,
-                'predefined_search_set': predefined_search_set,
-                'sources_set': sources_set,
-                'labels_set': labels_set,
-                'crimes_set': crimes_set,
-                'status_set': status_set,
-                'users_set': users_set,
-                'loc_set': loc_set,
-                'username': username,
-                'userid': userid,
-                'ps_list': ps_list,
-                'api_key': api.key,
-                'solr_url': 'https://sjac.corroborator.org/solr/collection1/',
-            }
-        )
-    else:
-        return render_to_response('auth.html', RequestContext(request))
-
-def new_index(request, *args, **kwargs):
-    username = 'admin'
-    if request.user.is_authenticated():
-        username = request.user.username
-        userid = request.user.id
-
-        ps_list = PredefinedSearch.objects.filter(
-            user_id = request.user.id).order_by('search_type')
-        ps_incident_list = []
-        ps_bulletin_list = []
-        ps_actor_list = []
-        labels_set = Label.objects.all()
-
-        role_status_set = []
-        roles = ActorRole.ROLE_STATUS
-        for role in roles:
-            role_status_set.append({
-                'key':role[0],
-                'value': role[1]}
-            )
-
-        relation_status_set = []
-        relations = ActorRole.RELATION
-        for relation in relations:
-            relation_status_set.append({
-                'key': relation[0],
-                'value': relation[1]}
-            )
         predefined_search_set = PredefinedSearch.objects.filter(
             Q(user_id=userid) | Q(make_global=True)
         )
+        predefined_search_set = map(format_predefined_search, predefined_search_set)
+        logging.debug(predefined_search_set[1].incident_filters)
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()
         sources_set = Source.objects.all()
         users_set = User.objects.all()
         loc_set = Location.objects.all()
-        #loc_set = Location.objects.annotate(count=Count('bulletin')).filter(count__gt=0)
-        #loc_set = loc_set.values('name_en', 'latitude', 'longitude', 'count')
-        #loc_set = loc_set.values('name_en', 'latitude', 'longitude')
 
         #api details
         user = User.objects.get(username=username)
@@ -159,8 +133,8 @@ def new_index(request, *args, **kwargs):
             {
                 'role_status_set': role_status_set,
                 'relation_status_set': relation_status_set,
-                'sources_set': sources_set,
                 'predefined_search_set': predefined_search_set,
+                'sources_set': sources_set,
                 'labels_set': labels_set,
                 'crimes_set': crimes_set,
                 'status_set': status_set,
@@ -168,14 +142,22 @@ def new_index(request, *args, **kwargs):
                 'loc_set': loc_set,
                 'username': username,
                 'userid': userid,
-                'ps_list': ps_list,
                 'api_key': api.key,
-                'solr_url': 'http://127.0.0.1:8983/solr/collection1/',
+                'solr_url': str(get_solr_url(request.path))
             }
         )
     else:
         return render_to_response('auth.html', RequestContext(request))
 
+
+##############################################################################
+# FORMATTERS - FOR BOOTSTRAP
+##############################################################################
+
+
+##############################################################################
+# OLD METHODS - FOR DELETION?
+##############################################################################
 
 def home(request, *args, **kwargs):
     if request.user.is_authenticated():

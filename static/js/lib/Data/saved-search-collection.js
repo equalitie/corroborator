@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // This represents the list of saved searches in the system
@@ -27,6 +27,13 @@ define (
       initialize: function() {
       },
       url: function() {
+        var base = '/api/v1/predefinedSearch/';
+        if (this.id) {
+          base = this.get('resource_uri');
+        }
+        var urlvars = "?format=json&username=" +
+        Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
+          return base + urlvars;
       }
     });
 
@@ -34,6 +41,7 @@ define (
     // store a collection of saved searches
     SavedSearchCollection = Backbone.Collection.extend({
       initialize: function() {
+        this.reset(Bootstrap.predefined_list);
         this.watchForNewSavedSearch();
       },
       watchForNewSavedSearch: function() {
@@ -53,8 +61,9 @@ define (
           search_request  : 'predefined_search',
           type            : 'predefined_search'
         });
-        console.log(savedSearchModel);
-        this.add(savedSearchModel);
+        savedSearchModel.set('user', Bootstrap.userResource);
+        this.add(savedSearchModel, {at: 0});
+        savedSearchModel.save();
       }
     });
 
