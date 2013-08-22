@@ -13,7 +13,8 @@ define(
     'lib/Data/comparator',
     'lib/elements/helpers/cookie'
   ],
-  function($, _, Backbone, Streams, Mixins, Comparator, cookie) {
+  function($, _, Backbone, Streams, Mixins, Comparator, 
+    cookie) {
     'use strict';
     // ### event stream processing helpers
     // particular to actors
@@ -21,6 +22,9 @@ define(
           return value.navValue === 'incident';
         },
 
+        filterUpdatedIncidents = function(value) {
+          return value.type === 'multiple_update_results_incidents';
+        },
         filterIncidentResults = function(value) {
           return value.type === 'results_incident';
         },
@@ -72,8 +76,11 @@ define(
           role_status: model.get('role_status')
         };
       },
-      updateResults: function(response) {
-        //console.log(response);
+      updateResults: function(model, updatedIncidents) {
+        searchBus.push({
+          type: 'multiple_update_results_incidents',
+          content: updatedIncidents.objects
+        });
       },
       updateError: function() {
       },
@@ -154,6 +161,10 @@ define(
                  .filter(filterIncidentResults)
                  .map(Filters.extractResults)
                  .onValue(this.resetCollection.bind(this));
+        searchBus.filter(filterUpdatedIncidents)
+                 .onValue(function(value) {
+                   this.set(value.content, {remove: false});
+                 }.bind(this));
       },
       resetCollection: function(results) {
         if (this.length !==0) {

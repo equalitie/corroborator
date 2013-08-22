@@ -25,12 +25,7 @@
 
         {{#if model.bulletin_sources}}
           (
-          {{#each model.bulletin_sources}}
-            <span class="sources">{{this}}</span>
-            {{#if @index}}
-            , 
-            {{/if}}
-          {{/each}}
+          {{commaSeparatedList model.bulletin_sources}}
           )
         {{/if}}
       </div>
