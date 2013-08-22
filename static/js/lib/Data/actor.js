@@ -16,7 +16,8 @@ define(
     'lib/Data/comparator',
     'lib/elements/helpers/cookie'
   ],
-  function($, _, Backbone, Streams, Mixins, Comparator, cookie) {
+  function($, _, Backbone, Streams, Mixins, Comparator, 
+    cookie) {
     'use strict';
 
 
@@ -31,6 +32,9 @@ define(
         // ### event stream processing helpers
         filterActorResults = function(value) {
           return value.type === 'results_actor';
+        },
+        filterUpdatedActors = function(value) {
+          return value.type === 'multiple_update_results_actors';
         },
         filterActor = function(value) {
           return value.navValue === 'actor';
@@ -76,8 +80,11 @@ define(
           relation_status: model.get('relation_status')
         };
       },
-      updateResults: function(response) {
-        //console.log(response);
+      updateResults: function(model, updatedActors) {
+        searchBus.push({
+          type: 'multiple_update_results_actors',
+          content: updatedActors.objects
+        });
       },
       updateError: function() {
       },
@@ -164,6 +171,10 @@ define(
                .filter(filterActorResults)
                .map(Filters.extractResults)
                .onValue(this.resetCollection.bind(this));
+        searchBus.filter(filterUpdatedActors)
+                 .onValue(function(value) {
+                   this.set(value.content, {remove: false});
+                 }.bind(this));
       },
       resetCollection: function(results) {
         if (this.length !==0) {

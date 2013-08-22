@@ -74,12 +74,13 @@ define (
     });
 
     Handlebars.registerHelper('commaSeparatedList', function(context, block) {
-      var ret = "",
-          i=0, j=0;
-      for(i=0, j=context.length; i<j; i++) {
-        ret = ret + context[i];
-        if (i<j-1) {
-          ret = ret + ", ";
+      var ret = "", i=0, j=0;
+      if (context !== undefined) {
+        for(i=0, j=context.length; i<j; i++) {
+          ret = ret + context[i];
+          if (i<j-1) {
+            ret = ret + ", ";
+          }
         }
       }
       return ret;

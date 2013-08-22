@@ -28,6 +28,10 @@ define(
           return value.navValue === 'bulletin';
         },
 
+        filterUpdatedBulletins = function(value) {
+          return value.type === 'multiple_update_results_bulletins';
+        },
+
         // filter out bulletin results
         filterBulletinResults = function(value) {
           return value.type === 'results_bulletin';
@@ -73,8 +77,11 @@ define(
           role_status: model.get('role_status')
         };
       },
-      updateResults: function(response) {
-        //console.log(response);
+      updateResults: function(model, updatedBulletins) {
+        searchBus.push({
+          type: 'multiple_update_results_bulletins',
+          content: updatedBulletins.objects
+        });
       },
       updateError: function() {
       },
@@ -157,6 +164,10 @@ define(
                .filter(filterBulletinResults)
                .map(Filters.extractResults)
                .onValue(this.resetCollection.bind(this));
+        searchBus.filter(filterUpdatedBulletins)
+                 .onValue(function(value) {
+                   this.set(value.content, {remove: false});
+                 }.bind(this));
       },
       resetCollection: function(results) {
         if (this.length !==0) {

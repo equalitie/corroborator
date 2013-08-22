@@ -19,12 +19,7 @@
         <span class="date">{{dateFormat model.incident_created}}</span>
         {{#if model.locations}}
           in 
-          {{#each model.incident_locations}}
-            <span class="location">{{this}}</span>
-            {{#if @index}}
-            , 
-            {{/if}}
-          {{/each}}
+          {{commaSeparatedList model.incident_locations}}
         {{/if}}
       </div>
     </a>
