@@ -25,6 +25,9 @@ from corroborator_app.multisave import multi_save_actors, multi_save_entities
 
 
 
+###############################################################################
+# FORMATTING HELPER METHODS
+###############################################################################
 
 def format_predefined_search(predef_object):
     """
@@ -38,6 +41,12 @@ def format_predefined_search(predef_object):
     predef_object.incident_filters =\
         format_filters(predef_object.incident_filters)
     return predef_object
+
+def format_filters_for_tastypie(filter_field):
+    """
+    make it proper json for JSON.parse
+    """
+    return format_filters(filter_field).replace("\'", "\"")
 
 def format_filters(filter_field):
     """

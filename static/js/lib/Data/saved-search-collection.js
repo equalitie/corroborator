@@ -50,6 +50,13 @@ define (
         var urlvars = "?format=json&username=" +
         Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
           return base + urlvars;
+      },
+      parse: function(response){
+        console.log(response);
+        response.actor_filters = JSON.parse(response.actor_filters);
+        response.incident_filters = JSON.parse(response.incident_filters);
+        response.bulletin_filters = JSON.parse(response.bulletin_filters);
+        return response;
       }
     });
 
