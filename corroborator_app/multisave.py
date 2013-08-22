@@ -1,10 +1,17 @@
 import datetime
 import calendar
-
+from tastypie.models import ApiKey
+from tastypie.test import TestApiClient
+from django.contrib.auth.models import User
 from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
     TimeInfo, Location, Source, StatusUpdate, ActorRole, Label, SourceType,\
     Media, Comment, PredefinedSearch, ActorRelationship
 from corroborator_app.tasks import update_object
+from corroborator_app.api.ActorApi import ActorResource
+from corroborator_app.api.BulletinApi import BulletinResource
+from corroborator_app.api.IncidentApi import IncidentResource
+
+from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 
 def multi_save_actors(element_data, username):
     actor_role_ids = []
@@ -12,7 +19,9 @@ def multi_save_actors(element_data, username):
     list_actors = Actor.objects.filter(
         id__in=batch_parse_id_from_uri(actorData['actors'])
     )
+    actor_set = ''
     for item in list_actors:
+        actor_set += str(item.id) + ';' 
         item.age_en = actorData['age_en']
         item.age_ar = actorData['age_ar']
         item.sex_en = actorData['sex_en']
@@ -48,9 +57,29 @@ def multi_save_actors(element_data, username):
     
     update_object.delay(username)    
     
-    actorData['actorRoles'] = generate_uris(actor_role_ids, 'actorRole')
+    actor_set = actor_set.rstrip(';')
 
-    return actorData
+    return get_result_objects(actor_set, 'actor', username)
+
+def get_result_objects(id_set, mode, username):
+    api_key=''
+    user = User.objects.get(username=username)
+    try:
+        api_key = ApiKey.objects.get(user=user)
+    except ApiKey.DoesNotExist:
+        api_key = ApiKey.objects.create(user=user)
+    auth_string = '&username={0}&api_key={1}'.format(
+        username, 
+        api_key.key
+    )
+    
+    uri = '/api/v1/{0}/set/{1}/?format{2}'.format(
+        mode,
+        id_set, 
+        auth_string
+    )
+    result=TestApiClient().get(uri)
+    return result.content
 
 def generate_uris(batch, entity):
     new_uris = []
@@ -80,11 +109,13 @@ def multi_save_entities(element_data, mode, username):
     statusid = ''
     comment_ids = []
     actor_role_ids = []
-    cscore = 0
-    userid = ''
+    cscore = None
+    userid = None
     id_list = []
-    if element_data['confidence_score'] != '':
-        cscore=element_data['confidence_score']
+    entity_set = ''
+    if 'confidence_score' in element_data:
+        if element_data['confidence_score'] != '':
+            cscore=element_data['confidence_score']
     if element_data['assigned_user'] != '':
         userid = element_data['assigned_user'].split('/')
         userid = userid[len(userid)-1]
@@ -99,8 +130,11 @@ def multi_save_entities(element_data, mode, username):
         )
     for item in list_entities:
         if mode  ==  'bulletin' or mode  ==  'incident':
-            item.confidence_score = cscore
-            item.assigned_user_id = userid
+            entity_set += str(item.id) + ';'
+            if cscore != None:
+                item.confidence_score = cscore
+            if userid != None:    
+                item.assigned_user_id = userid
 
             if len(element_data['labels']) > 0:
                 localLabels = batch_parse_id_from_uri(
@@ -152,8 +186,7 @@ def multi_save_entities(element_data, mode, username):
             id_list.append(item.save())
             
     update_object.delay(username)    
-    element_data['actorRoles'] = generate_uris(actor_role_ids, 'actorRole')
-
-    return element_data
+    entity_set = entity_set.rstrip(';')
+    return get_result_objects(entity_set, mode, username)
 
 
