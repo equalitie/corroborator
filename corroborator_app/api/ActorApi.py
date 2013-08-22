@@ -11,11 +11,13 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
 from corroborator_app.models import ActorRelationship
-from corroborator_app.models import Actor, ActorRole
+from corroborator_app.models import Actor, ActorRole, VersionStatus
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
+
+import reversion
 
 import sys
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
@@ -46,22 +48,41 @@ class ActorResource(ModelResource):
         always_return_data = True
 
     def obj_delete(self, bundle, **kwargs):
-        bundle = super( ActorResource, self )\
-            .obj_delete( bundle, **kwargs )
+        with reversion.create_revision():
+            bundle = super( ActorResource, self )\
+                .obj_delete( bundle, **kwargs )
+            reversion.set_comment(bundle.data['comment'])    
+            reversion.add_meta(
+                VersionStatus, 
+                status=bundle.data['status']
+            )
         username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
  
     def obj_update(self, bundle, **kwargs):
-        bundle = super( ActorResource, self )\
-            .obj_update( bundle, **kwargs )
+        with reversion.create_revision():
+            bundle = super( ActorResource, self )\
+                .obj_update( bundle, **kwargs )
+            reversion.set_comment(bundle.data['comment'])    
+            reversion.add_meta(
+                VersionStatus, 
+                status=bundle.data['status']
+            )
+            #reversion.set_comment("test meta class")    
         username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
  
     def obj_create(self, bundle, **kwargs):
-        bundle = super( ActorResource, self )\
-            .obj_create( bundle, **kwargs )
+        with reversion.create_revision():
+            bundle = super( ActorResource, self )\
+                .obj_create( bundle, **kwargs )
+            reversion.add_meta(
+                VersionStatus, 
+                status=bundle.data['status']
+            )    
+            reversion.set_comment(bundle.data['comment'])    
         username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle

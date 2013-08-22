@@ -9,8 +9,9 @@ from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
+import reversion
 
-from corroborator_app.models import Bulletin
+from corroborator_app.models import Bulletin, VersionStatus
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.SourceApi import SourceResource
 from corroborator_app.api.LabelApi import LabelResource
@@ -73,22 +74,40 @@ class BulletinResource(ModelResource):
         always_return_data = True
 
     def obj_delete(self, bundle, **kwargs):
-        bundle = super( BulletinResource, self )\
-            .obj_delete( bundle, **kwargs )
+        with reversion.create_revision():
+            bundle = super( BulletinResource, self )\
+                .obj_delete( bundle, **kwargs )
+            reversion.set_comment(bundle.data['comment'])    
+            reversion.add_meta(
+                VersionStatus, 
+                status=bundle.data['status']
+            )
         username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
  
     def obj_update(self, bundle, **kwargs):
-        bundle = super( BulletinResource, self )\
-            .obj_update( bundle, **kwargs )
+        with reversion.create_revision():
+            bundle = super( BulletinResource, self )\
+                .obj_update( bundle, **kwargs )
+            reversion.add_meta(
+                VersionStatus, 
+                status=bundle.data['status']
+            )
+            reversion.set_comment(bundle.data['comment'])    
         username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
  
     def obj_create(self, bundle, **kwargs):
-        bundle = super( BulletinResource, self )\
-            .obj_create( bundle, **kwargs )
+        with reversion.create_revision():
+            bundle = super( BulletinResource, self )\
+                .obj_create( bundle, **kwargs )
+            reversion.set_comment(bundle.data['comment'])    
+            reversion.add_meta(
+                VersionStatus, 
+                status=bundle.data['status']
+            )
         username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle

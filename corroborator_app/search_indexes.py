@@ -61,6 +61,7 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     actors_role = indexes.MultiValueField()
     actors = indexes.MultiValueField()
     deleted = indexes.BooleanField()
+    thumbnail_url = indexes.CharField()
 
     def get_model(self):
         return Actor
@@ -113,6 +114,11 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         Returns media uri of image associated with given Actor
         """
         return ActorPrepMeta().prepare_media(object)
+    def prepare_thumbnail_url(self, object):
+        """
+        Returns thumbnail AWS url
+        """
+        return ActorPrepMeta().prepare_thumbnail_url(object)
     def prepare_count_incidents(self, object):
         """
         Returns count of incident objects associated with a given Actor
@@ -142,13 +148,15 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Media
-    def prepare_uri(self,object):
+    def prepare_uri(self, object):
         """
         Returns URI of a given Media
         """
-        return object.get_uri()
+        #return object.get_uri()
+        return object.media_file.name
     def prepare_media_thumb_file(self, object):
-        return object.get_thumb_uri()
+        #return object.get_thumb_uri()
+        return object.media_thumb_file.name
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this media instance
@@ -344,8 +352,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
-    deleted = indexes.BooleanField()
-    
+
     resource_uri = indexes.CharField()
     ref_bulletins = indexes.MultiValueField()
     medias = indexes.MultiValueField()
@@ -364,7 +371,6 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
 
     def prepare_assigned_user(self, object):
         return BulletinPrepMeta().prepare_assigned_user(object)
-
     def prepare_times(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
@@ -469,7 +475,6 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         Returns set of time objects associated with a given Bulletin
         """
         return BulletinPrepMeta().prepare_bulletin_times(object)
-
 
 class LocationIndex(CelerySearchIndex, indexes.Indexable):
     """
