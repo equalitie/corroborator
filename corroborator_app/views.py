@@ -117,7 +117,6 @@ def index(request, *args, **kwargs):
             Q(user_id=userid) | Q(make_global=True)
         )
         predefined_search_set = map(format_predefined_search, predefined_search_set)
-        logging.debug(predefined_search_set[1].incident_filters)
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()
         sources_set = Source.objects.all()
