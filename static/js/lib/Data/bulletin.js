@@ -57,7 +57,7 @@ define(
 
     var BulletinListUpdateModel = Backbone.Model.extend({
       textFields: [
-        'confidence_score', 'assigned_user'
+        'assigned_user'
       ],
       intFields: [
         'confidence_score'

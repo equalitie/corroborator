@@ -111,7 +111,7 @@ define (
           },
           formatIntegerField: function(key) {
             this.set(key, parseInt(this.get(key), 10));
-            if (this.get(key) === null) {
+            if (!this.get(key)) {
               this.unset(key);
             }
           },
