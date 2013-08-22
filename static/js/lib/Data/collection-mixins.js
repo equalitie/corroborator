@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // This contains mixins for the collection objects  
@@ -192,6 +192,7 @@ define (
                   .formatManyToManyFields()
                   .formatEmptyManyToManyFields();
             }
+            this.set('username', Bootstrap.username);
             console.log(this.toJSON());
             return Backbone.sync.apply(this, arguments);
           }
