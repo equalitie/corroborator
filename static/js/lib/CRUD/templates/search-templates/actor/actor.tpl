@@ -141,11 +141,11 @@
           </div>
 
           <!-- Place of birth -->
-          <div id="actor-pob-block" class="field hide-multiple">
+          <div id="actor-pob-block" class="field">
           </div>
 
           <!-- map block -->
-          <div id="actor-pob-map-block" class="field hide-multiple"></div>
+          <div id="actor-pob-map-block" class="field"></div>
 
           <!-- Current Location -->
           <div id="actor-current-location-block" class="field"></div>
