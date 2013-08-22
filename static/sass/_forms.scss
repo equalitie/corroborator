@@ -9,7 +9,17 @@
   }
 }
 // input borders
-
+.is-edited {
+  .first {
+    margin-top: 40px;
+  }
+  .score {
+    #incident_confidence_score, #bulletin_confidence_score {
+      min-height: 15px;
+      display: inline-block;
+    }
+  }
+}
 input, textarea {
   border: 1px solid $COLOR_INPUT_BD;
   padding-left: 4 * $PX;

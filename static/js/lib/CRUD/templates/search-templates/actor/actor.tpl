@@ -16,7 +16,7 @@
           </span>
           {{/if}}
           <!-- actor name -->
-          <div class="field clear-after">
+          <div class="field clear-after hide-multiple">
             <label>Name</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
@@ -34,7 +34,7 @@
           </div>
 
           <!-- actor nickname -->
-          <div class="field clear-after">
+          <div class="field clear-after hide-multiple">
             <label>Nickname</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
@@ -134,18 +134,18 @@
           </div>
 
           <!-- Date of birth -->
-          <div class="field clear-after is-birthdate field ">
+          <div class="field clear-after is-birthdate field hide-multiple">
             <label>Date of birth</label>
             <input type="text" name="DOB" value="{{formDateFormat model.DOB}}"
             class="w-50p actor-field"/>
           </div>
 
           <!-- Place of birth -->
-          <div id="actor-pob-block" class="field">
+          <div id="actor-pob-block" class="field hide-multiple">
           </div>
 
           <!-- map block -->
-          <div id="actor-pob-map-block" class="field"></div>
+          <div id="actor-pob-map-block" class="field hide-multiple"></div>
 
           <!-- Current Location -->
           <div id="actor-current-location-block" class="field"></div>
@@ -212,7 +212,7 @@
           </div>
 
           <!-- media search - search for actor images -->
-          <div id="actor-media-block" class="field is-media">
+          <div id="actor-media-block" class="field is-media hide-multiple">
           </div>
 
         </div>

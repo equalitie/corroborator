@@ -13,9 +13,10 @@ define(
     'jquery', 'underscore', 'backbone',
     'lib/streams',
     'lib/Data/collection-mixins',
-    'lib/Data/comparator'
+    'lib/Data/comparator',
+    'lib/elements/helpers/cookie'
   ],
-  function($, _, Backbone, Streams, Mixins, Comparator) {
+  function($, _, Backbone, Streams, Mixins, Comparator, cookie) {
     'use strict';
 
 
@@ -52,6 +53,46 @@ define(
 
 
     // ##Data representations
+    var ActorListUpdateModel = Backbone.Model.extend({
+      textFields: [
+        'sex_en', 'sex_ar', 'age_en', 'age_ar', 'civilian_en', 'civilian_ar',
+        'civilian_en', 'position_en', 'position_ar',
+        'occupation_en', 'occupation_ar', 'ethnicity_en', 'ethnicity_ar',
+        'nationality_en', 'nationality_ar', 'religion_en', 'religion_ar',
+        'spoken_dialect_en', 'spoken_dialect_ar'
+      ],
+      foreignKeyFields: ['current_location'] ,
+      url: '/corroborator/actor/0/multisave/',
+      formatSaveMultiple: function() {
+        this.set('actors',
+          this.get('actors').map(this.formatActorCollectionForSave, this));
+        this.unset('actors_role');
+        return this.toJSON();
+      },
+      formatActorCollectionForSave: function(model) {
+        return {
+          actor: model.get('actor'),
+          role_en: model.get('role_en'),
+          relation_status: model.get('relation_status')
+        };
+      },
+      updateResults: function(response) {
+        //console.log(response);
+      },
+      updateError: function() {
+      },
+      saveMultiple: function() {
+        var attributes = this.formatSaveMultiple();
+        this.save(attributes, {
+          success: this.updateResults.bind(this),
+          error: this.updateError.bind(this),
+          headers: {
+            'X-CSRFToken':cookie
+          }
+        });
+      }
+    });
+    _.extend(ActorListUpdateModel.prototype, ModelSaveMixin);
 
     // ### Actor Model
     // provide api endpoint for Actor model  
@@ -191,6 +232,7 @@ define(
     return {
       ActorCollection: ActorCollection,
       SimpleActorCollection: SimpleActorCollection,
-      ActorModel: ActorModel
+      ActorModel: ActorModel,
+      ActorListUpdateModel: ActorListUpdateModel
     };
 });

@@ -150,6 +150,8 @@ define (
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here 
         this.expanded = ! options.expanded;
+        this.multiple = options.multiple;
+        this.model.set('bulletins', options.selected);
         this.displayForm = this.displayFormFunction();
       },
 
@@ -177,7 +179,14 @@ define (
           $body.addClass('is-expanded');
           this.expanded = true;
         }
+        if (this.multiple === true) {
+          this.hideMultipleElements();
+        }
         this.sendResizeEvent();
+      },
+
+      hideMultipleElements: function() {
+        $('.hide-multiple').remove();
       },
 
       sendResizeEvent: function() {
@@ -224,7 +233,13 @@ define (
             content: this.model
           });
         }
-        this.model.save();
+        if (this.multiple === true) {
+          this.model.set('actors', this.actorSearchView.collection);
+          this.model.saveMultiple();
+        }
+        else {
+          this.model.save();
+        }
       },
 
       // render out the child views - comment form, event form, add location,
@@ -248,6 +263,7 @@ define (
           entityType: 'bulletin',
           relationshipType: 'role'
         });
+        this.actorSearchView  = actorSearchView;
 
         var bulletinSearchView = new BulletinSearchView({
           el: '#bulletin-bulletin-block',

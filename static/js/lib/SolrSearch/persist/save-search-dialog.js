@@ -85,8 +85,8 @@ define (
       displayDialog: function () {
         var self = this;
         this.$el.dialog({
-          height: 200,
           width: 350,
+          modal: true,
           buttons: {
             'Save Search': this.saveSearchRequested.bind(this),
              'Cancel': function() {

@@ -67,6 +67,9 @@ h3.title {
   color: $DISPLAY_TEXT_MID;
   font-size: 15px;
   @include open_sans_bold;
+  span {
+    min-height: 15px;
+  }
 }
 
 .tags.group .tag {

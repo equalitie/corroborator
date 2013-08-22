@@ -13,7 +13,7 @@
           ID <span id="view-actor-id" class="value out">{{model.django_id}}</span>
         </span>
         {{/if}}
-        <div class="field is-title">
+        <div class="field is-title hide-multiple">
           <label>Title</label>
           <span class="i18n with-en with-ar">
             <div lang="en">
@@ -112,7 +112,7 @@
         </div>
 
         <!-- Description -->
-        <div id="incident-description-block" class="field detail is-description">
+        <div id="incident-description-block" class="field detail is-description hide-multiple">
           <div class="i18n with-en with-ar">
             <label>Description</label>
             <div lang="en">
@@ -134,7 +134,7 @@
         </div>
 
         <!-- comments -->
-        <div id="incident-comment-block" class="field is-comments">
+        <div id="incident-comment-block" class="field is-comments hide-multiple">
         </div>
 
           <!-- Actor selection -->
@@ -155,8 +155,12 @@
     <div class="last span-33p">
       <div class="body">
 
+        <!-- incident labels -->
+        <div id="incident-label-block" class="field is-tags">
+
+        </div>
         <!-- events -->
-        <div id="incident-event-block" class="field is-events clear">
+        <div id="incident-event-block" class="field is-events clear hide-multiple">
         </div>
 
         <!-- Locations -->
@@ -166,9 +170,6 @@
         <div id="incident-map-block" class="field"></div>
 
 
-        <!-- incident labels -->
-        <div id="incident-location-block" class="field is-tags">
-        </div>
 
       </div>
     </div>

@@ -3028,6 +3028,16 @@ button.do-clear > span {
 }
 
 /* line 13, ../sass/_forms.scss */
+.is-edited .first {
+  margin-top: 40px;
+}
+/* line 17, ../sass/_forms.scss */
+.is-edited .score #incident_confidence_score, .is-edited .score #bulletin_confidence_score {
+  min-height: 15px;
+  display: inline-block;
+}
+
+/* line 23, ../sass/_forms.scss */
 input, textarea {
   border: 1px solid #ddd2c7;
   padding-left: 0.30769em;
@@ -3036,34 +3046,34 @@ input, textarea {
   margin-top: -1px;
 }
 
-/* line 22, ../sass/_forms.scss */
+/* line 32, ../sass/_forms.scss */
 input#search-title {
   border: 1px solid #ddd2c7;
   width: 100%;
 }
 
-/* line 27, ../sass/_forms.scss */
+/* line 37, ../sass/_forms.scss */
 input {
   display: inline-block;
 }
-/* line 35, ../sass/_forms.scss */
+/* line 45, ../sass/_forms.scss */
 input.with-clear {
   padding-right: 2em;
   margin-right: -1.6em;
 }
 
-/* line 40, ../sass/_forms.scss */
+/* line 50, ../sass/_forms.scss */
 .date-range input {
   width: 80px;
 }
 
-/* line 49, ../sass/_forms.scss */
+/* line 59, ../sass/_forms.scss */
 .message {
   border: 1px solid;
   height: 10px;
 }
 
-/* line 54, ../sass/_forms.scss */
+/* line 64, ../sass/_forms.scss */
 .fail {
   padding: 0.76923em;
   background-color: #ffeeee;
@@ -3071,12 +3081,12 @@ input.with-clear {
   color: #ff9999;
   display: none;
 }
-/* line 60, ../sass/_forms.scss */
+/* line 70, ../sass/_forms.scss */
 .fail.show-message {
   display: block;
 }
 
-/* line 66, ../sass/_forms.scss */
+/* line 76, ../sass/_forms.scss */
 .success {
   padding: 0.76923em;
   background-color: #eeffee;
@@ -3084,70 +3094,70 @@ input.with-clear {
   color: #55ff55;
   display: none;
 }
-/* line 71, ../sass/_forms.scss */
+/* line 81, ../sass/_forms.scss */
 .success a {
   color: #55ff55;
   text-decoration: underline;
 }
-/* line 77, ../sass/_forms.scss */
+/* line 87, ../sass/_forms.scss */
 .success.show-message {
   display: block;
 }
 
-/* line 89, ../sass/_forms.scss */
+/* line 99, ../sass/_forms.scss */
 .bulletin-overlay {
   border-top: 5px solid #b5cd5f;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 91, ../sass/_forms.scss */
+/* line 101, ../sass/_forms.scss */
 .bulletin-overlay + div {
   border-top: 5px solid #b5cd5f;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 96, ../sass/_forms.scss */
+/* line 106, ../sass/_forms.scss */
 .incident-overlay {
   border-top: 5px solid #6bcad8;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 98, ../sass/_forms.scss */
+/* line 108, ../sass/_forms.scss */
 .incident-overlay + div {
   border-top: 5px solid #6bcad8;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 103, ../sass/_forms.scss */
+/* line 113, ../sass/_forms.scss */
 .actor-overlay {
   border-top: 5px solid #f1be33;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 105, ../sass/_forms.scss */
+/* line 115, ../sass/_forms.scss */
 .actor-overlay + div {
   border-top: 5px solid #f1be33;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 111, ../sass/_forms.scss */
+/* line 121, ../sass/_forms.scss */
 .form.actions {
   background-color: #fd6d5a;
   width: 100%;
   height: 100%;
 }
 
-/* line 117, ../sass/_forms.scss */
+/* line 127, ../sass/_forms.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 122, ../sass/_forms.scss */
+/* line 132, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-expand-form,
 .when-overlay-expanded button.do-expand-form {
   text-transform: uppercase;
@@ -3176,7 +3186,7 @@ input.with-clear {
 .when-overlay-expanded button.do-expand-form:hover {
   background-color: #d96859;
 }
-/* line 127, ../sass/_forms.scss */
+/* line 137, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-collapse-form,
 .when-overlay-expanded button.do-collapse-form {
   text-transform: uppercase;
@@ -3206,7 +3216,7 @@ input.with-clear {
   background-color: #d96859;
 }
 
-/* line 134, ../sass/_forms.scss */
+/* line 144, ../sass/_forms.scss */
 button.do-save {
   text-transform: uppercase;
   font-family: 'Open Sans Semi Bold', sans-serif;
@@ -3235,12 +3245,12 @@ button.do-save:hover {
   background-color: #d96859;
 }
 
-/* line 142, ../sass/_forms.scss */
+/* line 152, ../sass/_forms.scss */
 .tags {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 144, ../sass/_forms.scss */
+/* line 154, ../sass/_forms.scss */
 .tags .tag {
   margin-bottom: 2px;
 }
@@ -4171,7 +4181,7 @@ span.status > span {
   font-weight: bold;
   font-size: 90%;
   color: #bab4ac;
-  padding-left: 5px;
+  margin-bottom: 3px;
 }
 /* line 27, ../sass/_filters.scss */
 .filter:last-child {
@@ -4268,8 +4278,12 @@ h3.title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+/* line 70, ../sass/_display.scss */
+.score span {
+  min-height: 15px;
+}
 
-/* line 72, ../sass/_display.scss */
+/* line 75, ../sass/_display.scss */
 .tags.group .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4281,17 +4295,17 @@ h3.title {
   padding-right: 1em;
 }
 
-/* line 75, ../sass/_display.scss */
+/* line 78, ../sass/_display.scss */
 .field {
   clear: left;
 }
 
-/* line 79, ../sass/_display.scss */
+/* line 82, ../sass/_display.scss */
 .date-location {
   clear: both;
 }
 
-/* line 84, ../sass/_display.scss */
+/* line 87, ../sass/_display.scss */
 .crimes .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4303,7 +4317,7 @@ h3.title {
   padding-right: 1em;
   margin-left: 2px;
 }
-/* line 87, ../sass/_display.scss */
+/* line 90, ../sass/_display.scss */
 .crimes .tag .do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -4327,17 +4341,17 @@ h3.title {
   font-size: 65%;
 }
 
-/* line 92, ../sass/_display.scss */
+/* line 95, ../sass/_display.scss */
 .description {
   color: #8c8b8a;
 }
 
-/* line 98, ../sass/_display.scss */
+/* line 101, ../sass/_display.scss */
 .in-list {
   color: #8c8b8a;
   border: 1px solid #b7b6b2;
 }
-/* line 101, ../sass/_display.scss */
+/* line 104, ../sass/_display.scss */
 .in-list .name {
   margin-top: 0.5em;
   font-family: 'Open Sans Bold', sans-serif;
@@ -4345,32 +4359,32 @@ h3.title {
   color: #626262;
   font-size: 16px;
 }
-/* line 105, ../sass/_display.scss */
+/* line 108, ../sass/_display.scss */
 .in-list .L1, .in-list .L2 {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
 }
-/* line 109, ../sass/_display.scss */
+/* line 112, ../sass/_display.scss */
 .in-list .L2 {
   margin-bottom: 0.76923em;
 }
-/* line 112, ../sass/_display.scss */
+/* line 115, ../sass/_display.scss */
 .in-list .L3 {
   margin-bottom: 0.76923em;
   font-weight: normal;
   font-size: 12px;
   font-family: Helvetica, sans-serif;
 }
-/* line 117, ../sass/_display.scss */
+/* line 120, ../sass/_display.scss */
 .in-list .L3 span {
   font-size: 12px;
 }
-/* line 121, ../sass/_display.scss */
+/* line 124, ../sass/_display.scss */
 .in-list .involved {
   font-weight: bold;
 }
-/* line 124, ../sass/_display.scss */
+/* line 127, ../sass/_display.scss */
 .in-list .title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4378,12 +4392,12 @@ h3.title {
   font-size: 16px;
 }
 
-/* line 129, ../sass/_display.scss */
+/* line 132, ../sass/_display.scss */
 .Actor.in-list.search-results {
   border: none;
 }
 
-/* line 136, ../sass/_display.scss */
+/* line 139, ../sass/_display.scss */
 .overlay .footer {
   border-bottom: 0px solid #a0a0a0;
   bottom: 0em;
@@ -4393,14 +4407,14 @@ h3.title {
   height: 3.07692em;
 }
 
-/* line 145, ../sass/_display.scss */
+/* line 148, ../sass/_display.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 150, ../sass/_display.scss */
+/* line 153, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-expand,
 .when-overlay-expanded button.do-expand {
   text-transform: uppercase;
@@ -4428,7 +4442,7 @@ h3.title {
 .when-overlay-expanded button.do-expand:hover {
   background-color: #d96859;
 }
-/* line 154, ../sass/_display.scss */
+/* line 157, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-collapse,
 .when-overlay-expanded button.do-collapse {
   text-transform: uppercase;
@@ -4457,7 +4471,7 @@ h3.title {
   background-color: #d96859;
 }
 
-/* line 160, ../sass/_display.scss */
+/* line 163, ../sass/_display.scss */
 button.do-select {
   text-transform: uppercase;
   font-family: 'Open Sans Semi Bold', sans-serif;
@@ -4484,7 +4498,7 @@ button.do-select:hover {
   background-color: #d96859;
 }
 
-/* line 166, ../sass/_display.scss */
+/* line 169, ../sass/_display.scss */
 button.do-edit {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4510,7 +4524,7 @@ button.do-edit:hover {
   background-color: #d96859;
 }
 
-/* line 171, ../sass/_display.scss */
+/* line 174, ../sass/_display.scss */
 div.selection {
   height: 6px;
   width: 6px;

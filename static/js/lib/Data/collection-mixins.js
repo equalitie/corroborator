@@ -161,6 +161,18 @@ define (
             return this;
           },
 
+          formatEmptyTextFields: function() {
+            _.each(this.textFields, this.formatEmptyTextField, this);
+            return this;
+          },
+
+          formatEmptyTextField: function(key) {
+            console.log(key, this.get(key));
+            if( this.get(key) === undefined) {
+              this.set(key, '');
+            }
+          },
+
           // remove any empty fields
           removeEmptyField: function(key) {
             if (this.get(key) === '') {
@@ -174,11 +186,13 @@ define (
             var createEditMethods = ['create', 'update'];
             if (_.contains(createEditMethods, method)) {
               this.removeEmptyForeignKeyFields()
+                  .formatEmptyTextFields()
                   .removeEmptyDateTimeFields()
                   .removeEmptyDateFields()
                   .formatManyToManyFields()
                   .formatEmptyManyToManyFields();
             }
+            console.log(this.toJSON());
             return Backbone.sync.apply(this, arguments);
           }
         };
