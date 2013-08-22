@@ -12,6 +12,8 @@ from tastypie import fields
 
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.models import PredefinedSearch
+from corroborator_app.views import format_filters_for_tastypie
+
 
 __all__ = ('PredefinedSearchResource', )
 
@@ -26,3 +28,12 @@ class PredefinedSearchResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+
+    def dehydrate(self, bundle):
+        bundle.data['incident_filters'] =\
+            format_filters_for_tastypie(bundle.data['incident_filters'])  
+        bundle.data['bulletin_filters'] =\
+            format_filters_for_tastypie(bundle.data['bulletin_filters'])  
+        bundle.data['actor_filters'] =\
+            format_filters_for_tastypie(bundle.data['actor_filters'])  
+        return bundle
