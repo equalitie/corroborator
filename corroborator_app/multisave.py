@@ -40,8 +40,10 @@ def multi_save_actors(element_data, username):
         item.religion_ar = actorData['religion_ar']
         item.civilian_en = actorData['civilian_en']
         item.civilian_ar = actorData['civilian_ar']
+        """
         item.POB_id =\
             parse_id_from_uri(actorData['POB'])
+        """    
         item.current_location_id =\
             parse_id_from_uri(actorData['current_location'])
         item.save()
