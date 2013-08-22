@@ -97,10 +97,13 @@ define (
       initialize: function(options) {
         this.addi18n();
         this.populateWidgets();
+        this.model.set('actors', options.selected);
+        console.log(this.model.toJSON());
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here - cos we use toggleExpanded to render the view
         this.expanded = ! options.expanded;
         this.displayForm  = this.displayFormFunction();
+        this.multiple = options.multiple;
       },
 
       // toggle the expanded switch and render the form
@@ -133,7 +136,13 @@ define (
                   .children('.first')
                   .addClass('span-66p');
         }
+        if (this.multiple === true) {
+          this.hideMultipleElements();
+        }
         this.sendResizeEvent();
+      },
+      hideMultipleElements: function() {
+        $('.hide-multiple').remove();
       },
 
       sendResizeEvent: function() {
@@ -196,7 +205,13 @@ define (
             content: this.model
           });
         }
-        this.model.save();
+        if (this.multiple === true) {
+          this.model.set('actors', this.actorSearchView.collection);
+          this.model.saveMultiple();
+        }
+        else {
+          this.model.save();
+        }
       },
 
       // render the form
@@ -227,6 +242,7 @@ define (
         });
 
         this.childViews.push(mediaSearchView, actorSearchView);
+        this.actorSearchView = actorSearchView;
         return this;
       }
 

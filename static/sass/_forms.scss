@@ -1,4 +1,6 @@
-// styling for the data entry forms
+// ======================================================================
+// OVERALL INPUT ELEMENT STYLING
+// ======================================================================
 .Application{ 
   input, textarea {
   font-family: Helvetica, Arial, sans-serif;
@@ -8,38 +10,69 @@
   @include box-sizing(border-box);
   }
 }
-// input borders
-$COLOR_INPUT_BD: #ddd2c7;
+.overlay .body.embedded {
+  bottom: 40px;
+}
 
+.is-edited {
+  .first {
+    margin-top: 40px;
+  }
+  // give an empty score element some height
+  .score {
+    #incident_confidence_score, #bulletin_confidence_score {
+      min-height: 15px;
+      display: inline-block;
+    }
+  }
+}
 input, textarea {
   border: 1px solid $COLOR_INPUT_BD;
-  padding: 4 * $PX;
+  padding-left: 4 * $PX;
+  padding-left: 4 * $PX;
 }
+input[type=text] {
+  height: $INPUT_HEIGHT;
+  margin-top: -1px;
+}
+
+// ======================================================================
+// SAVE SEARCH DIALOG INPUT
+// ======================================================================
+input#search-title {
+  border: 1px solid $COLOR_INPUT_BD;
+  width: 100%;
+}
+
 input {
   display: inline-block;
   &.is-label {
-    //color: $COLOR_TXT.brighten(25)
  
   }
   &.with-select {
-    //color: $COLOR_TXT.brighten(25)
  
   }
   &.with-clear {
     padding-right: 2em;
-    margin-right: -1.5em;
+    margin-right: -1.6em;
   }
 };
 .date-range input{
   width: 80px;
-  margin-left: 10px;
-  margin-right: 10px;
+  //margin-left: 10px;
+  //margin-right: 10px;
 }
 
+
+
+// ======================================================================
+// SAVE MEDIA MESSAGES
+// ======================================================================
 .message {
   border: 1px solid;
   height: 10px;
 }
+
 .fail {
   padding: $PAD_UNIT / 2;
   background-color: #ffeeee;
@@ -50,6 +83,7 @@ input {
     display: block;
   }
 }
+
 
 .success {
   padding: $PAD_UNIT / 2;
@@ -67,13 +101,15 @@ input {
   }
 }
 
+// ======================================================================
+// FORM TOP BORDERS AND CONTAINER
+// ======================================================================
 @mixin form_panel($top_border:grey) {
   border-top: 5px solid $top_border;
   border-left:1px solid #b7b6b2;
   border-right:1px solid #b7b6b2;
 }
 
-// FORM TOP BORDERS
 .bulletin-overlay {
     @include form_panel($top_border:$SELECTED_BULLETIN_BORDER);
     &+div {
@@ -95,11 +131,28 @@ input {
     }
 }
 
+// ======================================================================
 // BOTTOM BUTTONS
+// ======================================================================
 .form.actions {
   background-color: $BRIGHT_RED;
   width: 100%;
   height: 100%;
+}
+
+.footer.actions {
+  .right {
+    height: 100%;
+  }
+  background-color: $BRIGHT_RED;
+  button.do-hideResults {
+    @include button (
+      $background_color: $BRIGHT_RED,
+      $hover_color: $BRIGHT_RED_HOVER
+    );
+    border-left: 1px solid $BRIGHT_RED_HOVER;
+    height: 100%;
+  }
 }
 
 .when-overlay-not_expanded,
@@ -108,17 +161,61 @@ input {
   height: 100%;
   float: left;
   button.do-expand-form { 
+    text-transform: uppercase;
     @include bottom_button(100%, none);
     border-right: 1px solid $BRIGHT_RED_HOVER;
   }
   button.do-collapse-form {
+    text-transform: uppercase;
     @include bottom_button(100%, none);
     border-right: 1px solid $BRIGHT_RED_HOVER;
   }
 }
 
 button.do-save {
+  text-transform: uppercase;
   @include bottom_button(20%, none);
   float: right;
   border-left: 1px solid $BRIGHT_RED_HOVER;
 }
+
+// ======================================================================
+// LABEL FIELDS
+// ======================================================================
+.tags, .locations.tags {
+  @include clearfix;
+  .tag {
+    margin-bottom: 2px;
+  }
+}
+.crimes, .locations, .labels {
+  .tag {
+    @include tag_style;
+    margin-left: 2px;
+    .do-clear {
+      @include clear_button($bg_color: $TAG_COLOR, $fg_color: #fff);
+    }
+  }
+}
+
+// ======================================================================
+// EMBEDDED VIEW
+// ======================================================================
+.in-list.embedded {
+  padding: $PAD_UNIT / 2;
+}
+.Actor.in-list.embedded {
+  padding: 0em;
+  padding-bottom: $PAD_UNIT/2;
+
+  .stats {
+    @include clearfix;
+  }
+  .button.combo {
+    @include combo_small(
+      $bg_color: $COLOR_INPUT_BD
+    )
+  }
+}
+
+

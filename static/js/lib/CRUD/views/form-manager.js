@@ -14,24 +14,71 @@ define (
     'lib/Data/actor',
     'lib/Data/bulletin',
     'lib/Data/incident',
+    'lib/Data/collections',
     'lib/elements/overlay'
   ],
   function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams, 
-    Actor, Bulletin, Incident, Overlay) {
+    Actor, Bulletin, Incident, Collections, Overlay) {
 
     // Object {
     // type: "action_combo_combined",
     // navValue: "incident",
     // action: true,
     // option: "Update Selected"} 
-    //
+
     // ## Stream processing helpers
     // map nav events to the filter views we will be displaying
     var crudBus   = Streams.crudBus,
         navBus    = Streams.navBus,
         searchBus = Streams.searchBus,
 
+        // look for update multiple event
+        filterUpdateMultipleEvent = function(value) {
+          return value.type === 'action_combo_combined' &&
+                 value.option === 'Update Selected';
+        },
 
+        mapUpdateEventToView = function(value) {
+          var updateMap = {
+            actor: {
+              view: ActorForm.ActorFormView,
+              nav  : 'actor',
+              model: Actor.ActorListUpdateModel
+            },
+            bulletin: {
+              view: BulletinForm.BulletinFormView,
+              nav  : 'bulletin',
+              model: Bulletin.BulletinListUpdateModel
+            },
+            incident: {
+              view: IncidentForm.IncidentFormView,
+              nav  : 'incident',
+              model: Incident.IncidentListUpdateModel
+            }
+          };
+          return updateMap[value.navValue];
+        },
+        mapEntityToCollection = function(entityType) {
+          var collectionMap = {
+            actor: Collections.ActorCollection,
+            bulletin: Collections.BulletinCollection,
+            incident: Collections.IncidentCollection
+          };
+          return collectionMap[entityType];
+        },
+        filterSelected = function(model) {
+          return model.get('checked') === 'checked';
+        },
+        getResourceUri = function(model) {
+          return model.get('resource_uri');
+        },
+        getSelectedEntities = function(entityType) {
+          var collection = mapEntityToCollection(entityType);
+          return collection.chain()
+                           .filter(filterSelected)
+                           .map(getResourceUri)
+                           .value();
+        },
         // pick the form view to match the create event
         mapCreateEventToView = function(value) {
           var createMap = {
@@ -160,14 +207,16 @@ define (
       // close the form and send message to opent the
       // display view
       returnToDisplayView: function() {
-        navBus.push({
-          type: 'entity-display',
-          content: {
-            entity: this.model.get('entityType'),
-            id: this.model.get('id'),
-            expanded: this.expanded
-          }
-        });
+        if (this.multiple !== true) {
+          navBus.push({
+            type: 'entity-display',
+            content: {
+              entity: this.model.get('entityType'),
+              id: this.model.get('id'),
+              expanded: this.expanded
+            }
+          });
+        }
         this.destroyCurrentView();
       },
 
@@ -195,6 +244,12 @@ define (
                  .map(mapCreateEventToView)
                  .onValue(function(viewModel) {
                    self.replaceView(viewModel);
+                 });
+
+        searchBus.filter(filterUpdateMultipleEvent)
+                 .map(mapUpdateEventToView)
+                 .onValue(function(view) {
+                   self.replaceUpdateView(view);
                  });
         crudBus.filter(filterEditRequest)
                .map(mapEditEventToView)
@@ -233,8 +288,29 @@ define (
         this.listenTo(this.model, 'error', this.saveFailed.bind(this));
       },
 
+      replaceUpdateView: function(viewMap) {
+        this.expanded = false;
+        var selected = getSelectedEntities(viewMap.nav);
+        this.multiple = true;
+        if (selected.length > 0) {
+          this.currentTab = viewMap.nav;
+          this.destroyCurrentView();
+          this.model = new viewMap.model();
+          this.listenForSaveEvents();
+          this.currentView = new viewMap.view({
+            model: this.model,
+            entityType: viewMap.nav,
+            selected: selected,
+            multiple: true
+          });
+          this.render();
+          this.makeFormModal();
+        }
+      },
+
       // replace the current form view with the requested one
       replaceView: function(viewModel) {
+        this.expanded = false;
         this.currentTab = viewModel.nav;
         this.destroyCurrentView();
         this.model = new viewModel.model({});

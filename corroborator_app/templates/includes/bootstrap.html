@@ -13,16 +13,21 @@
     var solr_url = '{{ solr_url }}';
     var comment_statuses = [];
     var predefined_list = [];
-    {% for pds in predefined_search_set.all %}
+    {% for pds in predefined_search_set %}
         predefined_list.push({
-            search_type:"{{pds.search_type}}",
-            search_title:"{{pds.search_title}}",
-            search_string:'{{pds.search_string}}',
-            actor_filters:'{{pds.actor_filters}}',
-            bulletin_filters:'{{pds.bulletin_filters}}',
-            incident_filters:'{{pds.incident_filters}}',
-            resource_uri:'/api/v1/predefinedSearch/{{pds.id}}/',
-            id: '{{pds.id}}'
+            search_title:     "{{pds.search_title}}",
+            search_string:    '{{pds.search_string}}',
+            {% autoescape off %}
+            actor_filters:    {{pds.actor_filters}},
+            bulletin_filters: {{pds.bulletin_filters}},
+            incident_filters: {{pds.incident_filters}},
+            {% endautoescape %}
+            resource_uri:     '/api/v1/predefinedSearch/{{pds.id}}/',
+            id:               '{{pds.id}}',
+            // some stuff just for frontend purposes
+            name_en:          "{{pds.search_title}}",
+            search_request:   "predefined_search",
+            type:             "predefined_search"
         });
     {% endfor %}
     {%for relation in relation_status_set %}
@@ -98,8 +103,11 @@
 
     //consolidate our init data under one variable
     return {
+        predefined_list: predefined_list,
         gl_s3_aws_media_url: '{{ MEDIA_URL }}',
-        gl_username: '{{username}}',
+        username: '{{username}}',
+        userResource: '/api/v1/user/{{userid}}/',
+        apiKey: '{{api_key}}',
         gl_userid: '{{userid}}',
         gl_ac_role_list: gl_ac_role_list,
         gl_ac_relation_list: gl_ac_relation_list,
@@ -113,22 +121,4 @@
     }
 
   }());
-  var Bootstrap = Bootstrap || {};
-  (function(Bootstrap) {
-    var predefinedSearchList = [];
-    {%for search in ps_list %}
-    predefinedSearchList.push({
-      id: {{search.id}},
-      request: '{{search.search_request}}',
-      name_en: '{{search.name_en}}',
-      name_ar: '{{search.name_en}}',
-      type: '{{search.search_type}}'
-    });
-    {%endfor%}
-    Bootstrap.predefinedSearchList = predefinedSearchList;
-    Bootstrap.username = '{{username}}';
-    Bootstrap.userResource = '/api/v1/user/{{userid}}/';
-    Bootstrap.apiKey = '{{api_key}}';
-
-  }(Bootstrap));
   </script>

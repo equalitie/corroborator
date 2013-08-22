@@ -12,6 +12,13 @@ from django.db.models import Min,  Max
 from django.contrib.auth.models import User
 from queued_storage.backends import QueuedStorage
 
+import reversion
+from reversion.models import Revision
+
+class VersionStatus(models.Model):
+    revision = models.OneToOneField(Revision)  # This is required
+    status = models.CharField(max_length=255)
+
 class SolrUpdate(models.Model):
     """
     Store most recent solr index update 
@@ -26,11 +33,7 @@ class PredefinedSearch(models.Model):
     This object stores past searches for a given user as a URL string
     that represents all filters applied for a given search type.
     """
-    name_en = models.CharField(max_length=255)
-    name_ar = models.CharField(max_length=255)
-    search_request = models.TextField(blank=True,null=True)
     user = models.ForeignKey(User, null=True, blank=True)
-    search_type = models.TextField(null=True, blank=True)
     search_title = models.TextField(null=True, blank=True)
     search_string = models.TextField(null=True, blank=True)
     actor_filters = models.TextField(null=True, blank=True)
@@ -296,6 +299,7 @@ class Media(models.Model):
         This method is primarily used by Django Haystack
         when populating the Solr index.
         """
+
         return self.media_file.url
 
     def get_thumb_uri(self):

@@ -30,7 +30,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   buffer += escapeExpression(stack2)
     + "-field w-100p\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</textarea>\n      </div>\n  <span class=\"toggle\">\n  <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n  </span>\n  </div>\n\n\n  </div>\n\n\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n    <span class=\"score\">\n      <span class=\"bulletin_event-cscore value\"></span>\n      <input type=\"hidden\" name=\"confidence_score\" \n        class=\"";
+    + "</textarea>\n      </div>\n  <span class=\"toggle\">\n  <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n  </span>\n  </div>\n\n\n  </div>\n\n\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n    <span class=\"\">\n      <span class=\"bulletin_event-cscore value\"></span>\n      <input type=\"hidden\" name=\"confidence_score\" \n        class=\"";
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)

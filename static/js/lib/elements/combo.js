@@ -29,7 +29,8 @@ define(
     // used to render an item from the collection passed in
     ItemView = Backbone.View.extend({
       events: {
-        'click': 'itemClicked'
+        'click .select-search': 'itemClicked',
+        'click .delete-saved-search': 'deleteClicked'
       },
       tagName: 'li',
       initialize: function(options) {
@@ -46,6 +47,10 @@ define(
             content: this.model
           });
         }
+      },
+      deleteClicked: function() {
+        this.model.destroy();
+        this.destroy();
       },
 
       // render the list items
@@ -160,11 +165,11 @@ define(
                 });
       },
       setSelectedText: function(selectedText) {
-        this.$el.children('span.selected-option').text(selectedText);
+        this.$el.children('span.selected-option')
+                .text(selectedText)
+                .append('<span aria-hidden="true" data-icon="K"></span>');
         this.input.val(selectedText);
       }
-
-
     };
 
 

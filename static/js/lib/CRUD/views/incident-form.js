@@ -139,6 +139,8 @@ define (
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here 
         this.expanded = ! options.expanded;
+        this.multiple = options.multiple;
+        this.model.set('incidents', options.selected);
         this.displayForm = this.displayFormFunction();
       },
 
@@ -169,7 +171,14 @@ define (
           $body.addClass('is-expanded');
           this.expanded = true;
         }
+        if (this.multiple === true) {
+          this.hideMultipleElements();
+        }
         this.sendResizeEvent();
+      },
+
+      hideMultipleElements: function() {
+        $('.hide-multiple').remove();
       },
 
       sendResizeEvent: function() {
@@ -233,7 +242,13 @@ define (
           });
         }
         this.model.set(formContent);
-        this.model.save();
+        if (this.multiple === true) {
+          this.model.set('actors', this.actorSearchView.collection);
+          this.model.saveMultiple();
+        }
+        else {
+          this.model.save();
+        }
       },
 
       renderChildren: function() {
@@ -248,6 +263,7 @@ define (
           entityType: this.entityType,
           relationshipType: 'role'
         });
+        this.actorSearchView = actorForm;
         var eventForm = new EventContainerView({
           el: '#incident-event-block',
           content: this.model.get('times'),

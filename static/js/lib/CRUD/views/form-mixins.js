@@ -157,7 +157,7 @@ define (
         populateSliderFields: function() {
           _.each(this.sliderFields, function(field, index) {
             var value = this.model.get(index);
-            field.value = (value !== undefined) ? value : 50;
+            field.value = (value !== undefined) ? value : '';
           }, this);
         },
 

@@ -17,6 +17,7 @@ define (
 
     searchBus = Streams.searchBus;
     localBus = new Bacon.Bus();
+
     // look for a request to save a search
     filterSaveSearchRequest = function(value) {
       return value.type === 'save_search_form_request';
@@ -48,8 +49,10 @@ define (
       // filters
       requestSearchDetails: function(evt) {
         var title = evt.value().content.searchTitle;
+        var global = evt.value().content.global;
         this.clearOldDetails()
             .setTitle(title)
+            .setGlobalFlag(global)
             .sendFilterRequest()
             .sendSearchStringRequest();
       },
@@ -65,6 +68,10 @@ define (
       // set the saved search title
       setTitle: function(title) {
         this.searchTitle = title;
+        return this;
+      },
+      setGlobalFlag: function(global) {
+        this.globalFlag = global;
         return this;
       },
 
@@ -153,6 +160,7 @@ define (
             content: {
               searchTitle : this.searchTitle,
               searchString: this.searchString,
+              globalFlag  : this.globalFlag,
               filters     : this.filters
             }
           });

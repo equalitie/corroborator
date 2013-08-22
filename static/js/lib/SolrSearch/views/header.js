@@ -153,6 +153,7 @@ define(
 
       // change the section we are watching
       updateSelectedView: function(value) {
+        console.log(this);
         this.collection = this.collections[value.navValue];
         this.collection.on('reset change remove destroy updateSelected', this.render, this);
         this.collectionName = value.navValue;

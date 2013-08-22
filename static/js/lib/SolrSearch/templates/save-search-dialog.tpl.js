@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "  <p class=\"validateTips form-error\"></p>\n  <fieldset>\n    <label for=\"name\">Search title</label>\n    <input type=\"text\"\n           name=\"search-title\" \n           id=\"search-title\"\n           class=\"text ui-widget-content ui-corner-all\" />\n  </fieldset>\n";
+  return "  <p class=\"validateTips form-error\"></p>\n  <fieldset>\n    <label for=\"name\">Search title</label>\n    <input type=\"text\"\n           name=\"search-title\" \n           id=\"search-title\"\n           class=\"text ui-widget-content ui-corner-all\" />\n    <label>Share search with other users\n    <input type=\"checkbox\"\n           name=\"search-global\" \n           id=\"search-global\"\n           class=\"\" /></label>\n  </fieldset>\n";
   })
 
 });

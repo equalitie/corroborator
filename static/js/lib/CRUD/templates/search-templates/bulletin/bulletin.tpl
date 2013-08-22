@@ -13,14 +13,25 @@
             ID <span id="view-actor-id" class="value out">{{model.id}}</span>
           </span>
           {{/if}}
-          <div class="field is-title">
+          <div class="field is-title hide-multiple">
             <label>Title</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
-                <textarea type="text" class="w-100p">{{model.title_en}}</textarea>
-              </div>
-              <div lang="ar">
-                <textarea type="text" class="w-100p">{{mdoel.title_ar}}</textarea>
+              <textarea 
+                id="incident_title_en"
+                type="text"
+                name="title_en"
+                class="bulletin-field 
+                w-100p">{{model.title_en}}</textarea>
+            </div>
+            <div lang="ar">
+              <label>Title</label>
+              <textarea 
+                id="incident_title_ar"
+                name="title_ar"
+                type="text"
+                class="bulletin-field
+                w-100p">{{model.title_ar}}</textarea>
               </div>
               <span class="toggle">
                 <span lang="en">EN</span><span lang="ar">AR</span>
@@ -95,11 +106,11 @@
           <div id="bulletin-source-block" class="field is-sources">
           </div>
 
-          <div id="bulletin-media-block" class="field is-media">
+          <div id="bulletin-media-block" class="field is-media hide-multiple">
           </div>
         
           <!-- description -->
-          <div id="bulletin-description-block" class="field is-description">
+          <div id="bulletin-description-block" class="field is-description hide-multiple">
             <label>Description</label>
             <div class="i18n with-en with-ar">
               <div lang="en">
@@ -136,7 +147,7 @@
         <div class="body">
 
           <!-- Event block -->
-          <div id="bulletin-event-block" class="field is-events clear">
+          <div id="bulletin-event-block" class="field is-events hide-multiple clear">
           </div>
 
           <!-- location block -->

@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // This represents the list of saved searches in the system
@@ -12,12 +12,28 @@ define (
     'use strict';
 
     var SavedSearchModel, SavedSearchCollection, filterSaveSearch,
-        searchBus;
+        searchBus, sendSuccessEvent, sendErrorEvent;
 
     searchBus = Streams.searchBus;
 
     filterSaveSearch = function (value) {
       return value.type === 'send_saved_search';
+    };
+    sendSuccessEvent = function() {
+      searchBus.push({
+        type: 'save_search_response_result',
+        content: {
+          success: true
+        }
+      });
+    };
+    sendErrorEvent = function() {
+      searchBus.push({
+        type: 'save_search_response_result',
+        content: {
+          error: true
+        }
+      });
     };
 
     // ### SavedSearchModel
@@ -27,13 +43,22 @@ define (
       initialize: function() {
       },
       url: function() {
+        var base = '/api/v1/predefinedSearch/';
+        if (this.id) {
+          base = this.get('resource_uri');
+        }
+        var urlvars = "?format=json&username=" +
+        Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
+          return base + urlvars;
       }
     });
 
     // ### SavedSearchCollection
     // store a collection of saved searches
     SavedSearchCollection = Backbone.Collection.extend({
+      model: SavedSearchModel,
       initialize: function() {
+        this.reset(Bootstrap.predefined_list);
         this.watchForNewSavedSearch();
       },
       watchForNewSavedSearch: function() {
@@ -49,12 +74,17 @@ define (
           actor_filters   : searchModel.filters.actor,
           bulletin_filters: searchModel.filters.bulletin,
           incident_filters: searchModel.filters.incident,
+          make_global     : searchModel.globalFlag,
           name_en         : searchModel.searchTitle,
           search_request  : 'predefined_search',
           type            : 'predefined_search'
         });
-        console.log(savedSearchModel);
-        this.add(savedSearchModel);
+        savedSearchModel.set('user', Bootstrap.userResource);
+        this.add(savedSearchModel, {at: 0});
+        savedSearchModel.save(savedSearchModel.attributes, {
+          success: sendSuccessEvent,
+          error: sendErrorEvent
+        });
       }
     });
 

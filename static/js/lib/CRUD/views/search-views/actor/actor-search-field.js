@@ -244,7 +244,6 @@ define (
           actor: actorContent.model.get('resource_uri')
         };
         actorRoleData[this.fieldName] = actorContent.relationship_key;
-        console.log(this.fieldName, actorContent, actorRoleData);
         this.createActorRoleEntity(actorRoleData);
         this.addActorToRenderCollection(actorContent.model);
       },
@@ -293,7 +292,6 @@ define (
 
       // unsubscribe from bacon event streams
       unsubStreams: function() {
-        console.log('unsubStreams');
         _.each(this.subscribers, function(unsub) {
           unsub();
         });

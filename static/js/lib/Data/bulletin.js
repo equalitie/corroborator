@@ -8,9 +8,10 @@ define(
     'jquery', 'underscore', 'backbone',
     'lib/streams',
     'lib/Data/collection-mixins',
-    'lib/Data/comparator'
+    'lib/Data/comparator',
+    'lib/elements/helpers/cookie'
   ],
-  function($, _, Backbone, Streams, Mixins, Comparator) {
+  function($, _, Backbone, Streams, Mixins, Comparator, cookie) {
     'use strict';
 
     var PersistSelectionMixin = Mixins.PersistSelectionMixin,
@@ -50,6 +51,42 @@ define(
 
     // ##Data representations
 
+    var BulletinListUpdateModel = Backbone.Model.extend({
+      textFields: [
+        'confidence_score', 'assigned_user'
+      ],
+      manyToManyFields: ['ref_bulletins', 'labels', 'locations', 'sources'],
+      url: '/corroborator/bulletin/0/multisave/',
+      formatSaveMultiple: function() {
+        this.set('actorsRoles',
+          this.get('actors').map(this.formatActorCollectionForSave, this));
+        this.unset('actors_role');
+        return this.toJSON();
+      },
+      formatActorCollectionForSave: function(model) {
+        return {
+          actor: model.get('actor'),
+          role_en: model.get('role_en'),
+          relation_status: model.get('relation_status')
+        };
+      },
+      updateResults: function(response) {
+        //console.log(response);
+      },
+      updateError: function() {
+      },
+      saveMultiple: function() {
+        var attributes = this.formatSaveMultiple();
+        this.save(attributes, {
+          success: this.updateResults.bind(this),
+          error: this.updateError.bind(this),
+          headers: {
+            'X-CSRFToken':cookie
+          }
+        });
+      }
+    });
+    _.extend(BulletinListUpdateModel.prototype, ModelSaveMixin);
 
     // ### Bulletin Model
     // provide api endpoint for Bulletin model  
@@ -178,7 +215,8 @@ define(
 
   return {
     BulletinModel: BulletinModel,
-    BulletinCollection: BulletinCollection
+    BulletinCollection: BulletinCollection,
+    BulletinListUpdateModel: BulletinListUpdateModel
   };
 
 });

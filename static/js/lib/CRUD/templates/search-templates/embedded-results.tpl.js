@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "<div class=\"body\" style=\"bottom: 49px;\">\n  <div class=\"EmbeddedSearch\">\n    <ul class=\"";
+  buffer += "<div class=\"body embedded\" >\n  <div class=\"EmbeddedSearch\">\n    <ul class=\"";
   if (stack1 = helpers.entityType) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.entityType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)

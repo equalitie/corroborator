@@ -11,7 +11,7 @@ define(
   [
     // vendor
     'jquery', 'underscore', 'backbone', 'bacon',
-    // event streams
+   // event streams
     'lib/streams',
     // local libs
     'lib/elements/combo',
@@ -93,7 +93,7 @@ define(
      * we add the save search item in here
      */
     var createFullCollection = function() {
-      var fullCollection = Collection.reset(Bootstrap.predefinedSearchList);
+      var fullCollection = Collection;
       var item = {
         name_en: 'Save current search...',
         search_request: 'save_search',

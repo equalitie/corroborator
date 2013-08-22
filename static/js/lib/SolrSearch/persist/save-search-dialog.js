@@ -14,7 +14,7 @@ define (
     'use strict';
     var watchForSaveSearchRequest, init, displayDialog, searchBus,
         SaveSearchDialogView, filterSaveSearchRequest, checkLength,
-        filterSaveSearchResponseResult;
+        filterSaveSearchResponseResult, saveSearchDialog;
 
     searchBus = Streams.searchBus;
 
@@ -37,7 +37,7 @@ define (
     };
 
     displayDialog = function() {
-      var saveSearchDialog = new SaveSearchDialogView();
+      saveSearchDialog = new SaveSearchDialogView();
     };
 
     // ## Save search dialog
@@ -85,39 +85,49 @@ define (
       displayDialog: function () {
         var self = this;
         this.$el.dialog({
-          height: 200,
           width: 350,
+          modal: true,
           buttons: {
             'Save Search': this.saveSearchRequested.bind(this),
              'Cancel': function() {
-               $(this).dialog('close');
-               self.destroy();
+               self.closeDialog();
              }
           }
         });
       },
+      closeDialog: function() {
+        this.$el.dialog('close');
+        this.destroy();
+      },
 
       // respond to click on save button
       saveSearchRequested: function() {
-        var formValid, titleEl;
+        var formValid, titleEl, makeGlobalEl, global;
         formValid = true;
         titleEl = this.$el
                       .children()
                       .children('#search-title');
+
+        global = this.$el
+                     .children()
+                     .children()
+                     .children('#search-global').prop('checked') === true;
+
         formValid = this.checkLength(titleEl, 'Search title', 3, 16);
         if(formValid === true) {
-          this.dispatchSaveRequest(titleEl.val());
+          this.dispatchSaveRequest(titleEl.val(), global);
           this.watchForSaveResult();
           this.updateTips('Saving search');
         }
       },
 
       // send off the save request
-      dispatchSaveRequest: function (title) {
+      dispatchSaveRequest: function (title, global) {
         searchBus.push({
           type: 'save_search_form_request',
           content: {
-            searchTitle: title
+            searchTitle: title,
+            global: global
           }
         });
       },
@@ -143,6 +153,7 @@ define (
           this.updateTips(successText);
         }
         window.setTimeout(function() {
+          saveSearchDialog.closeDialog();
           this.destroy();
         }.bind(this), 500);
       },
