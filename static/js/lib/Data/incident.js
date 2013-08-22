@@ -51,6 +51,9 @@ define(
     var IncidentListUpdateModel = Backbone.Model.extend({
       textFields: [
       ],
+      intFields: [
+        'confidence_score'
+      ],
       manyToManyFields: [
         'actors', 'ref_bulletins', 'crimes', 'ref_incidents', 'locations',
         'labels'
@@ -66,7 +69,7 @@ define(
         return {
           actor: model.get('actor'),
           role_en: model.get('role_en'),
-          relation_status: model.get('relation_status')
+          role_status: model.get('role_status')
         };
       },
       updateResults: function(response) {
@@ -91,6 +94,9 @@ define(
     // provide api endpoint for Incident model
     var IncidentModel = Backbone.Model.extend({
       idAttribute: 'id',
+      intFields: [
+        'confidence_score'
+      ],
       manyToManyFields: [
         'crimes', 'labels', 'incident_comments', 'times', 'actors_role',
         'ref_bulletins', 'ref_incidents', 'locations'

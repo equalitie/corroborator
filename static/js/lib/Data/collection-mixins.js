@@ -105,6 +105,16 @@ define (
             response.id = response.django_id || response.id;
             return response;
           },
+          formatIntegerFields: function() {
+            _.each(this.intFields, this.formatIntegerField, this);
+            return this;
+          },
+          formatIntegerField: function(key) {
+            this.set(key, parseInt(this.get(key), 10));
+            if (this.get(key) === null) {
+              this.unset(key);
+            }
+          },
 
           //iterate over the many to many fields and format if necessary
           formatManyToManyFields: function() {
@@ -190,6 +200,7 @@ define (
                   .removeEmptyDateTimeFields()
                   .removeEmptyDateFields()
                   .formatManyToManyFields()
+                  .formatIntegerFields()
                   .formatEmptyManyToManyFields();
             }
             this.set('username', Bootstrap.username);

@@ -301,6 +301,7 @@ define (
             model: this.model,
             entityType: viewMap.nav,
             selected: selected,
+            expanded: this.expanded,
             multiple: true
           });
           this.render();
@@ -315,7 +316,10 @@ define (
         this.destroyCurrentView();
         this.model = new viewModel.model({});
         this.listenForSaveEvents();
-        this.currentView = new viewModel.view({model: this.model});
+        this.currentView = new viewModel.view({
+          model: this.model,
+          expanded: this.expanded
+        });
         this.render();
         this.makeFormModal();
       },

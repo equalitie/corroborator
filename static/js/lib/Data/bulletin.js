@@ -55,6 +55,9 @@ define(
       textFields: [
         'confidence_score', 'assigned_user'
       ],
+      intFields: [
+        'confidence_score'
+      ],
       manyToManyFields: ['ref_bulletins', 'labels', 'locations', 'sources'],
       url: '/corroborator/bulletin/0/multisave/',
       formatSaveMultiple: function() {
@@ -67,7 +70,7 @@ define(
         return {
           actor: model.get('actor'),
           role_en: model.get('role_en'),
-          relation_status: model.get('relation_status')
+          role_status: model.get('role_status')
         };
       },
       updateResults: function(response) {
@@ -95,6 +98,9 @@ define(
     var BulletinModel = Backbone.Model.extend({
       foreignKeyFields: [
         'assigned_user'
+      ],
+      intFields: [
+        'confidence_score'
       ],
       manyToManyFields: [
         'sources', 'bulletin_comments', 'actors_role', 'times', 'medias',
