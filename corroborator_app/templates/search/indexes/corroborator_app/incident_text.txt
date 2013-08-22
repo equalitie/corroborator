@@ -3,7 +3,7 @@
 {{ object.incident_created }}
 {{ object.incident_details_en }}
 {{ object.incident_details_ar }}
-{{ object.confisence_score }}
+{{ object.confidence_score }}
 {{ object.assigned_user }}
 {% for location in object.locations.all %}
     {{ location.name_en }}
