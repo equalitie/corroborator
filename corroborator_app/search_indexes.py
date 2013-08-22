@@ -345,7 +345,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     bulletin_labels = indexes.MultiValueField(faceted=True, null=True)
     bulletin_sources = indexes.MultiValueField(faceted=True, null=True)
     count_actors = indexes.IntegerField()
-    bulletin_assigned_user = indexes.CharField(model_attr='assigned_user', \
+    bulletin_assigned_user = indexes.CharField(default="unassigned", model_attr='assigned_user', \
     faceted=True, null=True)
     assigned_user = indexes.CharField()
     most_recent_status_bulletin = indexes.CharField(faceted=True,
