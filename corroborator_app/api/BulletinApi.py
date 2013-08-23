@@ -22,7 +22,7 @@ from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 from corroborator_app.tasks import update_object
-
+from django.contrib.auth.models import User
 __all__ = ('BulletinResource')
 
 class BulletinResource(ModelResource):
@@ -74,19 +74,23 @@ class BulletinResource(ModelResource):
         always_return_data = True
 
     def obj_delete(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( BulletinResource, self )\
                 .obj_delete( bundle, **kwargs )
             reversion.set_comment(bundle.data['comment'])    
+            reversion.set_user(user)
             reversion.add_meta(
                 VersionStatus, 
                 status=bundle.data['status']
             )
-        username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
  
     def obj_update(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( BulletinResource, self )\
                 .obj_update( bundle, **kwargs )
@@ -94,21 +98,23 @@ class BulletinResource(ModelResource):
                 VersionStatus, 
                 status=bundle.data['status']
             )
+            reversion.set_user(user)
             reversion.set_comment(bundle.data['comment'])    
-        username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
  
     def obj_create(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( BulletinResource, self )\
                 .obj_create( bundle, **kwargs )
+            reversion.set_user(user)
             reversion.set_comment(bundle.data['comment'])    
             reversion.add_meta(
                 VersionStatus, 
                 status=bundle.data['status']
             )
-        username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
     """

@@ -22,7 +22,7 @@ from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
-
+from django.contrib.auth.models import User
 from corroborator_app.tasks import update_object
 
 from corroborator_app.models import Incident, VersionStatus
@@ -34,7 +34,7 @@ class IncidentResource(ModelResource):
     tastypie api implementation for Incident model
     """
     # foreign key fields
-    assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
+    assigned_user = fields.ForeignKey(UserResource, 'assigned_user', blank=True, null=True)
     incident_comments = fields.ManyToManyField(
         CommentResource,
         'incident_comments',
@@ -63,41 +63,47 @@ class IncidentResource(ModelResource):
         always_return_data = True
 
     def obj_delete(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\
                 .obj_delete( bundle, **kwargs )
+            reversion.set_user(user)
             reversion.add_meta(
                 VersionStatus, 
                 status=bundle.data['status']
             )
             reversion.set_comment(bundle.data['comment'])    
-        username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
  
     def obj_update(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\
                 .obj_update( bundle, **kwargs )
+            reversion.set_user(user)
             reversion.add_meta(
                 VersionStatus, 
                 status=bundle.data['status']
                 )
             reversion.set_comment(bundle.data['comment'])    
-        username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
 
     def obj_create(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\
                 .obj_create( bundle, **kwargs )
+            reversion.set_user(user)
             reversion.add_meta(
                 VersionStatus, 
                 status=bundle.data['status']
             )
             reversion.set_comment(bundle.data['comment'])    
-        username = bundle.request.GET['username']
         update_object.delay(username)    
         return bundle
         

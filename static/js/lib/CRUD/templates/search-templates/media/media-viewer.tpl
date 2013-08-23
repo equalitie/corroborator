@@ -1,3 +1,4 @@
+<div>
 {{#if video}}
 <div class="flowplayer">
   <video>
@@ -8,4 +9,4 @@
 {{#if image}}
 <img src="{{uri}}" alt="{{alt}}" />
 {{/if}}
-
+</div>

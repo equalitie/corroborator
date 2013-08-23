@@ -42,16 +42,17 @@ define (
         console.log('openVideoViewer');
         var dialogHtml = mediaViewerTmp({
           video: true,
-          uri: this.model.get('uri')[0]
+          uri: this.model.get('media_file')
         });
         this.openDialog($(dialogHtml));
       },
 
       openImageViewer: function() {
+        console.log(this.model);
         console.log('openImageViewer');
         var dialogHtml = mediaViewerTmp({
           image: true,
-          uri: this.model.get('uri')[0],
+          uri: this.model.get('media_file'),
           alt: this.model.get('name_en')
         });
         this.openDialog($(dialogHtml));
@@ -59,9 +60,10 @@ define (
 
       openDialog: function($dialogHtml) {
         console.log('openDialog');
+        $dialogHtml.attr('title', this.model.get('name_en'));
           $dialogHtml.dialog({
             resizable: false,
-            height:    360,
+            //height:    360,
             modal:     true
           });
       },
