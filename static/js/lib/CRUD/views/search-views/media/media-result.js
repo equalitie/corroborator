@@ -43,15 +43,11 @@ define (
         video = {};
         fileType = this.model.get('media_file_type');
         fileName = this.model.get('media_file');
+        video.mp4 = fileName;
 
-        var dialogHtml = mediaViewerTmp({
-          video: true,
-          uri: this.model.get('media_file')
-        });
-
-        video['mp4'] = fileName;
-        debugger;
-        this.openDialog($(dialogHtml));
+        var previewParent = $('.preview').parent();
+        $('.preview').remove();
+        previewParent.prepend('<div class="preview"></div>');
         $videoEl = $('.preview');
         $videoEl.flowplayer({
           preload: 'none',
