@@ -104,6 +104,9 @@ define(
       intFields: [
         'confidence_score'
       ],
+      foreignKeyFields: [
+        'assigned_user'
+      ],
       manyToManyFields: [
         'crimes', 'labels', 'incident_comments', 'times', 'actors_role',
         'ref_bulletins', 'ref_incidents', 'locations'
