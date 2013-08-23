@@ -6,7 +6,7 @@
 </div>
 <div class="body" style="bottom: 49px;">
   <div class="Incident is-edited is-expanded">
-    <div class="first span-66p">
+    <div class="first initial span-66p">
       <div class="header">
         {{#if model.id}}
         <span class="id">
@@ -14,6 +14,9 @@
         </span>
         {{/if}}
         <div class="field is-title hide-multiple">
+          <p class="error-text">
+            Title field is required
+          </p>
           <label>Title</label>
           <span class="i18n with-en with-ar">
             <div lang="en">
@@ -21,7 +24,7 @@
                 id="incident_title_en"
                 type="text"
                 name="title_en"
-                class="incident-field
+                class="required incident-field
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
@@ -40,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div class="last span-33p">
+    <div class="last initial span-33p">
       <div class="group details">
         <div class="field clear-after">
 
@@ -170,6 +173,41 @@
         <div id="incident-map-block" class="field"></div>
 
 
+
+      </div>
+    </div>
+    <div class="first span-66p">
+      <div id="bulletin-version-block" class="field hide-multiple">
+        <div id="bulletin-status-block" class="add">
+          <p class="error-text">
+            Select a status for this incident
+          </p>
+          <label>Status</label><br/>
+          <select name="status" 
+                  id="status" 
+                  class="required incident-field">
+            <option value="">Select Status</option>
+            {{#each statuses}}
+              <option
+                value="{{this.resource_uri}}"
+              >{{this.comment_status}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="clearer"></div>
+        <!-- Comment content field -->
+        <div class="add">
+
+          <p class="error-text">
+          Comment field is required
+          </p>
+          <label>Comment</label>
+          <textarea 
+            id="comment"
+            name="comment"
+            class="required incident-field w-100p"></textarea>
+          </div>
 
       </div>
     </div>

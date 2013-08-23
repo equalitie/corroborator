@@ -119,18 +119,20 @@ define (
       },
 
       removeSelectedFilter: function(filterKey, filterName) {
-          var filter = 
-            this.chain()
-                .filter(function (model) {
-                  return model.get('key') === filterKey &&
-                         model.get('filterName') === filterName;
-                })
-                .last()
-                .value();
-          
-          if (filter !== undefined) {
-            this.remove(filter);
-          }
+        var filter = 
+          this.chain()
+              .filter(function (model) {
+                return model.get('key') === filterKey &&
+                       model.get('filterName') === filterName;
+              })
+              .last()
+              .value();
+        
+        if (filter !== undefined) {
+          this.remove(filter);
+        }
+
+
       }
     });
 

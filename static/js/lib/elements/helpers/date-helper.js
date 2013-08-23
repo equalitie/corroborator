@@ -73,6 +73,14 @@ define (
       return new Handlebars.SafeString(ret);
     });
 
+    Handlebars.registerHelper('pluralise', function(context, options) {
+      var word, numItems, suffix;
+      word = context.hash.word;
+      numItems = context.hash.numItems;
+      suffix = numItems === 1 ? '': 's';
+      return word + suffix;
+    });
+
     Handlebars.registerHelper('commaSeparatedList', function(context, block) {
       var ret = "", i=0, j=0;
       if (context !== undefined) {

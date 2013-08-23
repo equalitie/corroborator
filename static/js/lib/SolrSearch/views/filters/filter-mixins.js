@@ -34,7 +34,6 @@ define (
             this.filterGroupViews = [];
           },
 
-
           // render the filters if they already exist
           renderExistingCollection: function() {
             if (this.collection.size() > 0) {
@@ -54,7 +53,7 @@ define (
             var filterGroupView = new FilterGroupView({
               model: model
             });
-            // aaaaaaaaaaagh
+            // 
             this.$el.children()
                     .children()
                     .children()

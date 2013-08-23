@@ -52,7 +52,6 @@ define (
           return base + urlvars;
       },
       parse: function(response){
-        console.log(response);
         response.actor_filters = JSON.parse(response.actor_filters);
         response.incident_filters = JSON.parse(response.incident_filters);
         response.bulletin_filters = JSON.parse(response.bulletin_filters);

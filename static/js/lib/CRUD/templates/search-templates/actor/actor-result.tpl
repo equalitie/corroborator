@@ -89,7 +89,9 @@
       </div>
       <div class="actions search-result">
         <div class="button combo is-default">
-          <span class="T">Add as</span>
+          <span class="T">Add as
+          <span aria-hidden="true" data-icon="&#x4b;"></span>
+          </span>
           <ul class="options">
             {{#each roles}}
             <li>

@@ -79,7 +79,82 @@ define (
           return keyArray;
 
         },
+        
+        validateForm: function() {
+          var validatableElements = $('.required');
+          var results = _.map(validatableElements, this.validationFuncion);
+          return _.reduce(results, this.checkPassedAll, true) || this.setError(results);
+        },
 
+        filterTestCreator: function(expected) {
+          return function(value) {
+            value = _.chain(value).values().last().value();
+            return value === expected;
+          };
+        },
+        setError: function(results) {
+          var filterFailed, filterPassed, failedElements, passedElements;
+          filterFailed   = this.filterTestCreator(false);
+          filterPassed   = this.filterTestCreator(true);
+          failedElements = _.filter(results, filterFailed);
+          passedElements = _.filter(results, filterPassed);
+          _.each(failedElements, this.addErrorClass);
+          _.each(passedElements, this.removeErrorClass);
+          this.scrollTo(_.first(failedElements));
+        },
+
+        scrollTo: function(failedResult) {
+            var elId = _.chain(failedResult).keys().last().value();
+            var top = $('#' + elId).offset().top - 160;
+            this.$el.children('.body').animate({
+              scrollTop: top
+            }, 500);
+        },
+
+        // send the form data on the crudBus, it will be picked up in data and 
+        // persisted
+        saveRequested: function() {
+          var formContent = this.formContent();
+          formContent = this.validateDateFields(formContent);
+          this.model.set(formContent);
+          if (this.validateForm() === true){
+            this.saveModel();
+          }
+        },
+        saveModel: function() {
+          if (this.multiple === true) {
+            this.saveMultiple();
+          }
+          else {
+            this.delegateSave();
+          }
+        },
+
+      saveMultiple: function() {
+        this.model.set('relatedActors', this.actorSearchView.collection);
+        this.model.saveMultiple();
+      },
+
+        removeErrorClass: function(passedElement) {
+          var passedElementId = _.chain(passedElement).keys().last().value();
+          $('#' + passedElementId).closest('.field').removeClass('error');
+        },
+
+        addErrorClass: function(failedElement) {
+          var failedElementId = _.chain(failedElement).keys().last().value();
+          $('#' + failedElementId).closest('.field').addClass('error');
+        },
+
+        checkPassedAll: function(memo, result) {
+          result = _.chain(result).values().last().value();
+          return result && memo;
+        },
+
+        validationFuncion: function(el) {
+          var result = {};
+          result[el.id] = $(el).val().length > 0 ? true : false;
+          return result;
+        },
 
         // pull the data from the form
         formContent: function() {
@@ -213,9 +288,9 @@ define (
           $('input[name=' + dateFieldName + ']').datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
+            changeYear: true,
             maxDate: "+0D",
-            yearRange: "1930:2012",
-            changeYear: true
+            yearRange: "c-60:c"
           });
         },
 
@@ -278,7 +353,7 @@ define (
             content        : field.content,
             multiple       : field.multiple,
             bus            : field.bus,
-            eventIdentifier: field.eventIdentifier,
+            eventIdentifier: field.eventIdentifier
           });
           this.childViews.push(labelWidget);
         },

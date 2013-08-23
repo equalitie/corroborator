@@ -12,7 +12,11 @@
         </span>
       </div>
       <div class="meta text">
-        <span class="actors">{{total}}</span> actors involved
+        {{#if model.actors.length}}
+        <span class="actors">{{model.actors.length}}</span>
+        {{pluralise word="actor" numItems=model.actors.length }} involved
+        </span> 
+        {{/if}}
       </div>
       <div class="details text">
         <span class="date">{{dateFormat model.bulletin_created}}</span>

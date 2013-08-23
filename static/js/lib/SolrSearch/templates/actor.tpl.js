@@ -88,6 +88,21 @@ function program17(depth0,data) {
   return buffer;
   }
 
+function program19(depth0,data) {
+  
+  var buffer = "", stack1, options;
+  buffer += "\n              <br>involved in <span class=\"incidents-count\">\n              "
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n              ";
+  options = {hash:{
+    'word': ("incident"),
+    'numItems': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents))
+  },data:data};
+  buffer += escapeExpression(((stack1 = helpers.pluralise || depth0.pluralise),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "pluralise", options)))
+    + "</span>\n              ";
+  return buffer;
+  }
+
   buffer += "  <div class=\"Actor in-list search-results\">\n    <div class=\"is-selector ";
   if (stack1 = helpers.pos) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.pos; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -119,9 +134,10 @@ function program17(depth0,data) {
   buffer += "\n              ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.position_en), {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n\n              <br>involved in <span class=\"incidents-count\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " incidents</span>\n            </div>\n          </div>\n       </div> \n     </div>\n   </a>\n  </div>\n";
+  buffer += "\n\n              ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents), {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n            </div>\n          </div>\n       </div> \n     </div>\n   </a>\n  </div>\n";
   return buffer;
   })
 

@@ -1,3 +1,4 @@
+/*global define, Bootstrap */
 // Author: Cormac McGuire
 
 // ### Description
@@ -27,6 +28,7 @@ define (
     // views
     CommentForm, EventForm,
     bulletinFormTmp) {
+    'use strict';
 
     var BulletinFormView,
         crudBus              = Streams.crudBus,
@@ -222,24 +224,18 @@ define (
         e.preventDefault();
         $(e.currentTarget).siblings('input').val('');
       },
+      validateDateFields: function(formContent) {
+        return formContent;
+      },
 
-      // handle save click
-      saveRequested: function() {
-        var formContent = this.formContent();
-        this.model.set(formContent);
+      delegateSave: function() {
         if (this.model.isNew() === true) {
           crudBus.push({
-            type: 'create_new_bulletin',
+            type: 'create_new_actor',
             content: this.model
           });
         }
-        if (this.multiple === true) {
-          this.model.set('actors', this.actorSearchView.collection);
-          this.model.saveMultiple();
-        }
-        else {
-          this.model.save();
-        }
+        this.model.save();
       },
 
       // render out the child views - comment form, event form, add location,
@@ -293,7 +289,10 @@ define (
 
       // render the form
       render: function() {
-        var html = this.template({model: this.model.toJSON()});
+        var html = this.template({
+          model: this.model.toJSON(),
+          statuses: Bootstrap.comment_statuses
+        });
         this.$el.html(html);
         return this;
       }

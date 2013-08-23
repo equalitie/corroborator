@@ -102,7 +102,7 @@ define (
           changeMonth: true,
           dateFormat: 'yy-mm-dd',
           maxDate: "+0D",
-          yearRange: "1930:2012",
+          yearRange: "c-60:c",
           changeYear: true,
           numberOfMonths: 1,
           onClose: this.onCloseFrom.bind(this)
@@ -111,7 +111,7 @@ define (
           defaultDate: '+1w',
           changeMonth: true,
           maxDate: "+0D",
-          yearRange: "1930:2012",
+          yearRange: "c-60:c",
           changeYear: true,
           dateFormat: 'yy-mm-dd',
           numberOfMonths: 1,

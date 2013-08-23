@@ -14,16 +14,24 @@
   bottom: 40px;
 }
 
-.is-edited {
-  .first {
+.multiple {
+  .first.initial {
     margin-top: 40px;
   }
+}
+
+.is-edited {
   // give an empty score element some height
   .score {
     #incident_confidence_score, #bulletin_confidence_score {
       min-height: 15px;
       display: inline-block;
     }
+  }
+}
+.is-edited.is-expanded {
+  .last.initial {
+    margin-top: 40px;
   }
 }
 input, textarea {
@@ -185,10 +193,11 @@ button.do-save {
 .tags, .locations.tags {
   @include clearfix;
   .tag {
-    margin-bottom: 2px;
+    margin-top: 2px;
   }
 }
-.crimes, .locations, .labels {
+
+.POB, .current_location, .crimes, .locations, .labels, .sources {
   .tag {
     @include tag_style;
     margin-left: 2px;
@@ -213,10 +222,122 @@ button.do-save {
     @include clearfix;
   }
   .button.combo {
+
     @include combo_small(
-      $bg_color: $COLOR_INPUT_BD
-    )
+      $bg_color: $COLOR_INPUT_BD,
+      $width: 19em
+    );
+    [data-icon]:before {
+      display: block;
+      width: 1em;
+      float: right;
+      right: 0em;
+      text-align: right;
+    }
+  }
+}
+// ======================================================================
+// RELATED ENTITIES
+// ======================================================================
+
+.when-related {
+  .right button {
+    //@include button;
+  }
+  .button.combo {
+    @include combo_small(
+    $bg_color: $DISPLAY_BORDER,
+    $color: black,
+    $width: 16em
+    );
   }
 }
 
+// ======================================================================
+// ERROR STATES
+// ======================================================================
 
+.error-text {
+  display: none;
+}
+.error {
+  $error_color: lighten($BRIGHT_RED, 10%);
+  color: $error_color;
+  label {
+    font-weight: bold;
+  }
+  input, textarea {
+    border-color: $error_color;
+  }
+  .error-text {
+    display: block;
+    width: 100%;
+    background-color: $error_color;
+    padding:3px;
+    padding-left: 1px;
+    margin-bottom : 8px;
+    color: white;
+  }
+
+}
+// ======================================================================
+// LOGIN FORM
+// ======================================================================
+
+
+body.login {
+  @include open_sans;
+  background-color: $TAB_AREA_BG;
+  color: white;
+}
+.login-form {
+  border: 1px solid $BORDER_GREY;
+  width: 40%;
+  margin:auto;
+  margin-top: 10em;
+  h3 {
+    color: $HEADER_SELECTED_COLOR;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  padding: 40px;
+  .login-field {
+    @include clearfix;
+    color: $TAB_TEXT;
+    width: 100%;
+    clear: both;
+    margin-bottom: 12px;
+    &.error {
+      width: 80%;
+      text-align: center;
+      color: white;
+      float: right;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      background-color: darken($BRIGHT_RED_HOVER, 35%);
+    }
+  }
+  label{
+    padding-top: 6px;
+    width: 20%;
+  }
+  input{ 
+    width: 80%;
+    height: 2em;
+    background-color: $TAB_AREA_BG;
+    color: $TAB_TEXT;
+    border: 1px solid $BORDER_GREY;
+    float: right;
+    border-top: solid 2px $BORDER_GREY;
+  }
+  input[type=password] {
+    border-top: solid 1px $BORDER_GREY;
+  }
+  input[type=submit] {
+    width: 30%;
+    color: $HEADER_SELECTED_COLOR;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+  }
+}

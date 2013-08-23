@@ -1,7 +1,7 @@
 <div class="padding">
   <div class="Selection">
     <div class="description">
-      <span class="text T">
+      <span class="text T"></span>
       <span id="number-selected"></span>
     </div>
     <div class="actions">

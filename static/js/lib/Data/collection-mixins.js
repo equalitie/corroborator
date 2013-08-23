@@ -177,7 +177,6 @@ define (
           },
 
           formatEmptyTextField: function(key) {
-            console.log(key, this.get(key));
             if( this.get(key) === undefined) {
               this.set(key, '');
             }
@@ -204,7 +203,6 @@ define (
                   .formatEmptyManyToManyFields();
             }
             this.set('username', Bootstrap.username);
-            console.log(this.toJSON());
             return Backbone.sync.apply(this, arguments);
           }
         };

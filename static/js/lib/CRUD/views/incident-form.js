@@ -1,3 +1,4 @@
+/*global define, Bootstrap */
 // Author: Cormac McGuire
 
 // ### Description
@@ -222,7 +223,8 @@ define (
 
       render: function() {
         var html = this.template({
-          model: this.model.toJSON()
+          model: this.model.toJSON(),
+          statuses: Bootstrap.comment_statuses
         });
         this.$el.html(html);
         return this;
@@ -232,23 +234,18 @@ define (
         var formArray = $('#incident_form').serializeArray();
         return this.formArrayToData(formArray);
       },
-      saveRequested: function() {
-        var formContent = this.formContent();
+      validateDateFields: function(formContent) {
+        return formContent;
+      },
+
+      delegateSave: function() {
         if (this.model.isNew() === true) {
           crudBus.push({
             type: 'create_new_incident',
-            content: this.model,
-            expanded: this.expanded
+            content: this.model
           });
         }
-        this.model.set(formContent);
-        if (this.multiple === true) {
-          this.model.set('actors', this.actorSearchView.collection);
-          this.model.saveMultiple();
-        }
-        else {
-          this.model.save();
-        }
+        this.model.save();
       },
 
       renderChildren: function() {

@@ -87,7 +87,6 @@ define (
          }
       },
       updateChecked: function(model) {
-        console.log(model);
         var changingClass = model.get('checked') === 'checked' ?
           '.selected' : '.unselected';
         this.$selectionEl.children(changingClass)
