@@ -288,9 +288,9 @@ define (
           $('input[name=' + dateFieldName + ']').datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
+            changeYear: true,
             maxDate: "+0D",
-            yearRange: "1930:2012",
-            changeYear: true
+            yearRange: "c-60:c"
           });
         },
 

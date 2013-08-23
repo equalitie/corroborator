@@ -38,7 +38,7 @@ define(
     // Render a group of filters
     FilterGroupView = Backbone.View.extend({
       className: 'filter',
-      filterViews: [],
+      childViews: [],
       // actor bulletin incident?
       type: '',
 
@@ -46,14 +46,19 @@ define(
       initialize: function() {
         this.collection = this.model.get('collection');
         this.listenTo(this.collection, 'add', this.renderFilter.bind(this));
+        this.listenTo(this.collection, 'remove', this.renderFilters.bind(this));
         this.render();
       },
 
       // destroy this view and it's subviews
       onDestroy: function() {
-        _.invoke(this.filterViews, 'destroy');
+        this.destroyChildren();
         this.stopListening();
-        this.filterViews = [];
+      },
+
+      destroyChildren: function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
       },
 
       // render the filter group
@@ -68,7 +73,8 @@ define(
 
       // iterate over the filters with a render function
       renderFilters: function() {
-        this.filterViews = this.collection.map(this.renderFilter, this);
+        this.destroyChildren();
+        this.childViews = this.collection.map(this.renderFilter, this);
       },
 
       // render a single filter

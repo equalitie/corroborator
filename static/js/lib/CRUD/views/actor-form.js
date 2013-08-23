@@ -100,7 +100,6 @@ define (
         this.addi18n();
         this.populateWidgets();
         this.model.set('actors', options.selected);
-        console.log(this.model.toJSON());
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here - cos we use toggleExpanded to render the view
         this.expanded = ! options.expanded;
