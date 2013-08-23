@@ -6,6 +6,7 @@ tests in tests/api/tests.py
 """
 
 from tastypie.resources import ModelResource
+from corroborator_app.tasks import update_object
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
@@ -53,6 +54,7 @@ class MediaResource(MultipartResource, ModelResource):
         always_return_data = True
 
     def obj_create(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
         media_file = bundle.data['media_file']
 
         if 'image' in bundle.data['media_file'].content_type:
@@ -67,4 +69,5 @@ class MediaResource(MultipartResource, ModelResource):
         bundle.data['media_file_type'] = media_file_type        
         bundle = super( MediaResource, self )\
             .obj_create( bundle, **kwargs )
+        update_object.delay(username)
         return bundle

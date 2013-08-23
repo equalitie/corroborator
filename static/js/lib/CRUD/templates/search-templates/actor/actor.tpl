@@ -162,43 +162,146 @@
           <!-- Occupation -->
           <div class="field is-occupation">
             <label>Occupation</label>
-            <input type="text" class="actor-field with-select w-30p" value="{{model.occupation_en}}" 
-              name="occupation_en" id="actor_occupation_en">
+            <span class="i18n with-en with-ar">
+                <div lang="en">
+                    <input type="text" 
+                        class="actor-field with-select w-30p" 
+                        value="{{model.occupation_en}}" 
+                        name="occupation_en" 
+                        id="actor_occupation_en">
+                </div>
+                <div lang="ar">
+                    <input type="text" 
+                        class="actor-field with-select w-30p" 
+                        value="{{model.occupation_ar}}" 
+                        name="occupation_ar" 
+                        id="actor_occupation_ar">
+                </div>
+                <span class="toggle">
+                    <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+            </span>  
           </div>
 
           <!-- Position -->
           <div class="field is-position">
             <label>Position (rank)</label>
-            <input type="text" class="with-select actor-field w-30p" value="{{model.position_en}}" 
-              name="position_en" id="actor_position_en" >
+            <span class="i18n with-en with-ar">
+                <div lang="en">
+                    <input type="text" 
+                        class="with-select actor-field w-30p" 
+                        value="{{model.position_en}}" 
+                        name="position_en" 
+                        id="actor_position_en" >
+
+                </div>
+                <div lang="ar">
+                    <input type="text" 
+                        class="with-select actor-field w-30p" 
+                        value="{{model.position_ar}}" 
+                        name="position_ar" 
+                        id="actor_position_ar" >
+                </div>
+                <span class="toggle">
+                    <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+            </span>      
           </div>
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
             <label>Ethnicity</label>
-            <input type="text" class="with-select actor-field w-30p" value="{{model.ethnicity_en}}"
-              name="ethnicity_en" id="actor_ethnicity_en" >
+            <span class="i18n with-en with-ar">
+                <div lang="en">
+                    <input type="text" 
+                        class="with-select actor-field w-30p" 
+                        value="{{model.ethnicity_en}}"
+                        name="ethnicity_en" 
+                        id="actor_ethnicity_en" >
+                </div>
+                <div lang="ar">
+                    <input type="text" 
+                        class="with-select actor-field w-30p" 
+                        value="{{model.ethnicity_ar}}"
+                        name="ethnicity_ar" 
+                        id="actor_ethnicity_ar" >
+                </div>
+                <span class="toggle">
+                    <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+            </span>
           </div>
 
           <!-- Nationality -->
           <div class="field is-nationality">
             <label>Nationality</label>
-            <input type="text" class="with-select actor-field w-30p" value="{{model.nationality_en}}"
-              name="nationality_en" id="actor_nationality_en">
+            <span class="i18n with-en with-ar">
+                <div lang="en">
+                    <input type="text" 
+                        class="with-select actor-field w-30p" 
+                        value="{{model.nationality_en}}"
+                        name="nationality_en" 
+                        id="actor_nationality_en">
+                </div>
+                <div lang="ar">
+                    <input type="text" 
+                        class="with-select actor-field w-30p" 
+                        value="{{model.nationality_ar}}"
+                        name="nationality_ar" 
+                        id="actor_nationality_ar">
+                </div>
+                <span class="toggle">
+                    <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+            </span>    
           </div>
 
           <!-- Religion -->
           <div class="field is-religion">
             <label>Religion</label>
-            <input type="text" class="with-select actor-field w-30p" value="{{model.religion_en}}"
-              name="religion_en" id="actor_religion_en" >
+            <span class="i18n with-en with-ar">
+                <div lang="en">
+                    <input type="text" 
+                    class="with-select actor-field w-30p" 
+                    value="{{model.religion_en}}"
+                    name="religion_en" 
+                    id="actor_religion_en" >
+                </div>
+                <div lang="ar">
+                    <input type="text" 
+                    class="with-select actor-field w-30p" 
+                    value="{{model.religion_ar}}"
+                    name="religion_ar" 
+                    id="actor_religion_ar" >
+                </div>
+                <span class="toggle">
+                    <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+            </span>          
           </div>
 
           <!-- Spoken Dialects -->
           <div class="field is-dialect">
             <label>Spoken dialects</label>
-            <input type="text" class="with-select actor-field w-30p" name="spoken_dialect_en"
-              value="{{model.spoken_dialect_en}}" id="actor_spoken_dialect_en" >
+            <span class="i18n with-en with-ar">
+                <div lang="en">
+                    <input type="text" 
+                    class="with-select actor-field w-30p" 
+                    name="spoken_dialect_en"
+                    value="{{model.spoken_dialect_en}}" 
+                    id="actor_spoken_dialect_en" >
+                </div>
+                <div lang="ar">
+                    <input type="text" 
+                    class="with-select actor-field w-30p" 
+                    name="spoken_dialect_ar"
+                    value="{{model.spoken_dialect_ar}}" 
+                    id="actor_spoken_dialect_ar" >
+                </div>
+                <span class="toggle">
+                    <span lang="en">EN</span><span lang="ar">AR</span>
+                </span>
+            </span>          
           </div>
 
           <!-- Actor Field -->
