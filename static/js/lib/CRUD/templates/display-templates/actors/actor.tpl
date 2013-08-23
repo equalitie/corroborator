@@ -1,5 +1,9 @@
   <div class="Actor in-list">
-    <div class="avatar">&nbsp;</div>
+    {{#if model.thumbnail_url}}
+      <div class="avatar"><img src="{{model.thumbnail_url}}" alt="actor thumbnail"></div>
+    {{else}}
+      <div class="avatar">&nbsp;</div>
+    {{/if}}
     <div class="content">
       <div class="L1">
         {{#if model.roles_en}}

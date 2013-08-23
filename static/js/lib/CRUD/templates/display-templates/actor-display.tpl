@@ -3,7 +3,11 @@
     <div class="id">
       ID <span class="value out">{{model.django_id}}</span>
     </div>
+    {{#if model.thumbnail_url}}
+    <div class="avatar"><img src="{{model.thumbnail_url}}" alt="actor thumbnail"></div>
+    {{else}}
     <div class="avatar">&nbsp;</div>
+    {{/if}}
     <div class="infos">
       <h2 class="title">
         <span class="i18n with-en with-ar">

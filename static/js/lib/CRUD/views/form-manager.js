@@ -196,7 +196,11 @@ define (
 
       // save faild - notify user and hide the overlay
       saveFailed: function(model, xhr, options) {
-        this.overlay.displayError(this.returnToDisplayView.bind(this));
+        this.overlay.displayError(this.closeFormAfterSaveError.bind(this));
+      },
+
+      closeFormAfterSaveError: function() {
+        this.destroyCurrentView();
       },
 
       // close the form and send message to opent the
