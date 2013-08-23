@@ -111,7 +111,11 @@ define (
           },
           formatIntegerField: function(key) {
             this.set(key, parseInt(this.get(key), 10));
-            if (!this.get(key)) {
+            console.log(key, _.isNaN(key), this.get('key'));
+            if (_.isNaN(this.get(key)) ||
+                this.get(key) === null ||
+                this.get(key) === undefined ||
+                this.get(key) === "") {
               this.unset(key);
             }
           },

@@ -171,7 +171,7 @@
         <div id="bulletin-version-block" class="field hide-multiple">
           <div id="bulletin-status-block" class="add">
             <p class="error-text">
-              Select a status for this actor
+              Select a status for this bulletin
             </p>
             <label>Status</label><br/>
             <select name="status" 
