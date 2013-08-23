@@ -44,7 +44,11 @@
               </span>
               {{/if}}
 
-              <br>involved in <span class="incidents-count">{{model.count_incidents}} incidents</span>
+              {{#if model.count_incidents}}
+              <br>involved in <span class="incidents-count">
+              {{model.count_incidents}}
+              {{pluralise word='incident' numItems=model.count_incidents}}</span>
+              {{/if}}
             </div>
           </div>
        </div> 
