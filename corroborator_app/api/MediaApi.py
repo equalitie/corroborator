@@ -53,9 +53,9 @@ class MediaResource(MultipartResource, ModelResource):
         always_return_data = True
 
     def obj_create(self, bundle, **kwargs):
+        media_file = bundle.data['media_file']
 
         if 'image' in bundle.data['media_file'].content_type:
-            media_file = bundle.data['media_file']
             filename = bundle.data['name_en']
             
             media_thumb_file = Thumbnailer()\
