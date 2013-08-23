@@ -14,16 +14,24 @@
   bottom: 40px;
 }
 
-.is-edited {
-  .first {
+.multiple {
+  .first.initial {
     margin-top: 40px;
   }
+}
+
+.is-edited {
   // give an empty score element some height
   .score {
     #incident_confidence_score, #bulletin_confidence_score {
       min-height: 15px;
       display: inline-block;
     }
+  }
+}
+.is-edited.is-expanded {
+  .last.initial {
+    margin-top: 40px;
   }
 }
 input, textarea {
@@ -188,7 +196,7 @@ button.do-save {
     margin-bottom: 2px;
   }
 }
-.crimes, .locations, .labels {
+.crimes, .locations, .labels, .sources {
   .tag {
     @include tag_style;
     margin-left: 2px;

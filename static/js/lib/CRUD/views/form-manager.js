@@ -20,11 +20,6 @@ define (
   function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams, 
     Actor, Bulletin, Incident, Collections, Overlay) {
 
-    // Object {
-    // type: "action_combo_combined",
-    // navValue: "incident",
-    // action: true,
-    // option: "Update Selected"} 
 
     // ## Stream processing helpers
     // map nav events to the filter views we will be displaying
@@ -305,6 +300,9 @@ define (
             multiple: true
           });
           this.render();
+          this.$el.children()
+                  .children('.body')
+                  .addClass('multiple');
           this.makeFormModal();
         }
       },

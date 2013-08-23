@@ -5,8 +5,8 @@
     </a>
   </div>
   <div class="body" style="bottom: 49px;">
-    <div class="first span-66p">
-      <!-- switch class here is-expanded -> in-preview -->
+    <div class="first initial span-66p">
+    <!-- switch class here is-expanded -> in-preview -->
       <div class="Actor is-edited is-expanded">
         <div class="header">
           <!-- id field - hide for new actor -->
@@ -18,10 +18,16 @@
           <!-- actor name -->
           <div class="field clear-after hide-multiple">
             <label>Name</label>
+            <p class="error-text">
+              Name must be entered
+            </p>
             <span class="i18n with-en with-ar">
               <div lang="en">
-                <input type="text" name="fullname_en" id="fullname_en" 
-                  value="{{model.fullname_en}}" class="actor-field w-100p">
+                <input type="text"
+                       name="fullname_en"
+                       id="fullname_en" 
+                       value="{{model.fullname_en}}"
+                       class="required actor-field w-100p">
               </div>
               <div lang="ar">
                 <input type="text" name="fullname_ar" id="fullname_ar"
@@ -215,23 +221,58 @@
           <div id="actor-media-block" class="field is-media hide-multiple">
           </div>
 
+          <div id="actor-version-block" class="field hide-multiple">
+            <div id="actor-status-block" class="add">
+              <p class="error-text">
+                Select a status for this actor
+              </p>
+              <label>Status</label><br/>
+              <select name="status" 
+                      id="status" 
+                      class="required actor-field">
+                <option value="">Select Status</option>
+                {{#each statuses}}
+                  <option
+                    value="{{this.resource_uri}}"
+                  >{{this.comment_status}}</option>
+                {{/each}}
+              </select>
+            </div>
+
+            <div class="clearer"></div>
+            <!-- Comment content field -->
+            <div class="add">
+
+              <p class="error-text">
+                Comment field is required
+              </p>
+              <label>Comment</label>
+              <textarea 
+                id="comment"
+                name="comment"
+                class="required actor-field w-100p"></textarea>
+
+            </div>
+          </div>
+          <!-- end version info -->
+
         </div>
       </div>
-      <div class="clearer"></div>
-    </div>
+    <div class="clearer"></div>
   </div>
-  <div class="footer actions form">
-    <div class="when-overlay-expanded">
-      <button class="do-collapse-form">
-        <span class="text t">» collapse</span>
-      </button>
-    </div>
-    <div class="when-overlay-not_expanded">
-      <button class="do-expand-form">
-        <span class="text t">« expand</span>
-      </button>
-    </div>
-    <button id="expanded-actor-save" class="do-save">
-      <span class="text t">Save</span>
+</div>
+<div class="footer actions form">
+  <div class="when-overlay-expanded">
+    <button class="do-collapse-form">
+      <span class="text t">» collapse</span>
     </button>
   </div>
+  <div class="when-overlay-not_expanded">
+    <button class="do-expand-form">
+      <span class="text t">« expand</span>
+    </button>
+  </div>
+  <button id="expanded-actor-save" class="do-save">
+    <span class="text t">Save</span>
+  </button>
+</div>

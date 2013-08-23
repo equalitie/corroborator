@@ -1,3 +1,4 @@
+/*global define, Bootstrap */
 // Author: Cormac McGuire
 // file: 
 
@@ -17,6 +18,7 @@ define (
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
     Location, actorFormTmp) {
+    'use strict';
 
     var ActorFormView,
         crudBus            = Streams.crudBus,
@@ -193,30 +195,24 @@ define (
         return dateString.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/);
       },
 
-      // send the form data on the crudBus, it will be picked up in data and 
-      // persisted
-      saveRequested: function() {
-        var formContent = this.formContent();
-        formContent = this.validateDateFields(formContent);
-        this.model.set(formContent);
+
+
+      delegateSave: function() {
         if (this.model.isNew() === true) {
           crudBus.push({
             type: 'create_new_actor',
             content: this.model
           });
         }
-        if (this.multiple === true) {
-          this.model.set('relatedActors', this.actorSearchView.collection);
-          this.model.saveMultiple();
-        }
-        else {
-          this.model.save();
-        }
+        this.model.save();
       },
 
       // render the form
       render: function() {
-        var html = this.template({model: this.model.toJSON()});
+        var html = this.template({
+          model: this.model.toJSON(),
+          statuses: Bootstrap.comment_statuses
+          });
         this.$el.html(html);
         return this;
       },

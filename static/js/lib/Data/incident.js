@@ -65,7 +65,7 @@ define(
       url: '/corroborator/incident/0/multisave/',
       formatSaveMultiple: function() {
         this.set('actorsRoles',
-          this.get('actors').map(this.formatActorCollectionForSave, this));
+          this.get('relatedActors').map(this.formatActorCollectionForSave, this));
         this.unset('actors_role');
         return this.toJSON();
       },
