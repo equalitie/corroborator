@@ -39,12 +39,24 @@ define (
       },
 
       openVideoViewer: function() {
-        console.log('openVideoViewer');
+        var video, fileType, fileName, $videoEl;
+        video = {};
+        fileType = this.model.get('media_file_type');
+        fileName = this.model.get('media_file');
+
         var dialogHtml = mediaViewerTmp({
           video: true,
           uri: this.model.get('media_file')
         });
+
+        video['mp4'] = fileName;
+        debugger;
         this.openDialog($(dialogHtml));
+        $videoEl = $('.preview');
+        $videoEl.flowplayer({
+          preload: 'none',
+          playlist: [ video ]
+        });
       },
 
       openImageViewer: function() {
@@ -64,6 +76,9 @@ define (
           $dialogHtml.dialog({
             resizable: false,
             //height:    360,
+            close: function( event, ui ) {
+              $(this).children().remove();              
+            },
             modal:     true
           });
       },
