@@ -60,7 +60,6 @@ define (
         
         this.$el.children('.preview').flowplayer({
           preload: 'none',
-          src: 'http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf',
           playlist: [
             [ video ]
           ]

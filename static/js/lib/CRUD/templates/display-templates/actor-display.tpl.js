@@ -75,36 +75,44 @@ function program14(depth0,data) {
 function program16(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Nationality</th>\n          <td>"
+  buffer += "\n        <tr>\n          <th>Nationality</th>\n          <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nationality_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\n        </tr>\n        ";
+    + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nationality_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span></span>\n              <span class=\"toggle\">\n                <span lang=\"en\">EN</span>\n                <span lang=\"ar\">AR</span>\n              </span>\n            </span>\n        </td>\n        </tr>\n        ";
   return buffer;
   }
 
 function program18(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Ethnicity</th>\n          <td>"
+  buffer += "\n        <tr>\n          <th>Ethnicity</th>\n          <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ethnicity_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\n        </tr>\n        ";
+    + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ethnicity_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span></span>\n              <span class=\"toggle\">\n                <span lang=\"en\">EN</span>\n                <span lang=\"ar\">AR</span>\n              </span>\n            </span>\n            </td>\n        </tr>\n        ";
   return buffer;
   }
 
 function program20(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Speaks</th>\n          <td>"
+  buffer += "\n        <tr>\n          <th>Speaks</th>\n            <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.spoken_dialect_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\n        </tr>\n        ";
+    + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.spoken_dialect_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span></span>\n              <span class=\"toggle\">\n                <span lang=\"en\">EN</span>\n                <span lang=\"ar\">AR</span>\n              </span>\n            </span>\n            </td>\n        </tr>\n        ";
   return buffer;
   }
 
 function program22(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Religion</th>\n          <td>"
+  buffer += "\n        <tr>\n          <th>Religion</th>\n            <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.religion_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</td>\n        </tr>\n        ";
+    + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.religion_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span></span>\n              <span class=\"toggle\">\n                <span lang=\"en\">EN</span>\n                <span lang=\"ar\">AR</span>\n              </span>\n            </span>\n            </td>\n        </tr>\n        ";
   return buffer;
   }
 
