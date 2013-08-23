@@ -4,8 +4,8 @@
     </div>
       <a href="#actor/{{model.id}}">
       <div class="actor-content">
-        {{#if model.media_thumb}}
-          <div class="avatar"><img src="{{model.media_thumb}}" alt="actor avatar"></div>
+        {{#if model.thumbnail_url}}
+          <div class="avatar"><img src="{{model.thumbnail_url}}" alt="actor thumbnail"></div>
         {{else}}
           <div class="avatar">&nbsp;</div>
         {{/if}}

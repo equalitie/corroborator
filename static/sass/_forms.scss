@@ -45,6 +45,31 @@ input[type=text] {
 }
 
 // ======================================================================
+// EVENT BUTTONS
+// ======================================================================
+.events {
+  button.do-remove-event {
+    @include corrob_icon_attach_before;
+    width: 1.7em;
+    font-size: 1.5em;
+    float: right;
+    background: none;
+    color: $COLOR_INPUT_BD;
+    margin-right: 5px;
+  }
+  button.do-edit-event {
+    @include corrob_icon_attach_before;
+    width: 1.5em;
+    font-size: 1.5em;
+    background: none;
+    color: $COLOR_INPUT_BD;
+    &:hover {
+      background: none;
+    }
+  }
+}
+
+// ======================================================================
 // SAVE SEARCH DIALOG INPUT
 // ======================================================================
 input#search-title {

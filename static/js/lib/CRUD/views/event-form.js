@@ -200,7 +200,7 @@ define (
         this.$el.children()
                 .children('textarea[name=comments_ar]')
                 .val(model.get('comments_ar'));
-        //this.enableWidgets();
+        this.enableWidgets();
       },
       // check if we are editing the model that is being deleted  
       // empty the form if it is
@@ -296,8 +296,8 @@ define (
       className: 'comment',
       // define event handlers
       events: {
-        'click .do-edit': 'editEvent',
-        'click .do-remove': 'removeEvent'
+        'click .do-edit-event': 'editEvent',
+        'click .do-remove-event': 'removeEvent'
       },
       // constructor - render the view
       initialize: function() {
@@ -313,7 +313,7 @@ define (
       // this view
       removeEvent: function(evt) {
         evt.preventDefault();
-        this.model.destroy();
+        //this.model.destroy();
         this.destroy();
       },
 
