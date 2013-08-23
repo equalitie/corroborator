@@ -6,6 +6,7 @@ from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media, SolrUpdate, PredefinedSearch
 from celery_haystack.indexes import CelerySearchIndex
+from corroborator.settings import common
 
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
@@ -153,10 +154,17 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
         Returns URI of a given Media
         """
         #return object.get_uri()
-        return object.media_file.name
+
+        if object.media_file.name != '' and object.media_file.name != None:
+            return common.S3_URL + '/' + object.media_file.name
+        else:
+            ''
     def prepare_media_thumb_file(self, object):
         #return object.get_thumb_uri()
-        return object.media_thumb_file.name
+        if object.media_thumb_file.name != '' and object.media_thumb_file.name != None:
+            return common.S3_URL + '/' + object.media_thumb_file.name
+        else:
+            ''
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this media instance

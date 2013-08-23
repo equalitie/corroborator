@@ -9,7 +9,8 @@ Bill Doran 2013/08/08
 from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media, ActorRole
- 
+from corroborator.settings import common
+
 class ActorPrepMeta(): 
     def prepare_actor_actor_roles(self, object):
         """
@@ -86,7 +87,7 @@ class ActorPrepMeta():
         Return AWS URL for associated thumbnail media
         """
         if object.media != None:
-            return object.media.media_thumb_file.name
+            return common.S3_URL + '/' + object.media.media_thumb_file.name
         else:
             return ''
     def prepare_count_incidents(self, object):
