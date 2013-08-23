@@ -142,9 +142,9 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
     media_type =  indexes.CharField(model_attr='media_type', null=True)
     media_created = indexes.DateTimeField(model_attr='media_created',
     faceted=True, null=True)
-    uri = indexes.MultiValueField()
+    uri = indexes.CharField()
     resource_uri = indexes.CharField()
-    media_thumb_file = indexes.MultiValueField()
+    media_thumb_file = indexes.CharField()
     media_file_type = indexes.CharField(model_attr="media_file_type", null=True)
 
     def get_model(self):
