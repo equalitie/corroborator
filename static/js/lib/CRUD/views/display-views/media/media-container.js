@@ -55,6 +55,7 @@ define (
         console.log(model.toJSON());
         video = {};
         fileType = model.get('media_file_type');
+        fileType = 'mp4';
         fileName = model.get('media_file');
         video[fileType] = fileName;
         
