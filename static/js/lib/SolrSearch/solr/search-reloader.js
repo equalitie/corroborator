@@ -106,9 +106,24 @@ define (
     // send the search object - check for restart
     sendSearches = function(searchObject, isRestartRequired) {
       var search_type = 'update_current_results';
+      var content, domain;
       if (isRestartRequired) {
         search_type = restartTimer(searchObject);
       }
+      // for ie
+      try {
+        content = searchObject.content;
+      }
+      catch (e) {
+        content = {raw: '', encoded: ''};
+      }
+      try {
+        domain = searchObject.domain;
+      }
+      catch (error) {
+        domain = '';
+      }
+      
       searchBus.push({
         type: search_type,
         content: searchObject.content,
