@@ -119,18 +119,23 @@ define (
       },
 
       removeSelectedFilter: function(filterKey, filterName) {
-          var filter = 
-            this.chain()
-                .filter(function (model) {
-                  return model.get('key') === filterKey &&
-                         model.get('filterName') === filterName;
-                })
-                .last()
-                .value();
-          
-          if (filter !== undefined) {
-            this.remove(filter);
-          }
+        if (this.groupKey === 'most_recent_status_incident_exact') {
+          console.log('removeSelectedFilter', filterKey, filterName, this);
+        }
+        var filter = 
+          this.chain()
+              .filter(function (model) {
+                return model.get('key') === filterKey &&
+                       model.get('filterName') === filterName;
+              })
+              .last()
+              .value();
+        
+        if (filter !== undefined) {
+          this.remove(filter);
+        }
+
+
       }
     });
 

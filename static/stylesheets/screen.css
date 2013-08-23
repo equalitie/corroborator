@@ -3293,11 +3293,11 @@ button.do-save:hover {
 }
 /* line 195, ../sass/_forms.scss */
 .tags .tag, .locations.tags .tag {
-  margin-bottom: 2px;
+  margin-top: 2px;
 }
 
-/* line 200, ../sass/_forms.scss */
-.crimes .tag, .locations .tag, .labels .tag, .sources .tag {
+/* line 201, ../sass/_forms.scss */
+.POB .tag, .current_location .tag, .crimes .tag, .locations .tag, .labels .tag, .sources .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
   color: #fd6d5a;
@@ -3308,8 +3308,8 @@ button.do-save:hover {
   padding-right: 1em;
   margin-left: 2px;
 }
-/* line 203, ../sass/_forms.scss */
-.crimes .tag .do-clear, .locations .tag .do-clear, .labels .tag .do-clear, .sources .tag .do-clear {
+/* line 204, ../sass/_forms.scss */
+.POB .tag .do-clear, .current_location .tag .do-clear, .crimes .tag .do-clear, .locations .tag .do-clear, .labels .tag .do-clear, .sources .tag .do-clear {
   text-shadow: none;
   border: 0px solid transparent;
   padding: 0px;
@@ -3323,7 +3323,7 @@ button.do-save:hover {
   border-radius: 0.46154em;
 }
 /* line 13, ../sass/_buttons.scss */
-.crimes .tag .do-clear > span, .locations .tag .do-clear > span, .labels .tag .do-clear > span, .sources .tag .do-clear > span {
+.POB .tag .do-clear > span, .current_location .tag .do-clear > span, .crimes .tag .do-clear > span, .locations .tag .do-clear > span, .labels .tag .do-clear > span, .sources .tag .do-clear > span {
   color: white;
   font-family: IconicFill, sans-serif;
   position: relative;
@@ -3332,22 +3332,22 @@ button.do-save:hover {
   font-size: 65%;
 }
 
-/* line 212, ../sass/_forms.scss */
+/* line 213, ../sass/_forms.scss */
 .in-list.embedded {
   padding: 0.76923em;
 }
 
-/* line 215, ../sass/_forms.scss */
+/* line 216, ../sass/_forms.scss */
 .Actor.in-list.embedded {
   padding: 0em;
   padding-bottom: 0.76923em;
 }
-/* line 220, ../sass/_forms.scss */
+/* line 221, ../sass/_forms.scss */
 .Actor.in-list.embedded .stats {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 223, ../sass/_forms.scss */
+/* line 224, ../sass/_forms.scss */
 .Actor.in-list.embedded .button.combo {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3414,6 +3414,34 @@ button.do-save:hover {
 /* line 110, ../sass/_buttons.scss */
 .Actor.in-list.embedded .button.combo:hover .options {
   display: block;
+}
+
+/* line 235, ../sass/_forms.scss */
+.error-text {
+  display: none;
+}
+
+/* line 238, ../sass/_forms.scss */
+.error {
+  color: #fe9a8c;
+}
+/* line 241, ../sass/_forms.scss */
+.error label {
+  font-weight: bold;
+}
+/* line 244, ../sass/_forms.scss */
+.error input, .error textarea {
+  border-color: #fe9a8c;
+}
+/* line 247, ../sass/_forms.scss */
+.error .error-text {
+  display: block;
+  width: 100%;
+  background-color: #fe9a8c;
+  padding: 3px;
+  padding-left: 1px;
+  margin-bottom: 8px;
+  color: white;
 }
 
 /* line 2, ../sass/_navigation.scss */

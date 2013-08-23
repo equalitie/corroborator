@@ -137,12 +137,12 @@ define (
 
         removeErrorClass: function(passedElement) {
           var passedElementId = _.chain(passedElement).keys().last().value();
-          $('#' + passedElementId).parent().removeClass('error');
+          $('#' + passedElementId).closest('.field').removeClass('error');
         },
 
         addErrorClass: function(failedElement) {
           var failedElementId = _.chain(failedElement).keys().last().value();
-          $('#' + failedElementId).parent().addClass('error');
+          $('#' + failedElementId).closest('.field').addClass('error');
         },
 
         checkPassedAll: function(memo, result) {
@@ -288,9 +288,9 @@ define (
           $('input[name=' + dateFieldName + ']').datepicker({
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
+            changeYear: true,
             maxDate: "+0D",
-            yearRange: "1930:2012",
-            changeYear: true
+            yearRange: "c-60:c"
           });
         },
 

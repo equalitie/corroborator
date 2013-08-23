@@ -59,10 +59,10 @@ define (
           this.renderSelectOptions.bind(this));
         this.listenForMediasAdded();
         this.render();
-        if (typeof(options.content)=== 'object') {
+        if (typeof(options.content) === 'object') {
           _.each(options.content, this.loadExistingContent, this);
         }
-        else {
+        else if(options.content !== undefined){
           this.loadExistingContent(options.content);
         }
       },
@@ -211,7 +211,6 @@ define (
 
       // render the related medias
       renderMedias: function() {
-        console.log('renderMedias', this.collection);
         this.destroyChildViews();
         this.collection.each(this.renderMedia, this);
       },

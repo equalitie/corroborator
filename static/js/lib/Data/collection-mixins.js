@@ -204,7 +204,6 @@ define (
                   .formatEmptyManyToManyFields();
             }
             this.set('username', Bootstrap.username);
-            console.log(this.toJSON());
             return Backbone.sync.apply(this, arguments);
           }
         };
