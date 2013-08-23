@@ -2983,34 +2983,71 @@ input[type=text] {
   margin-top: -1px;
 }
 
-/* line 50, ../sass/_forms.scss */
+/* line 51, ../sass/_forms.scss */
+.events button.do-remove-event {
+  width: 1.7em;
+  font-size: 1.5em;
+  float: right;
+  background: none;
+  color: #ddd2c7;
+  margin-right: 5px;
+}
+/* line 50, ../sass/_fonts.scss */
+.events button.do-remove-event [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 60, ../sass/_forms.scss */
+.events button.do-edit-event {
+  width: 1.5em;
+  font-size: 1.5em;
+  background: none;
+  color: #ddd2c7;
+}
+/* line 50, ../sass/_fonts.scss */
+.events button.do-edit-event [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 66, ../sass/_forms.scss */
+.events button.do-edit-event:hover {
+  background: none;
+}
+
+/* line 75, ../sass/_forms.scss */
 input#search-title {
   border: 1px solid #ddd2c7;
   width: 100%;
 }
 
-/* line 55, ../sass/_forms.scss */
+/* line 80, ../sass/_forms.scss */
 input {
   display: inline-block;
 }
-/* line 63, ../sass/_forms.scss */
+/* line 88, ../sass/_forms.scss */
 input.with-clear {
   padding-right: 2em;
   margin-right: -1.6em;
 }
 
-/* line 68, ../sass/_forms.scss */
+/* line 93, ../sass/_forms.scss */
 .date-range input {
   width: 80px;
 }
 
-/* line 79, ../sass/_forms.scss */
+/* line 104, ../sass/_forms.scss */
 .message {
   border: 1px solid;
   height: 10px;
 }
 
-/* line 84, ../sass/_forms.scss */
+/* line 109, ../sass/_forms.scss */
 .fail {
   padding: 0.76923em;
   background-color: #ffeeee;
@@ -3018,12 +3055,12 @@ input.with-clear {
   color: #ff9999;
   display: none;
 }
-/* line 90, ../sass/_forms.scss */
+/* line 115, ../sass/_forms.scss */
 .fail.show-message {
   display: block;
 }
 
-/* line 96, ../sass/_forms.scss */
+/* line 121, ../sass/_forms.scss */
 .success {
   padding: 0.76923em;
   background-color: #eeffee;
@@ -3031,71 +3068,71 @@ input.with-clear {
   color: #55ff55;
   display: none;
 }
-/* line 101, ../sass/_forms.scss */
+/* line 126, ../sass/_forms.scss */
 .success a {
   color: #55ff55;
   text-decoration: underline;
 }
-/* line 107, ../sass/_forms.scss */
+/* line 132, ../sass/_forms.scss */
 .success.show-message {
   display: block;
 }
 
-/* line 121, ../sass/_forms.scss */
+/* line 146, ../sass/_forms.scss */
 .bulletin-overlay {
   border-top: 5px solid #b5cd5f;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 123, ../sass/_forms.scss */
+/* line 148, ../sass/_forms.scss */
 .bulletin-overlay + div {
   border-top: 5px solid #b5cd5f;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 128, ../sass/_forms.scss */
+/* line 153, ../sass/_forms.scss */
 .incident-overlay {
   border-top: 5px solid #6bcad8;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 130, ../sass/_forms.scss */
+/* line 155, ../sass/_forms.scss */
 .incident-overlay + div {
   border-top: 5px solid #6bcad8;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 135, ../sass/_forms.scss */
+/* line 160, ../sass/_forms.scss */
 .actor-overlay {
   border-top: 5px solid #f1be33;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
-/* line 137, ../sass/_forms.scss */
+/* line 162, ../sass/_forms.scss */
 .actor-overlay + div {
   border-top: 5px solid #f1be33;
   border-left: 1px solid #b7b6b2;
   border-right: 1px solid #b7b6b2;
 }
 
-/* line 145, ../sass/_forms.scss */
+/* line 170, ../sass/_forms.scss */
 .form.actions {
   background-color: #fd6d5a;
   width: 100%;
   height: 100%;
 }
 
-/* line 151, ../sass/_forms.scss */
+/* line 176, ../sass/_forms.scss */
 .footer.actions {
   background-color: #fd6d5a;
 }
-/* line 152, ../sass/_forms.scss */
+/* line 177, ../sass/_forms.scss */
 .footer.actions .right {
   height: 100%;
 }
-/* line 156, ../sass/_forms.scss */
+/* line 181, ../sass/_forms.scss */
 .footer.actions button.do-hideResults {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3115,14 +3152,14 @@ input.with-clear {
   background-color: #ca5b4d;
 }
 
-/* line 166, ../sass/_forms.scss */
+/* line 191, ../sass/_forms.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 171, ../sass/_forms.scss */
+/* line 196, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-expand-form,
 .when-overlay-expanded button.do-expand-form {
   text-transform: uppercase;
@@ -3151,7 +3188,7 @@ input.with-clear {
 .when-overlay-expanded button.do-expand-form:hover {
   background-color: #d96859;
 }
-/* line 176, ../sass/_forms.scss */
+/* line 201, ../sass/_forms.scss */
 .when-overlay-not_expanded button.do-collapse-form,
 .when-overlay-expanded button.do-collapse-form {
   text-transform: uppercase;
@@ -3181,7 +3218,7 @@ input.with-clear {
   background-color: #d96859;
 }
 
-/* line 183, ../sass/_forms.scss */
+/* line 208, ../sass/_forms.scss */
 button.do-save {
   text-transform: uppercase;
   font-family: 'Open Sans Semi Bold', sans-serif;
@@ -3210,17 +3247,17 @@ button.do-save:hover {
   background-color: #d96859;
 }
 
-/* line 193, ../sass/_forms.scss */
+/* line 218, ../sass/_forms.scss */
 .tags, .locations.tags {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 195, ../sass/_forms.scss */
+/* line 220, ../sass/_forms.scss */
 .tags .tag, .locations.tags .tag {
   margin-top: 2px;
 }
 
-/* line 201, ../sass/_forms.scss */
+/* line 226, ../sass/_forms.scss */
 .POB .tag, .current_location .tag, .crimes .tag, .locations .tag, .labels .tag, .sources .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3232,7 +3269,7 @@ button.do-save:hover {
   padding-right: 1em;
   margin-left: 2px;
 }
-/* line 204, ../sass/_forms.scss */
+/* line 229, ../sass/_forms.scss */
 .POB .tag .do-clear, .current_location .tag .do-clear, .crimes .tag .do-clear, .locations .tag .do-clear, .labels .tag .do-clear, .sources .tag .do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -3256,22 +3293,22 @@ button.do-save:hover {
   font-size: 65%;
 }
 
-/* line 213, ../sass/_forms.scss */
+/* line 238, ../sass/_forms.scss */
 .in-list.embedded {
   padding: 0.76923em;
 }
 
-/* line 216, ../sass/_forms.scss */
+/* line 241, ../sass/_forms.scss */
 .Actor.in-list.embedded {
   padding: 0em;
   padding-bottom: 0.76923em;
 }
-/* line 221, ../sass/_forms.scss */
+/* line 246, ../sass/_forms.scss */
 .Actor.in-list.embedded .stats {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 224, ../sass/_forms.scss */
+/* line 249, ../sass/_forms.scss */
 .Actor.in-list.embedded .button.combo {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3339,7 +3376,7 @@ button.do-save:hover {
 .Actor.in-list.embedded .button.combo:hover .options {
   display: block;
 }
-/* line 230, ../sass/_forms.scss */
+/* line 255, ../sass/_forms.scss */
 .Actor.in-list.embedded .button.combo [data-icon]:before {
   display: block;
   width: 1em;
@@ -3348,7 +3385,7 @@ button.do-save:hover {
   text-align: right;
 }
 
-/* line 247, ../sass/_forms.scss */
+/* line 272, ../sass/_forms.scss */
 .when-related .button.combo {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3417,24 +3454,24 @@ button.do-save:hover {
   display: block;
 }
 
-/* line 260, ../sass/_forms.scss */
+/* line 285, ../sass/_forms.scss */
 .error-text {
   display: none;
 }
 
-/* line 263, ../sass/_forms.scss */
+/* line 288, ../sass/_forms.scss */
 .error {
   color: #fe9a8c;
 }
-/* line 266, ../sass/_forms.scss */
+/* line 291, ../sass/_forms.scss */
 .error label {
   font-weight: bold;
 }
-/* line 269, ../sass/_forms.scss */
+/* line 294, ../sass/_forms.scss */
 .error input, .error textarea {
   border-color: #fe9a8c;
 }
-/* line 272, ../sass/_forms.scss */
+/* line 297, ../sass/_forms.scss */
 .error .error-text {
   display: block;
   width: 100%;
@@ -3445,7 +3482,7 @@ button.do-save:hover {
   color: white;
 }
 
-/* line 288, ../sass/_forms.scss */
+/* line 313, ../sass/_forms.scss */
 body.login {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3453,7 +3490,7 @@ body.login {
   color: white;
 }
 
-/* line 293, ../sass/_forms.scss */
+/* line 318, ../sass/_forms.scss */
 .login-form {
   border: 1px solid #3f3e3d;
   width: 40%;
@@ -3461,13 +3498,13 @@ body.login {
   margin-top: 10em;
   padding: 40px;
 }
-/* line 298, ../sass/_forms.scss */
+/* line 323, ../sass/_forms.scss */
 .login-form h3 {
   color: #e9c37b;
   margin-bottom: 1em;
   text-align: center;
 }
-/* line 304, ../sass/_forms.scss */
+/* line 329, ../sass/_forms.scss */
 .login-form .login-field {
   overflow: hidden;
   *zoom: 1;
@@ -3476,7 +3513,7 @@ body.login {
   clear: both;
   margin-bottom: 12px;
 }
-/* line 310, ../sass/_forms.scss */
+/* line 335, ../sass/_forms.scss */
 .login-form .login-field.error {
   width: 80%;
   text-align: center;
@@ -3486,12 +3523,12 @@ body.login {
   padding-bottom: 6px;
   background-color: #4d1d17;
 }
-/* line 320, ../sass/_forms.scss */
+/* line 345, ../sass/_forms.scss */
 .login-form label {
   padding-top: 6px;
   width: 20%;
 }
-/* line 324, ../sass/_forms.scss */
+/* line 349, ../sass/_forms.scss */
 .login-form input {
   width: 80%;
   height: 2em;
@@ -3501,11 +3538,11 @@ body.login {
   float: right;
   border-top: solid 2px #3f3e3d;
 }
-/* line 333, ../sass/_forms.scss */
+/* line 358, ../sass/_forms.scss */
 .login-form input[type=password] {
   border-top: solid 1px #3f3e3d;
 }
-/* line 336, ../sass/_forms.scss */
+/* line 361, ../sass/_forms.scss */
 .login-form input[type=submit] {
   width: 30%;
   color: #e9c37b;

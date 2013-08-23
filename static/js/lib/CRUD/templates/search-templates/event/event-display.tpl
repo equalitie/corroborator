@@ -1,10 +1,14 @@
 <div class="actions">
-  <button class="do-edit is-small">
-  <span class="text T">Edit</span>
+  <button class="do-remove-event is-small">
+    <span aria-hidden="true" data-icon="&#x58;"></span>
+    <span class="screen-reader-text">Remove</span>
   </button>
-  <button class="do-remove is-small">
-  <span class="text T">Remove</span>
+
+  <button class="do-edit-event is-small">
+    <span aria-hidden="true" data-icon="E"></span>
+    <span class="screen-reader-text">Edit</span>
   </button>
+
 </div>
 <div class="content">
   <div class="name">{{model.event_name_en}}</div>

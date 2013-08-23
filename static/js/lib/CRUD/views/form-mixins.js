@@ -252,7 +252,7 @@ define (
         enableDateTimeField: function(dateTimeField) {
           $(dateTimeField.el).datetimepicker({
             dateFormat: 'yy-mm-dd',
-            timeFormat: 'HH:mm:00'
+            timeFormat: 'HH:mm:ss'
           });
         },
 
