@@ -1,0 +1,1434 @@
+{% extends "base.html" %}
+
+{% block content%}
+        <nav>
+          <div class="search">
+            <input id="search-bulletin"/>
+            <button class="do-clear">
+              <span>&#x2713;</span>
+            </button>
+<!--            <button class="do-search do-search-main is-default">
+              <span class="text T">Search</span>
+            </button>-->
+	    <div class="button combo  do-search is-default">
+          <span id="do-search-main" class="T selected-option">Search</span>
+          <ul class="options" id="predefined_options">
+            <li id="show_save_current_search" class="option selected">
+              <span class="text T">Save current seach...</span>
+            </li>
+	    {%for search in ps_incident_list %}
+	    <li class="option selected incident-predefined">
+	      <input type="hidden" value="{{search.search_request}}" />
+              <span class="text T">{{search.name_en}}</span>
+            </li>
+	    {%endfor%}
+	    {%for search in ps_bulletin_list %}
+	    <li class="option selected bulletin-predefined hidden">
+	      <input type="hidden" value="{{search.search_request}}" />
+              <span class="text T">{{search.name_en}}</span>
+            </li>
+	    {%endfor%}
+	    {%for search in ps_actor_list %}
+	    <li class="option selected actor-predefined hidden">
+	      <input type="hidden" value="{{search.search_request}}" />
+              <span class="text T">{{search.name_en}}</span>
+            </li>
+	    {%endfor%}
+
+          </ul>
+        </div>
+	<span id="predefined-search" class="hidden predefined">
+	<input id="predfiend-search-name"class="w-30p"/>
+
+	<button id="save_current_search" class="do-search do-search-main is-default">
+              <span class="text T">Save</span>
+            </button>
+	<button id="cancel_current_search" class="do-search do-search-main is-default">
+              <span class="text T">Cancel</span>
+            </button>
+
+	</span>
+	<span id="main_spinner" class="hidden">
+		<img style="z-index: 100; width: 24px; height: 24px; vertical-align: middle;" src="/static/images/ajax-loader.gif">
+	</span>
+          </div>
+          <div class="tabs">
+            <ul>
+              <li class="current is-incidents">
+                <a href="#incidents/tab/" id="incidents-tab">
+                  <span class="text">
+                    <span class="label T">Incidents</span>
+                    <span class="incident-count count"></span>
+                  </span>
+
+                </a>
+              </li>
+              <li class="is-bulletins">
+                <a id="bulletins-tab" href="#bulletins/tab/">
+                  <span class="text">
+                    <span class="label T">Bulletins</span>
+                    <span class="bulletin-count count"></span>
+                  </span>
+                </a>
+              </li>
+
+              <li class="is-actors">
+                <a href="#actors/tab/" id="actors-tab">
+                   <span class="text">
+                    <span class="label T">Actors</span>
+                    <span class="actor-count count"></span>
+                  </span>
+
+                </a>
+              </li>
+            </ul>
+            <div class="clearer">&nbsp;</div>
+          </div>
+        </nav>
+
+
+
+	<div id="bulletin-content" class="columns as-2 hidden">
+          <div class="col first has-header">
+            <div class="header">
+              <div class="padding">
+                <div class="Selection">
+                  <div class="description">
+<!--                    <button class="do-view is-small">
+                      <span class="text T">view</span>
+                    </button> -->
+                    <span class="text T">
+                      <em><span id="number-bulletins-selected">0</span> bulletins</em> selected
+                    </span>
+                  </div>
+                  <div class="actions">
+                    <div class="button combo is-default">
+                      <span class="T create-incident-from-bulletin">Actions...</span>
+                      <ul class="options">
+			<li>
+				<a href="#create-incident" class="create-incident-from-bulletin text T">Create incident</a>
+			</li>
+                        <li>
+                           
+                          <a href="#archive" id="delete_bulletins" class="text T">Delete bulletins</a>
+                        </li>
+                        <li>
+                           
+                          <a href="#assign" id="annotate-bulletins-selected" class="text T">Update selected</a>
+                        </li>
+                        <li>
+                           
+                          <a href="#assign" id="all-bulletins-selected" class="text T">Select All</a>
+                        </li>
+
+                        <li>
+                           
+                          <a href="#assign" id="clear-bulletins-selected" class="text T">Clear selected</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table class="bulletins">
+                <thead>
+                  <tr>
+                    <th class="is-selector">&nbsp;</th>
+                    <th class="is-preview">&nbsp;</th>
+                    <th class="is-description">
+                      <a href="#+mode=date" class="T current is-descending">date</a>
+                      <a href="#+mode=location" class="T">location</a>
+                      <a href="#+mode=title" class="T">title</a>
+                    </th>
+                    <th class="is-status">
+                      <a href="#+mode=status" class="T">status</a>
+                    </th>
+                    <th class="is-score">
+                      <a href="#+mode=score" class="T">score</a>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="body">
+              <div class="padding">
+                <table class="bulletins">
+                  <tbody id="bulletins-table">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col last has-header">
+            <div class="header">
+              <div class="padding">
+                <div class="group is-creator">
+                  <button class="do-create-bulletin create">
+                    <span class="text T">New bulletin</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="padding">
+                <div class="group is-filters filters">
+		<div class="filter is-labels">
+                    <label id="bulletin-selected-label" class="hidden">Current filters</label>
+                    <ul id="bulletin-selected-tags" class="tags editor">
+                    </ul>
+                  </div>
+
+                  <div class="filter" >
+                    <label>Assigned to</label>
+                    <ul class="select" id="bulletin-assigned-filter">
+<!--                      <li class="option">
+                        <span class="bulletin-option text T">Anyone</span>
+                      </li> 
+			{% for user in users_set%}
+                      <li class="option selected">
+                        <span class="bulletin-option text T">{{user.username}}</span>
+                      </li>
+			{%endfor%}
+                      <li class="option selected">
+                        <span class="bulletin-option text T">Unsassigned</span>
+
+                      </li> -->
+                    </ul>
+                  </div>
+                  <div class="filter">
+                    <label>Status</label>
+                    <ul id="bulletin-status-filter" class="select">
+<!--                      <li class="option">
+                        <span class="bulletin-option text T">Any</span>
+                      </li> -->
+                    </ul>
+                  </div>
+                  <div class="filter">
+                    <label>Date Range</label>
+<!--                    <ul class="select">
+                      <li class="option">
+                        <span class="text T">Any</span>
+                      </li>
+                      <li class="option selected">
+                        <span class="text T">YYYY/MM/DD &rarr; YYYM/MM/DD</span>
+                      </li>
+                    </ul> -->
+		<div class="wrapper" style="position:relative;z-index:1;">
+		   <div id="bulletin-jrange" class="dates">
+		    <input id="bulletin_date_filter" value="yyyy/mm/dd - yyyy/mm/dd"/>
+		    <div></div>
+		   </div>
+		</div>
+
+                  </div>
+                  <div class="filter is-labels">
+                    <label>Labels</label>
+                    <ul id="bulletins_tags" class="tags">
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-wireframe="bulletin-view" class="bulletin-overlay overlay WIREFRAME hidden">
+          <div class="header">
+            <button class="do-hide is-small">
+              <span class="T">close</span>
+            </button>
+          </div>
+          <div id="view-placeholder-bulletin" class="body">
+
+          </div>
+          <div class="footer actions">
+            <div class="left">
+              <div class="when-overlay-expanded">
+                <button class="do-collapse">
+                  <span class="text T">Collapse &raquo;</span>
+                </button>
+              </div>
+              <div class="when-overlay-not_expanded">
+                <button class="do-expand">
+                  <span class="text T">&laquo; Expand</span>
+                </button>
+              </div>
+            </div>
+            <div class="right">
+		<span id="bulletin_action_result" class="hidden">
+			Result saved successfully.
+		</span>
+<!--              <button class="do-select">
+                <span class="text T">Select</span>
+              </button>
+-->              <button id="bulletin-action_edit" class="do-select default">
+                <span class="text T">Edit</span>
+              </button>
+              <button id="actor-action_cancel" class="hidden do-hide default">
+                <span class="text T">Canel</span>
+              </button>
+
+              <button id="bulletin-action_save_relate" class="hidden do-select default">
+                <span class="text T">Save & Relate</span>
+              </button>
+
+              <button id="bulletin-action_save" class="hidden do-select default">
+                <span class="text T">Save</span>
+              </button>
+            </div>
+          </div>
+        </div>
+	<div class="bulletin-overlay-annotate overlay WIREFRAME hidden" data-wireframe="incident-view">
+          <div class="header">
+            <button class="do-hide-annotate do-hide is-small">
+              <span class="T">close</span>
+            </button>
+          </div>
+          <div class="body" id="view-placeholder-annotate-bulletin" style="bottom: 0px;">
+           <form onsubmit="return false;" id="incident_form_annotate">
+<div class="Bulletin in-preview is-edited">
+ <div class="Bulletin is-edited">
+  <div class="body " >
+    <div class="group details">
+	<div class="field">
+<div class="description">
+<!--                    <button class="do-view is-small">
+                      <span class="text T">view</span>
+                    </button> -->
+                    <span class="text T">
+                      <em><span id="number-bulletins-selected-annotate">0</span> bulletins</em> selected
+                    </span>
+                  </div>
+	</div>
+      <div class="field clear-after">
+        <div class="is-score right" >
+          <label>Score</label>
+	<span class="score">
+	<span id="bulletin_confidence_score" class="value">0</span>
+            <div class="score-editor">
+              <div class="rail">
+	        <div class="slider"></div>	
+                <!-- <div class="cursor">&nbsp;</div> -->
+                <div class="axis">
+                  <div class="start">
+                    <span class="label">0%</span>
+                  </div>
+                  <div class="middle">
+                    <span class="label">50%</span>
+                  </div>
+                  <div class="end">
+                    <span class="label">100%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+        <div class="is-assigned-to left">
+          <label>Assigned to</label>
+<input type="text" value="{{username}}" class=" with-clear" id="user-ac-bulletin_annotate_{{userid}}" > 
+
+          <button class="do-clear" id="clear-user">
+            <span>✓</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="field is-sources">
+      <label>Sources</label>
+      <ul class="sources editor">
+        <li class="source is-new">
+                <input class="source-ac with-select" type="text" value="Source">
+        </li>
+      </ul>
+    </div>
+    <div class="field is-tags" >
+      <label>Labels</label>
+      <ul class="tags editor">
+       
+        <li class="tag is-new">
+          <input type="text" class="with-select labels-ac " value="Label">
+        </li>
+      </ul>
+    </div>
+<div id="bulletin-actor-list-block" class="field is-actors">
+      <label>Actors</label>
+      <div id="bulletin-actor-search-block" class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded actors">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-bulletin_annotate">
+	</ul>
+	</div>
+<div id="bulletin-bulletin-block" class="field is-bulletins">
+      <label>Related bulletins</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded bulletins">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-bulletins-bulletins_annotate">
+	</ul>
+</div>
+    <div class="field is-comments" id="bulletin-comment-block">
+      <label>Comments</label>
+      <ul class="comments">
+	
+        <li class="comment is-new">
+	<div id="incident-status-block" class="add">
+          <label>Status</label>
+	  <br/>
+          <select id="bulletin_status">
+
+            <option value="Select status">Select Status</option>
+                {% for status in status_set.all %}
+            <option value="{{status.id}}">{{ status.status_en }}</option>
+                {% endfor %}
+          </select>
+        </div>
+       <div class="clearer"> </div> 
+
+          <div class="add">
+            <textarea class="w-100p comment-comment" type="text"></textarea>
+          </div>
+          <button class="do-addComment">
+            <span class="T">Add comment</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div></form> 
+          </div>
+          <div class="footer actions">
+           <div class="right">
+		<span id="bulletin-annotate_action_result" class="hidden">
+			Result saved successfully.
+		</span>
+              <button id="bulletin-action_cancel" class="hidden do-hide default">
+                <span class="text T">Cancel</span>
+              </button>
+
+              <button class="do-select default" id="bulletin-action_save_multi">
+                <span class="text T">Save selected</span>
+              </button>
+            </div>
+          </div>
+	</div>
+        <div data-wireframe="bulletin-edit-search" class="embedded-search-bulletin overlay WIREFRAME hidden">
+          <div style="bottom: 48px;" class="body">
+            <div class="EmbeddedSearch EmbeddedSearch-bulletin">
+              <ul class="elements">
+                
+              </ul>
+            </div>
+          </div>
+          <div class="footer actions">
+            <div class="left">
+              <button class="do-hideResults">
+                <span class="text T">New <span class="search-entity"></span></span>
+              </button>
+            </div>
+
+            <div class="right">
+              <button class="do-hideResults">
+                <span class="text T">»Close results</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+      <div id="incident-content" class="columns as-2">
+          <div class="col first has-header">
+            <div class="header">
+              <div class="padding">
+                <div class="Selection">
+                  <div class="description">
+<!--                    <button class="do-view is-small">
+                      <span class="text T">view</span>
+                    </button> -->
+                    <span class="text T">
+                      <em><span id="number-incidents-selected">0</span> incidents</em> selected
+                    </span>
+                  </div>
+                  <div class="actions">
+                    <div class="button combo is-default">
+                      <span class="T">Actions...</span>
+                      <ul class="options">
+                        <li>
+                           
+                          <a href="#archive" id="delete_incidents" class="text T">Delete Incidents</a>
+                        </li>
+                        <li>
+                           
+                          <a href="#assign" id="annotate-incidents-selected" class="text T">Update selected</a>
+                        </li>
+                        <li>
+                           
+                          <a href="#assign" id="all-incidents-selected" class="text T">Select All</a>
+                        </li>
+
+                        <li>
+                           
+                          <a href="#assign" id="clear-incidents-selected" class="text T">Clear selected</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <table class="incidents">
+                <thead>
+                  <tr>
+                    <th class="is-selector">&nbsp;</th>
+                    <th class="is-preview">&nbsp;</th>
+                    <th class="is-description">
+                      <a href="#+mode=date" class="T current is-descending">date</a>
+                      <a href="#+mode=location" class="T">location</a>
+                      <a href="#+mode=title" class="T">title</a>
+                    </th>
+                    <th class="is-status">
+                      <a href="#+mode=status" class="T">status</a>
+                    </th>
+                    <th class="is-score">
+                      <a href="#+mode=score" class="T">score</a>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="body">
+              <div class="padding">
+                <table class="incidents">
+                  <tbody id="incidents-table">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col last has-header">
+            <div class="header">
+              <div class="padding">
+                <div class="group is-creator">
+                  <button class="do-create-incident create">
+                    <span class="text T">New incident</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="padding">
+                <div class="group is-filters filters">
+                  <div class="filter is-labels">
+                    <label id="incident-selected-label" class="hidden">Current filters</label>
+                    <ul id="incident-selected-tags" class="tags editor">
+                    </ul>
+
+                  </div>
+                  <div class="filter">
+                    <label>Date Range</label>
+<!--                    <ul class="select">
+                      <li class="option">
+                        <span class="text T">Any</span>
+                      </li>
+                      <li class="option selected">
+                        <span class="text T">YYYY/MM/DD &rarr; YYYM/MM/DD</span>
+                      </li>
+                    </ul> -->
+<div class="wrapper" style="position:relative;z-index:1;">
+   <div id="incident-jrange" class="dates">
+    <input id="incident_date_filter" value="yyyy/mm/dd - yyyy/mm/dd"/>
+    <div></div>
+   </div>
+</div>
+
+                  </div>
+
+
+                  <div class="filter">
+                    <label>Crime</label>
+                    <ul class="select" id="incident-crime-filter">
+                    </ul>
+                  </div>
+                  <div class="filter">
+                    <label>Assigned to</label>
+                    <ul class="select" id="incident-assigned-filter">
+<!--                      <li class="option">
+                        <span class="incident-option text T">Anyone</span>
+                      </li> -->
+<!--                      <li class="option selected">
+                        <span class="incident-option text T">Unsassigned</span>
+                      </li> -->
+                    </ul>
+                  </div>
+                  <div class="filter">
+                    <label>Status</label>
+                    <ul class="select" id="incident-status-filter">
+<!--                      <li class="option">
+                        <span class="text T">Any</span>
+                      </li> -->
+			{% for status in statuses %}	
+                      <li class="option">
+                        <span class="incident-option text T">{{status.status_en}}</span>
+                      </li>
+			{% endfor %}
+                    </ul>
+                  </div>
+                  <div class="filter is-labels">
+                    <label>Labels</label>
+<!--                    <input type="text" value="Search labels" class="is-label" /> -->
+                    <ul id="incidents_tags" class="tags">
+                    </ul>
+                  </div>
+
+                  <div class="filter is-map">
+                    <label>Location</label>
+                    <div id="bulletin-location-search-container" class="field hidden">
+                      <input id="bulletin-location-ac-filter" type="text" class="with-clear" />
+                      <button class="do-clear">
+                        <span>&#x2713;</span>
+                      </button>
+                    </div>
+                    <div class="map">
+		  <div id="filter_map" style="width:100%;height:100%;"></div>
+                      <button class="do-filter">
+                        <span class="text T">Filter</span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-wireframe="incident-view" class="incident-overlay overlay WIREFRAME hidden">
+          <div class="header">
+            <button class="do-hide is-small">
+              <span class="T">close</span>
+            </button>
+          </div>
+          <div id="view-placeholder-incident" class="body">
+            
+          </div>
+          <div class="footer actions">
+            <div class="left">
+              <div class="when-overlay-expanded">
+                <button class="do-collapse">
+                  <span class="text T">Collapse &raquo;</span>
+                </button>
+              </div>
+              <div class="when-overlay-not_expanded">
+                <button class="do-expand">
+                  <span class="text T">&laquo; Expand</span>
+                </button>
+              </div>
+            </div>
+            <div class="right">
+		<span id="incident_action_result" class="hidden">
+			Result saved successfully.
+		</span>
+
+<!--              <button class="do-select">
+                <span class="text T">Select</span>
+              </button> -->
+              <button id="incident-action_cancel" class="hidden do-hide default">
+                <span class="text T">Cancel</span>
+              </button>
+
+              <button id="incident-action_save" class="hidden do-select default">
+                <span class="text T">Save</span>
+              </button>
+              <button id="incident-action_edit" class="do-select default">
+                <span class="text T">Edit</span>
+              </button>
+
+            </div>
+          </div>
+        </div>
+	<div class="incident-overlay-annotate overlay WIREFRAME hidden" data-wireframe="incident-view">
+          <div class="header">
+            <button class="do-hide-annotate do-hide is-small">
+              <span class="T">close</span>
+            </button>
+          </div>
+          <div class="body" id="view-placeholder-annotate-incident" style="bottom: 0px;">
+           <form onsubmit="return false;" id="incident_form_annotate">
+<div class="Incident in-preview is-edited">
+ <div class="Incident is-edited">
+  <div class="body incident-not-expanded-edit" id="incident-group-block-ne">
+    <div class="group details" id="incident-group-block">
+	<div class="field">
+<div class="description">
+<!--                    <button class="do-view is-small">
+                      <span class="text T">view</span>
+                    </button> -->
+                    <span class="text T">
+                      <em><span id="number-incidents-selected-annotate">0</span> incidents</em> selected
+                    </span>
+                  </div>
+	</div>
+      <div class="field clear-after">
+        <div class="is-score right" id="incident-score-block">
+          <label>Score</label>
+	<span class="score">
+	<span id="incident_confidence_score" class="value">0</span>
+            <div class="score-editor">
+              <div class="rail">
+	        <div class="slider"></div>	
+                <!-- <div class="cursor">&nbsp;</div> -->
+                <div class="axis">
+                  <div class="start">
+                    <span class="label">0%</span>
+                  </div>
+                  <div class="middle">
+                    <span class="label">50%</span>
+                  </div>
+                  <div class="end">
+                    <span class="label">100%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </div>
+        <div class="is-assigned-to left" id="incident-assignment-block">
+          <label>Assigned to</label><input type="text" value="{{username}}" class=" with-clear" id="user-ac-incident_annotate_{{userid}}" > 
+          <button class="do-clear" id="clear-user">
+            <span>✓</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="field is-crimes" id="incident-crime-block">
+      <label>Crime</label>
+      <ul class="crimes editor">
+	
+        <li class="crime is-new">
+          <input type="text" class="with-select crimes-ac" value="" >
+        </li>
+      </ul>
+    </div>   
+    <div class="field is-tags" id="incident-label-block">
+      <label>Labels</label>
+      <ul class="tags editor">
+       
+        <li class="tag is-new">
+          <input type="text" class="with-select labels-ac " value="Label">
+        </li>
+      </ul>
+    </div>
+    <div id="incident-bulletin-block" class="field is-bulletins">
+      <label>Related bulletins</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded bulletins">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-bulletins-incidents_annotate">
+	</ul>
+	</div>
+<div id="incident-actor-list-block" class="field is-actors">
+      <label>Actors</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded actors">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-incident_annotate">
+	</ul>
+	</div>
+<div id="incident-incident-block" class="field is-incidents">
+      <label>Related incidents</label>
+      <div class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded incidents">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-incidents-incidents_annotate">
+	</ul>
+	</div>
+    <div id="incident-comment-block" class="field is-comments">
+      <label>Comments</label>
+      <ul class="comments">
+        <li class="comment is-new">
+	<div class="add">
+          <label>Status</label>
+	  <br/>
+          <select id="incident_status">
+
+            <option value="Select status">Select Status</option>
+                {% for status in status_set.all %}
+                {% if status.status_en == bulletin_result.status.status_en%}
+
+            <option selected value="{{status.id}}">{{ status.status_en }}</option>
+                {%else%}
+            <option value="{{status.id}}">{{ status.status_en }}</option>
+                {%endif%} 
+                {% endfor %}
+          </select>
+        </div>
+       <div class="clearer"> </div> 
+
+          <div class="add">
+            <label>Comment</label>
+	    <br/>
+            <textarea type="text" class="w-100p comment-comment"></textarea>
+          </div>
+          <button class="do-addComment">
+            <span class="T">Add comment</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+</div></form> 
+          </div>
+          <div class="footer actions">
+           <div class="right">
+		<span id="incident-annotate_action_result" class="hidden">
+			Result saved successfully.
+		</span>
+              <button id="incident-action_cancel" class="hidden do-hide default">
+                <span class="text T">Cancel</span>
+              </button>
+
+              <button class="do-select default" id="incident-action_save_multi">
+                <span class="text T">Save selected</span>
+              </button>
+            </div>
+          </div>
+	</div>
+	<div data-wireframe="incident-edit-search" class="embedded-search-incident overlay WIREFRAME hidden">
+          <div style="bottom: 48px;" class="body">
+            <div class="EmbeddedSearch EmbeddedSearch-incident">
+              <ul class="elements">
+                
+              </ul>
+            </div>
+          </div>
+          <div class="footer actions">
+            <div class="left hidden">
+              <button class="do-newEntity">
+                <span class="text T">New <span class="search-entity"></span></span>
+              </button>
+            </div>
+
+            <div class="right">
+              <button class="do-hideResults">
+                <span class="text T">»Close results</span>
+              </button>
+            </div>
+          </div>
+        </div>
+<div id="actor-content" class="hidden columns as-2">
+<div class="col first has-header">
+            <div class="header">
+              <div class="padding">
+                <div class="Selection">
+                  <div class="description">
+<!--                    <button class="do-view is-small">
+                      <span class="text T">view</span>
+                    </button> -->
+                    <span class="text T">
+                      <em><span id="number-actors-selected">0</span> actors</em> selected
+                    </span>
+                  </div>
+                  <div class="actions">
+                    <div class="button combo is-default">
+                      <span class="T">Actions...</span>
+                      <ul class="options">
+			<li>
+				<a href="#delete-actors" id="delete_actors" class="text T">Delete actors</a>
+			</li>
+                        <li>
+                           
+                          <a href="#assign" id="annotate-actors-selected" class="text T">Update selected</a>
+                        </li> 
+                        <li>
+                           
+                          <a href="#assign" id="all-actors-selected" class="text T">Select All</a>
+                        </li>
+
+                        <li>
+                           
+                          <a href="#dosomething" id="clear-actors-selected" class="text T">Clear selected</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table class="actors">
+                <thead>
+                  <tr>
+                    <th class="is-selector">&nbsp;</th>
+                    <th class="is-preview">&nbsp;</th>
+                    <th class="is-description">
+                      <a href="#+mode=date" class="T current is-descending">date</a>
+                      <a href="#+mode=age" class="T">age</a>
+                      <a href="#+mode=name" class="T">name</a>
+                    </th>
+                    <th class="is-status">
+                      <a href="#+mode=status" class="T">status</a>
+                    </th>
+                    <th class="is-score">
+                      <a href="#+mode=score" class="T">score</a>
+                    </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="body">
+              <div class="padding">
+                <div class="actors table">
+                  <ul id="actors-table" class="elements">
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col last has-header">
+            <div class="header">
+              <div class="padding">
+                <div class="group is-creator">
+                  <button class="do-create-actor create">
+                    <span class="text T">New actor</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="body">
+              <div class="padding">
+                <div class="group is-filters filters">
+		<div class="filter is-labels">
+                    <label id="actor-selected-label" class="hidden">Current filters</label>
+                    <ul id="actor-selected-tags" class="tags editor">
+                    </ul>
+                  </div>
+
+                  <div class="filter">
+                    <label>Nationality</label>
+                    <ul class="select" id="nationality-filter">
+                    </ul>
+                  </div>
+                  <div class="filter">
+                    <label>Gender</label>
+                    <ul class="select" id="gender-filter">
+                    </ul>
+                  </div>
+                  <div class="filter">
+                    <label>Age</label>
+                    <ul class="select" id="age-filter">
+                    </ul>
+                  </div>
+<!--                  <div class="filter is-age">
+                    <label>Age</label>
+                    <div class="age-editor right">
+                      <div class="range">
+                        <div class="boundary begin">
+                           
+                          <div class="value">24</div>
+                          <div class="tip">&nbsp;</div>
+                        </div>
+                        <div class="boundary end">
+                           
+                          <div class="value">64</div>
+                          <div class="tip">&nbsp;</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+                  <div class="filter">
+                    <label>Type</label>
+                    <ul class="select" id="civilian-filter">
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div data-wireframe="actor-view" class="actor-overlay overlay WIREFRAME hidden">
+          <div class="header">
+            <button class="do-hide is-small">
+              <span class="T">close</span>
+            </button>
+          </div>
+          <div id="view-placeholder-actor" class="body">
+           
+          </div>
+          <div class="footer actions">
+            <div class="left">
+              <div class="when-overlay-expanded">
+                <button class="do-collapse">
+                  <span class="text T">Collapse &raquo;</span>
+                </button>
+              </div>
+              <div class="when-overlay-not_expanded">
+                <button class="do-expand">
+                  <span class="text T">&laquo; Expand</span>
+                </button>
+              </div>
+            </div>
+            <div class="right">
+		<span id="actor_action_result" class="hidden">
+			Result saved successfully.
+		</span>
+
+        <!--      <button class="do-select">
+                <span class="text T">Select</span>
+              </button> -->
+              <button id="actor-action_edit" class="do-select default">
+                <span class="text T">Edit</span>
+              </button>
+		<div class="button combo invert is-default hidden">
+		  <span class="T">
+		    Save related as: 
+		    <ul class="options">
+		      <li>
+			<span class="text T actor-action_save_relate">Witness</span>
+		      </li>
+		      <li>
+			<span class="text T actor-action_save_relate">Victim</span>
+		      </li>
+		      <li>
+			<span class="text T actor-action_save_relate ">Killer</span>
+		      </li>
+		      <li>
+			<span class="text T actor-action_save_relate">Torturer</span>
+		      </li>
+		      <li>
+			<span class="text T actor-action_save_relate">Kidnapper</span>
+		      </li>
+		    </ul>
+		  </span>
+		</div>
+<!--
+      <button id="actor-action_save_relate" class="hidden do-select default">
+                <span class="text T">Save & Relate</span>
+              </button>
+-->
+              <button id="actor-action_cancel" class="hidden do-hide default">
+                <span class="text T">Canel</span>
+              </button>
+
+              <button id="actor-action_save" class="hidden do-select default">
+                <span class="text T">Save</span>
+              </button>
+
+            </div>
+          </div>
+        </div>     
+	<div class="actor-overlay-annotate overlay WIREFRAME hidden" data-wireframe="incident-view">
+	          <div class="header">
+            <button class="do-hide-annotate do-hide is-small">
+              <span class="T">close</span>
+            </button>
+          </div>
+          <div class="body" id="view-placeholder-annotate-bulletin" style="bottom: 0px;">
+           <form onsubmit="return false;" id="incident_form_annotate">
+		<div class="Actor in-preview is-edited">
+		 <div class="Actor is-edited">
+		  <div class="body " >
+		    <div class="group details">
+			<div class="field">
+	  		 <div class="description">
+<!--                    	<button class="do-view is-small">
+	              	          <span class="text T">view</span>
+          	                </button> -->
+	                       <span class="text T">
+           		           <em><span id="number-actors-selected-annotate">0</span> actors</em> selected
+	                       </span>
+           	         </div>
+	        	</div>
+			<div class="field span-33p">
+        <label>Sex</label>
+        <div class="button combo">
+        {%if actor_result.sex_en %}
+          <span id="actor_sex_en" class="T selected-option">{{actor_result.sex_en}}</span>
+        {%else%}
+          <span id="actor_sex_en" class="T selected-option annotate">Sex</span>
+        {%endif%}
+          <ul class="options" >
+            <li class="option selected">
+              <span class="text T">Male</span>
+            </li>
+            <li class="option">
+              <span class="text T">Female</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+<div class="field span-33p">
+        <label>Child/Adult</label>
+        <div class="button combo">
+        {%if actor_result.age_en %}
+          <span id="actor_age_en" class="T selected-option">{{actor_result.age_en}}</span>
+        {%else%}
+          <span id="actor_age_en" class="T selected-option">Age</span>
+        {%endif%}
+
+          <ul  class="options">
+            <li class="option selected">
+              <span class="text T">Child</span>
+            </li>
+            <li class="option">
+              <span class="text T">Adult</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+<div class="field span-33p">
+        <label>Civilian/Non-civilian</label>
+        <div class="button combo">
+        {%if actor_result.civilian_en %}
+          <span class="T selected-option annotate" id="actor_civilian_en" >{{actor_result.civilian_en}}</span>
+        {%else%}
+          <span id="actor_civilian_en" class="T selected-option">Civilian</span>
+        {%endif%}
+
+          <ul class="options" >
+            <li class="option selected">
+              <span class="text T">Civilian</span>
+            </li>
+            <li class="option">
+              <span class="text T">Non-civilian</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Lives in</label>
+	<input id="actor_lives_in_hidden" type="hidden" value="{{actor_result.current_location.id}}"/>
+      <input type="text" class="with-select w-50p" id="actor_lives_in" value="{{actor_result.current_location.name_en}}"/>
+    </div>
+
+<div class="field is-occupation">
+      <label>Occupation</label>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.occupation_en}}" id="actor_occupation_en"/>
+<!--      <div class="button combo">
+        <span class="T">Occupation</span>
+        <ul class="options">
+          <li class="option">
+            <span class="text T">Any</span>
+          </li>
+        </ul>
+      </div>
+-->
+    </div>
+    <div class="field is-position">
+      <label>Position (rank)</label>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.position_en}}" id="actor_position_en"/>
+<!--
+      <div class="button combo">
+        <span class="T">rank</span>
+        <ul class="options">
+          <li class="option">
+            <span class="text T">Any</span>
+          </li>
+        </ul>
+      </div>
+-->
+    </div>
+<div class="field is-ethnicity">
+      <label>Ethnicity</label>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.ethnicity_en}}" id="actor_ethnicity_en"/>
+<!--      <div class="button combo">
+        <span class="T">Any</span>
+        <ul class="options">
+          <li class="option">
+            <span class="text T">Any</span>
+          </li>
+        </ul>
+      </div>
+-->
+    </div>
+    <div class="field is-nationality">
+      <label>Nationality</label>
+      <input type="text" class="with-select w-30p" value="{{actor_result.nationality_en}}" id="actor_nationality_en"/>
+<!--      <div class="button combo">
+        <span class="T">Any</span>
+        <ul class="options">
+          <li class="option">
+            <span class="text T">Any</span>
+          </li>
+        </ul>
+      </div>
+-->
+    </div>
+
+
+    <div class="field is-religion">
+      <label>Religion</label>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.religion_en}}" id="actor_religion_en"/>
+<!--
+   <div class="button combo">
+        <span class="T">Any</span>
+        <ul class="options">
+          <li class="option">
+            <span class="text T">Any</span>
+          </li>
+        </ul>
+      </div>
+-->
+    </div>
+<div class="field is-dialect">
+      <label>Spoken dialects</label>
+      <input type="text" class="with-select w-30p annotate" value="{{actor_result.spoken_dialect_en}}" id="actor_spoken_dialect_en"/>
+<!--
+      <div class="button combo">
+        <span class="T">Any</span>
+        <ul class="options">
+          <li class="option">
+            <span class="text T">Any</span>
+          </li>
+        </ul>
+      </div>
+-->
+    </div>
+    <div id="actor-actor-list-block" class="field is-actors">
+      <label>Actors</label>
+      <div id="actor-actor-search-block" class="search">
+        <input type="text" class="with-clear" />
+        <button class="do-clear">
+          <span>&#x2713;</span>
+        </button>
+        <button class="do-search do-search-embedded actors">
+          <span>Search</span>
+        </button>
+      </div>
+      <ul class="elements elements-actor">
+	</ul>
+	</div>
+	             </div>
+		</div>
+
+</div></form> 
+          </div>
+          <div class="footer actions">
+           <div class="right">
+		<span id="actor-annotate_action_result" class="hidden">
+			Result saved successfully.
+		</span>
+              <button id="bulletin-action_cancel" class="hidden do-hide default">
+                <span class="text T">Cancel</span>
+              </button>
+
+              <button class="do-select default" id="bulletin-action_save_multi">
+                <span class="text T">Save selected</span>
+              </button>
+            </div>
+          </div>
+
+	</div>
+        <div data-wireframe="bulletin-edit-search" class="embedded-search-actor overlay WIREFRAME hidden">
+          <div style="bottom: 48px;" class="body">
+            <div class="EmbeddedSearch EmbeddedSearch-actor">
+              <ul class="elements">
+
+              </ul>
+            </div>
+          </div>
+          <div class="footer actions">
+            <div class="left">
+              <button class="do-hideResults">
+                <span class="text T">New <span class="search-entity"></span></span>
+              </button>
+            </div>
+
+            <div class="right">
+              <button class="do-hideResults">
+                <span class="text T">»Close results</span>
+              </button>
+            </div>
+          </div>
+	</div>
+</div>
+<!--
+<script>
+jQuery(document).ready(function($){
+$.datepicker._defaults.onAfterUpdate = null;
+
+var datepicker__updateDatepicker = $.datepicker._updateDatepicker;
+$.datepicker._updateDatepicker = function( inst ) {
+   datepicker__updateDatepicker.call( this, inst );
+
+   var onAfterUpdate = this._get(inst, 'onAfterUpdate');
+   if (onAfterUpdate)
+      onAfterUpdate.apply((inst.input ? inst.input[0] : null),
+         [(inst.input ? inst.input.val() : ''), inst]);
+}
+
+
+$(function() {
+var cur = -1, prv = -1;
+   $('#bulletin-jrange div')
+      .datepicker({
+            //numberOfMonths: 3,
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+
+            beforeShowDay: function ( date ) {
+                  return [true, ( (date.getTime() >= Math.min(prv, cur) && date.getTime() <= Math.max(prv, cur)) ? 'date-range-selected' : '')];
+               },
+
+            onSelect: function ( dateText, inst ) {
+                  var d1, d2;
+
+                  prv = cur;
+                  cur = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+                  if ( prv == -1 || prv == cur ) {
+                     prv = cur;
+                     $('#bulletin-jrange input').val( dateText );
+                  } else {
+                     d1 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.min(prv,cur)), {} );
+                     d2 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.max(prv,cur)), {} );
+                     $('#bulletin-jrange input').val( d1+' - '+d2 );
+		$('#bulletin_date_filter').trigger('change');
+                  }
+               },
+            onChangeMonthYear: function ( year, month, inst ) {
+                  //prv = cur = -1;
+               },
+
+            onAfterUpdate: function ( inst ) {
+                  $('<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">Done</button>')
+                     .appendTo($('#bulletin-jrange div .ui-datepicker-buttonpane'))
+                     .on('click', function () { $('#bulletin-jrange div').hide(); });
+               }
+         })
+      .position({
+            my: 'left top',
+            at: 'left bottom',
+            of: $('#bulletin-jrange input')
+         })
+      .hide();
+
+   $('#bulletin-jrange input').on('focus', function (e) {
+         var v = this.value,
+             d;
+
+         try {
+            if ( v.indexOf(' - ') > -1 ) {
+               d = v.split(' - ');
+
+               prv = $.datepicker.parseDate( 'mm/dd/yy', d[0] ).getTime();
+               cur = $.datepicker.parseDate( 'mm/dd/yy', d[1] ).getTime();
+
+            } else if ( v.length > 0 ) {
+               prv = cur = $.datepicker.parseDate( 'mm/dd/yy', v ).getTime();
+            }
+         } catch ( e ) {
+            cur = prv = -1;
+         }
+
+         if ( cur > -1 )
+            $('#bulletin-jrange div').datepicker('setDate', new Date(cur));
+
+         $('#bulletin-jrange div').datepicker('refresh').show();
+      });
+
+   $('#incident-jrange div')
+      .datepicker({
+            //numberOfMonths: 3,
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+
+            beforeShowDay: function ( date ) {
+                  return [true, ( (date.getTime() >= Math.min(prv, cur) && date.getTime() <= Math.max(prv, cur)) ? 'date-range-selected' : '')];
+               },
+
+            onSelect: function ( dateText, inst ) {
+                  var d1, d2;
+
+                  prv = cur;
+                  cur = (new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay)).getTime();
+                  if ( prv == -1 || prv == cur ) {
+                     prv = cur;
+                     $('#incident-jrange input').val( dateText );
+                  } else {
+                     d1 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.min(prv,cur)), {} );
+                     d2 = $.datepicker.formatDate( 'yy/mm/dd', new Date(Math.max(prv,cur)), {} );
+                     $('#incident-jrange input').val( d1+' - '+d2 );
+		     $('#incident_date_filter').trigger('change');
+                  }
+               },
+            onChangeMonthYear: function ( year, month, inst ) {
+                  //prv = cur = -1;
+               },
+
+            onAfterUpdate: function ( inst ) {
+                  $('<button type="button" class="ui-datepicker-close ui-state-default ui-priority-primary ui-corner-all" data-handler="hide" data-event="click">Done</button>')
+                     .appendTo($('#incident-jrange div .ui-datepicker-buttonpane'))
+                     .on('click', function () { $('#incident-jrange div').hide(); });
+               }
+         })
+      .position({
+            my: 'left top',
+            at: 'left bottom',
+            of: $('#incident-jrange input')
+         })
+      .hide();
+
+   $('#incident-jrange input').on('focus', function (e) {
+         var v = this.value,
+             d;
+
+         try {
+            if ( v.indexOf(' - ') > -1 ) {
+               d = v.split(' - ');
+
+               prv = $.datepicker.parseDate( 'mm/dd/yy', d[0] ).getTime();
+               cur = $.datepicker.parseDate( 'mm/dd/yy', d[1] ).getTime();
+
+            } else if ( v.length > 0 ) {
+               prv = cur = $.datepicker.parseDate( 'mm/dd/yy', v ).getTime();
+            }
+         } catch ( e ) {
+            cur = prv = -1;
+         }
+
+         if ( cur > -1 )
+            $('#incident-jrange div').datepicker('setDate', new Date(cur));
+
+         $('#incident-jrange div').datepicker('refresh').show();
+      });
+
+});
+});
+</script>
+-->
+{% endblock %}
