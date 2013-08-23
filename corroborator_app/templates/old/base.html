@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}fonts/iconic-fill/font.css" />
+<!--    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/base.css" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/corroborator.css" />-->
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}stylesheets/screen.css" />
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}js/trash/leafletjs/leaflet.css" />
+
+    <link rel="stylesheet" media="all" type="text/css" href="{{ STATIC_URL}}css/timepicker/jquery-ui-timepicker-addon.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery-ui-1.10.3.custom.min.css" />
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/validationEngine.jquery.css" />
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/jquery-ui-1.10.2/ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/jwplayer/jwplayer.js"></script>
+
+
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/jquery.validationEngine-en.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/jquery.validationEngine.js"></script>
+
+    
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/timepicker/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/corroborator.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/spin.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/extend-2.3.21.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/wireshop.js"></script>
+<!--    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/linking.js"></script> -->
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/events.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/Core.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/AbstractManager.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/managers/Manager.jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/Parameter.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/ParameterStore.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/trash/ajax-manager.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/AbstractWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/AbstractTextWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/AbstractFacetWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/ajax-solr/lib/core/AbstractSpatialWidget.js"></script>
+
+    <script src="{{ STATIC_URL }}js/trash/widgets/SearchWidget.js"></script>
+
+    <script src="{{ STATIC_URL }}js/trash/widgets/CalendarWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/widgets/SpatialSearchWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/widgets/EmbeddedSearchWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/widgets/CurrentFiltersWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/widgets/LabelsWidget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/leafletjs/leaflet.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/corroborator-map.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/corroborator-hash-link-reader.js"></script>
+
+    <script src="{{ STATIC_URL }}js/trash/jquery-file-upload/vendor/jquery.ui.widget.js"></script>
+    <script src="{{ STATIC_URL }}js/trash/jquery-file-upload/jquery.iframe-transport.js"></script>
+    <!-- The basic File Upload plugin -->
+    <script src="{{ STATIC_URL }}js/trash/jquery-file-upload/jquery.fileupload.js"></script>
+
+  <script type="text/javascript">
+  jQuery(document).ready(function($){
+          createFilterSearchMap('filter_map',33.87042, 35.85938);
+  });
+
+
+</script>
+
+
+
+<script type="text/javascript" >
+    gl_s3_aws_media_url = '{{ MEDIA_URL }}';
+    gl_ac_role_list = [{%for role in role_status_set %}{role:"{{role}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_relation_list = [{%for relation in relation_status_set %}{relation:"{{relation}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_labels_list = [{%for label in labels_set.all %}{label:"{{label.name_en}}",id:"{{label.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_users_list = [{%for user in users_set.all %}{label:"{{user.username}}",id:"{{user.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_crimes_list = [{%for crime in crimes_set.all %}{label:"{{crime.category_en}}",id:"{{crime.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    special_global_ac_sources_list = [{%for source in sources_set.all %}{label:"{{source.name_en}}",id:"{{source.id}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_loc_set = [{%for loc in loc_set.all %}{name:"{{loc.name_en}}",latlng:"{{loc.latitude}},{{loc.longitude}}",count:"{{loc.count}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_ac_loc_ac_set = [{%for loc in loc_set.all %}{label:"{{loc.name_en}}",id:"{{loc.latitude}},{{loc.longitude}}"}{% if not forloop.last %},{% endif %}{% endfor%}];
+    gl_username = '{{username}}';
+    gl_userid = '{{userid}}';
+</script>
+
+
+      <script type="text/javascript">
+  
+
+    jQuery(document).ready(function($){
+    $('#media_upload_dialog').dialog({
+      autoOpen : false,
+      model : true,
+      minWidth : 350,
+      minHeight : 250
+    });
+     $('#media_upload_dialog').bind('dialogclose', function(event) {
+          $('.file-to-upload').remove();
+     });
+    $('#confirm_dialog').dialog({
+      autoOpen : false,
+      model : true
+    });
+    corrob_util.loadEditableOverlay('','annotate');
+      //Attach Search Location Filter to Bulletin
+  if(gl_ac_loc_ac_set.length > 0){
+    $('#bulletin-location-ac-filter').autocomplete({source: gl_ac_loc_ac_set,select: function(event, ui){
+
+        solrSpatialSearch(ui.item.latlng);
+                        }}).focus(function(){corrob_util.$(this).val('');});
+    $('#bulletin-location-search-container').removeClass('hidden');
+  }
+      $('#bulletins-tab').click(function(){
+        window.location.hash = '#Bulletin/tab';
+        var current = corrob_util.$('.current > a > span > span').html();       
+        $('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
+        $('.Bulletins-active').removeClass('Bulletins-active').removeClass('hidden');
+        $('.current').removeClass('current');
+        $('.as-2:not(.hidden)').addClass('hidden');
+        $('.is-bulletins').addClass('current');
+        $('#bulletin-content').removeClass('hidden');
+        $('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
+        $('.bulletin-predefined').removeClass('hidden');
+
+        corroborator.layout.relayout();
+      });
+      $('#incidents-tab').click(function(){
+        var current = corrob_util.$('.current > a > span > span').html();       
+        $('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
+        $('.Incidents-active').removeClass('Incidents-active').removeClass('hidden');
+
+        $('.current').removeClass('current');
+        $('.as-2:not(.hidden)').addClass('hidden');
+        $('.is-incidents').addClass('current');
+        $('#incident-content').removeClass('hidden');
+        $('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
+        $('.incident-predefined').removeClass('hidden');
+
+        corroborator.layout.relayout();
+      });
+      $('#actors-tab').click(function(){
+        var current = corrob_util.$('.current > a > span > span').html();       
+        $('.overlay:not(".hidden")').addClass(current+'-active').addClass('hidden');
+        $('.Actors-active').removeClass('Actors-active').removeClass('hidden');
+
+        $('.current').removeClass('current');
+        $('.as-2:not(.hidden)').addClass('hidden');
+        $('.is-actors').addClass('current');
+        $('#actor-content').removeClass('hidden');
+        $('.'+current.toLowerCase().slice(0,-1)+'-predefined').addClass('hidden');
+        $('.actor-predefined').removeClass('hidden');
+
+        corroborator.layout.relayout();
+      });
+
+    });
+
+  </script>
+  </head>
+
+  <body class="use-base">
+<div id="map_data_conduit"></div>
+<div id="loadingSpinner" class="hidden">
+<div id="fountainG">
+<div id="fountainG_1" class="fountainG">
+</div>
+<div id="fountainG_2" class="fountainG">
+</div>
+<div id="fountainG_3" class="fountainG">
+</div>
+<div id="fountainG_4" class="fountainG">
+</div>
+<div id="fountainG_5" class="fountainG">
+</div>
+<div id="fountainG_6" class="fountainG">
+</div>
+<div id="fountainG_7" class="fountainG">
+</div>
+<div id="fountainG_8" class="fountainG">
+</div>
+</div>
+
+</div>
+    <div id="Application" lang="en" class="Application">
+      <nav class="Header">
+        <h1 class="title text T">Corroborator</h1>
+        <ul class="user">
+          <li class="hover-expandable">
+            <a href="/home/" class="text T">{{username}}</a>
+            <ul class="when-hover menu">
+              <li>
+                <a href="user-settings" class="text T">Settings</a>
+              </li>
+              <li>
+                <a href="/logout/" class="text T">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="sections list-h">
+          <li class="current">
+            <a href="/corroborator/" class="text T">Search</a>
+          </li>
+          <li>
+            <a href="/admin/" class="text T">Administration</a>
+          </li>
+          <li>
+            <a href="monitoring" class="text T">Monitoring</a>
+          </li>
+          <li>
+            <a href="monitoring" class="text T">Batch import</a>
+          </li>
+        </ul>
+        <div class="clearer">&nbsp;</div>
+      </nav>
+      <div class="Content">
+  {% block content %}
+  {% endblock %}
+      </div>
+<script language="javascript" src="{{ STATIC_URL }}js/trash/corroborator-util.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+    if(window.location.hash != ''){
+      link_reader();
+    }
+
+});
+
+
+</script>
+
+    </div>
+<div id="confirm_dialog" title="">
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+
+$(function () {
+    $('#fileupload').fileupload({
+   url: 'bulletin/0/uploadmedia/',
+        dataType: 'json',
+  add: function (e, data) {
+      var node = '<div class="file-to-upload"><span>'+data.files[0].name+'</span></div>';
+      //$(node).click(function(){$(this).remove();});
+      $(node).appendTo('#fileupload');  
+            data.context = $('<button/>').text('Upload')
+                .appendTo('#fileupload')
+                .click(function () {
+                    data.context = $('<p/>').text('').replaceAll($(this));
+      corrob_util.$('#main_spinner').removeClass('hidden');
+                    data.submit();
+                });
+        },
+        done: function (e, data) {
+    
+      var doc = jQuery.parseJSON(data.jqXHR.responseText);
+      corrob_util.insert_new_media(doc);
+    corrob_util.$('#main_spinner').addClass('hidden');
+/*            $.each(data.files, function (index, file) {
+    data.context = $('<p/>').text('Done').replaceAll($(this));
+            });*/
+        }
+    });
+});
+});
+</script>
+<div id="media_upload_dialog" title="Upload new media" >
+    <form id="fileupload" action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="span7">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <span>Add files...</span>
+                    <input type="file" name="files" multiple>
+                </span>
+         <!--       <button type="submit" class="btn btn-primary start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>Cancel upload</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <i class="icon-trash icon-white"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" class="toggle"> -->
+            </div>
+            <!-- The global progress information -->
+            <div class="span5 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="bar" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress information -->
+                <div class="progress-extended">&nbsp;</div>
+            </div>
+        </div>
+        <!-- The loading indicator is shown during file processing -->
+        <div class="fileupload-loading"></div>
+        <br>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+    </form>
+  
+</div>
+
+  </body>
+</html>

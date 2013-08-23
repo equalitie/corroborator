@@ -173,7 +173,8 @@ define (
       },
       renderMap: function() {
         var mapEl, content, mapContainer, collection;
-        if (this.model.get('locations') !== undefined) {
+        if (this.model.get('locations') !== undefined &&
+            this.model.get('locations').length > 0) {
           mapEl = this.getContainerEl('incident-map');
           content = _.map(this.model.get('locations'), function(uri) {
             return { resourceUri: uri };
