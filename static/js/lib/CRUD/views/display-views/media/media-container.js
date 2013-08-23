@@ -5,12 +5,12 @@
 
 define (
   [
-    'backbone', 'lib/Data/media', 
+    'jquery', 'backbone', 'lib/Data/media', 
     'lib/elements/views/CollectionViews',
     'lib/CRUD/templates/display-templates/media/media.tpl',
     'lib/CRUD/templates/display-templates/media/media-container.tpl'
   ],
-  function (Backbone, Media, CollectionViews, mediaTmp, mediaListTmp) {
+  function ($, Backbone, Media, CollectionViews, mediaTmp, mediaListTmp) {
     'use strict';
 
     var ListLoadView = CollectionViews.ListLoadView,
@@ -48,10 +48,21 @@ define (
         this.listenTo(this.collection, 'previewMedia', this.previewMedia.bind(this));
       },
       previewMedia: function(model) {
+        $('.is-media.group').children('.preview')
+                            .remove();
+        $('.is-media.group').prepend('<div class="preview"></div>');
+        var video, fileType, fileName;
+        console.log(model.toJSON());
+        video = {};
+        fileType = model.get('media_file_type');
+        fileType = 'mp4';
+        fileName = model.get('media_file');
+        video[fileType] = fileName;
+        
         this.$el.children('.preview').flowplayer({
           preload: 'none',
           playlist: [
-            [ { mp4: model.get('media_file') }]
+            [ video ]
           ]
         });
       },

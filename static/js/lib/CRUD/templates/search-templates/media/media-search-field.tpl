@@ -1,3 +1,4 @@
+<div class="preview"></div>
 <label>{{label}}</label>
 <div class="search">
   <input type="text" class="with-clear">

@@ -7,19 +7,14 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n<div class=\"flowplayer\">\n  <video>\n    <source type=\"video\" src=\"";
-  if (stack1 = helpers.uri) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.uri; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
-    + "\">\n  </video>\n</div>\n";
-  return buffer;
+  
+  return "\n    <div class=\"preview\"></div>\n  ";
   }
 
 function program3(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n<img src=\"";
+  buffer += "\n    <img src=\"";
   if (stack1 = helpers.uri) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.uri; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -27,14 +22,14 @@ function program3(depth0,data) {
   if (stack1 = helpers.alt) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.alt; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "\" />\n";
+    + "\" />\n  ";
   return buffer;
   }
 
-  buffer += "<div>\n";
+  buffer += "<div class=\"media-preview-container\">\n  ";
   stack1 = helpers['if'].call(depth0, depth0.video, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n";
+  buffer += "\n  ";
   stack1 = helpers['if'].call(depth0, depth0.image, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</div>\n";
