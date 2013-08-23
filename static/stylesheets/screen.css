@@ -82,7 +82,7 @@ a {
   display: none;
 }
 
-/* line 171, ../sass/_buttons.scss */
+/* line 172, ../sass/_buttons.scss */
 .field button.combo, .field .button.combo {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -114,7 +114,7 @@ a {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 81, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 .field button.combo [data-icon]:before, .field .button.combo [data-icon]:before {
   display: block;
   width: 3em;
@@ -122,19 +122,19 @@ a {
   right: 0em;
   text-align: right;
 }
-/* line 88, ../sass/_buttons.scss */
+/* line 89, ../sass/_buttons.scss */
 .field button.combo .options, .field .button.combo .options {
   text-transform: none;
   width: 100%;
   right: 0em;
   display: none;
   position: absolute;
-  margin-top: 6px;
+  margin-top: 5px;
   border-top: 0px solid transparent;
   z-index: 10;
   text-align: left;
 }
-/* line 98, ../sass/_buttons.scss */
+/* line 99, ../sass/_buttons.scss */
 .field button.combo .options li, .field .button.combo .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -142,91 +142,22 @@ a {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 104, ../sass/_buttons.scss */
+/* line 105, ../sass/_buttons.scss */
 .field button.combo .options li:hover, .field .button.combo .options li:hover {
   color: black;
   background-color: #a38568;
 }
-/* line 110, ../sass/_buttons.scss */
+/* line 111, ../sass/_buttons.scss */
 .field button.combo:hover .options, .field .button.combo:hover .options {
   display: block;
 }
-/* line 179, ../sass/_buttons.scss */
+/* line 180, ../sass/_buttons.scss */
 .field.span-33p {
   clear: none;
   float: left;
 }
 
-/* line 188, ../sass/_buttons.scss */
-.when-related .button.combo {
-  font-family: 'Open Sans Semi Bold', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-transform: uppercase;
-  background-color: #b7b6b2;
-  color: black;
-  height: 1.2em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  border: none;
-  margin: 0px;
-  width: 16em;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  position: relative;
-  display: inline-block;
-  padding-left: 0.75em;
-}
-/* line 42, ../sass/_buttons.scss */
-.when-related .button.combo:hover {
-  background-color: #9e9d98;
-}
-/* line 50, ../sass/_fonts.scss */
-.when-related .button.combo [data-icon]:before {
-  font-family: "corroborator";
-  text-transform: none;
-  content: attr(data-icon);
-  speak: none;
-  -webkit-font-smoothing: antialiased;
-}
-/* line 81, ../sass/_buttons.scss */
-.when-related .button.combo [data-icon]:before {
-  display: block;
-  width: 3em;
-  float: right;
-  right: 0em;
-  text-align: right;
-}
-/* line 88, ../sass/_buttons.scss */
-.when-related .button.combo .options {
-  text-transform: none;
-  width: 100%;
-  right: 0em;
-  display: none;
-  position: absolute;
-  margin-top: 6px;
-  border-top: 0px solid transparent;
-  z-index: 10;
-  text-align: left;
-}
-/* line 98, ../sass/_buttons.scss */
-.when-related .button.combo .options li {
-  padding-left: 0.75em;
-  width: 100%;
-  background-color: #b7b6b2;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-}
-/* line 104, ../sass/_buttons.scss */
-.when-related .button.combo .options li:hover {
-  color: black;
-  background-color: #6b6a65;
-}
-/* line 110, ../sass/_buttons.scss */
-.when-related .button.combo:hover .options {
-  display: block;
-}
-
-/* line 215, ../sass/_buttons.scss */
+/* line 213, ../sass/_buttons.scss */
 button.create.do-create-incident {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -254,7 +185,7 @@ button.create.do-create-incident [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 218, ../sass/_buttons.scss */
+/* line 216, ../sass/_buttons.scss */
 button.create.do-create-actor {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -282,7 +213,7 @@ button.create.do-create-actor [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 221, ../sass/_buttons.scss */
+/* line 219, ../sass/_buttons.scss */
 button.create.do-create-bulletin {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -310,7 +241,7 @@ button.create.do-create-bulletin [data-icon]:before {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 227, ../sass/_buttons.scss */
+/* line 226, ../sass/_buttons.scss */
 button {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -328,7 +259,7 @@ button:hover {
   background-color: #cab8a7;
 }
 
-/* line 230, ../sass/_buttons.scss */
+/* line 229, ../sass/_buttons.scss */
 button.do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -352,7 +283,7 @@ button.do-clear > span {
   font-size: 65%;
 }
 
-/* line 234, ../sass/_buttons.scss */
+/* line 233, ../sass/_buttons.scss */
 .do-hide {
   height: 15px;
   padding-left: 8px;
@@ -2983,19 +2914,12 @@ ul.media li.medium:hover .do-remove {
   padding-right: 3.07692em;
 }
 
-/* line 82, ../sass/_hacks.scss */
-.Incident.is-edited.is-expanded .span-33p,
-.Bulletin.is-edited.is-expanded .span-33p {
-  width: 29%;
-  padding-left: 3.07692em;
-}
-
-/* line 89, ../sass/_hacks.scss */
+/* line 84, ../sass/_hacks.scss */
 .Actor.in-list {
   min-height: 80px;
 }
 
-/* line 94, ../sass/_hacks.scss */
+/* line 89, ../sass/_hacks.scss */
 .Incident.in-view .map,
 .Bulletin.in-view .map,
 .Actor.in-view .map,
@@ -3007,7 +2931,7 @@ ul.media li.medium:hover .do-remove {
   background-color: #f0f0f0;
 }
 
-/* line 105, ../sass/_hacks.scss */
+/* line 100, ../sass/_hacks.scss */
 .is-preview .body .span-66p {
   width: 100%;
   margin-right: 1.53846em;
@@ -3359,7 +3283,7 @@ button.do-save:hover {
   padding-right: 0.5em;
   border: none;
   margin: 0px;
-  width: 8em;
+  width: 19em;
   padding-top: 5px;
   padding-bottom: 5px;
   position: relative;
@@ -3378,7 +3302,7 @@ button.do-save:hover {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 81, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 .Actor.in-list.embedded .button.combo [data-icon]:before {
   display: block;
   width: 3em;
@@ -3386,19 +3310,19 @@ button.do-save:hover {
   right: 0em;
   text-align: right;
 }
-/* line 88, ../sass/_buttons.scss */
+/* line 89, ../sass/_buttons.scss */
 .Actor.in-list.embedded .button.combo .options {
   text-transform: none;
   width: 100%;
   right: 0em;
   display: none;
   position: absolute;
-  margin-top: 6px;
+  margin-top: 5px;
   border-top: 0px solid transparent;
   z-index: 10;
   text-align: left;
 }
-/* line 98, ../sass/_buttons.scss */
+/* line 99, ../sass/_buttons.scss */
 .Actor.in-list.embedded .button.combo .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -3406,34 +3330,111 @@ button.do-save:hover {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 104, ../sass/_buttons.scss */
+/* line 105, ../sass/_buttons.scss */
 .Actor.in-list.embedded .button.combo .options li:hover {
   color: black;
   background-color: #a38568;
 }
-/* line 110, ../sass/_buttons.scss */
+/* line 111, ../sass/_buttons.scss */
 .Actor.in-list.embedded .button.combo:hover .options {
   display: block;
 }
+/* line 230, ../sass/_forms.scss */
+.Actor.in-list.embedded .button.combo [data-icon]:before {
+  display: block;
+  width: 1em;
+  float: right;
+  right: 0em;
+  text-align: right;
+}
 
-/* line 235, ../sass/_forms.scss */
+/* line 247, ../sass/_forms.scss */
+.when-related .button.combo {
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+  background-color: #b7b6b2;
+  color: black;
+  height: 1.2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
+  margin: 0px;
+  width: 16em;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: relative;
+  display: inline-block;
+  padding-left: 0.75em;
+}
+/* line 42, ../sass/_buttons.scss */
+.when-related .button.combo:hover {
+  background-color: #9e9d98;
+}
+/* line 50, ../sass/_fonts.scss */
+.when-related .button.combo [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+}
+/* line 82, ../sass/_buttons.scss */
+.when-related .button.combo [data-icon]:before {
+  display: block;
+  width: 3em;
+  float: right;
+  right: 0em;
+  text-align: right;
+}
+/* line 89, ../sass/_buttons.scss */
+.when-related .button.combo .options {
+  text-transform: none;
+  width: 100%;
+  right: 0em;
+  display: none;
+  position: absolute;
+  margin-top: 5px;
+  border-top: 0px solid transparent;
+  z-index: 10;
+  text-align: left;
+}
+/* line 99, ../sass/_buttons.scss */
+.when-related .button.combo .options li {
+  padding-left: 0.75em;
+  width: 100%;
+  background-color: #b7b6b2;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+/* line 105, ../sass/_buttons.scss */
+.when-related .button.combo .options li:hover {
+  color: black;
+  background-color: #6b6a65;
+}
+/* line 111, ../sass/_buttons.scss */
+.when-related .button.combo:hover .options {
+  display: block;
+}
+
+/* line 260, ../sass/_forms.scss */
 .error-text {
   display: none;
 }
 
-/* line 238, ../sass/_forms.scss */
+/* line 263, ../sass/_forms.scss */
 .error {
   color: #fe9a8c;
 }
-/* line 241, ../sass/_forms.scss */
+/* line 266, ../sass/_forms.scss */
 .error label {
   font-weight: bold;
 }
-/* line 244, ../sass/_forms.scss */
+/* line 269, ../sass/_forms.scss */
 .error input, .error textarea {
   border-color: #fe9a8c;
 }
-/* line 247, ../sass/_forms.scss */
+/* line 272, ../sass/_forms.scss */
 .error .error-text {
   display: block;
   width: 100%;
@@ -3442,6 +3443,75 @@ button.do-save:hover {
   padding-left: 1px;
   margin-bottom: 8px;
   color: white;
+}
+
+/* line 288, ../sass/_forms.scss */
+body.login {
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #212020;
+  color: white;
+}
+
+/* line 293, ../sass/_forms.scss */
+.login-form {
+  border: 1px solid #3f3e3d;
+  width: 40%;
+  margin: auto;
+  margin-top: 10em;
+  padding: 40px;
+}
+/* line 298, ../sass/_forms.scss */
+.login-form h3 {
+  color: #e9c37b;
+  margin-bottom: 1em;
+  text-align: center;
+}
+/* line 304, ../sass/_forms.scss */
+.login-form .login-field {
+  overflow: hidden;
+  *zoom: 1;
+  color: white;
+  width: 100%;
+  clear: both;
+  margin-bottom: 12px;
+}
+/* line 310, ../sass/_forms.scss */
+.login-form .login-field.error {
+  width: 80%;
+  text-align: center;
+  color: white;
+  float: right;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: #4d1d17;
+}
+/* line 320, ../sass/_forms.scss */
+.login-form label {
+  padding-top: 6px;
+  width: 20%;
+}
+/* line 324, ../sass/_forms.scss */
+.login-form input {
+  width: 80%;
+  height: 2em;
+  background-color: #212020;
+  color: white;
+  border: 1px solid #3f3e3d;
+  float: right;
+  border-top: solid 2px #3f3e3d;
+}
+/* line 333, ../sass/_forms.scss */
+.login-form input[type=password] {
+  border-top: solid 1px #3f3e3d;
+}
+/* line 336, ../sass/_forms.scss */
+.login-form input[type=submit] {
+  width: 30%;
+  color: #e9c37b;
+  background-color: black;
+  border: none;
+  cursor: pointer;
 }
 
 /* line 2, ../sass/_navigation.scss */
@@ -3675,7 +3745,7 @@ nav#search-navigation .search button.do-clear > span {
   speak: none;
   -webkit-font-smoothing: antialiased;
 }
-/* line 81, ../sass/_buttons.scss */
+/* line 82, ../sass/_buttons.scss */
 .search-combo .do-search [data-icon]:before {
   display: block;
   width: 3em;
@@ -3683,19 +3753,19 @@ nav#search-navigation .search button.do-clear > span {
   right: 0em;
   text-align: right;
 }
-/* line 88, ../sass/_buttons.scss */
+/* line 89, ../sass/_buttons.scss */
 .search-combo .do-search .options {
   text-transform: none;
   width: 100%;
   right: 0em;
   display: none;
   position: absolute;
-  margin-top: 6px;
+  margin-top: 5px;
   border-top: 0px solid transparent;
   z-index: 10;
   text-align: left;
 }
-/* line 98, ../sass/_buttons.scss */
+/* line 99, ../sass/_buttons.scss */
 .search-combo .do-search .options li {
   padding-left: 0.75em;
   width: 100%;
@@ -3703,12 +3773,12 @@ nav#search-navigation .search button.do-clear > span {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
-/* line 104, ../sass/_buttons.scss */
+/* line 105, ../sass/_buttons.scss */
 .search-combo .do-search .options li:hover {
   color: #e9c37b;
   background-color: black;
 }
-/* line 110, ../sass/_buttons.scss */
+/* line 111, ../sass/_buttons.scss */
 .search-combo .do-search:hover .options {
   display: block;
 }
@@ -4037,7 +4107,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   text-align: center;
   padding-right: 2em;
 }
-/* line 130, ../sass/_buttons.scss */
+/* line 131, ../sass/_buttons.scss */
 .Selection .actions .button.combo > span:after {
   position: absolute;
   z-index: 3;
@@ -4052,7 +4122,7 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   font-family: "IconicFill";
   border-left: 1px solid #ca5b4d;
 }
-/* line 144, ../sass/_buttons.scss */
+/* line 145, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options {
   display: none;
   position: absolute;
@@ -4062,17 +4132,17 @@ img.media-image-thumbnail, img.media-video-thumbnail {
   z-index: 10;
   text-align: left;
 }
-/* line 155, ../sass/_buttons.scss */
+/* line 156, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li {
   margin: none;
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
-/* line 159, ../sass/_buttons.scss */
+/* line 160, ../sass/_buttons.scss */
 .Selection .actions .button.combo .options li:hover {
   background-color: #d96859;
 }
-/* line 164, ../sass/_buttons.scss */
+/* line 165, ../sass/_buttons.scss */
 .Selection .actions .button.combo:hover .options {
   display: block;
   height: auto;
@@ -4412,31 +4482,38 @@ span.status > span {
   bottom: 40px;
 }
 
-/* line 19, ../sass/_display.scss */
+/* line 13, ../sass/_display.scss */
+.Incident.is-edited.is-expanded .span-33p,
+.Bulletin.is-edited.is-expanded .span-33p {
+  width: 29%;
+  padding-left: 3.07692em;
+}
+
+/* line 25, ../sass/_display.scss */
 .incident-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #6bcad8;
 }
 
-/* line 23, ../sass/_display.scss */
+/* line 29, ../sass/_display.scss */
 .bulletin-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #b5cd5f;
 }
 
-/* line 27, ../sass/_display.scss */
+/* line 33, ../sass/_display.scss */
 .actor-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #f1be33;
 }
 
-/* line 32, ../sass/_display.scss */
+/* line 38, ../sass/_display.scss */
 .detail {
   margin-top: 1.53846em;
   clear: left;
 }
 
-/* line 37, ../sass/_display.scss */
+/* line 43, ../sass/_display.scss */
 h2.title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4445,7 +4522,7 @@ h2.title {
   line-height: 27px;
 }
 
-/* line 41, ../sass/_display.scss */
+/* line 47, ../sass/_display.scss */
 h3.title {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4454,7 +4531,7 @@ h3.title {
   font-size: 14px;
 }
 
-/* line 47, ../sass/_display.scss */
+/* line 53, ../sass/_display.scss */
 .assigned-to {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4465,19 +4542,19 @@ h3.title {
   font-size: 14px;
 }
 
-/* line 56, ../sass/_display.scss */
+/* line 62, ../sass/_display.scss */
 .score {
   color: #8c8b8a;
   font-size: 15px;
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-/* line 60, ../sass/_display.scss */
+/* line 66, ../sass/_display.scss */
 .score span {
   min-height: 15px;
 }
 
-/* line 65, ../sass/_display.scss */
+/* line 71, ../sass/_display.scss */
 .tags.group .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4489,27 +4566,27 @@ h3.title {
   padding-right: 1em;
 }
 
-/* line 68, ../sass/_display.scss */
+/* line 74, ../sass/_display.scss */
 .field {
   clear: left;
 }
 
-/* line 72, ../sass/_display.scss */
+/* line 78, ../sass/_display.scss */
 .date-location {
   clear: both;
 }
 
-/* line 76, ../sass/_display.scss */
+/* line 82, ../sass/_display.scss */
 .description {
   color: #8c8b8a;
 }
 
-/* line 82, ../sass/_display.scss */
+/* line 88, ../sass/_display.scss */
 .in-list {
   color: #8c8b8a;
   border: 1px solid #b7b6b2;
 }
-/* line 85, ../sass/_display.scss */
+/* line 91, ../sass/_display.scss */
 .in-list .name {
   margin-top: 0.5em;
   font-family: 'Open Sans Bold', sans-serif;
@@ -4517,32 +4594,32 @@ h3.title {
   color: #626262;
   font-size: 16px;
 }
-/* line 89, ../sass/_display.scss */
+/* line 95, ../sass/_display.scss */
 .in-list .L1, .in-list .L2 {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
 }
-/* line 93, ../sass/_display.scss */
+/* line 99, ../sass/_display.scss */
 .in-list .L2 {
   margin-bottom: 0.76923em;
 }
-/* line 96, ../sass/_display.scss */
+/* line 102, ../sass/_display.scss */
 .in-list .L3 {
   margin-bottom: 0.76923em;
   font-weight: normal;
   font-size: 12px;
   font-family: Helvetica, sans-serif;
 }
-/* line 101, ../sass/_display.scss */
+/* line 107, ../sass/_display.scss */
 .in-list .L3 span {
   font-size: 12px;
 }
-/* line 105, ../sass/_display.scss */
+/* line 111, ../sass/_display.scss */
 .in-list .involved {
   font-weight: bold;
 }
-/* line 108, ../sass/_display.scss */
+/* line 114, ../sass/_display.scss */
 .in-list .title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4550,12 +4627,12 @@ h3.title {
   font-size: 16px;
 }
 
-/* line 113, ../sass/_display.scss */
+/* line 119, ../sass/_display.scss */
 .Actor.in-list.search-results {
   border: none;
 }
 
-/* line 120, ../sass/_display.scss */
+/* line 126, ../sass/_display.scss */
 .overlay .footer {
   border-bottom: 0px solid #a0a0a0;
   bottom: 0em;
@@ -4565,14 +4642,14 @@ h3.title {
   height: 3.07692em;
 }
 
-/* line 129, ../sass/_display.scss */
+/* line 135, ../sass/_display.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 134, ../sass/_display.scss */
+/* line 140, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-expand,
 .when-overlay-expanded button.do-expand {
   text-transform: uppercase;
@@ -4600,7 +4677,7 @@ h3.title {
 .when-overlay-expanded button.do-expand:hover {
   background-color: #d96859;
 }
-/* line 138, ../sass/_display.scss */
+/* line 144, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-collapse,
 .when-overlay-expanded button.do-collapse {
   text-transform: uppercase;
@@ -4629,7 +4706,7 @@ h3.title {
   background-color: #d96859;
 }
 
-/* line 144, ../sass/_display.scss */
+/* line 150, ../sass/_display.scss */
 button.do-select {
   text-transform: uppercase;
   font-family: 'Open Sans Semi Bold', sans-serif;
@@ -4656,7 +4733,7 @@ button.do-select:hover {
   background-color: #d96859;
 }
 
-/* line 150, ../sass/_display.scss */
+/* line 156, ../sass/_display.scss */
 button.do-edit {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4682,7 +4759,7 @@ button.do-edit:hover {
   background-color: #d96859;
 }
 
-/* line 156, ../sass/_display.scss */
+/* line 162, ../sass/_display.scss */
 div.selection {
   height: 6px;
   width: 6px;

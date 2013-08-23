@@ -9,6 +9,12 @@
   bottom: 40px;
 }
 
+// display the expanded view second column correctly
+.Incident.is-edited.is-expanded .span-33p,
+.Bulletin.is-edited.is-expanded .span-33p {
+  width: 29%;
+  padding-left: 2*$PAD_UNIT;
+}
 
 @mixin display_outline($header_color) {
   border-left: solid 1px $DISPLAY_BORDER;

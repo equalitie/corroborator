@@ -62,6 +62,7 @@
   $color: black,
   $hover_color: grey,
   $hover_text: black,
+  $border_color: false,
   $width: 8em,
   $height: 1.2em
 ){
@@ -91,7 +92,7 @@
       right: 0em;
       display: none;
       position: absolute;
-      margin-top: 6px;
+      margin-top: 5px;
       border-top: 0px solid transparent;
       z-index: $Z_MENU;
       text-align: left;
@@ -181,20 +182,13 @@
     float: left;
   }
 }
-.when-related {
-  .right button {
-    //@include button;
-  }
-  .button.combo {
-    @include combo_small(
-    $bg_color: $DISPLAY_BORDER,
-    $color: black,
-    $width: 16em
-    );
-  }
-}
 
 
+
+
+// ======================================================================
+// BIG RED FOOTER BUTTONS
+// ======================================================================
 
 @mixin bottom_button ($width, $border) {
     @include button(
@@ -212,24 +206,29 @@
     padding-right: 0px;
 }
 
-  button.create.do-create-incident {
-    @include create_button($bg_color:$SELECTED_INCIDENT_BORDER);
-  }
-  button.create.do-create-actor {
-    @include create_button($bg_color:$SELECTED_ACTOR_BORDER);
-  }
-  button.create.do-create-bulletin {
-    @include create_button(
-      $bg_color:$SELECTED_BULLETIN_BORDER
-    );
-  }
 
-  button {
-    @include button;
-  }
-  button.do-clear {
-    @include clear_button;
-  }
+// ======================================================================
+// CREATE BUTTONS
+// ======================================================================
+button.create.do-create-incident {
+  @include create_button($bg_color:$SELECTED_INCIDENT_BORDER);
+}
+button.create.do-create-actor {
+  @include create_button($bg_color:$SELECTED_ACTOR_BORDER);
+}
+button.create.do-create-bulletin {
+  @include create_button(
+    $bg_color:$SELECTED_BULLETIN_BORDER
+  );
+}
+
+
+button {
+  @include button;
+}
+button.do-clear {
+  @include clear_button;
+}
 
 .do-hide {
   height: 15px;

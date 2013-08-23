@@ -222,9 +222,34 @@ button.do-save {
     @include clearfix;
   }
   .button.combo {
+
     @include combo_small(
-      $bg_color: $COLOR_INPUT_BD
-    )
+      $bg_color: $COLOR_INPUT_BD,
+      $width: 19em
+    );
+    [data-icon]:before {
+      display: block;
+      width: 1em;
+      float: right;
+      right: 0em;
+      text-align: right;
+    }
+  }
+}
+// ======================================================================
+// RELATED ENTITIES
+// ======================================================================
+
+.when-related {
+  .right button {
+    //@include button;
+  }
+  .button.combo {
+    @include combo_small(
+    $bg_color: $DISPLAY_BORDER,
+    $color: black,
+    $width: 16em
+    );
   }
 }
 
@@ -254,4 +279,65 @@ button.do-save {
     color: white;
   }
 
+}
+// ======================================================================
+// LOGIN FORM
+// ======================================================================
+
+
+body.login {
+  @include open_sans;
+  background-color: $TAB_AREA_BG;
+  color: white;
+}
+.login-form {
+  border: 1px solid $BORDER_GREY;
+  width: 40%;
+  margin:auto;
+  margin-top: 10em;
+  h3 {
+    color: $HEADER_SELECTED_COLOR;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  padding: 40px;
+  .login-field {
+    @include clearfix;
+    color: $TAB_TEXT;
+    width: 100%;
+    clear: both;
+    margin-bottom: 12px;
+    &.error {
+      width: 80%;
+      text-align: center;
+      color: white;
+      float: right;
+      padding-top: 6px;
+      padding-bottom: 6px;
+      background-color: darken($BRIGHT_RED_HOVER, 35%);
+    }
+  }
+  label{
+    padding-top: 6px;
+    width: 20%;
+  }
+  input{ 
+    width: 80%;
+    height: 2em;
+    background-color: $TAB_AREA_BG;
+    color: $TAB_TEXT;
+    border: 1px solid $BORDER_GREY;
+    float: right;
+    border-top: solid 2px $BORDER_GREY;
+  }
+  input[type=password] {
+    border-top: solid 1px $BORDER_GREY;
+  }
+  input[type=submit] {
+    width: 30%;
+    color: $HEADER_SELECTED_COLOR;
+    background-color: black;
+    border: none;
+    cursor: pointer;
+  }
 }
