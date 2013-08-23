@@ -6,14 +6,17 @@
   </div>
   <div class="body" style="bottom: 49px;">
     <div class="Bulletin is-edited is-expanded">
-      <div class="first span-66p">
+      <div class="first initial span-66p">
         <div class="header">
           {{#if model.id}}
           <span class="id">
-            ID <span id="view-actor-id" class="value out">{{model.id}}</span>
+            ID <span id="view-bulletin-id" class="value out">{{model.id}}</span>
           </span>
           {{/if}}
           <div class="field is-title hide-multiple">
+            <p class="error-text">
+              Title field is required
+            </p>
             <label>Title</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
@@ -21,7 +24,7 @@
                 id="incident_title_en"
                 type="text"
                 name="title_en"
-                class="bulletin-field 
+                class="required bulletin-field 
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
@@ -40,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="last span-33p">
+      <div class="last initial span-33p">
         <div class="group details">
           <div class="field clear-after">
 
@@ -163,50 +166,45 @@
 
         </div>
       </div>
+
+      <div class="first span-66p">
+        <div id="bulletin-version-block" class="field hide-multiple">
+          <div id="bulletin-status-block" class="add">
+            <p class="error-text">
+              Select a status for this actor
+            </p>
+            <label>Status</label><br/>
+            <select name="status" 
+                    id="status" 
+                    class="required bulletin-field">
+              <option value="">Select Status</option>
+              {{#each statuses}}
+                <option
+                  value="{{this.resource_uri}}"
+                >{{this.comment_status}}</option>
+              {{/each}}
+            </select>
+          </div>
+
+          <div class="clearer"></div>
+          <!-- Comment content field -->
+          <div class="add">
+            <p class="error-text">
+              Comment field is required
+            </p>
+            <label>Comment</label>
+            <textarea 
+              id="comment"
+              name="comment"
+              class="required bulletin-field w-100p"></textarea>
+            </div>
+
+        </div>
+      </div>
       <div class="clearer"></div>
     </div>
   </div>
   <div class="footer with-revision">
-    <div class="actions when-revision hidden Revision-editor clear-after">
-      <div class="col first span-33p">
-        <div class="body">
-          <div class="field is-revision">
-            <label for="revision" class="T">Revision</label>
-            <div class="revision clear-after w-100p">
-              <span class="number">3</span>
-              <span>by John Doe, March 24th 2013</span>
-            </div>
-          </div>
-          <div class="field is-changed">
-            <label>Changed</label>
-            <ul class="changed as-list">
-              <li class="changed">
-                <span class="text T">Title</span>
-              </li>
-              <li class="changed">
-                <span class="text T">Date</span>
-              </li>
-              <li class="changed">
-                <span class="text T">Labels</span>
-              </li>
-              <li class="changed">
-                <span class="text T">Bulletins</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col last span-66p">
-        <div class="body">
-          <div class="field is-description">
-            <label for="description" class="T">Changes Description</label>
-            <div class="textarea">
-              <textarea class="w-100p">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</textarea>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="actions form when-not_revision">
       <div class="when-overlay-expanded">
         <button class="do-collapse-form">

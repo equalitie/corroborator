@@ -21,7 +21,7 @@ class Migration(SchemaMigration):
         db.alter_column(u'corroborator_app_actor', 'fullname_ar', self.gf('django.db.models.fields.CharField')(default='', max_length=255))
 
         # Changing field 'Actor.fullname_en'
-        db.alter_column(u'corroborator_app_actor', 'fullname_en', self.gf('django.db.models.fields.CharField')(default='', max_length=255))
+        db.alter_column(u'corroborator_app_actor', 'fullname_en', self.gf('django.db.models.fields.CharField')(default='title', max_length=255))
 
         # Changing field 'Incident.title_ar'
         db.alter_column(u'corroborator_app_incident', 'title_ar', self.gf('django.db.models.fields.TextField')(default=''))
