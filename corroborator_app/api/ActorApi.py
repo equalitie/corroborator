@@ -98,6 +98,8 @@ class ActorResource(ModelResource):
             .prepare_actors_role(bundle.obj)
         bundle.data['actors'] = ActorPrepMeta()\
             .prepare_actors(bundle.obj)
+        bundle.data['thumbnail_url'] = ActorPrepMeta()\
+            .prepare_thumbnail_url(bundle.obj)
         return bundle
 
 
