@@ -353,7 +353,7 @@ define (
             content        : field.content,
             multiple       : field.multiple,
             bus            : field.bus,
-            eventIdentifier: field.eventIdentifier,
+            eventIdentifier: field.eventIdentifier
           });
           this.childViews.push(labelWidget);
         },

@@ -119,9 +119,6 @@ define (
       },
 
       removeSelectedFilter: function(filterKey, filterName) {
-        if (this.groupKey === 'most_recent_status_incident_exact') {
-          console.log('removeSelectedFilter', filterKey, filterName, this);
-        }
         var filter = 
           this.chain()
               .filter(function (model) {
