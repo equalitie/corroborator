@@ -154,10 +154,17 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
         Returns URI of a given Media
         """
         #return object.get_uri()
-        return common.S3_URL + '/' + object.media_file.name
+
+        if object.media_file != None:
+            return common.S3_URL + '/' + object.media_file.name
+        else:
+            ''
     def prepare_media_thumb_file(self, object):
         #return object.get_thumb_uri()
-        return common.S3_URL + '/' + object.media_thumb_file.name
+        if object.media_thumb_file != None:
+            return common.S3_URL + '/' + object.media_thumb_file.name
+        else:
+            ''
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this media instance
