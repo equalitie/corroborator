@@ -96,7 +96,7 @@ class TimeInfo(models.Model):
         blank=True, null=True)
     event_name_ar = models.CharField('event name ar', max_length=255, 
         blank=True, null=True)
-    confidence_score = models.IntegerField(max_length=3)
+    confidence_score = models.IntegerField(blank=True, max_length=3)
 
     def __unicode__(self):
         return self.event_name_en
@@ -489,7 +489,7 @@ class Bulletin(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, default='')
     uri = models.CharField('Media Link', max_length=255, blank=True, null=True)
-    confidence_score = models.IntegerField('confidence score')
+    confidence_score = models.IntegerField('confidence score', blank=True)
     type = models.CharField('type', max_length=25, choices=TYPE, blank=True)
     bulletin_created = models.DateTimeField(auto_now_add=True)
     """
@@ -556,7 +556,7 @@ class Incident(models.Model):
     """
     incident_details_en = models.TextField(blank=True,null=True)
     incident_details_ar = models.TextField(blank=True,null=True)
-    confidence_score = models.IntegerField('confidence score',max_length=3)
+    confidence_score = models.IntegerField('confidence score', blank=True, max_length=3)
     title_en = models.TextField()
     title_ar = models.TextField(blank=True)
     incident_created = models.DateTimeField(auto_now_add=True)
