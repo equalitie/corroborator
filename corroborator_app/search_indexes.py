@@ -155,13 +155,13 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
         """
         #return object.get_uri()
 
-        if object.media_file.name != '':
+        if object.media_file.name != '' and object.media_file.name != None:
             return common.S3_URL + '/' + object.media_file.name
         else:
             ''
     def prepare_media_thumb_file(self, object):
         #return object.get_thumb_uri()
-        if object.media_thumb_file.name != '':
+        if object.media_thumb_file.name != '' and object.media_thumb_file.name != None:
             return common.S3_URL + '/' + object.media_thumb_file.name
         else:
             ''
