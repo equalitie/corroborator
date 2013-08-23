@@ -24,8 +24,8 @@ define(
 
     createFilterLoadContentFunction = function(filterName, key) {
       return function (value) {
-        return value.content.get('filterName') === filterName
-        &&     value.content.get('key')        === key;
+        return value.content.get('filterName') === filterName && 
+               value.content.get('key')        === key;
       };
     };
 

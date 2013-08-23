@@ -177,7 +177,6 @@ define (
           },
 
           formatEmptyTextField: function(key) {
-            console.log(key, this.get(key));
             if( this.get(key) === undefined) {
               this.set(key, '');
             }
