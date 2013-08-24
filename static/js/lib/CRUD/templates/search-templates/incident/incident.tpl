@@ -137,8 +137,8 @@
         </div>
 
         <!-- comments -->
-        <div id="incident-comment-block" class="field is-comments hide-multiple">
-        </div>
+        <!--<div id="incident-comment-block" class="field is-comments hide-multiple">-->
+        <!--</div>-->
 
           <!-- Actor selection -->
         <div id="incident-actor-list-block" class="field is-actors">
