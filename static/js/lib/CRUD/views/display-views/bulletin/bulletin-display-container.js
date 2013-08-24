@@ -161,7 +161,8 @@ define (
       renderMap: function() {
         var mapEl, content, mapContainer, collection;
         mapEl = this.getContainerEl('bulletin-map');
-        if (this.model.get('locations') !== undefined) {
+        if (this.model.get('locations') !== undefined &&
+            this.model.get('locations').length > 0) {
           content = _.map(this.model.get('locations'), function(uri) {
             return { resourceUri: uri };
           });

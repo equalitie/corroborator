@@ -231,7 +231,7 @@ define (
       delegateSave: function() {
         if (this.model.isNew() === true) {
           crudBus.push({
-            type: 'create_new_actor',
+            type: 'create_new_bulletin',
             content: this.model
           });
         }
