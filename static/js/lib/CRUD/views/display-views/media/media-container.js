@@ -58,7 +58,7 @@ define (
       openDialog: function($dialogHtml) {
         $dialogHtml.attr('title', this.model.get('name_en'));
           $dialogHtml.dialog({
-            resizable: false,
+            resizable: true,
             close: function( event, ui ) {
               $(this).children().remove();              
             },
