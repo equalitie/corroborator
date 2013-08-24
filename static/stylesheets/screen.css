@@ -12,12 +12,14 @@
 
 @font-face {
   font-family: "corroborator";
-  src: url(/static/fonts/corroborator/corroborator.ttf) format('truetype'), url(/static/fonts/corroborator/corroborator.eot) format('embedded-opentype'), url(/static/fonts/corroborator/corroborator.woff) format('woff'), url(/static/fonts/corroborator/corroborator.otf) format('opentype');
+  src: url(/static/fonts/corroborator/corroborator.eot);
+  src: url(/static/fonts/corroborator/corroborator.eot?#iefix) format('embedded-opentype'), url(/static/fonts/corroborator/corroborator.ttf) format('truetype'), url(/static/fonts/corroborator/corroborator.woff) format('woff'), url(/static/fonts/corroborator/corroborator.otf) format('opentype');
 }
 
 @font-face {
   font-family: "IconicFill";
-  src: url(/static/fonts/iconic-fill/iconic_fill.ttf) format('truetype'), url(/static/fonts/iconic-fill/iconic_fill.eot) format('embedded-opentype'), url(/static/fonts/iconic-fill/iconic_fill.woff) format('woff'), url(/static/fonts/iconic-fill/iconic_fill.otf) format('opentype');
+  src: url(/static/fonts/iconic-fill/iconic_fill.eot);
+  src: url(/static/fonts/iconic-fill/iconic_fill.eot?#iefix) format('embedded-opentype'), url(/static/fonts/iconic-fill/iconic_fill.ttf) format('truetype'), url(/static/fonts/iconic-fill/iconic_fill.woff) format('woff'), url(/static/fonts/iconic-fill/iconic_fill.otf) format('opentype');
 }
 
 @font-face {
