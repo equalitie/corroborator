@@ -175,7 +175,7 @@ define (
       // move the edit form to the middle on collapse if embed is open
       moveFormToMiddle: function() {
         if (this.embeddedFormOpen === true) {
-          this.$el.children(':first-child').addClass('is-middle');
+          this.$el.children('.is-expanded').addClass('is-middle');
         }
       },
 
