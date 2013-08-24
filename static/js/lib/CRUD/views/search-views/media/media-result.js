@@ -36,32 +36,28 @@ define (
         this.index = options.index;
         this.type = options.type;
         this.render();
+        this.$el.tooltip();
       },
 
       openVideoViewer: function() {
         var video, fileType, fileName, $videoEl;
         video = {};
         fileType = this.model.get('media_file_type');
+        fileType = 'mp4';
         fileName = this.model.get('media_file');
+        video[fileType] = fileName;
 
-        var dialogHtml = mediaViewerTmp({
-          video: true,
-          uri: this.model.get('media_file')
-        });
-
-        video['mp4'] = fileName;
-        debugger;
-        this.openDialog($(dialogHtml));
-        $videoEl = $('.preview');
+        var previewParent = $('#video-edit-preview').parent();
+        $('#video-edit-preview').remove();
+        previewParent.prepend('<div id="video-edit-preview"></div>');
+        $videoEl = $('#video-edit-preview');
         $videoEl.flowplayer({
           preload: 'none',
-          playlist: [ video ]
+          playlist: [[ video ]]
         });
       },
 
       openImageViewer: function() {
-        console.log(this.model);
-        console.log('openImageViewer');
         var dialogHtml = mediaViewerTmp({
           image: true,
           uri: this.model.get('media_file'),
@@ -71,7 +67,6 @@ define (
       },
 
       openDialog: function($dialogHtml) {
-        console.log('openDialog');
         $dialogHtml.attr('title', this.model.get('name_en'));
           $dialogHtml.dialog({
             resizable: false,

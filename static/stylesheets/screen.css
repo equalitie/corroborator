@@ -35,7 +35,7 @@
   src: url(/static/fonts/opensans/OpenSans-Bold.ttf) format('truetype');
 }
 
-/* line 77, ../sass/_fonts.scss */
+/* line 78, ../sass/_fonts.scss */
 em {
   font-style: normal;
   font-family: 'Open Sans Bold', sans-serif;
@@ -113,6 +113,7 @@ a {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 /* line 82, ../sass/_buttons.scss */
 .field button.combo [data-icon]:before, .field .button.combo [data-icon]:before {
@@ -183,6 +184,7 @@ button.create.do-create-incident [data-icon]:before {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 
 /* line 216, ../sass/_buttons.scss */
@@ -211,6 +213,7 @@ button.create.do-create-actor [data-icon]:before {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 
 /* line 219, ../sass/_buttons.scss */
@@ -239,10 +242,11 @@ button.create.do-create-bulletin [data-icon]:before {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 
 /* line 226, ../sass/_buttons.scss */
-button {
+button, a.button {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
@@ -255,11 +259,20 @@ button {
   margin: 0px;
 }
 /* line 42, ../sass/_buttons.scss */
-button:hover {
+button:hover, a.button:hover {
   background-color: #cab8a7;
 }
 
 /* line 229, ../sass/_buttons.scss */
+a.button.download {
+  width: 50%;
+  display: block;
+  text-align: center;
+  padding-top: 11px;
+  margin-top: 10px;
+}
+
+/* line 237, ../sass/_buttons.scss */
 button.do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -283,7 +296,7 @@ button.do-clear > span {
   font-size: 65%;
 }
 
-/* line 233, ../sass/_buttons.scss */
+/* line 241, ../sass/_buttons.scss */
 .do-hide {
   height: 15px;
   padding-left: 8px;
@@ -310,6 +323,7 @@ button.do-clear > span {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 
 /* line 1, ../sass/_fountainG.scss */
@@ -2999,6 +3013,7 @@ input[type=text] {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 /* line 60, ../sass/_forms.scss */
 .events button.do-edit-event {
@@ -3014,6 +3029,7 @@ input[type=text] {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 /* line 66, ../sass/_forms.scss */
 .events button.do-edit-event:hover {
@@ -3338,6 +3354,7 @@ button.do-save:hover {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 /* line 82, ../sass/_buttons.scss */
 .Actor.in-list.embedded .button.combo [data-icon]:before {
@@ -3415,6 +3432,7 @@ button.do-save:hover {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 /* line 82, ../sass/_buttons.scss */
 .when-related .button.combo [data-icon]:before {
@@ -3781,6 +3799,7 @@ nav#search-navigation .search button.do-clear > span {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
 }
 /* line 82, ../sass/_buttons.scss */
 .search-combo .do-search [data-icon]:before {
@@ -4527,31 +4546,31 @@ span.status > span {
   padding-left: 3.07692em;
 }
 
-/* line 26, ../sass/_display.scss */
+/* line 28, ../sass/_display.scss */
 .incident-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #6bcad8;
 }
 
-/* line 30, ../sass/_display.scss */
+/* line 32, ../sass/_display.scss */
 .bulletin-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #b5cd5f;
 }
 
-/* line 34, ../sass/_display.scss */
+/* line 36, ../sass/_display.scss */
 .actor-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #f1be33;
 }
 
-/* line 39, ../sass/_display.scss */
+/* line 41, ../sass/_display.scss */
 .detail {
   margin-top: 1.53846em;
   clear: left;
 }
 
-/* line 44, ../sass/_display.scss */
+/* line 46, ../sass/_display.scss */
 h2.title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4560,7 +4579,7 @@ h2.title {
   line-height: 27px;
 }
 
-/* line 48, ../sass/_display.scss */
+/* line 50, ../sass/_display.scss */
 h3.title {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4569,7 +4588,7 @@ h3.title {
   font-size: 14px;
 }
 
-/* line 54, ../sass/_display.scss */
+/* line 56, ../sass/_display.scss */
 .assigned-to {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4580,19 +4599,19 @@ h3.title {
   font-size: 14px;
 }
 
-/* line 63, ../sass/_display.scss */
+/* line 65, ../sass/_display.scss */
 .score {
   color: #8c8b8a;
   font-size: 15px;
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-/* line 67, ../sass/_display.scss */
+/* line 69, ../sass/_display.scss */
 .score span {
   min-height: 15px;
 }
 
-/* line 72, ../sass/_display.scss */
+/* line 74, ../sass/_display.scss */
 .tags.group .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4604,27 +4623,27 @@ h3.title {
   padding-right: 1em;
 }
 
-/* line 75, ../sass/_display.scss */
+/* line 77, ../sass/_display.scss */
 .field {
   clear: left;
 }
 
-/* line 79, ../sass/_display.scss */
+/* line 81, ../sass/_display.scss */
 .date-location {
   clear: both;
 }
 
-/* line 83, ../sass/_display.scss */
+/* line 85, ../sass/_display.scss */
 .description {
   color: #8c8b8a;
 }
 
-/* line 89, ../sass/_display.scss */
+/* line 91, ../sass/_display.scss */
 .in-list {
   color: #8c8b8a;
   border: 1px solid #b7b6b2;
 }
-/* line 92, ../sass/_display.scss */
+/* line 94, ../sass/_display.scss */
 .in-list .name {
   margin-top: 0.5em;
   font-family: 'Open Sans Bold', sans-serif;
@@ -4632,32 +4651,32 @@ h3.title {
   color: #626262;
   font-size: 16px;
 }
-/* line 96, ../sass/_display.scss */
+/* line 98, ../sass/_display.scss */
 .in-list .L1, .in-list .L2 {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
 }
-/* line 100, ../sass/_display.scss */
+/* line 102, ../sass/_display.scss */
 .in-list .L2 {
   margin-bottom: 0.76923em;
 }
-/* line 103, ../sass/_display.scss */
+/* line 105, ../sass/_display.scss */
 .in-list .L3 {
   margin-bottom: 0.76923em;
   font-weight: normal;
   font-size: 12px;
   font-family: Helvetica, sans-serif;
 }
-/* line 108, ../sass/_display.scss */
+/* line 110, ../sass/_display.scss */
 .in-list .L3 span {
   font-size: 12px;
 }
-/* line 112, ../sass/_display.scss */
+/* line 114, ../sass/_display.scss */
 .in-list .involved {
   font-weight: bold;
 }
-/* line 115, ../sass/_display.scss */
+/* line 117, ../sass/_display.scss */
 .in-list .title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4665,12 +4684,12 @@ h3.title {
   font-size: 16px;
 }
 
-/* line 120, ../sass/_display.scss */
+/* line 122, ../sass/_display.scss */
 .Actor.in-list.search-results {
   border: none;
 }
 
-/* line 127, ../sass/_display.scss */
+/* line 129, ../sass/_display.scss */
 .overlay .footer {
   border-bottom: 0px solid #a0a0a0;
   bottom: 0em;
@@ -4680,14 +4699,14 @@ h3.title {
   height: 3.07692em;
 }
 
-/* line 136, ../sass/_display.scss */
+/* line 138, ../sass/_display.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 141, ../sass/_display.scss */
+/* line 143, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-expand,
 .when-overlay-expanded button.do-expand {
   text-transform: uppercase;
@@ -4715,7 +4734,7 @@ h3.title {
 .when-overlay-expanded button.do-expand:hover {
   background-color: #d96859;
 }
-/* line 145, ../sass/_display.scss */
+/* line 147, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-collapse,
 .when-overlay-expanded button.do-collapse {
   text-transform: uppercase;
@@ -4744,7 +4763,7 @@ h3.title {
   background-color: #d96859;
 }
 
-/* line 151, ../sass/_display.scss */
+/* line 153, ../sass/_display.scss */
 button.do-select {
   text-transform: uppercase;
   font-family: 'Open Sans Semi Bold', sans-serif;
@@ -4771,7 +4790,7 @@ button.do-select:hover {
   background-color: #d96859;
 }
 
-/* line 157, ../sass/_display.scss */
+/* line 159, ../sass/_display.scss */
 button.do-edit {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4797,7 +4816,7 @@ button.do-edit:hover {
   background-color: #d96859;
 }
 
-/* line 163, ../sass/_display.scss */
+/* line 165, ../sass/_display.scss */
 div.selection {
   height: 6px;
   width: 6px;
@@ -4811,6 +4830,55 @@ div.selection [data-icon]:before {
   content: attr(data-icon);
   speak: none;
   -webkit-font-smoothing: antialiased;
+  font-size: 13px;
+}
+
+/* line 187, ../sass/_display.scss */
+li.medium {
+  display: inline-block;
+}
+/* line 50, ../sass/_fonts.scss */
+li.medium [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  font-size: 6em;
+}
+/* line 177, ../sass/_display.scss */
+li.medium .media-document-thumbnail, li.medium .media-video-thumbnail {
+  color: #92928f;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 30px;
+  display: inline-block;
+  margin-top: 1em;
+  cursor: pointer;
+}
+
+/* line 191, ../sass/_display.scss */
+.media-result div {
+  display: inline-block;
+}
+/* line 50, ../sass/_fonts.scss */
+.media-result div [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  font-size: 6em;
+}
+/* line 177, ../sass/_display.scss */
+.media-result div .media-document-thumbnail, .media-result div .media-video-thumbnail {
+  color: #92928f;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 30px;
+  display: inline-block;
+  margin-top: 1em;
+  cursor: pointer;
 }
 
 /*@ sourceMappingURL=screen.css.map */

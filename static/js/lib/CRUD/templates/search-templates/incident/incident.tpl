@@ -1,6 +1,6 @@
 <div class="header">
     <a href="#" class="display do-hide is-small">
-      <span aria-hidden="true" data-icon="Y"></span>
+      <span aria-hidden="true" data-icon="x"></span>
       <span class="screen-reader-text">Hide</span>
     </a>
 </div>

@@ -131,8 +131,8 @@ define (
       ],
 
       // display a slider for scores
-      sliderFields: [
-        { // confidence_score
+      sliderFields: {
+        confidence_score: { // confidence_score
           sliderDiv : '#bulletin-score-block .score-editor .slider',
           display   : '#bulletin_confidence_score',
           formField : 'confidence_score',
@@ -143,7 +143,7 @@ define (
           snap      : false,
           value     : 50 // TODO enable for update
         }
-      ],
+      },
         
       // constructor
       initialize: function(options) {

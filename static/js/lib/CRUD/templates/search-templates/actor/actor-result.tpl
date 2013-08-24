@@ -90,7 +90,7 @@
       <div class="actions search-result">
         <div class="button combo is-default">
           <span class="T">Add as
-          <span aria-hidden="true" data-icon="&#x4b;"></span>
+          <span aria-hidden="true" data-icon="&#x64;"></span>
           </span>
           <ul class="options">
             {{#each roles}}
@@ -108,7 +108,7 @@
             <div class="button combo is-default">
               <span class="T">
                 Related as: {{roleModel.role_en}} 
-                <span aria-hidden="true" data-icon="&#x4b;"></span>
+                <span aria-hidden="true" data-icon="&#x64;"></span>
                 <ul class="options">
                   {{#each roles}}
                   <li>

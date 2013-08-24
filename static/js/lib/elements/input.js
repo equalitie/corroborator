@@ -77,6 +77,8 @@ define(
       // deprecated - we are using event streams
       sendText: function(inputText) {
         var textToSend = {
+          raw: inputText,
+          encoded: window.encodeURI(inputText)
         };
         searchBus.push({
           type: 'search_updated',
