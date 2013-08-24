@@ -167,7 +167,7 @@ define(
       setSelectedText: function(selectedText) {
         this.$el.children('span.selected-option')
                 .text(selectedText)
-                .append('<span aria-hidden="true" data-icon="K"></span>');
+                .append('<span aria-hidden="true" data-icon="d"></span>');
         this.input.val(selectedText);
       }
     };
