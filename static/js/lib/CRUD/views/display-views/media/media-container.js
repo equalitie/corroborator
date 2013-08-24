@@ -8,9 +8,11 @@ define (
     'jquery', 'backbone', 'lib/Data/media', 
     'lib/elements/views/CollectionViews',
     'lib/CRUD/templates/display-templates/media/media.tpl',
-    'lib/CRUD/templates/display-templates/media/media-container.tpl'
+    'lib/CRUD/templates/display-templates/media/media-container.tpl',
+    'lib/CRUD/templates/search-templates/media/media-viewer.tpl'
   ],
-  function ($, Backbone, Media, CollectionViews, mediaTmp, mediaListTmp) {
+  function ($, Backbone, Media, CollectionViews, mediaTmp, mediaListTmp,
+    mediaViewerTmp) {
     'use strict';
 
     var ListLoadView = CollectionViews.ListLoadView,
@@ -24,13 +26,45 @@ define (
       tagName: 'li',
       className: 'medium REPEAT',
       template: mediaTmp,
+      initialize: function() {
+        this.render();
+        this.$el.tooltip();
+      },
       events: {
-        'click': 'previewMedia'
+        'click .media-image-thumbnail'   : 'previewImage',
+        'click .media-video-thumbnail'   : 'previewMedia',
+        'click .media-document-thumbnail': 'previewFile'
       },
       previewMedia: function() {
-        console.log('previewMedia');
         this.model.trigger('previewMedia', this.model);
-      }
+      },
+      previewImage: function() {
+        var dialogHtml = mediaViewerTmp({
+          image: true,
+          uri: this.model.get('media_file'),
+          alt: this.model.get('name_en')
+        });
+        this.openDialog($(dialogHtml));
+      },
+      previewFile: function() {
+        console.log(this.model.toJSON());
+        var dialogHtml = mediaViewerTmp({
+          file: true,
+          model: this.model.toJSON()
+        });
+        this.openDialog($(dialogHtml));
+      },
+
+      openDialog: function($dialogHtml) {
+        $dialogHtml.attr('title', this.model.get('name_en'));
+          $dialogHtml.dialog({
+            resizable: false,
+            close: function( event, ui ) {
+              $(this).children().remove();              
+            },
+            modal: true
+          });
+      },
     });
 
     // show a list of media elements with a preview
@@ -52,7 +86,6 @@ define (
                             .remove();
         $('.is-media.group').prepend('<div class="preview"></div>');
         var video, fileType, fileName;
-        console.log(model.toJSON());
         video = {};
         fileType = model.get('media_file_type');
         fileType = 'mp4';

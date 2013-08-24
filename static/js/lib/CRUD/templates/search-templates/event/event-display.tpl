@@ -5,7 +5,7 @@
   </button>
 
   <button class="do-edit-event is-small">
-    <span aria-hidden="true" data-icon="E"></span>
+    <span aria-hidden="true" data-icon="e"></span>
     <span class="screen-reader-text">Edit</span>
   </button>
 

@@ -46,9 +46,10 @@
     speak: none;
   -webkit-font-smoothing: antialiased;
 }
-@mixin corrob_icon_attach_before {
+@mixin corrob_icon_attach_before($font_size:13px) {
   [data-icon]:before {
     @include corrob_icon_attach;
+    font-size: $font_size;
   }
 }
 @mixin open_sans {

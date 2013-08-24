@@ -223,9 +223,17 @@ button.create.do-create-bulletin {
 }
 
 
-button {
+button, a.button {
   @include button;
 }
+a.button.download {
+  width: 50%;
+  display: block;
+  text-align: center;
+  padding-top: 11px;
+  margin-top: 10px;
+}
+
 button.do-clear {
   @include clear_button;
 }

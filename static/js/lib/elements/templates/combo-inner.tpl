@@ -4,7 +4,7 @@
     {{name_en}}
   </span>
   {{#if_eq search_request compare='predefined_search' }}
-    <span aria-hidden="true" data-icon="Y" class="delete-saved-search"></span>
+    <span aria-hidden="true" data-icon="x" class="delete-saved-search"></span>
     <span class="screen-reader-text">Delete Saved search</span>
   {{/if_eq}}
 </span>

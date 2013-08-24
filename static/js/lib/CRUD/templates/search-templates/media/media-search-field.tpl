@@ -1,4 +1,4 @@
-<div class="preview"></div>
+<div id="video-edit-preview"></div>
 <label>{{label}}</label>
 <div class="search">
   <input type="text" class="with-clear">

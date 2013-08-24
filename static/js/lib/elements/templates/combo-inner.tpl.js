@@ -8,7 +8,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   
-  return "\n    <span aria-hidden=\"true\" data-icon=\"Y\" class=\"delete-saved-search\"></span>\n    <span class=\"screen-reader-text\">Delete Saved search</span>\n  ";
+  return "\n    <span aria-hidden=\"true\" data-icon=\"x\" class=\"delete-saved-search\"></span>\n    <span class=\"screen-reader-text\">Delete Saved search</span>\n  ";
   }
 
   buffer += "<input type=\"hidden\" value=\"";

@@ -1,6 +1,6 @@
   <div class="header">
     <a href="#" class="display do-hide is-small">
-      <span aria-hidden="true" data-icon="Y"></span>
+      <span aria-hidden="true" data-icon="x"></span>
       <span class="screen-reader-text">Hide</span>
     </a>
   </div>
@@ -52,7 +52,7 @@
               <label>Score</label>
               <div class="score">
 
-                <span id="bulletin_confidence_score" class="value">0</span>
+                <span id="bulletin_confidence_score" class="value">{{model.confidence_score}}</span>
                 <input type="hidden" 
                        name="confidence_score"
                        value="{{model.confidence_score}}"

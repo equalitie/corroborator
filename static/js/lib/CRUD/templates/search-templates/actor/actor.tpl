@@ -1,6 +1,6 @@
   <div class="header">
     <a href="#" class="display do-hide is-small">
-      <span aria-hidden="true" data-icon="Y"></span>
+      <span aria-hidden="true" data-icon="&#x78"></span>
       <span class="screen-reader-text">Hide</span>
     </a>
   </div>
@@ -73,7 +73,7 @@
                   {{else}}
                     Sex
                   {{/if}}
-                <span aria-hidden="true" data-icon="&#x4b;"></span>
+                <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
                 <input name="sex_en" type="hidden" value="{{model.sex_en}}"class="actor-field">
         
@@ -97,7 +97,7 @@
                   {{else}}
                     Age
                   {{/if}}
-                <span aria-hidden="true" data-icon="&#x4b;"></span>
+                <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
                 <input name="age_en" type="hidden" value="{{model.age_en}}" class="actor-field">
         
@@ -122,7 +122,7 @@
                   {{else}}
                     Civilian
                   {{/if}}
-                <span aria-hidden="true" data-icon="&#x4b;"></span>
+                <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
                 <input type="hidden" name="civilian_en" value="" class="actor-field">
         

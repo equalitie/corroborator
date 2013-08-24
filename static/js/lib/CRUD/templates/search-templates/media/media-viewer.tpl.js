@@ -7,8 +7,15 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  
-  return "\n    <div class=\"preview\"></div>\n  ";
+  var buffer = "", stack1;
+  buffer += "\n    <label>File Type:</label> <span>"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file_type)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span><br/>\n    <label>Label:</label> <span>"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span><br/>\n    <a href=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" class=\"button download\" target=\"blank\">Download</a>\n  ";
+  return buffer;
   }
 
 function program3(depth0,data) {
@@ -27,7 +34,7 @@ function program3(depth0,data) {
   }
 
   buffer += "<div class=\"media-preview-container\">\n  ";
-  stack1 = helpers['if'].call(depth0, depth0.video, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  stack1 = helpers['if'].call(depth0, depth0.file, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  ";
   stack1 = helpers['if'].call(depth0, depth0.image, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});

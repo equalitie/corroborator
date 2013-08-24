@@ -70,7 +70,7 @@ function program7(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_bulletins)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n              <div class=\"label\">Bulletins</div>\n            </div>\n            <div class=\"stat\">\n              <div class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</div>\n              <div class=\"label\">Incidents</div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"actions search-result\">\n        <div class=\"button combo is-default\">\n          <span class=\"T\">Add as\n          <span aria-hidden=\"true\" data-icon=\"&#x4b;\"></span>\n          </span>\n          <ul class=\"options\">\n            ";
+    + "</div>\n              <div class=\"label\">Incidents</div>\n            </div>\n          </div>\n        </div>\n      </div>\n      <div class=\"actions search-result\">\n        <div class=\"button combo is-default\">\n          <span class=\"T\">Add as\n          <span aria-hidden=\"true\" data-icon=\"&#x64;\"></span>\n          </span>\n          <ul class=\"options\">\n            ";
   stack2 = helpers.each.call(depth0, depth0.roles, {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          </ul>\n        </div>\n      </div>\n      ";
@@ -170,7 +170,7 @@ function program22(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      <div class=\"when-related\">\n        <div class=\"actions\">\n          <div class=\"left\">\n            <div class=\"button combo is-default\">\n              <span class=\"T\">\n                Related as: "
     + escapeExpression(((stack1 = ((stack1 = depth0.roleModel),stack1 == null || stack1 === false ? stack1 : stack1.role_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " \n                <span aria-hidden=\"true\" data-icon=\"&#x4b;\"></span>\n                <ul class=\"options\">\n                  ";
+    + " \n                <span aria-hidden=\"true\" data-icon=\"&#x64;\"></span>\n                <ul class=\"options\">\n                  ";
   stack2 = helpers.each.call(depth0, depth0.roles, {hash:{},inverse:self.noop,fn:self.program(22, program22, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                </ul>\n              </span>\n            </div>\n          </div>\n          <div class=\"right\">\n            <button class=\"do-removeActor\">\n              <span class=\"text T\">Remove</span>\n            </button>\n          </div>\n          <div class=\"clearer\">&nbsp;</div>\n        </div>\n      </div>\n   </div> \n</div>\n";

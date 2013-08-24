@@ -17,6 +17,8 @@
   padding-left: 2*$PAD_UNIT;
 }
 
+
+
 @mixin display_outline($header_color) {
   border-left: solid 1px $DISPLAY_BORDER;
   border-top: 5px solid $header_color;
@@ -166,6 +168,29 @@ div.selection {
   @include corrob_icon_attach_before;
   padding-right: 5px;
   display: inline-block;
+}
+@mixin media_thumb_icon {
+  display: inline-block;
+    @include corrob_icon_attach_before(
+      $font_size: 6em
+    );
+  .media-document-thumbnail, .media-video-thumbnail {
+    color: lighten(#2b2b2a, 40%);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 30px;
+    display: inline-block;
+    margin-top: 1em;
+    cursor: pointer;
+  }
+}
+li.medium {
+  @include media_thumb_icon;
+}
+.media-result {
+  div {
+    @include media_thumb_icon;
+  }
 }
 
 
