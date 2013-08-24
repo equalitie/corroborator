@@ -126,8 +126,8 @@ define (
       
       searchBus.push({
         type: search_type,
-        content: searchObject.content,
-        domain: searchObject.domain
+        content: content,
+        domain: domain
       });
     };
  
