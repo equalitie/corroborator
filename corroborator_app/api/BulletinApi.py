@@ -21,6 +21,7 @@ from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
+from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from django.contrib.auth.models import User
 __all__ = ('BulletinResource')
@@ -139,5 +140,11 @@ class BulletinResource(ModelResource):
             .prepare_most_recent_status_bulletin(bundle.obj) 
         bundle.data['count_actors'] = BulletinPrepMeta()\
             .prepare_count_actors(bundle.obj)
+        bundle.data['actor_roles_status'] = BulletinPrepMeta()\
+            .prepare_bulletin_actor_roles(bundle.obj)
+        bundle.data['actors'] = ActorPrepMeta()\
+            .prepare_actors(bundle.obj)
+        bundle.data['actors_role'] = ActorPrepMeta()\
+            .prepare_actors_role(bundle.obj)
 
         return bundle

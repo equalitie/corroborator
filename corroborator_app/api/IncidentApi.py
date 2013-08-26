@@ -127,5 +127,12 @@ class IncidentResource(ModelResource):
             .prepare_count_bulletins(bundle.obj)
         bundle.data['count_incidents'] = IncidentPrepMeta()\
             .prepare_count_incidents(bundle.obj)
+        bundle.data['actor_roles_status'] = BulletinPrepMeta()\
+            .prepare_incident_actor_roles(bundle.obj)
+        bundle.data['actors'] = ActorPrepMeta()\
+            .prepare_actors(bundle.obj)
+        bundle.data['actors_role'] = ActorPrepMeta()\
+            .prepare_actors_role(bundle.obj)
+
 
         return bundle
