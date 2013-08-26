@@ -21,6 +21,7 @@ from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
+from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from django.contrib.auth.models import User
 __all__ = ('BulletinResource')
@@ -117,11 +118,6 @@ class BulletinResource(ModelResource):
             )
         update_object.delay(username)    
         return bundle
-    """
-    def obj_delete(self, bundle, **kwargs):
-        bundle.data['deleted'] = True
-        self.obj_update(bundle, **kwargs)
-    """
 
     def dehydrate(self, bundle):
         bundle.data['bulletin_locations'] = BulletinPrepMeta()\
@@ -132,12 +128,19 @@ class BulletinResource(ModelResource):
             .prepare_bulletin_times(bundle.obj) 
         bundle.data['bulletin_sources'] = BulletinPrepMeta()\
             .prepare_bulletin_sources(bundle.obj) 
-        #bundle.data[''] = BulletinPrepMeta()\
-        #    .prepare_bulletin_assigned_user(bundle.obj) 
         bundle.data['most_recent_status_bulletin'] = \
             BulletinPrepMeta()\
             .prepare_most_recent_status_bulletin(bundle.obj) 
         bundle.data['count_actors'] = BulletinPrepMeta()\
             .prepare_count_actors(bundle.obj)
+        bundle.data['actor_roles_status'] = BulletinPrepMeta()\
+            .prepare_bulletin_actor_roles(bundle.obj)
+        bundle.data['actors'] = ActorPrepMeta()\
+            .prepare_actors(bundle.obj)
+        bundle.data['actors_role'] = ActorPrepMeta()\
+            .prepare_actors_role(bundle.obj)
+        bundle.data['confidence_score'] == 'null':
+            bundle.data['confidence_score'] = ''
+
 
         return bundle

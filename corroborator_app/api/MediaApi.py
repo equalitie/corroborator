@@ -4,7 +4,7 @@ Date: 29-05-2013
 Create api for media model, requires apikey auth
 tests in tests/api/tests.py
 """
-
+from corroborator.settings import common
 from tastypie.resources import ModelResource
 from corroborator_app.tasks import update_object
 from tastypie.authorization import Authorization
@@ -52,6 +52,10 @@ class MediaResource(MultipartResource, ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+
+    def dehydrate( self, bundle ): 
+        bundle.data['media_file'] = common.S3_URL + '/' + bundle.obj.media_file.name
+        return bundle
 
     def obj_create(self, bundle, **kwargs):
         username = bundle.request.GET['username']
