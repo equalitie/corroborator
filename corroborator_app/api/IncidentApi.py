@@ -22,6 +22,7 @@ from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
+from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from django.contrib.auth.models import User
 from corroborator_app.tasks import update_object
 
@@ -116,8 +117,6 @@ class IncidentResource(ModelResource):
             .prepare_incident_times(bundle.obj) 
         bundle.data['incident_crimes'] = IncidentPrepMeta()\
             .prepare_incident_crimes(bundle.obj) 
-        #bundle.data[''] = IncidentPrepMeta()\
-        #    .prepare_incident_assigned_user(bundle.obj) 
         bundle.data['most_recent_status_incident'] = \
             IncidentPrepMeta()\
             .prepare_most_recent_status_incident(bundle.obj) 
@@ -127,7 +126,7 @@ class IncidentResource(ModelResource):
             .prepare_count_bulletins(bundle.obj)
         bundle.data['count_incidents'] = IncidentPrepMeta()\
             .prepare_count_incidents(bundle.obj)
-        bundle.data['actor_roles_status'] = BulletinPrepMeta()\
+        bundle.data['actor_roles_status'] = IncidentPrepMeta()\
             .prepare_incident_actor_roles(bundle.obj)
         bundle.data['actors'] = ActorPrepMeta()\
             .prepare_actors(bundle.obj)

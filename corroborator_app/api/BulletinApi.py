@@ -118,11 +118,6 @@ class BulletinResource(ModelResource):
             )
         update_object.delay(username)    
         return bundle
-    """
-    def obj_delete(self, bundle, **kwargs):
-        bundle.data['deleted'] = True
-        self.obj_update(bundle, **kwargs)
-    """
 
     def dehydrate(self, bundle):
         bundle.data['bulletin_locations'] = BulletinPrepMeta()\
@@ -133,8 +128,6 @@ class BulletinResource(ModelResource):
             .prepare_bulletin_times(bundle.obj) 
         bundle.data['bulletin_sources'] = BulletinPrepMeta()\
             .prepare_bulletin_sources(bundle.obj) 
-        #bundle.data[''] = BulletinPrepMeta()\
-        #    .prepare_bulletin_assigned_user(bundle.obj) 
         bundle.data['most_recent_status_bulletin'] = \
             BulletinPrepMeta()\
             .prepare_most_recent_status_bulletin(bundle.obj) 
