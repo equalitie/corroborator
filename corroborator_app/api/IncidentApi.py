@@ -133,6 +133,6 @@ class IncidentResource(ModelResource):
         bundle.data['actors_role'] = ActorPrepMeta()\
             .prepare_actors_role(bundle.obj)
         
-        bundle.data['confidence_score'] == 'null'
+        #bundle.data['confidence_score'] == 'null'
 
         return bundle
