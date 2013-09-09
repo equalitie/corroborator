@@ -51,9 +51,15 @@ define (
     Handlebars.registerHelper('fetchLocation', function(context, options) {
         var formattedContext = context;
         if (context !== undefined) {
-          var users = Bootstrap.locations,
-              userSearchField = {resource_uri: context};
-          formattedContext = _.findWhere(users, userSearchField).name_en;
+          var locations, locationName, locationSearchField, retrievedLocation;
+          locationName = '';
+          locations = Bootstrap.locations;
+          locationSearchField = {resource_uri: context};
+          retrievedLocation = _.findWhere(locations, locationSearchField);
+          if (retrievedLocation) {
+            locationName = retrievedLocation.name_en;
+          }
+          formattedContext = locationName;
         }
         return formattedContext;
     });

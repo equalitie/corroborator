@@ -72,7 +72,7 @@ define (
 
     // Show the results of a search for actors
     BulletinResultsView = Backbone.View.extend({
-      listElementHeight: 54,
+      listElementHeight: 46,
 
       childViews: [],
       className: 'results-body',
@@ -102,18 +102,23 @@ define (
         this.$el.scrollTop(0);
       },
 
+      // paging config
       chunkSize: 30,
       loadAfter: 10,
       currentPage: 0,
+
+      // event listener for scroll events, when the scrollbar gets below a 
+      // certain height load the next 'page' of elements
       handleScroll: function(evt) {
-        var currentPosition, nextLoad, slice, start, end;
+        var currentPosition, slice, start, end;
         currentPosition = this.$el.scrollTop();
         if (currentPosition > this.loadAfter * this.listElementHeight) {
           this.loadAfter = this.loadAfter + this.chunkSize;
           start = this.currentPage * this.chunkSize;
           end   = start + this.chunkSize;
-          slice = this.collection.slice(start, end);
+          slice = this.collection.slice(start + 1, end);
           _.each(slice, this.renderItem, this);
+          this.currentPage = this.currentPage + 1;
         }
       },
 

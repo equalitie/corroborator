@@ -86,6 +86,9 @@ define (
       className: 'results-body',
 
       template: actorResultsTmp,
+      events: {
+        'scroll': 'handleScroll'
+      },
       childViews: [],
       initialize: function() {
         this.addi18n();
@@ -108,6 +111,7 @@ define (
       chunkSize: 30,
       loadAfter: 10,
       currentPage: 0,
+      listElementHeight: 66,
       handleScroll: function(evt) {
         var currentPosition, nextLoad, slice, start, end;
         currentPosition = this.$el.scrollTop();
@@ -117,6 +121,7 @@ define (
           end   = start + this.chunkSize;
           slice = this.collection.slice(start, end);
           _.each(slice, this.renderItem, this);
+          this.currentPage = this.currentPage + 1;
         }
       },
       

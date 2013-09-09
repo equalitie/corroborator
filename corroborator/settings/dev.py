@@ -1,8 +1,12 @@
-from settings.common import *
+"""
+Author: Cormac McGuire
+Dev settings
+"""
+from corroborator.settings.common import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': '/Users/cormac/work/programming/python/djangodev/db/corroborator.sql', # Or path to database file if using sqlite3.
+        'NAME': '/Users/cormac/work/programming/python/djangodev/db/corroborator-latest.sql', # Or path to database file if using sqlite3.
         'USER': '', # Not used with sqlite3.
         'PASSWORD': '',# Not used with sqlite3.
         'HOST': '',# Set to empty string for localhost. Not used with sqlite3.
@@ -30,6 +34,9 @@ DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.signals.SignalDebugPanel',
     'debug_toolbar.panels.logger.LoggingPanel',
 )
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False
+}
 
 MIDDLEWARE_CLASSES += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',

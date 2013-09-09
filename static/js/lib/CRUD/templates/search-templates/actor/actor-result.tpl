@@ -1,5 +1,9 @@
 <div class="Actor in-list embedded">
-    <div class="avatar">&nbsp;</div>
+    {{#if model.thumbnail_url}}
+      <div class="avatar"><img src="{{model.thumbnail_url}}" alt="actor thumbnail"></div>
+    {{else}}
+      <div class="avatar">&nbsp;</div>
+    {{/if}}
     <div class="content">
       <div class="L1">
         <p class="name">{{model.fullname_en}}</p>
@@ -7,7 +11,9 @@
         <p class="age">{{model.age_en}}</p>
       </div>
       <div class="L2">
+          {{#if model.nickname_en}}
           <p class="aka">aka «{{model.nickname_en}}»</p>
+          {{/if}}
       </div>
       {{#if model.selected }}
       <div class="actor-summary hidden">

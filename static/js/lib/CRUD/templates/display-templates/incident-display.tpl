@@ -8,9 +8,11 @@
         <span lang="ar">{{model.title_ar}}</span>
         <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
     <div class="group details">
+      {{#if model.assigned_user}}
       <div class="assigned-to">
-        <span class="value">{{model.incident_assigned_user}}</span>
+        <span class="value">{{model.assigned_user}}</span>
       </div>
+      {{/if}}
       <div class="score">
         <span class="value">{{model.confidence_score}}</span>
       </div>

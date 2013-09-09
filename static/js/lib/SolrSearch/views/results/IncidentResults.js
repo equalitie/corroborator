@@ -72,12 +72,52 @@ define (
       template: incidentResultsTmp,
       className: 'results-body',
 
+      events: {
+        'scroll': 'handleScroll'
+      },
+
       // constructor
       initialize: function() {
         this.collection = IncidentCollection;
-        this.listenTo(this.collection, 'add sort reset', this.renderList.bind(this));
+        this.listenTo(this.collection, 'add', this.renderItem.bind(this));
+        this.listenTo(this.collection, 'sort', this.sortRequested.bind(this));
+        this.listenTo(this.collection, 'reset', this.renderStart.bind(this));
         this.render();
-        this.renderList();
+        this.renderStart();
+      },
+
+      // paging config
+      listElementHeight: 62,
+      chunkSize: 30,
+      loadAfter: 10,
+      currentPage: 0,
+
+      // event listener for scroll events, when the scrollbar gets below a 
+      // certain height load the next 'page' of elements
+      handleScroll: function(evt) {
+        var currentPosition, slice, start, end;
+        currentPosition = this.$el.scrollTop();
+        if (currentPosition > this.loadAfter * this.listElementHeight) {
+          this.loadAfter = this.loadAfter + this.chunkSize;
+          start = this.currentPage * this.chunkSize;
+          end   = start + this.chunkSize;
+          slice = this.collection.slice(start + 1, end);
+          _.each(slice, this.renderItem, this);
+          this.currentPage = this.currentPage + 1;
+        }
+      },
+
+      sortRequested: function() {
+        this.renderStart();
+        this.$el.scrollTop(0);
+      },
+
+      renderStart: function() {
+        this.destroyChildren();
+        var renderInitial = this.collection.slice(0, 30);
+        this.currentPage = 1;
+        this.loadAfter = 10;
+        _.each(renderInitial, this.renderItem, this);
       },
 
       //render container template

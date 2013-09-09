@@ -12,14 +12,12 @@ from tastypie import fields
 import reversion
 
 from corroborator_app.api.UserApi import UserResource
-from corroborator_app.api.SourceApi import SourceResource
 from corroborator_app.api.LabelApi import LabelResource
 from corroborator_app.api.ActorRoleApi import ActorRoleResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.BulletinApi import BulletinResource
 from corroborator_app.api.LocationApi import LocationResource
-from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
@@ -133,6 +131,7 @@ class IncidentResource(ModelResource):
         bundle.data['actors_role'] = ActorPrepMeta()\
             .prepare_actors_role(bundle.obj)
         
-        #bundle.data['confidence_score'] == 'null'
+        if bundle.data['confidence_score'] is 'null':
+            bundle.data['confidence_score'] = ''
 
         return bundle
