@@ -10,7 +10,7 @@
     <div class="group details">
       {{#if model.assigned_user}}
       <div class="assigned-to">
-        <span class="value">{{model.assigned_user}}</span>
+        <span class="value">{{fetchUser model.assigned_user}}</span>
       </div>
       {{/if}}
       <div class="score">
