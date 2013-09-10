@@ -65,6 +65,7 @@ class IncidentResource(ModelResource):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
+        """
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\
@@ -75,6 +76,7 @@ class IncidentResource(ModelResource):
                 status=bundle.data['status']
             )
             reversion.set_comment(bundle.data['comment'])    
+        """
         update_object.delay(username)    
         return bundle
  
@@ -132,7 +134,6 @@ class IncidentResource(ModelResource):
             .prepare_actors(bundle.obj)
         bundle.data['actors_role'] = ActorPrepMeta()\
             .prepare_actors_role(bundle.obj)
-        
-        #bundle.data['confidence_score'] == 'null'
-
+        if bundle.data['confidence_score'] == None:        
+            bundle.data['confidence_score'] = ''
         return bundle
