@@ -30,6 +30,7 @@ define (
       template: bulletinDisplayTmp,
       childViews: [],
       initialize: function(options) {
+        this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }

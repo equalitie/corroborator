@@ -24,6 +24,7 @@ define (
       this.events = this.events || {};
       _.extend(this.events, {'click .toggle span': 'switchLanguage'});
       this.switchLanguage = function(evt) {
+        console.log('switchLanguage');
         var clickedElement = evt.currentTarget,
             i18nElement = $(evt.currentTarget).parent()
                                               .parent();
