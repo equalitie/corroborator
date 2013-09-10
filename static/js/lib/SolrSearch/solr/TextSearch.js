@@ -100,7 +100,7 @@ define(
         return qb.parsedString; 
       },
 
-      // this is an auto update request - no need to reparse filters
+      // this is an auto update request 
       sendUpdateRequest: function(searchQuery) {
         this.shouldSendResults = false;
         this.shouldSendFilters = true;
@@ -114,10 +114,11 @@ define(
         this.sendRequest(searchQuery);
       },
 
+      // search within form context
       sendEmbeddedSearchRequest: function(searchQuery) {
         this.shouldSendResults = true;
-        this.sendRequest(searchQuery);
         this.shouldSendFilters = false;
+        this.sendRequest(searchQuery);
       },
 
       // send the request

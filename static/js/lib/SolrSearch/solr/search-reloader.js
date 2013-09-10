@@ -47,6 +47,7 @@ define (
                .map(mapToSearchObject)
                .onValue(updateSearchValue);
     };
+
     filterSearchStringRequest = function(value) {
       return value.type === 'search_string_request';
     };
@@ -91,7 +92,7 @@ define (
   
     pollForUpdates = function(searchObject) {
       var success = function(response) {
-        var lastUpdate = _.last(response.objects);
+        var lastUpdate = _.first(response.objects);
         if (!_.isEqual(previousUpdate, lastUpdate)) {
           sendSearches(searchObject, false);
           previousUpdate = lastUpdate;
