@@ -76,6 +76,7 @@ class BulletinResource(ModelResource):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
+        """
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( BulletinResource, self )\
@@ -86,6 +87,7 @@ class BulletinResource(ModelResource):
                 VersionStatus, 
                 status=bundle.data['status']
             )
+        """
         update_object.delay(username)    
         return bundle
  
@@ -139,7 +141,9 @@ class BulletinResource(ModelResource):
             .prepare_actors(bundle.obj)
         bundle.data['actors_role'] = ActorPrepMeta()\
             .prepare_actors_role(bundle.obj)
-        if bundle.data['confidence_score'] is 'null':
+        
+        if bundle.data['confidence_score'] == None:
             bundle.data['confidence_score'] = ''
+
 
         return bundle

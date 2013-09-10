@@ -47,13 +47,21 @@ def multi_save_actors(element_data, username):
         item.current_location_id =\
             parse_id_from_uri(actorData['current_location'])
         item.save()
+
         for a in element_data['actorsRoles']:
             localID = parse_id_from_uri(a['actor'])
-            #actor_local = Actor.objects.get(pk=int(a['resource_uri']))
-            role_local = ActorRole(relation_status=a['relation_status'],\
-                actor_id=int(localID), role_en=a['role_en'])
+            actor_role = get_role_for_actor(item, localID)
+            role_local = ''
+            if actor_role == '':
+                role_local = ActorRole(relation_status=a['relation_status'],\
+                        actor_id=int(localID), role_en=a['role_en'])
+            else:
+                role_local = actor_role
+                role_local.relation_status = a['relation_status']
+                role_local.role_en = a['role_en']
             role_local.save()
             actor_role_ids.append(role_local.id)
+
         if len(actor_role_ids) > 0:
             item.actors_role.add(*actor_role_ids)
     
@@ -105,6 +113,12 @@ def batch_parse_id_from_uri(batch):
         
     return localBatch
 
+def get_role_for_actor(entity, actor_id):
+    roles = entity.actors_role.filter(actor_id=actor_id)
+    if len(roles) > 0:
+        return roles[0]
+    else:
+        return ''
 
 def multi_save_entities(element_data, mode, username):
     list_entities = []
@@ -115,13 +129,24 @@ def multi_save_entities(element_data, mode, username):
     userid = None
     id_list = []
     entity_set = ''
+    status = ''
+    comments_en = ''
     if 'confidence_score' in element_data:
         if element_data['confidence_score'] != '':
             cscore=element_data['confidence_score']
     if element_data['assigned_user'] != '':
         userid = element_data['assigned_user'].split('/')
         userid = userid[len(userid)-1]
-
+    """    
+    if element_data['status'] != '':
+        status = element_data['status']
+    if element_data['comments_en'] != '':
+        comments_en = element_data['comments_en']
+    if comments_en != '' and status != '':
+        comment = Comment(status=status, comments_en=comments_en)
+        comment.save()
+        comment_ids.append(comment.id)
+    """
     if mode  ==  'incident':
         list_entities = Incident.objects.filter(
             id__in=batch_parse_id_from_uri(element_data['incidents'])
@@ -137,7 +162,6 @@ def multi_save_entities(element_data, mode, username):
                 item.confidence_score = cscore
             if userid != None:    
                 item.assigned_user_id = userid
-
             if len(element_data['labels']) > 0:
                 localLabels = batch_parse_id_from_uri(
                     element_data['labels']
@@ -146,10 +170,22 @@ def multi_save_entities(element_data, mode, username):
                 item.labels.add(*labeling_ids)
             for a in element_data['actorsRoles']:
                 localID = parse_id_from_uri(a['actor'])
-                role_local = ActorRole(role_status=a['role_status'],\
-                    actor_id=int(localID), role_en=a['role_en'])
+                actor_role = get_role_for_actor(item, localID)
+                role_local = ''
+                if actor_role == '':
+                    role_local = ActorRole(role_status=a['role_status'],\
+                        actor_id=int(localID), role_en=a['role_en'])
+                else:
+                    role_local = actor_role
+                    role_local.role_status = a['role_status']
+                    role_local.role_en = a['role_en']
                 role_local.save()
                 actor_role_ids.append(role_local.id)
+            if len(comment_ids) > 0:
+                if mode == 'incident':
+                    item.incident_comments.add(comment_ids)
+                else:
+                    item.bulletin_comments.add(comment_ids)
             if len(actor_role_ids) > 0:
                 item.actors_role.add(*actor_role_ids)
             if len( element_data['locations']) > 0:

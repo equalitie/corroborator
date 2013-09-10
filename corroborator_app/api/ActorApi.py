@@ -49,6 +49,7 @@ class ActorResource(ModelResource):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
+        """
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( ActorResource, self )\
@@ -59,6 +60,7 @@ class ActorResource(ModelResource):
                 VersionStatus, 
                 status=bundle.data['status']
             )
+        """
         update_object.delay(username)    
         return bundle
  

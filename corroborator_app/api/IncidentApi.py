@@ -12,12 +12,14 @@ from tastypie import fields
 import reversion
 
 from corroborator_app.api.UserApi import UserResource
+from corroborator_app.api.SourceApi import SourceResource
 from corroborator_app.api.LabelApi import LabelResource
 from corroborator_app.api.ActorRoleApi import ActorRoleResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.BulletinApi import BulletinResource
 from corroborator_app.api.LocationApi import LocationResource
+from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.CrimeCategoryApi import CrimeCategoryResource
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
@@ -63,6 +65,7 @@ class IncidentResource(ModelResource):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
+        """
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\
@@ -73,6 +76,7 @@ class IncidentResource(ModelResource):
                 status=bundle.data['status']
             )
             reversion.set_comment(bundle.data['comment'])    
+        """
         update_object.delay(username)    
         return bundle
  
@@ -130,8 +134,6 @@ class IncidentResource(ModelResource):
             .prepare_actors(bundle.obj)
         bundle.data['actors_role'] = ActorPrepMeta()\
             .prepare_actors_role(bundle.obj)
-        
-        if bundle.data['confidence_score'] is 'null':
+        if bundle.data['confidence_score'] == None:        
             bundle.data['confidence_score'] = ''
-
         return bundle
