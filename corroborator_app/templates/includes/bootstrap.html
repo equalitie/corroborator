@@ -88,7 +88,10 @@
 
     {%for loc in loc_set.all %}
       gl_ac_loc_set.push({
+        
+        {% autoescape off %}
         name_en:"{{loc.name_en}}",
+        {% endautoescape %}
         name_ar:"{{loc.name_ar}}",
         latitude:"{{loc.latitude}}",
         longitude: "{{loc.longitude}}",
