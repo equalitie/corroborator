@@ -145,9 +145,6 @@ define (
         this.displayForm = this.displayFormFunction();
       },
 
-      populateSimpleElements: function() {
-      },
-
 
       // toggle the expanded switch and render the form
       toggleExpanded: function() {

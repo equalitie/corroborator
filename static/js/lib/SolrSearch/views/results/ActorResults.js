@@ -8,9 +8,10 @@ define (
    'backbone', 'underscore',
     'lib/Data/collections',
     'lib/SolrSearch/templates/actor.tpl',
-    'lib/SolrSearch/templates/actor-results.tpl'
+    'lib/SolrSearch/templates/actor-results.tpl',
+    'lib/SolrSearch/templates/empty-results.tpl'
   ],
-  function (Backbone, _, Collections, actorTmp, actorResultsTmp) {
+  function (Backbone, _, Collections, actorTmp, actorResultsTmp, emptyResultsTmp) {
     'use strict';
 
     var ActorResultsView, ActorResultView;
@@ -132,10 +133,15 @@ define (
 
       renderStart: function() {
         this.destroyChildren();
+        if (this.collection.length > 0) {
         var renderInitial = this.collection.slice(0, 30);
         this.currentPage = 1;
         this.loadAfter = 10;
         _.each(renderInitial, this.renderItem, this);
+        }
+        else {
+          this.renderEmpty();
+        }
       },
 
       // render a single actor result
@@ -149,6 +155,18 @@ define (
                 .children()
                 .append(resultView.$el);
         this.childViews.push(resultView);
+      },
+      renderEmpty: function() {
+        var emptyView = new Backbone.View({
+          className: 'empty-results'
+        });
+        emptyView.$el.html(emptyResultsTmp());
+        this.$el.children()
+                .children()
+                .children()
+                .empty()
+                .append(emptyView.$el);
+        this.childViews.push(emptyView);
       },
 
       destroyChildren:function() {

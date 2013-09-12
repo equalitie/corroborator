@@ -8,9 +8,10 @@ define (
     'backbone', 'underscore',
     'lib/Data/collections',
     'lib/SolrSearch/templates/bulletin.tpl',
-    'lib/SolrSearch/templates/bulletin-results.tpl'
+    'lib/SolrSearch/templates/bulletin-results.tpl',
+    'lib/SolrSearch/templates/empty-results.tpl'
   ],
-  function (Backbone, _, Collections, bulletinTmp, bulletinResultsTmp) {
+  function (Backbone, _, Collections, bulletinTmp, bulletinResultsTmp, emptyResultsTmp) {
     'use strict';
 
     var BulletinCollection = Collections.BulletinCollection,
@@ -124,10 +125,28 @@ define (
 
       renderStart: function() {
         this.destroyChildren();
-        var renderInitial = this.collection.slice(0, 30);
-        this.currentPage = 1;
-        this.loadAfter = 10;
-        _.each(renderInitial, this.renderItem, this);
+        if (this.collection.length > 0) {
+          var renderInitial = this.collection.slice(0, 30);
+          this.currentPage = 1;
+          this.loadAfter = 10;
+          _.each(renderInitial, this.renderItem, this);
+        }
+        else {
+          this.renderEmpty();
+        }
+      },
+      // render the empy message
+      renderEmpty: function() {
+        var emptyView = new Backbone.View({
+          className: 'empty-results'
+        });
+        emptyView.$el.html(emptyResultsTmp());
+        this.$el.children()
+                .children()
+                .children()
+                .empty()
+                .append(emptyView.$el);
+        this.childViews.push(emptyView);
       },
       // render each of our actor results
       renderList: function(model, index) {

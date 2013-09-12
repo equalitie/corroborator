@@ -140,14 +140,18 @@ define(
 
     });
 
+    var startHistory = _.once(function() {
+      Backbone.history.start({
+        root: 'tabs/incident'
+      });
+    });
+
     // init function  
     // create our objects
     var init = function(navBus) {
       tabView = new TabView();
       tabRouter = new TabRouter({navBus: navBus});
-      Backbone.history.start({
-        root: 'tabs/incident'
-      });
+      startHistory();
       return tabRouter;
     };
 

@@ -16,6 +16,15 @@ $RESULT_BG_COLOR: #f5f0ec;
     padding-left: $PAD_UNIT;
 }
 
+.empty-results {
+  width: 100%;
+  text-align: center;
+  font-family: 'Open Sans Bold', sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+  color: #aaaaaa;
+}
+
 //all tables
 
 table.bulletins,table.incidents,table.actors {

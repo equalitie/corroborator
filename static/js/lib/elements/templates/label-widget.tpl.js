@@ -21,7 +21,9 @@ function program1(depth0,data) {
   if (stack2 = helpers.field_label) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.field_label; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "\">\n  </li>\n</ul>\n<select ";
+    + "\">\n  <button class=\"drop-down-handle\">\n    <span aria-hidden=\"true\" data-icon=\"d\"></span>\n    <span class=\"screen-reader-text\">show "
+    + escapeExpression(((stack1 = ((stack1 = depth0.display),stack1 == null || stack1 === false ? stack1 : stack1.field_label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " list</span>\n  </button>\n  </li>\n</ul>\n<select ";
   stack2 = helpers['if'].call(depth0, depth0.multiple, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += " name=\""

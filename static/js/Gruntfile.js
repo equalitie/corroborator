@@ -19,6 +19,7 @@ module.exports = function(grunt) {
 
           // search results
           'lib/SolrSearch/templates/actor-results.tpl.js'   : 'lib/SolrSearch/templates/actor-results.tpl',
+          'lib/SolrSearch/templates/empty-results.tpl.js'   : 'lib/SolrSearch/templates/empty-results.tpl',
           'lib/SolrSearch/templates/actor.tpl.js'           : 'lib/SolrSearch/templates/actor.tpl',
           'lib/SolrSearch/templates/incident.tpl.js'        : 'lib/SolrSearch/templates/incident.tpl',
           'lib/SolrSearch/templates/bulletin-results.tpl.js': 'lib/SolrSearch/templates/bulletin-results.tpl',

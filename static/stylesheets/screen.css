@@ -328,6 +328,37 @@ button.do-clear > span {
   font-size: 13px;
 }
 
+/* line 252, ../sass/_buttons.scss */
+.drop-down-handle {
+  height: 15px;
+  font-family: 'Open Sans Semi Bold', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-transform: uppercase;
+  background-color: #ddd2c7;
+  color: white;
+  height: 2em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  border: none;
+  margin: 0px;
+  margin-bottom: -1px;
+  margin-left: -5px;
+  display: inline-block;
+}
+/* line 42, ../sass/_buttons.scss */
+.drop-down-handle:hover {
+  background-color: #ddd2c7;
+}
+/* line 50, ../sass/_fonts.scss */
+.drop-down-handle [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  font-size: 13px;
+}
+
 /* line 1, ../sass/_fountainG.scss */
 #fountainG {
   position: relative;
@@ -2855,26 +2886,25 @@ ul.media li.medium:hover .do-remove {
   float: left;
   margin-bottom: -2px;
   margin-left: 3.07692307692em;
-  margin-right: 3.07692307692em;
 }
-/* line 8, ../sass/_hacks.scss */
+/* line 7, ../sass/_hacks.scss */
 #search-navigation .search input {
   font-size: 120%;
   min-width: 20em;
 }
 
-/* line 17, ../sass/_hacks.scss */
+/* line 16, ../sass/_hacks.scss */
 .incidents-list .in-list, .bulletins-list .in-list {
   border: 1px solid #a0a0a0;
   padding: 0.76923em;
 }
 
-/* line 24, ../sass/_hacks.scss */
+/* line 23, ../sass/_hacks.scss */
 .columns.as-2 {
   width: 100%;
 }
 
-/* line 28, ../sass/_hacks.scss */
+/* line 27, ../sass/_hacks.scss */
 .col.first {
   position: fixed;
   top: 8.15em;
@@ -2884,7 +2914,7 @@ ul.media li.medium:hover .do-remove {
   width: 66.66666%;
 }
 
-/* line 38, ../sass/_hacks.scss */
+/* line 37, ../sass/_hacks.scss */
 .col.first .header {
   position: absolute;
   right: 1.53846em;
@@ -2892,7 +2922,7 @@ ul.media li.medium:hover .do-remove {
   top: 0em;
 }
 
-/* line 49, ../sass/_hacks.scss */
+/* line 48, ../sass/_hacks.scss */
 .col.last {
   width: 33.333333%;
   right: 0em;
@@ -2902,7 +2932,7 @@ ul.media li.medium:hover .do-remove {
   overflow: hidden;
 }
 
-/* line 57, ../sass/_hacks.scss */
+/* line 56, ../sass/_hacks.scss */
 .right-filters .header {
   left: 1.53846em;
   right: 0em;
@@ -2910,7 +2940,7 @@ ul.media li.medium:hover .do-remove {
   top: 0em;
 }
 
-/* line 64, ../sass/_hacks.scss */
+/* line 63, ../sass/_hacks.scss */
 .right-filters .body {
   left: 1.53846em;
   right: 0em;
@@ -2919,23 +2949,23 @@ ul.media li.medium:hover .do-remove {
   position: absolute;
 }
 
-/* line 72, ../sass/_hacks.scss */
+/* line 71, ../sass/_hacks.scss */
 .is-filters.filters {
   margin-bottom: 1.53846em;
 }
 
-/* line 77, ../sass/_hacks.scss */
+/* line 76, ../sass/_hacks.scss */
 .Bulletin.is-expanded .span-66p .body,
 .Incident.is-expanded .span-66p .body {
   padding-right: 3.07692em;
 }
 
-/* line 84, ../sass/_hacks.scss */
+/* line 83, ../sass/_hacks.scss */
 .Actor.in-list {
   min-height: 80px;
 }
 
-/* line 89, ../sass/_hacks.scss */
+/* line 88, ../sass/_hacks.scss */
 .Incident.in-view .map,
 .Bulletin.in-view .map,
 .Actor.in-view .map,
@@ -2947,7 +2977,7 @@ ul.media li.medium:hover .do-remove {
   background-color: #f0f0f0;
 }
 
-/* line 100, ../sass/_hacks.scss */
+/* line 99, ../sass/_hacks.scss */
 .is-preview .body .span-66p {
   width: 100%;
   margin-right: 1.53846em;
@@ -3859,61 +3889,75 @@ nav#search-navigation .search button.do-clear > span {
   width: 78%;
 }
 
+/* line 33, ../sass/_search.scss */
+.searching {
+  display: inline-block;
+  float: left;
+  margin-top: 13px;
+  margin-left: 1em;
+  margin-right: 1em;
+  width: 24px;
+}
+/* line 40, ../sass/_search.scss */
+.searching img {
+  display: none;
+}
+
 /*
 ## basic grid system overrides
 */
-/* line 40, ../sass/_search.scss */
+/* line 52, ../sass/_search.scss */
 .columns .col {
   margin: 0em;
   padding: 0em;
 }
-/* line 43, ../sass/_search.scss */
+/* line 55, ../sass/_search.scss */
 .columns .col > .body, .columns .col > .header {
   margin: 0em;
   padding: 0em;
 }
-/* line 48, ../sass/_search.scss */
+/* line 60, ../sass/_search.scss */
 .columns .group {
   margin-bottom: 1.53846em;
 }
-/* line 50, ../sass/_search.scss */
+/* line 62, ../sass/_search.scss */
 .columns .group:last-child, .columns .group.last {
   margin-bottom: 0em;
 }
-/* line 54, ../sass/_search.scss */
+/* line 66, ../sass/_search.scss */
 .columns .group.is-creator {
   margin-top: 1px;
   min-height: 4em;
 }
 
-/* line 72, ../sass/_search.scss */
+/* line 84, ../sass/_search.scss */
 .columns.as-2 .col.last {
   margin-right: 1.53846em;
 }
 
-/* line 100, ../sass/_search.scss */
+/* line 112, ../sass/_search.scss */
 .Actor .avatar {
   float: left;
 }
-/* line 103, ../sass/_search.scss */
+/* line 115, ../sass/_search.scss */
 .Actor .status {
   float: right;
 }
-/* line 106, ../sass/_search.scss */
+/* line 118, ../sass/_search.scss */
 .Actor .content {
   margin-left: 6.92308em;
 }
-/* line 109, ../sass/_search.scss */
+/* line 121, ../sass/_search.scss */
 .Actor .incidents-count {
   font-weight: bold;
 }
-/* line 112, ../sass/_search.scss */
+/* line 124, ../sass/_search.scss */
 .Actor .details {
   margin-top: 0.76923em;
   margin-bottom: 0.76923em;
   width: 100%;
 }
-/* line 116, ../sass/_search.scss */
+/* line 128, ../sass/_search.scss */
 .Actor .details th {
   width: 33%;
   padding-right: 0.76923em;
@@ -3921,62 +3965,62 @@ nav#search-navigation .search button.do-clear > span {
   text-transform: uppercase;
   font-size: 70%;
 }
-/* line 124, ../sass/_search.scss */
+/* line 136, ../sass/_search.scss */
 .Actor .stats {
   margin-top: 0.76923em;
   margin-bottom: 0.76923em;
 }
-/* line 127, ../sass/_search.scss */
+/* line 139, ../sass/_search.scss */
 .Actor .stats:after {
   clear: both;
 }
-/* line 130, ../sass/_search.scss */
+/* line 142, ../sass/_search.scss */
 .Actor .stats h4.title {
   text-transform: uppercase;
   font-size: 80%;
 }
-/* line 134, ../sass/_search.scss */
+/* line 146, ../sass/_search.scss */
 .Actor .stats > div {
   float: left;
 }
-/* line 136, ../sass/_search.scss */
+/* line 148, ../sass/_search.scss */
 .Actor .stats > div:after {
   content: "";
   clear: both;
 }
-/* line 141, ../sass/_search.scss */
+/* line 153, ../sass/_search.scss */
 .Actor .stats .stat {
   float: left;
   margin: 0.76923em;
   margin-left: 0em;
 }
-/* line 145, ../sass/_search.scss */
+/* line 157, ../sass/_search.scss */
 .Actor .stats .stat .value {
   font-size: 200%;
   font-weight: bold;
   margin-bottom: 0.25em;
 }
-/* line 150, ../sass/_search.scss */
+/* line 162, ../sass/_search.scss */
 .Actor .stats .stat .label {
   font-size: 70%;
   text-transform: uppercase;
 }
-/* line 156, ../sass/_search.scss */
+/* line 168, ../sass/_search.scss */
 .Actor .related {
   clear: both;
   margin-top: 0.76923em;
   margin-bottom: 0.76923em;
 }
-/* line 161, ../sass/_search.scss */
+/* line 173, ../sass/_search.scss */
 .Actor .when-related {
   display: none;
 }
-/* line 165, ../sass/_search.scss */
+/* line 177, ../sass/_search.scss */
 .Actor.in-related .when-related {
   display: block !important;
 }
 
-/* line 180, ../sass/_search.scss */
+/* line 192, ../sass/_search.scss */
 .cover {
   position: fixed;
   top: 8.15385em;
@@ -3987,7 +4031,7 @@ nav#search-navigation .search button.do-clear > span {
   z-index: 15;
 }
 
-/* line 189, ../sass/_search.scss */
+/* line 201, ../sass/_search.scss */
 .overlay {
   position: fixed;
   background-color: #f9f0e8;
@@ -3997,17 +4041,17 @@ nav#search-navigation .search button.do-clear > span {
   width: 33.33333%;
   z-index: 15;
 }
-/* line 197, ../sass/_search.scss */
+/* line 209, ../sass/_search.scss */
 .overlay .when-overlay-expanded {
   display: none;
 }
-/* line 201, ../sass/_search.scss */
+/* line 213, ../sass/_search.scss */
 .overlay .actions:after {
   display: block;
   clear: both;
   height: 0em;
 }
-/* line 207, ../sass/_search.scss */
+/* line 219, ../sass/_search.scss */
 .overlay > .header {
   top: 1px;
   left: 1px;
@@ -4019,7 +4063,7 @@ nav#search-navigation .search button.do-clear > span {
   padding-bottom: 0.5em;
   z-index: 1;
 }
-/* line 218, ../sass/_search.scss */
+/* line 230, ../sass/_search.scss */
 .overlay > .body {
   position: absolute;
   overflow: -moz-scrollbars-vertical;
@@ -4030,36 +4074,36 @@ nav#search-navigation .search button.do-clear > span {
   bottom: 0em;
   background: white;
 }
-/* line 227, ../sass/_search.scss */
+/* line 239, ../sass/_search.scss */
 .overlay > .body > * {
   margin: 0.76923em;
 }
-/* line 232, ../sass/_search.scss */
+/* line 244, ../sass/_search.scss */
 .overlay.is-expanded {
   width: 100%;
 }
-/* line 234, ../sass/_search.scss */
+/* line 246, ../sass/_search.scss */
 .overlay.is-expanded .when-overlay-expanded {
   display: block;
 }
-/* line 237, ../sass/_search.scss */
+/* line 249, ../sass/_search.scss */
 .overlay.is-expanded .when-overlay-not_expanded {
   display: none;
 }
-/* line 240, ../sass/_search.scss */
+/* line 252, ../sass/_search.scss */
 .overlay.is-expanded > .body, .overlay.is-expanded > .footer {
   left: 1.53846em;
 }
-/* line 245, ../sass/_search.scss */
+/* line 257, ../sass/_search.scss */
 .overlay:hover, .overlay:hover.hidden {
   display: block !important;
 }
 
-/* line 250, ../sass/_search.scss */
+/* line 262, ../sass/_search.scss */
 .overlay.is-middle {
   right: 33%;
 }
-/* line 252, ../sass/_search.scss */
+/* line 264, ../sass/_search.scss */
 .overlay.is-middle > .header, .overlay.is-middle > .body, .overlay.is-middle > .footer {
   right: 0em;
 }
@@ -4288,36 +4332,46 @@ table.sort-headers thead a.is-descending:after {
   padding-left: 1.53846em;
 }
 
-/* line 21, ../sass/_results.scss */
+/* line 19, ../sass/_results.scss */
+.empty-results {
+  width: 100%;
+  text-align: center;
+  font-family: 'Open Sans Bold', sans-serif;
+  font-size: 20px;
+  margin-top: 20px;
+  color: #aaaaaa;
+}
+
+/* line 30, ../sass/_results.scss */
 table.bulletins, table.incidents, table.actors {
   width: 100%;
 }
-/* line 23, ../sass/_results.scss */
+/* line 32, ../sass/_results.scss */
 table.bulletins .is-preview, table.incidents .is-preview, table.actors .is-preview {
   min-width: 2.5em;
 }
-/* line 26, ../sass/_results.scss */
+/* line 35, ../sass/_results.scss */
 table.bulletins .is-status, table.incidents .is-status, table.actors .is-status {
   width: 4em;
 }
-/* line 29, ../sass/_results.scss */
+/* line 38, ../sass/_results.scss */
 table.bulletins .is-score, table.incidents .is-score, table.actors .is-score {
   width: 3.5em;
 }
-/* line 32, ../sass/_results.scss */
+/* line 41, ../sass/_results.scss */
 table.bulletins tbody, table.incidents tbody, table.actors tbody {
   td-border-color: #bfbfba;
 }
-/* line 37, ../sass/_results.scss */
+/* line 46, ../sass/_results.scss */
 table.bulletins tbody tr:first-child td, table.bulletins tbody tr.first td, table.incidents tbody tr:first-child td, table.incidents tbody tr.first td, table.actors tbody tr:first-child td, table.actors tbody tr.first td {
   border-top: 0px solid transparent;
 }
-/* line 42, ../sass/_results.scss */
+/* line 51, ../sass/_results.scss */
 table.bulletins tbody tr:last-child td, table.bulletins tbody tr.last td, table.incidents tbody tr:last-child td, table.incidents tbody tr.last td, table.actors tbody tr:last-child td, table.actors tbody tr.last td {
   border-bottom: 0px solid transparent;
 }
 
-/* line 49, ../sass/_results.scss */
+/* line 58, ../sass/_results.scss */
 span.status {
   display: inline-block;
   padding: 0.25em;
@@ -4327,12 +4381,12 @@ span.status {
   -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
 }
-/* line 56, ../sass/_results.scss */
+/* line 65, ../sass/_results.scss */
 span.status > span {
   font-size: 70%;
 }
 
-/* line 62, ../sass/_results.scss */
+/* line 71, ../sass/_results.scss */
 .Bulletin.in-table td, .Incident.in-table td {
   border-top: 1px solid #bfbfba;
   border-bottom: 1px solid #bfbfba;
@@ -4340,83 +4394,83 @@ span.status > span {
   color: #646362;
   padding: 0.5em;
 }
-/* line 69, ../sass/_results.scss */
+/* line 78, ../sass/_results.scss */
 .Bulletin.in-table td.is-selector, .Incident.in-table td.is-selector {
   vertical-align: middle;
   text-align: center;
   width: 1.5em;
   border-left: 1px solid #bfbfba;
 }
-/* line 75, ../sass/_results.scss */
+/* line 84, ../sass/_results.scss */
 .Bulletin.in-table td.is-preview, .Incident.in-table td.is-preview {
   background-color: #d0d0d0;
 }
-/* line 80, ../sass/_results.scss */
+/* line 89, ../sass/_results.scss */
 .Bulletin.in-table td.is-description a, .Bulletin.in-table td.is-description a:active, .Bulletin.in-table td.is-description a:visited, .Bulletin.in-table td.is-description a:hover, .Incident.in-table td.is-description a, .Incident.in-table td.is-description a:active, .Incident.in-table td.is-description a:visited, .Incident.in-table td.is-description a:hover {
   text-decoration: none;
 }
-/* line 84, ../sass/_results.scss */
+/* line 93, ../sass/_results.scss */
 .Bulletin.in-table td.is-description > a:after, .Incident.in-table td.is-description > a:after {
   content: "";
   clear: both;
   display: block;
 }
-/* line 89, ../sass/_results.scss */
+/* line 98, ../sass/_results.scss */
 .Bulletin.in-table td.is-description .title, .Incident.in-table td.is-description .title {
   line-height: 1.25em;
   font-weight: bold;
 }
-/* line 93, ../sass/_results.scss */
+/* line 102, ../sass/_results.scss */
 .Bulletin.in-table td.is-description .details, .Incident.in-table td.is-description .details {
   float: left;
   font-size: 90%;
 }
-/* line 97, ../sass/_results.scss */
+/* line 106, ../sass/_results.scss */
 .Bulletin.in-table td.is-description .meta, .Incident.in-table td.is-description .meta {
   float: right;
   font-size: 90%;
 }
-/* line 102, ../sass/_results.scss */
+/* line 111, ../sass/_results.scss */
 .Bulletin.in-table td.is-status, .Incident.in-table td.is-status {
   vertical-align: middle;
   text-align: center;
   padding-left: 1em;
   padding-right: 1em;
 }
-/* line 108, ../sass/_results.scss */
+/* line 117, ../sass/_results.scss */
 .Bulletin.in-table td.is-score, .Incident.in-table td.is-score {
   vertical-align: middle;
   text-align: center;
   border-left: 1px solid #bfbfba;
   border-right: 1px solid #bfbfba;
 }
-/* line 113, ../sass/_results.scss */
+/* line 122, ../sass/_results.scss */
 .Bulletin.in-table td.is-score .value, .Incident.in-table td.is-score .value {
   font-size: 180%;
   font-weight: bold;
 }
-/* line 118, ../sass/_results.scss */
+/* line 127, ../sass/_results.scss */
 .Bulletin.in-table:hover td, .Incident.in-table:hover td {
   background-color: #f0f0f0;
 }
 
-/* line 125, ../sass/_results.scss */
+/* line 134, ../sass/_results.scss */
 .actors.table li.result {
   width: 50%;
   float: left;
   box-sizing: border-box;
   position: relative;
 }
-/* line 132, ../sass/_results.scss */
+/* line 141, ../sass/_results.scss */
 .actors.table .Actor:hover > div {
   cursor: pointer;
   background-color: #f0f0f0;
 }
-/* line 136, ../sass/_results.scss */
+/* line 145, ../sass/_results.scss */
 .actors.table .Actor:hover > div.is-selector {
   border-right: 1px solid #f0f0f0;
 }
-/* line 140, ../sass/_results.scss */
+/* line 149, ../sass/_results.scss */
 .actors.table .is-selector {
   width: 18px;
   float: left;
@@ -4425,7 +4479,7 @@ span.status > span {
   margin-right: -1px;
   background-color: #f5f0ec;
 }
-/* line 148, ../sass/_results.scss */
+/* line 157, ../sass/_results.scss */
 .actors.table .actor-content {
   height: 10em;
   overflow: hidden;
@@ -4435,15 +4489,15 @@ span.status > span {
   margin-right: 10px;
   background-color: #f5f0ec;
 }
-/* line 156, ../sass/_results.scss */
+/* line 165, ../sass/_results.scss */
 .actors.table .sex, .actors.table .age {
   float: left;
 }
-/* line 159, ../sass/_results.scss */
+/* line 168, ../sass/_results.scss */
 .actors.table .aka {
   width: 100%;
 }
-/* line 162, ../sass/_results.scss */
+/* line 171, ../sass/_results.scss */
 .actors.table .name {
   overflow: hidden;
   white-space: nowrap;
@@ -4452,7 +4506,7 @@ span.status > span {
   height: 16px;
   text-overflow: ellipsis;
 }
-/* line 165, ../sass/_results.scss */
+/* line 174, ../sass/_results.scss */
 .actors.table .aka {
   overflow: hidden;
   white-space: nowrap;
@@ -4461,7 +4515,7 @@ span.status > span {
   height: 16px;
   text-overflow: ellipsis;
 }
-/* line 168, ../sass/_results.scss */
+/* line 177, ../sass/_results.scss */
 .actors.table .works-as, .actors.table .lives-in {
   overflow: hidden;
   white-space: nowrap;
@@ -4470,12 +4524,12 @@ span.status > span {
   height: 16px;
   text-overflow: ellipsis;
 }
-/* line 171, ../sass/_results.scss */
+/* line 180, ../sass/_results.scss */
 .actors.table .L1, .actors.table .L2, .actors.table .L3 {
   width: 100%;
   position: relative;
 }
-/* line 175, ../sass/_results.scss */
+/* line 184, ../sass/_results.scss */
 .actors.table .L3 p {
   float: left;
 }

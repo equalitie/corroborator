@@ -53,6 +53,7 @@ define (
 
     LabelWidgetView = Backbone.View.extend({
       events: {
+        'click .drop-down-handle': 'toggleList'
       },
       selectCollection: undefined,
       displayCollection: undefined,
@@ -98,6 +99,7 @@ define (
           this.selectModelsFromResourceUri(this.content.values);
         }
 
+
         this.templateVars = {
           display: options.display,
           entityType: this.entityType,
@@ -106,6 +108,40 @@ define (
         this.render()
             .renderSelected();
         this.initAutocomplete();
+      },
+
+
+      toggleList: function(evt) {
+        evt.preventDefault();
+        if (this.open === true) {
+          this.closeList();
+        }
+        else {
+          this.openList();
+        }
+      },
+      // close the dropdown list
+      closeList: function() {
+        this.inputEl.focus();
+        this.setIcon('d');
+        this.open = false;
+      },
+
+      // set the dropdown icon
+      setIcon: function(icon) {
+        this.$el.children('ul')
+                .children()
+                .children('button')
+                .children(':first-child')
+                .attr('data-icon', icon);
+      },
+
+      // open the drop down list
+      openList: function(evt) {
+        this.setIcon('u');
+        this.inputEl.autocomplete('search', this.inputEl.val());
+        this.inputEl.focus();
+        this.open = true;
       },
 
       // enable the autocomplete functionality
@@ -117,10 +153,16 @@ define (
           inputEl.autocomplete({
           minLength: 0,
           source: autocompleteSrc,
-          select: this.addToSelectedList.bind(this, inputEl)
+          select: this.addToSelectedList.bind(this, inputEl),
+          close: function() {
+                   this.closeList();
+                 }.bind(this),
         });
+        this.inputEl = inputEl;
       },
+
       addToSelectedList: function(inputEl, evt, ui) {
+        this.closeList();
         this.selectModelFromResourceUri(ui.item.id);
         $(inputEl).val('');
         return false;

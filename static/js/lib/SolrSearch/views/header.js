@@ -1,6 +1,5 @@
 /*global define, Bacon */
 // ### header.js
-
 // This displays the header view
 // it provides:  
 // > feedback on the number of actors selected

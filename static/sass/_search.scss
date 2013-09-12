@@ -30,6 +30,18 @@
   }
 }
 
+.searching {
+  display: inline-block;
+  float: left;
+  margin-top: 13px;
+  margin-left: 1em;
+  margin-right: 1em;
+  width: 24px;
+  img {
+    display: none;
+  }
+}
+
 // ========================================================================
 // COLUMNS CONTENT
 // ========================================================================

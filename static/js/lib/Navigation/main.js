@@ -20,9 +20,10 @@ define(
     'lib/Navigation/NavCombo',
     'lib/elements/dialog',
     'lib/Navigation/TabRouter',
-    'lib/streams'
+    'lib/streams',
+    'lib/Navigation/activity'
   ],
-  function(_, InputView, NavCombo, Dialog, TabRouter, Streams) {
+  function(_, InputView, NavCombo, Dialog, TabRouter, Streams, Activity) {
     'use strict';
     var textEntered,
         textProperty, inputView;
@@ -50,9 +51,11 @@ define(
       inputView = new InputView({
         el: '.search'
       });
-      textEntered = inputView.textProperty.map(nonEmpty);
-      textProperty = inputView.textProperty;
       return inputView;
+    };
+
+    var initActivityWatcher = function() {
+      Activity.init();
     };
 
     // watch for search events

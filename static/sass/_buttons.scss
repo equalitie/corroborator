@@ -249,3 +249,15 @@ button.do-clear {
   display: inline-block;
   @include corrob_icon_attach_before;
 }
+.drop-down-handle {
+  height: 15px;
+  @include button(
+    $background_color: $COLOR_INPUT_BD,
+    $hover_color: $COLOR_INPUT_BD,
+    $text_color: white
+  );
+  margin-bottom: -1px;
+  margin-left: -5px;
+  display: inline-block;
+  @include corrob_icon_attach_before;
+}
