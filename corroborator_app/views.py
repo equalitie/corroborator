@@ -4,30 +4,24 @@ This file handles the core views for th Corroborator application.
 Author: Bill Doran
 2013/02/10
 """
-import datetime
-import calendar
-import logging
 import json
 from django.db.models import Q
-from django.core import serializers
-from django.shortcuts import render_to_response, get_object_or_404, render
+from django.shortcuts import render_to_response, render
 from django.contrib.auth import authenticate,  login
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
-from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
-    TimeInfo, Location, Source, StatusUpdate, ActorRole, Label, SourceType,\
-    Media, Comment, PredefinedSearch, ActorRelationship
-from django.utils import simplejson as json
-from django.db.models import Count
 from tastypie.models import ApiKey
 from corroborator_app.multisave import multi_save_actors, multi_save_entities
 
-
+from corroborator_app.models import CrimeCategory, \
+    Location, Source, StatusUpdate, ActorRole, Label, \
+    PredefinedSearch
 
 ###############################################################################
 # FORMATTING HELPER METHODS
 ###############################################################################
+
 
 def format_predefined_search(predef_object):
     """
@@ -42,28 +36,41 @@ def format_predefined_search(predef_object):
         format_filters(predef_object.incident_filters)
     return predef_object
 
+
 def format_filters_for_tastypie(filter_field):
     """
     make it proper json for JSON.parse
     """
     return format_filters(filter_field).replace("\'", "\"")
 
+
 def format_filters(filter_field):
     """
     format a single filter
     """
-    return json.dumps(filter_field).replace("u\'","\'").strip('"')
+    return json.dumps(filter_field).replace("u\'", "\'").strip('"')
 
-    
 
 def get_solr_url(path):
+    '''
+    set the solr url that we are connecting to
+    '''
     if path.find('new_corroborator') > -1:
         solr_path = 'http://127.0.0.1:8983/solr/collection1/'
     else:
         solr_path = 'https://sjac.corroborator.org/solr/collection1/'
     return solr_path
 
+
+###############################################################################
+# MAIN VIEW METHODS -
+###############################################################################
+
+
 def login_user(request):
+    '''
+    login view
+    '''
     state = "Please log in below..."
     username = password = ''
     if request.POST:
@@ -79,26 +86,40 @@ def login_user(request):
             else:
                 state = "Your account is not active,\
                 please contact the site admin."
-                return render_to_response('auth.html', \
-                {'state':state,  'username': username}, RequestContext(request))
+                return render_to_response(
+                    'auth.html',
+                    {
+                        'state': state,
+                        'username': username
+                    },
+                    RequestContext(request)
+                )
         else:
             state = "Your username and/or password were incorrect."
-            return render_to_response('auth.html', {'state':state, \
-            'username': username}, RequestContext(request))
+            return render_to_response(
+                'auth.html',
+                {
+                    'state': state,
+                    'username': username
+                },
+                RequestContext(request)
+            )
 
-    return render_to_response('auth.html', {'state':state, \
-    'username': username}, RequestContext(request))
-
-###############################################################################
-# MAIN VIEW METHODS - 
-###############################################################################
+    return render_to_response(
+        'auth.html',
+        {
+            'state': state,
+            'username': username
+        },
+        RequestContext(request)
+    )
 
 
 def index(request, *args, **kwargs):
     """
     main view method - this renders the production app page and adds all
     bootstrap variables required - this is used at / and /corroborator
-    TODO - handle formatting of lists outside the view function
+     handle formatting of lists outside the view function
     """
     if request.user.is_authenticated():
         username = request.user.username
@@ -110,7 +131,7 @@ def index(request, *args, **kwargs):
         roles = ActorRole.ROLE_STATUS
         for role in roles:
             role_status_set.append({
-                'key':role[0],
+                'key': role[0],
                 'value': role[1]}
             )
 
@@ -125,7 +146,10 @@ def index(request, *args, **kwargs):
         predefined_search_set = PredefinedSearch.objects.filter(
             Q(user_id=userid) | Q(make_global=True)
         )
-        predefined_search_set = map(format_predefined_search, predefined_search_set)
+        predefined_search_set = map(
+            format_predefined_search,
+            predefined_search_set
+        )
         crimes_set = CrimeCategory.objects.all()
         status_set = StatusUpdate.objects.all()
         sources_set = Source.objects.all()
@@ -157,6 +181,12 @@ def index(request, *args, **kwargs):
     else:
         return render_to_response('auth.html', RequestContext(request))
 
+
+###############################################################################
+# MULTISAVE VIEWS
+###############################################################################
+
+
 def lookup_bulletin(request, bulletin_id, mode):
     """
     This method is used to implement mass update for bulletins
@@ -168,9 +198,10 @@ def lookup_bulletin(request, bulletin_id, mode):
         element_data = json.loads(request.raw_post_data)
 
         username = element_data['username']
-        response_data = multi_save_entities(element_data,
-            'bulletin', username)
+        response_data = multi_save_entities(
+            element_data, 'bulletin', username)
     return HttpResponse(response_data, mimetype='application/json')
+
 
 def lookup_incident(request, incident_id, mode):
     """
@@ -183,9 +214,10 @@ def lookup_incident(request, incident_id, mode):
         #if request.method == "POST" and request.is_ajax():
         element_data = json.loads(request.raw_post_data)
         username = element_data['username']
-        response_data = multi_save_entities(element_data,
-            'incident', username)
+        response_data = multi_save_entities(
+            element_data, 'incident', username)
     return HttpResponse(response_data, mimetype='application/json')
+
 
 def lookup_actor(request, actor_id, mode):
     """
@@ -196,11 +228,6 @@ def lookup_actor(request, actor_id, mode):
     if mode == 'multisave':
         element_data = json.loads(request.raw_post_data)
         username = element_data['username']
-        response_data = multi_save_actors(element_data,
-            username)
+        response_data = multi_save_actors(
+            element_data, username)
     return HttpResponse(response_data, mimetype='application/json')
-##############################################################################
-# FORMATTERS - FOR BOOTSTRAP
-##############################################################################
-
-

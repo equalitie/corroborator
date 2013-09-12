@@ -29,9 +29,6 @@
       underscore: {
         exports: '_'
       },
-      socketio: {
-        exports: 'io'
-      },
       backbone: {
         deps: ['underscore', 'jquery'],
         exports: 'Backbone'

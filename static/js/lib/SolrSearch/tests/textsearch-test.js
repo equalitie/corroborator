@@ -52,11 +52,12 @@ define(
     buster.testCase('Solr Search result parser', {
       
       setUp: function() {
+        console.log('textsearch setUP');
       },
       'should return the filter parser function': function() {
         assert.equals(typeof(ParseFilter), 'function');
       },
-      'should parse the bulletin filters': function(done) {
+      '// should parse the bulletin filters': function(done) {
         bus.toEventStream()
            .filter(filterBulletin)
            .take(1)
@@ -66,7 +67,7 @@ define(
         }));
         var fp = new ParseFilter(filters, 'bulletin');
       },
-      'should parse the incident filters': function(done) {
+      '// should parse the incident filters': function(done) {
         bus.toEventStream()
            .filter(filterIncident)
            .take(1)
@@ -76,7 +77,7 @@ define(
         }));
         var fp = new ParseFilter(filters, 'incident');
       },
-      'should parse the actor filters': function(done) {
+      '// should parse the actor filters': function(done) {
         bus.toEventStream()
            .filter(filterActor)
            .take(1)

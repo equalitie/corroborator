@@ -14,13 +14,29 @@ config["Corroborator Browser tests"] = {
       "components/underscore/underscore.js",
       "components/backbone/backbone.js",
       "components/moment/moment.js",
+      "components/jquery-timepicker-addon/jquery-ui-sliderAccess.js",
+      "components/jquery-timepicker-addon/jquery-ui-timepicker-addon.js",
+      "components/jquery-form/jquery.form.js",
+      "components/flowplayer/dist/flowplayer.js"
     ],
     sources: [
       "test/fixtures/*.js",
       "lib/elements/*.js",
+      "lib/elements/helpers/*.js",
       "lib/elements/templates/*.js",
+      "lib/elements/views/*.js",
+
       "lib/Navigation/*.js",
+
+      "lib/CRUD/views/*/*/*.js",
+      "lib/CRUD/views/*/*.js",
       "lib/CRUD/views/*.js",
+
+      "lib/CRUD/templates/*.js",
+      "lib/CRUD/templates/*/*.js",
+      "lib/CRUD/templates/*/*/*.js",
+      
+
       "lib/CRUD/data/*.js",
       "lib/SolrSearch/*.js",
       "lib/SolrSearch/data/*.js",
@@ -33,7 +49,7 @@ config["Corroborator Browser tests"] = {
      ],
     tests: [
       "lib/SolrSearch/tests/*-test.js",
-      "lib/CRUD/tests/*-test.js",
+      //"lib/CRUD/tests/*-test.js",
       //"lib/Navigation/tests/*-test.js",
       //"lib/elements/tests/*-test.js"
     ],
