@@ -46,7 +46,10 @@ define(
             'status': 'most_recent_status_incident',
             'location': 'incident_locations'
           };
-          return sortMap[value];
+          return {
+            field: sortMap[value.option],
+            direction: value.direction
+          };
         };
 
 
@@ -152,8 +155,14 @@ define(
       },
 
       // models are sorted based on the result of this function
-      comparator: function(model) {
-        return parseComparator(model.get(this.compareField));
+      comparator: function(modelA, modelB) {
+        var comparison, inversion, compareFieldA, compareFieldB;
+        inversion = this.direction === 'ascending' ? 1: -1;
+        compareFieldA = parseComparator(modelA.get(this.compareField));
+        compareFieldB = parseComparator(modelB.get(this.compareField));
+        if (compareFieldA > compareFieldB) { comparison = (inversion * -1);}
+        if (compareFieldA < compareFieldB) { comparison = inversion;}
+        return comparison;
       },
 
       // watch the search bus to update the incident collection when new  
@@ -206,10 +215,10 @@ define(
           return value.type === 'filter_view_combined';
         })
         .filter(filterIncident)
-        .map(Filters.extractOption)
         .map(mapSort)
         .onValue(function (value) {
-          this.compareField = value;
+          this.compareField = value.field;
+          this.direction = value.direction;
           this.sort();
         }.bind(this));
       },

@@ -19,24 +19,16 @@ define(
     // templates
     'lib/SolrSearch/templates/header.tpl',
     'lib/SolrSearch/templates/header-count.tpl',
-    'lib/SolrSearch/templates/filters.tpl'
+    'lib/SolrSearch/views/sort-view'
   ],
   function ($, Backbone, Handlebars, Streams, Combo, Collections,
-    headerTmp, headerCountTmp, filtersTmp
+    headerTmp, headerCountTmp, SortView
   ) {
     'use strict';
     //////////////////////////////////////////////////////////////////////
     // Stream processing functions
     //////////////////////////////////////////////////////////////////////
     var navBus = Streams.navBus,
-        filterSort = function(value) {
-          return value.type === 'filter_view';
-        },
-        getSortType = function(value) {
-          return {
-            option: value.sort
-          };
-        },
         filterTabNav = function(value) {
           return value.type === 'navigate';
         },
@@ -181,112 +173,6 @@ define(
 
     });
 
-    //////////////////////////////////////////////////////////////////////
-    // FILTER VIEW
-    //////////////////////////////////////////////////////////////////////
-    
-    var FilterView = Backbone.View.extend({
-      el: 'tr.filters',
-      eventIdentifier: 'filter_view',
-      variableFilter: 'location',
-      events: {
-        'click a': 'handleFilter',
-        'click .date': 'sortDate',
-        'click .location': 'sortLocation',
-        'click .age': 'sortAge',
-        'click .title': 'sortTitle',
-        'click .sort-status': 'sortStatus',
-        'click .sort-score': 'sortScore'
-      },
-      initialize: function() {
-        this.watchSortEvents();
-        this.watchNavEvents();
-        this.render();
-      },
-
-      // handle sort events from headers
-      sortDate: function() {
-        this.sendSortEvent('date');
-      },
-      sortLocation: function() {
-        this.sendSortEvent('location');
-      },
-      sortAge: function() {
-        this.sendSortEvent('age');
-      },
-      sortTitle: function() {
-        this.sendSortEvent('title');
-      },
-      sortStatus: function() {
-        this.sendSortEvent('status');
-      },
-      sortScore: function() {
-        this.sendSortEvent('score');
-      },
-
-      sendSortEvent: function(sortEventName) {
-        Streams.searchBus.push({
-          type: this.eventIdentifier,
-          content: {
-            sort: sortEventName
-          }
-        });
-      },
-      // watch for nav to actor - swap out filters when change to and from
-      watchNavEvents: function() {
-        var self = this;
-        var filterMap = {
-          actor: 'age',
-          bulletin: 'location',
-          incident: 'location'
-        };
-        createNavProperty()
-          .onValue(function(value) {
-            self.variableFilter = filterMap[value.navValue];
-            self.render();
-          });
-      },
-
-      watchSortEvents: function() {
-        var self = this;
-
-        var selectStream = Streams.searchBus.toEventStream()
-                           .filter(filterSort)
-                           .map(extractResults)
-                           .map(getSortType);
-
-        var both = selectStream.merge(createNavProperty());
-        var watcher = both.scan({
-                            type: self.eventIdentifier + '_combined'
-                          }, combineBoth);
-        watcher.filter(filterExecuteAction)
-               .onValue(function(value) {
-                  Streams.searchBus.push(value);
-                });
-
-      },
-
-      handleFilter: function(e) {
-        e.preventDefault();
-        $(e.currentTarget).parent()
-                          .siblings()
-                          .children()
-                          .removeClass('current')
-                          .removeClass('is-descending');
-
-        $(e.currentTarget).parent()
-                          .children()
-                          .removeClass('current')
-                          .removeClass('is-descending');
-
-        $(e.currentTarget).addClass('current').addClass('is-descending');
-      },
-      render: function() {
-        var html = filtersTmp({variableFilter: this.variableFilter});
-        this.$el.empty()
-                .append(html);
-      }
-    });
 
     // ## used to render the header container view
     // renders the ElementsSelectedView and the ActionComboView subviews
@@ -305,7 +191,7 @@ define(
         });
         this.on('sortEvent', this.publishSort, this);
         this.render();
-        this.renderFilterBox();
+        this.renderSortBox();
       },
 
 
@@ -326,8 +212,8 @@ define(
         this.comboView.setElement('.actions');
         this.comboView.render();
       },
-      renderFilterBox: function() {
-        var filterView = new FilterView();
+      renderSortBox: function() {
+        var sortView = new SortView();
       }
     });
 

@@ -131,12 +131,13 @@ INSTALLED_APPS = (
     'reversion',
     'celery_haystack',
 
-    'locking',
+    #'locking',
 
     # custom apps
     'corroborator_app',
 )
 
+# locking config
 LOCKING = {'time_until_expiration': 120, 'time_until_warning': 60}
 
 

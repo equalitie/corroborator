@@ -25,6 +25,10 @@ urlpatterns = patterns('',
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_actor'),
 )
 
+#lockilg
+urlpatterns += patterns('',
+    (r'^admin/ajax/', include('locking.urls')),
+)
 
 # API Resources
 from tastypie.api import Api

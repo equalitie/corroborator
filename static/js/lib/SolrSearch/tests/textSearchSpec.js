@@ -36,9 +36,13 @@ define(
           return value.type === 'parse_filters_bulletin' && isSame;
         },
         filterIncident = function(value) {
+          try {
           var isSame = 
             _.difference(incidentFields, _.keys(value.content)).length === 0;
           return value.type === 'parse_filters_incident' && isSame;
+          }
+          catch (e) {
+          }
         },
         filterActor = function(value) {
           var isSame = 
