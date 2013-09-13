@@ -130,10 +130,14 @@ INSTALLED_APPS = (
     'tastypie',
     'reversion',
     'celery_haystack',
-    'django_socketio',
+
+    'locking',
+
     # custom apps
     'corroborator_app',
 )
+
+LOCKING = {'time_until_expiration': 120, 'time_until_warning': 60}
 
 
 # A sample logging configuration. The only tangible logging
