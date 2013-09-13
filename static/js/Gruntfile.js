@@ -131,20 +131,10 @@ module.exports = function(grunt) {
         'lib/SolrSearch/widgets/manager.js'
       ]
     },
-    buster: { // test standard script
-      dev: {
-        options: {
-          growl: true
-        }
+    karma: { // test standard script
+      unit: {
+        configFile: 'karma.conf.js'
       }
-      //production: { // tests minified script
-        //options: {
-          //growl: true
-        //}
-        //test: {
-          //config: 'test/buster.js'
-        //}
-      //}
     },
     // concatenate and minify using the require r.js script
     requirejs: {
@@ -219,14 +209,14 @@ module.exports = function(grunt) {
         'lib/CRUD/templates/display-templates/*.tpl',
         'lib/CRUD/templates/display-templates/*/*.tpl'
       ],
-      tasks: [/* 'buster:dev',*/'handlebars', /*'jshint'/*, 'requirejs', 'docco'*/]
+      tasks: ['handlebars', 'karma', /*'jshint', 'requirejs', 'docco'*/]
     }
   });
 
   // Load the plugins that provide the tasks we specified in package.json.
   grunt.loadNpmTasks('grunt-contrib-handlebars');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-buster');
+  grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-docco2');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -240,7 +230,7 @@ module.exports = function(grunt) {
     [
       'handlebars',
       'jshint',
-      'buster',
+      'karma',
       'requirejs',
       'plato'
 

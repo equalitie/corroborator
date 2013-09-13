@@ -40,6 +40,8 @@ define(
       // add the save item
       Comboview.render();
     };
+    // show search spinner while search in progress
+    Activity.init();
 
     // stream processing helper
     var nonEmpty = function(x) {

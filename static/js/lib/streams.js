@@ -6,14 +6,22 @@ define(
   ['bacon'],
   function(Bacon) {
     'use strict';
+    var createTypeFilter = function(eventType) {
+      return function (value) {
+        return value.type === eventType;
+      };
+    };
     var searchBus = new Bacon.Bus(),
         navBus = new Bacon.Bus(),
         crudBus = new Bacon.Bus(),
         navProperty = navBus.toProperty('incident');
     //navBus.toEventStream().log();
-    searchBus.toEventStream().log();
+    //searchBus.toEventStream().log();
     //crudBus.toEventStream().log();
     return {
+      filterLib: {
+        createTypeFilter: createTypeFilter
+      },
       searchBus: searchBus,
       navBus: navBus,
       crudBus: crudBus,
