@@ -26,9 +26,9 @@ urlpatterns = patterns('',
 )
 
 #lockilg
-urlpatterns += patterns('',
-    (r'^admin/ajax/', include('locking.urls')),
-)
+#urlpatterns += patterns('',
+    #(r'^admin/ajax/', include('locking.urls')),
+#)
 
 # API Resources
 from tastypie.api import Api
