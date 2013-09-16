@@ -156,12 +156,24 @@ define(
 
       // models are sorted based on the result of this function
       comparator: function(modelA, modelB) {
-        var comparison, inversion, compareFieldA, compareFieldB;
+        var comparison, inversion, compareFieldA, compareFieldB, minVal, maxVal;
+        if (this.compareField === 'confidence_score') {
+          minVal = 1; maxVal = 100;
+        }
+        compareFieldA = parseComparator(
+          modelA.get(this.compareField),
+          this.direction,
+          minVal, maxVal
+        );
+        compareFieldB = parseComparator(
+          modelB.get(this.compareField),
+          this.direction,
+          minVal, maxVal
+        );
+
         inversion = this.direction === 'ascending' ? 1: -1;
-        compareFieldA = parseComparator(modelA.get(this.compareField));
-        compareFieldB = parseComparator(modelB.get(this.compareField));
-        if (compareFieldA > compareFieldB) { comparison = (inversion * -1);}
-        if (compareFieldA < compareFieldB) { comparison = inversion;}
+        if (compareFieldA < compareFieldB) { comparison = (inversion * -1);}
+        if (compareFieldA > compareFieldB) { comparison = inversion;}
         return comparison;
       },
 

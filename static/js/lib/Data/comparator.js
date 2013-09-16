@@ -1,7 +1,7 @@
 /*global define*/
 // Author: Cormac McGuire
 // ### Description
-// Define the sort functionality for our collections
+// parse the fields that are to be used in comparisons
 
 define (
   [
@@ -9,12 +9,16 @@ define (
   ],
   function (_) {
     'use strict';
-    var parseComparator, reduceArray, lowerCase;
+    var parseComparator, reduceArray, lowerCase, convertNumToString,
+    convertUndefinedNumber, convertUndefinedString;
 
     // parse the compare field
-    parseComparator = function(compareField) {
+    parseComparator = function(compareField, direction, minVal, maxVal) {
       compareField = reduceArray(compareField);
       compareField = lowerCase(compareField);
+      compareField = convertUndefinedNumber(compareField, direction, minVal, maxVal);
+      compareField = convertUndefinedString(compareField, direction);
+      compareField = convertNumToString(compareField);
       return compareField;
     };
 
@@ -30,6 +34,27 @@ define (
     lowerCase = function(field) {
       if (typeof(field) === 'string') {
         field = field.toLowerCase();
+      }
+      return field;
+    };
+
+    convertUndefinedString = function(field, direction, minVal) {
+      if (field === undefined && minVal === undefined) {
+        field = direction === 'ascending' ? 'zzz' : 'aaa';
+      }
+      return field;
+    };
+
+    convertUndefinedNumber = function(field, direction, minVal, maxVal) {
+      if (field === undefined && minVal !== undefined) {
+        field = direction === 'ascending' ? 'zzz' : '000';
+      }
+      return field;
+    };
+
+    convertNumToString = function(field) {
+      if (typeof(field) === 'number') {
+        field = field.toString();
       }
       return field;
     };

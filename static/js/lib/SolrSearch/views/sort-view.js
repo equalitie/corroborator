@@ -61,7 +61,7 @@ define (
       eventIdentifier: 'filter_view',
       variableFilter: 'location',
       events: {
-        'click a': 'handleFilter',
+        'click a': 'preventNav',
         'click .date': 'sortDate',
         'click .location': 'sortLocation',
         'click .age': 'sortAge',
@@ -71,33 +71,38 @@ define (
       },
 
       currentSort: '',
-      direction: '',
+      direction: 'descending',
 
       initialize: function() {
         this.watchSortEvents();
         this.watchNavEvents();
         this.render();
       },
+      preventNav: function(evt) {
+        evt.preventDefault();
+      },
 
       // handle sort events from headers
-      sortDate: function() {
-        this.sendSortEvent('date');
+      sortDate: function(evt) {
+        this.sendSortEvent('date', evt.currentTarget);
       },
-      sortLocation: function() {
-        this.sendSortEvent('location');
+      sortLocation: function(evt) {
+        this.sendSortEvent('location', evt.currentTarget);
       },
-      sortAge: function() {
-        this.sendSortEvent('age');
+      sortAge: function(evt) {
+        this.sendSortEvent('age', evt.currentTarget);
       },
-      sortTitle: function() {
-        this.sendSortEvent('title');
+      sortTitle: function(evt) {
+        this.sendSortEvent('title', evt.currentTarget);
       },
-      sortStatus: function() {
-        this.sendSortEvent('status');
+      sortStatus: function(evt) {
+        this.sendSortEvent('status', evt.currentTarget);
       },
-      sortScore: function() {
-        this.sendSortEvent('score');
+      sortScore: function(evt) {
+        this.sendSortEvent('score', evt.currentTarget);
       },
+
+
 
       getDirection: function(requestedSort, currentDirection) {
         var newDirection, directions;
@@ -116,8 +121,9 @@ define (
 
       },
 
-      sendSortEvent: function(sortEventName) {
+      sendSortEvent: function(sortEventName, el) {
         this.direction = this.getDirection(sortEventName, this.direction);
+        this.handleFilter(el);
         this.currentSort = sortEventName;
         Streams.searchBus.push({
           type: this.eventIdentifier,
@@ -139,6 +145,7 @@ define (
         createNavProperty()
           .onValue(function(value) {
             self.variableFilter = filterMap[value.navValue];
+            self.navValue = value.navValue;
             self.render();
           });
       },
@@ -162,23 +169,29 @@ define (
 
       },
 
-      handleFilter: function(e) {
-        e.preventDefault();
-        $(e.currentTarget).parent()
-                          .siblings()
-                          .children()
-                          .removeClass('current')
-                          .removeClass('is-descending');
+      // add / remove classes to the html elements based on item selected
+      // and the direction of the sort
+      handleFilter: function(el) {
+        $(el).parent()
+             .siblings()
+             .children()
+             .removeClass('current')
+             .removeClass('is-descending')
+             .removeClass('is-ascending');
 
-        $(e.currentTarget).parent()
-                          .children()
-                          .removeClass('current')
-                          .removeClass('is-descending');
+        $(el).parent()
+             .children()
+             .removeClass('current')
+             .removeClass('is-descending')
+             .removeClass('is-ascending');
 
-        $(e.currentTarget).addClass('current').addClass('is-descending');
+        $(el).addClass('current').addClass('is-' + this.direction);
       },
       render: function() {
-        var html = filtersTmp({variableFilter: this.variableFilter});
+        var html = filtersTmp({
+          variableFilter: this.variableFilter,
+          navValue: this.navValue
+        });
         this.$el.empty()
                 .append(html);
       }
@@ -186,4 +199,3 @@ define (
 
     return SortView;
 });
-

@@ -29,6 +29,7 @@ module.exports = function(config) {
       {pattern: 'lib/CRUD/**/**/**/*.js', included: false},
 
       {pattern: 'lib/Data/*.js', included: false},
+      {pattern: 'lib/Data/**/*.js', included: false},
 
       {pattern: 'lib/elements/*.js', included: false},
       {pattern: 'lib/elements/**/*.js', included: false},

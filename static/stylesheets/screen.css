@@ -1,8 +1,7 @@
 @charset "UTF-8";
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* Main styles file
+ * this imports all our different style files
+ */
 /* line 1, ../sass/_fonts.scss */
 .screen-reader-text {
   position: absolute;
@@ -357,202 +356,6 @@ button.do-clear > span {
   speak: none;
   -webkit-font-smoothing: antialiased;
   font-size: 13px;
-}
-
-/* line 1, ../sass/_fountainG.scss */
-#fountainG {
-  position: relative;
-  width: 240px;
-  height: 29px;
-}
-
-/* line 6, ../sass/_fountainG.scss */
-.fountainG {
-  position: absolute;
-  top: 0;
-  background-color: #000000;
-  width: 29px;
-  height: 29px;
-  -moz-animation-name: bounce_fountainG;
-  -moz-animation-duration: 1s;
-  -moz-animation-iteration-count: infinite;
-  -moz-animation-direction: linear;
-  -moz-transform: scale(0.3);
-  -moz-border-radius: 19px;
-  -webkit-animation-name: bounce_fountainG;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-direction: linear;
-  -webkit-transform: scale(0.3);
-  -webkit-border-radius: 19px;
-  -ms-animation-name: bounce_fountainG;
-  -ms-animation-duration: 1s;
-  -ms-animation-iteration-count: infinite;
-  -ms-animation-direction: linear;
-  -ms-transform: scale(0.3);
-  -ms-border-radius: 19px;
-  -o-animation-name: bounce_fountainG;
-  -o-animation-duration: 1s;
-  -o-animation-iteration-count: infinite;
-  -o-animation-direction: linear;
-  -o-transform: scale(0.3);
-  -o-border-radius: 19px;
-  animation-name: bounce_fountainG;
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
-  animation-direction: linear;
-  transform: scale(0.3);
-  border-radius: 19px;
-}
-
-/* line 44, ../sass/_fountainG.scss */
-#fountainG_1 {
-  left: 0;
-  -moz-animation-delay: 0.4s;
-  -webkit-animation-delay: 0.4s;
-  -ms-animation-delay: 0.4s;
-  -o-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-
-/* line 53, ../sass/_fountainG.scss */
-#fountainG_2 {
-  left: 30px;
-  -moz-animation-delay: 0.5s;
-  -webkit-animation-delay: 0.5s;
-  -ms-animation-delay: 0.5s;
-  -o-animation-delay: 0.5s;
-  animation-delay: 0.5s;
-}
-
-/* line 62, ../sass/_fountainG.scss */
-#fountainG_3 {
-  left: 60px;
-  -moz-animation-delay: 0.6s;
-  -webkit-animation-delay: 0.6s;
-  -ms-animation-delay: 0.6s;
-  -o-animation-delay: 0.6s;
-  animation-delay: 0.6s;
-}
-
-/* line 71, ../sass/_fountainG.scss */
-#fountainG_4 {
-  left: 90px;
-  -moz-animation-delay: 0.7s;
-  -webkit-animation-delay: 0.7s;
-  -ms-animation-delay: 0.7s;
-  -o-animation-delay: 0.7s;
-  animation-delay: 0.7s;
-}
-
-/* line 80, ../sass/_fountainG.scss */
-#fountainG_5 {
-  left: 120px;
-  -moz-animation-delay: 0.8s;
-  -webkit-animation-delay: 0.8s;
-  -ms-animation-delay: 0.8s;
-  -o-animation-delay: 0.8s;
-  animation-delay: 0.8s;
-}
-
-/* line 89, ../sass/_fountainG.scss */
-#fountainG_6 {
-  left: 150px;
-  -moz-animation-delay: 0.9s;
-  -webkit-animation-delay: 0.9s;
-  -ms-animation-delay: 0.9s;
-  -o-animation-delay: 0.9s;
-  animation-delay: 0.9s;
-}
-
-/* line 98, ../sass/_fountainG.scss */
-#fountainG_7 {
-  left: 180px;
-  -moz-animation-delay: 1s;
-  -webkit-animation-delay: 1s;
-  -ms-animation-delay: 1s;
-  -o-animation-delay: 1s;
-  animation-delay: 1s;
-}
-
-/* line 107, ../sass/_fountainG.scss */
-#fountainG_8 {
-  left: 210px;
-  -moz-animation-delay: 1.1s;
-  -webkit-animation-delay: 1.1s;
-  -ms-animation-delay: 1.1s;
-  -o-animation-delay: 1.1s;
-  animation-delay: 1.1s;
-}
-
-@-moz-keyframes bounce_fountainG {
-  /* line 117, ../sass/_fountainG.scss */
-  0% {
-    -moz-transform: scale(1);
-    background-color: #000000;
-  }
-
-  /* line 122, ../sass/_fountainG.scss */
-  100% {
-    -moz-transform: scale(0.3);
-    background-color: #FFFFFF;
-  }
-}
-
-@-webkit-keyframes bounce_fountainG {
-  /* line 130, ../sass/_fountainG.scss */
-  0% {
-    -webkit-transform: scale(1);
-    background-color: #000000;
-  }
-
-  /* line 135, ../sass/_fountainG.scss */
-  100% {
-    -webkit-transform: scale(0.3);
-    background-color: #FFFFFF;
-  }
-}
-
-@-ms-keyframes bounce_fountainG {
-  /* line 143, ../sass/_fountainG.scss */
-  0% {
-    -ms-transform: scale(1);
-    background-color: #000000;
-  }
-
-  /* line 148, ../sass/_fountainG.scss */
-  100% {
-    -ms-transform: scale(0.3);
-    background-color: #FFFFFF;
-  }
-}
-
-@-o-keyframes bounce_fountainG {
-  /* line 156, ../sass/_fountainG.scss */
-  0% {
-    -o-transform: scale(1);
-    background-color: #000000;
-  }
-
-  /* line 161, ../sass/_fountainG.scss */
-  100% {
-    -o-transform: scale(0.3);
-    background-color: #FFFFFF;
-  }
-}
-
-@keyframes bounce_fountainG {
-  /* line 169, ../sass/_fountainG.scss */
-  0% {
-    transform: scale(1);
-    background-color: #000000;
-  }
-
-  /* line 174, ../sass/_fountainG.scss */
-  100% {
-    transform: scale(0.3);
-    background-color: #FFFFFF;
-  }
 }
 
 /* HTML5 RESET STYLESHEET */
@@ -4310,11 +4113,19 @@ table.sort-headers thead a.current {
   -webkit-font-smoothing: antialiased;
 }
 /* line 88, ../sass/_header.scss */
-table.sort-headers thead a.is-descending:after {
-  content: "\2193";
-  font-family: IconicFill;
+table.sort-headers thead a.is-descending:after, table.sort-headers thead a.is-ascending:after {
+  content: "D";
+  font-family: 'corroborator';
   font-size: 80%;
   padding-left: 0.25em;
+}
+/* line 94, ../sass/_header.scss */
+table.sort-headers thead a.is-ascending:after {
+  content: "U";
+}
+/* line 100, ../sass/_header.scss */
+table.sort-headers .actor.sort-status, table.sort-headers .actor.sort-score {
+  display: none;
 }
 
 /* line 7, ../sass/_results.scss */

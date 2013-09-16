@@ -85,13 +85,20 @@ table.sort-headers {
       &.current {
         @include open_sans_bold;
       }
-      &.is-descending:after {
-        content:"\2193";
-        font-family: IconicFill;
+      &.is-descending:after, &.is-ascending:after {
+        content:"D";
+        font-family: 'corroborator';
         font-size: 80%;
         padding-left: 0.25em;
       }
+      &.is-ascending:after {
+        content:"U";
+      }
+
     }
+  }
+  .actor.sort-status, .actor.sort-score {
+    display: none;
   }
 }
 

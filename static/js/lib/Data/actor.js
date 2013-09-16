@@ -48,7 +48,10 @@ define(
             'title': 'fullname_en',
             'age'  : 'age_en'
           };
-          return sortMap[value];
+          return {
+            field: sortMap[value.option],
+            direction: value.direction
+          };
         },
         // context set to have actorIds variable
         filterByIds = function(model) {
@@ -159,10 +162,26 @@ define(
         this.on('reset', this.selectModelsAfterReset, this);
       },
       // sort is implemented based on the result of this function
-      comparator: function(model) {
-        return parseComparator(model.get(this.compareField));
-      },
-      setComparatorField: function() {
+      comparator: function(modelA, modelB) {
+        var comparison, inversion, compareFieldA, compareFieldB, minVal, maxVal;
+        if (this.compareField === 'confidence_score') {
+          minVal = 1; maxVal = 100;
+        }
+        compareFieldA = parseComparator(
+          modelA.get(this.compareField),
+          this.direction,
+          minVal, maxVal
+        );
+        compareFieldB = parseComparator(
+          modelB.get(this.compareField),
+          this.direction,
+          minVal, maxVal
+        );
+
+        inversion = this.direction === 'ascending' ? 1: -1;
+        if (compareFieldA < compareFieldB) { comparison = (inversion * -1);}
+        if (compareFieldA > compareFieldB) { comparison = inversion;}
+        return comparison;
       },
       // watch the search bus to update the actor collection when new actor
       // results are received from solr
@@ -219,10 +238,10 @@ define(
           return value.type === 'filter_view_combined';
         })
         .filter(filterActor)
-        .map(Filters.extractOption)
         .map(mapSort)
         .onValue(function (value) {
-          self.compareField = value;
+          self.compareField = value.field;
+          self.direction = value.direction;
           self.sort();
         });
       },

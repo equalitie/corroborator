@@ -1,7 +1,6 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* Main styles file
+ * this imports all our different style files
+ */
 
 //@import "compass/reset";
 @import "compass/css3/border-radius";
@@ -14,7 +13,6 @@
 @import "texto";
 @import "mixins";
 @import "buttons";
-@import "fountainG";
 @import "reset";
 @import "base";
 @import "corroborator";

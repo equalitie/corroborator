@@ -50,7 +50,10 @@ define(
             'status'  : 'most_recent_status_bulletin',
             'location': 'bulletin_locations'
           };
-          return sortMap[value];
+          return {
+            field: sortMap[value.option],
+            direction: value.direction
+          };
         };
 
     // ##Data representations
@@ -153,8 +156,26 @@ define(
         this.on('reset', this.selectModelsAfterReset, this);
       },
       // models are sorted based on the result of this function
-      comparator: function(model) {
-        return parseComparator(model.get(this.compareField));
+      comparator: function(modelA, modelB) {
+        var comparison, inversion, compareFieldA, compareFieldB, minVal, maxVal;
+        if (this.compareField === 'confidence_score') {
+          minVal = 1; maxVal = 100;
+        }
+        compareFieldA = parseComparator(
+          modelA.get(this.compareField),
+          this.direction,
+          minVal, maxVal
+        );
+        compareFieldB = parseComparator(
+          modelB.get(this.compareField),
+          this.direction,
+          minVal, maxVal
+        );
+
+        inversion = this.direction === 'ascending' ? 1: -1;
+        if (compareFieldA < compareFieldB) { comparison = (inversion * -1);}
+        if (compareFieldA > compareFieldB) { comparison = inversion;}
+        return comparison;
       },
       // watch the search bus to update the bulletin collection when new  
       // bulletin results are received from solr
@@ -210,10 +231,10 @@ define(
           return value.type === 'filter_view_combined';
         })
         .filter(filterBulletin)
-        .map(Filters.extractOption)
         .map(mapSort)
         .onValue(function (value) {
-          self.compareField = value;
+          self.compareField = value.field;
+          self.direction = value.direction;
           self.sort();
         });
       },
