@@ -11,6 +11,7 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 from corroborator_app.models import Media
+from corroborator_app.index_meta_prep.mediaURLGetter import getMediaUrl
 from corroborator_app.utilities.imageTools import Thumbnailer
 __all__ = ('MediaResource', )
 
@@ -54,13 +55,15 @@ class MediaResource(MultipartResource, ModelResource):
         always_return_data = True
 
     def dehydrate( self, bundle ): 
-        bundle.data['media_file'] = common.S3_URL + '/' + bundle.obj.media_file.name
+
+        bundle.data['media_file'] = getMediaUrl( bundle.obj.media_file )
         return bundle
 
     def obj_create(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         media_file = bundle.data['media_file']
-
+        import sys
+        print >> sys.stderr, 'this is where the error is output'
         if 'image' in bundle.data['media_file'].content_type:
             filename = bundle.data['name_en']
             

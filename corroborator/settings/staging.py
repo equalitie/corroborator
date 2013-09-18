@@ -18,6 +18,15 @@ DATABASES = {
 #HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
 
+#CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+
+#CACHE_BACKEND = 'file:///home/bill/corroborator/cache'
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/home/bill/corroborator/cache',
+    }
+}
 
 HAYSTACK_CONNECTIONS = {
     'default': {
