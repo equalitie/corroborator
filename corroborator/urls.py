@@ -27,7 +27,7 @@ urlpatterns = patterns('',
 
 #lockilg
 #urlpatterns += patterns('',
-    #(r'^admin/ajax/', include('locking.urls')),
+#    (r'^admin/ajax/', include('locking.urls')),
 #)
 
 # API Resources
