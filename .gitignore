@@ -4,7 +4,7 @@
 env
 sitestatic
 sitestatic/*
-static/js/docs
+static/js/docs/annotated-source
 corroborator/settings/dev.py
 media/*
 apache/*
