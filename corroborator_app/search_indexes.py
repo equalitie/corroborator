@@ -3,15 +3,16 @@ This file handles the construction of Solr entities based on the existing MySQL
 database model using Django Haystacks as an interface.
 """
 from haystack import indexes
+from corroborator_app.tasks import fetch_from_s3
 from corroborator_app.models import Bulletin, Location, \
-    Incident, Actor, Media, SolrUpdate, PredefinedSearch
+    Incident, Actor, Media, SolrUpdate
 from celery_haystack.indexes import CelerySearchIndex
 from corroborator.settings import common
 
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 from corroborator_app.index_meta_prep.incidentPrepIndex import IncidentPrepMeta
-
+from django.core.cache import cache
 
 class ActorIndex(CelerySearchIndex, indexes.Indexable):
     """
@@ -156,13 +157,25 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
         #return object.get_uri()
 
         if object.media_file.name != '' and object.media_file.name != None:
-            return common.S3_URL + '/' + object.media_file.name
+            cacheget = cache.get(object.media_file.name)
+            if cacheget: 
+                # write out to a file here and create a path for it? 
+                return common.IMAGECACHE + cacheget.name
+            else:
+                s3_url = common.S3_URL + '/' + object.media_file.name
+                fetch_from_s3.delay(object.media_file.name, s3_url)
+                return s3_url
         else:
             ''
     def prepare_media_thumb_file(self, object):
         #return object.get_thumb_uri()
         if object.media_thumb_file.name != '' and object.media_thumb_file.name != None:
-            return common.S3_URL + '/' + object.media_thumb_file.name
+            cacheget = cache.get(object.media_thumb_file.name)
+            if cacheget: 
+                return common.IMAGECACHE + cacheget.name
+            else:
+                #cache.set(object.media_thumb_file.id, object.media_thumb_file, common.CACHE_TIME)
+                return common.S3_URL + '/' + object.media_thumb_file.name
         else:
             ''
     def prepare_resource_uri(self, object):

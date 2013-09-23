@@ -5,6 +5,10 @@ import djcelery
 djcelery.setup_loader()
 DEBUG = True
 
+CACHE_PATH = "/home/bill/corroborator/cachedata"
+CACHE_URL = "http://dev.corroborator.org/cachedata/"
+CACHE_TIME = 300
+
 AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_READ = 's3-us-west-2'
