@@ -23,7 +23,7 @@
       'core'           : 'components/ajax-solr/core',
       'managers'       : 'components/ajax-solr/managers',
       'widgets'        : 'components/ajax-solr/widgets',
-      'socketio'       : 'socket.io',
+      'yadda'          : 'node_modules/yadda/dist/yadda-0.4.7'
     },
     shim: {
       underscore: {

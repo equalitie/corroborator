@@ -192,9 +192,7 @@ module.exports = function(grunt) {
           'lib/SolrSearch/views/*.js',
           'lib/SolrSearch/widgets/manager.js'
         ],
-        options: {
-          output: 'docs/annotated-source'
-        }
+        dest: 'docs/annotated-source'
       }
     },
 
@@ -233,7 +231,6 @@ module.exports = function(grunt) {
       'karma',
       'requirejs',
       'plato'
-
     ]
   );
 
