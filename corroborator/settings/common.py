@@ -5,8 +5,6 @@ import djcelery
 djcelery.setup_loader()
 DEBUG = True
 
-CACHE_PATH = "/home/bill/corroborator/cachedata"
-CACHE_URL = "http://dev.corroborator.org/cachedata/"
 CACHE_TIME = 300
 
 AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
@@ -135,6 +133,7 @@ INSTALLED_APPS = (
     'reversion',
     'celery_haystack',
     'django_socketio',
+    'locking',
     # custom apps
     'corroborator_app',
 )

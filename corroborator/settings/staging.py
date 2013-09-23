@@ -1,5 +1,6 @@
 from settings.common import *
 
+LOCKING = {'time_until_expiration': 120, 'time_until_warning': 60}
 SOLR_CORE = 'corrob_staging'
 
 DATABASES = {
@@ -20,10 +21,16 @@ HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
 
 #CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 
-#CACHE_BACKEND = 'file:///home/bill/corroborator/cache'
+# This is the path where files are paged out to when requested from the cache
+CACHE_PATH = "/home/bill/corroborator/cachedata"
+# This is the URL to use when returning cached URLs
+CACHE_URL = "http://dev.corroborator.org/cachedata/"
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        # Where the intermediate cache is stored.
+        # this folder should be owned by celeryd's user.
         'LOCATION': '/home/bill/corroborator/cache',
     }
 }

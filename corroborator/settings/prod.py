@@ -17,6 +17,21 @@ INSTALLED_APPS += (
 #Haystack backend configuration
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+# This is the path where files are paged out to when requested from the cache
+CACHE_PATH = "/opt/corroborator/dev/static/cache/"
+# This is the URL to use when returning cached URLs
+CACHE_URL = "http://corroborator.org/static/cache/"
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        # Where the intermediate cache is stored
+        # this folder should be owned by celeryd's user.
+        'LOCATION': '/opt/corroborator/dev/cache',
+    }
+}
+
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
