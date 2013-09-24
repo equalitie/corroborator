@@ -5,6 +5,8 @@ from corroborator_app.models import\
     PredefinedSearch, ActorRelationship
 import reversion
 
+from locking.admin import LockableAdmin
+
 class CommentsInlineIn(admin.TabularInline):
     model = Incident.incident_comments.through
     extra = 1
@@ -120,6 +122,9 @@ class CorrobAdminInRev(reversion.VersionAdmin, CorrobAdminIn):
     pass
 class TimeInfoAdminRev(reversion.VersionAdmin, TimeInfoAdmin):
     pass
+class test(LockableAdmin, CorrobAdminInRev):
+    list_display = ('get_lock_for_admin',)
+
 admin.site.register(Actor, ActorAdmin)
 admin.site.register(ActorRole, ActorRoleAdmin)
 admin.site.register(Bulletin, CorrobAdminRev)
@@ -133,4 +138,5 @@ admin.site.register(CrimeCategory, CrimeCategoryAdmin)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(PredefinedSearch, PredefinedSearchAdmin)
-admin.site.register(Incident, CorrobAdminInRev)
+#admin.site.register(Incident, CorrobAdminInRev)
+admin.site.register(Incident, test)

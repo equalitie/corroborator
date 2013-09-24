@@ -17,7 +17,7 @@ class ActorPrepMeta():
         Returns a full list of the roles played by actors associate
         with this object
         """
-        roles = [actor_role.get_relation_status_display() for actor_role in
+        roles = [actor_role.relation_status for actor_role in
             object.actors_role.all()]
         return roles
     def prepare_roles(self, object):
@@ -25,9 +25,9 @@ class ActorPrepMeta():
         Returns a full list of all roles and relationships associated
         with this Actor instance.
         """
-        roles = [ actor_role.get_role_status_display() for actor_role in
+        roles = [ actor_role.role_status for actor_role in
             ActorRole.objects.filter(actor__in=[object]).all()]
-        relations = [ actor_role.get_relation_status_display() for actor_role in
+        relations = [ actor_role.relation_status for actor_role in
             ActorRole.objects.filter(actor__in=[object]).all()]
 
         result = roles + relations
