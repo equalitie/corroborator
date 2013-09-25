@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_actor'),
 )
 
-#lockilg
+#locking
 #urlpatterns += patterns('',
 #    (r'^admin/ajax/', include('locking.urls')),
 #)
@@ -60,7 +60,4 @@ v1_api.register(SolrUpdateResource())
 
 urlpatterns += patterns('',
     (r'^api/', include(v1_api.urls)),
-)
-urlpatterns += patterns('',
-    (r'^admin/ajax/', include('locking.urls')),
 )

@@ -2,7 +2,7 @@
 Author: Cormac McGuire
 Dev settings
 """
-from corroborator.settings.common import *
+from settings.common import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', 
