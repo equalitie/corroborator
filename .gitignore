@@ -4,6 +4,7 @@
 env
 sitestatic
 sitestatic/*
+static/cache
 static/js/docs/annotated-source
 corroborator/settings/dev.py
 media/*
