@@ -9,6 +9,8 @@ Bill Doran
 import StringIO
 from PIL import Image, ImageChops
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from corroborator.settings import common
+from django.core.cache import cache
 
 class Thumbnailer():
     def construct_thumb(self, inbound_file, filename):
@@ -39,6 +41,8 @@ class Thumbnailer():
         tempfile_io = StringIO.StringIO()
         background.save(tempfile_io, format='JPEG')
         #thumb.save(tempfile_io, format='JPEG')
+
+        cache.set(thumb_name, tempfile_io, common.CACHE_TIME)
 
         media_thumb_file = InMemoryUploadedFile(
                         tempfile_io, 
