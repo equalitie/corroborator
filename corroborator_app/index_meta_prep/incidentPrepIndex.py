@@ -16,7 +16,7 @@ class IncidentPrepMeta():
         Returns a full list of the roles played by actors associate
         with this object
         """
-        roles = [actor_role.get_role_status_display() for actor_role in
+        roles = [actor_role.role_status for actor_role in
             object.actors_role.all()]
         return roles
 

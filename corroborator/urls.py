@@ -27,7 +27,7 @@ urlpatterns = patterns('',
 
 #lockilg
 #urlpatterns += patterns('',
-    #(r'^admin/ajax/', include('locking.urls')),
+#    (r'^admin/ajax/', include('locking.urls')),
 #)
 
 # API Resources
@@ -60,4 +60,7 @@ v1_api.register(SolrUpdateResource())
 
 urlpatterns += patterns('',
     (r'^api/', include(v1_api.urls)),
+)
+urlpatterns += patterns('',
+    (r'^admin/ajax/', include('locking.urls')),
 )
