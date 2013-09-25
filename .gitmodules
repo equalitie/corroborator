@@ -1,3 +1,6 @@
 [submodule "non-pip-packages/django-locking"]
 	path = non-pip-packages/django-locking
 	url = https://github.com/equalitie/django-locking
+[submodule "contrib-apps/django-locking"]
+	path = contrib-apps/django-locking
+	url = https://github.com/equalitie/django-locking
