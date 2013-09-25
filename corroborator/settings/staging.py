@@ -12,7 +12,8 @@ DATABASES = {
     'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
                                                                 }
 }
-
+#Django Locking
+LOCKING = {'time_until_expiration': 120, 'time_until_warning': 60}
 
 #Haystack backend configuration
 #HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'

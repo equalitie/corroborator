@@ -130,8 +130,7 @@ INSTALLED_APPS = (
     'tastypie',
     'reversion',
     'celery_haystack',
-
-    #'locking',
+    'locking',
 
     # custom apps
     'corroborator_app',

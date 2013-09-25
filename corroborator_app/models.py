@@ -316,8 +316,18 @@ class Media(models.Model):
             return self.media_thumb_file.url
         else:
             return ''
-
-
+'''
+class SourceNote(models.Model):
+    """
+    This object stores the source information relating to imported entities
+    """
+    origin_id = models.CharField(max_length=255, blank=True, null=True)
+    origin_uri = models.URLField(blank=True, null=True)
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, null=True)
+    origin_timestamp = models.DateTimeField(blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True) 
+'''
 class Actor(models.Model):
     """
     This object captures the unique properties of an individual Actor
@@ -371,6 +381,12 @@ class Actor(models.Model):
     spoken_dialect_en = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
     """
+    national_id_card = models.CharField(max_length=255, blank=True, null=True)
+    national_number = models.CharField(max_length=255, blank=True, null=True)
+    legal_status = models.CharField(max_length=255, blank=True, null=True)
+    health_status = models.CharField(max_length=255, blank=True, null=True)
+    """
+    """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
     """
@@ -385,7 +401,7 @@ class Actor(models.Model):
         related_name='actor_current')
     media = models.ForeignKey(Media, blank=True, null=True)
     actor_created = models.DateTimeField(auto_now_add=True)
-
+    #actor_source_note = models.ForeignKey(SourceNote, blank=True, null=True)
     def __unicode__(self):
         return self.fullname_en
 
@@ -508,6 +524,7 @@ class Bulletin(models.Model):
 
     # foreign key fields
     assigned_user = models.ForeignKey(User, blank=True, null=True)
+    #bulletin_source_note = models.ForeignKey(SourceNote, blank=True, null=True)
 
     # ManyToManyFields
     sources = models.ManyToManyField(Source, blank=True, null=True)

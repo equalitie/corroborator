@@ -25,11 +25,10 @@ urlpatterns = patterns('',
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_actor'),
 )
 
-#locking
-#urlpatterns += patterns('',
-#    (r'^admin/ajax/', include('locking.urls')),
-#)
-
+#Django Locking
+urlpatterns += patterns('',
+    (r'^admin/ajax/', include('locking.urls')),
+)
 # API Resources
 from tastypie.api import Api
 from corroborator_app.api import ActorResource, ActorRoleResource, \
