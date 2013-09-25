@@ -95,8 +95,6 @@ define (
           roles: roleMap[this.fieldName],
           fieldName: this.fieldName
         };
-        if (this.model.get('selected')) {
-        }
         if (this.actorRoleModel !== undefined) {
           templateVars.roleModel = this.actorRoleModel.toJSON();
         }

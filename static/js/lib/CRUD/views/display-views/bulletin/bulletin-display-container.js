@@ -109,13 +109,14 @@ define (
       },
       // render the related actors
       renderRelatedActors: function() {
-        var actorsEl, actorsContainer, content;
+        var actorsEl, actorsContainer, content, roles_en;
         actorsEl = this.getContainerEl('actors');
+        roles_en = this.model.get('actor_roles_status');
         content = this.model.get('actors');
         actorsContainer = new ActorListView({
           el: actorsEl,
-          content: content
-          //roles
+          content: content,
+          roles: roles_en
         });
         return this;
       },

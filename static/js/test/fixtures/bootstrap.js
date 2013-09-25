@@ -1,22 +1,13 @@
   var Bootstrap = (function() {
     var gl_s3_aws_media_url = '';
-    var gl_ac_role_list = [];
-    var gl_ac_relation_list = [];
     var gl_ac_crimes_list = [];
     var special_global_ac_sources_list = [];
     var gl_ac_loc_set = [];
     var gl_ac_loc_ac_set = [];
     var gl_ac_users_list = [];
-      gl_ac_role_list.push({ role:"Killed"});
-      gl_ac_role_list.push({ role:"Tortured"});
-      gl_ac_role_list.push({ role:"Wounded"});
-      gl_ac_role_list.push({ role:"Detained"});
-      gl_ac_role_list.push({ role:"Kidnapped"});
-      gl_ac_relation_list.push( {relation:"Parent"} );
-      gl_ac_relation_list.push( {relation:"Sibling"} );
-      gl_ac_relation_list.push( {relation:"Family member"} );
-      gl_ac_relation_list.push( {relation:"Superior officer"} );
-      gl_ac_relation_list.push( {relation:"Subordinate officer"} );
+    var gl_ac_relation_list = [{"key":"P","value":"Parent"},{"key":"S","value":"Sibling"},{"key":"FM","value":"Family member"},{"key":"SPO","value":"Superior officer"},{"key":"SBO","value":"Subordinate officer"}];
+
+  var gl_ac_role_list = [{"key":"K","value":"Killed"},{"key":"T","value":"Tortured"},{"key":"WO","value":"Wounded"},{"key":"D","value":"Detained"},{"key":"KN","value":"Kidnapped"},{"key":"WN","value":"Witness"}];
     
       gl_ac_users_list.push({
         label:"admin",

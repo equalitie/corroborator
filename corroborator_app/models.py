@@ -15,7 +15,11 @@ from queued_storage.backends import QueuedStorage
 import reversion
 from reversion.models import Revision
 
+
 class VersionStatus(models.Model):
+    """
+    TODO - add docstring
+    """
     revision = models.OneToOneField(Revision)  # This is required
     status = models.CharField(max_length=255)
 
@@ -423,7 +427,6 @@ class ActorRelationship(models.Model):
         return self.actor.fullname_en + ': ' + self.relation_status
 
 
-
 class ActorRole(models.Model):
     """
     This object model captures the role of a given actor
@@ -434,7 +437,7 @@ class ActorRole(models.Model):
         ('T', 'Tortured'),
         ('WO', 'Wounded'),
         ('D', 'Detained'),
-        ('K', 'Kidnapped'),
+        ('KN', 'Kidnapped'),
         ('WN', 'Witness'),
     )
     RELATION = (
@@ -444,8 +447,14 @@ class ActorRole(models.Model):
         ('SPO', 'Superior officer'),
         ('SBO', 'Subordinate officer'),
     )
-    role_en = models.CharField(max_length=255,blank=True,null=True)
-    role_ar = models.CharField(max_length=255,blank=True,null=True)
+    role_en = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True)
+    role_ar = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True)
     role_status = models.CharField(
         'status',
         max_length=25,
@@ -461,15 +470,14 @@ class ActorRole(models.Model):
         blank=True,
         null=True
     )
-    comments_en = models.TextField(blank=True,null=True)
-    comments_ar = models.TextField(blank=True,null=True)
-    actor = models.ForeignKey(Actor,blank=True,null=True)
+    comments_en = models.TextField(blank=True, null=True)
+    comments_ar = models.TextField(blank=True, null=True)
+    actor = models.ForeignKey(Actor, blank=True, null=True)
     def __unicode__(self):
         if self.relation_status is not None:
             return self.actor.fullname_en + ': ' + self.relation_status
         else:
             return self.actor.fullname_en + ': ' + self.role_status
-
 
 
 class Bulletin(models.Model):

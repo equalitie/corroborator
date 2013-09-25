@@ -98,14 +98,14 @@ define (
               el: commentsEl,
               content: content
             });
-        
         return this;
       },
       renderRelatedActors: function() {
         var actorsEl, content, roles_en, actorsContainer;
         actorsEl = this.getContainerEl('actors');
         content = this.model.get('actors');
-        roles_en = this.model.get('actors_role_en');
+        roles_en = this.model.get('actor_roles_status');
+        console.log(this.model.toJSON());
         actorsContainer = new ActorListView({
           el: actorsEl,
           content: content,
@@ -211,6 +211,5 @@ define (
     });
 
     return IncidentDisplayView;
-    
 });
 

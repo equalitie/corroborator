@@ -207,7 +207,7 @@ module.exports = function(grunt) {
         'lib/CRUD/templates/display-templates/*.tpl',
         'lib/CRUD/templates/display-templates/*/*.tpl'
       ],
-      tasks: ['handlebars', 'karma', /*'jshint', 'requirejs', 'docco'*/]
+      tasks: ['handlebars', /*'karma', /*'jshint', 'requirejs', 'docco'*/]
     }
   });
 

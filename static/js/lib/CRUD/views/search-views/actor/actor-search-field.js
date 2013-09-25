@@ -15,34 +15,20 @@ define (
     'lib/Data/collections',
     'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl'
   ],
-  function ($, Backbone, _, Streams, SelectOptionView, Actor, ActorRole, ActorResult,
-    Collections,
+  function ($, Backbone, _, Streams, SelectOptionView, Actor, ActorRole,
+    ActorResult, Collections,
     actorSearchTmp) {
     'use strict';
     var ActorSearchView,
         ActorRoleModel = ActorRole.ActorRoleModel,
-        ActorRelationshipModel = ActorRole.ActorRelationshipModel,
         crudBus = Streams.crudBus,
         fieldNameMap = {
           role: 'role_status',
           relation: 'relation_status'
         },
-        filterActorResults = function(value) {
-          return value.type === 'results_actor';
-        },
-        filterActorUpdateRelationship = function(value) {
-          return value.type === 'update_actor_relationship_request';
-        },
-        filterRelationshipTypeRequest = function(value) {
-          return value.type === 'request_actor_relationship_type';
-        },
-        filterActorUnRelateRequest = function(value) {
-          return value.type === 'unrelate_actor_request';
-        },
-        filterActorRelateRequest = function(value) {
-          return value.type === 'relate_actor_request';
-        };
 
+        // create filter functions
+        createFilter = Streams.filterLib.createTypeFilter;
 
     // ### ActorSearchView
     // Search for actors and display actors already associated with and entity
@@ -64,36 +50,63 @@ define (
         if (this.collection === undefined) {
           this.collection = new Backbone.Collection();
         }
+        // this specifies the relationship type for incident/bulletin vs
+        // actor relationships
         this.fieldName = fieldNameMap[options.relationshipType];
 
         this.entityType = options.entityType;
-        this.listenTo(this.collection, 'remove sync', this.renderSelectOptions.bind(this));
         this.renderCollection = new Backbone.Collection();
-        this.listenTo(this.renderCollection, 'add remove', this.renderActors.bind(this));
         this.createActorCollection();
         this.listenForActorsAdded();
         this.listenForActorsRemoved();
         this.listenForActorUpdate();
         this.listenForRelationshipTypeRequest();
 
-        if (options.content) {
-          _.each(options.content, this.loadExistingContent, this);
+
+        // load existing content
+        if (options.mainModel) {
+          this.loadActors(options.mainModel);
         }
 
-        this.render();
+        this.render()
+            .renderSelectOptions()
+            .renderActors();
+
+        this.listenTo(this.collection, 'remove sync', this.renderSelectOptions.bind(this));
+        this.listenTo(this.renderCollection, 'add remove', this.renderActors.bind(this));
       },
 
-      loadExistingContent: function(resourceUri) {
-        var initialActorModel = new ActorRoleModel({resource_uri: resourceUri});
-        this.listenTo(initialActorModel, 'sync', this.createRenderActor.bind(this));
-        this.collection.add(initialActorModel);
+      // load the actors from the existing object
+      loadActors: function(mainModel) {
+        var actorRoleArrays = {
+          roles:       mainModel.get('actor_roles_status'),
+          actors:      mainModel.get('actors'),
+          actors_role: mainModel.get('actors_role'),
+          autoFetch:   false
+        };
+        this.createActorRoleCollection(actorRoleArrays);
       },
 
-      createRenderActor: function(model) {
+      // create the collection of actor role objects from the data
+      // on the entity
+      createActorRoleCollection: function(actorRoleArrays) {
+        var preparedArrays =
+          ActorRole.prepareForCollection(actorRoleArrays);
+        this.collection =
+          new ActorRole.ActorRoleCollection(preparedArrays);
+        this.collection.invoke('setRelationType', this.fieldName);
+        this.collection.each(this.createRenderActorCollection, this);
+      },
+
+      // create the collection of actors for display
+      createRenderActorCollection: function(model) {
         var allActors = Collections.ActorCollection;
-        var actorModel = allActors.findWhere({resource_uri: model.get('actor')});
+        var actorModel = new Backbone.Model();
+        var existingActor =
+          allActors.findWhere({resource_uri: model.get('actor')});
+        actorModel.set(existingActor.toJSON());
+        actorModel.set('id', model.id);
         this.renderCollection.add(actorModel);
-        this.stopListening(model, 'sync', this.createRenderActor);
       },
 
       // create a collection to store all available actors
@@ -150,6 +163,7 @@ define (
       // added actors data
       listenForAvailableActors: function() {
         var self = this;
+        var filterActorResults = createFilter('results_actor');
         var subscriber =
           crudBus.toEventStream()
                  .filter(filterActorResults)
@@ -162,7 +176,8 @@ define (
 
       // listen for an event specifying the actor who has been added
       listenForActorsAdded: function() {
-        var subscriber = 
+        var filterActorRelateRequest = createFilter('relate_actor_request');
+        var subscriber =
           crudBus.toEventStream()
                  .filter(filterActorRelateRequest)
                  .subscribe(this.addActorToCollections.bind(this));
@@ -171,7 +186,8 @@ define (
 
       // listen for an event specifying the actor who has been removed
       listenForActorsRemoved: function() {
-        var subscriber = 
+        var filterActorUnRelateRequest = createFilter('unrelate_actor_request');
+        var subscriber =
           crudBus.toEventStream()
                  .filter(filterActorUnRelateRequest)
                  .subscribe(this.removeActorFromCollections.bind(this));
@@ -180,7 +196,8 @@ define (
 
       // listen for actor updated request
       listenForActorUpdate: function() {
-        var subscriber = 
+        var filterActorUpdateRelationship = createFilter('update_actor_relationship_request');
+        var subscriber =
           crudBus.toEventStream()
                  .filter(filterActorUpdateRelationship)
                  .subscribe(this.processActorUpdateData.bind(this));
@@ -189,7 +206,8 @@ define (
 
       // we have a list of actors and we want to know how to relate them
       listenForRelationshipTypeRequest: function() {
-        var subscriber = 
+        var filterRelationshipTypeRequest = createFilter('request_actor_relationship_type');
+        var subscriber =
           crudBus.toEventStream()
                  .filter(filterRelationshipTypeRequest)
                  .subscribe(function(evt) {
@@ -227,13 +245,12 @@ define (
       existingActor: function(actorRoleData) {
         return this.collection
                    .chain()
-                   .filter(function(model) { 
+                   .filter(function(model) {
                       return model.get('actor') === actorRoleData.actor;
                    })
                    .last()
                    .value();
       },
-
 
       // add the selected actor to the render collection
       // and to the data collection
@@ -248,9 +265,9 @@ define (
         this.addActorToRenderCollection(actorContent.model);
       },
 
-      // create the actor role entity on the backend that the 
+      // create the actor role entity on the backend that the
       // entity will refer to
-      // if the actor role already exists 
+      // if the actor role already exists
       createActorRoleEntity: function(actorRoleData) {
         var existingActor = this.existingActor(actorRoleData);
         if (existingActor === undefined) {
@@ -261,7 +278,7 @@ define (
         }
       },
 
-      // render the multiple select box 
+      // render the multiple select box
       renderSelectOptions: function() {
         this.destroySelectViews();
         this.collection.each(this.addToSelectList, this);
@@ -309,8 +326,6 @@ define (
         return newRenderCollection.reset(merged, {silent: true});
       },
 
-      
-
       // an actor has been removed propogate to the collecgtions
       removeActorFromCollections: function(evt) {
         var model = evt.value().content.model;
@@ -323,8 +338,10 @@ define (
 
       // render the related actors
       renderActors: function() {
+        console.log('renderActors');
         this.destroyChildViews();
         this.renderCollection.each(this.renderActor, this);
+        return this;
       },
 
       // render a single actor
@@ -349,6 +366,7 @@ define (
         });
         this.$el.empty()
                 .append(html);
+        return this;
       }
     });
     return ActorSearchView;

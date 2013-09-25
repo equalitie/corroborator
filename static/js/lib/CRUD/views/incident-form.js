@@ -3,11 +3,11 @@
 
 // ### Description
 // Handle create update of incident(s)
-// 
+//
 
 define (
   [
-    'jquery', 'underscore', 'backbone', 
+    'jquery', 'underscore', 'backbone',
     'lib/streams',
     'lib/CRUD/views/form-mixins',
 
@@ -252,9 +252,9 @@ define (
           entityType: this.entityType
         });
         var actorForm = new ActorSearchView({
-          el: '#incident-actor-list-block',
-          content: this.model.get('actors_role'),
-          entityType: this.entityType,
+          el:               '#incident-actor-list-block',
+          mainModel:        this.model,
+          entityType:       this.entityType,
           relationshipType: 'role'
         });
         this.actorSearchView = actorForm;
