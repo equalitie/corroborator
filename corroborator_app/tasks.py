@@ -1,7 +1,7 @@
 from celery import task
 from haystack.management.commands import update_index
 from corroborator_app.models import SolrUpdate
-from corroborator.settings import common
+from django.conf import settings
 from django.core.cache import cache
 from django.contrib.auth.models import User
 
@@ -51,6 +51,6 @@ def fetch_from_s3(filename, url):
         filedata = response.read()
         cache.delete(filename)
         logger.info("Set cache for %s", filename)
-        cache.set(filename, filedata, common.CACHE_TIME)
-        logger.info("data in cache is %d" % (len(cache.get(filename))))
+        cache.set(filename, filedata, settings.CACHE_TIME)
+        #logger.info("data in cache is %d" % (len(cache.get(filename))))
         

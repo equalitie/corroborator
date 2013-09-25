@@ -44,7 +44,7 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
 
 # This is the path where files are paged out to when requested from the cache
-CACHE_PATH = DJANGO_PROJECTS_ROOT + "/corroborator/static"
+CACHE_PATH = DJANGO_PROJECTS_ROOT + "/corroborator/static/cache/"
 
 # This is the URL to use when returning cached URLs
 CACHE_URL = "http://corroborator.mac.com/static/cache/"
