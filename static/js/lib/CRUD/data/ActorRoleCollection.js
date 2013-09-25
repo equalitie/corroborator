@@ -81,6 +81,9 @@ define (
     // }
     prepareForCollection = function(actorRoleArray) {
       var i, formattedArray = [];
+      if (actorRoleArray.roles === undefined) {
+        return formattedArray;
+      }
       for (i=0; i < actorRoleArray.roles.length; i++) {
         var actorRole = {
           actor:        actorRoleArray.actors[i],
