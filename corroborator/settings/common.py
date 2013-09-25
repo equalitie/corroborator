@@ -132,8 +132,8 @@ INSTALLED_APPS = (
     'tastypie',
     'reversion',
     'celery_haystack',
-    'django_socketio',
-    'locking',
+    #'django_socketio',
+    #'locking',
     # custom apps
     'corroborator_app',
 )

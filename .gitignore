@@ -4,6 +4,8 @@
 env
 sitestatic
 sitestatic/*
+static/cache
+static/js/docs
 corroborator/settings/dev.py
 media/*
 apache/*
@@ -16,3 +18,4 @@ config.rb
 corroborator/wsgidev.py
 static/js/reports
 static/js/oldreports
+non-pip-packages

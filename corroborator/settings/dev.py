@@ -1,8 +1,12 @@
 from settings.common import *
+
+DJANGO_PROJECTS_ROOT = '/Users/cormac/work/programming/python/djangodev'
+LOCKING = {'time_until_expiration': 120, 'time_until_warning': 60}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': '/Users/cormac/work/programming/python/djangodev/db/corroborator.sql', # Or path to database file if using sqlite3.
+        'NAME': DJANGO_PROJECTS_ROOT + '/db/corroborator.sql',
         'USER': '', # Not used with sqlite3.
         'PASSWORD': '',# Not used with sqlite3.
         'HOST': '',# Set to empty string for localhost. Not used with sqlite3.
@@ -38,6 +42,23 @@ MIDDLEWARE_CLASSES += (
 #Haystack backend configuration
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+
+# This is the path where files are paged out to when requested from the cache
+CACHE_PATH = DJANGO_PROJECTS_ROOT + "/corroborator/static"
+
+# This is the URL to use when returning cached URLs
+CACHE_URL = "http://corroborator.mac.com/static/cache/"
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        # Where the intermediate cache is stored
+        # this folder should be owned by celeryd's user.
+        'LOCATION': DJANGO_PROJECTS_ROOT + '/cache/corrob-cache',
+    }
+}
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
@@ -48,4 +69,4 @@ HAYSTACK_CONNECTIONS = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/Users/cormac/work/programming/python/djangodev/corroborator/static/'
+STATIC_ROOT = DJANGO_PROJECTS_ROOT + '/corroborator/static/'
