@@ -302,6 +302,7 @@ button.do-clear > span {
   background-color: #040303;
   margin-top: 1em;
   margin-left: 0.5em;
+  float: left;
 }
 /* line 50, ../sass/_fonts.scss */
 .info [data-icon]:before {
@@ -313,7 +314,7 @@ button.do-clear > span {
   font-size: 13px;
 }
 
-/* line 246, ../sass/_buttons.scss */
+/* line 247, ../sass/_buttons.scss */
 .do-hide {
   height: 15px;
   padding-left: 8px;
@@ -343,7 +344,7 @@ button.do-clear > span {
   font-size: 13px;
 }
 
-/* line 257, ../sass/_buttons.scss */
+/* line 258, ../sass/_buttons.scss */
 .drop-down-handle {
   height: 15px;
   font-family: 'Open Sans Semi Bold', sans-serif;

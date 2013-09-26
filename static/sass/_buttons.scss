@@ -241,6 +241,7 @@ button.do-clear {
   background-color: $HEADER_MENU_BG;
   margin-top: 1em;
   margin-left: 0.5em;
+  float: left;
   @include corrob_icon_attach_before;
 }
 .do-hide {
