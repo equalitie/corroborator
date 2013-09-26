@@ -297,7 +297,23 @@ button.do-clear > span {
   font-size: 65%;
 }
 
-/* line 241, ../sass/_buttons.scss */
+/* line 240, ../sass/_buttons.scss */
+.info {
+  background-color: #040303;
+  margin-top: 1em;
+  margin-left: 0.5em;
+}
+/* line 50, ../sass/_fonts.scss */
+.info [data-icon]:before {
+  font-family: "corroborator";
+  text-transform: none;
+  content: attr(data-icon);
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  font-size: 13px;
+}
+
+/* line 246, ../sass/_buttons.scss */
 .do-hide {
   height: 15px;
   padding-left: 8px;
@@ -327,7 +343,7 @@ button.do-clear > span {
   font-size: 13px;
 }
 
-/* line 252, ../sass/_buttons.scss */
+/* line 257, ../sass/_buttons.scss */
 .drop-down-handle {
   height: 15px;
   font-family: 'Open Sans Semi Bold', sans-serif;

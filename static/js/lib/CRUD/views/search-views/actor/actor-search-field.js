@@ -48,7 +48,7 @@ define (
       // or create a new one
       initialize: function(options) {
         if (this.collection === undefined) {
-          this.collection = new Backbone.Collection();
+          this.collection = new ActorRole.ActorRoleCollection();
         }
         // this specifies the relationship type for incident/bulletin vs
         // actor relationships
