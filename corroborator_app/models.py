@@ -128,6 +128,8 @@ class Location(models.Model):
     description_ar = models.TextField(blank=True, null=True)
     parent_location = models.ForeignKey('self', max_length=255, 
         blank=True, null=True)
+    location_created = models.DateTimeField(auto_now_add=True)
+    location_modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.name_en
@@ -296,6 +298,7 @@ class Media(models.Model):
     media_type = models.CharField('type', max_length=25, choices=TYPE)
     media_created = models.DateTimeField(auto_now_add=True)
     media_file_type = models.CharField(max_length=255, blank=True, null=True)
+    media_created = models.DateTimeField(auto_now_add=True)
 
     def get_uri(self):
         """
@@ -385,6 +388,7 @@ class Actor(models.Model):
         related_name='actor_current')
     media = models.ForeignKey(Media, blank=True, null=True)
     actor_created = models.DateTimeField(auto_now_add=True)
+    actor_modified = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.fullname_en
@@ -500,6 +504,7 @@ class Bulletin(models.Model):
     confidence_score = models.IntegerField('confidence score', blank=True, null=True)
     type = models.CharField('type', max_length=25, choices=TYPE, blank=True)
     bulletin_created = models.DateTimeField(auto_now_add=True)
+    bulletin_modified = models.DateTimeField(auto_now=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
@@ -568,6 +573,7 @@ class Incident(models.Model):
     title_en = models.TextField()
     title_ar = models.TextField(blank=True)
     incident_created = models.DateTimeField(auto_now_add=True)
+    incident_modified = models.DateTimeField(auto_now=True)
 
     assigned_user = models.ForeignKey(User, blank=True, null=True)
 

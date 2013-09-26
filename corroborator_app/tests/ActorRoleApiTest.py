@@ -38,7 +38,7 @@ class ActorRoleTestCase(ResourceTestCase):
 
     def test_actorRole_post(self):
         post_data = {
-            'role_status': "Killed",
+            'role_status': "K",
             'actor': "/api/v1/actor/{0}/".format(self.actor.pk)
         }
         url = '/api/v1/actorRole/?format=json{}'.format(self.auth_string)
@@ -49,7 +49,7 @@ class ActorRoleTestCase(ResourceTestCase):
         precreated_actor_role = ActorRole.objects.all()[0]
         url = '/api/v1/actorRole/{0}/?format=json{1}'.format(precreated_actor_role.id, self.auth_string)
         put_data = {
-            'role_status': "Killed",
+            'role_status': "K",
             'actor': "/api/v1/actor/{0}/".format(self.actor.pk),
         }
         response = self.api_client.put(url, data=put_data)
@@ -60,15 +60,25 @@ class ActorRoleTestCase(ResourceTestCase):
         patch_data = {
             'objects': [
                 {
-                    'role_status': "Killed",
+                    'role_status': "K",
                     'actor': "/api/v1/actor/{0}/".format(self.actor.pk)
                 },
                 {
-                    'role_status': "Killed",
+                    'role_status': "K",
                     'actor': "/api/v1/actor/{0}/".format(self.actor.pk)
                 }
             ]
         }
         response = self.api_client.patch(url, data=patch_data)
         self.assertEqual(response.status_code, 202)
-        
+
+    def test_actorRole_validation(self):
+        post_data = {
+            'role_status': "Invalid key code",
+            'actor': "/api/v1/actor/{0}/".format(self.actor.pk)
+        }
+        url = '/api/v1/actorRole/?format=json{}'.format(self.auth_string)
+        response = self.api_client.post(url, data=post_data)
+        self.assertEqual(response.status_code, 400)
+
+       

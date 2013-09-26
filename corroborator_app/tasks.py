@@ -5,7 +5,9 @@ from django.contrib.auth.models import User
 
 @task
 def update_object(username):
-    update_index.Command().handle()
+    options = {}
+    options['age']=0.01
+    update_index.Command().handle(**options)
     solrUpdateByUser = SolrUpdate.objects.all()
     user = User.objects.filter(username=username)
     if len(solrUpdateByUser) == 0:

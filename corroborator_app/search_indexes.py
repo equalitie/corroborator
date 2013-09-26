@@ -66,6 +66,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Actor
+    def get_updated_field(self):
+        return "actor_modified"
     def prepare_actor_roles_status(self, object):
         """
         Returns a list of all roles and relationships associated with this
@@ -149,6 +151,9 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Media
+    def get_updated_field(self):
+        return "media_created"
+
     def prepare_media_file(self, object):
         """
         Returns URI of a given Media
@@ -218,6 +223,9 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Incident
+    def get_updated_field(self):
+        return "incident_modified"
+
     def prepare_assigned_user(self, object):
         return IncidentPrepMeta().prepare_assigned_user(object)
     def prepare_times(self, object):
@@ -379,6 +387,9 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     def get_model(self):
         return Bulletin
 
+    def get_updated_field(self):
+        return "bulletin_modified"
+
     def prepare_assigned_user(self, object):
         return BulletinPrepMeta().prepare_assigned_user(object)
 
@@ -499,3 +510,6 @@ class LocationIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Location
+    def get_updated_field(self):
+        return "location_modified"
+
