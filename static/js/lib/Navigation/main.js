@@ -84,11 +84,15 @@ define(
       Dialog.init('item_clicked', '#search-dialog-form');
     };
 
+    var createInfoView = function() {
+    };
+
     // init function used to instantiate the objects required to get 
     // things running
     var init = function () {
       createComboBox();
       createInputView();
+      createInfoView();
       watchForSearch();
       TabRouter.init();
       createDialog();

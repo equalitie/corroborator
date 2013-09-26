@@ -238,7 +238,10 @@ button.do-clear {
   @include clear_button;
 }
 .info {
-  background-color: $HEADER_MENU_BG;
+  @include button(
+    $background_color: transparent,
+    $hover_color: transparent
+  );
   margin-top: 1em;
   margin-left: 0.5em;
   float: left;

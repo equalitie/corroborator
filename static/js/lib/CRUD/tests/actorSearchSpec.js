@@ -40,7 +40,9 @@ define(
     function(){
       expect(actorRoleCollection.length).toEqual(2);
     });
+
     it('should load the correct rolename from the key', function(){
+      debugger;
       expect(actorRoleCollection.first().get('role_en')).toEqual('Killed');
     });
 
