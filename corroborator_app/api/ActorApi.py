@@ -53,6 +53,9 @@ class ActorResource(ModelResource):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
+        bundle = super( ActorResource, self )\
+            .obj_delete( bundle, **kwargs )
+
         """
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
