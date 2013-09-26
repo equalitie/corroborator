@@ -222,14 +222,17 @@ define (
       // update the relationship type
       processActorUpdateData: function(evt) {
         var model = evt.value().content.model,
-            role = evt.value().content.relationship;
+            role = {
+              role_status: evt.value().content.relationship_key,
+              role_en:     evt.value().content.relationship
+            };
         this.updateActorRoleModel(model, role);
       },
 
       // set the new role on the actor_role and save it
       updateActorRoleModel: function(model, role) {
-        model.set('role_en', role);
-        model.set(this.fieldName, role);
+        model.set('role_en', role.role_en);
+        model.set(this.fieldName, role.role_status);
         model.save();
         this.renderActors();
       },
@@ -261,20 +264,24 @@ define (
           actor: actorContent.model.get('resource_uri')
         };
         actorRoleData[this.fieldName] = actorContent.relationship_key;
-        this.createActorRoleEntity(actorRoleData);
-        this.addActorToRenderCollection(actorContent.model);
+        this.createActorRoleEntity(actorRoleData, actorContent.model);
       },
 
       // create the actor role entity on the backend that the
-      // entity will refer to
+      // entity will refer to  
       // if the actor role already exists
-      createActorRoleEntity: function(actorRoleData) {
-        var existingActor = this.existingActor(actorRoleData);
+      // update it
+      createActorRoleEntity: function(actorRoleData, actorModel) {
+        var existingActor = this.collection.findModelFromActor(actorRoleData);
         if (existingActor === undefined) {
           this.createNewActorRole(actorRoleData);
+          this.addActorToRenderCollection(actorModel);
         }
         else {
-          this.updateActorRoleModel(existingActor, actorRoleData[this.fieldName]);
+          this.updateActorRoleModel(existingActor, {
+            role_en: actorRoleData.role_en,
+            role_status: actorRoleData.role_status
+          });
         }
       },
 

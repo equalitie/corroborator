@@ -1,57 +1,58 @@
-import datetime
-import calendar
+'''
+add file docstring
+'''
 from tastypie.models import ApiKey
 from tastypie.test import TestApiClient
 from django.contrib.auth.models import User
-from corroborator_app.models import Incident, CrimeCategory, Actor, Bulletin,\
-    TimeInfo, Location, Source, StatusUpdate, ActorRole, Label, SourceType,\
-    Media, Comment, PredefinedSearch, ActorRelationship
+from corroborator_app.models import Incident, Actor, Bulletin, ActorRole
 from corroborator_app.tasks import update_object
-from corroborator_app.api.ActorApi import ActorResource
-from corroborator_app.api.BulletinApi import BulletinResource
-from corroborator_app.api.IncidentApi import IncidentResource
 
-from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 
 def multi_save_actors(element_data, username):
+    '''
+    add docstring
+    this method is too long and should be refactored
+    '''
     actor_role_ids = []
-    actorData = element_data
+    actor_data = element_data
     list_actors = Actor.objects.filter(
-        id__in=batch_parse_id_from_uri(actorData['actors'])
+        id__in=batch_parse_id_from_uri(actor_data['actors'])
     )
     actor_set = ''
     for item in list_actors:
         actor_set += str(item.id) + ';' 
-        item.age_en = actorData['age_en']
-        item.age_ar = actorData['age_ar']
-        item.sex_en = actorData['sex_en']
-        item.sex_ar = actorData['sex_ar']
-        item.position_en = actorData['position_en']
-        item.position_ar = actorData['position_ar']
-        item.occupation_en = actorData['occupation_en']
-        item.occupation_ar = actorData['occupation_ar']
-        item.ethnicity_en = actorData['ethnicity_en']
-        item.ethnicity_ar = actorData['ethnicity_ar']
-        item.nationality_en = actorData['nationality_en']
-        item.nationality_ar = actorData['nationality_ar']
-        item.spoken_dialect_en = actorData['spoken_dialect_en']
-        item.spoken_dialect_ar = actorData['spoken_dialect_ar']
-        item.religion_en = actorData['religion_en']
-        item.religion_ar = actorData['religion_ar']
-        item.civilian_en = actorData['civilian_en']
-        item.civilian_ar = actorData['civilian_ar']
+        # surely there is a better way to do this
+        item.age_en = actor_data['age_en']
+        item.age_ar = actor_data['age_ar']
+        item.sex_en = actor_data['sex_en']
+        item.sex_ar = actor_data['sex_ar']
+        item.position_en = actor_data['position_en']
+        item.position_ar = actor_data['position_ar']
+        item.occupation_en = actor_data['occupation_en']
+        item.occupation_ar = actor_data['occupation_ar']
+        item.ethnicity_en = actor_data['ethnicity_en']
+        item.ethnicity_ar = actor_data['ethnicity_ar']
+        item.nationality_en = actor_data['nationality_en']
+        item.nationality_ar = actor_data['nationality_ar']
+        item.spoken_dialect_en = actor_data['spoken_dialect_en']
+        item.spoken_dialect_ar = actor_data['spoken_dialect_ar']
+        item.religion_en = actor_data['religion_en']
+        item.religion_ar = actor_data['religion_ar']
+        item.civilian_en = actor_data['civilian_en']
+        item.civilian_ar = actor_data['civilian_ar']
 
-        item.current_location_id =\
-            parse_id_from_uri(actorData['current_location'])
+        item.current_location_id = parse_id_from_uri(
+            actor_data['current_location'])
         item.save()
 
+        # don't use single letter variables
         for a in element_data['actorsRoles']:
-            localID = parse_id_from_uri(a['actor'])
-            actor_role = get_role_for_actor(item, localID)
+            local_id = parse_id_from_uri(a['actor'])
+            actor_role = get_role_for_actor(item, local_id)
             role_local = ''
             if actor_role == '':
                 role_local = ActorRole(relation_status=a['relation_status'],\
-                        actor_id=int(localID), role_en=a['role_en'])
+                        actor_id=int(local_id), role_en=a['role_en'])
             else:
                 role_local = actor_role
                 role_local.relation_status = a['relation_status']
@@ -69,6 +70,9 @@ def multi_save_actors(element_data, username):
     return get_result_objects(actor_set, 'actor', username)
 
 def get_result_objects(id_set, mode, username):
+    '''
+    add docstring, and test
+    '''
     api_key=''
     user = User.objects.get(username=username)
     try:
@@ -89,6 +93,9 @@ def get_result_objects(id_set, mode, username):
     return result.content
 
 def generate_uris(batch, entity):
+    '''
+    add docstring, and test
+    '''
     new_uris = []
     for id in batch:
         new_uri = '/api/v1/{0}/{1}/'.format(entity, id)
@@ -97,12 +104,17 @@ def generate_uris(batch, entity):
     return new_uris
 
 def parse_id_from_uri(uri):
+    '''
+    add docstring
+    '''
     tokens = uri.split('/')
-    print 'test'
     id=tokens[len(tokens)-2]
     return id
 
 def batch_parse_id_from_uri(batch):
+    '''
+    add docstring
+    '''
     localBatch = []
     for item in batch:
         tokens = item.split('/')
@@ -111,6 +123,9 @@ def batch_parse_id_from_uri(batch):
     return localBatch
 
 def get_role_for_actor(entity, actor_id):
+    '''
+    add docstring
+    '''
     roles = entity.actors_role.filter(actor_id=actor_id)
     if len(roles) > 0:
         return roles[0]
@@ -118,6 +133,9 @@ def get_role_for_actor(entity, actor_id):
         return ''
 
 def multi_save_entities(element_data, mode, username):
+    '''
+    add docstring, method too long
+    '''
     list_entities = []
     statusid = ''
     comment_ids = []
@@ -166,12 +184,15 @@ def multi_save_entities(element_data, mode, username):
                 labeling_ids = map(int, localLabels)
                 item.labels.add(*labeling_ids)
             for a in element_data['actorsRoles']:
-                localID = parse_id_from_uri(a['actor'])
-                actor_role = get_role_for_actor(item, localID)
+                local_id = parse_id_from_uri(a['actor'])
+                actor_role = get_role_for_actor(item, local_id)
                 role_local = ''
                 if actor_role == '':
-                    role_local = ActorRole(role_status=a['role_status'],\
-                        actor_id=int(localID), role_en=a['role_en'])
+                    role_local = ActorRole(
+                        role_status=a['role_status'],
+                        actor_id=int(local_id),
+                        role_en=a['role_en']
+                    )
                 else:
                     role_local = actor_role
                     role_local.role_status = a['role_status']

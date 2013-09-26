@@ -250,12 +250,14 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_ref_bulletins(object)
+
     def prepare_actor_roles_status(self, object):
         """
         Returns a list of all roles and relationships associated with this
         Actor instance
         """
         return IncidentPrepMeta().prepare_incident_actor_roles(object)
+
     def prepare_actors(self, object):
         """
         Returns an array of tastypi uris related to the Actor's
@@ -379,13 +381,14 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
 
     def prepare_assigned_user(self, object):
         return BulletinPrepMeta().prepare_assigned_user(object)
+
     def prepare_times(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_times(object)
- 
+
     def prepare_ref_bulletins(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance

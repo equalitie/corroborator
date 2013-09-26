@@ -10,14 +10,16 @@ from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media
  
+
 class IncidentPrepMeta():
-    def prepare_incident_actor_roles(self, object):
+
+    def prepare_incident_actor_roles(self, incident_object):
         """
         Returns a full list of the roles played by actors associate
         with this object
         """
         roles = [actor_role.role_status for actor_role in
-            object.actors_role.all()]
+            incident_object.actors_role.all()]
         return roles
 
     def prepare_assigned_user(self, object):
@@ -32,18 +34,22 @@ class IncidentPrepMeta():
         """
         return ['/api/v1/timeInfo/{0}/'.format(timeinfo.id) for timeinfo in
         object.times.all()]
+
     def prepare_ref_incidents(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
-        return ['/api/v1/incident/{0}/'.format(incident.id) for incident in object.ref_incidents.all()]
+        return ['/api/v1/incident/{0}/'.format(incident.id) for incident in
+        object.ref_incidents.all()]
+
     def prepare_locations(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
         return ['/api/v1/location/{0}/'.format(location.id) for location in object.locations.all()]
+
     def prepare_labels(self, object):
         """
         Returns the correctly formated uri related to this incident instance

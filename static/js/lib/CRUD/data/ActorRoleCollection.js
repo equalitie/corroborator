@@ -66,6 +66,7 @@ define (
         if (roleList[i].key === key) {
           result = roleList[i].value;
         }
+        i++;
       }
       return result;
     };
@@ -103,21 +104,18 @@ define (
     ActorRoleModel = Backbone.Model.extend({
       resourceName: 'actorRole',
       onInitialize: function() {
-        console.log(this.toJSON());
       },
       setRelationType: function(fieldName) {
         var setFunction = fieldName === 'role_status' ?
-          this.setAsRole : this.setAsRelation;
-        console.log('setRelationType: ', fieldName);
-        setFunction();
+          this.setAsRole.bind(this) : this.setAsRelation.bind(this);
+        var key = this.get('role_status');
+        setFunction(key);
       },
-      setAsRelation: function() {
-        this.set('role_en', getRoleFromKey('role_status'));
-        console.log('setAsRelation');
+      setAsRelation: function(key) {
+        this.set('role_en', getRoleFromKey(key, 'relation_status'));
       },
-      setAsRole: function() {
-        this.set('role_en', getRoleFromKey('role_status'));
-        console.log('setAsRole');
+      setAsRole: function(key) {
+        this.set('role_en', getRoleFromKey(key, 'role_status'));
       }
 
     });
@@ -126,7 +124,17 @@ define (
     // ###Collection
     // 
     ActorRoleCollection = Backbone.Collection.extend({
-      model: ActorRoleModel
+      model: ActorRoleModel,
+      findModelFromActor: function(actorRoleData) {
+        var actor = this.chain()
+                   .filter(function(model) {
+                      return model.get('actor') === actorRoleData.actor;
+                   })
+                   .last()
+                   .value();
+        console.log(actor);
+        return actor;
+      }
     });
 
     return {
