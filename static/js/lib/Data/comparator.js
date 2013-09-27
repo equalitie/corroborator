@@ -54,7 +54,12 @@ define (
 
     convertNumToString = function(field) {
       if (typeof(field) === 'number') {
-        field = field.toString();
+        if (field < 10) {
+          field = '0' + field.toString();
+        }
+        else {
+          field = field.toString();
+        }
       }
       return field;
     };

@@ -55,6 +55,10 @@ define (
         });
       });
 
+      it('should sort numbers correctly', function(){
+          
+      });
+
       it('should reverse the order of the sort if the user clicks the same header twice',
       function() {
         var eventContent;
