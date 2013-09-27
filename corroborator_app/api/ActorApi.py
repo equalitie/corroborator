@@ -16,7 +16,10 @@ from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
+from corroborator_app.utilities.apiValidationTool import ApiValidation
+
 from django.contrib.auth.models import User
+
 import reversion
 
 import sys
@@ -46,9 +49,13 @@ class ActorResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+        validation = ApiValidation()
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
+        bundle = super( ActorResource, self )\
+            .obj_delete( bundle, **kwargs )
+
         """
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
@@ -112,7 +119,6 @@ class ActorResource(ModelResource):
             .prepare_actor_actor_roles(bundle.obj)
         return bundle
 
-
 class ActorRoleResource(ModelResource):
     actor = fields.ForeignKey(ActorResource, 'actor', null=True)
     """
@@ -124,6 +130,7 @@ class ActorRoleResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+        validation = ApiValidation()
 
 class ActorRelationshipResource(ModelResource):
     """
@@ -137,3 +144,4 @@ class ActorRelationshipResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
+        validation = ApiValidation()

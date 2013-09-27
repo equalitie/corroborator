@@ -13,13 +13,13 @@ def multi_save_actors(element_data, username):
     add docstring
     this method is too long and should be refactored
     '''
-    actor_role_ids = []
     actor_data = element_data
     list_actors = Actor.objects.filter(
         id__in=batch_parse_id_from_uri(actor_data['actors'])
     )
     actor_set = ''
     for item in list_actors:
+        actor_role_ids = []
         actor_set += str(item.id) + ';' 
         # surely there is a better way to do this
         item.age_en = actor_data['age_en']
@@ -136,10 +136,9 @@ def multi_save_entities(element_data, mode, username):
     '''
     add docstring, method too long
     '''
+    comment_ids = []
     list_entities = []
     statusid = ''
-    comment_ids = []
-    actor_role_ids = []
     cscore = None
     userid = None
     id_list = []
@@ -171,6 +170,7 @@ def multi_save_entities(element_data, mode, username):
             id__in=batch_parse_id_from_uri(element_data['bulletins'])
         )
     for item in list_entities:
+        actor_role_ids = []
         if mode  ==  'bulletin' or mode  ==  'incident':
             entity_set += str(item.id) + ';'
             if cscore != None:
@@ -183,6 +183,7 @@ def multi_save_entities(element_data, mode, username):
                 )
                 labeling_ids = map(int, localLabels)
                 item.labels.add(*labeling_ids)
+
             for a in element_data['actorsRoles']:
                 local_id = parse_id_from_uri(a['actor'])
                 actor_role = get_role_for_actor(item, local_id)
@@ -199,6 +200,7 @@ def multi_save_entities(element_data, mode, username):
                     role_local.role_en = a['role_en']
                 role_local.save()
                 actor_role_ids.append(role_local.id)
+
             if len(comment_ids) > 0:
                 if mode == 'incident':
                     item.incident_comments.add(comment_ids)
