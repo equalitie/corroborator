@@ -41,6 +41,9 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/date-range.tpl.js'      : 'lib/SolrSearch/templates/date-range.tpl',
           'lib/SolrSearch/templates/selected-filter.tpl.js' : 'lib/SolrSearch/templates/selected-filter.tpl',
 
+          // Navigation
+          'lib/Navigation/templates/search-help.tpl.js': 'lib/Navigation/templates/search-help.tpl',
+
           // dialogs
           'lib/SolrSearch/templates/save-search-dialog.tpl.js': 'lib/SolrSearch/templates/save-search-dialog.tpl',
 

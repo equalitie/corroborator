@@ -21,9 +21,12 @@ define(
     'lib/elements/dialog',
     'lib/Navigation/TabRouter',
     'lib/streams',
+    'lib/Navigation/views/search-info',
     'lib/Navigation/activity'
   ],
-  function(_, InputView, NavCombo, Dialog, TabRouter, Streams, Activity) {
+  function(_, InputView, NavCombo, Dialog, TabRouter, Streams, SearchInfoView,
+    Activity
+  ) {
     'use strict';
     var textEntered,
         textProperty, inputView;
@@ -85,6 +88,7 @@ define(
     };
 
     var createInfoView = function() {
+      var infoView = new SearchInfoView();
     };
 
     // init function used to instantiate the objects required to get 

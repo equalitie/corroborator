@@ -4,11 +4,10 @@
  */
 define(
   [
-    'backbone',
     'lib/Navigation/TabRouter',
     'lib/streams'
   ],
-  function(Backbone, TabRouter, Streams) {
+  function(TabRouter, Streams) {
     var bus = Streams.navBus;
     describe('Router Testing', function () {
       var value, flag;

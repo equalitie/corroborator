@@ -4,6 +4,23 @@ define(
   'use strict';
 
 
+  var actors = [
+    { 
+      "_version_": 1446977498689568800, 
+        "actor_roles_status": [
+            "P", 
+            "S"
+        ], 
+        "actors": [
+            "/api/v1/actor/2/", 
+            "/api/v1/actor/1/"
+        ], 
+        "actors_role": [
+            "/api/v1/actorRole/1/", 
+            "/api/v1/actorRole/2/"
+        ], 
+    }
+  ];
   var incidents = [
     { 
       "_version_": 1446977498689568800, 
@@ -192,6 +209,7 @@ define(
   ];
 
   return {
+    actors: actors,
     incidents: incidents,
   };
   

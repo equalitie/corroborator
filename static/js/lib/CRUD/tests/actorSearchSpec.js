@@ -13,24 +13,32 @@ define(
   function ($, _, ActorRole, ActorSearchField, fixtures) {
   'use strict';
   describe('test actor role creation and association', function() {
-    var incidents, actorRoleCollection;
+    var incidents, actorActorRoleCollection, incidentActorRoleCollection,
+        actors;
 
     // ## helper functions
-    var getActorRoleArrays = function(incident) {
+    var getActorRoleArrays = function(entity) {
       return {
-        roles: incident.actor_roles_status,
-        actors: incident.actors,
-        actors_role: incident.actors_role
+        roles: entity.actor_roles_status,
+        actors: entity.actors,
+        actors_role: entity.actors_role
       };
     };
 
-    beforeEach(function() {
-      incidents = fixtures.incidents;
-      var actorRoleArrays = getActorRoleArrays(_.first(incidents));
+    var createRoleCollection = function(actorRoleArrays) {
       var preparedArrays =
         ActorRole.prepareForCollection(actorRoleArrays);
-      actorRoleCollection =
-        new ActorRole.ActorRoleCollection(preparedArrays);
+     return new ActorRole.ActorRoleCollection(preparedArrays);
+    };
+
+
+    beforeEach(function() {
+      incidents = fixtures.incidents;
+      actors    = fixtures.actors;
+      var incidentActorRoleArrays = getActorRoleArrays(_.first(incidents));
+      var actorActorRoleArrays    = getActorRoleArrays(_.first(actors));
+      incidentActorRoleCollection = createRoleCollection(incidentActorRoleArrays);
+      actorActorRoleCollection    = createRoleCollection(actorActorRoleArrays);
     });
 
     afterEach(function() {
@@ -38,13 +46,17 @@ define(
 
     it('should create roles collection from the solr actor fields',
     function(){
-      expect(actorRoleCollection.length).toEqual(2);
+      expect(actorActorRoleCollection.length).toEqual(2);
     });
 
     it('should load the correct rolename from the key', function(){
-      debugger;
-      expect(actorRoleCollection.first().get('role_en')).toEqual('Killed');
+      incidentActorRoleCollection.invoke('setRelationType', 'role_status');
+      expect(incidentActorRoleCollection.first().get('role_en')).toEqual('Killed');
     });
 
+    it('should load the correct rolename for keys for actors', function() {
+      actorActorRoleCollection.invoke('setRelationType', 'relation_status');
+      expect(actorActorRoleCollection.first().get('role_en')).toEqual('Parent');
+    });
   });
 });
