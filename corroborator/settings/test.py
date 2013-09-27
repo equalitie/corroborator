@@ -13,7 +13,6 @@ DATABASES = {
 
 INSTALLED_APPS += (
     'autofixture',
-    'interntest',
 )
 
 #Haystack backend configuration
@@ -24,3 +23,6 @@ HAYSTACK_CONNECTIONS = {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
 }
+
+USE_TZ = True
+TIME_ZONE = 'Europe/Dublin'

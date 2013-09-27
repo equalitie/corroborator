@@ -9,12 +9,12 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'VersionStatus'
-        db.create_table(u'corroborator_app_versionstatus', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('revision', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['reversion.Revision'], unique=True)),
-            ('status', self.gf('django.db.models.fields.CharField')(max_length=255)),
-        ))
-        db.send_create_signal(u'corroborator_app', ['VersionStatus'])
+        #db.create_table(u'corroborator_app_versionstatus', (
+            #(u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            #('revision', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['reversion.Revision'], unique=True)),
+            #('status', self.gf('django.db.models.fields.CharField')(max_length=255)),
+        #))
+        #db.send_create_signal(u'corroborator_app', ['VersionStatus'])
 
 
         # Changing field 'Actor.fullname_ar'
@@ -43,7 +43,7 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         # Deleting model 'VersionStatus'
-        db.delete_table(u'corroborator_app_versionstatus')
+        #db.delete_table(u'corroborator_app_versionstatus')
 
 
         # Changing field 'Actor.fullname_ar'
@@ -356,12 +356,12 @@ class Migration(SchemaMigration):
             'time_from': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'time_to': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'})
         },
-        u'corroborator_app.versionstatus': {
-            'Meta': {'object_name': 'VersionStatus'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'revision': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['reversion.Revision']", 'unique': 'True'}),
-            'status': ('django.db.models.fields.CharField', [], {'max_length': '255'})
-        },
+        #u'corroborator_app.versionstatus': {
+            #'Meta': {'object_name': 'VersionStatus'},
+            #u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            #'revision': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['reversion.Revision']", 'unique': 'True'}),
+            #'status': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        #},
         u'reversion.revision': {
             'Meta': {'object_name': 'Revision'},
             'comment': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
