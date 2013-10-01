@@ -21,7 +21,6 @@ define(
     },
     showInfoWindow: function() {
       var html = this.template();
-      console.log(html);
       $(html).dialog({
         modal: true,
         width: 600

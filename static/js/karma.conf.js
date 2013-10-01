@@ -81,6 +81,11 @@ module.exports = function(config) {
 
     preprocessors: {'*/.html': [] },
 
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
+    },
+
     // web server port
     port: 9876,
 

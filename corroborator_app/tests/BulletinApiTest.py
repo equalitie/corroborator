@@ -109,9 +109,11 @@ class BulletinTestCase(ResourceTestCase):
 
     def test_bulletin_mass_update(self):
         b = Bulletin.objects.all()[0]
-        url = 'https://dev.corroborator.org/corroborator/bulletin/0/multisave/?format=json{1}'.format(b.id, self.auth_string)
+        url = '/corroborator/bulletin/0/multisave/?format=json{1}'\
+              .format(b.id, self.auth_string)
         put_data = {
-            'bulletins':['/api/v1/bulletin/1/','/api/v1/bulletin/1/',],
+            'bulletins':['/api/v1/bulletin/1/','/api/v1/bulletin/2/',],
+            'username': 'user',
             'confidence_score':11,
             'assigned_user': '/api/v1/user/1/',
             'actorsRoles':[{'actor':'/api/v1/actor/1/','role_en':'Killed','role_status':'K',},],
@@ -141,6 +143,8 @@ class BulletinTestCase(ResourceTestCase):
             'locations': [],
             'labels': [],
             'ref_bulletins': [],
+            'status': 'Updated',
+            'comment': 'Updated',
         }
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -167,6 +171,8 @@ class BulletinTestCase(ResourceTestCase):
             'locations': [],
             'labels': [],
             'ref_bulletins': [],
+            'status': 'Updated',
+            'comment': 'Updated',
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -193,6 +199,8 @@ class BulletinTestCase(ResourceTestCase):
                     'locations': [],
                     'labels': [],
                     'ref_bulletins': [],
+                    'status': 'Updated',
+                    'comment': 'Updated',
                 },
                 {
                     'id': '2',
@@ -211,6 +219,8 @@ class BulletinTestCase(ResourceTestCase):
                     'locations': [],
                     'labels': [],
                     'ref_bulletins': [],
+                    'status': 'Updated',
+                    'comment': 'Updated',
                 }
             ]
         }
@@ -237,6 +247,8 @@ class BulletinTestCase(ResourceTestCase):
                     'locations': [],
                     'labels': [],
                     'ref_bulletins': [],
+                    'status': 'Updated',
+                    'comment': 'Updated',
                 },
                 {
                     'title_en': "Test Bulletin",
@@ -253,6 +265,8 @@ class BulletinTestCase(ResourceTestCase):
                     'locations': [],
                     'labels': [],
                     'ref_bulletins': [],
+                    'status': 'Updated',
+                    'comment': 'Updated',
                 }
             ]
         }

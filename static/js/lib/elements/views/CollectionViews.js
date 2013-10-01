@@ -90,6 +90,7 @@ define (
       // constructor, call the render function
       initialize: function() {
         this.render();
+        this.listenTo(this.model, 'change', this.render);
       },
 
       // render the model with template vars hung off model,

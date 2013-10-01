@@ -31,7 +31,7 @@ define (
       
       it('should return a string for a number', function() {
         var returned = parseComparator(1);
-        expect(returned).toEqual('1');
+        expect(returned).toEqual('01');
       });
 
       it('should push undefined values to the end', function() {

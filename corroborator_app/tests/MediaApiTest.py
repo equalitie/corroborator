@@ -32,11 +32,28 @@ class MediaTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 401)
 
     def test_media_post(self):
+        class TestFile:
+            '''
+            test
+            '''
+            def __init__(self):
+                pass
+
+            content_type = ''
+            name = ''
+
+
+        #test_file = open('corroborator_app/fixtures/images.jpeg')
+        test_file = TestFile()
+        test_file.content_type = 'image/jpeg'
+        test_file.name = 'images.jpeg'
+        print test_file.content_type
         post_data = {
             'fullname_en': "Test Media",
             'fullname_ar': "Test Media Arabic",
             'nickname_en': "Nickname en",
             'nickname_ar': "Nickname Arabic",
+            'media_file' : test_file,
         }
         url = '/api/v1/media/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)

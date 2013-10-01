@@ -1,6 +1,5 @@
 from ActorApiTest import *
 from ActorRelationshipApiTest import *
-from CommentApiTest import *
 from LabelApiTest import *
 from CrimeCategoryApiTest import *
 from MediaApiTest import *

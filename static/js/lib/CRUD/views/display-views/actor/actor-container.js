@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // Show the list of related actors
@@ -22,6 +22,10 @@ define (
         ActorCollection = Collections.ActorCollection,
         ActorListView, ActorView,
         ActorModel = Actor.ActorModel;
+    var buildUrlVars = function() {
+      return "?format=json&username=" +
+      Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
+    };
 
     ActorView = ModelView.extend({
       tagName: 'li',
@@ -54,17 +58,25 @@ define (
             var model = new Backbone.Model({
               uri: uriList[i],
               role: roleList[i],
-              id: i
+              id: i,
             });
+            model.url = uriList[i] + buildUrlVars();
             this.collection.add(model);
           }
         }
       },
 
-      // populate the rest of the actor data
+      // populate the rest of the actor data, from the collection if possible
+      // or fall back to an api call
       createDisplayModel: function(model, index, list) {
         var actorDetails = this.loadFromCollection(model.get('uri'), ActorCollection);
-        model.set(actorDetails.toJSON());
+        if (actorDetails !== undefined) {
+          model.set(actorDetails.toJSON());
+        }
+        else {
+          model.fetch();
+        }
+
       },
 
       initialize: function(options) {

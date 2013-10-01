@@ -16,9 +16,13 @@ class ActorTestCase(ResourceTestCase):
         actors = fixture.create(10)
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
-        self.actor = Actor(fullname_en='Test Actor',fullname_ar='Test name ar',nickname_en='nick name',nickname_ar='nick name')
+        self.actor = Actor(
+            fullname_en='Test Actor',
+            fullname_ar='Test name ar',
+            nickname_en='nick name',
+            nickname_ar='nick name'
+        )
         self.actor.save()
-    
 
         try:
             self.api_key = ApiKey.objects.get(user=self.user)
@@ -44,6 +48,8 @@ class ActorTestCase(ResourceTestCase):
             'fullname_ar': "Test Actor Arabic",
             'nickname_en': "Nickname en",
             'nickname_ar': "Nickname Arabic",
+            'status': 'Updated',
+            'comment': 'Updated',
         }
         url = '/api/v1/actor/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -57,12 +63,15 @@ class ActorTestCase(ResourceTestCase):
             'fullname_ar': "Test Actor Arabic",
             'nickname_en': "Nickname en",
             'nickname_ar': "Nickname Arabic",
+            'status': 'Updated',
+            'comment': 'Updated',
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
     def test_actor_mass_update(self):
         url = 'https://dev.corroborator.org/corroborator/actor/0/multisave/'
         put_data = {
+            'username': 'user',
             'actors':['/api/v1/actor/1/','/api/v1/actor/2/',],
             'age_en':'Adult',
             'age_ar':'',
@@ -94,7 +103,6 @@ class ActorTestCase(ResourceTestCase):
         }
 
         response = self.api_client.put(url, data=put_data)
-        print response.content
         self.assertEqual(response.status_code, 200)
 
        
@@ -107,12 +115,16 @@ class ActorTestCase(ResourceTestCase):
                     'fullname_ar': "Test Actor Arabic",
                     'nickname_en': "Nickname en",
                     'nickname_ar': "Nickname Arabic",
+                    'status': 'Updated',
+                    'comment': 'Updated',
                 },
                 {
                     'fullname_en': "Test Actor",
                     'fullname_ar': "Test Actor Arabic",
                     'nickname_en': "Nickname en",
                     'nickname_ar': "Nickname Arabic",
+                    'status': 'Updated',
+                    'comment': 'Updated',
                 }
             ]
         }

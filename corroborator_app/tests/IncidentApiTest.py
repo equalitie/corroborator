@@ -82,6 +82,8 @@ class IncidentTestCase(ResourceTestCase):
             'times': [],
             'locations': [],
             'ref_incidents': [],
+            'status': 'Updated',
+            'comment': 'Comment',
         }
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -92,6 +94,7 @@ class IncidentTestCase(ResourceTestCase):
         url = 'https://dev.corroborator.org/corroborator/incident/0/multisave/?format=json{1}'.format(i.id, self.auth_string)
         put_data = {
             'incidents':['/api/v1/incident/1/','/api/v1/incident/1/',],
+            'username': 'user',
             'confidence_score':11,
             'assigned_user': '/api/v1/user/1/',
             'actorsRoles':[{'actor':'/api/v1/actor/1/','role_en':'Killed','role_status':'K',},],
@@ -104,7 +107,6 @@ class IncidentTestCase(ResourceTestCase):
         }
 
         response = self.api_client.put(url, data=put_data)
-        print response.content
         self.assertEqual(response.status_code, 200)
 
     def test_incident_put(self):
@@ -125,6 +127,8 @@ class IncidentTestCase(ResourceTestCase):
             'times': [],
             'locations': [],
             'ref_incidents': [],
+            'status': 'Updated',
+            'comment': 'Comment',
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -150,6 +154,8 @@ class IncidentTestCase(ResourceTestCase):
                     'times': [],
                     'locations': [],
                     'ref_incidents': [],
+                    'status': 'Updated',
+                    'comment': 'Comment',
                 },
                 {
                     'id': '2',
@@ -167,6 +173,8 @@ class IncidentTestCase(ResourceTestCase):
                     'times': [],
                     'locations': [],
                     'ref_incidents': [],
+                    'status': 'Updated',
+                    'comment': 'Comment',
                 }
             ]
         }
@@ -192,6 +200,8 @@ class IncidentTestCase(ResourceTestCase):
                     'times': [],
                     'locations': [],
                     'ref_incidents': [],
+                    'status': 'Updated',
+                    'comment': 'Comment',
                 },
                 {
                     'title_en': "Test Incident",
@@ -207,6 +217,8 @@ class IncidentTestCase(ResourceTestCase):
                     'times': [],
                     'locations': [],
                     'ref_incidents': [],
+                    'status': 'Updated',
+                    'comment': 'Comment',
                 }
             ]
         }

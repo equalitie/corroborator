@@ -18,3 +18,4 @@ config.rb
 corroborator/wsgidev.py
 static/js/reports
 static/js/oldreports
+static/js/coverage
