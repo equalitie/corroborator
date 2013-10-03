@@ -12,13 +12,16 @@ define(
   [
     'jquery', 'backbone', 'underscore',
     'lib/streams',
-    'lib/Data/collections'
+    'lib/Data/collections',
+    'lib/Navigation/helpers/home-search-builder'
   ],
-  function($, Backbone, _, Streams, Collections) {
+  function($, Backbone, _, Streams, Collections, HomeSearchBuilder) {
     'use strict';
     var tabRouter,
         navBus = Streams.navBus,
+        searchBus = Streams.searchBus,
         tabView,
+        getSearchModel = HomeSearchBuilder.getSearchModel,
 
         filterTabNav = function(value) {
           return value.type === 'navigate';
@@ -41,7 +44,7 @@ define(
     // we also want to open the filters and results at this point
     var TabRouter = Backbone.Router.extend({
       routes: {
-        ''                    : 'openSection',
+        ''                    : 'showHomeSearch',
         'tab/:section'        : 'openSection',
         'bulletin/:bulletinId': 'openBulletin',
         'incident/:incidentId': 'openIncident',
@@ -62,6 +65,14 @@ define(
         this.openSection(evt.value().entity);
       },
 
+      showHomeSearch: function() {
+        console.log('showHomeSearch');
+        this.openSection();
+        searchBus.push({
+          type: 'predefined_search',
+          content: getSearchModel()
+        });
+      },
       openSection: function(section) {
         this.unsubNavSubscriber();
         section = section === undefined ? 'incident': section;
@@ -155,8 +166,13 @@ define(
       return tabRouter;
     };
 
+    var getTabRouter = function() {
+      return tabRouter;
+    };
+
     return {
-      init: init
+      init: init,
+      getTabRouter: getTabRouter
     };
   }
 );

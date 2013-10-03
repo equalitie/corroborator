@@ -22,10 +22,11 @@ define(
     'lib/Navigation/TabRouter',
     'lib/streams',
     'lib/Navigation/views/search-info',
+    'lib/Navigation/views/home-search',
     'lib/Navigation/activity'
   ],
-  function(_, InputView, NavCombo, Dialog, TabRouter, Streams, SearchInfoView,
-    Activity
+  function(_, InputView, NavCombo, Dialog, TabRouter,
+          Streams, HomeSearchView, SearchInfoView, Activity
   ) {
     'use strict';
     var textEntered,
@@ -87,6 +88,9 @@ define(
       Dialog.init('item_clicked', '#search-dialog-form');
     };
 
+    var createHomeView = function() {
+      var homeView = new HomeSearchView();
+    };
     var createInfoView = function() {
       var infoView = new SearchInfoView();
     };
@@ -97,6 +101,7 @@ define(
       createComboBox();
       createInputView();
       createInfoView();
+      createHomeView();
       watchForSearch();
       TabRouter.init();
       createDialog();

@@ -37,6 +37,10 @@ define(
           expect(value).toBeGreaterThan(0);
         });
       });
+
+      it('should dispatch an event that triggers a saved search', function(){
+          
+      });
    });
   }
 );

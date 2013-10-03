@@ -237,7 +237,7 @@ a.button.download {
 button.do-clear {
   @include clear_button;
 }
-.info {
+.info, .home {
   @include button(
     $background_color: transparent,
     $hover_color: transparent
@@ -247,6 +247,11 @@ button.do-clear {
   float: left;
   @include corrob_icon_attach_before;
 }
+
+.home {
+  margin-left: 1.5em;
+}
+
 .do-hide {
   height: 15px;
   padding-left: 8px;

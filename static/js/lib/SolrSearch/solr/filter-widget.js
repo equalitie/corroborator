@@ -85,16 +85,29 @@ define(
         return this;
       },
       populateFreeTextQueryString: function () {
-        if (this.queryString.length) {
+        if (this.queryString === undefined) {
+          this.sendBlankQuery();
+        }
+        else {
+          this.sendParsedQuery(this.queryString);
+        }
+        return this;
+      },
+
+      sendParsedQuery: function(queryString) {
+        if (queryString.length) {
           var parsedQueryString = this.parseQuery(this.queryString);
           this.manager.store.addByValue('q', parsedQueryString );
           this.sendRequest();
         }
         else {
-          this.manager.store.addByValue('q', '*:*');
-          this.sendRequest();
+          this.sendBlankQuery();
         }
-        return this;
+      },
+
+      sendBlankQuery: function() {
+        this.manager.store.addByValue('q', '*:*');
+        this.sendRequest();
       },
       
       
@@ -123,7 +136,7 @@ define(
         if (queryString.length > 0) {
           queryString = queryString + ' OR ';
         }
-        if(model.get('filterName').indexOf(' TO ') == -1){
+        if(model.get('filterName').indexOf(' TO ') === -1){
             return queryString + '("' + model.get('filterName') + '")';
         }else{
             return queryString + '(' + model.get('filterName') + ')';

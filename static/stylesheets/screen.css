@@ -298,7 +298,7 @@ button.do-clear > span {
 }
 
 /* line 240, ../sass/_buttons.scss */
-.info {
+.info, .home {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-transform: uppercase;
@@ -314,11 +314,11 @@ button.do-clear > span {
   float: left;
 }
 /* line 42, ../sass/_buttons.scss */
-.info:hover {
+.info:hover, .home:hover {
   background-color: transparent;
 }
 /* line 50, ../sass/_fonts.scss */
-.info [data-icon]:before {
+.info [data-icon]:before, .home [data-icon]:before {
   font-family: "corroborator";
   text-transform: none;
   content: attr(data-icon);
@@ -327,7 +327,12 @@ button.do-clear > span {
   font-size: 13px;
 }
 
-/* line 250, ../sass/_buttons.scss */
+/* line 251, ../sass/_buttons.scss */
+.home {
+  margin-left: 1.5em;
+}
+
+/* line 255, ../sass/_buttons.scss */
 .do-hide {
   height: 15px;
   padding-left: 8px;
@@ -357,7 +362,7 @@ button.do-clear > span {
   font-size: 13px;
 }
 
-/* line 261, ../sass/_buttons.scss */
+/* line 266, ../sass/_buttons.scss */
 .drop-down-handle {
   height: 15px;
   font-family: 'Open Sans Semi Bold', sans-serif;
@@ -3568,20 +3573,21 @@ nav#search-navigation .search button.do-clear > span {
 .search-combo {
   float: left;
   margin-top: 1.35em;
+  width: 14em;
   position: relative;
 }
-/* line 102, ../sass/_navigation.scss */
+/* line 103, ../sass/_navigation.scss */
 .search-combo .button.do-search {
   top: -0.38462em;
   position: absolute;
 }
 
-/* line 109, ../sass/_navigation.scss */
+/* line 110, ../sass/_navigation.scss */
 .tabs ul {
   float: right;
   margin-right: 3.07692em;
 }
-/* line 113, ../sass/_navigation.scss */
+/* line 114, ../sass/_navigation.scss */
 .tabs li {
   padding-top: 1em;
   float: left;
@@ -3594,11 +3600,11 @@ nav#search-navigation .search button.do-clear > span {
   position: relative;
   z-index: 1;
 }
-/* line 124, ../sass/_navigation.scss */
+/* line 125, ../sass/_navigation.scss */
 .tabs li a {
   display: block;
 }
-/* line 127, ../sass/_navigation.scss */
+/* line 128, ../sass/_navigation.scss */
 .tabs li .text {
   color: white;
   display: block;
@@ -3608,28 +3614,28 @@ nav#search-navigation .search button.do-clear > span {
   padding-right: 1.3986em;
   font-size: 110%;
 }
-/* line 136, ../sass/_navigation.scss */
+/* line 137, ../sass/_navigation.scss */
 .tabs li .count {
   padding-left: 0.25em;
   opacity: 0.5;
 }
-/* line 140, ../sass/_navigation.scss */
+/* line 141, ../sass/_navigation.scss */
 .tabs li:first-child {
   margin-left: 0em;
 }
-/* line 143, ../sass/_navigation.scss */
+/* line 144, ../sass/_navigation.scss */
 .tabs li:hover, .tabs li.current {
   background-color: #2b2a2a;
 }
-/* line 147, ../sass/_navigation.scss */
+/* line 148, ../sass/_navigation.scss */
 .tabs li.current.is-incidents {
   border-bottom: 4px solid #6bcad8;
 }
-/* line 150, ../sass/_navigation.scss */
+/* line 151, ../sass/_navigation.scss */
 .tabs li.current.is-actors {
   border-bottom: 4px solid #f1be33;
 }
-/* line 153, ../sass/_navigation.scss */
+/* line 154, ../sass/_navigation.scss */
 .tabs li.current.is-bulletins {
   border-bottom: 4px solid #b5cd5f;
 }
