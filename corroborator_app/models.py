@@ -479,9 +479,11 @@ class ActorRole(models.Model):
     actor = models.ForeignKey(Actor, blank=True, null=True)
     def __unicode__(self):
         if self.relation_status is not None:
-            return self.actor.fullname_en + ': ' + self.relation_status
+            return str(self.id) + ': ' + self.relation_status\
+                + ': ' + str(self.actor.id)
         else:
-            return self.actor.fullname_en + ': ' + self.role_status
+            return str(self.id) + ': ' + self.role_status\
+                + ': ' + str(self.actor.id)
 
 
 class Bulletin(models.Model):

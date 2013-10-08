@@ -4,7 +4,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     # Examples:
     # url(r'^$', 'corroborator.views.home', name='home'),
 
@@ -13,16 +14,21 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url("", include("django_socketio.urls")),
-    url(r'^logout/$', 'django.contrib.auth.views.logout',{'next_page': '/login'}),
+    url(r'^logout/$',
+        'django.contrib.auth.views.logout',
+        {'next_page': '/login'}),
     url(r'^login/$', 'corroborator_app.views.login_user'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'corroborator_app.views.index'),
     #url(r'^/$', 'corroborator_app.views.index'),
     url(r'^corroborator/$', 'corroborator_app.views.index'),
     url(r'^new_corroborator/$', 'corroborator_app.views.index'),
-    url(r'^corroborator/bulletin/(?P<bulletin_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_bulletin'),
-    url(r'^corroborator/incident/(?P<incident_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_incident'),
-    url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$', 'corroborator_app.views.lookup_actor'),
+    url(r'^corroborator/bulletin/(?P<bulletin_id>\d+)/(?P<mode>\w+)/$',
+        'corroborator_app.views.lookup_bulletin'),
+    url(r'^corroborator/incident/(?P<incident_id>\d+)/(?P<mode>\w+)/$',
+        'corroborator_app.views.lookup_incident'),
+    url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$',
+        'corroborator_app.views.lookup_actor'),
 )
 
 #locking

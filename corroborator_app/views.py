@@ -6,6 +6,7 @@ Author: Bill Doran
 """
 import json
 from django.db.models import Q
+from django.http import QueryDict
 from django.shortcuts import render_to_response, render
 from django.contrib.auth import authenticate,  login
 from django.contrib.auth.models import User
@@ -224,10 +225,7 @@ def lookup_actor(request, actor_id, mode):
     This method is used to implement mass update for bulletins
     It is a work around for lack of incremental update in tastypie
     """
-    response_data = []
-    if mode == 'multisave':
-        element_data = json.loads(request.raw_post_data)
-        username = element_data['username']
-        response_data = multi_save_actors(
-            element_data, username)
-    return HttpResponse(response_data, mimetype='application/json')
+    actor_data = json.loads(request.body)
+    username = actor_data['username']
+    response = multi_save_actors(request, actor_data, username)
+    return response

@@ -1,0 +1,152 @@
+[
+    {
+        "fields": {
+            "actor": 3, 
+            "comments_ar": null, 
+            "comments_en": null, 
+            "relation_status": null, 
+            "role_ar": null, 
+            "role_en": "Tortured", 
+            "role_status": "T"
+        }, 
+        "model": "corroborator_app.actorrole", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "actor": 3, 
+            "comments_ar": "", 
+            "comments_en": "", 
+            "relation_status": null, 
+            "role_ar": null, 
+            "role_en": "Wounded", 
+            "role_status": "W"
+        }, 
+        "model": "corroborator_app.actorrole", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "actor": 2, 
+            "comments_ar": null, 
+            "comments_en": null, 
+            "relation_status": null, 
+            "role_ar": null, 
+            "role_en": "Killed", 
+            "role_status": "K"
+        }, 
+        "model": "corroborator_app.actorrole", 
+        "pk": 3
+    }, 
+
+    {
+        "fields": {
+            "DOB": null, 
+            "POB": 69, 
+            "actor_created": "2013-09-09T11:07:44.244Z", 
+            "actor_modified": "2013-09-25T23:00:00Z", 
+            "actors_role": [
+              2
+            ], 
+            "age_ar": "", 
+            "age_en": "", 
+            "civilian_ar": "", 
+            "civilian_en": "", 
+            "current_location": 63, 
+            "deleted": false, 
+            "ethnicity_ar": "", 
+            "ethnicity_en": "", 
+            "fullname_ar": "", 
+            "fullname_en": "Mustafa Mohammed Shikhani", 
+            "media": null, 
+            "nationality_ar": "", 
+            "nationality_en": "", 
+            "nickname_ar": "", 
+            "nickname_en": "nickname", 
+            "occupation_ar": "", 
+            "occupation_en": "", 
+            "position_ar": "", 
+            "position_en": "", 
+            "religion_ar": "", 
+            "religion_en": "", 
+            "sex_ar": "", 
+            "sex_en": "", 
+            "spoken_dialect_ar": "", 
+            "spoken_dialect_en": ""
+        }, 
+        "model": "corroborator_app.actor", 
+        "pk": 1
+    }, 
+    {
+        "fields": {
+            "DOB": null, 
+            "POB": null, 
+            "actor_created": "2013-09-09T13:50:57.539Z", 
+            "actor_modified": "2013-09-25T23:00:00Z", 
+            "actors_role": [], 
+            "age_ar": "", 
+            "age_en": "", 
+            "civilian_ar": "", 
+            "civilian_en": "", 
+            "current_location": null, 
+            "deleted": false, 
+            "ethnicity_ar": "", 
+            "ethnicity_en": "", 
+            "fullname_ar": "", 
+            "fullname_en": "Abd al-Kareem al-Khatib", 
+            "media": null, 
+            "nationality_ar": "", 
+            "nationality_en": "", 
+            "nickname_ar": "", 
+            "nickname_en": "nickname", 
+            "occupation_ar": "", 
+            "occupation_en": "", 
+            "position_ar": "", 
+            "position_en": "", 
+            "religion_ar": "", 
+            "religion_en": "", 
+            "sex_ar": "", 
+            "sex_en": "", 
+            "spoken_dialect_ar": "", 
+            "spoken_dialect_en": ""
+        }, 
+        "model": "corroborator_app.actor", 
+        "pk": 2
+    }, 
+    {
+        "fields": {
+            "DOB": null, 
+            "POB": null, 
+            "actor_created": "2013-09-10T16:11:06.351Z", 
+            "actor_modified": "2013-09-25T23:00:00Z", 
+            "actors_role": [], 
+            "age_ar": "", 
+            "age_en": "", 
+            "civilian_ar": "", 
+            "civilian_en": "", 
+            "current_location": null, 
+            "deleted": false, 
+            "ethnicity_ar": "", 
+            "ethnicity_en": "", 
+            "fullname_ar": "", 
+            "fullname_en": "Mohammed al-Masri", 
+            "media": null, 
+            "nationality_ar": "", 
+            "nationality_en": "", 
+            "nickname_ar": "", 
+            "nickname_en": "", 
+            "occupation_ar": "", 
+            "occupation_en": "", 
+            "position_ar": "", 
+            "position_en": "", 
+            "religion_ar": "", 
+            "religion_en": "", 
+            "sex_ar": "", 
+            "sex_en": "", 
+            "spoken_dialect_ar": "", 
+            "spoken_dialect_en": ""
+        }, 
+        "model": "corroborator_app.actor", 
+        "pk": 3
+    }
+]

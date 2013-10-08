@@ -324,7 +324,7 @@
           <div id="actor-media-block" class="field is-media hide-multiple">
           </div>
 
-          <div id="actor-version-block" class="field hide-multiple">
+          <div id="actor-version-block" class="field">
             <div id="actor-status-block" class="add">
               <p class="error-text">
                 Select a status for this actor
