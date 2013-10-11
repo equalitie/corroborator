@@ -14,6 +14,7 @@ from corroborator_app.models import Media
 from corroborator_app.utilities.imageTools import Thumbnailer
 __all__ = ('MediaResource', )
 
+
 class MultipartResource(object):
     def deserialize(self, request, data, format=None):
 
@@ -28,7 +29,9 @@ class MultipartResource(object):
             data.update(request.FILES)
             return data
 
-        return super(MultipartResource, self).deserialize(request, data, format)
+        return super(MultipartResource, self)\
+            .deserialize(request, data, format)
+
 
 class MediaResource(MultipartResource, ModelResource):
     """
@@ -52,8 +55,12 @@ class MediaResource(MultipartResource, ModelResource):
         authentication = ApiKeyAuthentication()
         always_return_data = True
 
-    def dehydrate( self, bundle ): 
-        bundle.data['media_file'] = settings.S3_URL + '/' + bundle.obj.media_file.name
+    def dehydrate(self, bundle):
+        '''
+        formatting for media_files
+        '''
+        bundle.data['media_file'] = \
+            settings.S3_URL + '/' + bundle.obj.media_file.name
         return bundle
 
     def obj_create(self, bundle, **kwargs):
@@ -63,15 +70,13 @@ class MediaResource(MultipartResource, ModelResource):
 
         if 'image' in bundle.data['media_file'].content_type:
             filename = bundle.data['name_en']
-            
             media_thumb_file = Thumbnailer()\
                 .construct_thumb(media_file, filename)
             bundle.data['media_thumb_file'] = media_thumb_file
 
         parts = media_file.name.split('.')
         media_file_type = parts[len(parts)-1]
-        bundle.data['media_file_type'] = media_file_type        
-        bundle = super( MediaResource, self )\
-            .obj_create( bundle, **kwargs )
+        bundle.data['media_file_type'] = media_file_type
+        bundle = super(MediaResource, self).obj_create(bundle, **kwargs)
         update_object.delay(username)
         return bundle

@@ -86,7 +86,7 @@ define(
       updateResults: function(model, updatedActors) {
         searchBus.push({
           type: 'multiple_update_results_actors',
-          content: updatedActors.objects
+          content: updatedActors
         });
       },
       updateError: function() {

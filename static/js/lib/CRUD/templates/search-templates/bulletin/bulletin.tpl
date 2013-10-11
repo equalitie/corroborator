@@ -168,7 +168,7 @@
       </div>
 
       <div class="first span-66p">
-        <div id="bulletin-version-block" class="field hide-multiple">
+        <div id="bulletin-version-block" class="field">
           <div id="bulletin-status-block" class="add">
             <p class="error-text">
               Select a status for this bulletin

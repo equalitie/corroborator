@@ -169,7 +169,7 @@
         <!-- Locations -->
         <div id="incident-location-block" class="field is-locations">
         </div>
-        <!-- map block -->
+        <!-- incident map block -->
         <div id="incident-map-block" class="field"></div>
 
 
@@ -177,7 +177,7 @@
       </div>
     </div>
     <div class="first span-66p">
-      <div id="bulletin-version-block" class="field hide-multiple">
+      <div id="bulletin-version-block" class="field">
         <div id="bulletin-status-block" class="add">
           <p class="error-text">
             Select a status for this incident

@@ -83,7 +83,7 @@ define(
       updateResults: function(model, updatedBulletins) {
         searchBus.push({
           type: 'multiple_update_results_bulletins',
-          content: updatedBulletins.objects
+          content: updatedBulletins
         });
       },
       updateError: function() {
