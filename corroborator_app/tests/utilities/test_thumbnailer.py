@@ -4,9 +4,10 @@ Created: 10/10/2013
 Test the thumbnail creation on both image and video files
 """
 from django.test import TestCase
-from django.core.files.uploadedfile import UploadedFile
+from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
 
-from corroborator_app.utilities.imageTools import Thumbnailer
+from corroborator_app.utilities.imageTools import Thumbnailer, \
+    MiniFFMPEGWrapper
 
 import ipdb
 
@@ -69,3 +70,30 @@ class ThumbnailerTestCase(TestCase):
         uploaded_file = UploadedFile(test_file)
         filename = self.thumbnailer.name_thumbnail(uploaded_file)
         self.assertEqual('images_thumb.jpg', filename)
+
+
+class FFMPEGTestCase(TestCase):
+    '''
+    test the frame grab from ffmpeg
+    '''
+
+    def setUp(self):
+        '''
+        initialisation for tests
+        '''
+        self.ffmpeg_wrapper = MiniFFMPEGWrapper()
+
+    def tearDown(self):
+        '''
+        cleanup for tests
+        '''
+        pass
+
+    def test_image_generation(self):
+        '''
+        test that the image file gets generated from the video
+        '''
+        test_file_path = 'corroborator_app/fixtures/auth.m4v'
+        self.ffmpeg_wrapper.video_file = test_file_path
+        self.ffmpeg_wrapper.create_temp_filename()
+        self.ffmpeg_wrapper.create_jpeg_from_video()

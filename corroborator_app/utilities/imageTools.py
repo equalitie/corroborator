@@ -4,16 +4,28 @@ the PIL library.
 
 Bill Doran
 2013/08/09
+
+Updated: 13/10/2013
+Cormac McGuire
+Split Thumbnailer class into methods to facilitate easier testing,
+Created FFMPEGWrapper class to create images from video frames
 """
 
+__all__ = ('Thumbnailer', 'FFMPEGWrapper')
+
 import StringIO
+import time
+from subprocess import Popen, PIPE, STDOUT
+
 from PIL import Image
+
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 class Thumbnailer():
     '''
-    create thumbnails
+    create thumbnails from jpegs, letterbox them if the aspect ration differs
+    from output aspect ratio
     '''
     def __init__(self):
         self._size = (90, 90)
@@ -63,9 +75,6 @@ class Thumbnailer():
         '''
         assign a name
         '''
-        def name_concatenator(name, part):
-            return name + part
-
         filename_parts = uploaded_file.name.split('.')
         filename_parts.pop(len(filename_parts)-1)
         filename = reduce(name_concatenator, filename_parts, '')
@@ -84,6 +93,9 @@ class Thumbnailer():
         tempfile_io = StringIO.StringIO()
         background.save(tempfile_io, format='JPEG')
         return tempfile_io
+
+    def construct_thumb_from_video(self, inbound_file):
+        pass
 
     def construct_thumb_from_image(self, inbound_file):
         """
@@ -104,3 +116,74 @@ class Thumbnailer():
             None
         )
         return media_thumb_file
+
+
+class MiniFFMPEGWrapper():
+    '''
+    wrap the functionality to grab a video as a jpeg for thumbnail creation
+    '''
+    def __init__(self):
+        '''set defaults'''
+        self.position = 1
+        self.create_temp_filename()
+
+    @property
+    def position(self):
+        '''position in the clip we want to take our thumbnamil from'''
+        return self._position
+
+    @position.setter
+    def position(self, value):
+        self._position = value
+
+    @property
+    def video_file(self):
+        '''video file, should be a django uploaded file object'''
+        return self._video_file
+
+    @video_file.setter
+    def video_file(self, value):
+        self._video_file = value
+
+    @property
+    def out_filename(self):
+        '''filename to write our temp jpeg to'''
+        return self._out_filename
+
+    @out_filename.setter
+    def out_filename(self, value):
+        self._out_filename = value
+
+    def create_temp_filename(self):
+        '''create a temp filename using a timestamp'''
+        mylist = str(time.time()).split('.')
+        self.out_filename = '/tmp/' + reduce(name_concatenator, mylist, '') + '.jpg'
+        return self.out_filename
+
+    def create_jpeg_from_video(self):
+        '''
+        Try to load a frame of the given video with ffmpeg, ignoring all errors
+        '''
+        import sys
+        print >> sys.stderr, 'video file: ' + self.video_file
+        print >> sys.stderr, self.out_filename
+        data = Popen([
+            'ffmpeg',
+            '-ss', str(self.position),
+            '-i', self.video_file,
+            '-vframes', '1',
+            self.out_filename
+            ],
+            stdout=PIPE,
+            stderr=STDOUT
+        )
+        out, err = data.communicate()
+        print >> sys.stderr, out
+        print >> sys.stderr, err
+
+        if not data:
+            return
+
+
+def name_concatenator(name, part):
+    return name + part

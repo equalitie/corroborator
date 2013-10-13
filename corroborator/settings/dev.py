@@ -58,3 +58,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/Users/cormac/work/programming/python/djangodev/corroborator/static/'
 
 TIME_ZONE = 'Europe/Dublin'
+
+FILE_UPLOAD_PERMISSIONS = 0666

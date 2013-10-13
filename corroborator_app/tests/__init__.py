@@ -20,4 +20,4 @@ from corroborator_app.tests.multisave.test_multisave_bulletin import\
 from corroborator_app.tests.multisave.test_multisave_incident import\
     MultiSaveIncidentTestCase
 from corroborator_app.tests.utilities.test_thumbnailer import\
-    ThumbnailerTestCase
+    ThumbnailerTestCase, FFMPEGTestCase
