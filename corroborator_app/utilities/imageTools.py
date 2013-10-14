@@ -157,16 +157,14 @@ class MiniFFMPEGWrapper():
     def create_temp_filename(self):
         '''create a temp filename using a timestamp'''
         mylist = str(time.time()).split('.')
-        self.out_filename = '/tmp/' + reduce(name_concatenator, mylist, '') + '.jpg'
+        timestamp_string = reduce(name_concatenator, mylist, '')
+        self.out_filename = '/tmp/{}.jpg'.format(timestamp_string)
         return self.out_filename
 
     def create_jpeg_from_video(self):
         '''
         Try to load a frame of the given video with ffmpeg, ignoring all errors
         '''
-        import sys
-        print >> sys.stderr, 'video file: ' + self.video_file
-        print >> sys.stderr, self.out_filename
         data = Popen([
             'ffmpeg',
             '-ss', str(self.position),
@@ -178,9 +176,6 @@ class MiniFFMPEGWrapper():
             stderr=STDOUT
         )
         out, err = data.communicate()
-        print >> sys.stderr, out
-        print >> sys.stderr, err
-
         if not data:
             return
 

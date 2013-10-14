@@ -5,6 +5,7 @@ Create api for media model, requires apikey auth
 tests in tests/api/tests.py
 """
 from django.conf import settings
+from django.core.files.uploadedfile import UploadedFile
 
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
@@ -75,6 +76,12 @@ class MediaResource(MultipartResource, ModelResource):
             ffmpeg_wrapper = MiniFFMPEGWrapper()
             ffmpeg_wrapper.video_file = media_file.temporary_file_path()
             ffmpeg_wrapper.create_jpeg_from_video()
+            thumb_source_file = UploadedFile(ffmpeg_wrapper.out_filename)
+            thumbnailer = Thumbnailer()
+            bundle.data['media_thumb_file'] = thumbnailer.construct_thumb(
+                thumb_source_file,
+                bundle.data['name_en']
+            )
 
         if 'image' in bundle.data['media_file'].content_type:
             filename = bundle.data['name_en']
