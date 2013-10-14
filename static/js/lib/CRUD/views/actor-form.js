@@ -99,7 +99,6 @@ define (
       initialize: function(options) {
         this.addi18n();
         this.populateWidgets();
-        this.model.set('actors', options.selected);
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         // a little trickery here - cos we use toggleExpanded to render the view
         this.expanded = ! options.expanded;
@@ -231,7 +230,7 @@ define (
 
         var actorSearchView = new ActorSearchView({
           el: '#actor-actor-list-block',
-          content: this.model.get('actors_role'),
+          mainModel: this.model,
           entityType: 'actor',
           relationshipType: 'relation'
         });
