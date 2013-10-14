@@ -168,12 +168,12 @@
       </div>
 
       <div class="first span-66p">
-        <div id="bulletin-version-block" class="field">
-          <div id="bulletin-status-block" class="add">
+        <div id="bulletin-version-block" class="">
+          <div id="bulletin-status-block" class="field add">
             <p class="error-text">
               Select a status for this bulletin
             </p>
-            <label>Status</label><br/>
+            <label>Status</label>
             <select name="status" 
                     id="status" 
                     class="required bulletin-field">
@@ -188,7 +188,7 @@
 
           <div class="clearer"></div>
           <!-- Comment content field -->
-          <div class="add">
+          <div id="bulletin-status-comment-block" class="field add">
             <p class="error-text">
               Comment field is required
             </p>

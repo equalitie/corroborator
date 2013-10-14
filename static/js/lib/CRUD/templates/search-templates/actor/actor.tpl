@@ -324,12 +324,12 @@
           <div id="actor-media-block" class="field is-media hide-multiple">
           </div>
 
-          <div id="actor-version-block" class="field">
-            <div id="actor-status-block" class="add">
+          <div id="actor-version-block" class="">
+            <div id="actor-status-block" class="field add">
               <p class="error-text">
                 Select a status for this actor
               </p>
-              <label>Status</label><br/>
+              <label>Status</label>
               <select name="status" 
                       id="status" 
                       class="required actor-field">
@@ -344,7 +344,7 @@
 
             <div class="clearer"></div>
             <!-- Comment content field -->
-            <div class="add">
+            <div id="actor-status-comment" class="add field">
 
               <p class="error-text">
                 Comment field is required

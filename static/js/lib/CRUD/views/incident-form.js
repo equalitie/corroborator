@@ -190,7 +190,8 @@ define (
         return _.once(function() {
           this.render()
               .renderChildren()
-              .enableWidgets();
+              .enableWidgets()
+              .setUpScrollToPositions();
         });
       },
 
