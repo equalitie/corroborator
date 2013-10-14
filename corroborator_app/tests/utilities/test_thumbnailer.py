@@ -3,13 +3,15 @@ Author: Cormac McGuire
 Created: 10/10/2013
 Test the thumbnail creation on both image and video files
 """
+import ipdb
+import os
+import mimetypes
+
 from django.test import TestCase
-from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
+from django.core.files.uploadedfile import UploadedFile
 
 from corroborator_app.utilities.imageTools import Thumbnailer, \
     MiniFFMPEGWrapper
-
-import ipdb
 
 
 class ThumbnailerTestCase(TestCase):
@@ -97,3 +99,8 @@ class FFMPEGTestCase(TestCase):
         self.ffmpeg_wrapper.video_file = test_file_path
         self.ffmpeg_wrapper.create_temp_filename()
         self.ffmpeg_wrapper.create_jpeg_from_video()
+        self.assertIn(
+            'image/jpeg',
+            mimetypes.guess_type(self.ffmpeg_wrapper.out_filename)
+        )
+        os.remove(self.ffmpeg_wrapper.out_filename)
