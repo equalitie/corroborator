@@ -56,7 +56,6 @@ class ActorPrepMeta():
         actors = [
             '/api/v1/actor/{0}/'.format(actor_role.actor.id)
             for actor_role in object.actors_role.all()]
-        print actors
         return actors
 
     def prepare_POB(self, object):
