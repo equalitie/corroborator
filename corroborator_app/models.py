@@ -373,6 +373,15 @@ class Actor(models.Model):
     religion_ar = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_en = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    origin_id = models.CharField(max_length=255, blank=True, null=True)
+    age_numeric = models.IntegerField(blank=True, null=True)
+    family_name_en = models.CharField(max_length=255, blank=True, null=True)
+    family_name_ar = models.CharField(max_length=255, blank=True, null=True)
+    national_id_card = models.CharField(max_length=255, blank=True, null=True)
+    national_number = models.CharField(max_length=255, blank=True, null=True)
+    legal_status = models.CharField(max_length=255, blank=True, null=True)
+    health_status = models.CharField(max_length=255, blank=True, null=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
@@ -443,6 +452,9 @@ class ActorRole(models.Model):
         ('D', 'Detained'),
         ('KN', 'Kidnapped'),
         ('WN', 'Witness'),
+        ('A', 'Arrested'),
+        ('M', 'Martyr'),
+        ('MG', 'Missing'),
     )
     RELATION = (
         ('P', 'Parent'),
@@ -507,6 +519,8 @@ class Bulletin(models.Model):
     type = models.CharField('type', max_length=25, choices=TYPE, blank=True)
     bulletin_created = models.DateTimeField(auto_now_add=True)
     bulletin_modified = models.DateTimeField(auto_now=True)
+
+    origin_id = models.CharField(max_length=255, blank=True, null=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
