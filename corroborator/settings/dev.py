@@ -3,20 +3,21 @@ Author: Cormac McGuire
 Dev settings
 """
 from settings.common import *
+
+ROOT_PATH = '/Users/cormac/work/programming/python/djangodev/corroborator/'
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': '/Users/cormac/work/programming/python/djangodev/db/corroborator-latest.sql', # Or path to database file if using sqlite3.
-        'USER': '', # Not used with sqlite3.
-        'PASSWORD': '',# Not used with sqlite3.
-        'HOST': '',# Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',# Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ROOT_PATH + '../db/corroborator-latest.sql',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
 }
 
 INSTALLED_APPS += (
     'autofixture',
-    'interntest',
     'debug_toolbar',
     'django_socketio',
 )
@@ -55,8 +56,6 @@ HAYSTACK_CONNECTIONS = {
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = '/Users/cormac/work/programming/python/djangodev/corroborator/static/'
+STATIC_ROOT = ROOT_PATH + 'static/'
 
 TIME_ZONE = 'Europe/Dublin'
-
-FILE_UPLOAD_PERMISSIONS = 0666

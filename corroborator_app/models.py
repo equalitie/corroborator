@@ -12,7 +12,6 @@ from django.db.models import Min,  Max
 from django.contrib.auth.models import User
 from queued_storage.backends import QueuedStorage
 
-import reversion
 from reversion.models import Revision
 
 
@@ -23,14 +22,15 @@ class VersionStatus(models.Model):
     revision = models.OneToOneField(Revision)  # This is required
     status = models.CharField(max_length=255)
 
+
 class SolrUpdate(models.Model):
     """
-    Store most recent solr index update 
+    Store most recent solr index update
     used by the UI to poll for newest updates
     """
     user = models.ForeignKey(User)
     update_timestamp = models.DateTimeField(auto_now=True)
- 
+
 
 class PredefinedSearch(models.Model):
     """
@@ -45,6 +45,7 @@ class PredefinedSearch(models.Model):
     bulletin_filters = models.TextField(null=True, blank=True)
     make_global = models.BooleanField()
 
+
 class StatusUpdate(models.Model):
     """
     This object represents a comment status update. It records the
@@ -56,7 +57,8 @@ class StatusUpdate(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, null=True, blank=True)
-    def __unicode__(self):        
+
+    def __unicode__(self):
         return self.status_en
 
 
@@ -96,10 +98,10 @@ class TimeInfo(models.Model):
     time_to = models.DateTimeField(blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
-    event_name_en = models.CharField('event name en', max_length=255, 
-        blank=True, null=True)
-    event_name_ar = models.CharField('event name ar', max_length=255, 
-        blank=True, null=True)
+    event_name_en = models.CharField(
+        'event name en', max_length=255, blank=True, null=True)
+    event_name_ar = models.CharField(
+        'event name ar', max_length=255, blank=True, null=True)
     confidence_score = models.IntegerField(null=True, blank=True, max_length=3)
 
     def __unicode__(self):
@@ -121,13 +123,13 @@ class Location(models.Model):
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
-    loc_type = models.CharField('location type', max_length=25,  
-        choices=LOC_TYPE)
+    loc_type = models.CharField(
+        'location type', max_length=25, choices=LOC_TYPE)
     parent_text = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
-    parent_location = models.ForeignKey('self', max_length=255, 
-        blank=True, null=True)
+    parent_location = models.ForeignKey(
+        'self', max_length=255, blank=True, null=True)
     location_created = models.DateTimeField(auto_now_add=True)
     location_modified = models.DateTimeField(auto_now=True)
 
@@ -137,7 +139,7 @@ class Location(models.Model):
     def get_location(self):
         """
         This method is utilised by Django Haystack in
-        construction of the Solr index. 
+        construction of the Solr index.
         It is responsible for converting the lat/long into a single
         geo point.
         """
@@ -155,6 +157,7 @@ class Label(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     ref_label = models.ForeignKey('self', blank=True, null=True)
+
     def __unicode__(self):
         return self.name_en
 
@@ -171,6 +174,7 @@ class CrimeCategory(models.Model):
     description_ar = models.TextField(blank=True, null=True)
     ref_crime = models.ForeignKey('self', blank=True, null=True)
     parent = models.CharField(max_length=255, blank=True, null=True)
+
     def __unicode__(self):
         return self.name_en
 
@@ -181,6 +185,7 @@ class SourceType(models.Model):
     """
     source_type = models.CharField('source type', max_length=255)
     description = models.TextField(blank=True, null=True)
+
     def __unicode__(self):
         return self.source_type
 
@@ -192,8 +197,8 @@ class Source(models.Model):
     """
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
-    reliability_score = models.IntegerField('reliability score',
-        blank=True, max_length=3)
+    reliability_score = models.IntegerField(
+        'reliability score', blank=True, max_length=3)
     source_type = models.ForeignKey(SourceType, blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
@@ -239,7 +244,6 @@ class Occupation(models.Model):
     description_ar = models.CharField(max_length=255, blank=True, null=True)
 
 
-
 class Ethnicity(models.Model):
     """
     Currently unused.
@@ -250,6 +254,7 @@ class Ethnicity(models.Model):
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
+
 
 class Religion(models.Model):
     """
@@ -280,9 +285,9 @@ class Media(models.Model):
     The Media object captures represents and individual piece of
     media evidence that can be related to Bulletins.
     """
-    #Setup Boto AWS storage access system   
+    #Setup Boto AWS storage access system
     queued_s3storage = QueuedStorage(
-        'django.core.files.storage.FileSystemStorage', 
+        'django.core.files.storage.FileSystemStorage',
         'storages.backends.s3boto.S3BotoStorage')
 
     TYPE = (
@@ -293,8 +298,11 @@ class Media(models.Model):
     name_en = models.CharField(max_length=255, blank=True, null=True)
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     media_file = models.FileField(upload_to='media', storage=queued_s3storage)
-    media_thumb_file = models.FileField(upload_to='media',
-    storage=queued_s3storage, null=True)
+    media_thumb_file = models.FileField(
+        upload_to='media',
+        #storage=queued_s3storage,
+        null=True
+    )
     media_type = models.CharField('type', max_length=25, choices=TYPE)
     media_created = models.DateTimeField(auto_now_add=True)
     media_file_type = models.CharField(max_length=255, blank=True, null=True)
@@ -358,8 +366,10 @@ class Actor(models.Model):
     age_ar = models.CharField(max_length=255, choices=AGE_TYPE_AR, blank=True)
     sex_en = models.CharField(max_length=255, choices=SEX_TYPE_EN, blank=True)
     sex_ar = models.CharField(max_length=255, choices=SEX_TYPE_AR, blank=True)
-    civilian_en = models.CharField(max_length=255, choices=CIVILIAN_TYPE_EN, blank=True)
-    civilian_ar = models.CharField(max_length=255, choices=CIVILIAN_TYPE_AR, blank=True)
+    civilian_en = models.CharField(
+        max_length=255, choices=CIVILIAN_TYPE_EN, blank=True)
+    civilian_ar = models.CharField(
+        max_length=255, choices=CIVILIAN_TYPE_AR, blank=True)
     DOB = models.DateField('date of birth', blank=True, null=True)
     occupation_en = models.CharField(max_length=255, blank=True, null=True)
     occupation_ar = models.CharField(max_length=255, blank=True, null=True)
@@ -380,12 +390,12 @@ class Actor(models.Model):
     deleted = models.BooleanField()
 
     # Foreign Keys
-    actors_role = models.ManyToManyField('ActorRole',
-        blank=True, null=True, related_name='actors_role')
-    POB = models.ForeignKey(Location, blank=True, null=True, 
-        related_name='POB')
-    current_location = models.ForeignKey(Location, blank=True, null=True, 
-        related_name='actor_current')
+    actors_role = models.ManyToManyField(
+        'ActorRole', blank=True, null=True, related_name='actors_role')
+    POB = models.ForeignKey(
+        Location, blank=True, null=True, related_name='POB')
+    current_location = models.ForeignKey(
+        Location, blank=True, null=True, related_name='actor_current')
     media = models.ForeignKey(Media, blank=True, null=True)
     actor_created = models.DateTimeField(auto_now_add=True)
     actor_modified = models.DateTimeField(auto_now=True)
@@ -395,24 +405,25 @@ class Actor(models.Model):
 
     def count_bulletins(self):
         """
-        This method returns the number of associated Bulletins for a given Actor.
-        It is used by Django Haystack in construction of the Solr Index.
+        This method returns the number of associated Bulletins for a given
+        Actor. It is used by Django Haystack in construction of the Solr Index.
         """
         roles = self.ActorRole_set.all()
         return Bulletin.objects.filter(actors_role__in=roles).count()
+
     def count_incidents(self):
         """
-        This method returns the number of associated Incidents for a given Actor.
-        It is used by Django Haystack in construction of the Solr Index.
+        This method returns the number of associated Incidents for a given
+        Actor. It is used by Django Haystack in construction of the Solr Index.
         """
-
         roles = self.ActorRole_set.all()
         return Incident.objects.filter(actors_role__in=roles).count()
+
 
 class ActorRelationship(models.Model):
     """
     The Actor Relationship model captures the interrelation between actors.
-    This can include shared events,  familial connections,  insititutional 
+    This can include shared events, familial connections, insititutional
     relationships or rank.
     """
     RELATION = (
@@ -422,11 +433,13 @@ class ActorRelationship(models.Model):
         ('Superior officer', 'superior officer'),
         ('Subordinate officer', 'subordiante officer'),
     )
-    relation_status = models.CharField('status', max_length=25, choices=RELATION)
+    relation_status = models.CharField(
+        'status', max_length=25, choices=RELATION)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
-    actor = models.ForeignKey(Actor, blank=True, null=True,
-        related_name='actor_b')
+    actor = models.ForeignKey(
+        Actor, blank=True, null=True, related_name='actor_b')
+
     def __unicode__(self):
         return self.actor.fullname_en + ': ' + self.relation_status
 
@@ -477,6 +490,7 @@ class ActorRole(models.Model):
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
     actor = models.ForeignKey(Actor, blank=True, null=True)
+
     def __unicode__(self):
         if self.relation_status is not None:
             return str(self.id) + ': ' + self.relation_status\
@@ -489,11 +503,11 @@ class ActorRole(models.Model):
 class Bulletin(models.Model):
     """
     This model represents the Bulletin object. It is intended
-    to capture the relationship specifically between Media objects, 
+    to capture the relationship specifically between Media objects,
     chronological events and Actors' roles.
     """
     TYPE = (
-        ('Video','video'),
+        ('Video', 'video'),
         ('Picture', 'picture'),
         ('Report', 'report'),
         ('News', 'news'),
@@ -503,7 +517,8 @@ class Bulletin(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, default='')
     uri = models.CharField('Media Link', max_length=255, blank=True, null=True)
-    confidence_score = models.IntegerField('confidence score', blank=True, null=True)
+    confidence_score = models.IntegerField(
+        'confidence score', blank=True, null=True)
     type = models.CharField('type', max_length=25, choices=TYPE, blank=True)
     bulletin_created = models.DateTimeField(auto_now_add=True)
     bulletin_modified = models.DateTimeField(auto_now=True)
@@ -527,7 +542,6 @@ class Bulletin(models.Model):
     locations = models.ManyToManyField(Location, blank=True, null=True)
     ref_bulletins = models.ManyToManyField('self', blank=True, null=True)
 
-
     def __unicode__(self):
         return self.title_en
 
@@ -536,17 +550,18 @@ class Bulletin(models.Model):
         This method returns the time range for a given Bulletin event.
         It is used by Django Haystack in construction of the Solr Index.
         """
-        time = self.times.aggregate(lowest=Min('time_from'),
-            highest=Max('time_to'))
+        time = self.times.aggregate(
+            lowest=Min('time_from'), highest=Max('time_to'))
         string = ''
 
         if(len(time) > 0):
-            if(time["lowest"] != None and time["highest"] != None):
+            if time["lowest"] is not None and time["highest"] is not None:
                 duration = (time["lowest"] - time["highest"]).days
-                string = time["highest"].strftime('%Y/%m/%d') + '&rarr;' + \
-                time["lowest"].strftime('%Y/%m/%d')
-                string = '<span class="date">' + string + \
-                '</span> <span class="duration">('+str(duration)+' days)</span>'
+                date_length = time["highest"].strftime('%Y/%m/%d') + '&rarr;'\
+                    + time["lowest"].strftime('%Y/%m/%d')
+                string = '<span class="date">{0}</span>' +\
+                    '<span class="duration">({1} days)</span>'
+                string = string.format(date_length, str(duration))
         return string
 
     def most_recent_status_bulletin(self):
@@ -555,7 +570,8 @@ class Bulletin(models.Model):
         It is used by Django Haystack in construction of the Solr Index.
         """
 
-        status = self.bulletin_comments.values('status__status_en').order_by('-comment_created')
+        status = self.bulletin_comments.values('status__status_en')\
+            .order_by('-comment_created')
         if len(status) > 0:
             status = status[0]
             return status['status__status_en']
@@ -569,9 +585,10 @@ class Incident(models.Model):
     object is intended to capture the meta level relationship between
     Bulletins, Actors and Events.
     """
-    incident_details_en = models.TextField(blank=True,null=True)
-    incident_details_ar = models.TextField(blank=True,null=True)
-    confidence_score = models.IntegerField('confidence score', blank=True, max_length=3, null=True)
+    incident_details_en = models.TextField(blank=True, null=True)
+    incident_details_ar = models.TextField(blank=True, null=True)
+    confidence_score = models.IntegerField(
+        'confidence score', blank=True, max_length=3, null=True)
     title_en = models.TextField()
     title_ar = models.TextField(blank=True)
     incident_created = models.DateTimeField(auto_now_add=True)
@@ -584,9 +601,9 @@ class Incident(models.Model):
     actors_role = models.ManyToManyField(ActorRole, blank=True, null=True)
     crimes = models.ManyToManyField(CrimeCategory, blank=True, null=True)
     labels = models.ManyToManyField(Label, blank=True, null=True)
-    times = models.ManyToManyField(TimeInfo, blank=True,null=True)
-    locations = models.ManyToManyField(Location,blank=True,null=True)
-    ref_incidents = models.ManyToManyField('self',blank=True,null=True)
+    times = models.ManyToManyField(TimeInfo, blank=True, null=True)
+    locations = models.ManyToManyField(Location, blank=True, null=True)
+    ref_incidents = models.ManyToManyField('self', blank=True, null=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
@@ -595,22 +612,24 @@ class Incident(models.Model):
 
     def __unicode__(self):
         return self.title_en
+
     def get_time_length(self):
         """
         This method returns the time range for a given Incident event.
         It is used by Django Haystack in construction of the Solr Index.
         """
-
-        time = self.times.aggregate(lowest=Min('time_from'), highest=Max('time_to'))
+        time = self.times.aggregate(
+            lowest=Min('time_from'), highest=Max('time_to'))
         string = ''
 
         if(len(time) > 0):
-            if(time["lowest"] != None and time["highest"] != None):
+            if time["lowest"] is not None and time["highest"] is not None:
                 duration = (time["highest"] - time["lowest"]).days
-                string = time["lowest"].strftime('%Y/%m/%d') + '&rarr;' + \
-                time["highest"].strftime('%Y/%m/%d')
-                string = '<span class="date">' + string + \
-                '</span> <span class="duration">('+str(duration)+' days)</span>'
+                date_duration = time["lowest"].strftime('%Y/%m/%d') + '&rarr;'\
+                    + time["highest"].strftime('%Y/%m/%d')
+                string = '<span class="date">{0}</span>' +\
+                    '<span class="duration">({1} days)</span>'
+                string = string.format(date_duration, str(duration))
         return string
 
     def most_recent_status_incident(self):
@@ -618,8 +637,8 @@ class Incident(models.Model):
         This method returns the most recent status for a given Incident event.
         It is used by Django Haystack in construction of the Solr Index.
         """
-
-        status = self.incident_comments.values('status__status_en').order_by('-comment_created')
+        status = self.incident_comments.values(
+            'status__status_en').order_by('-comment_created')
         if len(status) > 0:
             status = status[0]
             return status['status__status_en']

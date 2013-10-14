@@ -78,15 +78,14 @@ class MediaResource(MultipartResource, ModelResource):
             ffmpeg_wrapper.create_jpeg_from_video()
             thumb_source_file = UploadedFile(ffmpeg_wrapper.out_filename)
             thumbnailer = Thumbnailer()
-            bundle.data['media_thumb_file'] = thumbnailer.construct_thumb(
-                thumb_source_file,
-                bundle.data['name_en']
-            )
+            bundle.data['media_thumb_file'] =\
+                thumbnailer.construct_thumb_from_image(
+                    thumb_source_file
+                )
 
         if 'image' in bundle.data['media_file'].content_type:
-            filename = bundle.data['name_en']
             media_thumb_file = Thumbnailer()\
-                .construct_thumb(media_file, filename)
+                .construct_thumb_from_image(media_file)
             bundle.data['media_thumb_file'] = media_thumb_file
 
         parts = media_file.name.split('.')
