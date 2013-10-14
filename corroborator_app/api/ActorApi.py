@@ -22,8 +22,8 @@ from django.contrib.auth.models import User
 
 import reversion
 
-import sys
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
+
 
 class ActorResource(ModelResource):
     """
@@ -38,7 +38,7 @@ class ActorResource(ModelResource):
     )
     media = fields.ForeignKey(MediaResource, 'media', null=True)
     actors_role = fields.ManyToManyField(
-        'corroborator_app.api.ActorRoleResource', 
+        'corroborator_app.api.ActorRoleResource',
         'actors_role',
         null=True
     )
@@ -53,60 +53,58 @@ class ActorResource(ModelResource):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
-        bundle = super( ActorResource, self )\
-            .obj_delete( bundle, **kwargs )
-
+        bundle = super(ActorResource, self).obj_delete(bundle, **kwargs)
         """
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
             bundle = super( ActorResource, self )\
                 .obj_delete( bundle, **kwargs )
             reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])    
+            reversion.set_comment(bundle.data['comment'])
             reversion.add_meta(
-                VersionStatus, 
+                VersionStatus,
                 status=bundle.data['status']
             )
         """
-        update_object.delay(username)    
+        update_object.delay(username)
         return bundle
- 
+
     def obj_update(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
-            bundle = super( ActorResource, self )\
-                .obj_update( bundle, **kwargs )
+            bundle = super(ActorResource, self)\
+                .obj_update(bundle, **kwargs)
             reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])    
+            reversion.set_comment(bundle.data['comment'])
             reversion.add_meta(
-                VersionStatus, 
+                VersionStatus,
                 status=bundle.data['status']
             )
-            #reversion.set_comment("test meta class")    
-        update_object.delay(username)    
+            #reversion.set_comment("test meta class")
+        update_object.delay(username)
         return bundle
- 
+
     def obj_create(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         with reversion.create_revision():
-            bundle = super( ActorResource, self )\
-                .obj_create( bundle, **kwargs )
+            bundle = super(ActorResource, self)\
+                .obj_create(bundle, **kwargs)
             reversion.add_meta(
-                VersionStatus, 
+                VersionStatus,
                 status=bundle.data['status']
-            )    
+            )
             reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])    
-        update_object.delay(username)    
+            reversion.set_comment(bundle.data['comment'])
+        update_object.delay(username)
         return bundle
 
     def dehydrate(self, bundle):
         bundle.data['count_incidents'] = ActorPrepMeta()\
-            .prepare_count_incidents(bundle.obj)        
+            .prepare_count_incidents(bundle.obj)
         bundle.data['count_bulletins'] = ActorPrepMeta()\
-            .prepare_count_bulletins(bundle.obj)        
+            .prepare_count_bulletins(bundle.obj)
         bundle.data['roles'] = ActorPrepMeta()\
             .prepare_roles(bundle.obj)
         bundle.data['actors_role'] = ActorPrepMeta()\
@@ -118,6 +116,7 @@ class ActorResource(ModelResource):
         bundle.data['actor_roles_status'] = ActorPrepMeta()\
             .prepare_actor_actor_roles(bundle.obj)
         return bundle
+
 
 class ActorRoleResource(ModelResource):
     actor = fields.ForeignKey(ActorResource, 'actor', null=True)
@@ -131,6 +130,7 @@ class ActorRoleResource(ModelResource):
         authentication = ApiKeyAuthentication()
         always_return_data = True
         validation = ApiValidation()
+
 
 class ActorRelationshipResource(ModelResource):
     """

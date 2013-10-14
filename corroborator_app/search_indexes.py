@@ -6,7 +6,7 @@ from haystack import indexes
 from corroborator_app.models import Bulletin, Location, \
     Incident, Actor, Media, SolrUpdate, PredefinedSearch
 from celery_haystack.indexes import CelerySearchIndex
-from corroborator.settings import common
+from django.conf import settings
 
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
@@ -18,7 +18,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     This class manages the construction of the Actor Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    current_location = indexes.CharField(model_attr='current_location', null=True)
+    current_location = indexes.CharField(
+        model_attr='current_location', null=True)
     dob = indexes.DateField(model_attr='DOB', null=True, faceted=True)
     pob = indexes.CharField(model_attr='POB', null=True)
     fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
@@ -29,30 +30,38 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     age_ar = indexes.CharField(model_attr='age_ar', null=True, faceted=True)
     sex_en = indexes.CharField(model_attr='sex_en', faceted=True, null=True)
     sex_ar = indexes.CharField(model_attr='sex_ar', null=True, faceted=True)
-    civilian_en = indexes.CharField(model_attr='civilian_en', \
-    faceted=True, null=True)
-    civilian_ar = indexes.CharField(model_attr='civilian_ar', null=True,
-    faceted=True)
-    occupation_en = indexes.CharField(model_attr='occupation_en',
-    null=True, faceted=True)
-    occupation_ar = indexes.CharField(model_attr='occupation_ar', null=True, faceted=True)
-    nationality_en = indexes.CharField(model_attr='nationality_en', \
-    faceted=True, null=True)
-    nationality_ar = indexes.CharField(model_attr='nationality_ar', null=True, faceted=True)
-    position_en = indexes.CharField(model_attr='position_en', null=True, faceted=True)
-    position_ar = indexes.CharField(model_attr='position_ar', null=True, faceted=True)
-    ethnicity_en = indexes.CharField(model_attr='ethnicity_en', null=True, faceted=True)
-    ethnicity_ar = indexes.CharField(model_attr='ethnicity_ar', null=True, faceted=True)
-    religion_en = indexes.CharField(model_attr='religion_en', null=True, faceted=True)
-    religion_ar = indexes.CharField(model_attr='religion_ar', null=True, faceted=True)
-    spoken_dialect_en = indexes.CharField(model_attr='spoken_dialect_en',
-    null=True, faceted=True)
-    spoken_dialect_ar = indexes.CharField(model_attr='spoken_dialect_ar',
-    null=True, faceted=True)
+    civilian_en = indexes.CharField(
+        model_attr='civilian_en', faceted=True, null=True)
+    civilian_ar = indexes.CharField(
+        model_attr='civilian_ar', null=True, faceted=True)
+    occupation_en = indexes.CharField(
+        model_attr='occupation_en', null=True, faceted=True)
+    occupation_ar = indexes.CharField(
+        model_attr='occupation_ar', null=True, faceted=True)
+    nationality_en = indexes.CharField(
+        model_attr='nationality_en', faceted=True, null=True)
+    nationality_ar = indexes.CharField(
+        model_attr='nationality_ar', null=True, faceted=True)
+    position_en = indexes.CharField(
+        model_attr='position_en', null=True, faceted=True)
+    position_ar = indexes.CharField(
+        model_attr='position_ar', null=True, faceted=True)
+    ethnicity_en = indexes.CharField(
+        model_attr='ethnicity_en', null=True, faceted=True)
+    ethnicity_ar = indexes.CharField(
+        model_attr='ethnicity_ar', null=True, faceted=True)
+    religion_en = indexes.CharField(
+        model_attr='religion_en', null=True, faceted=True)
+    religion_ar = indexes.CharField(
+        model_attr='religion_ar', null=True, faceted=True)
+    spoken_dialect_en = indexes.CharField(
+        model_attr='spoken_dialect_en', null=True, faceted=True)
+    spoken_dialect_ar = indexes.CharField(
+        model_attr='spoken_dialect_ar', null=True, faceted=True)
     count_incidents = indexes.IntegerField()
     count_bulletins = indexes.IntegerField()
-    actor_created = indexes.DateTimeField(model_attr='actor_created', \
-    faceted=True, null=True)
+    actor_created = indexes.DateTimeField(
+        model_attr='actor_created', faceted=True, null=True)
     media = indexes.CharField()
     resource_uri = indexes.CharField()
     POB = indexes.CharField()
@@ -66,8 +75,10 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Actor
+
     def get_updated_field(self):
         return "actor_modified"
+
     def prepare_actor_roles_status(self, object):
         """
         Returns a list of all roles and relationships associated with this
@@ -81,12 +92,14 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         Actor instance
         """
         return ActorPrepMeta().prepare_roles(object)
+
     def prepare_actors(self, object):
         """
         Returns an array of tastypi uris related to the Actor's
         associated actors
         """
         return ActorPrepMeta().prepare_actors(object)
+
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -100,33 +113,39 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return ActorPrepMeta().prepare_POB(object)
+
     def prepare_current_location(self, object):
         """
         Returns the correctly formated uri related to this actor instance
         for the tastypie api
         """
         return ActorPrepMeta().prepare_current_location(object)
+
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this actor instance
         for the tastypie api
         """
         return ActorPrepMeta().prepare_resource_uri(object)
+
     def prepare_media(self, object):
         """
         Returns media uri of image associated with given Actor
         """
         return ActorPrepMeta().prepare_media(object)
+
     def prepare_thumbnail_url(self, object):
         """
         Returns thumbnail AWS url
         """
         return ActorPrepMeta().prepare_thumbnail_url(object)
+
     def prepare_count_incidents(self, object):
         """
         Returns count of incident objects associated with a given Actor
         """
         return ActorPrepMeta().prepare_count_incidents(object)
+
     def prepare_count_bulletins(self, object):
         """
         Returns count of bulletin objects associated with a given Actor
@@ -161,13 +180,13 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
         #return object.get_uri()
 
         if object.media_file.name != '' and object.media_file.name != None:
-            return common.S3_URL + '/' + object.media_file.name
+            return settings.S3_URL + '/' + object.media_file.name
         else:
             ''
     def prepare_media_thumb_file(self, object):
         #return object.get_thumb_uri()
         if object.media_thumb_file.name != '' and object.media_thumb_file.name != None:
-            return common.S3_URL + '/' + object.media_thumb_file.name
+            return settings.S3_URL + '/' + object.media_thumb_file.name
         else:
             ''
     def prepare_resource_uri(self, object):

@@ -5,16 +5,18 @@ Author: Bill Doran
 2013/02/10
 """
 import json
+
 from django.db.models import Q
-from django.http import QueryDict
 from django.shortcuts import render_to_response, render
 from django.contrib.auth import authenticate,  login
 from django.contrib.auth.models import User
 from django.template import RequestContext
-from django.http import HttpResponse, HttpResponseRedirect
-from tastypie.models import ApiKey
-from corroborator_app.multisave import multi_save_actors, multi_save_entities
+from django.http import HttpResponseRedirect
 
+from tastypie.models import ApiKey
+
+from corroborator_app.multisave import multi_save_actors, \
+    multi_save_bulletins, multi_save_incidents
 from corroborator_app.models import CrimeCategory, \
     Location, Source, StatusUpdate, ActorRole, Label, \
     PredefinedSearch
@@ -185,6 +187,7 @@ def index(request, *args, **kwargs):
 
 ###############################################################################
 # MULTISAVE VIEWS
+# TODO: rename to something more sensible
 ###############################################################################
 
 
@@ -193,15 +196,7 @@ def lookup_bulletin(request, bulletin_id, mode):
     This method is used to implement mass update for bulletins
     It is a work around for lack of incremental update in tastypie
     """
-    response_data = []
-    if mode == 'multisave':
-        #if request.method == "POST" and request.is_ajax():
-        element_data = json.loads(request.raw_post_data)
-
-        username = element_data['username']
-        response_data = multi_save_entities(
-            element_data, 'bulletin', username)
-    return HttpResponse(response_data, mimetype='application/json')
+    return multisave_entity(request, multi_save_bulletins)
 
 
 def lookup_incident(request, incident_id, mode):
@@ -209,15 +204,7 @@ def lookup_incident(request, incident_id, mode):
     This method is used to implement mass update for bulletins
     It is a work around for lack of incremental update in tastypie
     """
-
-    response_data = []
-    if mode == 'multisave':
-        #if request.method == "POST" and request.is_ajax():
-        element_data = json.loads(request.raw_post_data)
-        username = element_data['username']
-        response_data = multi_save_entities(
-            element_data, 'incident', username)
-    return HttpResponse(response_data, mimetype='application/json')
+    return multisave_entity(request, multi_save_incidents)
 
 
 def lookup_actor(request, actor_id, mode):
@@ -225,7 +212,10 @@ def lookup_actor(request, actor_id, mode):
     This method is used to implement mass update for bulletins
     It is a work around for lack of incremental update in tastypie
     """
-    actor_data = json.loads(request.body)
-    username = actor_data['username']
-    response = multi_save_actors(request, actor_data, username)
-    return response
+    return multisave_entity(request, multi_save_actors)
+
+
+def multisave_entity(request, multisave_function):
+    entity_data = json.loads(request.body)
+    username = entity_data['username']
+    return multisave_function(request, entity_data, username)

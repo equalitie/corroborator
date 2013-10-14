@@ -202,7 +202,8 @@ define (
         return _.once(function() {
           this.render()
               .renderChildren()
-              .enableWidgets();
+              .enableWidgets()
+              .setUpScrollToPositions();
         });
       },
 
@@ -255,7 +256,7 @@ define (
 
         var actorSearchView = new ActorSearchView({
           el: '#bulletin-actor-list-block',
-          content: this.model.get('actors_role'),
+          mainModel: this.model,
           entityType: 'bulletin',
           relationshipType: 'role'
         });

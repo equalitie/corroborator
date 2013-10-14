@@ -13,4 +13,11 @@ from corroborator_app.tests.api.LocationApiTest import *
 from corroborator_app.tests.api.BulletinApiTest import *
 from corroborator_app.tests.api.IncidentApiTest import *
 
-from corroborator_app.tests.multisave.multisave_test import MultiSaveActorTestCase
+from corroborator_app.tests.multisave.test_multisave_actor import\
+    MultiSaveActorTestCase
+from corroborator_app.tests.multisave.test_multisave_bulletin import\
+    MultiSaveBulletinTestCase
+from corroborator_app.tests.multisave.test_multisave_incident import\
+    MultiSaveIncidentTestCase
+from corroborator_app.tests.utilities.test_thumbnailer import\
+    ThumbnailerTestCase, FFMPEGTestCase

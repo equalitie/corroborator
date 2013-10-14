@@ -82,7 +82,7 @@ define(
       updateResults: function(model, updatedIncidents) {
         searchBus.push({
           type: 'multiple_update_results_incidents',
-          content: updatedIncidents.objects
+          content: updatedIncidents
         });
       },
       updateError: function() {
