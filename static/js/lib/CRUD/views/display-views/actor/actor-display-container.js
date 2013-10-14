@@ -26,6 +26,7 @@ define (
       childViews: [],
       expanded: false,
       initialize: function(options) {
+        console.log(this.model);
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
