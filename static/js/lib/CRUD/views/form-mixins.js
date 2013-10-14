@@ -92,23 +92,37 @@ define (
             return value === expected;
           };
         },
+
         setError: function(results) {
           var filterFailed, filterPassed, failedElements, passedElements;
           filterFailed   = this.filterTestCreator(false);
           filterPassed   = this.filterTestCreator(true);
           failedElements = _.filter(results, filterFailed);
           passedElements = _.filter(results, filterPassed);
-          _.each(failedElements, this.addErrorClass);
           _.each(passedElements, this.removeErrorClass);
+          _.each(failedElements, this.addErrorClass);
           this.scrollTo(_.first(failedElements));
         },
 
+        // this must be done after render to get accurate scroll to positions
+        setUpScrollToPositions: function() {
+          this.requiredElementPostions = _.map($('.required'), function(element) {
+            var el = [];
+            el.push($(element).attr('id'));
+            el.push($(element).offset().top - 160);
+            return el;
+          });
+          this.requiredElementPostions = _.object(this.requiredElementPostions);
+
+        },
+
+        // scroll to element tht failed validation
         scrollTo: function(failedResult) {
-            var elId = _.chain(failedResult).keys().last().value();
-            var top = $('#' + elId).offset().top - 160;
-            this.$el.children('.body').animate({
-              scrollTop: top
-            }, 500);
+          var elId = _.chain(failedResult).keys().last().value();
+          var scrollToPos = this.requiredElementPostions[elId];
+          this.$el.children('.body').animate({
+            scrollTop: scrollToPos
+          }, 500);
         },
 
         // send the form data on the crudBus, it will be picked up in data and 
@@ -130,10 +144,10 @@ define (
           }
         },
 
-      saveMultiple: function() {
-        this.model.set('relatedActors', this.actorSearchView.collection);
-        this.model.saveMultiple();
-      },
+        saveMultiple: function() {
+          this.model.set('relatedActors', this.actorSearchView.collection);
+          this.model.saveMultiple();
+        },
 
         removeErrorClass: function(passedElement) {
           var passedElementId = _.chain(passedElement).keys().last().value();
@@ -203,6 +217,7 @@ define (
           this.enableDateTimeRangeFields();
           this.enableComboBoxes();
           this.enableMapFields();
+          return this;
         },
         populateWidgets: function() {
           this.populateLabelFields();
