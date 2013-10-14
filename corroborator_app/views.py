@@ -61,7 +61,7 @@ def get_solr_url(path):
     if path.find('new_corroborator') > -1:
         solr_path = 'http://127.0.0.1:8983/solr/collection1/'
     else:
-        solr_path = 'https://sjac.corroborator.org/solr/collection1/'
+        solr_path = 'http://demo.corroborator.org/solr/collection1/'
     return solr_path
 
 

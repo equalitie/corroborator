@@ -5,8 +5,10 @@ env
 sitestatic
 sitestatic/*
 static/cache
+managedemo.py
 static/js/docs/annotated-source
 corroborator/settings/dev.py
+corroborator/settings/demo.py
 media/*
 apache/*
 *.sublime-project
