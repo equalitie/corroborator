@@ -6,6 +6,7 @@ sitestatic
 sitestatic/*
 static/cache
 static/js/docs/annotated-source
+static/js/node_modules
 corroborator/settings/dev.py
 media/*
 apache/*
