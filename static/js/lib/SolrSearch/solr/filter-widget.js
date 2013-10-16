@@ -73,7 +73,7 @@ define(
       init: function(){
         this.watchFilterEvents();
         this.watchSearchStream();
-        this.watchQueryBuilderStream();
+        //this.watchQueryBuilderStream();
         this.filterCollection = new Backbone.Collection();
         this.doRequest = _.debounce(this.doRequest, 300);
         //this.filterCollection.on('reset', this.sendRequest, this);
@@ -106,7 +106,7 @@ define(
       },
 
       sendBlankQuery: function() {
-        this.manager.store.addByValue('q', '*:*');
+        this.manager.store.addByValue('q', 'django_ct:*' + this.manager.entity);
         this.sendRequest();
       },
       
@@ -137,10 +137,11 @@ define(
           queryString = queryString + ' OR ';
         }
         if(model.get('filterName').indexOf(' TO ') === -1){
-            return queryString + '("' + model.get('filterName') + '")';
+            queryString = queryString + '("' + model.get('filterName') + '")';
         }else{
-            return queryString + '(' + model.get('filterName') + ')';
+            queryString = queryString + '(' + model.get('filterName') + ')';
         }
+        return queryString;
       },
 
       // set the field for a filter

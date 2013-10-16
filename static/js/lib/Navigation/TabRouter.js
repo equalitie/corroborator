@@ -66,7 +66,6 @@ define(
       },
 
       showHomeSearch: function() {
-        console.log('showHomeSearch');
         this.openSection();
         searchBus.push({
           type: 'predefined_search',
