@@ -130,8 +130,8 @@ class Location(models.Model):
     description_ar = models.TextField(blank=True, null=True)
     parent_location = models.ForeignKey(
         'self', max_length=255, blank=True, null=True)
-    location_created = models.DateTimeField(auto_now_add=True)
-    location_modified = models.DateTimeField(auto_now=True)
+    location_created = models.DateTimeField(auto_now_add=True, null=True)
+    location_modified = models.DateTimeField(auto_now=True, null=True)
 
     def __unicode__(self):
         return self.name_en
