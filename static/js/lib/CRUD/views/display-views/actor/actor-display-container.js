@@ -26,7 +26,6 @@ define (
       childViews: [],
       expanded: false,
       initialize: function(options) {
-        console.log(this.model);
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
@@ -45,7 +44,8 @@ define (
       displayView: function() {
         console.log(this.model.toJSON());
         this.render()
-            .renderRelatedActors();
+            .renderRelatedActors()
+            .selectInitialLanguage();
       },
 
       onDestroy: function() {
