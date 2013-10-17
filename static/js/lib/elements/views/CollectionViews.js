@@ -51,7 +51,6 @@ define (
         this.$el.children('.' + this.fieldType + '-list')
                 .append(childView.el);
       }
-
     };
 
     // create the List View
@@ -89,6 +88,7 @@ define (
     ModelView = Backbone.View.extend({
       // constructor, call the render function
       initialize: function() {
+        this.addi18n();
         this.render();
         this.listenTo(this.model, 'change', this.render);
       },
@@ -98,6 +98,7 @@ define (
       render: function() {
         var html = this.template({model: this.model.toJSON()});
         this.$el.html(html);
+        this.selectInitialLanguage();
       }
     });
 

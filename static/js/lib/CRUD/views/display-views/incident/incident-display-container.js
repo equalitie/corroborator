@@ -105,11 +105,13 @@ define (
         actorsEl = this.getContainerEl('actors');
         content = this.model.get('actors');
         roles_en = this.model.get('actor_roles_status');
-        console.log(this.model.toJSON());
         actorsContainer = new ActorListView({
           el: actorsEl,
           content: content,
           roles: roles_en
+        });
+        _.each(actorsContainer.childViews, function(childView) {
+          childView.selectInitialLanguage();
         });
         return this;
       },

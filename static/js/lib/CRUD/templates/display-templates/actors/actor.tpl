@@ -6,19 +6,19 @@
     {{/if}}
     <div class="content">
       <div class="L1">
-        {{#if model.roles_en}}
-        <div class="status">
-          <span class="value">{{model.roles_en}}</span>
-        </div>
+        {{#if model.role}}
+        <span class="status" style="margin-right:5px;">
+          <span class="text">{{fetchRole model.role}}</span>
+        </span>
         {{/if}}
-        <span class="i18n with-en with-ar">
+        <h3 class="i18n with-en with-ar">
           <span lang="en">{{model.fullname_en}}</span>
           <span lang="ar">{{model.fullname_ar}}</span>
           <span class="toggle">
             <span lang="en">EN</span>
             <span lang="ar">AR</span>
           </span>
-        </span>
+        </h3>
         <span class="sex">{{model.sex_en}}</span>
         <span class="age">{{model.age_en}}</span>
         <div class="L2">

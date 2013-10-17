@@ -119,6 +119,9 @@ define (
           content: content,
           roles: roles_en
         });
+        _.each(actorsContainer.childViews, function(childView) {
+          childView.selectInitialLanguage();
+        });
         return this;
       },
 

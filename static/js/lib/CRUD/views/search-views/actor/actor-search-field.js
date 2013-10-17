@@ -111,7 +111,7 @@ define (
           this.renderCollection.add(actorModel);
         }
         else {
-          actorModel = new Collections.ActorModel(
+          actorModel = new Actor.ActorModel(
             { resourceUri: model.get('actor') }
           );
           this.renderCollection.add(actorModel);

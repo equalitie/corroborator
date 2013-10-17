@@ -48,6 +48,16 @@ define (
         return formattedContext;
     });
 
+    Handlebars.registerHelper('fetchRole', function(context, options) {
+        var formattedContext = context;
+        if (context) {
+          var roles = Bootstrap.gl_ac_role_list,
+              roleSearchField = {key: context};
+          formattedContext = _.findWhere(roles, roleSearchField).value;
+        }
+        return formattedContext;
+    });
+
     Handlebars.registerHelper('fetchLocation', function(context, options) {
         var formattedContext = context;
         if (context !== undefined) {
