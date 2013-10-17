@@ -365,6 +365,7 @@ define (
         });
         this.childViews.push(resultView);
         this.$el.children('ul').append(resultView.$el);
+        resultView.selectInitialLanguage();
       },
 
       //render the input field and buttons

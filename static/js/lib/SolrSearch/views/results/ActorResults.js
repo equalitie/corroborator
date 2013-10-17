@@ -32,7 +32,9 @@ define (
         this.listenTo(this.model, 'change', this.updateView.bind(this));
         this.listenTo(this.model, 'sync', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
+        this.addi18n();
         this.render();
+        this.selectInitialLanguage();
       },
 
       updateView: function(model) {
@@ -92,7 +94,6 @@ define (
       },
       childViews: [],
       initialize: function() {
-        this.addi18n();
         this.collection = Collections.ActorCollection;
         this.listenTo(this.collection, 'add', this.renderItem.bind(this));
         this.listenTo(this.collection, 'sort', this.sortRequested.bind(this));

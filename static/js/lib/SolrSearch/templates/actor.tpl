@@ -11,7 +11,14 @@
         {{/if}}
         <div class="content">
           <div class="L1">
-            <p class="name">{{model.fullname_en}}</p>
+            <p class="i18n name">
+              <span lang="en">{{model.fullname_en}}</span>
+              <span lang="ar">{{model.fullname_ar}}</span>
+              <span class="toggle">
+                <span lang="en">EN</span>
+                <span lang="ar">AR</span>
+              </span>
+            </p>
             {{#if model.sex_en}}
               <p class="sex">{{model.sex_en}}</p>
             {{/if}}

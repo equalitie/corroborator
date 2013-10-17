@@ -41,13 +41,22 @@
           <td>{{fetchLocation model.current_location}}</td>
         </tr>
         {{/if}}
+        {{#if model.pob}}
         <tr>
           <th>Born in</th>
           <td>
-            {{#if model.pob}}{{model.pob}}{{#if model.DOB}}, {{/if}}{{/if}}
-            {{#if model.DOB }}{{dateFormat model.DOB}}{{/if}}
+            {{model.pob}}
           </td>
         </tr>
+        {{/if}}
+        {{#if model.DOB}}
+        <tr>
+          <th>Date Of Birth</th>
+          <td>
+            {{dateFormat model.DOB}}
+          </td>
+        </tr>
+        {{/if}}
         {{#if model.nationality_en}}
         <tr>
           <th>Nationality</th>
