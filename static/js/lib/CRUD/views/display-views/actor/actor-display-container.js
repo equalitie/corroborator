@@ -43,10 +43,8 @@ define (
 
       // set the small template
       displayView: function() {
-        console.log(this.model.toJSON());
         this.render()
-            .renderRelatedActors()
-            .selectInitialLanguage();
+            .renderRelatedActors();
       },
 
       onDestroy: function() {

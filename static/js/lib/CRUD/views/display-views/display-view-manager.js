@@ -158,6 +158,7 @@ define (
         //trigger a resize to be passed on to the map views
         //to get over them being rendered when not actually in the dom
         displayView.trigger('resize');
+        displayView.selectInitialLanguage();
         this.model = displayView.model;
         this.updateSelectListener();
         this.childViews.push(displayView);

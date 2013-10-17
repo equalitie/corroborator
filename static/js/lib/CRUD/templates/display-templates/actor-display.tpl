@@ -11,13 +11,14 @@
     <div class="infos">
       <h2 class="title">
         <span class="i18n with-en with-ar">
-          <span lang="en"><span class="name">{{model.fullname_en}}</span> (<span class="sex">{{model.sex_en}}</span>) <span class="age"></span></span>
+          <span lang="en">{{model.fullname_en}}</span>
           <span lang="ar">{{model.fullname_ar}}</span>
           <span class="toggle">
             <span lang="en">EN</span>
             <span lang="ar">AR</span>
           </span>
         </span>
+        (<span class="sex">{{model.sex_en}}</span>)
       </h2>
       <div class="aka">{{model.nickname_en}}</div>
       <div class="type">

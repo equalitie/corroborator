@@ -127,13 +127,13 @@ function program24(depth0,data) {
     + "</span>\n    </div>\n    ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.thumbnail_url), {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n    <div class=\"infos\">\n      <h2 class=\"title\">\n        <span class=\"i18n with-en with-ar\">\n          <span lang=\"en\"><span class=\"name\">"
+  buffer += "\n    <div class=\"infos\">\n      <h2 class=\"title\">\n        <span class=\"i18n with-en with-ar\">\n          <span lang=\"en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span> (<span class=\"sex\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>) <span class=\"age\"></span></span>\n          <span lang=\"ar\">"
+    + "</span>\n          <span lang=\"ar\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n          <span class=\"toggle\">\n            <span lang=\"en\">EN</span>\n            <span lang=\"ar\">AR</span>\n          </span>\n        </span>\n      </h2>\n      <div class=\"aka\">"
+    + "</span>\n          <span class=\"toggle\">\n            <span lang=\"en\">EN</span>\n            <span lang=\"ar\">AR</span>\n          </span>\n        </span>\n        (<span class=\"sex\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>)\n      </h2>\n      <div class=\"aka\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nickname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n      <div class=\"type\">\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age_en), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
