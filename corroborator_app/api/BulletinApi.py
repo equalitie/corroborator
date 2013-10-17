@@ -35,6 +35,12 @@ class BulletinResource(ModelResource):
     assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
     # ManyToManyFields
     sources = fields.ManyToManyField(SourceResource, 'sources', null=True)
+    bulletin_imported_comments = fields.ManyToManyField(
+        CommentResource,
+        'bulletin_imported_comments',
+        null=True
+    )
+
     bulletin_comments = fields.ManyToManyField(
         CommentResource,
         'bulletin_comments',
@@ -125,6 +131,10 @@ class BulletinResource(ModelResource):
         return bundle
 
     def dehydrate(self, bundle):
+        bundle.data['bulletin_comments'] = BulletinPrepMeta()\
+            .prepare_bulletin_comments(bundle.obj)
+        bundle.data['bulletin_imported_comments'] = BulletinPrepMeta()\
+            .prepare_bulletin_imported_comments(bundle.obj)
         bundle.data['bulletin_locations'] = BulletinPrepMeta()\
             .prepare_bulletin_locations(bundle.obj)
         bundle.data['bulletin_labels'] = BulletinPrepMeta()\

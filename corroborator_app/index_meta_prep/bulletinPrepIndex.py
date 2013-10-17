@@ -69,6 +69,12 @@ class BulletinPrepMeta():
         for the tastypie api
         """
         return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.bulletin_comments.all()]
+    def prepare_bulletin_imported_comments(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.bulletin_imported_comments.all()]
 
     def prepare_resource_uri(self, object):
         """
