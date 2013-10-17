@@ -43,6 +43,7 @@ define (
       // that contains a value within i18nable elements. It should be called on
       // a view after it renders.
       var selectInitialLanguage = function() {
+        console.log(this.el);
         var langElements = $('.' + this.el.className + ' .i18n');
         _.forEach(langElements, showFirstElementWithContent);
         return this;

@@ -22,6 +22,7 @@ define (
     // ### ActorDisplayView
     // Display and actor and all its related fields
     ActorDisplayView = Backbone.View.extend({
+      className: 'actor-display-view',
       template: actorDisplayTmp,
       childViews: [],
       expanded: false,
