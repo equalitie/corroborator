@@ -29,6 +29,7 @@ define(
         displayCurrentView = function (view) {
           if (currentView !== undefined) {
             $('.results-container').append(currentView.$el);
+            currentView.trigger('rendered');
           }
         },
         destroy = function (view) {

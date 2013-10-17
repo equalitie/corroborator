@@ -97,6 +97,7 @@ define (
         this.listenTo(this.collection, 'add', this.renderItem.bind(this));
         this.listenTo(this.collection, 'sort', this.sortRequested.bind(this));
         this.listenTo(this.collection, 'reset', this.renderStart.bind(this));
+        this.listenTo(this, 'rendered', this.setLanguage.bind(this));
         this.render();
         this.renderStart();
       },
@@ -157,6 +158,12 @@ define (
         resultView.selectInitialLanguage();
         this.childViews.push(resultView);
       },
+      setLanguage: function() {
+        _.each(this.childViews, function(actorView) {
+          actorView.selectInitialLanguage();
+        });
+      },
+
       renderEmpty: function() {
         var emptyView = new Backbone.View({
           className: 'empty-results'
