@@ -34,7 +34,6 @@ define (
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.addi18n();
         this.render();
-        this.selectInitialLanguage();
       },
 
       updateView: function(model) {
@@ -155,6 +154,7 @@ define (
                 .children()
                 .children()
                 .append(resultView.$el);
+        resultView.selectInitialLanguage();
         this.childViews.push(resultView);
       },
       renderEmpty: function() {
