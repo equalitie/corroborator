@@ -53,10 +53,10 @@
     <div class="media">
       <div class="placeholder">&nbsp;</div>
     </div>
-    {{#if model.bulletin_description_en }}
+    {{#if model.description_en }}
     <div class="description detail">
       <h3 class="title">Description</h3>
-      {{model.bulletin_description_en}}
+      {{model.description_en}}
     </div>
     {{/if}}
     {{#if model.actors_role}}

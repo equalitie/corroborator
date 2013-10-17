@@ -27,6 +27,7 @@ define (
     // ### BulletinDisplayView
     // Display and bulletin and all its related fields
     BulletinDisplayView = Backbone.View.extend({
+      className: 'bulletin-display-view',
       template: bulletinDisplayTmp,
       childViews: [],
       initialize: function(options) {
