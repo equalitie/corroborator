@@ -162,7 +162,7 @@ define(
         this.on('reset', this.selectModelsAfterReset, this);
       },
       // sort is implemented based on the result of this function
-      xcomparator: function(modelA, modelB) {
+      comparator: function(modelA, modelB) {
         var comparison, inversion, compareFieldA, compareFieldB, minVal, maxVal;
         if (this.compareField === 'confidence_score') {
           minVal = 1; maxVal = 100;
