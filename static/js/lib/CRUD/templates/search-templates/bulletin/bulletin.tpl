@@ -120,13 +120,13 @@
                 <textarea id="bulletin_description_en"
                           name="bulletin_description_en"
                           type="text"
-                          class="bulletin-field w-100p">{{model.bulletin_description_en}}</textarea>
+                          class="bulletin-field w-100p">{{model.description_en}}</textarea>
               </div>
               <div lang="ar">
                 <textarea id="bulletin_description_ar"
                           name="bulletin_description_ar"
                           type="text"
-                          class="bulletin-field w-100p">{{model.bulletin_description_ar}}</textarea>
+                          class="bulletin-field w-100p">{{model.description_ar}}</textarea>
               </div>
               <span class="toggle">
                 <span lang="en">EN</span>
