@@ -105,9 +105,17 @@ define (
         var actorModel = new Backbone.Model();
         var existingActor =
           allActors.findWhere({resource_uri: model.get('actor')});
-        actorModel.set(existingActor.toJSON());
-        actorModel.set('id', model.id);
-        this.renderCollection.add(actorModel);
+        if (existingActor) {
+          actorModel.set(existingActor.toJSON());
+          actorModel.set('id', model.id);
+          this.renderCollection.add(actorModel);
+        }
+        else {
+          actorModel = new Collections.ActorModel(
+            { resourceUri: model.get('actor') }
+          );
+          this.renderCollection.add(actorModel);
+        }
       },
 
       // create a collection to store all available actors
