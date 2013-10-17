@@ -58,6 +58,13 @@
       <h3 class="title">Description</h3>
       {{model.description_en}}
     </div>
+    {{#else}}
+      {{#if model.description_ar }}
+      <div class="description detail">
+        <h3 class="title">Description</h3>
+        {{model.description_ar}}
+      </div>
+      {{/if}}
     {{/if}}
     {{#if model.actors_role}}
     <div class="actors group">

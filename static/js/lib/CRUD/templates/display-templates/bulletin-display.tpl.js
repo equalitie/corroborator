@@ -76,17 +76,26 @@ function program15(depth0,data) {
 
 function program17(depth0,data) {
   
-  
-  return "\n    <div class=\"actors group\">\n    </div>\n    ";
+  var buffer = "", stack1;
+  buffer += "\n    <div class=\"description detail\">\n      <h3 class=\"title\">Description</h3>\n      "
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n    </div>\n    ";
+  return buffer;
   }
 
 function program19(depth0,data) {
   
   
-  return "\n    <div class=\"incidents group\">\n    </div>\n    ";
+  return "\n    <div class=\"actors group\">\n    </div>\n    ";
   }
 
 function program21(depth0,data) {
+  
+  
+  return "\n    <div class=\"incidents group\">\n    </div>\n    ";
+  }
+
+function program23(depth0,data) {
   
   
   return "\n    <div class=\"bulletins group\">\n    </div>\n    ";
@@ -128,13 +137,16 @@ function program21(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_en), {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actors_role), {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_ar), {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ref_incidents), {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actors_role), {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ref_bulletins), {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ref_incidents), {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ref_bulletins), {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  </div>\n</div>\n";
   return buffer;
