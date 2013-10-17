@@ -468,6 +468,7 @@ class ActorRole(models.Model):
         ('A', 'Arrested'),
         ('M', 'Martyr'),
         ('MG', 'Missing'),
+        ('I', 'Injured'),
     )
     RELATION = (
         ('P', 'Parent'),
@@ -548,6 +549,12 @@ class Bulletin(models.Model):
     # ManyToManyFields
     sources = models.ManyToManyField(Source, blank=True, null=True)
     bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
+    bulletin_imported_comments = models.ManyToManyField(
+        Comment, 
+        blank=True, 
+        null=True, 
+        related_name="bulletin_imported_comments"
+    )
     labels = models.ManyToManyField(Label, blank=True, null=True)
     times = models.ManyToManyField(TimeInfo, blank=True, null=True)
 

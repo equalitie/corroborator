@@ -401,6 +401,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
 
     sources = indexes.MultiValueField()
     bulletin_comments = indexes.MultiValueField()
+    bulletin_imported_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
 
     def get_model(self):
@@ -468,6 +469,13 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_bulletin_comments(object)
+    
+    def prepare_bulletin_imported_comments(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return BulletinPrepMeta().prepare_bulletin_imported_comments(object)
 
     def prepare_resource_uri(self, object):
         """
