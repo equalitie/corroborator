@@ -162,7 +162,7 @@ define(
         this.on('reset', this.selectModelsAfterReset, this);
       },
       // sort is implemented based on the result of this function
-      comparator: function(modelA, modelB) {
+      xcomparator: function(modelA, modelB) {
         var comparison, inversion, compareFieldA, compareFieldB, minVal, maxVal;
         if (this.compareField === 'confidence_score') {
           minVal = 1; maxVal = 100;
@@ -200,12 +200,8 @@ define(
           _.map(results, function(result) {
             result.id = result.django_id;
           });
-          this.set(results);
-          this.trigger('reset');
         }
-        else {
-          this.reset(results, {parse: true});
-        }
+        this.reset(results, {parse: true});
       },
 
 

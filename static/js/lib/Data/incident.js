@@ -195,12 +195,8 @@ define(
           _.map(results, function(result) {
             result.id = result.django_id;
           });
-          this.set(results);
-          this.trigger('reset');
         }
-        else {
-          this.reset(results, {parse: true});
-        }
+        this.reset(results, {parse: true});
       },
       // watch for selections from the action combo box
       watchSelection: function() {
