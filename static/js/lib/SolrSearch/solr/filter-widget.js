@@ -189,11 +189,11 @@ define(
       
       // push results up to the search stream
       sendResults: function(searchResults) {
-        pushResults(
-          _.chain(searchResults)
+        searchResults.results =
+          _.chain(searchResults.results)
            .filter(filterMap[this.manager.entity])
-           .value(), this.manager.entity
-        );
+           .value();
+        pushResults(searchResults, this.manager.entity);
       },
 
       // parse the new filters from solr
@@ -204,8 +204,12 @@ define(
       // process the results from solr
       afterRequest: function () {
         var searchResults = this.manager.response.response.docs,
+            numFound = this.manager.response.response.numFound,
             filters = this.manager.response.facet_counts.facet_fields;
-        this.sendResults(searchResults);
+        this.sendResults({
+          results: searchResults,
+          numFound: numFound
+        });
         //only send new filters after a keyword search
         if (this.sendFilter) {
           this.sendFilters(filters);

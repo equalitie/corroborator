@@ -67,7 +67,7 @@ define (
             var elem = tokens[0];
             var search_symbol = (elem.length < 3)?'*~':'~';
             resultString = resultString.replace(elem, elem+search_symbol);        
-            tokens = re.exec(item)
+            tokens = re.exec(item);
         }
         return resultString;
     };

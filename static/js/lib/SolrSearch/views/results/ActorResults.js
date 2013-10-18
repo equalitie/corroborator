@@ -114,6 +114,8 @@ define (
       loadAfter: 10,
       currentPage: 0,
       listElementHeight: 66,
+      // look at the current position of the scroll bar and determine
+      // if we should render the next lot of results
       handleScroll: function(evt) {
         var currentPosition, nextLoad, slice, start, end;
         currentPosition = this.$el.scrollTop();

@@ -133,7 +133,8 @@ define (
         crudBus.push({
           type: 'new_embedded_search',
           content: {
-            raw: inputText
+            raw: inputText,
+            entity: 'actor'
           }
         });
       },

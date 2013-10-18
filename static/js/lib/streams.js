@@ -17,7 +17,7 @@ define(
         navProperty = navBus.toProperty('incident');
     //navBus.toEventStream().log();
     //searchBus.toEventStream().log();
-    //crudBus.toEventStream().log();
+    crudBus.toEventStream().log();
     return {
       filterLib: {
         createTypeFilter: createTypeFilter

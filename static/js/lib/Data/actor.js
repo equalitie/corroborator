@@ -150,6 +150,7 @@ define(
     // ### Actor Collection
     var ActorCollection = SimpleActorCollection.extend({
       compareField: 'actor_created',
+      numFound: 0,
       selectedIdList: [],
       initialize: function() {
         this.watchSearchResults();
@@ -188,14 +189,15 @@ define(
       watchSearchResults: function() {
         Streams.searchBus.toProperty()
                .filter(filterActorResults)
-               .map(Filters.extractResults)
                .onValue(this.resetCollection.bind(this));
         searchBus.filter(filterUpdatedActors)
                  .onValue(function(value) {
                    this.set(value.content, {remove: false});
                  }.bind(this));
       },
-      resetCollection: function(results) {
+      resetCollection: function(searchResults) {
+        var results = searchResults.content.results;
+        this.numFound = searchResults.content.numFound;
         if (this.length !==0) {
           _.map(results, function(result) {
             result.id = result.django_id;

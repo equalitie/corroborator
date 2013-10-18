@@ -73,7 +73,8 @@ define (
         crudBus.push({
           type: 'new_embedded_search',
           content: {
-            raw: searchText
+            raw: searchText,
+            entity: 'bulletin'
           }
         });
       },

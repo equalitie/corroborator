@@ -183,14 +183,15 @@ define(
         var self = this;
         Streams.searchBus.toProperty()
                .filter(filterBulletinResults)
-               .map(Filters.extractResults)
                .onValue(this.resetCollection.bind(this));
         searchBus.filter(filterUpdatedBulletins)
                  .onValue(function(value) {
                    this.set(value.content, {remove: false});
                  }.bind(this));
       },
-      resetCollection: function(results) {
+      resetCollection: function(searchResults) {
+        var results = searchResults.content.results;
+        this.numFound = searchResults.content.numFound;
         if (this.length !==0) {
           _.map(results, function(result) {
             result.id = result.django_id;

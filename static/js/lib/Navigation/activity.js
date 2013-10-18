@@ -10,7 +10,7 @@ define (
   ],
   function ($, Streams) {
     'use strict';
-    var activityView, init, searchRequestFilter, searchCompleteFilter,
+    var ActivityView, init, searchRequestFilter, searchCompleteFilter,
         createTypeFilter, searchBus;
 
     createTypeFilter = Streams.filterLib.createTypeFilter;
@@ -19,11 +19,11 @@ define (
     searchRequestFilter = createTypeFilter('search_request');
     searchCompleteFilter = createTypeFilter('results_incident');
 
-    activityView = function() {
+    ActivityView = function() {
       this.listenForSearchRequest();
       this.listenForSearchComplete();
     };
-    activityView.prototype = {
+    ActivityView.prototype = {
       listenForSearchRequest:function() {
         searchBus.filter(searchRequestFilter)
                  .onValue(this.showActivitySpinner.bind(this));
@@ -41,7 +41,7 @@ define (
     };
 
     init = function () {
-      return new activityView();
+      return new ActivityView();
     };
 
     return {

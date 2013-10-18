@@ -121,9 +121,9 @@ define(
         this.initCollectionCounts();
       },
       initCollectionCounts: function() {
-        this.setCollectionCount('bulletin', Collections.BulletinCollection.length);
-        this.setCollectionCount('actor', Collections.ActorCollection.length);
-        this.setCollectionCount('incident', Collections.IncidentCollection.length);
+        this.setCollectionCount('bulletin', Collections.BulletinCollection.numFound);
+        this.setCollectionCount('actor', Collections.ActorCollection.numFound);
+        this.setCollectionCount('incident', Collections.IncidentCollection.numFound);
       },
       setCollectionCount: function(entity, count) {
         $('.' + entity + '-count').empty().append(count);
@@ -132,13 +132,13 @@ define(
       // change
       watchCollectionCounts: function() {
         Collections.BulletinCollection.on('add destroy reset', function() {
-          this.setCollectionCount('bulletin', Collections.BulletinCollection.length);
+          this.setCollectionCount('bulletin', Collections.BulletinCollection.numFound);
         }, this);
         Collections.ActorCollection.on('add destroy change reset', function() {
-          this.setCollectionCount('actor', Collections.ActorCollection.length);
+          this.setCollectionCount('actor', Collections.ActorCollection.numFound);
         }, this);
         Collections.IncidentCollection.on('add destroy reset', function() {
-          this.setCollectionCount('incident', Collections.IncidentCollection.length);
+          this.setCollectionCount('incident', Collections.IncidentCollection.numFound);
         }, this);
       },
 

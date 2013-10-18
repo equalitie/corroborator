@@ -7,11 +7,12 @@ define (
   [
     'backbone', 'underscore',
     'lib/streams',
+    'lib/elements/views/ScrollViewMixin',
     'lib/CRUD/views/search-views/results',
     'lib/CRUD/views/search-views/actor/actor-result',
     'lib/CRUD/templates/search-templates/embedded-results.tpl'
   ],
-  function (Backbone, _, Streams, Results, ActorResult,
+  function (Backbone, _, Streams, ScrollViewMixin, Results, ActorResult,
     embeddedResultsTmp) {
     'use strict';
     var EmbeddedSearchResultsView = Results.EmbeddedSearchResultsView,
@@ -34,9 +35,21 @@ define (
     // Specific results view for displaying actors
     ActorResultsView = Backbone.View.extend({
       entityType: 'actor',
+      onInitialize: function(options) {
+        this.setUpScrollOptions({
+          scrollOptions: {
+            listElementHeight: 171,
+          }
+        });
+        this.$el.children('.body').scroll(this.handleScroll.bind(this));
+      },
+
+      collectionUpdated: function() {
+        this.renderResults();
+      },
+
       // watch the event stream for new actors
       watchCrudStream: function() {
-        console.log('watchCrudStream actors');
         this.watchForSearchResults();
         this.watchForRejectedActors();
       },
@@ -53,12 +66,14 @@ define (
 
       addModelToCollection: function(evt) {
         var model = evt.value().content.model;
-        var exists = this.collection.where({resource_uri: model.get('resource_uri')}).length;
+        var exists = this.collection.where({
+          resource_uri: model.get('resource_uri')
+        }).length;
         if (exists === 0) {
           this.collection.add(model);
         }
-
       },
+
       // watch for actor results and set the collection to them when they arrive
       watchForSearchResults: function() {
         var subscriber = 
@@ -86,7 +101,7 @@ define (
 
       reallyRenderResults: function() {
         this.destroyChildren();
-        this.collection.each(this.renderResult, this);
+        this.renderStart();
       },
 
       requestRelationshipType: function() {
@@ -105,9 +120,10 @@ define (
         this.fieldName = evt.value();
         this.reallyRenderResults();
       },
+      renderEmpty: function() {},
 
       // render a single result
-      renderResult: function(model) {
+      renderItem: function(model) {
         var resultView = new ActorResult({
           model: model,
           type: 'result',
@@ -120,7 +136,9 @@ define (
                 .append(resultView.$el);
       },
     });
+
     _.extend(ActorResultsView.prototype, EmbeddedSearchResultsView);
+    _.extend(ActorResultsView.prototype, ScrollViewMixin);
     
     return {
       ActorResultsView: ActorResultsView

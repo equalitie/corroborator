@@ -7,11 +7,12 @@ define (
   [
     'backbone', 'underscore',
     'lib/streams',
+    'lib/elements/views/ScrollViewMixin',
     'lib/CRUD/views/search-views/results',
     'lib/CRUD/views/search-views/incident/incident-result',
     'lib/CRUD/templates/search-templates/embedded-results.tpl'
   ],
-  function (Backbone, _, Streams, Results, IncidentResult,
+  function (Backbone, _, Streams, ScrollViewMixin, Results, IncidentResult,
     embeddedResultsTmp) {
     'use strict';
     var EmbeddedSearchResultsView = Results.EmbeddedSearchResultsView,
@@ -28,6 +29,19 @@ define (
     // Specific results view for displaying incidents
     IncidentResultsView = Backbone.View.extend({
       entityType: 'incident',
+
+      onInitialize: function(options) {
+        this.setUpScrollOptions({
+          scrollOptions: {
+            listElementHeight: 91,
+          }
+        });
+        this.$el.children('.body').scroll(this.handleScroll.bind(this));
+      },
+
+      collectionUpdated: function() {
+        this.renderResults();
+      },
       // watch the event stream for new incidents
       watchCrudStream: function() {
         this.watchForSearchResults();
@@ -70,11 +84,11 @@ define (
       // render the search results
       renderResults: function() {
         this.destroyChildren();
-        this.collection.each(this.renderResult, this);
+        this.renderStart();
       },
 
       // render a single result
-      renderResult: function(model) {
+      renderItem: function(model) {
         var resultView = new IncidentResult({
           model: model,
           type: 'result',
@@ -87,6 +101,7 @@ define (
       },
     });
     _.extend(IncidentResultsView.prototype, EmbeddedSearchResultsView);
+    _.extend(IncidentResultsView.prototype, ScrollViewMixin);
     
     return {
       IncidentResultsView: IncidentResultsView

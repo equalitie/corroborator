@@ -18,7 +18,7 @@ define(
         "actors_role": [
             "/api/v1/actorRole/1/", 
             "/api/v1/actorRole/2/"
-        ], 
+        ]
     }
   ];
   var incidents = [
@@ -210,7 +210,7 @@ define(
 
   return {
     actors: actors,
-    incidents: incidents,
+    incidents: incidents
   };
   
 });
