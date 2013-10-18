@@ -87,11 +87,15 @@ define (
     // augments user search queries to ensure proper use of
     // of Solr Fuzzy search unless key '~' is already used in
     // the searchQuery.
-    var QueryBuilder = function(searchQuery){
+    var QueryBuilder = function(searchQuery, entity){
+
+        var entity_string = _.template('django_ct:*<%= name%>', {name: entity});
+
         if(searchQuery !== undefined && searchQuery.length > 0) {
-            this.parsedString = parseQuery(searchQuery);
+            var ps = parseQuery(searchQuery);
+            this.parsedString = entity_string + " && " + ps
         }else{
-            this.parsedString = "*:*";
+            this.parsedString = entity_string;
         }
         //sendResult(searchQuery);
     };
