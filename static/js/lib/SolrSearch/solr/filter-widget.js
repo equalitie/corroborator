@@ -159,7 +159,7 @@ define(
                  });    
       },
       parseQuery: function(searchQuery) {
-        var qb = new QueryBuilder(searchQuery);
+        var qb = new QueryBuilder(searchQuery, this.manager.entity);
         return qb.parsedString;
       },
       watchSearchStream: function() {

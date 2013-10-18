@@ -355,7 +355,6 @@ define (
 
       // render the related actors
       renderActors: function() {
-        console.log('renderActors');
         this.destroyChildViews();
         this.renderCollection.each(this.renderActor, this);
         return this;

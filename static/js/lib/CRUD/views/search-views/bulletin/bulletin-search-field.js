@@ -112,7 +112,6 @@ define (
       // listen for the list of all available bulletins, used to populate the
       // added bulletins data
       listenForAvailableBulletins: function() {
-        console.trace();
         var self = this;
         var subscriber =
           crudBus.toEventStream()
