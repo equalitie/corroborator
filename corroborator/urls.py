@@ -13,7 +13,6 @@ urlpatterns = patterns(
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    url("", include("django_socketio.urls")),
     url(r'^logout/$',
         'django.contrib.auth.views.logout',
         {'next_page': '/login'}),
