@@ -241,5 +241,21 @@ module.exports = function(grunt) {
       'requirejs'
     ]
   );
+  grunt.registerTask(
+    'build',
+    [
+      'jshint',
+      'karma:ci',
+      'requirejs'
+    ]
+  );
+  grunt.registerTask(
+    'test',
+    [
+      'jshint',
+      'karma:ci'
+    ]
+  );
+
 
 };
