@@ -238,8 +238,7 @@ module.exports = function(grunt) {
     [
       'jshint',
       'karma:ci',
-      'requirejs',
-      'plato'
+      'requirejs'
     ]
   );
 
