@@ -1,11 +1,9 @@
 from tastypie.models import ApiKey
 from django.contrib.auth.models import User
-from django.test.client import Client
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
-from corroborator_app.models import Actor
-from corroborator_app.models import Incident, CrimeCategory, Location, Actor, \
-    ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label
+from corroborator_app.models import Location, Actor
+
 
 class ActorTestCase(ResourceTestCase):
     def setUp(self):
@@ -13,7 +11,7 @@ class ActorTestCase(ResourceTestCase):
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
         fixture = AutoFixture(Actor)
-        actors = fixture.create(10)
+        fixture.create(10)
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
         self.actor = Actor(
@@ -57,7 +55,8 @@ class ActorTestCase(ResourceTestCase):
 
     def test_actor_put(self):
         precreated_actor = Actor.objects.all()[0]
-        url = '/api/v1/actor/{0}/?format=json{1}'.format(precreated_actor.id, self.auth_string)
+        url = '/api/v1/actor/{0}/?format=json{1}'.format(
+            precreated_actor.id, self.auth_string)
         put_data = {
             'fullname_en': "Test Actor",
             'fullname_ar': "Test Actor Arabic",
@@ -68,44 +67,7 @@ class ActorTestCase(ResourceTestCase):
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
-    def test_actor_mass_update(self):
-        url = 'https://dev.corroborator.org/corroborator/actor/0/multisave/'
-        put_data = {
-            'username': 'user',
-            'actors':['/api/v1/actor/1/','/api/v1/actor/2/',],
-            'age_en':'Adult',
-            'age_ar':'',
-            'sex_en':'Female',
-            'sex_ar':'',
-            'position_en':'Captain',
-            'position_ar':'',
-            'occupation_en':'Teacher',
-            'occupation_ar':'',
-            'ethnicity_en':'Persian', 
-            'ethnicity_ar' :'',
-            'nationality_en' :'Syrian',
-            'nationality_ar' :'',
-            'spoken_dialect_en' :'Farsi',
-            'spoken_dialect_ar' :'',
-            'religion_en' :'Sunni',
-            'religion_ar' :'',
-            'civilian_en' :'Civilian',
-            'civilian_ar' :'',
-            'actorsRoles':[
-                {
-                'actor':'/api/v1/actor/1/',
-                'role_en':'Parent',
-                'relation_status':'P',
-                },
-            ],
-            'POB': '/api/v1/location/1/',
-            'current_location': '/api/v1/location/1/',
-        }
 
-        response = self.api_client.put(url, data=put_data)
-        self.assertEqual(response.status_code, 200)
-
-       
     def test_actor_patch(self):
         url = '/api/v1/actor/?format=json{}'.format(self.auth_string)
         patch_data = {
@@ -130,4 +92,3 @@ class ActorTestCase(ResourceTestCase):
         }
         response = self.api_client.patch(url, data=patch_data)
         self.assertEqual(response.status_code, 202)
-        

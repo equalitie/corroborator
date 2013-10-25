@@ -2,7 +2,7 @@ from corroborator_app.tests.api.ActorApiTest import *
 from corroborator_app.tests.api.ActorRelationshipApiTest import *
 from corroborator_app.tests.api.LabelApiTest import *
 from corroborator_app.tests.api.CrimeCategoryApiTest import *
-from corroborator_app.tests.api.MediaApiTest import *
+#from corroborator_app.tests.api.MediaApiTest import *
 from corroborator_app.tests.api.PredefinedSearchApiTest import *
 from corroborator_app.tests.api.SourceApiTest import *
 from corroborator_app.tests.api.SourceTypeApiTest import *
