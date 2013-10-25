@@ -137,6 +137,13 @@ module.exports = function(grunt) {
     karma: { // test standard script
       unit: {
         configFile: 'karma.conf.js'
+      },
+      ci: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+        runnerPort: 9999,
+        browsers: ['PhantomJS'],
+        reporters: 'junit'
       }
     },
     // concatenate and minify using the require r.js script
@@ -229,9 +236,8 @@ module.exports = function(grunt) {
   grunt.registerTask(
     'default', 
     [
-      'handlebars',
       'jshint',
-      'karma',
+      'karma:ci',
       'requirejs',
       'plato'
     ]
