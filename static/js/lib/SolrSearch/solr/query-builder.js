@@ -93,7 +93,7 @@ define (
 
         if(searchQuery !== undefined && searchQuery.length > 0) {
             var ps = parseQuery(searchQuery);
-            this.parsedString = entity_string + " && " + ps
+            this.parsedString = entity_string + " && " + ps;
         }else{
             this.parsedString = entity_string;
         }
