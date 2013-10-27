@@ -18,6 +18,12 @@ MEDIA_READ_URL = S3_URL_READ + '/'
 
 TEMPLATE_DEBUG = DEBUG
 
+CSRF_COOKIE_DOMAIN = "*.corroborator.org"
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_DOMAIN = "*.corroborator.org"
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -92,6 +98,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
     #'reversion.middleware.RevisionMiddleware',
     # Uncommenssssssssss line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
