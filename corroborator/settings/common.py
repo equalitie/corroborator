@@ -3,7 +3,7 @@ Django settings for corroborator project.
 """
 import djcelery
 djcelery.setup_loader()
-DEBUG = True
+DEBUG = False
 
 AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
 AWS_SECRET_ACCESS_KEY = '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'
