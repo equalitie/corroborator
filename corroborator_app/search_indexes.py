@@ -73,6 +73,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     deleted = indexes.BooleanField()
     thumbnail_url = indexes.CharField()
 
+    actor_comments = indexes.MultiValueField()
+
     def get_model(self):
         return Actor
 
@@ -140,6 +142,13 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return ActorPrepMeta().prepare_thumbnail_url(object)
 
+    def prepare_actor_comments(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        return ActorPrepMeta().prepare_actor_comments(object)
+ 
     def prepare_count_incidents(self, object):
         """
         Returns count of incident objects associated with a given Actor
