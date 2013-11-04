@@ -238,7 +238,7 @@ define (
 
         var revisionView = new RevisionView({
           el: '.revisions',
-          content: this.model.get('
+         // content: this.model.get('
         });
 
         this.childViews.push(mediaSearchView, actorSearchView);

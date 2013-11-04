@@ -156,6 +156,15 @@ module.exports = function(grunt) {
         reporters: 'junit'
       }
     },
+    retire: {
+      js: [
+        'components/*',
+        'components/**/*'
+      ],
+      options: {
+        verbose: false
+      }
+    },
     // concatenate and minify using the require r.js script
     requirejs: {
       compile: {
@@ -239,6 +248,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-docco2');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-plato');
+  grunt.loadNpmTasks('grunt-retire');
 
 
   // This is the default task being executed if Grunt
