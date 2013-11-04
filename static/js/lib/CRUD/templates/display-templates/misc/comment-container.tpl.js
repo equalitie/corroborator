@@ -6,7 +6,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "  <h3>Comments</h3>\n  <div class=\"comments-list\">\n  </div>\n";
+  return " <h3>Comments</h3>\n <div class=\"comments-list\">\n </div>\n";
   })
 
 });

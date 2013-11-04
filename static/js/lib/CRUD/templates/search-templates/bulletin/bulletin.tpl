@@ -150,6 +150,10 @@
         <div class="body">
 
           <!-- Event block -->
+          <div id="bulletin-comment-block" class="field is-comments hide-multiple clear">
+          </div>
+
+          <!-- Event block -->
           <div id="bulletin-event-block" class="field is-events hide-multiple clear">
           </div>
 

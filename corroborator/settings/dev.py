@@ -4,6 +4,9 @@ Dev settings
 """
 from settings.common import *
 
+DEBUG = True
+ALLOWED_HOSTS = ['*']
+
 ROOT_PATH = '/Users/cormac/work/programming/python/djangodev/corroborator/'
 DATABASES = {
     'default': {
@@ -30,7 +33,7 @@ DATABASES = {
 
 INSTALLED_APPS += (
     'autofixture',
-    #'debug_toolbar',
+    'debug_toolbar',
     #'django_socketio',
 )
 

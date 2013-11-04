@@ -77,5 +77,9 @@
     <div class="bulletins group">
     </div>
     {{/if}}
+    {{#if model.bulletin_imported_comments}}
+    <div class="is-comments group">
+    </div>
+    {{/if}}
   </div>
 </div>

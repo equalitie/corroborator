@@ -93,11 +93,26 @@ function program20(depth0,data) {
 
 function program22(depth0,data) {
   
+  var buffer = "", stack1, stack2;
+  buffer += "\n        <h4>Labels</h4>\n        <ul class=\"tags group detail\">\n          ";
+  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_labels), {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n        </ul>\n        ";
+  return buffer;
+  }
+function program23(depth0,data) {
+  
   var buffer = "";
   buffer += "\n          <li class=\"tag\">\n            <span class=\"text\">"
     + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
     + "</span>\n          </li>\n          ";
   return buffer;
+  }
+
+function program25(depth0,data) {
+  
+  
+  return "\n      <div class=\"is-comments group\">\n      </div>\n      ";
   }
 
   buffer += "<div class=\"Bulletin in-view is-expanded\">\n  <div class=\"header\">\n    <span class=\"id\">\n      ID <span class=\"value out\">"
@@ -135,10 +150,13 @@ function program22(depth0,data) {
   buffer += "\n      ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations), {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n      <div class=\"is-tags group\">\n        <h4>Labels</h4>\n        <ul class=\"tags\">\n          ";
-  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_labels), {hash:{},inverse:self.noop,fn:self.program(22, program22, data),data:data});
+  buffer += "\n      <div class=\"is-tags group\">\n        ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_labels), {hash:{},inverse:self.noop,fn:self.program(22, program22, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        </ul>\n      </div>\n    </div>\n  </div>\n  <div class=\"clearer\"></div>\n</div>\n";
+  buffer += "\n      </div>\n      ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_imported_comments), {hash:{},inverse:self.noop,fn:self.program(25, program25, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    </div>\n  </div>\n  <div class=\"clearer\"></div>\n</div>\n";
   return buffer;
   })
 

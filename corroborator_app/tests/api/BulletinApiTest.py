@@ -110,7 +110,7 @@ class BulletinTestCase(ResourceTestCase):
             'description_ar': "description Arabic",
             'confidence_score': 73,
             'sources': ['/api/v1/source/1/', ],
-            'bulletin_comments': ['/api/v1/comment/1/', ],
+            'bulletin_imported_comments': ['/api/v1/comment/1/', ],
             'assigned_user': '/api/v1/user/1/',
             'actors_role': [],
             'times': [],

@@ -65,7 +65,10 @@ define(
       intFields: [
         'confidence_score'
       ],
-      manyToManyFields: ['ref_bulletins', 'labels', 'locations', 'sources'],
+      manyToManyFields: [
+        'ref_bulletins', 'labels', 'locations',
+        'sources', 'bulletin_imported_comments'
+      ],
       url: '/corroborator/bulletin/0/multisave/',
       formatSaveMultiple: function() {
         this.set('actorsRoles',
@@ -114,7 +117,7 @@ define(
       ],
       manyToManyFields: [
         'sources', 'bulletin_comments', 'actors_role', 'times', 'medias',
-        'locations', 'labels', 'ref_bulletins'
+        'locations', 'labels', 'ref_bulletins', 'bulletin_imported_comments'
       ],
       initialize: function(options) {
         this.set('entityType', 'bulletin');

@@ -68,7 +68,7 @@ class Comment(models.Model):
     systems audit trail. It can be related to either Bulletins or Incidents.
     """
     assigned_user = models.ForeignKey(User)
-    status = models.ForeignKey(StatusUpdate)
+    status = models.ForeignKey(StatusUpdate, blank=True, null=True)
     comments_en = models.TextField(blank=True)
     comments_ar = models.TextField(blank=True, null=True)
     comment_created = models.DateTimeField(auto_now_add=True)

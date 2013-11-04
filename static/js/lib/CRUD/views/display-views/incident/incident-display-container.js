@@ -8,7 +8,7 @@ define (
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
     'lib/CRUD/views/map-view',
-    'lib/CRUD/views/display-views/misc/comment-container',
+    'lib/CRUD/views/display-views/comment/comment-container',
     'lib/CRUD/views/display-views/misc/event-container',
     'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-container',

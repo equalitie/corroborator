@@ -242,9 +242,10 @@ define (
       // render out the child views - comment form, event form, add location,
       // add media, add actors, add related bulletins
       renderChildren: function() {
+        console.log(this.model);
         var commentForm = new CommentContainerView({
           el: '#bulletin-comment-block',
-          content: this.model.get('bulletin_comments'),
+          content: this.model.get('bulletin_imported_comments'),
           entityType: 'bulletin'
         });
 

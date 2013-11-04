@@ -55,11 +55,9 @@ define (
       },
 
       //destroy the view and it's children
-      destroy: function() {
+      onDestroy: function() {
         this.destroyChildViews();
         this.destroySelectViews();
-        this.$el.remove();
-        this.undelegateEvents();
       },
       destroyChildViews: function() {
         _.invoke(this.childViews, 'destroy');
@@ -150,11 +148,13 @@ define (
         if (this.model === undefined) { // new comment
           var formContent = this.formContent();
           var comment = new CommentModel(this.formContent());
+          comment.set('assigned_user', Bootstrap.userResource);
           comment.save();
           this.collection.add(comment);
         }
         else { // update existing comment
           this.model.set(this.formContent());
+          this.model.set('assigned_user', Bootstrap.userResource);
           this.model.save();
           this.model = undefined;
         }
@@ -192,7 +192,6 @@ define (
         var templateVars = {
           entityType  : this.entityType,
           model       : {},
-          statuses    : Bootstrap.comment_statuses,
           userResource: Bootstrap.userResource
         };
         if (this.model) {

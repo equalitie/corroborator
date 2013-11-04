@@ -11,13 +11,15 @@ define (
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
     'lib/CRUD/views/display-views/media/media-container',
+    'lib/CRUD/views/display-views/comment/comment-container',
     'lib/CRUD/views/map-view',
     'lib/CRUD/templates/display-templates/bulletin-display.tpl',
     'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl'
   ],
   function (Backbone, _, Collections, Streams, 
-    ActorListView, BulletinListView, IncidentListView, MediaListView, CoordinateDisplayView,
-    bulletinDisplayTmp, expandedBulletinDisplayTmp) {
+    ActorListView, BulletinListView, IncidentListView, MediaListView,
+    CommentListView, CoordinateDisplayView, bulletinDisplayTmp,
+    expandedBulletinDisplayTmp) {
     'use strict';
 
     var BulletinDisplayView,
@@ -69,6 +71,7 @@ define (
             .renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents()
+            .renderRelatedComments()
             .renderMap();
         return this;
       },
@@ -122,6 +125,19 @@ define (
         });
         _.each(actorsContainer.childViews, function(childView) {
           childView.selectInitialLanguage();
+        });
+        return this;
+      },
+
+      // render the related bulletins
+      renderRelatedComments: function() {
+        var commentsEl, content, commentsContainer;
+        commentsEl = this.getContainerEl('comments');
+
+        content = this.model.get('bulletin_imported_comments');
+        commentsContainer = new CommentListView({
+          el: commentsEl,
+          content: content
         });
         return this;
       },
