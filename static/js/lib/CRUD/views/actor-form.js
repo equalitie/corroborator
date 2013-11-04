@@ -236,6 +236,11 @@ define (
           relationshipType: 'relation'
         });
 
+        var revisionView = new RevisionView({
+          el: '.revisions',
+          content: this.model.get('
+        });
+
         this.childViews.push(mediaSearchView, actorSearchView);
         this.actorSearchView = actorSearchView;
         return this;

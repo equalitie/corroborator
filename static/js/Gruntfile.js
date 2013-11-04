@@ -48,21 +48,25 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/save-search-dialog.tpl.js': 'lib/SolrSearch/templates/save-search-dialog.tpl',
 
           // forms
+          // actor
           'lib/CRUD/templates/search-templates/actor/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor/actor.tpl',
           'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl.js'       : 'lib/CRUD/templates/search-templates/actor/expanded-actor.tpl',
           'lib/CRUD/templates/search-templates/actor/actor-result.tpl.js'         : 'lib/CRUD/templates/search-templates/actor/actor-result.tpl',
           'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl',
 
+          //bulletin
           'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl.js'             : 'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl',
           'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl.js'    : 'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl',
           'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl.js'      : 'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl',
           'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl.js': 'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl',
 
+          //incident
           'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl.js': 'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl',
           'lib/CRUD/templates/search-templates/incident/incident-result.tpl.js'      : 'lib/CRUD/templates/search-templates/incident/incident-result.tpl',
           'lib/CRUD/templates/search-templates/incident/incident.tpl.js'             : 'lib/CRUD/templates/search-templates/incident/incident.tpl',
           'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl.js'    : 'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl',
 
+          //media
           'lib/CRUD/templates/search-templates/media/media-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/media/media-search-field.tpl',
           'lib/CRUD/templates/search-templates/media/media-result.tpl.js'         : 'lib/CRUD/templates/search-templates/media/media-result.tpl',
           'lib/CRUD/templates/search-templates/media/media-viewer.tpl.js'         : 'lib/CRUD/templates/search-templates/media/media-viewer.tpl',
@@ -73,15 +77,21 @@ module.exports = function(grunt) {
 
           //'lib/CRUD/templates/search-templates/location-search-field.tpl.js': 'lib/CRUD/templates/search-templates/location-search-field.tpl',
           //'lib/CRUD/templates/search-templates/location-result.tpl.js'      : 'lib/CRUD/templates/search-templates/location-result.tpl',
-          //
+
+          //comment
           'lib/CRUD/templates/search-templates/comment/comment-container.tpl.js'    : 'lib/CRUD/templates/search-templates/comment/comment-container.tpl',
           'lib/CRUD/templates/search-templates/comment/comment-form.tpl.js'         : 'lib/CRUD/templates/search-templates/comment/comment-form.tpl',
           'lib/CRUD/templates/search-templates/comment/comment-display.tpl.js'      : 'lib/CRUD/templates/search-templates/comment/comment-display.tpl',
 
+          //event
           'lib/CRUD/templates/search-templates/event/event-container.tpl.js'      : 'lib/CRUD/templates/search-templates/event/event-container.tpl',
           'lib/CRUD/templates/search-templates/event/event-form.tpl.js'           : 'lib/CRUD/templates/search-templates/event/event-form.tpl',
           'lib/CRUD/templates/search-templates/event/event-display.tpl.js'        : 'lib/CRUD/templates/search-templates/event/event-display.tpl',
          
+          //revisions
+          'lib/CRUD/templates/search-templates/revision/revision-container.tpl.js'      : 'lib/CRUD/templates/search-templates/revision/revision-container.tpl',
+          'lib/CRUD/templates/search-templates/revision/revision.tpl.js'           : 'lib/CRUD/templates/search-templates/revision/revision.tpl',
+
           // form and display
           'lib/CRUD/templates/map-container.tpl.js'   : 'lib/CRUD/templates/map-container.tpl',
 

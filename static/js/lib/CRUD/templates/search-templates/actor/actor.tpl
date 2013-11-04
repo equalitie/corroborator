@@ -364,6 +364,7 @@
     <div class="clearer"></div>
   </div>
 </div>
+<div class="revisions"></div>
 <div class="footer actions form">
   <div class="when-overlay-expanded">
     <button class="do-collapse-form">
