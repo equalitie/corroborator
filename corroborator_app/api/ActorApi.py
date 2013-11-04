@@ -42,7 +42,11 @@ class ActorResource(ModelResource):
         'actors_role',
         null=True
     )
-
+    actor_comments = fields.ManyToManyField(
+        CommentResource,
+        'actor_comments',
+        null=True
+    )
     class Meta:
         queryset = Actor.objects.all()
         resource_name = 'actor'
@@ -101,6 +105,8 @@ class ActorResource(ModelResource):
         return bundle
 
     def dehydrate(self, bundle):
+        bundle.data['actor_comments'] =ActorPrepMeta()\
+            .prepare_actor_comments(bundle.obj)
         bundle.data['count_incidents'] = ActorPrepMeta()\
             .prepare_count_incidents(bundle.obj)
         bundle.data['count_bulletins'] = ActorPrepMeta()\

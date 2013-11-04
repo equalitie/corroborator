@@ -397,6 +397,7 @@ class Actor(models.Model):
     ignored by the UI
     """
     deleted = models.BooleanField()
+    actor_comments = models.ManyToManyField(Comment, blank=True, null=True)
 
     # Foreign Keys
     actors_role = models.ManyToManyField(
