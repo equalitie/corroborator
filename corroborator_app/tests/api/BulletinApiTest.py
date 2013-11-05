@@ -5,7 +5,7 @@ from autofixture import AutoFixture
 from corroborator_app.models import Bulletin, Media, Location, \
     Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Label, \
     Source, SourceType
-#import datetime
+import json
 #from django.utils.timezone import utc
 
 
@@ -124,6 +124,10 @@ class BulletinTestCase(ResourceTestCase):
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
         self.assertEqual(response.status_code, 201)
+        new_bulletin_dict = json.loads(response.content)
+        new_bulletin = Bulletin(id=new_bulletin_dict['id'])
+        bulletin_comments = new_bulletin.bulletin_comments.all()
+        self.assertEqual(len(bulletin_comments), 1)
 
     def test_bulletin_put(self):
         b = Bulletin.objects.all()[0]
