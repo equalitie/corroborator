@@ -129,7 +129,7 @@ define (
         return this;
       },
 
-      // render the related bulletins
+      // render the comments
       renderRelatedComments: function() {
         var commentsEl, content, commentsContainer;
         commentsEl = this.getContainerEl('comments');

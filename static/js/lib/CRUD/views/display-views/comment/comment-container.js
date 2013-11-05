@@ -40,7 +40,6 @@ define (
       containerTmp: commentContainerTmp,
 
       initialize: function(options) {
-        console.log(options.content);
         this.render();
         this.collection = new Backbone.Collection();
         this.loadFromList(options.content);

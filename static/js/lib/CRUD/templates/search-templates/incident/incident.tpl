@@ -200,9 +200,9 @@
         <div id="bulletin-status-comment-block" class="field add">
 
           <p class="error-text">
-          Comment field is required
+          You must supply a reason for the edit
           </p>
-          <label>Comment</label>
+          <label>Reason For Update</label>
           <textarea 
             id="comment"
             name="comment"
@@ -213,6 +213,8 @@
     </div>
     <div class="clearer"></div>
   </div>
+  <!-- show revision details -->
+  <div class="revision-container"></div>
 </div>
 <div class="footer with-revision">
   <div class="actions form when-not_revision">

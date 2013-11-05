@@ -52,7 +52,6 @@ define (
       },
       displayView: function() {
         this.render()
-            .renderRelatedComments()
             .renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents()
@@ -87,18 +86,6 @@ define (
             expanded: this.expanded
           }
         });
-      },
-      renderRelatedComments: function() {
-        var commentsEl = this.$el.children()
-                                 .children('.body')
-                                 .children('.comments');
-        var content = this.model.get('incident_comments'),
-            commentContainer = new CommentListView({
-              el: commentsEl,
-              content: content
-            });
-        console.log(content);
-        return this;
       },
       renderRelatedActors: function() {
         var actorsEl, content, roles_en, actorsContainer;

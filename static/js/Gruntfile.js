@@ -90,7 +90,6 @@ module.exports = function(grunt) {
          
           //revisions
           'lib/CRUD/templates/search-templates/revision/revision-container.tpl.js'      : 'lib/CRUD/templates/search-templates/revision/revision-container.tpl',
-          'lib/CRUD/templates/search-templates/revision/revision.tpl.js'           : 'lib/CRUD/templates/search-templates/revision/revision.tpl',
 
           // form and display
           'lib/CRUD/templates/map-container.tpl.js'   : 'lib/CRUD/templates/map-container.tpl',
