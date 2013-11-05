@@ -99,7 +99,7 @@ class IncidentTestCase(ResourceTestCase):
             'times': [],
             'locations': [],
             'ref_incidents': [],
-            'status': 'Updated',
+            'status': '/api/v1/statusUpdate/1/',
             'comment': 'Comment',
         }
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
@@ -129,7 +129,7 @@ class IncidentTestCase(ResourceTestCase):
             'times': [],
             'locations': [],
             'ref_incidents': [],
-            'status': 'Updated',
+            'status': '/api/v1/statusUpdate/1/',
             'comment': 'Comment',
         }
         response = self.api_client.put(url, data=put_data)
