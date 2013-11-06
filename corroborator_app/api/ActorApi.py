@@ -13,6 +13,7 @@ from tastypie import fields
 from corroborator_app.models import ActorRelationship
 from corroborator_app.models import Actor, ActorRole, VersionStatus
 from corroborator_app.api.LocationApi import LocationResource
+from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.MediaApi import MediaResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
