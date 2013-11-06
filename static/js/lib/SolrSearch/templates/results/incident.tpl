@@ -15,14 +15,14 @@
       <div class="meta text">
         {{#if model.actors.length}}
         <span class="actors">{{model.actors.length}}</span>
-        {{pluralise word="actor" numItems=model.actors.length }} involved
+        {{pluralise word="actor" numItems=model.actors.length }} {{i18n.results.involved}}
         </span> 
         {{/if}}
       </div>
       <div class="details text">
         <span class="date">{{dateFormat model.incident_created}}</span>
         {{#if model.locations}}
-          in 
+          {{i18n.results.in}}
           {{commaSeparatedList model.incident_locations}}
         {{/if}}
       </div>

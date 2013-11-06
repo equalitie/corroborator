@@ -3,7 +3,7 @@
     <div class="group is-creator">
       <button class="do-create-incident create">
         <span aria-hidden="true" data-icon="e"></span>
-        <span class="text T">New incidents</span>
+        <span class="text T">{{i18n.filters.new_incident}}</span>
       </button>
     </div>
   </div>

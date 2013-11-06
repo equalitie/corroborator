@@ -14,7 +14,7 @@
       <div class="meta text">
         {{#if model.actors.length}}
         <span class="actors">{{model.actors.length}}</span>
-        {{pluralise word="actor" numItems=model.actors.length }} involved
+        {{pluralise word="actor" numItems=model.actors.length }} {{i18n.results.involved}}
         </span> 
         {{/if}}
       </div>

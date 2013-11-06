@@ -14,7 +14,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.domain) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.domain; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</em> selected\n";
+    + "</em> "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.count)),stack1 == null || stack1 === false ? stack1 : stack1.selected)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n";
   return buffer;
   })
 

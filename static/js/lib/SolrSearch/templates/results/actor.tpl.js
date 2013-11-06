@@ -56,7 +56,9 @@ function program10(depth0,data) {
 function program12(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n              <p class=\"aka\">aka «"
+  buffer += "\n              <p class=\"aka\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.aka)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " «"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nickname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "»</p>\n            ";
   return buffer;
@@ -65,7 +67,9 @@ function program12(depth0,data) {
 function program14(depth0,data) {
   
   var buffer = "", stack1, stack2, options;
-  buffer += "\n                lives in\n                <span class=\"location\">";
+  buffer += "\n                "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.lives_in)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n                <span class=\"location\">";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.fetchLocation || depth0.fetchLocation),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), options) : helperMissing.call(depth0, "fetchLocation", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), options)));
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.position_en), {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
@@ -82,7 +86,9 @@ function program15(depth0,data) {
 function program17(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n              <span class='works-as'>\n              works as a \n                <span class=\"occupation\">"
+  buffer += "\n              <span class='works-as'>\n              "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.works_as_a)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n                <span class=\"occupation\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.position_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span> \n              </span>\n              ";
   return buffer;
@@ -91,7 +97,9 @@ function program17(depth0,data) {
 function program19(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n              <br>involved in <span class=\"incidents-count\">\n              "
+  buffer += "\n              <br>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.involved_in)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <span class=\"incidents-count\">\n              "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n              ";
   options = {hash:{

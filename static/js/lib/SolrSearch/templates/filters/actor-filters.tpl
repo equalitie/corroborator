@@ -3,7 +3,7 @@
     <div class="group is-creator">
       <button class="do-create-actor create">
         <span aria-hidden="true" data-icon="e"></span>
-        <span class="text T">New actor</span>
+        <span class="text T">{{i18n.filters.new_actor}}</span>
       </button>
     </div>
   </div>

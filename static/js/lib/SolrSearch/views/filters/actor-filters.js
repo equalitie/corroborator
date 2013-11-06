@@ -16,10 +16,11 @@ define(
     'lib/SolrSearch/views/filters/filter-elements',
     'lib/SolrSearch/views/filters/date-range',
     // templates
-    'lib/SolrSearch/templates/actor-filters.tpl'
+    'lib/SolrSearch/templates/filters/actor-filters.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
-    Mixins, FilterElements, DateRange, actorFiltersTmp) {
+    Mixins, FilterElements, DateRange, actorFiltersTmp, i18n) {
     'use strict';
     var ActorFilterView,
         FilterViewMixin = Mixins.FilterViewMixin,
@@ -71,7 +72,9 @@ define(
 
       // render the container
       render: function() {
-        var html = actorFiltersTmp();
+        var html = actorFiltersTmp({
+          i18n: i18n
+        });
         this.$el.empty()
                 .append(html);
       },

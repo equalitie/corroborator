@@ -35,24 +35,24 @@
           <div class="L2">
             <br/>
             {{#if model.nickname_en}}
-              <p class="aka">aka «{{model.nickname_en}}»</p>
+              <p class="aka">{{i18n.results.aka}} «{{model.nickname_en}}»</p>
             {{/if}}
           </div>
           <div class="actor-summary">
             <div class="L3">
               {{#if model.current_location}}
-                lives in
+                {{i18n.results.lives_in}}
                 <span class="location">{{fetchLocation model.current_location}}{{#if model.position_en}}, {{/if}} </span>
               {{/if}}
               {{#if model.position_en}}
               <span class='works-as'>
-              works as a 
+              {{i18n.results.works_as_a}}
                 <span class="occupation">{{model.position_en}}</span> 
               </span>
               {{/if}}
 
               {{#if model.count_incidents}}
-              <br>involved in <span class="incidents-count">
+              <br>{{i18n.results.involved_in}} <span class="incidents-count">
               {{model.count_incidents}}
               {{pluralise word='incident' numItems=model.count_incidents}}</span>
               {{/if}}

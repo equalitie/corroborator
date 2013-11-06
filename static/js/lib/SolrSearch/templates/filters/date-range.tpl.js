@@ -10,7 +10,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.title; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</label>\n<br/>\n<input type=\"text\" class=\"from-date\" name=\"from\" />\n<label for=\"to\">and</label>\n<input type=\"text\" class=\"to-date\" name=\"to\" />\n";
+    + "</label>\n<br/>\n<input type=\"text\" class=\"from-date\" name=\"from\" />\n<label for=\"to\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.filters)),stack1 == null || stack1 === false ? stack1 : stack1.and)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n<input type=\"text\" class=\"to-date\" name=\"to\" />\n";
   return buffer;
   })
 

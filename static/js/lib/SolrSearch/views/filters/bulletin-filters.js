@@ -12,10 +12,12 @@ define(
     'lib/SolrSearch/views/filters/filter-elements',
     'lib/SolrSearch/views/filters/date-range',
     // templates
-    'lib/SolrSearch/templates/bulletin-filters.tpl'
+    'lib/SolrSearch/templates/filters/bulletin-filters.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
+
   ],
   function (_, $, Backbone, Streams, Collections, FilterCollection,
-    Mixins, FilterElements, DateRange, bulletinFiltersTmp) {
+    Mixins, FilterElements, DateRange, bulletinFiltersTmp, i18n) {
     var BulletinFilterView,
         DateRangeView = DateRange.DateRangeView,
         SelectedFiltersView = FilterElements.SelectedFiltersView,
@@ -60,7 +62,9 @@ define(
 
       // render the container
       render: function() {
-        var html = bulletinFiltersTmp();
+        var html = bulletinFiltersTmp({
+          i18n: i18n
+        });
         this.$el.empty()
                 .append(html);
       },
