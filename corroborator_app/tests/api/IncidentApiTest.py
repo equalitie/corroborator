@@ -101,6 +101,7 @@ class IncidentTestCase(ResourceTestCase):
             'ref_incidents': [],
             'status': '/api/v1/statusUpdate/1/',
             'comment': 'Comment',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -131,6 +132,7 @@ class IncidentTestCase(ResourceTestCase):
             'ref_incidents': [],
             'status': '/api/v1/statusUpdate/1/',
             'comment': 'Comment',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -158,6 +160,7 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'id': '2',
@@ -177,6 +180,7 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }
@@ -204,6 +208,7 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'title_en': "Test Incident",
@@ -221,6 +226,7 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }

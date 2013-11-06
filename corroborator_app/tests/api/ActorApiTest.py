@@ -47,6 +47,7 @@ class ActorTestCase(ResourceTestCase):
             'nickname_ar': "Nickname Arabic",
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         url = '/api/v1/actor/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
@@ -68,6 +69,7 @@ class ActorTestCase(ResourceTestCase):
             'nickname_ar': "Nickname Arabic",
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -83,6 +85,7 @@ class ActorTestCase(ResourceTestCase):
                     'nickname_ar': "Nickname Arabic",
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'fullname_en': "Test Actor",
@@ -91,6 +94,7 @@ class ActorTestCase(ResourceTestCase):
                     'nickname_ar': "Nickname Arabic",
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }
