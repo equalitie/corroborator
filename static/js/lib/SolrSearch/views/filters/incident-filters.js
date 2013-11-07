@@ -11,10 +11,11 @@ define(
     'lib/SolrSearch/views/filters/filter-mixins',
     'lib/SolrSearch/views/filters/date-range',
     // templates
-    'lib/SolrSearch/templates/incident-filters.tpl'
+    'lib/SolrSearch/templates/filters/incident-filters.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
   function (_, $, Backbone, Handlebars, Streams, FilterCollection,
-    FilterElements, Mixins, DateRange, incidentFiltersTmp) {
+    FilterElements, Mixins, DateRange, incidentFiltersTmp, i18n) {
     var IncidentFilterView,
         DateRangeView = DateRange.DateRangeView,
         FilterViewMixin = Mixins.FilterViewMixin,
@@ -61,7 +62,9 @@ define(
 
       // render the container
       render: function() {
-        var html = incidentFiltersTmp();
+        var html = incidentFiltersTmp({
+          i18n: i18n
+        });
         this.$el.children().remove();
         this.$el.append(html);
       },

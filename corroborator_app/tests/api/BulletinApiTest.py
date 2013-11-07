@@ -5,7 +5,7 @@ from autofixture import AutoFixture
 from corroborator_app.models import Bulletin, Media, Location, \
     Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Label, \
     Source, SourceType
-#import datetime
+import json
 #from django.utils.timezone import utc
 
 
@@ -120,10 +120,16 @@ class BulletinTestCase(ResourceTestCase):
             'ref_bulletins': [],
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
+        print response
         self.assertEqual(response.status_code, 201)
+        new_bulletin_dict = json.loads(response.content)
+        new_bulletin = Bulletin(id=new_bulletin_dict['id'])
+        bulletin_comments = new_bulletin.bulletin_comments.all()
+        self.assertEqual(len(bulletin_comments), 1)
 
     def test_bulletin_put(self):
         b = Bulletin.objects.all()[0]
@@ -148,6 +154,7 @@ class BulletinTestCase(ResourceTestCase):
             'ref_bulletins': [],
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -175,6 +182,7 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'id': '2',
@@ -195,6 +203,7 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }
@@ -222,6 +231,7 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'title_en': "Test Bulletin",
@@ -240,6 +250,7 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }

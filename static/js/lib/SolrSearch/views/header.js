@@ -19,10 +19,12 @@ define(
     // templates
     'lib/SolrSearch/templates/header.tpl',
     'lib/SolrSearch/templates/header-count.tpl',
-    'lib/SolrSearch/views/sort-view'
+    'lib/SolrSearch/views/sort-view',
+    // translation
+    'i18n!lib/SolrSearch/nls/dict'
   ],
   function ($, Backbone, Handlebars, Streams, Combo, Collections,
-    headerTmp, headerCountTmp, SortView
+    headerTmp, headerCountTmp, SortView, i18n
   ) {
     'use strict';
     //////////////////////////////////////////////////////////////////////
@@ -196,7 +198,10 @@ define(
 
 
       render: function() {
-        var header = headerTmp({domain: 'incidents'});
+        var header = headerTmp({
+          i18n: i18n,
+          domain: 'incidents'
+        });
         this.$el.append(header);
         this.renderSelectedCount();
         this.renderComboBox();

@@ -7,7 +7,7 @@
 define(
   [
     'jquery', 'backbone', 'underscore',
-    'lib/SolrSearch/templates/empty-results.tpl'
+    'lib/SolrSearch/templates/results/empty-results.tpl'
   ],
   function ($, Backbone, _, emptyResultsTmp) {
   'use strict';

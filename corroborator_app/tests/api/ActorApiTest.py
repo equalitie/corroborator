@@ -2,7 +2,8 @@ from tastypie.models import ApiKey
 from django.contrib.auth.models import User
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
-from corroborator_app.models import Location, Actor
+from corroborator_app.models import Actor
+import json
 
 
 class ActorTestCase(ResourceTestCase):
@@ -12,8 +13,6 @@ class ActorTestCase(ResourceTestCase):
         self.user.save()
         fixture = AutoFixture(Actor)
         fixture.create(10)
-        self.location = Location(name_en='test location', loc_type='Village')
-        self.location.save()
         self.actor = Actor(
             fullname_en='Test Actor',
             fullname_ar='Test name ar',
@@ -48,10 +47,16 @@ class ActorTestCase(ResourceTestCase):
             'nickname_ar': "Nickname Arabic",
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         url = 'https://localhost:8000/api/v1/actor/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
         self.assertEqual(response.status_code, 201)
+        # test that a comment get added
+        new_actor_dict = json.loads(response.content)
+        new_actor = Actor(id=new_actor_dict['id'])
+        actor_comments = new_actor.actor_comments.all()
+        self.assertEqual(len(actor_comments), 1)
 
     def test_actor_put(self):
         precreated_actor = Actor.objects.all()[0]
@@ -64,6 +69,7 @@ class ActorTestCase(ResourceTestCase):
             'nickname_ar': "Nickname Arabic",
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
@@ -79,6 +85,7 @@ class ActorTestCase(ResourceTestCase):
                     'nickname_ar': "Nickname Arabic",
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'fullname_en': "Test Actor",
@@ -87,6 +94,7 @@ class ActorTestCase(ResourceTestCase):
                     'nickname_ar': "Nickname Arabic",
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }

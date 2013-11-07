@@ -26,7 +26,7 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from django.contrib.auth.models import User
 from corroborator_app.tasks import update_object
 
-from corroborator_app.models import Incident, VersionStatus
+from corroborator_app.models import Incident, VersionStatus, Comment
 
 __all__ = ('IncidentResource', )
 
@@ -82,10 +82,32 @@ class IncidentResource(ModelResource):
         """
         update_object.delay(username)    
         return bundle
- 
+        
+    def create_comment(self, comment, status_id, user):
+        
+        comment = Comment(
+            assigned_user_id = user.id,
+            comments_en = comment,
+            status_id = status_id
+        )
+        comment.save()
+        comment_uri = '/api/v1/comment/{0}/'.format(comment.id)
+
+        return comment_uri
+
     def obj_update(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
+        status_id = bundle.data['status_uri'].split('/')[4]
+        comment_uri = self.create_comment(
+            bundle.data['comment'],
+            status_id,
+            user
+        )
+        bundle.data['incident_comments'] = [
+            comment_uri
+        ]
+
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\
                 .obj_update( bundle, **kwargs )
@@ -101,6 +123,16 @@ class IncidentResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
+        status_id = bundle.data['status_uri'].split('/')[4]
+        comment_uri = self.create_comment(
+            bundle.data['comment'],
+            status_id,
+            user
+        )
+        bundle.data['incident_comments'] = [
+            comment_uri
+        ]
+
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\
                 .obj_create( bundle, **kwargs )

@@ -21,6 +21,7 @@ define (
         IncidentModel = Incident.IncidentModel;
 
     IncidentView = ModelView.extend({
+      className: 'related-incident',
       template: incidentTmp
     });
 

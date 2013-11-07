@@ -11,10 +11,11 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
 from corroborator_app.models import ActorRelationship
-from corroborator_app.models import Actor, ActorRole, VersionStatus
+from corroborator_app.models import Actor, ActorRole, VersionStatus, Comment
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.MediaApi import MediaResource
+from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from corroborator_app.utilities.apiValidationTool import ApiValidation
@@ -48,6 +49,7 @@ class ActorResource(ModelResource):
         'actor_comments',
         null=True
     )
+
     class Meta:
         queryset = Actor.objects.all()
         resource_name = 'actor'
@@ -74,9 +76,31 @@ class ActorResource(ModelResource):
         update_object.delay(username)
         return bundle
 
+    def create_comment(self, comment, status_id, user):
+        
+        comment = Comment(
+            assigned_user_id = user.id,
+            comments_en = comment,
+            status_id = status_id
+        )
+        comment.save()
+        comment_uri = '/api/v1/comment/{0}/'.format(comment.id)
+
+        return comment_uri
+
     def obj_update(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
+        status_id = int(bundle.data['status_uri'].split('/')[4])
+        print status_id
+        comment_uri = self.create_comment(
+            bundle.data['comment'],
+            status_id,
+            user
+        )
+        bundle.data['actor_comments'] = [
+            comment_uri
+        ]
         with reversion.create_revision():
             bundle = super(ActorResource, self)\
                 .obj_update(bundle, **kwargs)
@@ -93,6 +117,16 @@ class ActorResource(ModelResource):
     def obj_create(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
+        status_id = bundle.data['status_uri'].split('/')[4]
+        comment_uri = self.create_comment(
+            bundle.data['comment'],
+            status_id,
+            user
+        )
+        bundle.data['actor_comments'] = [
+            comment_uri
+        ]
+
         with reversion.create_revision():
             bundle = super(ActorResource, self)\
                 .obj_create(bundle, **kwargs)
@@ -106,7 +140,7 @@ class ActorResource(ModelResource):
         return bundle
 
     def dehydrate(self, bundle):
-        bundle.data['actor_comments'] =ActorPrepMeta()\
+        bundle.data['actor_comments'] = ActorPrepMeta()\
             .prepare_actor_comments(bundle.obj)
         bundle.data['count_incidents'] = ActorPrepMeta()\
             .prepare_count_incidents(bundle.obj)

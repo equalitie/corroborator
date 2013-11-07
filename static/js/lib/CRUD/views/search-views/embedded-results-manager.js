@@ -120,7 +120,6 @@ define (
         this.currentView = new embeddedSearchResultViews[viewType]();
         this.render();
         this.currentView.delegateEvents();
-        console.log(this.currentView);
       },
 
       render: function() {

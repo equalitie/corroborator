@@ -21,6 +21,7 @@ define (
         BulletinModel = Bulletin.BulletinModel;
 
     BulletinView = ModelView.extend({
+      className: 'related-bulletin',
       template: bulletinTmp
     });
 

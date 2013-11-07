@@ -12,12 +12,13 @@ define (
     'lib/CRUD/views/form-mixins',
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/media/media-search-field',
+    'lib/CRUD/views/search-views/revision/revision-view',
     'lib/CRUD/data/LocationCollection',
     // templates
     'lib/CRUD/templates/search-templates/actor/actor.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
-    Location, actorFormTmp) {
+    RevisionView, Location, actorFormTmp) {
     'use strict';
 
     var ActorFormView,
@@ -219,6 +220,12 @@ define (
       // render the sub views
       renderChildren: function() {
         this.destroyChildren();
+
+        var revisionView = new RevisionView({
+          el: '.revision-container',
+          content: this.model.get('incident_comments')
+        });
+
         // show the media search view
         var mediaSearchView = new MediaSearchView({
           el: '#actor-media-block',
@@ -236,12 +243,8 @@ define (
           relationshipType: 'relation'
         });
 
-        var revisionView = new RevisionView({
-          el: '.revisions',
-         // content: this.model.get('
-        });
 
-        this.childViews.push(mediaSearchView, actorSearchView);
+        this.childViews.push(mediaSearchView, actorSearchView, revisionView);
         this.actorSearchView = actorSearchView;
         return this;
       }

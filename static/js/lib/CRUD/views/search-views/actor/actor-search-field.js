@@ -61,8 +61,6 @@ define (
         this.listenForActorsRemoved();
         this.listenForActorUpdate();
         this.listenForRelationshipTypeRequest();
-        console.log(options.mainModel.toJSON());
-
 
         // load existing content
         if (options.mainModel) {

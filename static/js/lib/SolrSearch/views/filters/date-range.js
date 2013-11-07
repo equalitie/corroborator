@@ -7,9 +7,10 @@ define (
   [
     'jquery', 'bacon', 'backbone', 'underscore', 'moment',
     'lib/streams',
-    'lib/SolrSearch/templates/date-range.tpl'
+    'lib/SolrSearch/templates/filters/date-range.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
-  function ($, Bacon, Backbone, _, moment, Streams, dateRangeTmp) {
+  function ($, Bacon, Backbone, _, moment, Streams, dateRangeTmp, i18n) {
     'use strict';
     var DateRangeView,
         searchBus = Streams.searchBus,
@@ -164,6 +165,7 @@ define (
       // render the datepicker template
       render: function() {
         var html = dateRangeTmp({
+          i18n: i18n,
           title: this.title
         });
         this.$el.append(html).addClass('filter');

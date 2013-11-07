@@ -207,6 +207,9 @@
       </div>
       <div class="clearer"></div>
     </div>
+    <!-- show revision details -->
+    <div class="revision-container"></div>
+
   </div>
   <div class="footer with-revision">
     <div class="actions form when-not_revision">

@@ -22,6 +22,9 @@ define (
     // describe a single comment
     CommentModel = Backbone.Model.extend({
       idAttribute: 'id',
+      comparator:  function () {
+        return this.get('comment_created');
+      },
       initialize: function(options) {
         if (options.resourceUri !== undefined) {
           var id = mapResourceUriToId(options.resourceUri);

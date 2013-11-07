@@ -7,11 +7,12 @@ define (
   [
    'backbone', 'underscore',
     'lib/Data/collections',
-    'lib/SolrSearch/templates/actor.tpl',
-    'lib/SolrSearch/templates/actor-results.tpl',
-    'lib/SolrSearch/templates/empty-results.tpl'
+    'lib/SolrSearch/templates/results/actor.tpl',
+    'lib/SolrSearch/templates/results/actor-results.tpl',
+    'lib/SolrSearch/templates/results/empty-results.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
-  function (Backbone, _, Collections, actorTmp, actorResultsTmp, emptyResultsTmp) {
+  function (Backbone, _, Collections, actorTmp, actorResultsTmp, emptyResultsTmp, i18n) {
     'use strict';
 
     var ActorResultsView, ActorResultView;
@@ -170,7 +171,9 @@ define (
         var emptyView = new Backbone.View({
           className: 'empty-results'
         });
-        emptyView.$el.html(emptyResultsTmp());
+        emptyView.$el.html(emptyResultsTmp({
+          i18n: i18n
+        }));
         this.$el.children()
                 .children()
                 .children()

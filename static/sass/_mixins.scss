@@ -37,3 +37,40 @@
   display: none;
 }
 
+@mixin drop-down-box {
+  position: relative;
+  p {
+    width: 85%;
+    border: 1px solid $COLOR_INPUT_BD;
+    display: inline-block;
+    padding: 4px;
+    
+  }
+  button {
+    border-top: 1px solid $COLOR_INPUT_BD;
+    margin: 1px;
+    margin-left: -3px;
+  }
+  ul {
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+    top: 26px;
+    /*left: 3px;*/
+    background-color: white;
+    border: 1px solid $COLOR_INPUT_BD;
+    li {
+      padding: 3px;
+      &:hover {
+        background-color: #dedede;
+      }
+    }
+  }
+}
+.drop-down-container {
+  @include drop-down-box;
+}
+.version-description-text {
+  margin: 0px;
+  margin-top: 5px;
+}

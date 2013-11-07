@@ -17,13 +17,12 @@ define (
     'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl'
   ],
   function (Backbone, _, Collections, Streams, CoordinateDisplayView,
-    CommentContainer, EventListView, ActorListView, BulletinListView,
+    CommentListView, EventListView, ActorListView, BulletinListView,
     IncidentListView, incidentDisplayTmp, expandedIncidentDisplayTmp) {
     'use strict';
 
     var IncidentDisplayView,
         crudBus = Streams.crudBus,
-        CommentListView = CommentContainer.CommentListView,
         incidentCollection = Collections.IncidentCollection;
 
     // ### IncidentDisplayView
@@ -53,7 +52,6 @@ define (
       },
       displayView: function() {
         this.render()
-            .renderRelatedComments()
             .renderRelatedActors()
             .renderRelatedBulletins()
             .renderRelatedIncidents()
@@ -88,17 +86,6 @@ define (
             expanded: this.expanded
           }
         });
-      },
-      renderRelatedComments: function() {
-        var commentsEl = this.$el.children()
-                                 .children('.body')
-                                 .children('.comments');
-        var content = this.model.get('incident_comments'),
-            commentContainer = new CommentListView({
-              el: commentsEl,
-              content: content
-            });
-        return this;
       },
       renderRelatedActors: function() {
         var actorsEl, content, roles_en, actorsContainer;

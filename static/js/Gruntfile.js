@@ -18,28 +18,30 @@ module.exports = function(grunt) {
           'lib/elements/templates/date-time-range.tpl.js'   : 'lib/elements/templates/date-time-range.tpl',
 
           // search results
-          'lib/SolrSearch/templates/actor-results.tpl.js'   : 'lib/SolrSearch/templates/actor-results.tpl',
-          'lib/SolrSearch/templates/empty-results.tpl.js'   : 'lib/SolrSearch/templates/empty-results.tpl',
-          'lib/SolrSearch/templates/actor.tpl.js'           : 'lib/SolrSearch/templates/actor.tpl',
-          'lib/SolrSearch/templates/incident.tpl.js'        : 'lib/SolrSearch/templates/incident.tpl',
-          'lib/SolrSearch/templates/bulletin-results.tpl.js': 'lib/SolrSearch/templates/bulletin-results.tpl',
-          'lib/SolrSearch/templates/bulletin.tpl.js'        : 'lib/SolrSearch/templates/bulletin.tpl',
+          'lib/SolrSearch/templates/results/actor-results.tpl.js'   : 'lib/SolrSearch/templates/results/actor-results.tpl',
+          'lib/SolrSearch/templates/results/empty-results.tpl.js'   : 'lib/SolrSearch/templates/results/empty-results.tpl',
+          'lib/SolrSearch/templates/results/actor.tpl.js'           : 'lib/SolrSearch/templates/results/actor.tpl',
+          'lib/SolrSearch/templates/results/incident.tpl.js'        : 'lib/SolrSearch/templates/results/incident.tpl',
+          'lib/SolrSearch/templates/results/incident-results.tpl.js': 'lib/SolrSearch/templates/results/incident-results.tpl',
+          'lib/SolrSearch/templates/results/bulletin-results.tpl.js': 'lib/SolrSearch/templates/results/bulletin-results.tpl',
+          'lib/SolrSearch/templates/results/bulletin.tpl.js'        : 'lib/SolrSearch/templates/results/bulletin.tpl',
 
           // header
           'lib/SolrSearch/templates/header-count.tpl.js'    : 'lib/SolrSearch/templates/header-count.tpl',
           'lib/SolrSearch/templates/header.tpl.js'          : 'lib/SolrSearch/templates/header.tpl',
 
+          //sort
+          'lib/SolrSearch/templates/sort/sort.tpl.js'       : 'lib/SolrSearch/templates/sort/sort.tpl',
+          'lib/SolrSearch/templates/sort/sort-actors.tpl.js': 'lib/SolrSearch/templates/sort/sort-actors.tpl',
           // filters
-          'lib/SolrSearch/templates/filters.tpl.js'         : 'lib/SolrSearch/templates/filters.tpl',
-          'lib/SolrSearch/templates/filter-group.tpl.js'    : 'lib/SolrSearch/templates/filter-group.tpl',
-          'lib/SolrSearch/templates/single-filter.tpl.js'   : 'lib/SolrSearch/templates/single-filter.tpl',
-          'lib/SolrSearch/templates/incident-results.tpl.js': 'lib/SolrSearch/templates/incident-results.tpl',
-          'lib/SolrSearch/templates/incident-filters.tpl.js': 'lib/SolrSearch/templates/incident-filters.tpl',
-          'lib/SolrSearch/templates/actor-filters.tpl.js'   : 'lib/SolrSearch/templates/actor-filters.tpl',
-          'lib/SolrSearch/templates/bulletin-filters.tpl.js': 'lib/SolrSearch/templates/bulletin-filters.tpl',
-          'lib/SolrSearch/templates/selected-filters.tpl.js': 'lib/SolrSearch/templates/selected-filters.tpl',
-          'lib/SolrSearch/templates/date-range.tpl.js'      : 'lib/SolrSearch/templates/date-range.tpl',
-          'lib/SolrSearch/templates/selected-filter.tpl.js' : 'lib/SolrSearch/templates/selected-filter.tpl',
+          'lib/SolrSearch/templates/filters/filter-group.tpl.js'    : 'lib/SolrSearch/templates/filters/filter-group.tpl',
+          'lib/SolrSearch/templates/filters/single-filter.tpl.js'   : 'lib/SolrSearch/templates/filters/single-filter.tpl',
+          'lib/SolrSearch/templates/filters/incident-filters.tpl.js': 'lib/SolrSearch/templates/filters/incident-filters.tpl',
+          'lib/SolrSearch/templates/filters/actor-filters.tpl.js'   : 'lib/SolrSearch/templates/filters/actor-filters.tpl',
+          'lib/SolrSearch/templates/filters/bulletin-filters.tpl.js': 'lib/SolrSearch/templates/filters/bulletin-filters.tpl',
+          'lib/SolrSearch/templates/filters/selected-filters.tpl.js': 'lib/SolrSearch/templates/filters/selected-filters.tpl',
+          'lib/SolrSearch/templates/filters/date-range.tpl.js'      : 'lib/SolrSearch/templates/filters/date-range.tpl',
+          'lib/SolrSearch/templates/filters/selected-filter.tpl.js' : 'lib/SolrSearch/templates/filters/selected-filter.tpl',
 
           // Navigation
           'lib/Navigation/templates/search-help.tpl.js': 'lib/Navigation/templates/search-help.tpl',
@@ -90,7 +92,6 @@ module.exports = function(grunt) {
          
           //revisions
           'lib/CRUD/templates/search-templates/revision/revision-container.tpl.js'      : 'lib/CRUD/templates/search-templates/revision/revision-container.tpl',
-          'lib/CRUD/templates/search-templates/revision/revision.tpl.js'           : 'lib/CRUD/templates/search-templates/revision/revision.tpl',
 
           // form and display
           'lib/CRUD/templates/map-container.tpl.js'   : 'lib/CRUD/templates/map-container.tpl',

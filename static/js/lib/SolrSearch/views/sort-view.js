@@ -7,9 +7,11 @@ define (
   [
     'underscore', 'backbone', 'jquery',
     'lib/streams',
-    'lib/SolrSearch/templates/filters.tpl'
+    'lib/SolrSearch/templates/sort/sort.tpl',
+    'lib/SolrSearch/templates/sort/sort-actors.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
-  function (_, Backbone, $, Streams, filtersTmp) {
+  function (_, Backbone, $, Streams, sortTmp, sortActorTmp, i18n) {
     'use strict';
     var createTypeFilter, filterSort, createNavProperty, searchBus, navBus,
     extractResults, getSortType, combineBoth, filterExecuteAction;
@@ -59,7 +61,14 @@ define (
     var SortView = Backbone.View.extend({
       el: 'tr.filters',
       eventIdentifier: 'filter_view',
-      variableFilter: 'location',
+      templateMap: function (navValue) {
+        var templateMapping = {
+          actor     : sortActorTmp,
+          incident  : sortTmp,
+          bulletin  : sortTmp
+        };
+        return navValue !== undefined ? templateMapping[navValue] : templateMapping.bulletin;
+      },
       events: {
         'click a': 'preventNav',
         'click .date': 'sortDate',
@@ -144,7 +153,6 @@ define (
         };
         createNavProperty()
           .onValue(function(value) {
-            self.variableFilter = filterMap[value.navValue];
             self.navValue = value.navValue;
             self.render();
           });
@@ -188,9 +196,11 @@ define (
         $(el).addClass('current').addClass('is-' + this.direction);
       },
       render: function() {
-        var html = filtersTmp({
-          variableFilter: this.variableFilter,
-          navValue: this.navValue
+        this.template = this.templateMap(this.navValue);
+        console.log(this.navValue);
+        var html = this.template({
+          navValue: this.navValue,
+          i18n: i18n
         });
         this.$el.empty()
                 .append(html);
