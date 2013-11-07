@@ -1,4 +1,4 @@
-<label>Comments</label>
+<label>{{i18n.comment.Comments}}</label>
 <ul class="comments">
   <li class="comment comment-form is-new">
   </li>

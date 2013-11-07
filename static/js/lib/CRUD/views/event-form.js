@@ -13,10 +13,11 @@ define (
     'lib/elements/select-option',
     'lib/CRUD/templates/search-templates/event/event-container.tpl',
     'lib/CRUD/templates/search-templates/event/event-display.tpl',
-    'lib/CRUD/templates/search-templates/event/event-form.tpl'
+    'lib/CRUD/templates/search-templates/event/event-form.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, Backbone, _, Mixins, EventData, SelectOptionView,
-    eventContainerTmp, eventDisplayTmp, eventFormTmp) {
+    eventContainerTmp, eventDisplayTmp, eventFormTmp, i18n) {
     'use strict';
 
     var EventFormView,
@@ -111,7 +112,8 @@ define (
 
       render: function() {
         var html = this.template({
-          entityType: this.entityType
+          entityType: this.entityType,
+          i18n: i18n
         });
         this.$el.append(html);
         return this;
@@ -236,7 +238,8 @@ define (
         }
         var html = this.template({
           entityType: this.entityType,
-          model: modelJSON
+          model: modelJSON,
+          i18n: i18n
         });
         this.$el.html(html);
       }
@@ -319,7 +322,10 @@ define (
 
       // render the comment
       render: function(evt) {
-        var html = this.template({model: this.model.toJSON()});
+        var html = this.template({
+          model: this.model.toJSON(),
+          i18n: i18n
+        });
         this.$el.empty().append(html);
       }
     });

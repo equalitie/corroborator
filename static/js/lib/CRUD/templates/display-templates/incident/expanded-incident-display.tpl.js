@@ -26,7 +26,9 @@ function program2(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n      <div class=\"is-description group\">\n        <h4>Description</h4>\n        <div class=\"description\">"
+  buffer += "\n      <div class=\"is-description group\">\n        <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n        <div class=\"description\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n      </div>\n      ";
   return buffer;
@@ -77,8 +79,11 @@ function program16(depth0,data) {
 
 function program18(depth0,data) {
   
-  
-  return "\n            <span class=\"value\">Unassigned</span>\n            ";
+  var buffer = "", stack1;
+  buffer += "\n            <span class=\"value\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.unassigned)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n            ";
+  return buffer;
   }
 
 function program20(depth0,data) {
@@ -90,7 +95,9 @@ function program20(depth0,data) {
 function program22(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n      <div class=\"is-locations group\">\n        <h4>Locations</h4>\n        <div class=\"locations\">\n          ";
+  buffer += "\n      <div class=\"is-locations group\">\n        <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.locations)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n        <div class=\"locations\">\n          ";
   stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_locations), {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        </div>\n      </div>\n      <div class=\"is-incident-map map\"></div>\n      ";
@@ -108,7 +115,9 @@ function program23(depth0,data) {
 function program25(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n      <div class=\"is-tags group\">\n        <h4>Labels</h4>\n        <ul class=\"tags\">\n          ";
+  buffer += "\n      <div class=\"is-tags group\">\n        <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.labels)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n        <ul class=\"tags\">\n          ";
   stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_labels), {hash:{},inverse:self.noop,fn:self.program(26, program26, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        </ul>\n      </div>\n      ";
@@ -147,12 +156,16 @@ function program26(depth0,data) {
   buffer += "\n      ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ref_incidents), {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n    </div>\n  </div>\n  <div class=\"last span-33p\">\n    <div class=\"body\">\n      <div class=\"group\">\n        <div class=\"is-score group\">\n          <h4>Confidence</h4>\n          <div class=\"score\">\n            <span class=\"value\">"
+  buffer += "\n    </div>\n  </div>\n  <div class=\"last span-33p\">\n    <div class=\"body\">\n      <div class=\"group\">\n        <div class=\"is-score group\">\n          <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.confidence)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n          <div class=\"score\">\n            <span class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.confidence_score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n          </div>\n        </div>\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.most_recent_status_incident),stack1 == null || stack1 === false ? stack1 : stack1[0]), {hash:{},inverse:self.noop,fn:self.program(14, program14, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <div class=\"is-assigned-to group\">\n          <h4>Assigned to</h4>\n          <div class=\"assigned-to\">\n            ";
+  buffer += "\n        <div class=\"is-assigned-to group\">\n          <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.assigned_to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n          <div class=\"assigned-to\">\n            ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user), {hash:{},inverse:self.program(18, program18, data),fn:self.program(16, program16, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          </div>\n        </div>\n        <div class=\"clearer\"></div>\n      </div>\n      ";

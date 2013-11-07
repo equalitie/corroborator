@@ -55,19 +55,19 @@
         </div>
         {{#if model.most_recent_status_bulletin}}
         <div class="is-status group">
-          <h4>Update status</h4>
+          <h4>{{i18n.bulletins.update_status}}</h4>
           <div class="status">
             <span class="value">{{model.most_recent_status_bulletin}}</span>
           </div>
         </div>
         {{/if}}
         <div class="is-assigned-to group">
-          <h4>Assigned to</h4>
+          <h4>{{i18n.bulletins.assigned_to}}</h4>
           <div class="assigned-to">
             {{#if model.assigned_user}}
             <span class="value">{{fetchUser model.assigned_user}}</span>
             {{else}}
-            <span class="value">Unassigned</span>
+            <span class="value">{{i18n.bulletins.unassigned}}</span>
             {{/if}}
 
           </div>

@@ -23,11 +23,12 @@ define (
     'lib/CRUD/views/event-form',
 
     // templates/search-templates
-    'lib/CRUD/templates/search-templates/incident/incident.tpl'
+    'lib/CRUD/templates/search-templates/incident/incident.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, _, Backbone, Streams, Mixins,  Label, Crime, Location,
     ActorSearchView, BulletinSearchView, IncidentSearchView, RevisionView,
-    EventForm, incidentFormTmp) {
+    EventForm, incidentFormTmp, i18n) {
 
     var IncidentFormView,
         Formatter    = Mixins.Formatter,
@@ -221,7 +222,8 @@ define (
       render: function() {
         var html = this.template({
           model: this.model.toJSON(),
-          statuses: Bootstrap.comment_statuses
+          statuses: Bootstrap.comment_statuses,
+          i18n: i18n
         });
         this.$el.html(html);
         return this;

@@ -42,7 +42,9 @@ function program7(depth0,data) {
 function program9(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n         in <span class=\"location\">";
+  buffer += "\n         "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1['in'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <span class=\"location\">";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.commaSeparatedList || depth0.commaSeparatedList),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_locations), options) : helperMissing.call(depth0, "commaSeparatedList", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_locations), options)))
     + "</span>\n        ";
@@ -77,7 +79,9 @@ function program15(depth0,data) {
 function program17(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    <div class=\"description detail\">\n      <h3 class=\"title\">Description</h3>\n      "
+  buffer += "\n    <div class=\"description detail\">\n      <h3 class=\"title\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h3>\n      "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n    </div>\n    ";
   return buffer;

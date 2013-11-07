@@ -13,7 +13,7 @@
 
   <div class="right">
     <button class="do-hideResults">
-      <span class="text T">»Close results</span>
+      <span class="text T">» {{i18n.Close}}</span>
     </button>
   </div>
 </div>

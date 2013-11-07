@@ -1,7 +1,7 @@
 <div class="header">
     <a href="#" class="display do-hide is-small">
       <span aria-hidden="true" data-icon="x"></span>
-      <span class="screen-reader-text">Hide</span>
+      <span class="screen-reader-text">{{i18n.Hide}}</span>
     </a>
 </div>
 <div class="body" style="bottom: 49px;">
@@ -15,9 +15,9 @@
         {{/if}}
         <div class="field is-title hide-multiple">
           <p class="error-text">
-            Title field is required
+            {{i18n.incident.Title_field_is_required}}
           </p>
-          <label>Title</label>
+          <label>{{i18n.incident.Title}}</label>
           <span class="i18n with-en with-ar">
             <div lang="en">
               <textarea 
@@ -28,7 +28,7 @@
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
-              <label>Title</label>
+              <label>{{i18n.incident.Title}}</label>
               <textarea 
                 id="incident_title_ar"
                 name="title_ar"
@@ -49,7 +49,7 @@
 
           <!-- score slider -->
           <div id="incident-score-block" class="is-score right">
-            <label>Reliability Score</label>
+            <label>{{i18n.incident.Reliability_Score}}</label>
             <span class="score">
 
               <span id="incident_confidence_score" class="value">
@@ -81,7 +81,7 @@
               
           <!-- Assigned to user -->
           <div id="incident-assignment-block" class="incidentAssigned left">
-            <label>Assigned to</label>
+            <label>{{i18n.incident.Assigned_to}}</label>
 
             <input type="text" class="with-clear is-assigned-to"
               value="{{model.incident_assigned_user}}">
@@ -105,7 +105,7 @@
 
         <!-- Incident Crimes -->
         <div id="incident-crime-block" class="field is-crimes">
-          <label>Crime</label>
+          <label>{{i18n.incident.Crime}}</label>
           <ul class="crimes editor">
 
             <li class="crime is-new">
@@ -117,7 +117,7 @@
         <!-- Description -->
         <div id="incident-description-block" class="field detail is-description hide-multiple">
           <div class="i18n with-en with-ar">
-            <label>Description</label>
+            <label>{{i18n.incident.Description}}</label>
             <div lang="en">
               <textarea 
                 id="incident_details_en"
@@ -180,13 +180,13 @@
       <div id="bulletin-version-block" class="">
         <div id="bulletin-status-block" class="field add">
           <p class="error-text">
-            Select a status for this incident
+            {{i18n.incident.Select_a_status_for_this_incident}}
           </p>
-          <label>Status</label>
+          <label>{{i18n.incident.Status}}</label>
           <select name="status" 
                   id="status" 
                   class="required incident-field">
-            <option value="">Select Status</option>
+            <option value="">{{i18n.incident.Select_Status}}</option>
             {{#each statuses}}
               <option
                 value="{{this.resource_uri}}"
@@ -200,9 +200,9 @@
         <div id="bulletin-status-comment-block" class="field add">
 
           <p class="error-text">
-          You must supply a reason for the edit
+          {{i18n.incident.You_must_supply_a_reason_for_the_edit}}
           </p>
-          <label>Reason For Update</label>
+          <label>{{i18n.incident.Reason_For_Update}}</label>
           <textarea 
             id="comment"
             name="comment"
@@ -220,16 +220,16 @@
   <div class="actions form when-not_revision">
     <div class="when-overlay-expanded">
       <button class="do-collapse-form">
-        <span class="text t">» collapse</span>
+        <span class="text t">» {{i18n.Collapse}}</span>
       </button>
     </div>
     <div class="when-overlay-not_expanded">
       <button class="do-expand-form">
-        <span class="text t">« expand</span>
+        <span class="text t">« {{i18n.Expand}}</span>
       </button>
     </div>
     <button id="incident-action_save" class="do-save do-toggleRevision default">
-      <span class="text t">Save changes</span>
+      <span class="text t">{{i18n.Save}}</span>
     </button>
   </div>
 </div>

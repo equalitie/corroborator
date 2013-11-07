@@ -12,7 +12,8 @@ define (
     'lib/elements/date-time-range',
     'lib/CRUD/views/map-view',
     'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
-    'jquery_slider'
+    'jquery_slider',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, _, Streams, Combo, LabelWidget, DateTimeRangeView,
     CoordinateDisplayView, confirmDialogTmp) {

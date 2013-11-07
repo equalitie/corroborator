@@ -13,11 +13,11 @@ define (
     'lib/CRUD/data/ActorRoleCollection',
     'lib/CRUD/views/search-views/actor/actor-result',
     'lib/Data/collections',
-    'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl'
+    'lib/CRUD/templates/search-templates/actor/actor-search-field.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Actor, ActorRole,
-    ActorResult, Collections,
-    actorSearchTmp) {
+    ActorResult, Collections, actorSearchTmp, i18n) {
     'use strict';
     var ActorSearchView,
         ActorRoleModel = ActorRole.ActorRoleModel,
@@ -377,6 +377,7 @@ define (
       //render the input field and buttons
       render: function() {
         var html = this.template({
+          i18n: i18n,
           entityType: this.entityType
         });
         this.$el.empty()

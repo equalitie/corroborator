@@ -10,11 +10,11 @@ define (
     'lib/Data/collections',
     'lib/elements/views/CollectionViews',
     'lib/CRUD/templates/display-templates/actors/actor.tpl',
-    'lib/CRUD/templates/display-templates/actors/actor-container.tpl'
-
+    'lib/CRUD/templates/display-templates/actors/actor-container.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Actor, Collections, CollectionViews,
-    actorTmp, actorContainerTmp) {
+    actorTmp, actorContainerTmp, i18n) {
     'use strict';
 
     var ListLoadView = CollectionViews.ListLoadView,
@@ -22,6 +22,7 @@ define (
         ActorCollection = Collections.ActorCollection,
         ActorListView, ActorView,
         ActorModel = Actor.ActorModel;
+
     var buildUrlVars = function() {
       return "?format=json&username=" +
       Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
@@ -30,7 +31,10 @@ define (
     ActorView = ModelView.extend({
       tagName: 'li',
       className: 'REPEAT',
-      template: actorTmp
+      template: actorTmp,
+      templateVars: {
+        i18n: i18n
+      }
     });
 
     // ### ActorListView
@@ -42,6 +46,9 @@ define (
       fieldType: 'actors',
       containerTmp: actorContainerTmp,
       srcCollection: Collections.ActorCollection,
+      templateVars: {
+        i18n: i18n
+      },
 
       // override the load from list function
       loadFromList: function (uriList, roleList) {

@@ -27,7 +27,7 @@
       <div class="date-location">
         <span class="date">{{dateFormat model.incident_created}}</span>
         {{#if model.location}}
-        , in <span class="location">{{model.location}}</span>
+        , {{i18n.incidents.in}} <span class="location">{{model.location}}</span>
         {{/if}}
       </div>
 
@@ -56,7 +56,7 @@
     </div>
     {{#if model.incident_details_en }}
     <div class="description detail">
-      <h3 class="title">Description</h3>
+      <h3 class="title">{{i18n.incidents.Description}}</h3>
       {{model.incident_details_en}}
     </div>
     {{/if}}

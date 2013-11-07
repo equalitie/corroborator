@@ -1,6 +1,6 @@
 <div class="header">
   <button class="do-hide is-small">
-    <span class="T">close</span>
+    <span class="T">{{i18n.incident.close}}</span>
   </button>
 </div>
 <div class="body" style="bottom: 49px;">
@@ -13,7 +13,7 @@
         </span>
         {{/if}}
         <div class="field is-title">
-          <label>Title</label>
+          <label>{{i18n.incident.Title}}</label>
           <span class="i18n with-en with-ar">
             <div lang="en">
               <textarea 
@@ -24,7 +24,7 @@
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
-              <label>Title</label>
+              <label>{{i18n.incident.Title}}</label>
               <textarea 
                 id="incident_title_ar"
                 name="title_ar"
@@ -45,7 +45,7 @@
 
           <!-- score slider -->
           <div id="incident-score-block" class="is-score right">
-            <label>Reliability Score</label>
+            <label>{{i18n.incident.Reliability_Score}}</label>
             <span class="score">
 
               <span id="incident_confidence_score" class="value">
@@ -77,7 +77,7 @@
               
           <!-- Assigned to user -->
           <div id="incident-assignment-block" class="incidentAssigned left">
-            <label>Assigned to</label>
+            <label>{{i18n.incident.Assigned_to}}</label>
 
             <input type="text" class="with-clear is-assigned-to"
               value="{{model.incident_assigned}}">
@@ -98,7 +98,7 @@
 
         <!-- Incident Crimes -->
         <div id="incident-crime-block" class="field is-crimes">
-          <label>Crime</label>
+          <label>{{i18n.incident.Crime}}</label>
           <ul class="crimes editor">
 
             <li class="crime is-new">
@@ -110,7 +110,7 @@
         <!-- Description -->
         <div id="incident-description-block" class="field is-description">
           <div class="i18n with-en with-ar">
-            <label>Description</label>
+            <label>{{i18n.incident.Description}}</label>
             <div lang="en">
               <textarea 
                 id="incident_details_en"
@@ -176,18 +176,18 @@
     <div class="left">
       <div class="when-overlay-expanded">
         <button class="do-collapse-form">
-          <span class="text t">» collapse</span>
+          <span class="text t">» {{i18n.Collapse}}</span>
         </button>
       </div>
       <div class="when-overlay-not_expanded">
         <button class="do-expand-form">
-          <span class="text t">« expand</span>
+          <span class="text t">« {{i18n.Expand}}</span>
         </button>
       </div>
     </div>
     <div class="right">
       <button id="incident-action_save" class="do-save do-toggleRevision default">
-        <span class="text t">Save changes</span>
+        <span class="text t">{{i18n.Save}}</span>
       </button>
     </div>
   </div>

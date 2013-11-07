@@ -37,13 +37,13 @@
       <tbody>
         {{#if model.current_location}}
         <tr>
-          <th>Lives in </th>
+          <th>{{i18n.actor.Lives_in}} </th>
           <td>{{fetchLocation model.current_location}}</td>
         </tr>
         {{/if}}
         {{#if model.pob}}
         <tr>
-          <th>Born in</th>
+          <th>{{i18n.actor.Born_in}}</th>
           <td>
             {{model.pob}}
           </td>
@@ -51,7 +51,7 @@
         {{/if}}
         {{#if model.DOB}}
         <tr>
-          <th>Date Of Birth</th>
+          <th>{{i18n.actor.Date_Of_Birth}}</th>
           <td>
             {{dateFormat model.DOB}}
           </td>
@@ -59,7 +59,7 @@
         {{/if}}
         {{#if model.nationality_en}}
         <tr>
-          <th>Nationality</th>
+          <th>{{i18n.actor.Nationality}}</th>
           <td>
             <span class="i18n with-en with-ar">
               <span lang="en"><span class="name">{{model.nationality_en}}</span></span>
@@ -74,7 +74,7 @@
         {{/if}}
         {{#if model.ethnicity_en}}
         <tr>
-          <th>Ethnicity</th>
+          <th>{{i18n.actor.Ethnicity}}</th>
           <td>
             <span class="i18n with-en with-ar">
               <span lang="en"><span class="name">{{model.ethnicity_en}}</span></span>
@@ -89,7 +89,7 @@
         {{/if}}
         {{#if model.spoken_dialect_en}}
         <tr>
-          <th>Speaks</th>
+          <th>{{i18n.actor.Speaks}}</th>
             <td>
             <span class="i18n with-en with-ar">
               <span lang="en"><span class="name">{{model.spoken_dialect_en}}</span></span>
@@ -104,7 +104,7 @@
         {{/if}}
         {{#if model.religion_en}}
         <tr>
-          <th>Religion</th>
+          <th>{{i18n.actor.Religion}}</th>
             <td>
             <span class="i18n with-en with-ar">
               <span lang="en"><span class="name">{{model.religion_en}}</span></span>

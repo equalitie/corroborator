@@ -49,7 +49,9 @@ function program8(depth0,data) {
 function program10(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n        <tr>\n          <th>Lives in </th>\n          <td>";
+  buffer += "\n        <tr>\n          <th>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Lives_in)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " </th>\n          <td>";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.fetchLocation || depth0.fetchLocation),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), options) : helperMissing.call(depth0, "fetchLocation", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), options)))
     + "</td>\n        </tr>\n        ";
@@ -59,7 +61,9 @@ function program10(depth0,data) {
 function program12(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Born in</th>\n          <td>\n            "
+  buffer += "\n        <tr>\n          <th>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Born_in)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</th>\n          <td>\n            "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.pob)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n          </td>\n        </tr>\n        ";
   return buffer;
@@ -68,7 +72,9 @@ function program12(depth0,data) {
 function program14(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n        <tr>\n          <th>Date Of Birth</th>\n          <td>\n            ";
+  buffer += "\n        <tr>\n          <th>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Date_Of_Birth)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</th>\n          <td>\n            ";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options)))
     + "\n          </td>\n        </tr>\n        ";
@@ -78,7 +84,9 @@ function program14(depth0,data) {
 function program16(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Nationality</th>\n          <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
+  buffer += "\n        <tr>\n          <th>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Nationality)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</th>\n          <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nationality_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nationality_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -89,7 +97,9 @@ function program16(depth0,data) {
 function program18(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Ethnicity</th>\n          <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
+  buffer += "\n        <tr>\n          <th>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Ethnicity)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</th>\n          <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ethnicity_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ethnicity_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -100,7 +110,9 @@ function program18(depth0,data) {
 function program20(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Speaks</th>\n            <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
+  buffer += "\n        <tr>\n          <th>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Speaks)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</th>\n            <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.spoken_dialect_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.spoken_dialect_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -111,7 +123,9 @@ function program20(depth0,data) {
 function program22(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <tr>\n          <th>Religion</th>\n            <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
+  buffer += "\n        <tr>\n          <th>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Religion)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</th>\n            <td>\n            <span class=\"i18n with-en with-ar\">\n              <span lang=\"en\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.religion_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span></span>\n              <span lang=\"ar\"><span class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.religion_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

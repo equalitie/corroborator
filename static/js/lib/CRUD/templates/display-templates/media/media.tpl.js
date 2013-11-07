@@ -23,7 +23,9 @@ function program3(depth0,data) {
   var buffer = "", stack1;
   buffer += "\n    <!--<img src=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_thumb_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"  -->\n         <!--class=\"media-video-thumbnail\"-->\n         <!--/>-->\n    <span aria-hidden=\"true\" data-icon=\"&#x56;\" class=\"media-video-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n  ";
+    + "\"  -->\n         <!--class=\"media-video-thumbnail\"-->\n         <!--/>-->\n    <span aria-hidden=\"true\" data-icon=\"&#x56;\" class=\"media-video-thumbnail\"></span>\n    <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.document)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n  ";
   return buffer;
   }
 
@@ -32,7 +34,9 @@ function program5(depth0,data) {
   var buffer = "", stack1;
   buffer += "\n    <span title=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n  ";
+    + "\" aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.document)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n  ";
   return buffer;
   }
 

@@ -24,7 +24,7 @@
       <div class="date-location">
         <span class="date">{{dateFormat model.bulletin_created}}</span>
         {{#if model.bulletin_locations}}
-          in 
+          {{i18n.bulletins.in}} 
           <span class="location">
             {{commaSeparatedList model.bulletin_locations}}
           </span>
@@ -32,7 +32,7 @@
       </div>
       {{#if model.count_actors}}
       <div class="involved">
-        <span class="actors-count">{{model.count_actors}}</span> actors involved
+        <span class="actors-count">{{model.count_actors}}</span> {{i18n.bulletins.actors_involved}}
       </div>
       {{/if}}
     </div>

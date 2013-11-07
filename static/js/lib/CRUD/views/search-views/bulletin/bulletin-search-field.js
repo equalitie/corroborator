@@ -10,10 +10,11 @@ define (
     'lib/elements/select-option',
     'lib/Data/bulletin',
     'lib/CRUD/views/search-views/bulletin/bulletin-result',
-    'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl'
+    'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Bulletin, BulletinResult,
-    bulletinSearchTmp) {
+    bulletinSearchTmp, i18n) {
     'use strict';
     var BulletinSearchView,
         crudBus = Streams.crudBus,
@@ -210,7 +211,8 @@ define (
       //render the input field and buttons
       render: function() {
         var html = this.template({
-          entityType: this.entityType
+          entityType: this.entityType,
+          i18n: i18n
         });
         this.$el.empty()
                 .append(html);

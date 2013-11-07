@@ -31,7 +31,7 @@
       <div class="date-location">
         <span class="date">{{dateFormat model.bulletin_created}}</span>
         {{#if model.bulletin_locations}}
-         in <span class="location">{{commaSeparatedList model.bulletin_locations}}</span>
+         {{i18n.bulletin.in}} <span class="location">{{commaSeparatedList model.bulletin_locations}}</span>
         {{/if}}
       </div>
       {{#if model.bulletin_sources}}
@@ -57,7 +57,7 @@
     </div>
     {{#if model.description_en }}
     <div class="description detail">
-      <h3 class="title">Description</h3>
+      <h3 class="title">{{i18n.bulletin.Description}}</h3>
       {{model.description_en}}
     </div>
     {{/if}}

@@ -45,7 +45,9 @@ function program9(depth0,data) {
 function program11(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <div class=\"is-status group\">\n          <h4>Update status</h4>\n          <div class=\"status\">\n            <span class=\"value\">"
+  buffer += "\n        <div class=\"is-status group\">\n          <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletins)),stack1 == null || stack1 === false ? stack1 : stack1.update_status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n          <div class=\"status\">\n            <span class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n          </div>\n        </div>\n        ";
   return buffer;
@@ -63,8 +65,11 @@ function program13(depth0,data) {
 
 function program15(depth0,data) {
   
-  
-  return "\n            <span class=\"value\">Unassigned</span>\n            ";
+  var buffer = "", stack1;
+  buffer += "\n            <span class=\"value\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletins)),stack1 == null || stack1 === false ? stack1 : stack1.unassigned)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n            ";
+  return buffer;
   }
 
 function program17(depth0,data) {
@@ -141,7 +146,9 @@ function program25(depth0,data) {
     + "</span>\n          </div>\n        </div>\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin), {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <div class=\"is-assigned-to group\">\n          <h4>Assigned to</h4>\n          <div class=\"assigned-to\">\n            ";
+  buffer += "\n        <div class=\"is-assigned-to group\">\n          <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletins)),stack1 == null || stack1 === false ? stack1 : stack1.assigned_to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n          <div class=\"assigned-to\">\n            ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user), {hash:{},inverse:self.program(15, program15, data),fn:self.program(13, program13, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n\n          </div>\n        </div>\n        <div class=\"clearer\"></div>\n      </div>\n      ";

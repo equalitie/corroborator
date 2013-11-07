@@ -15,10 +15,11 @@ define (
     'lib/CRUD/views/search-views/revision/revision-view',
     'lib/CRUD/data/LocationCollection',
     // templates
-    'lib/CRUD/templates/search-templates/actor/actor.tpl'
+    'lib/CRUD/templates/search-templates/actor/actor.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
-    RevisionView, Location, actorFormTmp) {
+    RevisionView, Location, actorFormTmp, i18n) {
     'use strict';
 
     var ActorFormView,
@@ -211,7 +212,8 @@ define (
       render: function() {
         var html = this.template({
           model: this.model.toJSON(),
-          statuses: Bootstrap.comment_statuses
+          statuses: Bootstrap.comment_statuses,
+          i18n: i18n
           });
         this.$el.html(html);
         return this;

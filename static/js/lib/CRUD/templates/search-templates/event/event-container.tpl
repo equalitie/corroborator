@@ -1,4 +1,4 @@
-<label>Events</label>
+<label>{{i18n.event.Events}}</label>
 <div class="date-duration">
 
 </div>

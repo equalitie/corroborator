@@ -10,9 +10,10 @@ define (
     'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/templates/display-templates/actor-display.tpl',
     'lib/CRUD/templates/display-templates/actors/expanded-actor-display.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, ActorListView, 
-    actorDisplayTmp, expandedActorDisplayTmp) {
+    actorDisplayTmp, expandedActorDisplayTmp, i18n) {
     'use strict';
 
     var ActorDisplayView,
@@ -113,7 +114,8 @@ define (
       render: function() {
         this.destroyChildren();
         var html = this.template({
-          model: this.model.toJSON()
+          model: this.model.toJSON(),
+          i18n: i18n
         });
         this.$el.html(html);
         return this;

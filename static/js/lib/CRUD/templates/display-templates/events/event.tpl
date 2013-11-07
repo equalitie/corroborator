@@ -4,7 +4,7 @@
     <div class="time">
       {{#if model.time_from}}
       {{#if model.time_to}}
-      from  
+      {{i18n.events.from}}
       {{/if}}
       {{/if}}
       {{#if model.time_from}}
@@ -12,7 +12,7 @@
       {{/if}}
       {{#if model.time_from}}
       {{#if model.time_to}}
-      to
+      {{i18n.events.to}}
       {{/if}}
       {{/if}}
       {{#if model.time_to}}

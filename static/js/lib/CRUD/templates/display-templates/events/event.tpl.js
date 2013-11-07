@@ -3,7 +3,7 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
+  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
 
 function program1(depth0,data) {
   
@@ -16,8 +16,11 @@ function program1(depth0,data) {
   }
 function program2(depth0,data) {
   
-  
-  return "\n      from  \n      ";
+  var buffer = "", stack1;
+  buffer += "\n      "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.events)),stack1 == null || stack1 === false ? stack1 : stack1.from)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n      ";
+  return buffer;
   }
 
 function program4(depth0,data) {
@@ -41,8 +44,11 @@ function program6(depth0,data) {
   }
 function program7(depth0,data) {
   
-  
-  return "\n      to\n      ";
+  var buffer = "", stack1;
+  buffer += "\n      "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.events)),stack1 == null || stack1 === false ? stack1 : stack1.to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n      ";
+  return buffer;
   }
 
 function program9(depth0,data) {

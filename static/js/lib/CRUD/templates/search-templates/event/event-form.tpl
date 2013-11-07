@@ -2,7 +2,7 @@
 
     <div class="i18n with-en with-ar">
       <div lang="en">
-        <label>Description</label>
+        <label>{{i18n.event.Description}}</label>
         <input type="text" name="event_name_en" 
           class="w-100p {{entityType}}-field bulletin_event-description"
           value="{{model.event_name_en}}">
@@ -24,7 +24,7 @@
 
   <div class="i18n with-en with-ar">
       <div lang="en">
-      <label>Comment</label>
+      <label>{{i18n.event.Comment}}</label>
         <textarea 
           id="comments_en"
           name="comments_en"
@@ -55,7 +55,7 @@
       >
     </span>
     <!-- Reliability score slider -->
-    <label>Reliability score</label>
+    <label>{{i18n.event.Reliability_score}}</label>
     <div class="score-editor">
       <div class="rail">
         <div class="slider">
@@ -82,7 +82,7 @@
     <label></label><br/>
     <div class="pad">
       <button class="do-addEvent">
-        <span class="T">Save Event</span>
+        <span class="T">{{i18n.event.Save_Event}}</span>
       </button>
     </div>
   </div>

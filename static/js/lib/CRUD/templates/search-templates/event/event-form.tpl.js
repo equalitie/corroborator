@@ -6,10 +6,12 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression;
 
 
-  buffer += "  <div class=\"span-70p\">\n\n    <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n        <label>Description</label>\n        <input type=\"text\" name=\"event_name_en\" \n          class=\"w-100p ";
-  if (stack1 = helpers.entityType) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
-  else { stack1 = depth0.entityType; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
-  buffer += escapeExpression(stack1)
+  buffer += "  <div class=\"span-70p\">\n\n    <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n        <label>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.event)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n        <input type=\"text\" name=\"event_name_en\" \n          class=\"w-100p ";
+  if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
     + "-field bulletin_event-description\"\n          value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">\n      </div>\n      <div lang=\"ar\">\n        <input type=\"text\" name=\"event_name_ar\" \n          class=\"w-100p ";
@@ -18,7 +20,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   buffer += escapeExpression(stack2)
     + "-field bulletin_event-description\"\n          value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n      </div>\n      <span class=\"toggle\">\n        <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n      </span>\n    </div>\n\n\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n\n  <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n      <label>Comment</label>\n        <textarea \n          id=\"comments_en\"\n          name=\"comments_en\"\n          class=\"";
+    + "\">\n      </div>\n      <span class=\"toggle\">\n        <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n      </span>\n    </div>\n\n\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n\n  <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n      <label>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.event)),stack1 == null || stack1 === false ? stack1 : stack1.Comment)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n        <textarea \n          id=\"comments_en\"\n          name=\"comments_en\"\n          class=\"";
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
@@ -36,7 +40,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   buffer += escapeExpression(stack2)
     + "-field\"\n        value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.confidence_score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" \n      >\n    </span>\n    <!-- Reliability score slider -->\n    <label>Reliability score</label>\n    <div class=\"score-editor\">\n      <div class=\"rail\">\n        <div class=\"slider\">\n        </div>  \n      <!-- <div class=\"cursor\">&nbsp;</div> -->\n        <div class=\"axis\">\n          <div class=\"start\">\n            <span class=\"label\">0%</span>\n          </div>\n          <div class=\"middle\">\n            <span class=\"label\">50%</span>\n          </div>\n          <div class=\"end\">\n            <span class=\"label\">100%</span>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"event-time-range\">\n  </div>\n  <div class=\"span-30p\">\n    <label></label><br/>\n    <div class=\"pad\">\n      <button class=\"do-addEvent\">\n        <span class=\"T\">Save Event</span>\n      </button>\n    </div>\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n";
+    + "\" \n      >\n    </span>\n    <!-- Reliability score slider -->\n    <label>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.event)),stack1 == null || stack1 === false ? stack1 : stack1.Reliability_score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n    <div class=\"score-editor\">\n      <div class=\"rail\">\n        <div class=\"slider\">\n        </div>  \n      <!-- <div class=\"cursor\">&nbsp;</div> -->\n        <div class=\"axis\">\n          <div class=\"start\">\n            <span class=\"label\">0%</span>\n          </div>\n          <div class=\"middle\">\n            <span class=\"label\">50%</span>\n          </div>\n          <div class=\"end\">\n            <span class=\"label\">100%</span>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"event-time-range\">\n  </div>\n  <div class=\"span-30p\">\n    <label></label><br/>\n    <div class=\"pad\">\n      <button class=\"do-addEvent\">\n        <span class=\"T\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.event)),stack1 == null || stack1 === false ? stack1 : stack1.Save_Event)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n      </button>\n    </div>\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n";
   return buffer;
   })
 

@@ -9,10 +9,11 @@ define (
     'lib/elements/views/CollectionViews',
     'lib/CRUD/templates/display-templates/media/media.tpl',
     'lib/CRUD/templates/display-templates/media/media-container.tpl',
-    'lib/CRUD/templates/search-templates/media/media-viewer.tpl'
+    'lib/CRUD/templates/search-templates/media/media-viewer.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, Backbone, Media, CollectionViews, mediaTmp, mediaListTmp,
-    mediaViewerTmp) {
+    mediaViewerTmp, i18n) {
     'use strict';
 
     var ListLoadView = CollectionViews.ListLoadView,
@@ -23,6 +24,9 @@ define (
 
     // show a single media element
     MediaView = ModelView.extend({
+      templateVars: {
+        i18n: i18n
+      },
       tagName: 'li',
       className: 'medium REPEAT',
       template: mediaTmp,
@@ -69,6 +73,9 @@ define (
 
     // show a list of media elements with a preview
     MediaListView = ListLoadView.extend({
+      templateVars: {
+        i18n: i18n
+      },
       childViews: [],
       modelType: MediaModel,
       childView: MediaView,
