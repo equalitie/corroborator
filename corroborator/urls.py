@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns(
-    '',
+    'corroborator_app.views',
     # Examples:
     # url(r'^$', 'corroborator.views.home', name='home'),
 
@@ -16,18 +16,24 @@ urlpatterns = patterns(
     url(r'^logout/$',
         'django.contrib.auth.views.logout',
         {'next_page': '/login'}),
-    url(r'^login/$', 'corroborator_app.views.login_user'),
+    url(r'^login/$', 'login_user'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'corroborator_app.views.index'),
+    url(r'^$', 'index'),
     #url(r'^/$', 'corroborator_app.views.index'),
-    url(r'^corroborator/$', 'corroborator_app.views.index'),
-    url(r'^new_corroborator/$', 'corroborator_app.views.index'),
+    url(r'^corroborator/$', 'index'),
+    url(r'^new_corroborator/$', 'index'),
     url(r'^corroborator/bulletin/(?P<bulletin_id>\d+)/(?P<mode>\w+)/$',
-        'corroborator_app.views.lookup_bulletin'),
+        'lookup_bulletin'),
     url(r'^corroborator/incident/(?P<incident_id>\d+)/(?P<mode>\w+)/$',
-        'corroborator_app.views.lookup_incident'),
+        'lookup_incident'),
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$',
-        'corroborator_app.views.lookup_actor'),
+        'lookup_actor'),
+    url(r'^corroborator/aws/(?P<media_name>.+\.[a-zA-Z0-9]{3})$',
+        'aws_proxy'),
+    url(r'^corroborator/solrproxy/',
+        'solr_proxy'),
+
+
 )
 
 #locking
