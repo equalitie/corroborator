@@ -11,13 +11,13 @@
           <span class="text">{{fetchRole model.role}}</span>
         </span>
         {{/if}}
-        <h3 class="i18n with-en with-ar">
-          <span lang="en">{{model.fullname_en}}</span>
-          <span lang="ar">{{model.fullname_ar}}</span>
-          <span class="toggle">
-            <span lang="en">EN</span>
-            <span lang="ar">AR</span>
-          </span>
+        <h3 class="">
+          {{#if model.fullname_en}}
+            <p>{{model.fullname_en}}</p>
+          {{/if}}
+          {{#if model.fullname_ar}}
+            <p>{{model.fullname_ar}}</p>
+          {{/if}}
         </h3>
         <span class="sex">{{model.sex_en}}</span>
         <span class="age">{{model.age_en}}</span>

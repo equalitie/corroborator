@@ -64,12 +64,12 @@ function program3(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Select_a_status_for_this_incident)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n          </p>\n          <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</label>\n          <select name=\"status\" \n                  id=\"status\" \n                  class=\"required incident-field\">\n            <option value=\"\">"
+    + "</label>\n          <select name=\"status_uri\" \n                  id=\"status\" \n                  class=\"required incident-field\">\n            <option value=\"\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Select_Status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</option>\n            ";
   stack2 = helpers.each.call(depth0, depth0.statuses, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n          </select>\n        </div>\n\n        <div class=\"clearer\"></div>\n        <!-- Comment content field -->\n        <div id=\"bulletin-status-comment-block\" class=\"field add\">\n\n          <p class=\"error-text\">\n          "
+  buffer += "\n          </select>\n          <input class=\"incident-field\" type=\"hidden\" name=\"status\" value=\"\">\n        </div>\n\n        <div class=\"clearer\"></div>\n        <!-- Comment content field -->\n        <div id=\"bulletin-status-comment-block\" class=\"field add\">\n\n          <p class=\"error-text\">\n          "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.You_must_supply_a_reason_for_the_edit)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n          </p>\n          <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Reason_For_Update)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

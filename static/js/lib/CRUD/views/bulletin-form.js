@@ -63,7 +63,8 @@ define (
       events: {
         'click button#bulletin-action_save': 'saveRequested',
         'click button#clear-user'          : 'clearUser',
-        'click button.do-hide'             : 'requestCloseForm'
+        'click button.do-hide'             : 'requestCloseForm',
+        'change #status'                   : 'onSelectStatus'
       },
 
       // define the fields that will have autocomplete enabled  
@@ -147,6 +148,15 @@ define (
         }
       },
         
+      onSelectStatus: function(evt) {
+        var selected_uri = $(evt.currentTarget).val();
+        var selected = _(Bootstrap.comment_statuses)
+          .chain()
+          .where({resource_uri: selected_uri})
+          .first()
+          .value().comment_status;
+        $('input[name=status]').val(selected);
+      },
       // constructor
       initialize: function(options) {
         this.addi18n();

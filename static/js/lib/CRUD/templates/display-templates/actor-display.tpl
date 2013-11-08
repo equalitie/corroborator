@@ -10,14 +10,12 @@
     {{/if}}
     <div class="infos">
       <h2 class="title">
-        <span class="i18n with-en with-ar">
-          <span lang="en">{{model.fullname_en}}</span>
-          <span lang="ar">{{model.fullname_ar}}</span>
-          <span class="toggle">
-            <span lang="en">EN</span>
-            <span lang="ar">AR</span>
-          </span>
-        </span>
+        {{#if model.fullname_en}}
+          <p>{{model.fullname_en}}</p>
+        {{/if}}
+        {{#if model.fullname_ar}}
+          <p>{{model.fullname_ar}}</p>
+        {{/if}}
         (<span class="sex">{{model.sex_en}}</span>)
       </h2>
       <div class="aka">{{model.nickname_en}}</div>

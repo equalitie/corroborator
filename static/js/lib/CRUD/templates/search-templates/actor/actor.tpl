@@ -330,7 +330,7 @@
                 {{i18n.actor.Select_a_status_for_this_actor}}
               </p>
               <label>{{i18n.actor.Status}}</label>
-              <select name="status" 
+              <select name="status_uri" 
                       id="status" 
                       class="required actor-field">
                 <option value="">{{i18n.actor.Select_Status}}</option>
@@ -340,6 +340,7 @@
                   >{{this.comment_status}}</option>
                 {{/each}}
               </select>
+              <input class="actor-field" type="hidden" name="status" value="">
             </div>
 
             <div class="clearer"></div>

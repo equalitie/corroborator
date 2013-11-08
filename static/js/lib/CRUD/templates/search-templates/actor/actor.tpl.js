@@ -169,12 +169,12 @@ function program15(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Select_a_status_for_this_actor)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n              </p>\n              <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</label>\n              <select name=\"status\" \n                      id=\"status\" \n                      class=\"required actor-field\">\n                <option value=\"\">"
+    + "</label>\n              <select name=\"status_uri\" \n                      id=\"status\" \n                      class=\"required actor-field\">\n                <option value=\"\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Select_Status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</option>\n                ";
   stack2 = helpers.each.call(depth0, depth0.statuses, {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n              </select>\n            </div>\n\n            <div class=\"clearer\"></div>\n            <!-- Comment content field -->\n            <div id=\"actor-status-comment\" class=\"add field\">\n\n              <p class=\"error-text\">\n                "
+  buffer += "\n              </select>\n              <input class=\"actor-field\" type=\"hidden\" name=\"status\" value=\"\">\n            </div>\n\n            <div class=\"clearer\"></div>\n            <!-- Comment content field -->\n            <div id=\"actor-status-comment\" class=\"add field\">\n\n              <p class=\"error-text\">\n                "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Comment_field_is_required)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n              </p>\n              <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Comment)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

@@ -178,7 +178,7 @@
               {{i18n.bulletin.Select_a_status_for_this_bulletin}}
             </p>
             <label>Status</label>
-            <select name="status" 
+            <select name="status_uri" 
                     id="status" 
                     class="required bulletin-field">
               <option value="">{{i18n.bulletin.Select_Status}}</option>
@@ -188,6 +188,7 @@
                 >{{this.comment_status}}</option>
               {{/each}}
             </select>
+          <input class="bulletin-field" type="hidden" name="status" value="">
           </div>
 
           <div class="clearer"></div>

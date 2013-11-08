@@ -231,7 +231,7 @@ module.exports = function(grunt) {
       files: [
         '<%= jshint.files %>',
         'lib/elements/templates/*.tpl',
-        'lib/SolrSearch/templates/*.tpl',
+        'lib/SolrSearch/templates/**/*.tpl',
         'lib/CRUD/templates/search-templates/*.tpl',
         'lib/CRUD/templates/search-templates/*/*.tpl',
         'lib/CRUD/templates/display-templates/*.tpl',

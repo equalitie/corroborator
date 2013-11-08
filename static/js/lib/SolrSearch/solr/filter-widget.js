@@ -98,6 +98,7 @@ define(
         if (queryString.length) {
           var parsedQueryString = this.parseQuery(this.queryString);
           this.manager.store.addByValue('q', parsedQueryString );
+          this.manager.store.addByValue('rows', 500 );
           this.sendRequest();
         }
         else {
@@ -107,6 +108,7 @@ define(
 
       sendBlankQuery: function() {
         this.manager.store.addByValue('q', 'django_ct:*' + this.manager.entity);
+        this.manager.store.addByValue('rows', 500 );
         this.sendRequest();
       },
       

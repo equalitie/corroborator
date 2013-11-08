@@ -4,9 +4,13 @@
     </span>
     <h2 class="title">
       <span class="i18n with-en with-ar">
-        <span lang="en">{{model.title_en}}</span>
-        <span lang="ar">{{model.title_ar}}</span>
-        <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+      {{#if model.title_en}}
+        <p>{{model.title_en}}</p>
+      {{/if}}
+      {{#if model.title_ar}}
+        <p>{{model.title_ar}}</p>
+      {{/if}}
+    </h2>
     <div class="group details">
       {{#if model.assigned_user}}
       <div class="assigned-to">
@@ -58,6 +62,12 @@
     <div class="description detail">
       <h3 class="title">{{i18n.incidents.Description}}</h3>
       {{model.incident_details_en}}
+    </div>
+    {{/if}}
+    {{#if model.incident_details_ar }}
+    <div class="description detail">
+      <h3 class="title">{{i18n.incidents.Description}}</h3>
+      {{model.incident_details_ar}}
     </div>
     {{/if}}
     {{#if model.incident_comments}}

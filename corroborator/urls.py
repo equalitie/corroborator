@@ -28,6 +28,7 @@ urlpatterns = patterns(
         'corroborator_app.views.lookup_incident'),
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$',
         'corroborator_app.views.lookup_actor'),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 )
 
 #locking

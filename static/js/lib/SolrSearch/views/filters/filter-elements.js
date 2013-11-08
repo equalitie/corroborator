@@ -87,10 +87,10 @@ define(
           model: model,
           collection: this.collection
         });
-        if (model.get('numItems') > 5) {
+        //if (model.get('numItems') > 5) {
           this.$el.children('ul')
                   .append(filterView.$el);
-        }
+        //}
         return filterView;
       }
     });

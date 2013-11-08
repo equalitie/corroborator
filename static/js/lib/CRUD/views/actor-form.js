@@ -41,7 +41,8 @@ define (
       events: {
         'click button#actor-action_save'  : 'saveRequested',
         'click button#expanded-actor-save': 'saveRequested',
-        'click button.do-hide'            : 'requestCloseForm'
+        'click button.do-hide'            : 'requestCloseForm',
+        'change #status'                  : 'onSelectStatus'
       },
 
       // keys for date fields, these need to be validated and removed
@@ -142,6 +143,15 @@ define (
           this.hideMultipleElements();
         }
         this.sendResizeEvent();
+      },
+      onSelectStatus: function(evt) {
+        var selected_uri = $(evt.currentTarget).val();
+        var selected = _(Bootstrap.comment_statuses)
+          .chain()
+          .where({resource_uri: selected_uri})
+          .first()
+          .value().comment_status;
+        $('input[name=status]').val(selected);
       },
       hideMultipleElements: function() {
         $('.hide-multiple').remove();

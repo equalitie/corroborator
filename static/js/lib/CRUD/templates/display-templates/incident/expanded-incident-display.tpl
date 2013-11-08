@@ -4,10 +4,13 @@
       ID <span class="value out">{{model.django_id}}</span>
     </span>
     <h2 class="title">
-    <span class="i18n with-en with-ar">
-    <span lang="en" class="text">{{model.title_en}}</span>
-    <span lang="ar" class="text">{{model.title_ar}}</span>
-    <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+      {{#if model.title_en}}
+        <p>{{model.title_en}}</p>
+      {{/if}}
+      {{#if model.title_ar}}
+        <p>{{model.title_ar}}</p>
+      {{/if}}
+    </h2>
   </div>
   <div class=" span-66p">
     <div class="body">
@@ -27,6 +30,12 @@
       <div class="is-description group">
         <h4>{{i18n.incidents.description}}</h4>
         <div class="description">{{model.description_en}}</div>
+      </div>
+      {{/if}}
+      {{#if model.description_ar}}
+      <div class="is-description group">
+        <h4>{{i18n.incidents.description}}</h4>
+        <div class="description">{{model.description_ar}}</div>
       </div>
       {{/if}}
       {{#if model.incident_comments}}
