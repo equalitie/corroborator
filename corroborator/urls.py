@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns(
-    'corroborator_app.views',
+    '',
     # Examples:
     # url(r'^$', 'corroborator.views.home', name='home'),
 
@@ -23,16 +23,19 @@ urlpatterns = patterns(
     url(r'^corroborator/$', 'corroborator_app.views.index'),
     url(r'^new_corroborator/$', 'corroborator_app.views.index'),
     url(r'^corroborator/bulletin/(?P<bulletin_id>\d+)/(?P<mode>\w+)/$',
-        'lookup_bulletin'),
+        'corroborator_app.views.lookup_bulletin'),
     url(r'^corroborator/incident/(?P<incident_id>\d+)/(?P<mode>\w+)/$',
-        'lookup_incident'),
+        'corroborator_app.views.lookup_incident'),
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$',
-        'lookup_actor'),
+        'corroborator_app.views.lookup_actor'),
+
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    #url(r'^corroborator/aws/(?P<media_name>.+\.[a-zA-Z0-9]{3})$',
-        #'aws_proxy'),
-    #url(r'^corroborator/solrproxy/',
-        #'solr_proxy'),
+
+    url(r'^corroborator/aws/(?P<media_name>.+\.[a-zA-Z0-9]{3})$',
+        'corroborator_app.views.aws_proxy'),
+    url(r'^corroborator/solrproxy/',
+        'corroborator_app.views.solr_proxy'),
+
 )
 
 #locking
