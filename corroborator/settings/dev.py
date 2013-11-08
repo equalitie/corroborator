@@ -34,7 +34,6 @@ DATABASES = {
 INSTALLED_APPS += (
     'autofixture',
     'debug_toolbar',
-    #'django_socketio',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)

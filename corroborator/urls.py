@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns(
-    '',
+    'corroborator_app.views',
     # Examples:
     # url(r'^$', 'corroborator.views.home', name='home'),
 
@@ -23,12 +23,16 @@ urlpatterns = patterns(
     url(r'^corroborator/$', 'corroborator_app.views.index'),
     url(r'^new_corroborator/$', 'corroborator_app.views.index'),
     url(r'^corroborator/bulletin/(?P<bulletin_id>\d+)/(?P<mode>\w+)/$',
-        'corroborator_app.views.lookup_bulletin'),
+        'lookup_bulletin'),
     url(r'^corroborator/incident/(?P<incident_id>\d+)/(?P<mode>\w+)/$',
-        'corroborator_app.views.lookup_incident'),
+        'lookup_incident'),
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$',
-        'corroborator_app.views.lookup_actor'),
+        'lookup_actor'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    #url(r'^corroborator/aws/(?P<media_name>.+\.[a-zA-Z0-9]{3})$',
+        #'aws_proxy'),
+    #url(r'^corroborator/solrproxy/',
+        #'solr_proxy'),
 )
 
 #locking
@@ -38,12 +42,13 @@ urlpatterns = patterns(
 
 # API Resources
 from tastypie.api import Api
-from corroborator_app.api import ActorResource, ActorRoleResource, \
-ActorRelationshipResource, CommentResource, CrimeCategoryResource, \
-IncidentResource, BulletinResource, LabelResource, MediaResource, \
-PredefinedSearchResource, SourceResource, SourceTypeResource, \
-LocationResource, StatusUpdateResource, TimeInfoResource, UserResource, \
-SolrUpdateResource
+from corroborator_app.api import (
+    ActorResource, ActorRoleResource, ActorRelationshipResource,
+    CommentResource, CrimeCategoryResource, IncidentResource,
+    BulletinResource, LabelResource, MediaResource, PredefinedSearchResource,
+    SourceResource, SourceTypeResource, LocationResource, StatusUpdateResource,
+    TimeInfoResource, UserResource, SolrUpdateResource
+)
 
 v1_api = Api(api_name='v1')
 v1_api.register(ActorResource())
@@ -64,6 +69,7 @@ v1_api.register(TimeInfoResource())
 v1_api.register(UserResource())
 v1_api.register(SolrUpdateResource())
 
-urlpatterns += patterns('',
+urlpatterns += patterns(
+    '',
     (r'^api/', include(v1_api.urls)),
 )
