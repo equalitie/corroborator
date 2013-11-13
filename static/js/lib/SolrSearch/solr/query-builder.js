@@ -92,7 +92,7 @@ define (
         var entity_string = _.template('django_ct:*<%= name%>', {name: entity});
 
         if(searchQuery !== undefined && searchQuery.length > 0) {
-            var ps = parseQuery(searchQuery);
+            var ps = searchQuery;
             this.parsedString = entity_string + " && " + ps;
         }else{
             this.parsedString = entity_string;
