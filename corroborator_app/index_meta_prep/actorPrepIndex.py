@@ -105,6 +105,13 @@ class ActorPrepMeta():
         else:
             return ''
 
+    def prepare_actor_comments(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.actor_comments.all()]
+
     def prepare_count_incidents(self, object):
         """
         Returns count of incident objects associated with a given Actor

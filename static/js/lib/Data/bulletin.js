@@ -65,7 +65,10 @@ define(
       intFields: [
         'confidence_score'
       ],
-      manyToManyFields: ['ref_bulletins', 'labels', 'locations', 'sources'],
+      manyToManyFields: [
+        'ref_bulletins', 'labels', 'locations',
+        'sources', 'bulletin_imported_comments'
+      ],
       url: '/corroborator/bulletin/0/multisave/',
       formatSaveMultiple: function() {
         this.set('actorsRoles',
@@ -114,7 +117,7 @@ define(
       ],
       manyToManyFields: [
         'sources', 'bulletin_comments', 'actors_role', 'times', 'medias',
-        'locations', 'labels', 'ref_bulletins'
+        'locations', 'labels', 'ref_bulletins', 'bulletin_imported_comments'
       ],
       initialize: function(options) {
         this.set('entityType', 'bulletin');
@@ -183,24 +186,21 @@ define(
         var self = this;
         Streams.searchBus.toProperty()
                .filter(filterBulletinResults)
-               .map(Filters.extractResults)
                .onValue(this.resetCollection.bind(this));
         searchBus.filter(filterUpdatedBulletins)
                  .onValue(function(value) {
                    this.set(value.content, {remove: false});
                  }.bind(this));
       },
-      resetCollection: function(results) {
+      resetCollection: function(searchResults) {
+        var results = searchResults.content.results;
+        this.numFound = searchResults.content.numFound;
         if (this.length !==0) {
           _.map(results, function(result) {
             result.id = result.django_id;
           });
-          this.set(results);
-          this.trigger('reset');
         }
-        else {
-          this.reset(results, {parse: true});
-        }
+        this.reset(results, {parse: true});
       },
 
 

@@ -7,11 +7,12 @@ define (
   [
     'backbone', 'underscore',
     'lib/streams',
+    'lib/elements/views/ScrollViewMixin',
     'lib/CRUD/views/search-views/results',
     'lib/CRUD/views/search-views/bulletin/bulletin-result',
     'lib/CRUD/templates/search-templates/embedded-results.tpl'
   ],
-  function (Backbone, _, Streams, Results, BulletinResult,
+  function (Backbone, _, Streams, ScrollViewMixin, Results, BulletinResult,
     embeddedResultsTmp) {
     'use strict';
     var EmbeddedSearchResultsView = Results.EmbeddedSearchResultsView,
@@ -28,6 +29,20 @@ define (
     // Specific results view for displaying bulletins
     BulletinResultsView = Backbone.View.extend({
       entityType: 'bulletin',
+      onInitialize: function(options) {
+        this.setUpScrollOptions({
+          scrollOptions: {
+            listElementHeight: 107,
+          }
+        });
+        this.$el.children('.body').scroll(this.handleScroll.bind(this));
+      },
+
+      collectionUpdated: function() {
+        console.log('bulletin collectionUpdated');
+        this.renderResults();
+      },
+
       // watch the event stream for new bulletins
       watchCrudStream: function() {
         this.watchForSearchResults();
@@ -67,14 +82,16 @@ define (
         this.$el.append(html);
       },
 
+      renderEmpty: function() {},
+
       // render the search results
       renderResults: function() {
         this.destroyChildren();
-        this.collection.each(this.renderResult, this);
+        this.renderStart();
       },
 
       // render a single result
-      renderResult: function(model) {
+      renderItem: function(model) {
         var resultView = new BulletinResult({
           model: model,
           type: 'result',
@@ -87,6 +104,7 @@ define (
       },
     });
     _.extend(BulletinResultsView.prototype, EmbeddedSearchResultsView);
+    _.extend(BulletinResultsView.prototype, ScrollViewMixin);
     return {
       BulletinResultsView: BulletinResultsView
     };

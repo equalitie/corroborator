@@ -4,13 +4,14 @@ define(
     'underscore', 'jquery', 'backbone',
     'lib/streams',
     // templates
-    'lib/SolrSearch/templates/filter-group.tpl',
-    'lib/SolrSearch/templates/single-filter.tpl',
-    'lib/SolrSearch/templates/selected-filters.tpl',
-    'lib/SolrSearch/templates/selected-filter.tpl'
+    'lib/SolrSearch/templates/filters/filter-group.tpl',
+    'lib/SolrSearch/templates/filters/single-filter.tpl',
+    'lib/SolrSearch/templates/filters/selected-filters.tpl',
+    'lib/SolrSearch/templates/filters/selected-filter.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
   function (_, $, Backbone, Streams, filterGroupTmp, singleFilterTmp,
-    selectedFiltersTmp, selectedFilterTmp
+    selectedFiltersTmp, selectedFilterTmp, i18n
   ) {
     'use strict';
     var FilterGroupView,
@@ -64,7 +65,10 @@ define(
       // render the filter group
       render: function() {
         if (this.collection.length > 0) {
-          var html = filterGroupTmp({model: this.model.toJSON()});
+          var html = filterGroupTmp({
+            i18n: i18n,
+            model: this.model.toJSON()
+          });
           this.$el.empty()
                   .append(html);
           this.renderFilters();
@@ -83,8 +87,10 @@ define(
           model: model,
           collection: this.collection
         });
-        this.$el.children('ul')
-                .append(filterView.$el);
+        if (model.get('numItems') > 5) {
+          this.$el.children('ul')
+                  .append(filterView.$el);
+        }
         return filterView;
       }
     });

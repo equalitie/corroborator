@@ -183,24 +183,21 @@ define(
         var self = this;
         searchBus.toProperty()
                  .filter(filterIncidentResults)
-                 .map(Filters.extractResults)
                  .onValue(this.resetCollection.bind(this));
         searchBus.filter(filterUpdatedIncidents)
                  .onValue(function(value) {
                    this.set(value.content, {remove: false});
                  }.bind(this));
       },
-      resetCollection: function(results) {
+      resetCollection: function(searchResults) {
+        var results = searchResults.content.results;
+        this.numFound = searchResults.content.numFound;
         if (this.length !==0) {
           _.map(results, function(result) {
             result.id = result.django_id;
           });
-          this.set(results);
-          this.trigger('reset');
         }
-        else {
-          this.reset(results, {parse: true});
-        }
+        this.reset(results, {parse: true});
       },
       // watch for selections from the action combo box
       watchSelection: function() {

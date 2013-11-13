@@ -17,23 +17,22 @@ define (
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
     'lib/CRUD/views/search-views/incident/incident-search-field',
+    'lib/CRUD/views/search-views/revision/revision-view',
 
     // child views
-    'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
 
     // templates/search-templates
     'lib/CRUD/templates/search-templates/incident/incident.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,  Label, Crime, Location,
-    ActorSearchView, BulletinSearchView, IncidentSearchView, CommentForm,
+    ActorSearchView, BulletinSearchView, IncidentSearchView, RevisionView,
     EventForm, incidentFormTmp) {
 
     var IncidentFormView,
         Formatter    = Mixins.Formatter,
         ConfirmMixin = Mixins.ConfirmMixin,
         WidgetMixin          = Mixins.WidgetMixin,
-        CommentContainerView = CommentForm.CommentContainerView,
         EventContainerView   = EventForm.EventContainerView,
         CrimeCollection      = Crime.CrimeCollection,
         LocationCollection   = Location.LocationCollection,
@@ -247,10 +246,9 @@ define (
       },
 
       renderChildren: function() {
-        var commentForm = new CommentContainerView({
-          el: '#incident-comment-block',
-          content: this.model.get('incident_comments'),
-          entityType: this.entityType
+        var revisionView = new RevisionView({
+          el: '.revision-container',
+          content: this.model.get('incident_comments')
         });
         var actorForm = new ActorSearchView({
           el:               '#incident-actor-list-block',
@@ -274,7 +272,7 @@ define (
           content: this.model.get('ref_incidents'),
           entityType: this.entityType
         });
-        this.childViews.push(commentForm, actorForm, eventForm,
+        this.childViews.push(revisionView, actorForm, eventForm,
           bulletinSearchView, incidentSearchView);
         return this;
       }

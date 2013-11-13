@@ -24,6 +24,7 @@ define (
     ActorResultView = Backbone.View.extend({
       template: actorResultTmp,
       tagName: 'li',
+      className: 'embedded-actor-result',
       events: {
         'click .actions.search-result li .text': 'relateToEntity',
         'click .when-related li .text': 'updateRelationship',
@@ -31,6 +32,7 @@ define (
       },
       // constructor
       initialize: function(options) {
+        this.addi18n();
         if (options.type === undefined) {
           throw "You must specify a type";
         }
@@ -40,6 +42,7 @@ define (
         this.fieldName = options.fieldName;
         this.type = options.type;
         this.render();
+        this.selectInitialLanguage();
       },
       // send a message asking to relate this actor to the current  
       // entity being edited

@@ -22,11 +22,11 @@ define (
     // ### ActorDisplayView
     // Display and actor and all its related fields
     ActorDisplayView = Backbone.View.extend({
+      className: 'actor-display-view',
       template: actorDisplayTmp,
       childViews: [],
       expanded: false,
       initialize: function(options) {
-        console.log(this.model);
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
@@ -43,7 +43,6 @@ define (
 
       // set the small template
       displayView: function() {
-        console.log(this.model.toJSON());
         this.render()
             .renderRelatedActors();
       },

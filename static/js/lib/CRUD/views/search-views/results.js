@@ -25,13 +25,13 @@ define (
 
       // store a list of stream subscribers
       subscribers: [],
-      initialize: function() {
-        console.log('initialize results');
+      initialize: function(options) {
         this.render();
         this.watchCrudStream();
         this.collection = new Backbone.Collection();
         this.listenTo(this.collection, 'add remove reset',
-          this.renderResults.bind(this));
+          this.collectionUpdated.bind(this));
+        this.onInitialize(options);
       },
 
       // trigger event notifying of embedded reults close request
@@ -65,7 +65,6 @@ define (
                 .empty();
       },
       resetCollection: function(evt) {
-        console.log(evt.value());
         this.collection.reset(evt.value().content);
       }
     };

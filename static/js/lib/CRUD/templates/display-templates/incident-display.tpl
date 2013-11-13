@@ -13,9 +13,11 @@
         <span class="value">{{fetchUser model.assigned_user}}</span>
       </div>
       {{/if}}
+      {{#if model.confidence_score}}
       <div class="score">
         <span class="value">{{model.confidence_score}}</span>
       </div>
+      {{/if}}
       {{#if model.most_recent_status_incident}}
       <span class="status">
         <span class="value">{{model.most_recent_status_incident}}</span>

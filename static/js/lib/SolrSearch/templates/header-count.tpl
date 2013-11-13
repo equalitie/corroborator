@@ -1,1 +1,1 @@
-<em>{{numItems}} </span>{{domain}}</em> selected
+<em>{{numItems}} </span>{{domain}}</em> {{i18n.count.selected}}

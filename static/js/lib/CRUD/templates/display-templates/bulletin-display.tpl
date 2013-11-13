@@ -14,9 +14,11 @@
         <span class="value">{{fetchUser model.assigned_user}}</span>
       </div>
       {{/if}}
+      {{#if model.confidence_score}}
       <div class="score">
         <span class="value">{{model.confidence_score}}</span>
       </div>
+      {{/if}}
       {{#if model.most_recent_status_bulletin}}
       <span class="status">
         <span class="value">{{model.most_recent_status_bulletin}}</span>
@@ -53,10 +55,16 @@
     <div class="media">
       <div class="placeholder">&nbsp;</div>
     </div>
-    {{#if model.bulletin_description_en }}
+    {{#if model.description_en }}
     <div class="description detail">
       <h3 class="title">Description</h3>
-      {{model.bulletin_description_en}}
+      {{model.description_en}}
+    </div>
+    {{/if}}
+    {{#if model.description_ar }}
+    <div class="description detail">
+      <h3 class="title">Description</h3>
+      {{model.description_ar}}
     </div>
     {{/if}}
     {{#if model.actors_role}}
@@ -69,6 +77,10 @@
     {{/if}}
     {{#if model.ref_bulletins}}
     <div class="bulletins group">
+    </div>
+    {{/if}}
+    {{#if model.bulletin_imported_comments}}
+    <div class="is-comments group">
     </div>
     {{/if}}
   </div>

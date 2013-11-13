@@ -58,18 +58,21 @@ function program10(depth0,data) {
 
 function program12(depth0,data) {
   
-  var buffer = "", stack1, stack2;
-  buffer += escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.pob)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
-  if(stack2 || stack2 === 0) { buffer += stack2; }
+  var buffer = "", stack1;
+  buffer += "\n        <tr>\n          <th>Born in</th>\n          <td>\n            "
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.pob)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n          </td>\n        </tr>\n        ";
   return buffer;
   }
 
 function program14(depth0,data) {
   
-  var stack1, options;
+  var buffer = "", stack1, options;
+  buffer += "\n        <tr>\n          <th>Date Of Birth</th>\n          <td>\n            ";
   options = {hash:{},data:data};
-  return escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options)));
+  buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options)))
+    + "\n          </td>\n        </tr>\n        ";
+  return buffer;
   }
 
 function program16(depth0,data) {
@@ -127,13 +130,13 @@ function program24(depth0,data) {
     + "</span>\n    </div>\n    ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.thumbnail_url), {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n    <div class=\"infos\">\n      <h2 class=\"title\">\n        <span class=\"i18n with-en with-ar\">\n          <span lang=\"en\"><span class=\"name\">"
+  buffer += "\n    <div class=\"infos\">\n      <h2 class=\"title\">\n        <span class=\"i18n with-en with-ar\">\n          <span lang=\"en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span> (<span class=\"sex\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>) <span class=\"age\"></span></span>\n          <span lang=\"ar\">"
+    + "</span>\n          <span lang=\"ar\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n          <span class=\"toggle\">\n            <span lang=\"en\">EN</span>\n            <span lang=\"ar\">AR</span>\n          </span>\n        </span>\n      </h2>\n      <div class=\"aka\">"
+    + "</span>\n          <span class=\"toggle\">\n            <span lang=\"en\">EN</span>\n            <span lang=\"ar\">AR</span>\n          </span>\n        </span>\n        (<span class=\"sex\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>)\n      </h2>\n      <div class=\"aka\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nickname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n      <div class=\"type\">\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age_en), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
@@ -144,13 +147,13 @@ function program24(depth0,data) {
   buffer += "\n      </div>\n    </div>\n  </div>\n  <div class=\"body\">\n    <table class=\"details\">\n      <tbody>\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <tr>\n          <th>Born in</th>\n          <td>\n            ";
+  buffer += "\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.pob), {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n            ";
+  buffer += "\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), {hash:{},inverse:self.noop,fn:self.program(14, program14, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n          </td>\n        </tr>\n        ";
+  buffer += "\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nationality_en), {hash:{},inverse:self.noop,fn:self.program(16, program16, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        ";

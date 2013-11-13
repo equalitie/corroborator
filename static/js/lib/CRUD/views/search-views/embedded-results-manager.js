@@ -119,6 +119,7 @@ define (
         this.destroyCurrentView();
         this.currentView = new embeddedSearchResultViews[viewType]();
         this.render();
+        this.currentView.delegateEvents();
       },
 
       render: function() {

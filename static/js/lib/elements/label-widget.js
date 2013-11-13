@@ -156,7 +156,7 @@ define (
           select: this.addToSelectedList.bind(this, inputEl),
           close: function() {
                    this.closeList();
-                 }.bind(this),
+                 }.bind(this)
         });
         this.inputEl = inputEl;
       },

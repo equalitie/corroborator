@@ -6,9 +6,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
 
-  buffer += "<div class=\"comment\">\n  <div class=\"text\">"
+  buffer += "<div class=\"comment\">\n  <div class=\"text i18n\">\n     \n    <span lang=\"en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</div>\n    <div class=\"meta-history\">\n      <span class=\"date\">";
+    + "</span>\n    <span lang=\"ar\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    <span class=\"toggle\">\n      <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n    </span>\n  </div>\n    <div class=\"meta-history\">\n      <span class=\"date\">";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options)))
     + "</span>\n      by <span class=\"who\">";

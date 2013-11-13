@@ -22,10 +22,11 @@ function program3(depth0,data) {
 
 function program5(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n        <div class=\"status\">\n          <span class=\"value\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.roles_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n        </div>\n        ";
+  var buffer = "", stack1, options;
+  buffer += "\n        <span class=\"status\" style=\"margin-right:5px;\">\n          <span class=\"text\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchRole || depth0.fetchRole),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.role), options) : helperMissing.call(depth0, "fetchRole", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.role), options)))
+    + "</span>\n        </span>\n        ";
   return buffer;
   }
 
@@ -67,11 +68,13 @@ function program13(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.thumbnail_url), {hash:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    <div class=\"content\">\n      <div class=\"L1\">\n        ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.roles_en), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.role), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        <div class=\"name\">"
+  buffer += "\n        <h3 class=\"i18n with-en with-ar\">\n          <span lang=\"en\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</div>\n        <span class=\"sex\">"
+    + "</span>\n          <span lang=\"ar\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n          <span class=\"toggle\">\n            <span lang=\"en\">EN</span>\n            <span lang=\"ar\">AR</span>\n          </span>\n        </h3>\n        <span class=\"sex\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n        <span class=\"age\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

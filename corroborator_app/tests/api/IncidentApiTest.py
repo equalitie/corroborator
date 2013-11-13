@@ -1,12 +1,15 @@
 from tastypie.models import ApiKey
 from django.contrib.auth.models import User
-from django.test.client import Client
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
-from corroborator_app.models import Incident, CrimeCategory, Location, Actor, \
-    ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label
+from corroborator_app.models import (
+    Incident, CrimeCategory, Location, Actor,
+    ActorRole, Comment, TimeInfo, StatusUpdate, Label
+)
 import datetime
+import json
 from django.utils.timezone import utc
+
 
 class IncidentTestCase(ResourceTestCase):
     def setUp(self):
@@ -17,11 +20,15 @@ class IncidentTestCase(ResourceTestCase):
         self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        
+
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
-        
-        self.actor = Actor(fullname_en='Test Actor',fullname_ar='Test name ar',nickname_en='nick name',nickname_ar='nick name')
+
+        self.actor = Actor(
+            fullname_en='Test Actor',
+            fullname_ar='Test name ar',
+            nickname_en='nick name',
+            nickname_ar='nick name')
         self.actor.save()
         self.role = ActorRole(role_status='Detained', actor_id=self.actor.pk)
         self.role.save()
@@ -29,20 +36,29 @@ class IncidentTestCase(ResourceTestCase):
         self.statusUpdate = StatusUpdate(status_en='test status')
         self.statusUpdate.save()
 
-        self.crimeCategory = CrimeCategory(name_en='test crime category',
-        level=1, description_en='test source incident_details')
+        self.crimeCategory = CrimeCategory(
+            name_en='test crime category',
+            level=1,
+            description_en='test source incident_details')
         self.crimeCategory.save()
         self.label = Label(name_en='test label')
         self.label.save()
-        
-        self.comment = Comment(assigned_user_id=self.user.pk, status_id=self.statusUpdate.pk,comments_en='test comment')
+
+        self.comment = Comment(
+            assigned_user_id=self.user.pk,
+            status_id=self.statusUpdate.pk,
+            comments_en='test comment')
         self.comment.save()
-        
-        self.timeinfo = TimeInfo(confidence_score=1, time_from=self.from_datetime, time_to=self.to_datetime, event_name_en='test event')
+
+        self.timeinfo = TimeInfo(
+            confidence_score=1,
+            time_from=self.from_datetime,
+            time_to=self.to_datetime,
+            event_name_en='test event')
         self.timeinfo.save()
-        
+
         fixture = AutoFixture(Incident, generate_m2m={1, 5})
-        incidents = fixture.create(10)
+        fixture.create(10)
 
         try:
             self.api_key = ApiKey.objects.get(user=self.user)
@@ -60,6 +76,7 @@ class IncidentTestCase(ResourceTestCase):
         Comment.objects.all().delete()
         StatusUpdate.objects.all().delete()
         CrimeCategory.objects.all().delete()
+
     def test_incident_get(self):
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         response = self.api_client.get(url)
@@ -72,9 +89,9 @@ class IncidentTestCase(ResourceTestCase):
         post_data = {
             'title_en': "Test Incident",
             'incident_details_ar': "incident_details Arabic",
-            'confidence_score':11,
+            'confidence_score': 11,
             'assigned_user': '/api/v1/user/1/',
-            'incident_comments': ['/api/v1/comment/1/',],
+            'incident_comments': ['/api/v1/comment/1/', ],
             'bulletins': [],
             'actors_role': [],
             'crimes': [],
@@ -82,44 +99,30 @@ class IncidentTestCase(ResourceTestCase):
             'times': [],
             'locations': [],
             'ref_incidents': [],
-            'status': 'Updated',
+            'status': '/api/v1/statusUpdate/1/',
             'comment': 'Comment',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
         self.assertEqual(response.status_code, 201)
-
-    def test_incident_mass_update(self):
-        i = Incident.objects.all()[0]
-        url = 'https://dev.corroborator.org/corroborator/incident/0/multisave/?format=json{1}'.format(i.id, self.auth_string)
-        put_data = {
-            'incidents':['/api/v1/incident/1/','/api/v1/incident/1/',],
-            'username': 'user',
-            'confidence_score':11,
-            'assigned_user': '/api/v1/user/1/',
-            'actorsRoles':[{'actor':'/api/v1/actor/1/','role_en':'Killed','role_status':'K',},],
-            'crimes': ['/api/v1/crimeCategory/1/',],
-            'labels': ['/api/v1/label/1/',],
-            'locations': ['/api/v1/location/1/',],
-            'ref_bulletins': ['/api/v1/bulletin/1/',],
-            'ref_incidents': ['/api/v1/incident/1/',],
-            'locations': ['/api/v1/location/1/',],
-        }
-
-        response = self.api_client.put(url, data=put_data)
-        self.assertEqual(response.status_code, 200)
+        new_incident_dict = json.loads(response.content)
+        new_incident = Incident(id=new_incident_dict['id'])
+        incident_comments = new_incident.incident_comments.all()
+        self.assertEqual(len(incident_comments), 1)
 
     def test_incident_put(self):
         i = Incident.objects.all()[0]
-        url = '/api/v1/incident/{0}/?format=json{1}'.format(i.id, self.auth_string)
+        url = '/api/v1/incident/{0}/?format=json{1}'.format(
+            i.id, self.auth_string)
         put_data = {
             'title_en': "Test Incident",
             'title_ar': "Test Incident Arabic",
             'incident_details_en': "incident_details en",
             'incident_details_ar': "incident_details Arabic",
-            'confidence_score':11,
+            'confidence_score': 11,
             'assigned_user': '/api/v1/user/1/',
-            'incident_comments': ['/api/v1/comment/1/',],
+            'incident_comments': ['/api/v1/comment/1/', ],
             'bulletins': [],
             'actors_role': [],
             'crimes': [],
@@ -127,12 +130,13 @@ class IncidentTestCase(ResourceTestCase):
             'times': [],
             'locations': [],
             'ref_incidents': [],
-            'status': 'Updated',
+            'status': '/api/v1/statusUpdate/1/',
             'comment': 'Comment',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
-        
+
     def test_incident_patch_update(self):
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         patch_data = {
@@ -144,9 +148,9 @@ class IncidentTestCase(ResourceTestCase):
                     'title_ar': "Test Incident Arabic",
                     'incident_details_en': "incident_details en",
                     'incident_details_ar': "incident_details Arabic",
-                    'confidence_score':11,
+                    'confidence_score': 11,
                     'assigned_user': '/api/v1/user/1/',
-                    'incident_comments': ['/api/v1/comment/1/',],
+                    'incident_comments': ['/api/v1/comment/1/', ],
                     'bulletins': [],
                     'actors_role': [],
                     'crimes': [],
@@ -156,6 +160,7 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'id': '2',
@@ -164,8 +169,8 @@ class IncidentTestCase(ResourceTestCase):
                     'title_ar': "Test Incident Arabic",
                     'incident_details_en': "incident_details en",
                     'incident_details_ar': "incident_details Arabic",
-                    'confidence_score':11,
-                    'incident_comments': ['/api/v1/comment/1/',],
+                    'confidence_score': 11,
+                    'incident_comments': ['/api/v1/comment/1/', ],
                     'bulletins': [],
                     'actors_role': [],
                     'crimes': [],
@@ -175,12 +180,13 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }
         response = self.api_client.patch(url, data=patch_data)
         self.assertEqual(response.status_code, 202)
-        
+
     def test_incident_patch(self):
         url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
         patch_data = {
@@ -190,9 +196,9 @@ class IncidentTestCase(ResourceTestCase):
                     'title_ar': "Test Incident Arabic",
                     'incident_details_en': "incident_details en",
                     'incident_details_ar': "incident_details Arabic",
-                    'confidence_score':11,
+                    'confidence_score': 11,
                     'assigned_user': '/api/v1/user/1/',
-                    'incident_comments': ['/api/v1/comment/1/',],
+                    'incident_comments': ['/api/v1/comment/1/', ],
                     'bulletins': [],
                     'actors_role': [],
                     'crimes': [],
@@ -202,14 +208,15 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'title_en': "Test Incident",
                     'title_ar': "Test Incident Arabic",
                     'incident_details_en': "incident_details en",
                     'incident_details_ar': "incident_details Arabic",
-                    'confidence_score':11,
-                    'incident_comments': ['/api/v1/comment/1/',],
+                    'confidence_score': 11,
+                    'incident_comments': ['/api/v1/comment/1/', ],
                     'bulletins': [],
                     'actors_role': [],
                     'crimes': [],
@@ -219,9 +226,9 @@ class IncidentTestCase(ResourceTestCase):
                     'ref_incidents': [],
                     'status': 'Updated',
                     'comment': 'Comment',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }
         response = self.api_client.patch(url, data=patch_data)
         self.assertEqual(response.status_code, 202)
-        

@@ -19,7 +19,7 @@
   <br/>
   For example:
   <br/>
-  'incid' is to far from incident for fuzzy search to match reliably.
+  'incid' is too far from incident for fuzzy search to match reliably.
   <br/>
   But searching for 'incid*' will return the related results.
   </p>

@@ -12,6 +12,7 @@ define (
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
     'lib/CRUD/views/search-views/media/media-search-field',
+    'lib/CRUD/views/search-views/revision/revision-view',
     'lib/CRUD/data/SourceCollection',
     'lib/CRUD/data/LabelCollection',
     'lib/CRUD/data/LocationCollection',
@@ -22,7 +23,7 @@ define (
     'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl'
   ],
   function ($, _, Backbone, Streams, Mixins,
-    ActorSearchView, BulletinSearchView, MediaSearchView,
+    ActorSearchView, BulletinSearchView, MediaSearchView, RevisionView,
     // data
     Source, Label, Location,
     // views
@@ -242,9 +243,16 @@ define (
       // render out the child views - comment form, event form, add location,
       // add media, add actors, add related bulletins
       renderChildren: function() {
+        this.destroyChildren();
+
+        var revisionView = new RevisionView({
+          el: '.revision-container',
+          content: this.model.get('incident_comments')
+        });
+
         var commentForm = new CommentContainerView({
           el: '#bulletin-comment-block',
-          content: this.model.get('bulletin_comments'),
+          content: this.model.get('bulletin_imported_comments'),
           entityType: 'bulletin'
         });
 
@@ -280,6 +288,7 @@ define (
 
         // add each new view to the child views array
         this.childViews.push(
+          revisionView,
           commentForm,
           eventForm,
           actorSearchView,

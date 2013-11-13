@@ -120,13 +120,13 @@
                 <textarea id="bulletin_description_en"
                           name="bulletin_description_en"
                           type="text"
-                          class="bulletin-field w-100p">{{model.bulletin_description_en}}</textarea>
+                          class="bulletin-field w-100p">{{model.description_en}}</textarea>
               </div>
               <div lang="ar">
                 <textarea id="bulletin_description_ar"
                           name="bulletin_description_ar"
                           type="text"
-                          class="bulletin-field w-100p">{{model.bulletin_description_ar}}</textarea>
+                          class="bulletin-field w-100p">{{model.description_ar}}</textarea>
               </div>
               <span class="toggle">
                 <span lang="en">EN</span>
@@ -148,6 +148,10 @@
       <!-- end first col -->
       <div class="last span-33p">
         <div class="body">
+
+          <!-- Event block -->
+          <div id="bulletin-comment-block" class="field is-comments hide-multiple clear">
+          </div>
 
           <!-- Event block -->
           <div id="bulletin-event-block" class="field is-events hide-multiple clear">
@@ -203,6 +207,9 @@
       </div>
       <div class="clearer"></div>
     </div>
+    <!-- show revision details -->
+    <div class="revision-container"></div>
+
   </div>
   <div class="footer with-revision">
     <div class="actions form when-not_revision">

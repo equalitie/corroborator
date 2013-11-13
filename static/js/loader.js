@@ -1,8 +1,10 @@
-/*global requirejs */
+/*global requirejs, Bootstrap */
 (function(requirejs) {
   'use strict';
   requirejs.config({
+    'locale': Bootstrap.locale,
     'paths': {
+      'i18n'           : 'components/requirejs-i18n/i18n',
       'lib'            : 'lib',
       'main'           : 'main',
       'jquery'         : 'components/jquery/jquery',

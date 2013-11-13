@@ -7,11 +7,12 @@ define (
   [
    'backbone', 'underscore',
     'lib/Data/collections',
-    'lib/SolrSearch/templates/actor.tpl',
-    'lib/SolrSearch/templates/actor-results.tpl',
-    'lib/SolrSearch/templates/empty-results.tpl'
+    'lib/SolrSearch/templates/results/actor.tpl',
+    'lib/SolrSearch/templates/results/actor-results.tpl',
+    'lib/SolrSearch/templates/results/empty-results.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
-  function (Backbone, _, Collections, actorTmp, actorResultsTmp, emptyResultsTmp) {
+  function (Backbone, _, Collections, actorTmp, actorResultsTmp, emptyResultsTmp, i18n) {
     'use strict';
 
     var ActorResultsView, ActorResultView;
@@ -32,6 +33,7 @@ define (
         this.listenTo(this.model, 'change', this.updateView.bind(this));
         this.listenTo(this.model, 'sync', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
+        this.addi18n();
         this.render();
       },
 
@@ -92,11 +94,11 @@ define (
       },
       childViews: [],
       initialize: function() {
-        this.addi18n();
         this.collection = Collections.ActorCollection;
         this.listenTo(this.collection, 'add', this.renderItem.bind(this));
         this.listenTo(this.collection, 'sort', this.sortRequested.bind(this));
         this.listenTo(this.collection, 'reset', this.renderStart.bind(this));
+        this.listenTo(this, 'rendered', this.setLanguage.bind(this));
         this.render();
         this.renderStart();
       },
@@ -113,6 +115,8 @@ define (
       loadAfter: 10,
       currentPage: 0,
       listElementHeight: 66,
+      // look at the current position of the scroll bar and determine
+      // if we should render the next lot of results
       handleScroll: function(evt) {
         var currentPosition, nextLoad, slice, start, end;
         currentPosition = this.$el.scrollTop();
@@ -154,13 +158,22 @@ define (
                 .children()
                 .children()
                 .append(resultView.$el);
+        resultView.selectInitialLanguage();
         this.childViews.push(resultView);
       },
+      setLanguage: function() {
+        _.each(this.childViews, function(actorView) {
+          actorView.selectInitialLanguage();
+        });
+      },
+
       renderEmpty: function() {
         var emptyView = new Backbone.View({
           className: 'empty-results'
         });
-        emptyView.$el.html(emptyResultsTmp());
+        emptyView.$el.html(emptyResultsTmp({
+          i18n: i18n
+        }));
         this.$el.children()
                 .children()
                 .children()

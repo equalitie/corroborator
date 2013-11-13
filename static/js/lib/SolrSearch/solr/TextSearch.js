@@ -96,7 +96,8 @@ define(
         this.watchSearchStream();
       },
       parseQuery: function(searchQuery) {
-        var qb = new QueryBuilder(searchQuery.content.raw);
+        var qb = new QueryBuilder(searchQuery.content.raw,
+          searchQuery.content.entity);
         return qb.parsedString; 
       },
 

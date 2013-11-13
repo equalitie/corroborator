@@ -90,15 +90,21 @@
       <div class="is-bulletin-map map"></div>
       {{/if}}
       <div class="is-tags group">
+        {{#if model.bulletin_labels}}
         <h4>Labels</h4>
-        <ul class="tags">
+        <ul class="tags group detail">
           {{#each model.bulletin_labels}}
           <li class="tag">
             <span class="text">{{this}}</span>
           </li>
           {{/each}}
         </ul>
+        {{/if}}
       </div>
+      {{#if model.bulletin_imported_comments}}
+      <div class="is-comments group">
+      </div>
+      {{/if}}
     </div>
   </div>
   <div class="clearer"></div>

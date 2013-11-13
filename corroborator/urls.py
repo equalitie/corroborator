@@ -28,6 +28,12 @@ urlpatterns = patterns(
         'corroborator_app.views.lookup_incident'),
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$',
         'corroborator_app.views.lookup_actor'),
+    url(r'^corroborator/aws/(?P<media_name>.+\.[a-zA-Z0-9]{3})$',
+        'corroborator_app.views.aws_proxy'),
+    url(r'^corroborator/solrproxy/',
+        'corroborator_app.views.solr_proxy'),
+
+
 )
 
 #locking

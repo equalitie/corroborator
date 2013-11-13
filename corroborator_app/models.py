@@ -68,7 +68,7 @@ class Comment(models.Model):
     systems audit trail. It can be related to either Bulletins or Incidents.
     """
     assigned_user = models.ForeignKey(User)
-    status = models.ForeignKey(StatusUpdate)
+    status = models.ForeignKey(StatusUpdate, blank=True, null=True)
     comments_en = models.TextField(blank=True)
     comments_ar = models.TextField(blank=True, null=True)
     comment_created = models.DateTimeField(auto_now_add=True)
@@ -130,8 +130,8 @@ class Location(models.Model):
     description_ar = models.TextField(blank=True, null=True)
     parent_location = models.ForeignKey(
         'self', max_length=255, blank=True, null=True)
-    location_created = models.DateTimeField(auto_now_add=True)
-    location_modified = models.DateTimeField(auto_now=True)
+    location_created = models.DateTimeField(auto_now_add=True, null=True)
+    location_modified = models.DateTimeField(auto_now=True, null=True)
 
     def __unicode__(self):
         return self.name_en
@@ -383,11 +383,21 @@ class Actor(models.Model):
     religion_ar = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_en = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    origin_id = models.CharField(max_length=255, blank=True, null=True)
+    age_numeric = models.IntegerField(blank=True, null=True)
+    family_name_en = models.CharField(max_length=255, blank=True, null=True)
+    family_name_ar = models.CharField(max_length=255, blank=True, null=True)
+    national_id_card = models.CharField(max_length=255, blank=True, null=True)
+    national_number = models.CharField(max_length=255, blank=True, null=True)
+    legal_status = models.CharField(max_length=255, blank=True, null=True)
+    health_status = models.CharField(max_length=255, blank=True, null=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
     """
     deleted = models.BooleanField()
+    actor_comments = models.ManyToManyField(Comment, blank=True, null=True)
 
     # Foreign Keys
     actors_role = models.ManyToManyField(
@@ -456,6 +466,10 @@ class ActorRole(models.Model):
         ('D', 'Detained'),
         ('KN', 'Kidnapped'),
         ('WN', 'Witness'),
+        ('A', 'Arrested'),
+        ('M', 'Martyr'),
+        ('MG', 'Missing'),
+        ('I', 'Injured'),
     )
     RELATION = (
         ('P', 'Parent'),
@@ -522,6 +536,8 @@ class Bulletin(models.Model):
     type = models.CharField('type', max_length=25, choices=TYPE, blank=True)
     bulletin_created = models.DateTimeField(auto_now_add=True)
     bulletin_modified = models.DateTimeField(auto_now=True)
+
+    origin_id = models.CharField(max_length=255, blank=True, null=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
@@ -534,6 +550,12 @@ class Bulletin(models.Model):
     # ManyToManyFields
     sources = models.ManyToManyField(Source, blank=True, null=True)
     bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
+    bulletin_imported_comments = models.ManyToManyField(
+        Comment, 
+        blank=True, 
+        null=True, 
+        related_name="bulletin_imported_comments"
+    )
     labels = models.ManyToManyField(Label, blank=True, null=True)
     times = models.ManyToManyField(TimeInfo, blank=True, null=True)
 

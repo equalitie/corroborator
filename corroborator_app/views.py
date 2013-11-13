@@ -20,6 +20,8 @@ from corroborator_app.multisave import multi_save_actors, \
 from corroborator_app.models import CrimeCategory, \
     Location, Source, StatusUpdate, ActorRole, Label, \
     PredefinedSearch
+from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
+from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
 
 ###############################################################################
 # FORMATTING HELPER METHODS
@@ -184,6 +186,33 @@ def index(request, *args, **kwargs):
     else:
         return render_to_response('auth.html', RequestContext(request))
 
+###############################################################################
+# AUTH PROXIES
+#
+##############################################################################
+
+def aws_proxy(request, media_name):
+    """
+    This function is responsible for proxying the request for an AWS 
+    media file and returning the file itself provided the request 
+    passes auth testing
+    On failure return 404 else redirect to AWS file.
+    """
+    if request.user.is_authenticated:
+        return AWSAuthProxy().get(media_name) 
+    else:
+        return Http404
+def solr_proxy(request, *args, **kwargs):
+    """
+    This function is responsible for proxying a solr query and
+    returning the query results if the provided request passes
+    auth testing
+    """
+    if request.user.is_authenticated:
+        query = request.META['QUERY_STRING']
+        return SolrAuthProxy().parse_request(query)
+    else:
+        return Http404
 
 ###############################################################################
 # MULTISAVE VIEWS

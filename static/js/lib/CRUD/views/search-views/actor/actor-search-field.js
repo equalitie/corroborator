@@ -61,8 +61,6 @@ define (
         this.listenForActorsRemoved();
         this.listenForActorUpdate();
         this.listenForRelationshipTypeRequest();
-        console.log(options.mainModel.toJSON());
-
 
         // load existing content
         if (options.mainModel) {
@@ -105,9 +103,17 @@ define (
         var actorModel = new Backbone.Model();
         var existingActor =
           allActors.findWhere({resource_uri: model.get('actor')});
-        actorModel.set(existingActor.toJSON());
-        actorModel.set('id', model.id);
-        this.renderCollection.add(actorModel);
+        if (existingActor) {
+          actorModel.set(existingActor.toJSON());
+          actorModel.set('id', model.id);
+          this.renderCollection.add(actorModel);
+        }
+        else {
+          actorModel = new Actor.ActorModel(
+            { resourceUri: model.get('actor') }
+          );
+          this.renderCollection.add(actorModel);
+        }
       },
 
       // create a collection to store all available actors
@@ -125,7 +131,8 @@ define (
         crudBus.push({
           type: 'new_embedded_search',
           content: {
-            raw: inputText
+            raw: inputText,
+            entity: 'actor'
           }
         });
       },
@@ -346,7 +353,6 @@ define (
 
       // render the related actors
       renderActors: function() {
-        console.log('renderActors');
         this.destroyChildViews();
         this.renderCollection.each(this.renderActor, this);
         return this;
@@ -365,6 +371,7 @@ define (
         });
         this.childViews.push(resultView);
         this.$el.children('ul').append(resultView.$el);
+        resultView.selectInitialLanguage();
       },
 
       //render the input field and buttons

@@ -1,13 +1,13 @@
 from tastypie.models import ApiKey
 from django.contrib.auth.models import User
-from django.test.client import Client
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
 from corroborator_app.models import Bulletin, Media, Location, \
-    Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Incident, Label, \
+    Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Label, \
     Source, SourceType
-#import datetime
+import json
 #from django.utils.timezone import utc
+
 
 class BulletinTestCase(ResourceTestCase):
     def setUp(self):
@@ -17,10 +17,8 @@ class BulletinTestCase(ResourceTestCase):
         #self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
         self.user = User(username='user', password='password', email='1@2.com')
         self.user.save()
-        
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
-        
         self.actor = Actor(
             fullname_en='Test Actor',
             fullname_ar='Test name ar',
@@ -56,14 +54,13 @@ class BulletinTestCase(ResourceTestCase):
         self.source.save()
         self.label = Label(name_en='test label')
         self.label.save()
-        
         self.comment = Comment(
             assigned_user_id=self.user.pk,
             status_id=self.statusUpdate.pk,
             comments_en='test comment'
         )
         self.comment.save()
-        
+
         #self.timeinfo = TimeInfo(
             #confidence_score=1,
             #time_from=self.from_datetime,
@@ -71,16 +68,16 @@ class BulletinTestCase(ResourceTestCase):
             #event_name_en='test event'
         #)
         #self.timeinfo.save()
-        
+
         self.media = Media(
             media_type='Video',
             name_en='test media',
             media_file=''
         )
         self.media.save()
-        
+
         fixture = AutoFixture(Bulletin, generate_m2m={1, 5})
-        bulletins = fixture.create(10)
+        fixture.create(10)
 
         try:
             self.api_key = ApiKey.objects.get(user=self.user)
@@ -107,35 +104,13 @@ class BulletinTestCase(ResourceTestCase):
         response = self.api_client.get(unauth_url)
         self.assertEqual(response.status_code, 401)
 
-    def test_bulletin_mass_update(self):
-        b = Bulletin.objects.all()[0]
-        url = '/corroborator/bulletin/0/multisave/?format=json{1}'\
-              .format(b.id, self.auth_string)
-        put_data = {
-            'bulletins':['/api/v1/bulletin/1/','/api/v1/bulletin/2/',],
-            'username': 'user',
-            'confidence_score':11,
-            'assigned_user': '/api/v1/user/1/',
-            'actorsRoles':[{'actor':'/api/v1/actor/1/','role_en':'Killed','role_status':'K',},],
-            'sources': ['/api/v1/source/1/',],
-            'labels': ['/api/v1/label/1/',],
-            'locations': ['/api/v1/location/1/',],
-            'ref_bulletins': ['/api/v1/bulletin/1/',],
-            'ref_incidents': ['/api/v1/incident/1/',],
-            'locations': ['/api/v1/location/1/',],
-        }
-
-        response = self.api_client.put(url, data=put_data)
-        self.assertEqual(response.status_code, 200)
-
-
     def test_bulletin_post(self):
         post_data = {
             'title_en': "Test Bulletin",
             'description_ar': "description Arabic",
             'confidence_score': 73,
-            'sources': ['/api/v1/source/1/',],
-            'bulletin_comments': ['/api/v1/comment/1/',],
+            'sources': ['/api/v1/source/1/', ],
+            'bulletin_imported_comments': ['/api/v1/comment/1/', ],
             'assigned_user': '/api/v1/user/1/',
             'actors_role': [],
             'times': [],
@@ -145,10 +120,16 @@ class BulletinTestCase(ResourceTestCase):
             'ref_bulletins': [],
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
+        print response
         self.assertEqual(response.status_code, 201)
+        new_bulletin_dict = json.loads(response.content)
+        new_bulletin = Bulletin(id=new_bulletin_dict['id'])
+        bulletin_comments = new_bulletin.bulletin_comments.all()
+        self.assertEqual(len(bulletin_comments), 1)
 
     def test_bulletin_put(self):
         b = Bulletin.objects.all()[0]
@@ -162,8 +143,8 @@ class BulletinTestCase(ResourceTestCase):
             'description_en': "description en",
             'description_ar': "description Arabic",
             'confidence_score': 73,
-            'sources': ['/api/v1/source/1/',],
-            'bulletin_comments': ['/api/v1/comment/1/',],
+            'sources': ['/api/v1/source/1/', ],
+            'bulletin_comments': ['/api/v1/comment/1/', ],
             'assigned_user': '/api/v1/user/1/',
             'actors_role': [],
             'times': [],
@@ -173,12 +154,12 @@ class BulletinTestCase(ResourceTestCase):
             'ref_bulletins': [],
             'status': 'Updated',
             'comment': 'Updated',
+            'status_uri': '/api/v1/statusUpdate/1/'
         }
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
-        
+
     def test_bulletin_patch_update(self):
-        
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         patch_data = {
             'objects': [
@@ -191,7 +172,7 @@ class BulletinTestCase(ResourceTestCase):
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
                     #'sources': [],
-                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'bulletin_comments': ['/api/v1/comment/1/', ],
                     'assigned_user': '/api/v1/user/1/',
                     'actors_role': [],
                     #'times': [],
@@ -201,6 +182,7 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'id': '2',
@@ -211,7 +193,7 @@ class BulletinTestCase(ResourceTestCase):
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
                     #'sources': ['/api/v1/source/1/',],
-                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'bulletin_comments': ['/api/v1/comment/1/', ],
                     'assigned_user': '/api/v1/user/1/',
                     'actors_role': [],
                     'times': [],
@@ -221,6 +203,7 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }
@@ -228,7 +211,6 @@ class BulletinTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 202)
 
     def test_bulletin_patch(self):
-       
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         patch_data = {
             'objects': [
@@ -239,7 +221,7 @@ class BulletinTestCase(ResourceTestCase):
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
                     #'sources': [],
-                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'bulletin_comments': ['/api/v1/comment/1/', ],
                     'assigned_user': '/api/v1/user/1/',
                     'actors_role': [],
                     #'times': [],
@@ -249,6 +231,7 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 },
                 {
                     'title_en': "Test Bulletin",
@@ -257,7 +240,7 @@ class BulletinTestCase(ResourceTestCase):
                     'description_ar': "description Arabic",
                     'confidence_score': 73,
                     #'sources': ['/api/v1/source/1/',],
-                    'bulletin_comments': ['/api/v1/comment/1/',],
+                    'bulletin_comments': ['/api/v1/comment/1/', ],
                     'assigned_user': '/api/v1/user/1/',
                     'actors_role': [],
                     'times': [],
@@ -267,9 +250,9 @@ class BulletinTestCase(ResourceTestCase):
                     'ref_bulletins': [],
                     'status': 'Updated',
                     'comment': 'Updated',
+                    'status_uri': '/api/v1/statusUpdate/1/'
                 }
             ]
         }
         response = self.api_client.patch(url, data=patch_data)
         self.assertEqual(response.status_code, 202)
-        

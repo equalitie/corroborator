@@ -73,7 +73,7 @@ define(
       init: function(){
         this.watchFilterEvents();
         this.watchSearchStream();
-        this.watchQueryBuilderStream();
+        //this.watchQueryBuilderStream();
         this.filterCollection = new Backbone.Collection();
         this.doRequest = _.debounce(this.doRequest, 300);
         //this.filterCollection.on('reset', this.sendRequest, this);
@@ -106,7 +106,7 @@ define(
       },
 
       sendBlankQuery: function() {
-        this.manager.store.addByValue('q', '*:*');
+        this.manager.store.addByValue('q', 'django_ct:*' + this.manager.entity);
         this.sendRequest();
       },
       
@@ -137,10 +137,11 @@ define(
           queryString = queryString + ' OR ';
         }
         if(model.get('filterName').indexOf(' TO ') === -1){
-            return queryString + '("' + model.get('filterName') + '")';
+            queryString = queryString + '("' + model.get('filterName') + '")';
         }else{
-            return queryString + '(' + model.get('filterName') + ')';
+            queryString = queryString + '(' + model.get('filterName') + ')';
         }
+        return queryString;
       },
 
       // set the field for a filter
@@ -158,7 +159,7 @@ define(
                  });    
       },
       parseQuery: function(searchQuery) {
-        var qb = new QueryBuilder(searchQuery);
+        var qb = new QueryBuilder(searchQuery, this.manager.entity);
         return qb.parsedString;
       },
       watchSearchStream: function() {
@@ -188,11 +189,11 @@ define(
       
       // push results up to the search stream
       sendResults: function(searchResults) {
-        pushResults(
-          _.chain(searchResults)
+        searchResults.results =
+          _.chain(searchResults.results)
            .filter(filterMap[this.manager.entity])
-           .value(), this.manager.entity
-        );
+           .value();
+        pushResults(searchResults, this.manager.entity);
       },
 
       // parse the new filters from solr
@@ -203,8 +204,12 @@ define(
       // process the results from solr
       afterRequest: function () {
         var searchResults = this.manager.response.response.docs,
+            numFound = this.manager.response.response.numFound,
             filters = this.manager.response.facet_counts.facet_fields;
-        this.sendResults(searchResults);
+        this.sendResults({
+          results: searchResults,
+          numFound: numFound
+        });
         //only send new filters after a keyword search
         if (this.sendFilter) {
           this.sendFilters(filters);
