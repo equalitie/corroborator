@@ -26,7 +26,7 @@ class ActorTestCase(ResourceTestCase):
         except ApiKey.DoesNotExist:
             self.api_key = ApiKey.objects.create(user=self.user)
         self.auth_string = '&username={0}&api_key={1}'.format(
-            self.user.username, self.api_key.key)
+            self.user.username, self.api_key)
 
     def tearDown(self):
         Actor.objects.all().delete()
@@ -49,7 +49,7 @@ class ActorTestCase(ResourceTestCase):
             'comment': 'Updated',
             'status_uri': '/api/v1/statusUpdate/1/'
         }
-        url = '/api/v1/actor/?format=json{}'.format(self.auth_string)
+        url = 'https://localhost:8000/api/v1/actor/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
         self.assertEqual(response.status_code, 201)
         # test that a comment get added
