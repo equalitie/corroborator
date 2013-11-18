@@ -70,7 +70,9 @@
             "sex_ar": "", 
             "sex_en": "", 
             "spoken_dialect_ar": "", 
-            "spoken_dialect_en": ""
+            "spoken_dialect_en": "",
+            "actor_created": "2013-11-18 19:36:18.523736",
+            "actor_modified": "2013-11-18 19:36:18.523736"
         }, 
         "model": "corroborator_app.actor", 
         "pk": 1
@@ -104,7 +106,9 @@
             "sex_ar": "", 
             "sex_en": "", 
             "spoken_dialect_ar": "", 
-            "spoken_dialect_en": ""
+            "spoken_dialect_en": "",
+            "actor_created": "2013-11-18 19:36:18.523736",
+            "actor_modified": "2013-11-18 19:36:18.523736"
         }, 
         "model": "corroborator_app.actor", 
         "pk": 2
@@ -138,7 +142,9 @@
             "sex_ar": "", 
             "sex_en": "", 
             "spoken_dialect_ar": "", 
-            "spoken_dialect_en": ""
+            "spoken_dialect_en": "",
+            "actor_created": "2013-11-18 19:36:18.523736",
+            "actor_modified": "2013-11-18 19:36:18.523736"
         }, 
         "model": "corroborator_app.actor", 
         "pk": 3
