@@ -143,7 +143,7 @@ def string_check(comment_string):
     '''
     passed = False
     error = {
-        'comment': comment_string
+        'comment': 'comment is missing'
     }
     if comment_string.replace(' ', '').isalnum() and len(comment_string) is not 0:
         passed = True
