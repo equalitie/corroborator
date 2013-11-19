@@ -27,7 +27,7 @@ class AWSAuthProxyTestCase(TestCase):
         self.test_user_util = TestUserUtility()
         self.user = self.test_user_util.user
         self.client = Client()
-        self.aws_proxy_url = 'http://localhost:8002/corroborator/aws/'
+        self.aws_proxy_url = '/corroborator/aws/'
 
     def tearDown(self):
         '''
