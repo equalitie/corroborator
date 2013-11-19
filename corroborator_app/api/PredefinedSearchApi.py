@@ -15,6 +15,7 @@ from corroborator_app.models import PredefinedSearch
 from corroborator_app.views import format_filters_for_tastypie
 
 
+import json
 __all__ = ('PredefinedSearchResource', )
 
 class PredefinedSearchResource(ModelResource):
@@ -28,12 +29,11 @@ class PredefinedSearchResource(ModelResource):
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
         always_return_data = True
-
-    def dehydrate(self, bundle):
+    def hydrate(self, bundle):
         bundle.data['incident_filters'] =\
-            format_filters_for_tastypie(bundle.data['incident_filters'])  
+            json.dumps(bundle.data['incident_filters'])
         bundle.data['bulletin_filters'] =\
-            format_filters_for_tastypie(bundle.data['bulletin_filters'])  
+            json.dumps(bundle.data['bulletin_filters'])
         bundle.data['actor_filters'] =\
-            format_filters_for_tastypie(bundle.data['actor_filters'])  
+            json.dumps(bundle.data['actor_filters'])
         return bundle
