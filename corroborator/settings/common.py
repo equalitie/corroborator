@@ -15,7 +15,7 @@ S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 S3_URL_READ = 'https://%s.amazonaws.com' % AWS_READ
 MEDIA_URL = S3_URL + '/'
 MEDIA_READ_URL = S3_URL_READ + '/'
-S3__PROXY_URL = '/corroborator/aws/'
+S3_PROXY_URL = '/corroborator/aws/'
 
 TEMPLATE_DEBUG = DEBUG
 
