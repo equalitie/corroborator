@@ -8,33 +8,32 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 ROOT_PATH = '/Users/cormac/work/programming/python/djangodev/corroborator/'
+#DATABASES = {
+    #'default': {
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': ROOT_PATH + '../db/corroborator-latest.sql',
+        #'USER': '',
+        #'PASSWORD': '',
+        #'HOST': '',
+        #'PORT': '',
+    #}
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ROOT_PATH + '../db/corroborator-latest.sql',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'corroborator',
+        'USER': 'root',
+        'PASSWORD': 'F4QsJfHj9Rw47cAB',
+        'HOST': 'localhost',
         'PORT': '',
     }
 }
-
-#DATABASES = {
-    #'default': {
-    #'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-    #'NAME': 'corroborator',                      # Or path to database file if using sqlite3.
-    #'USER': 'root',                      # Not used with sqlite3.
-    #'PASSWORD': 'F4QsJfHj9Rw47cAB',                  # Not used with sqlite3.
-    #'HOST': '127.0.0.1',                      # Set to empty string for localhost. Not used with sqlite3.
-    #'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-                                                                #}
-#}
 
 
 INSTALLED_APPS += (
     'autofixture',
     'debug_toolbar',
-    #'django_socketio',
 )
 
 INTERNAL_IPS = ('127.0.0.1',)

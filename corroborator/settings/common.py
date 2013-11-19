@@ -15,6 +15,7 @@ S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 S3_URL_READ = 'https://%s.amazonaws.com' % AWS_READ
 MEDIA_URL = S3_URL + '/'
 MEDIA_READ_URL = S3_URL_READ + '/'
+S3_PROXY_URL = '/corroborator/aws/'
 
 TEMPLATE_DEBUG = DEBUG
 
@@ -92,8 +93,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     #'reversion.middleware.RevisionMiddleware',
-    # Uncommenssssssssss line for simple clickjacking protection:
+    # Uncomment line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
@@ -169,3 +171,14 @@ LOGGING = {
         },
     }
 }
+"""
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
+"""

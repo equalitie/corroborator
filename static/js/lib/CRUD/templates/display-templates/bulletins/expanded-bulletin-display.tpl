@@ -4,10 +4,13 @@
       ID <span class="value out">{{model.django_id}}</span>
     </span>
     <h2 class="title">
-    <span class="i18n with-en with-ar">
-    <span lang="en" class="text">{{model.title_en}}</span>
-    <span lang="ar" class="text">{{model.title_ar}}</span>
-    <span class="toggle"><span lang="en">EN</span><span lang="ar">AR</span></span></span></h2>
+      {{#if model.title_en}}
+        <p>{{model.title_en}}</p>
+      {{/if}}
+      {{#if model.title_ar}}
+        <p>{{model.title_ar}}</p>
+      {{/if}}
+    </h2>
   </div>
   <div class="span-66p">
     <div class="body">
@@ -26,8 +29,14 @@
 
       {{#if model.description_en}}
       <div class="is-description group">
-        <h4>Description</h4>
+        <h4>{{i18n.bulletins.Description}}</h4>
         <div class="description">{{model.description_en}}</div>
+      </div>
+      {{/if}}
+      {{#if model.description_ar}}
+      <div class="is-description group">
+        <h4>{{i18n.bulletins.Description}}</h4>
+        <div class="description">{{model.description_ar}}</div>
       </div>
       {{/if}}
       {{#if model.actors_role}}
@@ -55,19 +64,19 @@
         </div>
         {{#if model.most_recent_status_bulletin}}
         <div class="is-status group">
-          <h4>Update status</h4>
+          <h4>{{i18n.bulletins.update_status}}</h4>
           <div class="status">
             <span class="value">{{model.most_recent_status_bulletin}}</span>
           </div>
         </div>
         {{/if}}
         <div class="is-assigned-to group">
-          <h4>Assigned to</h4>
+          <h4>{{i18n.bulletins.assigned_to}}</h4>
           <div class="assigned-to">
             {{#if model.assigned_user}}
             <span class="value">{{fetchUser model.assigned_user}}</span>
             {{else}}
-            <span class="value">Unassigned</span>
+            <span class="value">{{i18n.bulletins.unassigned}}</span>
             {{/if}}
 
           </div>

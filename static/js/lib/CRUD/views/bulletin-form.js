@@ -20,7 +20,8 @@ define (
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
     // templates/search-templates
-    'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl'
+    'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, _, Backbone, Streams, Mixins,
     ActorSearchView, BulletinSearchView, MediaSearchView, RevisionView,
@@ -28,7 +29,7 @@ define (
     Source, Label, Location,
     // views
     CommentForm, EventForm,
-    bulletinFormTmp) {
+    bulletinFormTmp, i18n) {
     'use strict';
 
     var BulletinFormView,
@@ -62,7 +63,8 @@ define (
       events: {
         'click button#bulletin-action_save': 'saveRequested',
         'click button#clear-user'          : 'clearUser',
-        'click button.do-hide'             : 'requestCloseForm'
+        'click button.do-hide'             : 'requestCloseForm',
+        'change #status'                   : 'onSelectStatus'
       },
 
       // define the fields that will have autocomplete enabled  
@@ -146,6 +148,15 @@ define (
         }
       },
         
+      onSelectStatus: function(evt) {
+        var selected_uri = $(evt.currentTarget).val();
+        var selected = _(Bootstrap.comment_statuses)
+          .chain()
+          .where({resource_uri: selected_uri})
+          .first()
+          .value().comment_status;
+        $('input[name=status]').val(selected);
+      },
       // constructor
       initialize: function(options) {
         this.addi18n();
@@ -301,7 +312,8 @@ define (
       render: function() {
         var html = this.template({
           model: this.model.toJSON(),
-          statuses: Bootstrap.comment_statuses
+          statuses: Bootstrap.comment_statuses,
+          i18n: i18n
         });
         this.$el.html(html);
         return this;

@@ -19,7 +19,7 @@
           <div class="field clear-after hide-multiple">
             <label>Name</label>
             <p class="error-text">
-              Name must be entered
+              {{i18n.actor.Name_must_be_entered}}
             </p>
             <span class="i18n with-en with-ar">
               <div lang="en">
@@ -64,7 +64,7 @@
         <div class="body">
           <div class="group details">
             <div class="field span-33p">
-              <label>Sex</label>
+              <label>{{i18n.actor.Sex}}</label>
               <div id="sex_en" class="button combo">
         
                 <span class="T selected-option">
@@ -79,23 +79,23 @@
         
                 <ul class="options">
                   <li class="option selected">
-                    <span class="text T">Male</span>
+                    <span class="text T">{{i18n.actor.Male}}</span>
                   </li>
                   <li class="option">
-                    <span class="text T">Female</span>
+                    <span class="text T">{{i18n.actor.Female}}</span>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="field span-33p">
-              <label>Child/Adult</label>
+              <label>{{i18n.actor.ChildAdult}}</label>
               <div id="age_en" class="button combo">
         
                 <span class="T selected-option">
                   {{#if model.sex_en}}
                     {{model.age_en}}
                   {{else}}
-                    Age
+                    {{i18n.actor.Age}}
                   {{/if}}
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
@@ -104,23 +104,23 @@
 
                 <ul class="options">
                   <li class="option selected">
-                    <span class="text T">Child</span>
+                    <span class="text T">{{i18n.actor.Child}}</span>
                   </li>
                   <li class="option">
-                    <span class="text T">Adult</span>
+                    <span class="text T">{{i18n.actor.Adult}}</span>
                   </li>
                 </ul>
               </div>
             </div>
             <div class="field span-33p">
-              <label>Civilian/Non-civilian</label>
+              <label>{{i18n.actor.CivilianNoncivilian}}</label>
               <div id="civilian_en" class="button combo">
         
                 <span class="T selected-option">
                   {{#if model.civilian_en}}
                     {{model.civilian_en}}
                   {{else}}
-                    Civilian
+                    {{i18n.actor.Civilian}}
                   {{/if}}
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
@@ -129,10 +129,10 @@
 
                 <ul class="options">
                   <li class="option selected">
-                    <span class="text T">Civilian</span>
+                    <span class="text T">{{i18n.actor.Civilian}}</span>
                   </li>
                   <li class="option">
-                    <span class="text T">Non-civilian</span>
+                    <span class="text T">{{i18n.actor.Noncivilian}}</span>
                   </li>
                 </ul>
               </div>
@@ -141,7 +141,7 @@
 
           <!-- Date of birth -->
           <div class="field clear-after is-birthdate field hide-multiple">
-            <label>Date of birth</label>
+            <label>{{i18n.actor.Date_of_birth}}</label>
             <input type="text" name="DOB" value="{{formDateFormat model.DOB}}"
             class="w-50p actor-field"/>
           </div>
@@ -161,7 +161,7 @@
 
           <!-- Occupation -->
           <div class="field is-occupation">
-            <label>Occupation</label>
+            <label>{{i18n.actor.Occupation}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
                     <input type="text" 
@@ -185,7 +185,7 @@
 
           <!-- Position -->
           <div class="field is-position">
-            <label>Position (rank)</label>
+            <label>{{i18n.actor.Position_rank}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
                     <input type="text" 
@@ -210,7 +210,7 @@
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
-            <label>Ethnicity</label>
+            <label>{{i18n.actor.Ethnicity}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
                     <input type="text" 
@@ -234,7 +234,7 @@
 
           <!-- Nationality -->
           <div class="field is-nationality">
-            <label>Nationality</label>
+            <label>{{i18n.actor.Nationality}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
                     <input type="text" 
@@ -258,7 +258,7 @@
 
           <!-- Religion -->
           <div class="field is-religion">
-            <label>Religion</label>
+            <label>{{i18n.actor.Religion}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
                     <input type="text" 
@@ -282,7 +282,7 @@
 
           <!-- Spoken Dialects -->
           <div class="field is-dialect">
-            <label>Spoken dialects</label>
+            <label>{{i18n.actor.Spoken_dialects}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
                     <input type="text" 
@@ -306,14 +306,14 @@
 
           <!-- Actor Field -->
           <div id="actor-actor-list-block" class="field is-actors">
-            <label>Actors</label>
+            <label>{{i18n.actor.Actors}}</label>
             <div id="actor-actor-search-block" class="search">
               <input type="text" class="with-clear">
               <button class="do-clear">
                 <span>✓</span>
               </button>
               <button class="do-search do-search-embedded actors">
-                <span>Search</span>
+                <span>{{i18n.actor.Search}}</span>
               </button>
             </div>
             <ul class="elements elements-actor">
@@ -327,19 +327,20 @@
           <div id="actor-version-block" class="">
             <div id="actor-status-block" class="field add">
               <p class="error-text">
-                Select a status for this actor
+                {{i18n.actor.Select_a_status_for_this_actor}}
               </p>
-              <label>Status</label>
-              <select name="status" 
+              <label>{{i18n.actor.Status}}</label>
+              <select name="status_uri" 
                       id="status" 
                       class="required actor-field">
-                <option value="">Select Status</option>
+                <option value="">{{i18n.actor.Select_Status}}</option>
                 {{#each statuses}}
                   <option
                     value="{{this.resource_uri}}"
                   >{{this.comment_status}}</option>
                 {{/each}}
               </select>
+              <input class="actor-field" type="hidden" name="status" value="">
             </div>
 
             <div class="clearer"></div>
@@ -347,9 +348,9 @@
             <div id="actor-status-comment" class="add field">
 
               <p class="error-text">
-                Comment field is required
+                {{i18n.actor.Comment_field_is_required}}
               </p>
-              <label>Comment</label>
+              <label>{{i18n.actor.Comment}}</label>
               <textarea 
                 id="comment"
                 name="comment"
@@ -369,15 +370,15 @@
 <div class="footer actions form">
   <div class="when-overlay-expanded">
     <button class="do-collapse-form">
-      <span class="text t">» collapse</span>
+      <span class="text t">» {{i18n.Collapse}}</span>
     </button>
   </div>
   <div class="when-overlay-not_expanded">
     <button class="do-expand-form">
-      <span class="text t">« expand</span>
+      <span class="text t">« {{i18n.Expand}}</span>
     </button>
   </div>
   <button id="expanded-actor-save" class="do-save">
-    <span class="text t">Save</span>
+    <span class="text t">{{i18n.Save}}</span>
   </button>
 </div>

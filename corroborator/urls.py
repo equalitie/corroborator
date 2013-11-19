@@ -28,11 +28,13 @@ urlpatterns = patterns(
         'corroborator_app.views.lookup_incident'),
     url(r'^corroborator/actor/(?P<actor_id>\d+)/(?P<mode>\w+)/$',
         'corroborator_app.views.lookup_actor'),
+
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+
     url(r'^corroborator/aws/(?P<media_name>.+\.[a-zA-Z0-9]{3})$',
         'corroborator_app.views.aws_proxy'),
     url(r'^corroborator/solrproxy/',
         'corroborator_app.views.solr_proxy'),
-
 
 )
 
@@ -43,12 +45,13 @@ urlpatterns = patterns(
 
 # API Resources
 from tastypie.api import Api
-from corroborator_app.api import ActorResource, ActorRoleResource, \
-ActorRelationshipResource, CommentResource, CrimeCategoryResource, \
-IncidentResource, BulletinResource, LabelResource, MediaResource, \
-PredefinedSearchResource, SourceResource, SourceTypeResource, \
-LocationResource, StatusUpdateResource, TimeInfoResource, UserResource, \
-SolrUpdateResource
+from corroborator_app.api import (
+    ActorResource, ActorRoleResource, ActorRelationshipResource,
+    CommentResource, CrimeCategoryResource, IncidentResource,
+    BulletinResource, LabelResource, MediaResource, PredefinedSearchResource,
+    SourceResource, SourceTypeResource, LocationResource, StatusUpdateResource,
+    TimeInfoResource, UserResource, SolrUpdateResource
+)
 
 v1_api = Api(api_name='v1')
 v1_api.register(ActorResource())
@@ -69,6 +72,7 @@ v1_api.register(TimeInfoResource())
 v1_api.register(UserResource())
 v1_api.register(SolrUpdateResource())
 
-urlpatterns += patterns('',
+urlpatterns += patterns(
+    '',
     (r'^api/', include(v1_api.urls)),
 )

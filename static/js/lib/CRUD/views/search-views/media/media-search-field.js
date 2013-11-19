@@ -11,10 +11,11 @@ define (
     'lib/Data/media',
     'lib/CRUD/views/search-views/media/media-result',
     'lib/CRUD/views/search-views/media/media-form',
-    'lib/CRUD/templates/search-templates/media/media-search-field.tpl'
+    'lib/CRUD/templates/search-templates/media/media-search-field.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Media, MediaResult,
-    MediaFormView, mediaSearchTmp) {
+    MediaFormView, mediaSearchTmp, i18n) {
     'use strict';
     var MediaSearchView,
         crudBus = Streams.crudBus,
@@ -232,7 +233,8 @@ define (
           label: this.label,
           multiple: this.multiple,
           entityType: this.entityType,
-          name: this.name
+          name: this.name,
+          i18n: i18n
         });
         this.$el.empty()
                 .append(html);

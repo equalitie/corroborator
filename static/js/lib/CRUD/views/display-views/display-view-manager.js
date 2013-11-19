@@ -13,11 +13,12 @@ define (
     'lib/CRUD/views/display-views/actor/actor-display-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-display-container',
     'lib/CRUD/views/display-views/incident/incident-display-container',
-    'lib/CRUD/templates/display-templates/display-manager.tpl'
+    'lib/CRUD/templates/display-templates/display-manager.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, $, Streams,
     ActorDisplayView, BulletinDisplayView, IncidentDisplayView,
-    displayManagerContainerTmp) {
+    displayManagerContainerTmp, i18n) {
     'use strict';
 
     var DisplayManagerView,
@@ -173,6 +174,7 @@ define (
 
       // render the container
       renderContainer: function(content) {
+        content.i18n = i18n;
         var html = this.template(content);
         this.$el.append(html);
         this.setSelectionEl();

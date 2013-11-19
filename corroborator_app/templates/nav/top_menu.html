@@ -1,3 +1,4 @@
+{% load i18n %}
 <nav class="Header">
   <h1 class="title text T">Corroborator</h1>
   <ul class="user">
@@ -5,26 +6,26 @@
       <a href="/home/" class="text T">{{username}}</a>
       <ul class="when-hover menu">
         <li>
-          <a href="user-settings" class="text T">Settings</a>
+          <a href="user-settings" class="text T">{% trans "Settings" %}</a>
         </li>
         <li>
-          <a href="/logout/" class="text T">Logout</a>
+          <a href="/logout/" class="text T">{% trans "Logout" %}</a>
         </li>
       </ul>
     </li>
   </ul>
   <ul class="sections list-h">
     <li class="current">
-      <a href="/corroborator/" class="text T">Search</a>
+      <a href="/corroborator/" class="text T">{% trans "Search" %}</a>
     </li>
     <li>
-      <a href="/admin/" class="text T">Administration</a>
+      <a href="/admin/" class="text T">{% trans "Administration" %}</a>
     </li>
     <li>
-      <a href="monitoring" class="text T">Monitoring</a>
+      <a href="monitoring" class="text T">{% trans "Monitoring" %}</a>
     </li>
     <li>
-      <a href="monitoring" class="text T">Batch import</a>
+      <a href="monitoring" class="text T">{% trans "Batch import" %}</a>
     </li>
   </ul>
   <div class="clearer">&nbsp;</div>

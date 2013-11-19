@@ -7,14 +7,20 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  
-  return "\n  <div class=\"when-expanded\">\n    <div class=\"actions\">\n      <div class=\"left\">\n        <button class=\"do-relate\">\n          <span class=\"text T\">Relate</span>\n        </button>\n      </div>\n      <div class=\"clearer\">&nbsp;</div>\n    </div>\n  </div>\n  ";
+  var buffer = "", stack1;
+  buffer += "\n  <div class=\"when-expanded\">\n    <div class=\"actions\">\n      <div class=\"left\">\n        <button class=\"do-relate\">\n          <span class=\"text T\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Relate)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n        </button>\n      </div>\n      <div class=\"clearer\">&nbsp;</div>\n    </div>\n  </div>\n  ";
+  return buffer;
   }
 
 function program3(depth0,data) {
   
-  
-  return "\n  <div class=\"when-related\">\n    <div class=\"actions\">\n      <div class=\"right\">\n        <button class=\"do-remove\">\n          <span class=\"text T\"> Remove</span>\n        </button>\n      </div>\n      <div class=\"clearer\"> &nbsp;</div>\n    </div>\n  </div>\n  ";
+  var buffer = "", stack1;
+  buffer += "\n  <div class=\"when-related\">\n    <div class=\"actions\">\n      <div class=\"right\">\n        <button class=\"do-remove\">\n          <span class=\"text T\"> "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Remove)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n        </button>\n      </div>\n      <div class=\"clearer\"> &nbsp;</div>\n    </div>\n  </div>\n  ";
+  return buffer;
   }
 
   buffer += "<div class=\"Incident in-list embedded\">\n  <div class=\"L1\">\n    <div class=\"meta\">\n      <div class=\"score\">\n        <span class=\"value\">"

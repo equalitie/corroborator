@@ -7,9 +7,10 @@ define(
   [
     'backbone', 'underscore', 'jquery', 'moment',
     'lib/CRUD/data/CommentCollection',
-    'lib/CRUD/templates/search-templates/revision/revision-container.tpl'
+    'lib/CRUD/templates/search-templates/revision/revision-container.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function (Backbone, _, $, moment, Comment, revisionContainerTmp) {
+  function (Backbone, _, $, moment, Comment, revisionContainerTmp, i18n) {
   'use strict';
   
   var RevisionView,
@@ -79,7 +80,10 @@ define(
       }
     },
     render: function() {
-      this.$el.html(this.template({comments: this.collection.toJSON()}));
+      this.$el.html(this.template({
+        comments: this.collection.toJSON(),
+        i18n: i18n
+      }));
     },
     updateDisplayContent: function(index) {
       var model       = this.collection.at(index),

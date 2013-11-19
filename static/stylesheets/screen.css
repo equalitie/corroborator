@@ -4433,12 +4433,12 @@ span.status > span {
 }
 
 /* line 16, ../sass/_filters.scss */
-.filter {
+.filter, .filter-drop-down {
   color: #8c8b8a;
   margin-bottom: 0.76923em;
 }
 /* line 19, ../sass/_filters.scss */
-.filter label {
+.filter label, .filter-drop-down label {
   text-transform: uppercase;
   font-weight: bold;
   font-size: 90%;
@@ -4446,11 +4446,11 @@ span.status > span {
   margin-bottom: 3px;
 }
 /* line 27, ../sass/_filters.scss */
-.filter:last-child {
+.filter:last-child, .filter-drop-down:last-child {
   margin-bottom: 0em;
 }
 /* line 30, ../sass/_filters.scss */
-.filter li.option {
+.filter li.option, .filter-drop-down li.option {
   background-color: white;
   padding: 2px;
   padding-left: 5px;

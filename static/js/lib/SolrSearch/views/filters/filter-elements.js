@@ -5,16 +5,18 @@ define(
     'lib/streams',
     // templates
     'lib/SolrSearch/templates/filters/filter-group.tpl',
+    'lib/SolrSearch/templates/filters/dropdown-filter-group.tpl',
     'lib/SolrSearch/templates/filters/single-filter.tpl',
     'lib/SolrSearch/templates/filters/selected-filters.tpl',
     'lib/SolrSearch/templates/filters/selected-filter.tpl',
     'i18n!lib/SolrSearch/nls/dict'
   ],
-  function (_, $, Backbone, Streams, filterGroupTmp, singleFilterTmp,
-    selectedFiltersTmp, selectedFilterTmp, i18n
+  function (_, $, Backbone, Streams, filterGroupTmp, dropdownFilterGroupTmp,
+    singleFilterTmp, selectedFiltersTmp, selectedFilterTmp, i18n
   ) {
     'use strict';
     var FilterGroupView,
+        DropDownFilterGroupView,
         SelectedFilterView,
         SelectedFiltersView,
         FilterView,
@@ -35,6 +37,93 @@ define(
         return value.type === 'filter_event_unload_' + entityType;
       };
     };
+
+    // ### DropDownFilterGroupView
+    // Render a group of filters using an autocomplete drop down style element
+    // used when there are more than 10 filters for a certain group
+    DropDownFilterGroupView = Backbone.View.extend({
+      className: 'filter-drop-down',
+      template : dropdownFilterGroupTmp,
+      initialize: function () {
+        this.collection = this.model.get('collection');
+        this.createAddRemoveListener();
+        this.listenTo(this, 'appended', this.setUpAutoComplete.bind(this));
+        this.listenTo(this, 'appended', this.setUpTooltip.bind(this));
+        this.listenTo(this, 'appended', this.listenForAddRemove.bind(this));
+        this.render();
+      },
+
+      setUpTooltip: function() {
+        this.$el.children('input').tooltip({
+          position: {
+            my: 'left',
+            at: 'right'
+
+          }
+        });
+      },
+
+      // create a method on the view that will enable listening for 
+      // filters coming and going from the collection
+      createAddRemoveListener: function() {
+        this.listenForAddRemove = _.once(
+          function () {
+            this.listenTo(
+              this.collection, 'add', this.setUpAutoComplete.bind(this));
+            this.listenTo(
+              this.collection, 'remove', this.setUpAutoComplete.bind(this));
+          }.bind(this)
+        );
+      },
+
+      // destroy this view and it's subviews
+      onDestroy: function() {
+        this.stopListening();
+      },
+
+      // render the input box and label
+      render: function() {
+        this.$el.html(this.template({
+          i18n: i18n,
+          model: this.model.toJSON()
+        }));
+      },
+
+      // enable the jquery ui autocomplete input
+      setUpAutoComplete: function () {
+        var inputEl = this.$el.children('input');
+        var availableFilters = this.collection.map(function(model, index) {
+          return {
+            label: model.get('displayFilterName'),
+            value: model.get('displayFilterName'),
+            index: index
+          };
+        });
+        $('.filter-' + this.model.get('groupKey')).autocomplete({
+          source: availableFilters,
+          select: this.filterRequested.bind(this, inputEl),
+          delay: 500
+        });
+      },
+
+      // a filter has been selected from the autocomplete box
+      filterRequested: function(inputEl, evt, ui) {
+        var model = this.collection.at(ui.item.index);
+        searchBus.push({
+          type: 'filter_event_' + model.get('type'),
+          content: {
+            filter: model
+          }
+        });
+        // remove the filter from the current collection
+        this.collection.remove(model);
+        // empty the box
+        $(inputEl).val('');
+        // return false to stop it filling the box with the result
+        return false;
+      }
+    });
+
     // ### FilterGroupView
     // Render a group of filters
     FilterGroupView = Backbone.View.extend({
@@ -87,10 +176,8 @@ define(
           model: model,
           collection: this.collection
         });
-        if (model.get('numItems') > 5) {
-          this.$el.children('ul')
-                  .append(filterView.$el);
-        }
+        this.$el.children('ul')
+                .append(filterView.$el);
         return filterView;
       }
     });
@@ -269,6 +356,7 @@ define(
     return {
       FilterView: FilterView,
       FilterGroupView: FilterGroupView,
+      DropDownFilterGroupView: DropDownFilterGroupView,
       SelectedFiltersView: SelectedFiltersView
     };
   }

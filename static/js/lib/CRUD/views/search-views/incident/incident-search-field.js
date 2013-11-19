@@ -10,10 +10,11 @@ define (
     'lib/elements/select-option',
     'lib/Data/incident',
     'lib/CRUD/views/search-views/incident/incident-result',
-    'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl'
+    'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, Backbone, _, Streams, SelectOptionView, Incident, IncidentResult,
-    incidentSearchTmp) {
+    incidentSearchTmp, i18n) {
     'use strict';
     var IncidentSearchView,
         crudBus = Streams.crudBus,
@@ -207,7 +208,8 @@ define (
       //render the input field and buttons
       render: function() {
         var html = this.template({
-          entityType: this.entityType
+          entityType: this.entityType,
+          i18n: i18n
         });
         this.$el.empty()
                 .append(html);

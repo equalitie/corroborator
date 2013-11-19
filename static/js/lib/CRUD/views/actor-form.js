@@ -15,10 +15,11 @@ define (
     'lib/CRUD/views/search-views/revision/revision-view',
     'lib/CRUD/data/LocationCollection',
     // templates
-    'lib/CRUD/templates/search-templates/actor/actor.tpl'
+    'lib/CRUD/templates/search-templates/actor/actor.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
-    RevisionView, Location, actorFormTmp) {
+    RevisionView, Location, actorFormTmp, i18n) {
     'use strict';
 
     var ActorFormView,
@@ -40,7 +41,8 @@ define (
       events: {
         'click button#actor-action_save'  : 'saveRequested',
         'click button#expanded-actor-save': 'saveRequested',
-        'click button.do-hide'            : 'requestCloseForm'
+        'click button.do-hide'            : 'requestCloseForm',
+        'change #status'                  : 'onSelectStatus'
       },
 
       // keys for date fields, these need to be validated and removed
@@ -142,6 +144,15 @@ define (
         }
         this.sendResizeEvent();
       },
+      onSelectStatus: function(evt) {
+        var selected_uri = $(evt.currentTarget).val();
+        var selected = _(Bootstrap.comment_statuses)
+          .chain()
+          .where({resource_uri: selected_uri})
+          .first()
+          .value().comment_status;
+        $('input[name=status]').val(selected);
+      },
       hideMultipleElements: function() {
         $('.hide-multiple').remove();
       },
@@ -211,7 +222,8 @@ define (
       render: function() {
         var html = this.template({
           model: this.model.toJSON(),
-          statuses: Bootstrap.comment_statuses
+          statuses: Bootstrap.comment_statuses,
+          i18n: i18n
           });
         this.$el.html(html);
         return this;

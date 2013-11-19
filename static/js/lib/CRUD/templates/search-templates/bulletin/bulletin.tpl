@@ -15,9 +15,9 @@
           {{/if}}
           <div class="field is-title hide-multiple">
             <p class="error-text">
-              Title field is required
+              {{i18n.bulletin.Title_field_is_required}}
             </p>
-            <label>Title</label>
+            <label>{{i18n.bulletin.Title}}</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
               <textarea 
@@ -28,7 +28,7 @@
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
-              <label>Title</label>
+              <label>{{i18n.bulletin.Title}}</label>
               <textarea 
                 id="incident_title_ar"
                 name="title_ar"
@@ -49,7 +49,7 @@
 
             <!-- score slider -->
             <div id="bulletin-score-block" class="is-score right">
-              <label>Score</label>
+              <label>{{i18n.bulletin.Score}}</label>
               <div class="score">
 
                 <span id="bulletin_confidence_score" class="value">{{model.confidence_score}}</span>
@@ -85,7 +85,7 @@
 
           <!-- Assigned to field name='assigned_user' -->
             <div id="bulletin-assignment-block" class="bulletinAssigned  left">
-              <label>Assigned to</label>
+              <label>{{i18n.bulletin.Assigned_to}}</label>
 
               <input type="text" class="with-clear is-assigned-to" value="{{model.bulletin_assigned_user}}">
               <input type="hidden" 
@@ -114,7 +114,7 @@
         
           <!-- description -->
           <div id="bulletin-description-block" class="field is-description hide-multiple">
-            <label>Description</label>
+            <label>{{i18n.bulletin.Description}}</label>
             <div class="i18n with-en with-ar">
               <div lang="en">
                 <textarea id="bulletin_description_en"
@@ -175,28 +175,29 @@
         <div id="bulletin-version-block" class="">
           <div id="bulletin-status-block" class="field add">
             <p class="error-text">
-              Select a status for this bulletin
+              {{i18n.bulletin.Select_a_status_for_this_bulletin}}
             </p>
             <label>Status</label>
-            <select name="status" 
+            <select name="status_uri" 
                     id="status" 
                     class="required bulletin-field">
-              <option value="">Select Status</option>
+              <option value="">{{i18n.bulletin.Select_Status}}</option>
               {{#each statuses}}
                 <option
                   value="{{this.resource_uri}}"
                 >{{this.comment_status}}</option>
               {{/each}}
             </select>
+          <input class="bulletin-field" type="hidden" name="status" value="">
           </div>
 
           <div class="clearer"></div>
           <!-- Comment content field -->
           <div id="bulletin-status-comment-block" class="field add">
             <p class="error-text">
-              Comment field is required
+              {{i18n.bulletin.Comment_field_is_required}}
             </p>
-            <label>Comment</label>
+            <label>{{i18n.bulletin.Comment}}</label>
             <textarea 
               id="comment"
               name="comment"
@@ -215,16 +216,16 @@
     <div class="actions form when-not_revision">
       <div class="when-overlay-expanded">
         <button class="do-collapse-form">
-          <span class="text t">» collapse</span>
+          <span class="text t">» {{i18n.Collapse}}</span>
         </button>
       </div>
       <div class="when-overlay-not_expanded">
         <button class="do-expand-form">
-          <span class="text t">« expand</span>
+          <span class="text t">« {{i18n.Expand}}</span>
         </button>
       </div>
       <button id="bulletin-action_save" class="do-save">
-        <span class="text t">Save</span>
+        <span class="text t">{{i18n.Save}}</span>
       </button>
     </div>
   </div>

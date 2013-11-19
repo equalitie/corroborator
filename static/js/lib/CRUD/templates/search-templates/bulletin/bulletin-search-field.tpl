@@ -1,8 +1,8 @@
-<label>Related bulletins</label>
+<label>{{i18n.bulletin.Related_bulletins}}</label>
 <div class="search">
   <input type="text" class="with-clear"/>
   <button class="do-clear"><span>✓</span></button>
-  <button class="do-search-embedded bulletins"><span>Search</span></button>
+  <button class="do-search-embedded bulletins"><span>{{i18n.Search}}</span></button>
 </div>
 <ul class="elements elements-bulletins-bulletins">
 

@@ -9,6 +9,6 @@
   <a href="#" class="T {{navValue}} sort-status">{{i18n.sort.status}}</a>
 </th>
 <th class="is-score sort-header">
-  <a href="#" class="T {{navValue}} sort-score">{{i18m.sort.score}}</a>
+  <a href="#" class="T {{navValue}} sort-score">{{i18n.sort.score}}</a>
 </th>
 

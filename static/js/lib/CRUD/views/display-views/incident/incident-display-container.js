@@ -14,11 +14,12 @@ define (
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
     'lib/CRUD/templates/display-templates/incident-display.tpl',
-    'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl'
+    'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, CoordinateDisplayView,
     CommentListView, EventListView, ActorListView, BulletinListView,
-    IncidentListView, incidentDisplayTmp, expandedIncidentDisplayTmp) {
+    IncidentListView, incidentDisplayTmp, expandedIncidentDisplayTmp, i18n) {
     'use strict';
 
     var IncidentDisplayView,
@@ -183,7 +184,8 @@ define (
         this.destroyChildren();
         this.$el.children().remove();
         var html = this.template({
-          model: this.model.toJSON()
+          model: this.model.toJSON(),
+          i18n: i18n
         });
         this.$el.html(html);
         return this;

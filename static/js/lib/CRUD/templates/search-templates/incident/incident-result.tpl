@@ -26,7 +26,7 @@
     <div class="actions">
       <div class="left">
         <button class="do-relate">
-          <span class="text T">Relate</span>
+          <span class="text T">{{i18n.incident.Relate}}</span>
         </button>
       </div>
       <div class="clearer">&nbsp;</div>
@@ -38,7 +38,7 @@
     <div class="actions">
       <div class="right">
         <button class="do-remove">
-          <span class="text T"> Remove</span>
+          <span class="text T"> {{i18n.incident.Remove}}</span>
         </button>
       </div>
       <div class="clearer"> &nbsp;</div>

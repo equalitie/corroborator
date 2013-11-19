@@ -1,12 +1,12 @@
 <div class="actions">
   <button class="do-remove-event is-small">
     <span aria-hidden="true" data-icon="&#x58;"></span>
-    <span class="screen-reader-text">Remove</span>
+    <span class="screen-reader-text">{{i18n.event.Remove}}</span>
   </button>
 
   <button class="do-edit-event is-small">
     <span aria-hidden="true" data-icon="e"></span>
-    <span class="screen-reader-text">Edit</span>
+    <span class="screen-reader-text">{{i18n.Edit}}</span>
   </button>
 
 </div>
@@ -15,7 +15,7 @@
   <div class="time">
   {{#if model.time_from}}
     {{#if model.time_to}}
-      from 
+      {{i18n.event.from}} 
     {{/if}}
   {{/if}}
   {{#if model.time_from}}
@@ -23,7 +23,7 @@
   {{/if}}
   {{#if model.time_from}}
     {{#if model.time_to}}
-     to 
+     {{i18n.event.to}} 
     {{/if}}
   {{/if}}
   {{#if model.time_to}}

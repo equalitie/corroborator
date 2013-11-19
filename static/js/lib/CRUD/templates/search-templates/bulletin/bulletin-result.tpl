@@ -24,13 +24,13 @@
       <div class="date-location">
         <span class="date">{{dateFormat model.bulletin_created}}</span>
       {{#if model.location.[0] }}
-        in <span class="location">{{ model.location.[0]}}</span>
+        {{i18n.bulletin.in}} <span class="location">{{ model.location.[0]}}</span>
       {{/if}}
       </div>
       {{#if model.count_actors}}
       <div class="involved">
         <span class="actors-count">{{model.count_actors}}</span>
-        actors involved
+        {{i18n.bulletin.actors_involved}}
       </div>
       {{/if}}
     </div>
@@ -39,7 +39,7 @@
       <div class="actions">
         <div class="left">
           <button class="do-relate">
-            <span class="text T">Relate</span>
+            <span class="text T">{{i18n.bulletin.Relate}}</span>
           </button>
         </div>
         <div class="clearer">&nbsp;</div>
@@ -51,7 +51,7 @@
       <div class="actions">
         <div class="right">
           <button class="do-remove">
-            <span class="text T"> Remove</span>
+            <span class="text T">{{i18n.bulletin.Remove}}</span>
           </button>
         </div>
         <div class="clearer"> &nbsp;</div>

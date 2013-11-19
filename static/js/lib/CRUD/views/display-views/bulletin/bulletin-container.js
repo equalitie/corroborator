@@ -9,10 +9,10 @@ define (
     'lib/Data/bulletin',
     'lib/elements/views/CollectionViews',
     'lib/CRUD/templates/display-templates/bulletins/bulletin-container.tpl',
-    'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl'
-
+    'lib/CRUD/templates/display-templates/bulletins/bulletin.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function (Backbone, Bulletin, CollectionViews, bulletinContainerTmp, bulletinTmp) {
+  function (Backbone, Bulletin, CollectionViews, bulletinContainerTmp, bulletinTmp, i18n) {
     'use strict';
 
     var ListLoadView = CollectionViews.ListLoadView,
@@ -21,6 +21,9 @@ define (
         BulletinModel = Bulletin.BulletinModel;
 
     BulletinView = ModelView.extend({
+      templateVars: {
+        i18n: i18n
+      },
       className: 'related-bulletin',
       template: bulletinTmp
     });
@@ -28,6 +31,9 @@ define (
     // ### BulletinListView
     // Display a list of bulletins
     BulletinListView = ListLoadView.extend({
+      templateVars: {
+        i18n: i18n
+      },
       childViews: [],
       modelType: BulletinModel,
       childView: BulletinView,

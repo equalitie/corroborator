@@ -13,6 +13,9 @@ from corroborator_app.tests.api.LocationApiTest import *
 from corroborator_app.tests.api.BulletinApiTest import *
 from corroborator_app.tests.api.IncidentApiTest import *
 
+from corroborator_app.tests.authproxy.AWSProxyTest import *
+from corroborator_app.tests.authproxy.SolrProxyTest import *
+
 from corroborator_app.tests.multisave.test_multisave_actor import\
     MultiSaveActorTestCase
 from corroborator_app.tests.multisave.test_multisave_bulletin import\

@@ -34,14 +34,15 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/sort/sort.tpl.js'       : 'lib/SolrSearch/templates/sort/sort.tpl',
           'lib/SolrSearch/templates/sort/sort-actors.tpl.js': 'lib/SolrSearch/templates/sort/sort-actors.tpl',
           // filters
-          'lib/SolrSearch/templates/filters/filter-group.tpl.js'    : 'lib/SolrSearch/templates/filters/filter-group.tpl',
-          'lib/SolrSearch/templates/filters/single-filter.tpl.js'   : 'lib/SolrSearch/templates/filters/single-filter.tpl',
-          'lib/SolrSearch/templates/filters/incident-filters.tpl.js': 'lib/SolrSearch/templates/filters/incident-filters.tpl',
-          'lib/SolrSearch/templates/filters/actor-filters.tpl.js'   : 'lib/SolrSearch/templates/filters/actor-filters.tpl',
-          'lib/SolrSearch/templates/filters/bulletin-filters.tpl.js': 'lib/SolrSearch/templates/filters/bulletin-filters.tpl',
-          'lib/SolrSearch/templates/filters/selected-filters.tpl.js': 'lib/SolrSearch/templates/filters/selected-filters.tpl',
-          'lib/SolrSearch/templates/filters/date-range.tpl.js'      : 'lib/SolrSearch/templates/filters/date-range.tpl',
-          'lib/SolrSearch/templates/filters/selected-filter.tpl.js' : 'lib/SolrSearch/templates/filters/selected-filter.tpl',
+          'lib/SolrSearch/templates/filters/filter-group.tpl.js'         : 'lib/SolrSearch/templates/filters/filter-group.tpl',
+          'lib/SolrSearch/templates/filters/dropdown-filter-group.tpl.js': 'lib/SolrSearch/templates/filters/dropdown-filter-group.tpl',
+          'lib/SolrSearch/templates/filters/single-filter.tpl.js'        : 'lib/SolrSearch/templates/filters/single-filter.tpl',
+          'lib/SolrSearch/templates/filters/incident-filters.tpl.js'     : 'lib/SolrSearch/templates/filters/incident-filters.tpl',
+          'lib/SolrSearch/templates/filters/actor-filters.tpl.js'        : 'lib/SolrSearch/templates/filters/actor-filters.tpl',
+          'lib/SolrSearch/templates/filters/bulletin-filters.tpl.js'     : 'lib/SolrSearch/templates/filters/bulletin-filters.tpl',
+          'lib/SolrSearch/templates/filters/selected-filters.tpl.js'     : 'lib/SolrSearch/templates/filters/selected-filters.tpl',
+          'lib/SolrSearch/templates/filters/date-range.tpl.js'           : 'lib/SolrSearch/templates/filters/date-range.tpl',
+          'lib/SolrSearch/templates/filters/selected-filter.tpl.js'      : 'lib/SolrSearch/templates/filters/selected-filter.tpl',
 
           // Navigation
           'lib/Navigation/templates/search-help.tpl.js': 'lib/Navigation/templates/search-help.tpl',
@@ -231,7 +232,7 @@ module.exports = function(grunt) {
       files: [
         '<%= jshint.files %>',
         'lib/elements/templates/*.tpl',
-        'lib/SolrSearch/templates/*.tpl',
+        'lib/SolrSearch/templates/**/*.tpl',
         'lib/CRUD/templates/search-templates/*.tpl',
         'lib/CRUD/templates/search-templates/*/*.tpl',
         'lib/CRUD/templates/display-templates/*.tpl',

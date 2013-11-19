@@ -4,13 +4,13 @@
   <td class="is-preview">&nbsp;</td>
   <td class="is-description">
     <a href="#incident/{{model.id}}">
-      <div class="title text i18n">
-         
-        <div lang="en">{{model.title_en}}</div>
-        <div lang="ar">{{model.title_ar}}</div>
-        <span class="toggle">
-          <span lang="en">EN</span><span lang="ar">AR</span>
-        </span>
+      <div class="title text">
+        {{#if model.title_en }}
+        <span >{{model.title_en}}</span>
+        {{/if}}
+        {{#if model.title_ar }}
+        <span >{{model.title_ar}}</span>
+        {{/if}}
       </div>
       <div class="meta text">
         {{#if model.actors.length}}

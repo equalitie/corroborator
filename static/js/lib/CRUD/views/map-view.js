@@ -8,9 +8,10 @@ define (
     'backbone', 'jquery', 'underscore', 'leaflet',
     'lib/streams',
     'lib/CRUD/data/LocationCollection',
-    'lib/CRUD/templates/map-container.tpl'
+    'lib/CRUD/templates/map-container.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function (Backbone, $, _, L, Streams, Location, mapContainerTmp) {
+  function (Backbone, $, _, L, Streams, Location, mapContainerTmp, i18n) {
     'use strict';
 
     var CoordinateDisplayView,
@@ -163,7 +164,9 @@ define (
 
       // render the map container
       render: function() {
-        var html = mapContainerTmp();
+        var html = mapContainerTmp({
+         i18n: i18n 
+        });
         this.$el.append(html)
                 .addClass(this.className);
         return this;

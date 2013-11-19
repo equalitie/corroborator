@@ -10,10 +10,11 @@ define (
     'lib/elements/views/ScrollViewMixin',
     'lib/CRUD/views/search-views/results',
     'lib/CRUD/views/search-views/actor/actor-result',
-    'lib/CRUD/templates/search-templates/embedded-results.tpl'
+    'lib/CRUD/templates/search-templates/embedded-results.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Streams, ScrollViewMixin, Results, ActorResult,
-    embeddedResultsTmp) {
+    embeddedResultsTmp, i18n) {
     'use strict';
     var EmbeddedSearchResultsView = Results.EmbeddedSearchResultsView,
         ActorResultsView,
@@ -86,6 +87,7 @@ define (
       // render a container to hold the results
       render: function() {
         var html = this.template({
+          i18n: i18n,
           entityType: this.entityType
         });
         this.$el.append(html);

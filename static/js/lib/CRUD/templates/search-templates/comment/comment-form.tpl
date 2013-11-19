@@ -5,7 +5,7 @@
 
   <div class="i18n with-en with-ar">
       <div lang="en">
-      <label>Comment</label>
+      <label>{{i18n.comment.Comment}}</label>
         <textarea 
           id="comments_en"
           name="comments_en"
@@ -28,5 +28,5 @@
 
 
 <button class="do-addComment">
-  <span class="T">Save comment</span>
+  <span class="T">{{i18n.comment.Save_comment}}</span>
 </button>

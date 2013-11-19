@@ -2,7 +2,7 @@
 (function(requirejs) {
   'use strict';
   requirejs.config({
-    'locale': Bootstrap.locale,
+    'locale': 'en',
     'paths': {
       'i18n'           : 'components/requirejs-i18n/i18n',
       'lib'            : 'lib',

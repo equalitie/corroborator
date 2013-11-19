@@ -14,12 +14,13 @@ define (
     'lib/CRUD/views/display-views/comment/comment-container',
     'lib/CRUD/views/map-view',
     'lib/CRUD/templates/display-templates/bulletin-display.tpl',
-    'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl'
+    'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, 
     ActorListView, BulletinListView, IncidentListView, MediaListView,
     CommentListView, CoordinateDisplayView, bulletinDisplayTmp,
-    expandedBulletinDisplayTmp) {
+    expandedBulletinDisplayTmp, i18n) {
     'use strict';
 
     var BulletinDisplayView,
@@ -33,6 +34,7 @@ define (
       template: bulletinDisplayTmp,
       childViews: [],
       initialize: function(options) {
+        console.log('init bulletin display');
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
@@ -205,7 +207,8 @@ define (
         this.destroyChildren();
         this.$el.children().remove();
         var html = this.template({
-          model: this.model.toJSON()
+          model: this.model.toJSON(),
+          i18n: i18n
         });
         this.$el.html(html);
         return this;

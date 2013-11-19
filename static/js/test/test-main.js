@@ -16,6 +16,7 @@
       'lib'            : 'lib',
       'test'           : 'test',
       //'main'           : 'main',
+      'i18n'           : 'components/requirejs-i18n/i18n',
       'jquery'         : 'components/jquery/jquery',
       'jasmine_jquery' : 'components/jasmine-jquery/lib/jasmine-jquery',
       'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui',

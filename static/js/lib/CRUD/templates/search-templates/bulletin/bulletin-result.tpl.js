@@ -17,7 +17,9 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        in <span class=\"location\">"
+  buffer += "\n        "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1['in'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <span class=\"location\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.location)),stack1 == null || stack1 === false ? stack1 : stack1[0])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n      ";
   return buffer;
@@ -28,20 +30,28 @@ function program5(depth0,data) {
   var buffer = "", stack1;
   buffer += "\n      <div class=\"involved\">\n        <span class=\"actors-count\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_actors)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n        actors involved\n      </div>\n      ";
+    + "</span>\n        "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.actors_involved)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n      </div>\n      ";
   return buffer;
   }
 
 function program7(depth0,data) {
   
-  
-  return "\n    <div class=\"when-expanded\">\n      <div class=\"actions\">\n        <div class=\"left\">\n          <button class=\"do-relate\">\n            <span class=\"text T\">Relate</span>\n          </button>\n        </div>\n        <div class=\"clearer\">&nbsp;</div>\n      </div>\n    </div>\n    ";
+  var buffer = "", stack1;
+  buffer += "\n    <div class=\"when-expanded\">\n      <div class=\"actions\">\n        <div class=\"left\">\n          <button class=\"do-relate\">\n            <span class=\"text T\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.Relate)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n          </button>\n        </div>\n        <div class=\"clearer\">&nbsp;</div>\n      </div>\n    </div>\n    ";
+  return buffer;
   }
 
 function program9(depth0,data) {
   
-  
-  return "\n    <div class=\"when-related\">\n      <div class=\"actions\">\n        <div class=\"right\">\n          <button class=\"do-remove\">\n            <span class=\"text T\"> Remove</span>\n          </button>\n        </div>\n        <div class=\"clearer\"> &nbsp;</div>\n      </div>\n    </div>\n    ";
+  var buffer = "", stack1;
+  buffer += "\n    <div class=\"when-related\">\n      <div class=\"actions\">\n        <div class=\"right\">\n          <button class=\"do-remove\">\n            <span class=\"text T\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.Remove)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n          </button>\n        </div>\n        <div class=\"clearer\"> &nbsp;</div>\n      </div>\n    </div>\n    ";
+  return buffer;
   }
 
   buffer += "<div class=\"Bulletin in-list embedded\">\n  <div class=\"content\">\n    <div class=\"L1\">\n      <div class=\"meta\">\n        <div class=\"score\">\n          <span class=\"value\">"

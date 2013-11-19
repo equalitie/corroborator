@@ -12,12 +12,12 @@
         {{/if}}
       </div>
       <div class="title i18n">
-         
-        <span lang="en">{{model.title_en}}</span>
-        <span lang="ar">{{model.title_ar}}</span>
-        <span class="toggle">
-          <span lang="en">EN</span><span lang="ar">AR</span>
-        </span>
+        {{#if model.title_en}}
+          <p>{{model.title_en}}</p>
+        {{/if}}
+        {{#if model.title_ar}}
+          <p>{{model.title_ar}}</p>
+        {{/if}}
       </div>
     </div>
     <div class="L3">

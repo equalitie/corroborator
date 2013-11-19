@@ -8,8 +8,9 @@ define (
     'jquery', 'backbone',
     'lib/streams',
     'lib/CRUD/templates/search-templates/actor/actor-result.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function ($, Backbone, Streams, actorResultTmp) {
+  function ($, Backbone, Streams, actorResultTmp, i18n) {
     'use strict';
 
     var ActorResultView,
@@ -94,6 +95,7 @@ define (
         this.resetFlags();
         this.model.set(this.type, true);
         var templateVars = {
+          i18n: i18n,
           model: this.model.toJSON(),
           roles: roleMap[this.fieldName],
           fieldName: this.fieldName

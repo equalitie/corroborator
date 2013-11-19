@@ -1,6 +1,6 @@
   <div class="header">
     <button class="do-hide is-small">
-      <span class="T">close</span>
+      <span class="T">{{i18n.bulletin.close}}</span>
     </button>
   </div>
   <div class="body" style="bottom: 49px;">
@@ -38,7 +38,7 @@
         
           <!-- description -->
           <div id="bulletin-description-block" class="field is-description">
-            <label>Description</label>
+            <label>{{i18n.bulletin.Description}}</label>
             <div class="i18n with-en with-ar">
               <div lang="en">
                 <textarea id="bulletin_description_en"
@@ -77,7 +77,7 @@
 
               <!-- score slider -->
               <div id="bulletin-score-block" class="is-score right">
-                <label>Score</label>
+                <label>{{i18n.bulletin.Score}}</label>
                 <div class="score">
 
                   <span id="bulletin_confidence_score" class="value">0</span>
@@ -113,7 +113,7 @@
 
             <!-- Assigned to field name='assigned_user' -->
               <div id="bulletin-assignment-block" class="bulletinAssigned  left">
-                <label>Assigned to</label>
+                <label>{{i18n.bulletin.Assigned_to}}</label>
 
                 <input type="text" class="with-clear is-assigned-to" value="{{model.bulletin_assigned_user}}">
                 <input type="hidden" 
@@ -155,7 +155,7 @@
       <div class="col first span-33p">
         <div class="body">
           <div class="field is-revision">
-            <label for="revision" class="T">Revision</label>
+            <label for="revision" class="T">{{i18n.bulletin.Revision}}</label>
             <div class="revision clear-after w-100p">
               <span class="number">3</span>
               <span>by John Doe, March 24th 2013</span>

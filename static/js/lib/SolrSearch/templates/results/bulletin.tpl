@@ -5,11 +5,12 @@
   <td class="is-description">
     <a href="#bulletin/{{model.id}}">
       <div class="title text i18n">
-        <span lang="en">{{model.title_en}}</span>
-        <span lang="ar">{{model.title_ar}}</span>
-        <span class="toggle">
-          <span lang="en">EN</span><span lang="ar">AR</span>
-        </span>
+        {{#if model.title_en }}
+        <span >{{model.title_en}}</span>
+        {{/if}}
+        {{#if model.title_ar }}
+        <span >{{model.title_ar}}</span>
+        {{/if}}
       </div>
       <div class="meta text">
         {{#if model.actors.length}}

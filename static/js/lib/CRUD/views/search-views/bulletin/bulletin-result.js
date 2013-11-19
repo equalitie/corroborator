@@ -8,8 +8,9 @@ define (
     'jquery', 'backbone',
     'lib/streams',
     'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function ($, Backbone, Streams, bulletinResultTmp) {
+  function ($, Backbone, Streams, bulletinResultTmp, i18n) {
     'use strict';
 
     var BulletinResultView,
@@ -67,6 +68,7 @@ define (
         this.model.set(this.type, true);
         var templateVars = {
           model: this.model.toJSON(),
+          i18n: i18n
         };
         var html = this.template(templateVars);
         this.$el.append(html);

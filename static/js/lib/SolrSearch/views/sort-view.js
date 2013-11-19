@@ -153,8 +153,10 @@ define (
         };
         createNavProperty()
           .onValue(function(value) {
-            self.navValue = value.navValue;
-            self.render();
+            if (self.navValue !== value.navValue) {
+              self.navValue = value.navValue;
+              self.render();
+            }
           });
       },
 
@@ -197,7 +199,6 @@ define (
       },
       render: function() {
         this.template = this.templateMap(this.navValue);
-        console.log(this.navValue);
         var html = this.template({
           navValue: this.navValue,
           i18n: i18n

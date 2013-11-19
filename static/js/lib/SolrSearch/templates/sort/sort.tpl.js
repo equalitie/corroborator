@@ -23,7 +23,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   else { stack2 = depth0.navValue; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
     + " sort-score\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18m),stack1 == null || stack1 === false ? stack1 : stack1.sort)),stack1 == null || stack1 === false ? stack1 : stack1.score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.sort)),stack1 == null || stack1 === false ? stack1 : stack1.score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</a>\n</th>\n\n";
   return buffer;
   })

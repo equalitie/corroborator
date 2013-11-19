@@ -13,11 +13,11 @@ define (
     'lib/CRUD/data/CommentCollection',
     'lib/CRUD/templates/search-templates/comment/comment-container.tpl',
     'lib/CRUD/templates/search-templates/comment/comment-form.tpl',
-    'lib/CRUD/templates/search-templates/comment/comment-display.tpl'
+    'lib/CRUD/templates/search-templates/comment/comment-display.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, $, SelectOptionView, Mixins, CommentData,
-    commentContainerTmp, commentFormTmp, commentDisplayTmp
-    ) {
+    commentContainerTmp, commentFormTmp, commentDisplayTmp, i18n) {
     'use strict';
 
     var CommentFormView,
@@ -115,7 +115,8 @@ define (
       // render the container
       render: function() {
         var html = this.template({
-          entityType: this.entityType
+          entityType: this.entityType,
+          i18n: i18n
         });
         this.$el.append(html);
         return this;

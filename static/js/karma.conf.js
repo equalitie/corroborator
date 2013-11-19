@@ -46,6 +46,7 @@ module.exports = function(config) {
       {pattern: 'components/jasmine-jquery/lib/jasmine-jquery.js', included: false},
       {pattern: 'components/jquery.ui/dist/jquery-ui.js', included: false},
 
+      {pattern: 'components/requirejs-i18n/i18n.js', included: false},
       {pattern: 'components/jquery-form/jquery.form.js', included: false},
       {pattern: 'components/jquery-timepicker-addon/jquery-ui-timepicker-addon.js', included: false},
       {pattern: 'components/jquery-timepicker-addon/jquery-ui-sliderAccess.js', included: false},

@@ -1,4 +1,4 @@
-<label>Related incidents</label>
+<label>{{i18n.incident.Related_incidents}}</label>
 <div class="search">
   <input type="text" class="with-clear"/>
   <button class="do-clear"><span>✓</span></button>

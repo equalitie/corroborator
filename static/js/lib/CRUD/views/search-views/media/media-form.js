@@ -9,9 +9,10 @@ define (
   [
     'backbone', 'jquery', 'lib/streams',
     'lib/Data/media',
-    'lib/CRUD/templates/search-templates/media/media-form.tpl'
+    'lib/CRUD/templates/search-templates/media/media-form.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function (Backbone, $, Streams, Media,  mediaFormTmp) {
+  function (Backbone, $, Streams, Media,  mediaFormTmp, i18n) {
     'use strict';
     var MediaFormView,
         crudBus = Streams.crudBus,
@@ -52,7 +53,8 @@ define (
         var html = this.template({
           mediaTypes: mediaTypes,
           username  : Bootstrap.username,
-          apiKey    : Bootstrap.apiKey
+          apiKey    : Bootstrap.apiKey,
+          i18n      : i18n
         });
         this.$el.html(html);
         this.openDialog();

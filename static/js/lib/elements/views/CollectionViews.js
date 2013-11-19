@@ -96,7 +96,10 @@ define (
       // render the model with template vars hung off model,
       // and set the html of this view to be the result
       render: function() {
-        var html = this.template({model: this.model.toJSON()});
+        var html = this.template({
+          model: this.model.toJSON(),
+          i18n: this.templateVars.i18n
+        });
         this.$el.html(html);
         this.selectInitialLanguage();
       }

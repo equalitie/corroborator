@@ -6,14 +6,15 @@
 
 define (
   [
-    'underscore',
+    'underscore', 'backbone',
     'lib/SolrSearch/views/filters/filter-elements'
   ],
-  function (_, FilterElements) {
+  function (_, Backbone, FilterElements) {
     'use strict';
 
     // ### FilterViewMixin
     var FilterGroupView = FilterElements.FilterGroupView,
+        DropDownFilterGroupView = FilterElements.DropDownFilterGroupView,
         FilterViewMixin = {
           
         
@@ -48,17 +49,18 @@ define (
               this.collection.map(this.renderGroup, this);
           },
 
-          // render a filter group
+          // render a filter group, a drop down selector if the group is
+          // greater than 10 elements long
           renderGroup: function(model) {
-            var filterGroupView = new FilterGroupView({
-              model: model
-            });
-            // 
+            var filterGroupView = model.get('collection').length > 10 ?
+              new DropDownFilterGroupView({ model: model }) :
+              new FilterGroupView({ model: model });
             this.$el.children()
                     .children()
                     .children()
                     .children('.filter-groups')
                     .prepend(filterGroupView.$el);
+            filterGroupView.trigger('appended');
             return filterGroupView;
           }
         };

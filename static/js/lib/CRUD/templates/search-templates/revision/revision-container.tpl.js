@@ -19,12 +19,16 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "<div class=\"version-dropdown\"></div>\n<div class=\"version-description\">\n  <label>REVISIONS</label>\n\n  <div class=\"drop-down-container\">\n    <p class=\"selected-revision-label\">\n      "
+  buffer += "<div class=\"version-dropdown\"></div>\n<div class=\"version-description\">\n  <label>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.revision)),stack1 == null || stack1 === false ? stack1 : stack1.REVISIONS)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n\n  <div class=\"drop-down-container\">\n    <p class=\"selected-revision-label\">\n      "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.comments),stack1 == null || stack1 === false ? stack1 : stack1[0])),stack1 == null || stack1 === false ? stack1 : stack1.status_label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " - ";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = ((stack1 = depth0.comments),stack1 == null || stack1 === false ? stack1 : stack1[0])),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = ((stack1 = depth0.comments),stack1 == null || stack1 === false ? stack1 : stack1[0])),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options)))
-    + "</p>\n    <button class=\"drop-down-handle\">\n      <span aria-hidden=\"true\" data-icon=\"d\"></span>\n      <span class=\"screen-reader-text\">show revision list</span>\n    </button>\n\n    <ul class=\"all-revisions hidden\">\n      ";
+    + "</p>\n    <button class=\"drop-down-handle\">\n      <span aria-hidden=\"true\" data-icon=\"d\"></span>\n      <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.revision)),stack1 == null || stack1 === false ? stack1 : stack1.show_revision_list)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </button>\n\n    <ul class=\"all-revisions hidden\">\n      ";
   stack2 = helpers.each.call(depth0, depth0.comments, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    </ul>\n  </div>\n\n  <textarea \n    class=\"version-description-text\"\n    disabled=\"true\"\n    cols=\"50\"\n    rows=\"10\">"

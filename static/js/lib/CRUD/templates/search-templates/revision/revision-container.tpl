@@ -1,13 +1,13 @@
 <div class="version-dropdown"></div>
 <div class="version-description">
-  <label>REVISIONS</label>
+  <label>{{i18n.revision.REVISIONS}}</label>
 
   <div class="drop-down-container">
     <p class="selected-revision-label">
       {{comments.[0].status_label}} - {{dateFormat comments.[0].comment_created}}</p>
     <button class="drop-down-handle">
       <span aria-hidden="true" data-icon="d"></span>
-      <span class="screen-reader-text">show revision list</span>
+      <span class="screen-reader-text">{{i18n.revision.show_revision_list}}</span>
     </button>
 
     <ul class="all-revisions hidden">

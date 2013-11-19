@@ -21,11 +21,11 @@ define (
     };
 
     var showFirstElementWithContent = function(el) {
-        var i18nValues = $(el).children('[lang]');
-        var hasContent = _.find(i18nValues, function(langEl) {
-          return $(langEl).text().length > 0;
-        });
-        $(hasContent).show().siblings('[lang]').hide();
+        //var i18nValues = $(el).children('[lang]');
+        //var hasContent = _.find(i18nValues, function(langEl) {
+          //return $(langEl).text().length > 0;
+        //});
+        //$(hasContent).show().siblings('[lang]').hide();
     };
 
     Backbone.View.prototype.addi18n = function() {
@@ -43,15 +43,15 @@ define (
       // that contains a value within i18nable elements. It should be called on
       // a view after it renders.
       var selectInitialLanguage = function() {
-        var langElements;
-        try {
-          langElements = $('.' + this.el.className + ' .i18n');
-          _.forEach(langElements, showFirstElementWithContent);
-        }
-        catch (e) {
-          throw 'class not set for view, id: ' + this.cid + ', required for i18n';
-        }
-        return this;
+        //var langElements;
+        //try {
+          //langElements = $('.' + this.el.className + ' .i18n');
+          //_.forEach(langElements, showFirstElementWithContent);
+        //}
+        //catch (e) {
+          //throw 'class not set for view, id: ' + this.cid + ', required for i18n';
+        //}
+        //return this;
       };
 
       this.selectInitialLanguage = selectInitialLanguage;

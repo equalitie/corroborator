@@ -9,10 +9,11 @@ define (
     'lib/streams',
     'lib/CRUD/views/search-views/results',
     'lib/CRUD/views/search-views/media/media-result',
-    'lib/CRUD/templates/search-templates/embedded-results.tpl'
+    'lib/CRUD/templates/search-templates/embedded-results.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Streams, Results, MediaResult,
-    embeddedResultsTmp) {
+    embeddedResultsTmp, i18n) {
     'use strict';
     var EmbeddedSearchResultsView = Results.EmbeddedSearchResultsView,
         MediaResultsView,
@@ -63,7 +64,8 @@ define (
       // render a container to hold the results
       render: function() {
         var html = this.template({
-          entityType: this.entityType
+          entityType: this.entityType,
+          i18n: i18n
         });
         this.$el.append(html);
       },
