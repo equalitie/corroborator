@@ -66,6 +66,8 @@ class MediaResource(MultipartResource, ModelResource):
         '''
         bundle.data['media_file'] = \
             settings.S3_PROXY_URL + '' + bundle.obj.media_file.name
+        bundle.data['media_thumb_file'] = \
+            settings.S3_PROXY_URL + '' + bundle.obj.media_thumb_file.name
         return bundle
 
     def obj_create(self, bundle, **kwargs):
