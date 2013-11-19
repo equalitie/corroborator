@@ -110,7 +110,7 @@ define (
         this.initAutocomplete();
       },
 
-
+      // open and close autocomplete results
       toggleList: function(evt) {
         evt.preventDefault();
         if (this.open === true) {

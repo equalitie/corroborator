@@ -8,9 +8,10 @@ define (
   [
     'backbone', 'underscore', 'jquery', 
     'lib/streams',
-    'lib/SolrSearch/templates/save-search-dialog.tpl'
+    'lib/SolrSearch/templates/save-search-dialog.tpl',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
-  function (Backbone, _, $, Streams, saveSearchDialogTmp) {
+  function (Backbone, _, $, Streams, saveSearchDialogTmp, i18n) {
     'use strict';
     var watchForSaveSearchRequest, init, displayDialog, searchBus,
         SaveSearchDialogView, filterSaveSearchRequest, checkLength,
@@ -74,8 +75,11 @@ define (
         var passed = true;
         if ( formEl.val().length > max || formEl.val().length < min ) {
           formEl.addClass( 'ui-state-error' );
-          this.updateTips( 'Length of ' + title + ' must be between ' +
-            min + ' and ' + max + '.' );
+          var errorTemplate = _.template(i18n.dialog.Length_error);
+          this.updateTips(errorTemplate({
+            min: min,
+            max: max
+          }));
           passed = false;
         } 
         return passed;
@@ -83,16 +87,15 @@ define (
 
       // show the dialog
       displayDialog: function () {
-        var self = this;
+        var buttons = {};
+        buttons[i18n.dialog.Save_search] =
+          this.saveSearchRequested.bind(this);
+        buttons[i18n.dialog.Cancel] = this.closeDialog.bind(this);
+
         this.$el.dialog({
           width: 350,
           modal: true,
-          buttons: {
-            'Save Search': this.saveSearchRequested.bind(this),
-             'Cancel': function() {
-               self.closeDialog();
-             }
-          }
+          buttons: buttons
         });
       },
       closeDialog: function() {
@@ -144,8 +147,8 @@ define (
       displaySaveSearchResult: function(evt) {
         var result, errorText, successText;
         result = evt.value().content;
-        errorText = 'Error saving search';
-        successText = 'Search Saved';
+        errorText = i18n.dialog.Error_saving_search;
+        successText = i18n.dialog.Search_saved;
         if (result.error === true) {
           this.updateTips(errorText);
         }
@@ -160,8 +163,10 @@ define (
 
       // render the dialog html and open it
       render: function() {
-        var html = this.template();
-        this.$el.attr('title', 'Save search as');
+        var html = this.template({
+          i18n: i18n
+        });
+        this.$el.attr('title', i18n.dialog.Search_title);
         this.$el.html(html);
         this.displayDialog();
       }

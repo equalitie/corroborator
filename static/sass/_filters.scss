@@ -13,7 +13,7 @@ $SELECTED_FILTER_BG: #f4a77c;
   border-right: 1px solid $FILTER_GROUP_BORDER_COLOR;
 }
 
-.filter {
+.filter, .filter-drop-down {
   color: $FILTER_TEXT_COLOR;
   
     label {

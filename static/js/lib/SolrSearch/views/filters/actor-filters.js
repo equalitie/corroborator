@@ -44,7 +44,7 @@ define(
       // constructor - listen for collection reset event and render the view
       initialize: function() {
         this.render();
-        this.collection = ActorFilterCollection;
+        this.collection = this.collection || ActorFilterCollection;
         this.renderExistingCollection();
         this.listenTo(this.collection, 'reset', this.renderFilterGroups.bind(this));
         this.createSelectedFiltersGroup();
