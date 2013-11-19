@@ -12,7 +12,6 @@ from tastypie import fields
 
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.models import PredefinedSearch
-from corroborator_app.views import format_filters_for_tastypie
 
 
 import json
