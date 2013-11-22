@@ -371,6 +371,10 @@ class Actor(models.Model):
     civilian_ar = models.CharField(
         max_length=255, choices=CIVILIAN_TYPE_AR, blank=True)
     DOB = models.DateField('date of birth', blank=True, null=True)
+    date_of_death = models.DateField('date of death', blank=True, null=True)
+    date_of_disappearance = models.DateField('date of disappearance', blank=True, null=True)
+    date_of_return = models.DateField('date of return', blank=True, null=True)
+    date_of_detention = models.DateField('date of detention', blank=True, null=True)
     occupation_en = models.CharField(max_length=255, blank=True, null=True)
     occupation_ar = models.CharField(max_length=255, blank=True, null=True)
     nationality_en = models.CharField(max_length=255, blank=True, null=True)
@@ -390,8 +394,15 @@ class Actor(models.Model):
     family_name_ar = models.CharField(max_length=255, blank=True, null=True)
     national_id_card = models.CharField(max_length=255, blank=True, null=True)
     national_number = models.CharField(max_length=255, blank=True, null=True)
-    legal_status = models.CharField(max_length=255, blank=True, null=True)
-    health_status = models.CharField(max_length=255, blank=True, null=True)
+    legal_status_en = models.CharField(max_length=255, blank=True, null=True)
+    legal_status_ar = models.CharField(max_length=255, blank=True, null=True)
+    health_status_en = models.CharField(max_length=255, blank=True, null=True)
+    health_status_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    family_status_en = models.CharField(max_length=255, blank=True, null=True)
+    family_status_ar = models.CharField(max_length=255, blank=True, null=True)
+    cause_of_death_en = models.CharField(max_length=255, blank=True, null=True)
+    cause_of_death_ar = models.CharField(max_length=255, blank=True, null=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
@@ -404,8 +415,13 @@ class Actor(models.Model):
         'ActorRole', blank=True, null=True, related_name='actors_role')
     POB = models.ForeignKey(
         Location, blank=True, null=True, related_name='POB')
+    place_of_death = models.ForeignKey(
+        Location, blank=True, null=True, related_name='place_of_death')
     current_location = models.ForeignKey(
         Location, blank=True, null=True, related_name='actor_current')
+    disappearance_location = models.ForeignKey(
+        Location, blank=True, null=True)
+
     media = models.ForeignKey(Media, blank=True, null=True)
     actor_created = models.DateTimeField(auto_now_add=True)
     actor_modified = models.DateTimeField(auto_now=True)

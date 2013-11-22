@@ -30,31 +30,15 @@ from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
 
 def format_predefined_search(predef_object):
     """
-    format the predefined search filters into a javascript readable
-    format
+    Load json from db
     """
     predef_object.actor_filters =\
-        format_filters(predef_object.actor_filters)
+        predef_object.actor_filters
     predef_object.bulletin_filters =\
-        format_filters(predef_object.bulletin_filters)
+        predef_object.bulletin_filters
     predef_object.incident_filters =\
-        format_filters(predef_object.incident_filters)
+        predef_object.incident_filters
     return predef_object
-
-
-def format_filters_for_tastypie(filter_field):
-    """
-    make it proper json for JSON.parse
-    """
-    return format_filters(filter_field).replace("\'", "\"")
-
-
-def format_filters(filter_field):
-    """
-    format a single filter
-    """
-    return json.dumps(filter_field).replace("u\'", "\'").strip('"')
-
 
 def get_solr_url(path):
     '''

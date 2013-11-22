@@ -100,8 +100,7 @@ class ActorPrepMeta():
         Return AWS URL for associated thumbnail media
         """
         if object.media is not None:
-            return settings.S3_URL + '/'\
-                + object.media.media_thumb_file.name
+            return settings.S3_PROXY_URL + '' + object.media.media_thumb_file.name
         else:
             return ''
 
