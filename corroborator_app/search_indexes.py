@@ -18,10 +18,7 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     This class manages the construction of the Actor Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    current_location = indexes.CharField(
-        model_attr='current_location', null=True)
     dob = indexes.DateField(model_attr='DOB', null=True, faceted=True)
-    pob = indexes.CharField(model_attr='POB', null=True)
     fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
     fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
     nickname_en = indexes.CharField(model_attr='nickname_en', null=True)
@@ -64,8 +61,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         model_attr='actor_created', faceted=True, null=True)
     media = indexes.CharField()
     resource_uri = indexes.CharField()
-    POB = indexes.CharField()
-    current_location = indexes.CharField()
+    POB = indexes.CharField(faceted=True)
+    current_location = indexes.CharField(faceted=True)
     roles = indexes.MultiValueField()
     actor_roles_status = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
@@ -220,7 +217,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     confidence_score = indexes.IntegerField(model_attr='confidence_score',
     null=True, faceted=True)
     incident_times = indexes.MultiValueField(faceted=True)
-    incident_locations = indexes.MultiValueField()
+    incident_locations = indexes.MultiValueField(faceted=True)
     incident_labels = indexes.MultiValueField(faceted=True)
     count_actors = indexes.IntegerField()
     count_bulletins = indexes.IntegerField()
@@ -241,7 +238,6 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
 
     incident_crimes = indexes.MultiValueField(faceted=True)
     ref_incidents = indexes.MultiValueField()
-    locations = indexes.MultiValueField()
     labels = indexes.MultiValueField()
     ref_bulletins = indexes.MultiValueField()
     actor_roles_status = indexes.MultiValueField()
@@ -256,6 +252,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
 
     def prepare_assigned_user(self, object):
         return IncidentPrepMeta().prepare_assigned_user(object)
+
     def prepare_times(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -268,12 +265,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_ref_incidents(object)
-    def prepare_locations(self, object):
-        """
-        Returns the correctly formated uri related to this incident instance
-        for the tastypie api
-        """
-        return IncidentPrepMeta().prepare_locations(object)
+
     def prepare_labels(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -359,7 +351,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         Returns set of location objects associated with a given Incident
         """
-        return IncidentPrepMeta().prepare_incident_locations(object)
+        return IncidentPrepMeta().prepare_locations(object)
 
     def prepare_incident_times(self, object):
         """
@@ -387,7 +379,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     null=True, faceted=True)
     type = indexes.CharField(model_attr='type', null=True)
     bulletin_times = indexes.MultiValueField(faceted=True, null=True)
-    bulletin_locations = indexes.MultiValueField()
+    bulletin_locations = indexes.MultiValueField(faceted=True)
     bulletin_labels = indexes.MultiValueField(faceted=True, null=True)
     bulletin_sources = indexes.MultiValueField(faceted=True, null=True)
     count_actors = indexes.IntegerField()
@@ -402,7 +394,6 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     resource_uri = indexes.CharField()
     ref_bulletins = indexes.MultiValueField()
     medias = indexes.MultiValueField()
-    locations = indexes.MultiValueField()
     labels = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
     actor_roles_status = indexes.MultiValueField()
@@ -435,12 +426,6 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_ref_bulletins(object)
-    def prepare_locations(self, object):
-        """
-        Returns the correctly formated uri related to this bulletin instance
-        for the tastypie api
-        """
-        return BulletinPrepMeta().prepare_locations(object)
     def prepare_labels(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
@@ -526,7 +511,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         """
         Returns set of location objects associated with a given Bulletin
         """
-        return BulletinPrepMeta().prepare_bulletin_locations(object)
+        return BulletinPrepMeta().prepare_locations(object)
 
     def prepare_bulletin_times(self, object):
         """
