@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
+from django.conf import settings
 
 from tastypie.models import ApiKey
 
@@ -47,7 +48,7 @@ def get_solr_url(path):
     if path.find('new_corroborator') > -1:
         solr_path = 'http://127.0.0.1:8983/solr/collection1/'
     else:
-        solr_path = 'https://sjac.corroborator.org/solr/collection1/'
+        solr_path = settings.SOLR_PROXY_URL
     return solr_path
 
 

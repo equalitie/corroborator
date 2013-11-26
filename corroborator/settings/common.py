@@ -5,6 +5,9 @@ import djcelery
 djcelery.setup_loader()
 DEBUG = True
 
+SOLR_URL = 'http://localhost/solr/collection1/select'
+SOLR_PROXY_URL = '/corroborator/solrproxy/select'
+
 AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_READ = 's3-us-west-2'

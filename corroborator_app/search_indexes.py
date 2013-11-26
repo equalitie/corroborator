@@ -70,6 +70,9 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     deleted = indexes.BooleanField()
     thumbnail_url = indexes.CharField()
 
+    actor_searchable_pob = indexes.MultiValueField(faceted=True)
+    actor_searchable_current = indexes.MultiValueField(faceted=True)
+
     actor_comments = indexes.MultiValueField()
 
     def get_model(self):
@@ -77,6 +80,18 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_updated_field(self):
         return "actor_modified"
+
+    def prepare_actor_searchable_current(self, object):
+        """
+        return list of searchable fields for a given actor object
+        """
+        return ActorPrepMeta().prepare_actor_searchable_current(object)
+
+    def prepare_actor_searchable_pob(self, object):
+        """
+        return list of searchable fields for a given actor object
+        """
+        return ActorPrepMeta().prepare_actor_searchable_pob(object)
 
     def prepare_actor_roles_status(self, object):
         """
@@ -232,6 +247,8 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     deleted = indexes.BooleanField()
 
 
+    incident_searchable_locations = indexes.MultiValueField(faceted=True)
+
     resource_uri = indexes.CharField()
     actors_role = indexes.MultiValueField()
     actors = indexes.MultiValueField()
@@ -347,6 +364,12 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         return IncidentPrepMeta().prepare_count_bulletins(object)
 
+    def prepare_Incident_searchable_locations(self, object):
+        """
+        return list of searchable fields for a given actor object
+        """
+        return IncidentPrepMeta().prepare_Incident_searchable_locations(object)
+
     def prepare_incident_locations(self, object):
         """
         Returns set of location objects associated with a given Incident
@@ -398,6 +421,8 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     actors_role = indexes.MultiValueField()
     actor_roles_status = indexes.MultiValueField()
     actors = indexes.MultiValueField()
+
+    bulletin_searchable_locations = indexes.MultiValueField(faceted=True)
 
     sources = indexes.MultiValueField()
     bulletin_comments = indexes.MultiValueField()
@@ -477,6 +502,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_resource_uri(object)
+
     def prepare_most_recent_status_bulletin(self, object):
         """
         Returns most recently created status update associated with a given Bulletin
@@ -506,6 +532,12 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         Returns set of Source objects associated with a given Bulletin
         """
         return BulletinPrepMeta().prepare_bulletin_sources(object)
+
+    def prepare_bulletin_searchable_current(self, object):
+        """
+        return list of searchable fields for a given actor object
+        """
+        return BulletinPrepMeta().prepare_bulletin_searchable_locations(object)
 
     def prepare_bulletin_locations(self, object):
         """
