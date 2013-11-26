@@ -61,7 +61,7 @@ class BulletinPrepMeta():
                     location.parent_location.id
                 )
 
-        return locations 
+        return list(set(locations ))
 
     def get_locations_recursively(self, location_id):
         """
