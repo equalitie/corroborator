@@ -364,7 +364,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         return IncidentPrepMeta().prepare_count_bulletins(object)
 
-    def prepare_Incident_searchable_locations(self, object):
+    def prepare_incident_searchable_locations(self, object):
         """
         return list of searchable fields for a given actor object
         """

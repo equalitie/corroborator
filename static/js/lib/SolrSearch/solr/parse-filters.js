@@ -34,7 +34,9 @@ define(
             'spoken_dialect_en',
             'spoken_dialect_ar',
             'current_location_exact',
-            'POB_exact'
+            'POB_exact',
+            'actor_searchable_pob',
+            'actor_searchable_current'
             //'actor_created_exact',
             //'dob_exact',
           ],
@@ -44,6 +46,7 @@ define(
             'bulletin_assigned_user_exact',
             'most_recent_status_bulletin_exact',
             'bulletin_sources_exact',
+            'bulletin_searchable_locations',
             'bulletin_locations_exact'
           ],
           // incident fields
@@ -52,7 +55,8 @@ define(
             'incident_assigned_user_exact',
             'incident_crimes_exact',
             'most_recent_status_incident_exact',
-            'incident_locations_exact
+            'incident_searchable_locations',
+            'incident_locations_exact'
           ]
         },
         // pull the bulletin filters from the returned list
