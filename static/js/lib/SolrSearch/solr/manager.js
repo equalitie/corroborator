@@ -29,6 +29,7 @@ define(
           'bulletin_assigned_user_exact',
           'bulletin_sources_exact',
           'bulletin_created_exact',
+          'bulletin_searchable_locations',
           'most_recent_status_bulletin_exact',
           //Incident fields
           'confidence_score_exact',
@@ -37,6 +38,7 @@ define(
           'incident_assigned_user_exact',
           'incident_crimes_exact',
           'incident_created_exact',
+          'incident_searchable_locations',
           'most_recent_status_incident_exact',
           //Actor fields
           'age_en_exact',

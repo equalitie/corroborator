@@ -34,7 +34,7 @@ define(
         'click button.do-create-incident': 'createIncidentPressed'
       },
       mapFilters: [
-        'incident_locations_exact'
+        'incident_searchable_locations',
       ],
 
       // constructor - listen for collection reset event and render the view
