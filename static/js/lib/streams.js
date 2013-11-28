@@ -3,8 +3,8 @@
 // define the streams that are used to pass messages between modules  
 //
 define(
-  ['bacon'],
-  function(Bacon) {
+  ['bacon', 'underscore'],
+  function(Bacon, _) {
     'use strict';
     var createTypeFilter = function(eventType) {
       return function (value) {
@@ -16,6 +16,11 @@ define(
         crudBus = new Bacon.Bus(),
         navProperty = navBus.toProperty('incident');
     //navBus.toEventStream().log();
+    //searchBus.toEventStream().filter(function(value) { 
+      //if (typeof(value.content) !== 'object') return false;
+      //return _(value.content).keys()
+                              //.indexOf('filter') > -1;
+    //}).map(function(value) { return value.content; }).log();
     //searchBus.toEventStream().log();
     //crudBus.toEventStream().log();
     return {

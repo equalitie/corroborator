@@ -34,7 +34,7 @@
             <span class="location">{{fetchLocation model.current_location}}</span>
           {{/if}}
           {{#if model.occupation_en}}
-            {{i18n.actor.works_as_a}} <span class="occupation">secretary</span>
+            {{i18n.actor.works_as_a}} <span class="occupation">{{model.occupation_en}}</span>
           {{/if}}
           {{#if model.count_incidents}}
           <br>{{i18n.actor.involved_in}} 

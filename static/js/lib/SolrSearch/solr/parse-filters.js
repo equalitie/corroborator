@@ -52,7 +52,7 @@ define(
             'incident_assigned_user_exact',
             'incident_crimes_exact',
             'most_recent_status_incident_exact',
-            'incident_locations_exact
+            'incident_locations_exact'
           ]
         },
         // pull the bulletin filters from the returned list

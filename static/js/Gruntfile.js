@@ -43,6 +43,7 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/filters/selected-filters.tpl.js'     : 'lib/SolrSearch/templates/filters/selected-filters.tpl',
           'lib/SolrSearch/templates/filters/date-range.tpl.js'           : 'lib/SolrSearch/templates/filters/date-range.tpl',
           'lib/SolrSearch/templates/filters/selected-filter.tpl.js'      : 'lib/SolrSearch/templates/filters/selected-filter.tpl',
+          'lib/SolrSearch/templates/filters/map-container.tpl.js'      : 'lib/SolrSearch/templates/filters/map-container.tpl',
 
           // Navigation
           'lib/Navigation/templates/search-help.tpl.js': 'lib/Navigation/templates/search-help.tpl',

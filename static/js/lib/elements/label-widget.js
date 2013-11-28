@@ -77,12 +77,19 @@ define (
         this.eventIdentifier = options.eventIdentifier;
 
         // listend for add and remove events to the selected collection
-        this.listenTo(this.selectCollection, 'add remove',
-          this.renderSelected.bind(this));
+        if (options.displaySelected !== false) {
+          this.listenTo(this.selectCollection, 'add remove',
+            this.renderSelected.bind(this));
+        }
 
         this.listenTo(this.selectCollection, 'add',
           this.dispatchLabelAddedEvent.bind(this));
-        
+
+        this.listenTo(this.collection, 'deselect', function(model) {
+          this.collection.add(model);
+          this.selectCollection.remove(model);
+        }.bind(this));
+
         this.listenTo(this.selectCollection, 'remove',
           this.dispatchLabelRemovedEvent.bind(this));
         
@@ -90,6 +97,12 @@ define (
         this.listenTo(this.collection, 'add remove',
           this.initAutocomplete.bind(this));
         
+        this.listenTo(this.collection, 'remove',
+          this.externalSelect.bind(this));
+
+        this.listenTo(this.collection, 'add',
+          this.externalRemove.bind(this));
+
         this.listenTo(this.selectCollection, 'add remove',
           this.reinsertModel.bind(this));
 
@@ -225,8 +238,25 @@ define (
         });
       },
 
+      externalSelect: function(model) {
+        var eventInfo = {
+          content: model,
+          action: 'add'
+        };
+        this.dispatchLabelEvent(eventInfo);
+      },
+
+      externalRemove: function(model) {
+        var eventInfo = {
+          content: model,
+          action: 'remove'
+        };
+        this.dispatchLabelEvent(eventInfo);
+      },
+
       // send the add/remove event out on the bus
       dispatchLabelEvent: function(eventInfo) {
+        console.log('dispatchLabelEvent', eventInfo);
         if (this.bus !== undefined) {
           this.bus.push({
             type: this.eventIdentifier + '_label_' + eventInfo.action,

@@ -76,7 +76,9 @@ function program15(depth0,data) {
   var buffer = "", stack1;
   buffer += "\n            "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.works_as_a)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <span class=\"occupation\">secretary</span>\n          ";
+    + " <span class=\"occupation\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n          ";
   return buffer;
   }
 

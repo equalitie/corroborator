@@ -61,6 +61,13 @@ class StatusUpdate(models.Model):
     def __unicode__(self):
         return self.status_en
 
+    class Meta:
+        permissions = (
+            ("can_update_to_finalized", "Can finalize an entity"),
+            ("can_update", "Can update"),
+            ("can_update_to_reviewed", "Can review and entity"),
+        )
+
 
 class Comment(models.Model):
     """

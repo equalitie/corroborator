@@ -85,10 +85,10 @@ define(
 
     // collection of menu items for the action combo
     var menuItems = new Backbone.Collection([
-      { name_en: 'Delete Selected' },
-      { name_en: 'Update Selected' },
-      { name_en: 'Select All' },
-      { name_en: 'Clear Selected' }
+      { key: 'delete', name_en: i18n.menu.Delete_selected },
+      { key: 'update', name_en: i18n.menu.Update_selected },
+      { key: 'select', name_en: i18n.menu.Select_all },
+      { key: 'clear',  name_en: i18n.menu.Clear_selected }
     ]);
 
     //////////////////////////////////////////////////////////////////////
@@ -108,6 +108,9 @@ define(
        */
       propogateEvents: function() {
         var self = this;
+        var removeDeleteActions = function(value) {
+          return value.option !== 'Delete selected';
+        };
 
         var selectStream = Streams.searchBus.toEventStream()
                            .filter(filterActions)
@@ -119,8 +122,10 @@ define(
                             type: self.eventIdentifier + '_combined'
                           }, combineBoth);
         watcher.filter(filterExecuteAction)
+               .filter(removeDeleteActions)
                .onValue(function(value) {
-                  Streams.searchBus.push(value);
+                  console.log(value);
+                  //Streams.searchBus.push(value);
                 });
 
       }

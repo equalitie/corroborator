@@ -54,9 +54,11 @@ define(
           'ethnicity_en_exact',
           'ethnicity_ar_exact',
           'spoken_dialect_en',
-          'spoken_dialect_ar'
-/*          'dob_exact',
-          'actor_created_exact',*/
+          'spoken_dialect_ar',
+          'incident_locations_exact',
+          'bulletin_locations_exact',
+          'POB_exact',
+          'current_location_exact'
         ],
 
         // search parameters

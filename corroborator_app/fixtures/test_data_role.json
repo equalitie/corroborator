@@ -42,7 +42,7 @@
     {
         "fields": {
             "DOB": null, 
-            "POB": 69, 
+            "POB": null, 
             "actors_role": [
               2
             ], 
@@ -50,7 +50,7 @@
             "age_en": "", 
             "civilian_ar": "", 
             "civilian_en": "", 
-            "current_location": 63, 
+            "current_location": null, 
             "deleted": false, 
             "ethnicity_ar": "", 
             "ethnicity_en": "", 

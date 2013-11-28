@@ -129,6 +129,36 @@ define(
         expect(actorFilterView.filterGroupViews.length).toEqual(1);
         expect(actorFilterView.filterGroupViews[0].el.className).toEqual('filter-drop-down');
       });
+      it('should separate filters into groups', function(){
+        var filterNames = [
+          'Adult', 'Child', 'Newborn', 'Teenager', 'Pensioner', 'Youth', 'Middle Aged',
+          'Ancient', 'Tween', 'Adolescent', 'Old', 'Young'];
+
+        var filterModel =
+          createFilterModel(filterNames, 'actor', 'Age::en', 'age_en_exact');
+
+        var mapFilterModel =
+          createFilterModel(['/api/v1/location/1/'], 'actor', 'POB', 'POB_exact');
+
+        var actorFilterView = new ActorFilters.ActorFilterView({
+          collection: new Backbone.Collection([ filterModel, mapFilterModel ])
+        });
+
+        var mapFilters = actorFilterView.collection.filter(function(model) {
+          return model.get('filterType') === 'mapFilterGroup';
+        });
+        var autoFilters = actorFilterView.collection.filter(function(model) {
+          return model.get('filterType') === 'dropDownFilterGroup';
+        });
+        var standardFilters = actorFilterView.collection.filter(function(model) {
+          return model.get('filterType') === 'standardFilterGroup';
+        });
+
+        expect(mapFilters.length).toEqual(1);
+        expect(autoFilters.length).toEqual(1);
+        expect(standardFilters.length).toEqual(0);
+
+      });
 
 
     });

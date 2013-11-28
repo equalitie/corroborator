@@ -7,7 +7,7 @@ define (
   [
     'backbone', 'jquery', 'underscore', 'leaflet',
     'lib/streams',
-    'lib/CRUD/data/LocationCollection',
+    'lib/Data/LocationCollection',
     'lib/CRUD/templates/map-container.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
@@ -40,6 +40,11 @@ define (
             .registerSubscribers()
             .render()
             .displayMap();
+        // allow for creation of onInitialize function that will be called at the end of initialize
+       // no-op if it doesn't exist
+        var constructorExt = this.onInitialize !== undefined ?
+          this.onInitialize : function() {};
+        constructorExt();
       },
 
       updateMapSize: function() {

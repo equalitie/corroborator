@@ -9,9 +9,7 @@
 
 define(
   [
-    'backbone',
-    'bacon',
-    'underscore',
+    'backbone', 'bacon', 'underscore',
     'lib/streams',
     'lib/SolrSearch/data/filter-collection-mixins'
   ],

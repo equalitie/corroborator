@@ -8,7 +8,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   buffer += "<div class=\"header bulletin-display\">\n  <div class=\"padding\">\n    <div class=\"group is-creator\">\n      <button class=\"do-create-bulletin create\">\n        <span aria-hidden=\"true\" data-icon=\"e\"></span>\n        <span class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.filters)),stack1 == null || stack1 === false ? stack1 : stack1.new_bulletin)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n      </button>\n    </div>\n  </div>\n</div>\n<div class=\"body bulletin-filter\" style=\"top: 62px;\">\n  <div class=\"padding\">\n    <div class=\"group is-filters filters\">\n      <!-- enabled filters -->\n      <div class=\"selected-bulletin-filters filter is-labels\">\n      </div>\n      <!-- filter groups go in here -->\n      <div class=\"filter-groups\">\n        <div class=\"date-range\"></div>\n      </div>\n\n    </div>\n  </div>\n</div>\n";
+    + "</span>\n      </button>\n    </div>\n  </div>\n</div>\n<div class=\"body bulletin-filter\" style=\"top: 62px;\">\n  <div class=\"padding\">\n    <div class=\"group is-filters filters\">\n      <!-- enabled filters -->\n      <div class=\"selected-bulletin-filters filter is-labels\">\n      </div>\n      <!-- filter groups go in here -->\n      <div class=\"filter-groups\">\n        <div class=\"bulletin_locations_exact\"></div>\n        <div class=\"dd-filters\"></div>\n        <div class=\"standard-filters\"></div>\n        <div class=\"date-range\"></div>\n      </div>\n\n    </div>\n  </div>\n</div>\n";
   return buffer;
   })
 

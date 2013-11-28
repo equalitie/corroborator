@@ -9,11 +9,10 @@ define (
     'lib/streams',
     'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/templates/display-templates/actor-display.tpl',
-    'lib/CRUD/templates/display-templates/actors/expanded-actor-display.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, ActorListView, 
-    actorDisplayTmp, expandedActorDisplayTmp, i18n) {
+    actorDisplayTmp, i18n) {
     'use strict';
 
     var ActorDisplayView,
@@ -35,8 +34,8 @@ define (
         this.expanded = options.entityDetails.expanded === undefined ?
           false : options.entityDetails.expanded;
           
-        this.model = actorCollection.get(
-          options.entityDetails.id);
+        this.model = actorCollection.getEntity(options.entityDetails.id, 'actor');
+        this.listenTo(this.model, 'sync', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.expanded = !this.expanded;
         this.toggleExpanded();
@@ -120,8 +119,6 @@ define (
         return this;
       }
     });
-
     return ActorDisplayView;
-    
 });
 

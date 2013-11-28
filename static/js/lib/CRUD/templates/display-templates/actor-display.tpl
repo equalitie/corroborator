@@ -39,11 +39,11 @@
           <td>{{fetchLocation model.current_location}}</td>
         </tr>
         {{/if}}
-        {{#if model.pob}}
+        {{#if model.POB}}
         <tr>
           <th>{{i18n.actor.Born_in}}</th>
           <td>
-            {{model.pob}}
+            {{fetchLocation model.POB}}
           </td>
         </tr>
         {{/if}}
@@ -55,34 +55,60 @@
           </td>
         </tr>
         {{/if}}
+        {{#if model.occupation_en}}
+        <tr>
+          <th>{{i18n.actor.works_as_a_en}}</th>
+          <td>
+            {{model.occupation_en}}
+          </td>
+        </tr>
+        {{/if}}
+        {{#if model.occupation_ar}}
+        <tr>
+          <th>{{i18n.actor.works_as_a_ar}}</th>
+          <td>
+            {{model.occupation_ar}}
+          </td>
+        </tr>
+        {{/if}}
+        {{#if model.position_en}}
+        <tr>
+          <th>{{i18n.actor.position_en}}</th>
+          <td>
+            {{model.position_en}}
+          </td>
+        </tr>
+        {{/if}}
+        {{#if model.position_ar}}
+        <tr>
+          <th>{{i18n.actor.position_ar}}</th>
+          <td>
+            {{model.position_ar}}
+          </td>
+        </tr>
+        {{/if}}
         {{#if model.nationality_en}}
         <tr>
-          <th>{{i18n.actor.Nationality}}</th>
-          <td>
-            <span class="i18n with-en with-ar">
-              <span lang="en"><span class="name">{{model.nationality_en}}</span></span>
-              <span lang="ar"><span class="name">{{model.nationality_ar}}</span></span>
-              <span class="toggle">
-                <span lang="en">EN</span>
-                <span lang="ar">AR</span>
-              </span>
-            </span>
-        </td>
+          <th>{{i18n.actor.Nationality_en}}</th>
+          <td>{{model.nationality_en}}</td>
+        </tr>
+        {{/if}}
+        {{#if model.nationality_ar}}
+        <tr>
+          <th>{{i18n.actor.Nationality_ar}}</th>
+          <td>{{model.nationality_ar}}</td>
         </tr>
         {{/if}}
         {{#if model.ethnicity_en}}
         <tr>
-          <th>{{i18n.actor.Ethnicity}}</th>
-          <td>
-            <span class="i18n with-en with-ar">
-              <span lang="en"><span class="name">{{model.ethnicity_en}}</span></span>
-              <span lang="ar"><span class="name">{{model.ethnicity_ar}}</span></span>
-              <span class="toggle">
-                <span lang="en">EN</span>
-                <span lang="ar">AR</span>
-              </span>
-            </span>
-            </td>
+          <th>{{i18n.actor.Ethnicity_en}}</th>
+          <td>{{model.ethnicity_en}}</td>
+        </tr>
+        {{/if}}
+        {{#if model.ethnicity_ar}}
+        <tr>
+          <th>{{i18n.actor.Ethnicity_ar}}</th>
+          <td>{{model.ethnicity_ar}}</td>
         </tr>
         {{/if}}
         {{#if model.spoken_dialect_en}}

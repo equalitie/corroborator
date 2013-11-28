@@ -1,7 +1,7 @@
 /*global define*/
 // Author: Cormac McGuire
 // ### Description
-// Apply the saved search with all it's filters
+// Apply the saved search with all its' filters
 
 define (
   [
@@ -73,7 +73,9 @@ define (
 
       // predefined search loaded reset our flags
       resetEmptyFlags: function() {
-        this.emptyFlags.actor = this.emptyFlags.bulletin = this.emptyFlags.incident = false;
+        this.emptyFlags.actor = 
+          this.emptyFlags.bulletin =
+          this.emptyFlags.incident = false;
       },
 
       // are the selected filter groups empty

@@ -12,6 +12,13 @@ $SELECTED_FILTER_BG: #f4a77c;
   border-left: 1px solid $FILTER_GROUP_BORDER_COLOR;
   border-right: 1px solid $FILTER_GROUP_BORDER_COLOR;
 }
+.map-filter .map {
+  width: 350px;
+  height: 250px;
+}
+.map-filter {
+  margin-bottom: 15px;
+}
 
 .filter, .filter-drop-down {
   color: $FILTER_TEXT_COLOR;

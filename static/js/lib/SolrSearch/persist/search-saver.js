@@ -13,10 +13,15 @@ define (
     'use strict';
 
     var searchBus, SearchDetailFinder, localBus, filterSaveSearchRequest,
-        filterSearchStringReceived;
+        filterSearchStringReceived, excluded_keys;
 
     searchBus = Streams.searchBus;
     localBus = new Bacon.Bus();
+
+    //filter keys that we do not want to save
+    excluded_keys = [
+      'marker'
+    ];
 
     // look for a request to save a search
     filterSaveSearchRequest = function(value) {

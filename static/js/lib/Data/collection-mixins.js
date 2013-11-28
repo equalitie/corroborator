@@ -36,6 +36,14 @@ define (
           toggleSelection: function(model, checked) {
             model.set({checked: checked});
           },
+          
+          // load the model from the collection if available or from the database if not
+          getEntity: function (id, entityType) {
+            var entity = this.get(id) ||
+              new this.model({resourceUri: '/api/v1/' + entityType + '/' + id + '/'});
+            this.add(entity);
+            return entity;
+          },
 
           // delete selected models
           deleteSelected: function() {

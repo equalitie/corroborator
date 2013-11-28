@@ -32,6 +32,7 @@ define(
       initialize: function(options) {
         this.createProperty();
         this.template = _.template('<input type="textfield">');
+        this.listenForSearchString();
       },
 
       // clear the contents of the input box
@@ -43,9 +44,22 @@ define(
         var inputText = this.$el.children('input').val();
         return {
           raw: inputText,
-          encoded: window.encodeURI(inputText)
+          encoded: inputText
         };
       },
+      listenForSearchString: function() {
+        var filter = Streams.filterLib.createTypeFilter('predefined_search');
+        searchBus.filter(filter)
+                 .map(function(value) {
+                   return value.content.get('search_string');
+                 })
+                 .onValue(this.setInput.bind(this));
+
+      },
+      setInput: function(val) {
+        this.$el.children('input').val(val);
+      },
+      
 
       // create a property to track the text in the search box
       // map the content to an object that contains the raw and encoded text
@@ -55,7 +69,7 @@ define(
           .map(function(inputText) {
             return {
               raw: inputText,
-              encoded: window.encodeURI(inputText)
+              encoded: inputText
             };
           })
           .debounce(300);
@@ -78,7 +92,7 @@ define(
       sendText: function(inputText) {
         var textToSend = {
           raw: inputText,
-          encoded: window.encodeURI(inputText)
+          encoded: inputText
         };
         searchBus.push({
           type: 'search_updated',
