@@ -31,10 +31,15 @@ define(
       entityType: 'bulletin',
       el: '.right-filters',
       filterGroupViews: [],
+
       events: {
         'click button.do-create-bulletin': 'createBulletinPressed'
       },
-      mapFilters: ['bulletin_locations_exact'],
+
+      mapFilters: [
+        'bulletin_searchable_locations',
+      ],
+
       // constructor - listen for collection reset event and render the view
       initialize: function() {
         this.render();

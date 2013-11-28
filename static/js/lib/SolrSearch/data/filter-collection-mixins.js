@@ -79,10 +79,10 @@ define (
           'ethnicity_ar_exact':i18n.filters.ethnicity_ar_exact,
           'spoken_dialect_en':i18n.filters.spoken_dialect_en,
           'spoken_dialect_ar':i18n.filters.spoken_dialect_ar,
-          'incident_locations_exact':i18n.filters.incident_locations_exact,
-          'bulletin_locations_exact':i18n.filters.bulletin_locations_exact,
-          'POB_exact':i18n.filters.POB_exact,
-          'current_location_exact':i18n.filters.current_location_exact
+          'incident_searchable_locations':i18n.filters.incident_locations_exact,
+          'bulletin_searchable_locations':i18n.filters.bulletin_locations_exact,
+          'actor_searchable_pob':i18n.filters.POB_exact,
+          'actor_searchable_current':i18n.filters.current_location_exact
       };
       return groupTitleMap[key];
     };
