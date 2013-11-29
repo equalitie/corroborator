@@ -35,8 +35,8 @@ define(
             'spoken_dialect_ar',
             'current_location_exact',
             'POB_exact',
-            'actor_searchable_pob',
-            'actor_searchable_current'
+            'actor_searchable_pob_exact',
+            'actor_searchable_current_exact'
             //'actor_created_exact',
             //'dob_exact',
           ],
@@ -46,7 +46,7 @@ define(
             'bulletin_assigned_user_exact',
             'most_recent_status_bulletin_exact',
             'bulletin_sources_exact',
-            'bulletin_searchable_locations',
+            'bulletin_searchable_locations_exact',
             'bulletin_locations_exact'
           ],
           // incident fields
@@ -55,13 +55,13 @@ define(
             'incident_assigned_user_exact',
             'incident_crimes_exact',
             'most_recent_status_incident_exact',
-            'incident_searchable_locations',
+            'incident_searchable_locations_exact',
             'incident_locations_exact'
           ]
         },
         // pull the bulletin filters from the returned list
         extractFilters = function(filters, entity) {
-          console.log(JSON.stringify(filters['actor_searchable_pob']));
+          console.log(JSON.stringify(filters['actor_searchable_pob_exact']));
           return _.pick(filters, fields[entity]);
         },
         // send the actor filters on to the search event bus

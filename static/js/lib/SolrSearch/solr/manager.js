@@ -29,7 +29,7 @@ define(
           'bulletin_assigned_user_exact',
           'bulletin_sources_exact',
           'bulletin_created_exact',
-          'bulletin_searchable_locations',
+          'bulletin_searchable_locations_exact',
           'most_recent_status_bulletin_exact',
           //Incident fields
           'confidence_score_exact',
@@ -38,7 +38,7 @@ define(
           'incident_assigned_user_exact',
           'incident_crimes_exact',
           'incident_created_exact',
-          'incident_searchable_locations',
+          'incident_searchable_locations_exact',
           'most_recent_status_incident_exact',
           //Actor fields
           'age_en_exact',
@@ -55,12 +55,10 @@ define(
           'position_ar_exact',
           'ethnicity_en_exact',
           'ethnicity_ar_exact',
-          'spoken_dialect_en',
-          'spoken_dialect_ar',
-          'incident_searchable_locations',
-          'bulletin_searchable_locations',
-          'actor_searchable_current',
-          'actor_searchable_pob'
+          'spoken_dialect_en_exact',
+          'spoken_dialect_ar_exact',
+          'actor_searchable_current_exact',
+          'actor_searchable_pob_exact'
         ],
 
         // search parameters
