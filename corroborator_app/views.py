@@ -206,7 +206,7 @@ def get_updated_objects():
                 bulletin.id
             ),
             'user_id': '/api/v1/user/{0}'.format(
-                bulletin.assigned_user.id
+                int(bulletin.most_recent_update_by()[0]['status__user'])
             ),
             'update': str( bulletin.bulletin_modified )
         })
@@ -216,7 +216,7 @@ def get_updated_objects():
                 incident.id
             ),
             'user_id': '/api/v1/user/{0}'.format(
-                incident.assigned_user.id
+                int(incident.most_recent_update_by()[0]['status__user'])
             ),
             'update': str( incident.incident_modified )
         })        
@@ -224,6 +224,9 @@ def get_updated_objects():
         refreshed['actors'].append({
             'id': '/api/v1/actor/{0}'.format(
                 actor.id
+            ),
+            'user_id': '/api/v1/user/{0}'.format(
+                int(actor.most_recent_update_by()[0]['status__user'])
             ),
             'update': str( actor.actor_modified )
         })

@@ -436,6 +436,15 @@ class Actor(models.Model):
     def __unicode__(self):
         return self.fullname_en
 
+    def most_recent_update_by(self):
+        """
+        Returns the id of the las user you created an update for the given Actor
+        """
+        user_id = self.actor_comments.values('status__user')\
+            .order_by('-comment_created')
+        return user_id
+
+
     def count_bulletins(self):
         """
         This method returns the number of associated Bulletins for a given
@@ -609,6 +618,14 @@ class Bulletin(models.Model):
                 string = string.format(date_length, str(duration))
         return string
 
+    def most_recent_update_by(self):
+        """
+        Returns the id of the las user you created an update for the given Bulletin
+        """
+        user_id = self.bulletin_comments.values('status__user')\
+            .order_by('-comment_created')
+        return user_id
+
     def most_recent_status_bulletin(self):
         """
         This method returns the most recent status for a given Bulletin event.
@@ -676,6 +693,14 @@ class Incident(models.Model):
                     '<span class="duration">({1} days)</span>'
                 string = string.format(date_duration, str(duration))
         return string
+    def most_recent_update_by(self):
+        """
+        Returns the id of the las user you created an update for the given Incident
+        """
+        user_id = self.incident_comments.values('status__user')\
+            .order_by('-comment_created')
+        return user_id
+
 
     def most_recent_status_incident(self):
         """
