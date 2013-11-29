@@ -30,7 +30,8 @@ urlpatterns = patterns(
         'corroborator_app.views.lookup_actor'),
 
     url(r'^i18n/', include('django.conf.urls.i18n')),
-
+    url(r'^corroborator/solrrefresh/$',
+        'corroborator_app.views.entity_refresh'),
     url(r'^corroborator/aws/(?P<media_name>.+\.[a-zA-Z0-9]{3})$',
         'corroborator_app.views.aws_proxy'),
     url(r'^corroborator/solrproxy/',
