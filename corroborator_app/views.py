@@ -17,6 +17,7 @@ from django.conf import settings
 
 from tastypie.models import ApiKey
 
+from corroborator_app.monitor.monitorDataLoader import MonitorDataLoader
 from corroborator_app.multisave import multi_save_actors, \
     multi_save_bulletins, multi_save_incidents
 from corroborator_app.models import CrimeCategory, \
@@ -171,6 +172,62 @@ def index(request, *args, **kwargs):
         )
     else:
         return render_to_response('auth.html', RequestContext(request))
+
+def monitoring_update_conf(request, conf_name):
+    """
+    Update configuration file for given conf, values presently are:
+    importer or scraper
+    """
+    if request.user.is_authenticated:
+        mdl = MonitorDataLoader()
+        result = ''
+        conf_data = request.POST['conf_data']
+
+        if conf_name == 'scraper':
+            result = mdl.overwrite_scraper_config(conf_data)
+        else:
+            result = mdl.overwrite_importer_config(conf_data)
+
+        result_json = json.dumps(result)
+        return HttpResponse(result_json, mimetype='application/json')
+    else:
+        return HTTP404
+
+def monitoring(request, *args, **kwargs):
+    """
+    monitor view method - this renders the monitor app page and adds all
+    bootstrap variables required - this is used at /corroborator/monitor
+     handle formatting of lists outside the view function
+    """
+    if request.user.is_authenticated():
+        username = request.user.username
+        userid = request.user.id
+
+        #api details
+        user = User.objects.get(username=username)
+        api = ApiKey.objects.get(user=user)
+
+        mdl = MonitorDataLoader()
+
+        importer_conf = mdl.importer_config
+        scraper_conf = mdl.scraper_config
+        importer_stats = mdl.importer_stats
+
+        return render(
+            request, 'monitoring.html',
+            {
+                'importer_conf': importer_conf,
+                'scraper_conf': scraper_conf,
+                'importer_stats': importer_stats,
+                'username': username,
+                'userid': userid,
+                'api_key': api.key,
+            }
+        )
+    else:
+        return render_to_response('auth.html', RequestContext(request))
+
+
 
 ###############################################################################
 # OBJECT REFRESH
