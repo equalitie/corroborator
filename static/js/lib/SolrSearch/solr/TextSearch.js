@@ -188,6 +188,7 @@ define(
       afterRequest: function () {
         var searchResults = this.manager.response.response.docs,
             filters = this.manager.response.facet_counts.facet_fields;
+            console.log(filters);
         if (this.shouldSendResults === true) {
           this.sendResults(searchResults);
         }

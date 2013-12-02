@@ -17,8 +17,8 @@
 
       <!-- filter groups go in here -->
       <div class="filter-groups">
-        <div class="POB_exact"></div>
-        <div class="current_location_exact"></div>
+        <div class="actor_searchable_pob_exact map-filter-container"></div>
+        <div class="actor_searchable_current_exact map-filter-container"></div>
         <div class="dd-filters"></div>
         <div class="standard-filters"></div>
         <div class="date-range"></div>

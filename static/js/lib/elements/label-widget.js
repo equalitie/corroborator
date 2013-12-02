@@ -239,6 +239,7 @@ define (
       },
 
       externalSelect: function(model) {
+        
         var eventInfo = {
           content: model,
           action: 'add'
@@ -256,7 +257,7 @@ define (
 
       // send the add/remove event out on the bus
       dispatchLabelEvent: function(eventInfo) {
-        console.log('dispatchLabelEvent', eventInfo);
+        
         if (this.bus !== undefined) {
           this.bus.push({
             type: this.eventIdentifier + '_label_' + eventInfo.action,
