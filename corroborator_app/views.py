@@ -209,16 +209,16 @@ def monitoring(request, *args, **kwargs):
 
         mdl = MonitorDataLoader()
 
-        importer_conf = mdl.importer_config
-        scraper_conf = mdl.scraper_config
-        importer_stats = mdl.importer_stats
+        importer_conf_data = json.dumps(mdl.importer_config)
+        scraper_conf_data = json.dumps(mdl.scraper_config)
+        importer_stats_data = json.dumps(mdl.importer_stats)
 
         return render(
             request, 'monitoring.html',
             {
-                'importer_conf': importer_conf,
-                'scraper_conf': scraper_conf,
-                'importer_stats': importer_stats,
+                'importer_conf': importer_conf_data,
+                'scraper_conf': scraper_conf_data,
+                'importer_stats': importer_stats_data,
                 'username': username,
                 'userid': userid,
                 'api_key': api.key,

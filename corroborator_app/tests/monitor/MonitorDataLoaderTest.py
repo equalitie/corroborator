@@ -13,9 +13,9 @@ class MonitorDataLoaderTestCase(TestCase):
         """
         self.mdl = MonitorDataLoader()
 
-    def test_overwrite_scraper_config(self):
+    def test_overwrite_importer_config(self):
         """
-        Test that the scraper config is correctly written
+        Test that the importer config is correctly written
         """
         data = {
             "_HEADER": {
@@ -39,12 +39,12 @@ class MonitorDataLoaderTestCase(TestCase):
                 }
             },
         }
-        result = self.mdl.overwrite_scraper_config(data)
+        result = self.mdl.overwrite_importer_config(data)
         self.assertEqual(result['result'],'success') 
 
-    def test_overwrite_importer_config(self):
+    def test_overwrite_scraper_config(self):
         """
-        Test that the importer config is correctly written
+        Test that the scraper config is correctly written
         """
         data = {
             "_HEADER": {
@@ -56,7 +56,7 @@ class MonitorDataLoaderTestCase(TestCase):
             "documents-sy": True,
             "syrianshuhada": False
         }
-        result = self.mdl.overwrite_importer_config(data)
+        result = self.mdl.overwrite_scraper_config(data)
         self.assertEqual(result['result'],'success') 
 
     def test_read_scraper_config(self):
