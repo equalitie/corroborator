@@ -42,7 +42,11 @@ define (
           'POB_exact',
           'current_location_exact',
           'bulletin_locations_exact',
-          'incident_locations_exact'
+          'incident_locations_exact',
+          'actor_searchable_pob_exact',
+          'actor_searchable_current_exact',
+          'incident_searchable_locations_exact',
+          'bulletin_searchable_locations_exact'
         ],
 
         // add extra detail to location filters

@@ -27,10 +27,10 @@ define (
         CoordinatePopupDisplayView = CoordinateDisplayView;
 
     var locationFilterKeys = [
-      'POB_exact',
-      'current_location_exact',
-      'bulletin_locations_exact',
-      'incident_locations_exact'
+      'actor_searchable_pob_exact',
+      'actor_searchable_current_exact',
+      'bulletin_searchable_locations_exact',
+      'incident_searchable_locations_exact'
     ];
 
     filterAddLocationFilters = function(value) {
@@ -47,21 +47,12 @@ define (
       return _.contains(locationFilterKeys, value.content.get('key'));
     };
 
-    var fetchFilterLocations = function (model) {
-      var locModel, displayFilterNameTmp;
-      locModel = LocationCollection.find(function(loc) {
-        return loc.get('resource_uri') === model.get('filterName');
-      });
-      locModel.set(model.toJSON());
-      locModel.set('displayFilterName', 
-        i18n.filters[locModel.get('key')] + ': ' + locModel.get('name_en'));
-      return locModel;
-    };
 
     MapPopupMixin = {
       // callback fired when a location gets added
       placeMarker: function(model) {
-        var marker, latlng, lat, lng, popupTextTmpEn;
+        var marker, latlng, lat, lng, popupTextTmpEn, numResults,
+            additionalText;
         lat = model.get('latitude'); 
         lng = model.get('longitude');
         if (lat && lng) {
@@ -69,17 +60,22 @@ define (
           marker = this.createMarker(latlng);
           //access directly to avoid change event
           model.attributes.marker = marker;
-          this.addPopup(model);
+          if (model.get('numItems')) {
+            numResults = _.template(i18n.filters.num_results);
+            additionalText = numResults({numItems: model.get('numItems')});
+          }
+          this.addPopup(model, additionalText);
         }
       },
 
-      addPopup: function (model) {
+      addPopup: function (model, additionalText) {
+        additionalText = additionalText || '';
         var popupTextTmpEn, popupTextTmpAr, marker;
         marker = model.get('marker');
         popupTextTmpEn = _.template(
-          '<b><%=model.name_en%></b><br/>' + i18n.filters.num_results); 
+          '<b><%=model.name_en%></b><br/>' + additionalText); 
         popupTextTmpAr = _.template(
-          '<b><%=model.name_ar%></b><br/>' + i18n.filters.num_results); 
+          '<b><%=model.name_ar%></b><br/>' + additionalText); 
         marker.bindPopup(popupTextTmpEn({model: model.toJSON()})).openPopup();
       }
     };
@@ -123,7 +119,10 @@ define (
         });
       },
       removeFilterRequested: function(evt) {
-        this.collection.trigger('deselect', evt.value().content);
+        var model = evt.value().content;
+        if (this.collection.groupKey === model.get('key')) {
+          this.collection.trigger('deselect', evt.value().content);
+        }
       },
 
       getLabelConfig: function() {

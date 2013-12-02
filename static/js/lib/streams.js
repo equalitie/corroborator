@@ -21,7 +21,7 @@ define(
       //return _(value.content).keys()
                               //.indexOf('filter') > -1;
     //}).map(function(value) { return value.content; }).log();
-    //searchBus.toEventStream().log();
+    searchBus.toEventStream().log();
     //crudBus.toEventStream().log();
     return {
       filterLib: {

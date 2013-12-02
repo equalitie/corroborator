@@ -41,8 +41,10 @@ define(
         'click button.do-create-actor': 'createActorPressed'
       },
       mapFilters: [
-          'actor_searchable_current',
-          'actor_searchable_pob'
+          'actor_searchable_current_exact',
+          'actor_searchable_pob_exact',
+          //'current_location_exact',
+          //'POB_exact'
       ],
       // store the sub views so we can get rid of them later
 

@@ -18,7 +18,7 @@ define({
       'and': 'and',
       'current_filters': 'Current Filters',
       'Enter_text_here_to_see_available_filters': 'Enter text here to see available filters',
-      'num_results': '<%=model.numItems %> results.',
+      'num_results': '<%=numItems %> results.',
       'bulletin_labels_exact':'Bulletin Labels',
       'bulletin_assigned_user_exact':'Assigned user',
       'bulletin_sources_exact':'Sources',
@@ -49,10 +49,10 @@ define({
       'ethnicity_ar_exact':'Ethnicity(ar)',
       'spoken_dialect_en':'Dialect(en)',
       'spoken_dialect_ar':'Dialect(ar)',
-      'incident_locations_exact':'Incident Location',
-      'bulletin_locations_exact':'Bulletin Location',
-      'POB_exact':'Place Of birth',
-      'current_location_exact':'Current Location'
+      'incident_searchable_locations_exact':'Incident Location',
+      'bulletin_searchable_locations_exact':'Bulletin Location',
+      'actor_searchable_pob_exact':'Place Of birth',
+      'actor_searchable_current_exact':'Current Location'
     },
     'results': {
       'aka': 'aka',
