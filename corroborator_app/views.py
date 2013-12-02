@@ -208,17 +208,18 @@ def monitoring(request, *args, **kwargs):
         api = ApiKey.objects.get(user=user)
 
         mdl = MonitorDataLoader()
-
+        import sys 
         importer_conf_data = json.dumps(mdl.importer_config)
+        print >> sys.stderr, importer_conf_data
         scraper_conf_data = json.dumps(mdl.scraper_config)
         importer_stats_data = json.dumps(mdl.importer_stats)
 
         return render(
             request, 'monitoring.html',
             {
-                'importer_conf': importer_conf_data,
-                'scraper_conf': scraper_conf_data,
-                'importer_stats': importer_stats_data,
+                'importer_conf_data': importer_conf_data,
+                'scraper_conf_data': scraper_conf_data,
+                'importer_stats_data': importer_stats_data,
                 'username': username,
                 'userid': userid,
                 'api_key': api.key,
