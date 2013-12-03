@@ -398,7 +398,6 @@ class Actor(models.Model):
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
 
     origin_id = models.CharField(max_length=255, blank=True, null=True)
-    source_site = models.CharField(max_length=255, blank=True, null=True)
     age_numeric = models.IntegerField(blank=True, null=True)
     family_name_en = models.CharField(max_length=255, blank=True, null=True)
     family_name_ar = models.CharField(max_length=255, blank=True, null=True)
