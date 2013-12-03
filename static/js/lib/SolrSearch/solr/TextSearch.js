@@ -105,6 +105,7 @@ define(
       sendUpdateRequest: function(searchQuery) {
         this.shouldSendResults = false;
         this.shouldSendFilters = true;
+        this.updateRequest     = true;
         this.sendRequest(searchQuery);
       },
 
@@ -179,21 +180,22 @@ define(
            .value(), this.bus
         );
       },
-      sendFilters: function(filters) {
-        ParseFilter(filters, 'actor');
-        ParseFilter(filters, 'bulletin');
-        ParseFilter(filters, 'incident');
+      sendFilters: function(filters, options) {
+        ParseFilter(filters, 'actor', options);
+        ParseFilter(filters, 'bulletin', options);
+        ParseFilter(filters, 'incident', options);
       },
 
       afterRequest: function () {
         var searchResults = this.manager.response.response.docs,
             filters = this.manager.response.facet_counts.facet_fields;
-            console.log(filters);
         if (this.shouldSendResults === true) {
           this.sendResults(searchResults);
         }
         if (this.shouldSendFilters === true) {
-          this.sendFilters(filters);
+          var options = this.updateRequest ? {silent: true} : {};
+          this.sendFilters(filters, options);
+          this.updateRequest = false;
         }
       }
     });

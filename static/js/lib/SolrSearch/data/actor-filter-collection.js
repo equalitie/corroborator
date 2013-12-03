@@ -31,7 +31,12 @@ define(
         filterActorFilters = function(value) {
           return value.type === 'parse_filters_actor';
         },
-
+        filterUpdateFiltersAndResults = function(value) {
+          return value.options.silent === undefined;
+        },
+        filterUpdateFiltersOnly = function(value) {
+          return value.options.silent === true;
+        },
         filterSelectedItemEvents = function(value) {
           return value.type === 'selected_item_actor';
         },
@@ -101,12 +106,24 @@ define(
       // actor filter ones
       watchSearchStream: function() {
         var self = this;
+        // user selected filter or search run
         searchBus.toProperty()
                  .filter(filterActorFilters)
+                 .filter(filterUpdateFiltersAndResults)
                  .map(extractFilters)
                  .onValue(function(value) {
                    self.createFilterGroupCollections(value);
                  });
+        // filter auto update
+        searchBus.toProperty()
+                 .filter(filterActorFilters)
+                 .filter(filterUpdateFiltersOnly)
+                 .map(extractFilters)
+                 .onValue(function(value) {
+                   self.createFilterGroupCollections(value, {silent: true});
+                 });
+        //searchBus.filter()
+                 
         searchBus.toProperty()
                  .filter(filterSelectedItemEvents)
                  .onValue(function(value) {
@@ -159,14 +176,16 @@ define(
                  .onValue(function(allFilters) {
                    allFilters.content.each(self.updateFilterTotals, self);
                    self.removeRedundantFilters.call(self, allFilters.content);
-                   self.sendFilter();
+                   self.sendFilter(undefined, allFilters.options);
                  });
       },
 
-      sendFilter: function(filterModel) {
+      sendFilter: function(filterModel, options) {
+        options = options || {};
         Streams.searchBus.push({
           type: 'filter_event_add_actor',
-          content: this.models
+          content: this.models,
+          options: options
         });
       }
 

@@ -6,7 +6,11 @@ define({
       'location': 'location',
       'title': 'title',
       'status': 'status',
-      'score': 'score'
+      'score': 'score',
+      'confirm_delete_header': 'Delete Selected Items?',
+      'confirm_delete_message': 'These items will be deleted. Are you Sure?',
+      'confirm': 'confirm',
+      'cancel': 'cancel'
     },
     'count': {
       'selected': 'selected'

@@ -77,7 +77,6 @@ define(
         return this.toJSON();
       },
       formatActorCollectionForSave: function(model) {
-        console.log(model.toJSON());
         return {
           actor: model.get('actor'),
           role_en: model.get('role_en'),
@@ -94,7 +93,6 @@ define(
       },
       saveMultiple: function() {
         var attributes = this.formatSaveMultiple();
-        console.log(attributes);
         this.save(attributes, {
           success: this.updateResults.bind(this),
           error: this.updateError.bind(this),

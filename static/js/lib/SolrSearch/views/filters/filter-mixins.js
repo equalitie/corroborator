@@ -96,7 +96,7 @@ define (
                 view: MapFilterGroupView,
                 className: '.' + model.get('groupKey'),
                 options: {
-                  model: model,
+                  model: model
                 }
               }
             };

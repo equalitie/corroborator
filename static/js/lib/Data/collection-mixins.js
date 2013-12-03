@@ -22,13 +22,13 @@ define (
             return value.content;
           },
           filterUnselectAll: function(value) {
-            return value.option === 'Clear Selected';
+            return value.option === 'clear';
           },
           filterSelectAll: function(value) {
-            return value.option === 'Select All';
+            return value.option === 'select';
           },
           filterDeleteSelected: function(value) {
-            return value.option === 'Delete Selected';
+            return value.option === 'delete';
           }
         },
         ModelSelectionMixin = {

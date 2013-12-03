@@ -23,6 +23,12 @@ define(
         filterIncidentFilterEvents = function(value) {
           return value.type === 'filter_event_incident';
         },
+        filterUpdateFiltersOnly = function(value) {
+          return value.options.silent === true;
+        },
+        filterUpdateFiltersAndResults = function(value) {
+          return value.options.silent === undefined;
+        },
         filterGroupUpdated = function(value) {
           return value.type === 'filter_group_updated' &&
                  value.entity === 'incident';
@@ -66,9 +72,18 @@ define(
         var self = this;
         searchBus.toProperty()
                  .filter(filterIncidentFilters)
+                 .filter(filterUpdateFiltersAndResults)
                  .map(extractFilters)
                  .onValue(function(filters) {
                    self.createFilterGroupCollections(filters);
+                 });
+        // filter auto update
+        searchBus.toProperty()
+                 .filter(filterIncidentFilters)
+                 .filter(filterUpdateFiltersOnly)
+                 .map(extractFilters)
+                 .onValue(function(filters) {
+                   self.createFilterGroupCollections(filters, {silent: true});
                  });
       }
     });
@@ -111,15 +126,17 @@ define(
                  .onValue(function(allFilters) {
                    allFilters.content.each(self.updateFilterTotals, self);
                    self.removeRedundantFilters.call(self, allFilters.content);
-                   self.sendFilter();
+                   self.sendFilter(undefined, allFilters.options);
                  });
       },
 
       // send a filter request
-      sendFilter: function(filterModel) {
+      sendFilter: function(filterModel, options) {
+        options = options || {};
         Streams.searchBus.push({
           type: 'filter_event_add_incident',
-          content: this.models
+          content: this.models,
+          options: options
         });
       }
     });

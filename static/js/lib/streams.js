@@ -15,12 +15,15 @@ define(
         navBus = new Bacon.Bus(),
         crudBus = new Bacon.Bus(),
         navProperty = navBus.toProperty('incident');
+    //window.debugUpdate = function() {
+      //var searchObject = {
+        //type: 'update_current_results',
+        //content: {encoded: '', raw: ''},
+        //domain: undefined
+      //};
+      //searchBus.push(searchObject);
+    //};
     //navBus.toEventStream().log();
-    //searchBus.toEventStream().filter(function(value) { 
-      //if (typeof(value.content) !== 'object') return false;
-      //return _(value.content).keys()
-                              //.indexOf('filter') > -1;
-    //}).map(function(value) { return value.content; }).log();
     searchBus.toEventStream().log();
     //crudBus.toEventStream().log();
     return {

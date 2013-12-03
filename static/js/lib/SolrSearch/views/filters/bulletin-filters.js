@@ -37,7 +37,7 @@ define(
       },
 
       mapFilters: [
-        'bulletin_searchable_locations',
+        'bulletin_searchable_locations'
       ],
 
       // constructor - listen for collection reset event and render the view

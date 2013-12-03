@@ -30,7 +30,7 @@ define (
         // look for update multiple event
         filterUpdateMultipleEvent = function(value) {
           return value.type === 'action_combo_combined' &&
-                 value.option === 'Update Selected';
+                 value.option === 'update';
         },
 
         mapUpdateEventToView = function(value) {

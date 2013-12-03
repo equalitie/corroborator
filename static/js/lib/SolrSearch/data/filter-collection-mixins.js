@@ -92,8 +92,9 @@ define (
 
       // store a flat collection of all filters
       // iterate over filter groups to create collections
-      createFilterGroupCollections: function(groups) {
+      createFilterGroupCollections: function(groups, options) {
         // empty the collection before we add the new filters
+        this.updateOptions = options || {};
         this.allFilters.reset([]);
         _.each(groups, this.createFilterGroupCollection, this);
         this.reset(this.filterGroupCollections);
@@ -105,7 +106,8 @@ define (
         searchBus.push({
           type: 'filter_group_updated',
           content: this.allFilters,
-          entity: this.entityType
+          entity: this.entityType,
+          options: this.updateOptions
         });
       },
 

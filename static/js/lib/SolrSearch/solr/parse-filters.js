@@ -46,7 +46,7 @@ define(
             'bulletin_assigned_user_exact',
             'most_recent_status_bulletin_exact',
             'bulletin_sources_exact',
-            'bulletin_searchable_locations_exact',
+            'bulletin_searchable_locations_exact'
             //'bulletin_locations_exact'
           ],
           // incident fields
@@ -55,20 +55,20 @@ define(
             'incident_assigned_user_exact',
             'incident_crimes_exact',
             'most_recent_status_incident_exact',
-            'incident_searchable_locations_exact',
+            'incident_searchable_locations_exact'
             //'incident_locations_exact'
           ]
         },
         // pull the bulletin filters from the returned list
         extractFilters = function(filters, entity) {
-          console.log(filters);
           return _.pick(filters, fields[entity]);
         },
         // send the actor filters on to the search event bus
         sendFilters = function(filters, entity) {
           Streams.searchBus.push({
             type: eventIdentifier + '_' + entity,
-            content: filters
+            content: filters,
+            options: options
           });
         };
 
@@ -76,7 +76,8 @@ define(
     // main function  
     // filters the different filter types from the list
     // and then sends the events off on the search bus
-    var ParseFilter = function (searchFields, entity) {
+    var ParseFilter = function (searchFields, entity, options) {
+      this.options = options || {};
       var filters = extractFilters(searchFields, entity);
       sendFilters(filters, entity);
     };
