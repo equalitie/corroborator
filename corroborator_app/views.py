@@ -257,35 +257,37 @@ def get_updated_objects():
         'incidents': [],
         'actors': []
     }
-
+    user_id_tpl = '/api/v1/user/{0}'
     for bulletin in bulletins:
+        user_id = user_id_tpl.format(int(bulletin.most_recent_update_by()[0]['status__user'])) \
+            if len(bulletin.most_recent_update_by()) > 0 else ''
         refreshed['bulletins'].append({
             'id': '/api/v1/bulletin/{0}'.format(
                 bulletin.id
             ),
-            'user_id': '/api/v1/user/{0}'.format(
-                int(bulletin.most_recent_update_by()[0]['status__user'])
-            ),
+            'user_id': user_id,
             'update': str( bulletin.bulletin_modified )
         })
     for incident in incidents:
+        user_id = user_id_tpl.format(int(incident.most_recent_update_by()[0]['status__user']))\
+            if len(incident.most_recent_update_by()) > 0 else ''
+
         refreshed['incidents'].append({
             'id': '/api/v1/incident/{0}'.format(
                 incident.id
             ),
-            'user_id': '/api/v1/user/{0}'.format(
-                int(incident.most_recent_update_by()[0]['status__user'])
-            ),
+            'user_id': user_id,
             'update': str( incident.incident_modified )
         })        
     for actor in actors:
+        user_id = user_id_tpl.format(int(actor.most_recent_update_by()[0]['status__user']))\
+            if len(actor.most_recent_update_by()) > 0 else ''
+
         refreshed['actors'].append({
             'id': '/api/v1/actor/{0}'.format(
                 actor.id
             ),
-            'user_id': '/api/v1/user/{0}'.format(
-                int(actor.most_recent_update_by()[0]['status__user'])
-            ),
+            'user_id': user_id,
             'update': str( actor.actor_modified )
         })
     return refreshed
@@ -294,9 +296,12 @@ def entity_refresh(request):
     """
     Retrun JSON representing the most recently updated entities
     """
-    refreshed_entities = get_updated_objects()
-    data = json.dumps(refreshed_entities) 
-    return HttpResponse(data, mimetype='application/json')
+    if request.user.is_authenticated:
+        refreshed_entities = get_updated_objects()
+        data = json.dumps(refreshed_entities) 
+        return HttpResponse(data, mimetype='application/json')
+    else:
+        return Http404
 ###############################################################################
 # AUTH PROXIES
 #
