@@ -22,6 +22,17 @@ class ActorPrepMeta():
             object.actors_role.all()]
         return roles
 
+    def prepare_most_recent_status_actor(self, object):
+        """
+        Returns most recently created status update associated with a given Bulletin
+        """
+        status = object.actor_comments.values('status__status_en').order_by('comment_created')
+        if len(status) > 0:
+            status = status[0]
+            return status['status__status_en']
+        else:
+            return ''
+
     def prepare_roles(self, object):
         """
         Returns a full list of all roles and relationships associated
