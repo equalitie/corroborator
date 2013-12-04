@@ -266,7 +266,7 @@ def get_updated_objects():
                 bulletin.id
             ),
             'user_id': user_id,
-            'update': str( bulletin.bulletin_modified )
+            'bulletin_modified': str( bulletin.bulletin_modified )
         })
     for incident in incidents:
         user_id = user_id_tpl.format(int(incident.most_recent_update_by()[0]['status__user']))\
@@ -277,7 +277,7 @@ def get_updated_objects():
                 incident.id
             ),
             'user_id': user_id,
-            'update': str( incident.incident_modified )
+            'incident_modified': str( incident.incident_modified )
         })        
     for actor in actors:
         user_id = user_id_tpl.format(int(actor.most_recent_update_by()[0]['status__user']))\
@@ -288,7 +288,7 @@ def get_updated_objects():
                 actor.id
             ),
             'user_id': user_id,
-            'update': str( actor.actor_modified )
+            'actor_modified': str( actor.actor_modified )
         })
     return refreshed
  
