@@ -533,7 +533,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         """
         return BulletinPrepMeta().prepare_bulletin_sources(object)
 
-    def prepare_bulletin_searchable_current(self, object):
+    def prepare_bulletin_searchable_locations(self, object):
         """
         return list of searchable fields for a given actor object
         """
