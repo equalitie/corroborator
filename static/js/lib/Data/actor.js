@@ -10,13 +10,13 @@
 
 define(
   [
-    'jquery', 'underscore', 'backbone',
+    'jquery', 'underscore', 'backbone', 'moment',
     'lib/streams',
     'lib/Data/collection-mixins',
     'lib/Data/comparator',
     'lib/elements/helpers/cookie'
   ],
-  function($, _, Backbone, Streams, Mixins, Comparator, 
+  function($, _, Backbone, moment, Streams, Mixins, Comparator, 
     cookie) {
     'use strict';
 
@@ -25,6 +25,7 @@ define(
         searchBus             = Streams.searchBus,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        CollectionUpdateMixin = Mixins.CollectionUpdateMixin,
         ModelSaveMixin        = Mixins.ModelSaveMixin,
         Filters               = new Mixins.Filters(),
         parseComparator       = Comparator.parseComparator,
@@ -32,6 +33,9 @@ define(
         // ### event stream processing helpers
         filterActorResults = function(value) {
           return value.type === 'results_actor';
+        },
+        filterExternalActorUpdates = function(value) {
+          return value.type === 'solr:update_actors';
         },
         filterUpdatedActors = function(value) {
           return value.type === 'multiple_update_results_actors';
@@ -150,11 +154,14 @@ define(
     // ### Actor Collection
     var ActorCollection = SimpleActorCollection.extend({
       compareField: 'actor_created',
+      modifiedField: 'actor_modified',
+      updateFilter: filterExternalActorUpdates,
       numFound: 0,
       selectedIdList: [],
 
       initialize: function() {
         this.watchSearchResults();
+        this.watchUpdate();
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
@@ -255,7 +262,9 @@ define(
     });
     // add our mixins to the collection
     _.extend(ActorCollection.prototype, PersistSelectionMixin);
+    _.extend(ActorCollection.prototype, CollectionUpdateMixin);
     _.extend(ActorCollection.prototype, ModelSelectionMixin);
+    console.log(ActorCollection.prototype);
 
 
     return {

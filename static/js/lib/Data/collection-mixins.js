@@ -6,9 +6,9 @@
 
 define (
   [
-    'underscore', 'backbone'
+    'underscore', 'backbone', 'moment', 'lib/streams'
   ],
-  function (_, Backbone) {
+  function (_, Backbone, moment, Streams) {
     'use strict';
 
         // common to all collections  
@@ -30,6 +30,32 @@ define (
           filterDeleteSelected: function(value) {
             return value.option === 'delete';
           }
+        },
+        CollectionUpdateMixin = {
+          // watch for updates to the models in the collection
+          watchUpdate: function() {
+            Streams.searchBus.filter(this.updateFilter)
+                             .onValue(this.updateModels.bind(this));
+          },
+          updateModels: function(value) {
+            _(value.content)
+              .chain()
+              .filter(function(updateItem) {
+                return this.get(updateItem.id) !== undefined;
+              }, this)
+              .filter(function(updateItem) {
+                var modelModified =
+                      moment(this.get(updateItem.id).get(this.modifiedField)),
+                    updateItemModified = moment(updateItem.update);
+                return modelModified.isBefore(updateItemModified);
+              }, this)
+              .map(function(item) {
+                return this.get(item.id);
+              }, this)
+              .each(function (model) {
+                model.fetch();
+              });
+          },
         },
         ModelSelectionMixin = {
           // change the selected state of a single model
@@ -225,7 +251,8 @@ define (
     Filters              : Filters,
     PersistSelectionMixin: PersistSelectionMixin,
     ModelSaveMixin       : ModelSaveMixin,
-    ModelSelectionMixin  : ModelSelectionMixin
+    ModelSelectionMixin  : ModelSelectionMixin,
+    CollectionUpdateMixin: CollectionUpdateMixin
   };
 });
 

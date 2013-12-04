@@ -110,6 +110,7 @@ define (
         return this;
       },
       render: function() {
+        console.log(this.model.toJSON());
         this.destroyChildren();
         var html = this.template({
           model: this.model.toJSON(),

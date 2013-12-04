@@ -16,7 +16,7 @@ define (
         restartTimer, sendSearches, filterSearchUpdateRequest, 
         filterSearchStringRequest, listenForSearchStringRequest,
         triggerInitialSearch, sendSearchString, pollForUpdates, getApiUrl,
-        currentSearchObject, previousUpdate;
+        requestUpdatedEntities, dispatchUpdates, currentSearchObject, previousUpdate;
 
     currentSearchObject = {
       content: {
@@ -95,6 +95,7 @@ define (
         var lastUpdate = _.first(response.objects);
         if (!_.isEqual(previousUpdate, lastUpdate)) {
           sendSearches(searchObject, false);
+          requestUpdatedEntities();
           previousUpdate = lastUpdate;
         }
       };
@@ -102,6 +103,31 @@ define (
         url : getApiUrl(),
         success: success
       });
+    };
+
+    requestUpdatedEntities = function() {
+      var success = function(value) {
+        console.log(value);
+        _(value).each(dispatchUpdates);
+      };
+      var error = function() {
+      };
+      $.ajax({
+        url: '/corroborator/solrrefresh',
+        success: success,
+        error: error
+      });
+    };
+
+    dispatchUpdates = function(item, key) {
+      var pushUpdates = (item.length) ? function() {
+        searchBus.push({
+          type: 'solr:update_' + key,
+          content: item
+        });
+      }
+      : function() {};
+      pushUpdates();
     };
 
     // send the search object - check for restart

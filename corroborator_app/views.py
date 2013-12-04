@@ -244,13 +244,13 @@ def get_updated_objects():
     date_range.append(datetime.now() - timedelta(minutes=refresh_window))
     date_range.append(datetime.now())
     bulletins = Bulletin.objects.filter(
-        bulletin_modified__range = date_range
+        bulletin_modified__range=date_range
     )
     incidents = Incident.objects.filter(
-        incident_modified__range = date_range
+        incident_modified__range=date_range
     )
     actors = Actor.objects.filter(
-        actor_modified__range = date_range
+        actor_modified__range=date_range
     )
     refreshed = {
         'bulletins': [],
@@ -262,36 +262,40 @@ def get_updated_objects():
         user_id = user_id_tpl.format(int(bulletin.most_recent_update_by()[0]['status__user'])) \
             if len(bulletin.most_recent_update_by()) > 0 else ''
         refreshed['bulletins'].append({
-            'id': '/api/v1/bulletin/{0}'.format(
+            'id': bulletin.id,
+            'resource_uri': '/api/v1/bulletin/{0}'.format(
                 bulletin.id
             ),
             'user_id': user_id,
-            'update': str( bulletin.bulletin_modified )
+            'update': str(bulletin.bulletin_modified)
         })
     for incident in incidents:
         user_id = user_id_tpl.format(int(incident.most_recent_update_by()[0]['status__user']))\
             if len(incident.most_recent_update_by()) > 0 else ''
 
         refreshed['incidents'].append({
-            'id': '/api/v1/incident/{0}'.format(
+            'id': incident.id,
+            'resource_uri': '/api/v1/incident/{0}'.format(
                 incident.id
             ),
             'user_id': user_id,
-            'update': str( incident.incident_modified )
-        })        
+            'update': str(incident.incident_modified)
+        })
     for actor in actors:
         user_id = user_id_tpl.format(int(actor.most_recent_update_by()[0]['status__user']))\
             if len(actor.most_recent_update_by()) > 0 else ''
 
         refreshed['actors'].append({
-            'id': '/api/v1/actor/{0}'.format(
+            'id': actor.id,
+            'resource_uri': '/api/v1/actor/{0}'.format(
                 actor.id
             ),
             'user_id': user_id,
-            'update': str( actor.actor_modified )
+            'update': str(actor.actor_modified)
         })
     return refreshed
- 
+
+
 def entity_refresh(request):
     """
     Retrun JSON representing the most recently updated entities
@@ -307,17 +311,20 @@ def entity_refresh(request):
 #
 ##############################################################################
 
+
 def aws_proxy(request, media_name):
     """
-    This function is responsible for proxying the request for an AWS 
-    media file and returning the file itself provided the request 
+    This function is responsible for proxying the request for an AWS
+    media file and returning the file itself provided the request
     passes auth testing
     On failure return 404 else redirect to AWS file.
     """
     if request.user.is_authenticated:
-        return AWSAuthProxy().get(media_name) 
+        return AWSAuthProxy().get(media_name)
     else:
         return Http404
+
+
 def solr_proxy(request, *args, **kwargs):
     """
     This function is responsible for proxying a solr query and
