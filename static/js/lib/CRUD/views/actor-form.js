@@ -106,7 +106,7 @@ define (
         // a little trickery here - cos we use toggleExpanded to render the view
         this.expanded = ! options.expanded;
         this.displayForm  = this.displayFormFunction();
-        this.model.set('actors', options.selected);
+        //this.model.set('actors', options.selected);
         this.multiple = options.multiple;
       },
 

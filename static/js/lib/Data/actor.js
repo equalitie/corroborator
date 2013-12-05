@@ -264,7 +264,6 @@ define(
     _.extend(ActorCollection.prototype, PersistSelectionMixin);
     _.extend(ActorCollection.prototype, CollectionUpdateMixin);
     _.extend(ActorCollection.prototype, ModelSelectionMixin);
-    console.log(ActorCollection.prototype);
 
 
     return {
