@@ -59,6 +59,11 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     count_bulletins = indexes.IntegerField()
     actor_created = indexes.DateTimeField(
         model_attr='actor_created', faceted=True, null=True)
+    actor_modified = indexes.DateTimeField(model_attr='actor_modified', \
+    faceted=True, null=True)
+    most_recent_status_actor = indexes.CharField(faceted=True)
+
+
     media = indexes.CharField()
     resource_uri = indexes.CharField()
     POB = indexes.CharField(faceted=True)
@@ -80,6 +85,12 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_updated_field(self):
         return "actor_modified"
+
+    def prepare_most_recent_status_actor(self,object):
+        """
+        Returns moste recent status associated with a given Incident
+        """
+        return ActorPrepMeta().prepare_most_recent_status_actor(object)
 
     def prepare_actor_searchable_current(self, object):
         """
@@ -243,9 +254,11 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     most_recent_status_incident = indexes.CharField(faceted=True)
     incident_created = indexes.DateTimeField(model_attr='incident_created',
     faceted=True, null=True)
+    incident_modified = indexes.DateTimeField(model_attr='incident_modified', \
+    faceted=True, null=True)
+
     incident_comments_text = indexes.MultiValueField()
     deleted = indexes.BooleanField()
-
 
     incident_searchable_locations = indexes.MultiValueField(faceted=True)
 
@@ -413,6 +426,10 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     null=True)
     bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
     faceted=True, null=True)
+
+    bulletin_modified = indexes.DateTimeField(model_attr='bulletin_modified', \
+    faceted=True, null=True)
+
 
     resource_uri = indexes.CharField()
     ref_bulletins = indexes.MultiValueField()
