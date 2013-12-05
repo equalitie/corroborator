@@ -232,7 +232,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     confidence_score = indexes.IntegerField(model_attr='confidence_score',
     null=True, faceted=True)
     incident_times = indexes.MultiValueField(faceted=True)
-    incident_locations = indexes.MultiValueField(faceted=True)
+    locations = indexes.MultiValueField(faceted=True)
     incident_labels = indexes.MultiValueField(faceted=True)
     count_actors = indexes.IntegerField()
     count_bulletins = indexes.IntegerField()
@@ -370,7 +370,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         return IncidentPrepMeta().prepare_incident_searchable_locations(object)
 
-    def prepare_incident_locations(self, object):
+    def prepare_locations(self, object):
         """
         Returns set of location objects associated with a given Incident
         """
@@ -402,7 +402,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     null=True, faceted=True)
     type = indexes.CharField(model_attr='type', null=True)
     bulletin_times = indexes.MultiValueField(faceted=True, null=True)
-    bulletin_locations = indexes.MultiValueField(faceted=True)
+    locations = indexes.MultiValueField(faceted=True)
     bulletin_labels = indexes.MultiValueField(faceted=True, null=True)
     bulletin_sources = indexes.MultiValueField(faceted=True, null=True)
     count_actors = indexes.IntegerField()
@@ -533,13 +533,13 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         """
         return BulletinPrepMeta().prepare_bulletin_sources(object)
 
-    def prepare_bulletin_searchable_current(self, object):
+    def prepare_bulletin_searchable_locations(self, object):
         """
         return list of searchable fields for a given actor object
         """
         return BulletinPrepMeta().prepare_bulletin_searchable_locations(object)
 
-    def prepare_bulletin_locations(self, object):
+    def prepare_locations(self, object):
         """
         Returns set of location objects associated with a given Bulletin
         """
