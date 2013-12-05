@@ -51,7 +51,7 @@ define (
     Handlebars.registerHelper('fetchRole', function(context, options) {
         var formattedContext = context;
         if (context) {
-          var roles = Bootstrap.gl_ac_role_list,
+          var roles = Bootstrap.gl_ac_role_list.concat(Bootstrap.gl_ac_relation_list),
               roleSearchField = {key: context};
           formattedContext = _.findWhere(roles, roleSearchField).value;
         }
