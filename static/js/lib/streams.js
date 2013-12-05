@@ -24,7 +24,7 @@ define(
       //searchBus.push(searchObject);
     //};
     //navBus.toEventStream().log();
-    searchBus.toEventStream().log();
+    //searchBus.toEventStream().log();
     //crudBus.toEventStream().log();
     return {
       filterLib: {
