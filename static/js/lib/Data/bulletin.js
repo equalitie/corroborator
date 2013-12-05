@@ -157,6 +157,7 @@ define(
       model: BulletinModel,
       initialize: function() {
         this.watchEventStream();
+        this.watchUpdate();
         this.watchSelection();
         this.watchSort();
         this.watchCreate();

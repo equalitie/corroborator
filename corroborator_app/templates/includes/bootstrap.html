@@ -1,6 +1,7 @@
 
   <script type="text/javascript">
   var Bootstrap = (function() {
+    var locale = '{{locale}}';
     var gl_s3_aws_media_url = '{{ MEDIA_URL }}';
     var gl_ac_role_list = [];
     var gl_ac_relation_list = [];
@@ -106,6 +107,7 @@
 
     //consolidate our init data under one variable
     return {
+        locale: locale,
         predefined_list: predefined_list,
         gl_s3_aws_media_url: '{{ MEDIA_URL }}',
         username: '{{username}}',

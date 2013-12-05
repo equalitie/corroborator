@@ -68,8 +68,7 @@
     },
     config: {
       i18n: {
-        //locale: 'ar-ar'
-        locale: 'en'
+        locale: Bootstrap.locale || 'en'
       }
     }
   });

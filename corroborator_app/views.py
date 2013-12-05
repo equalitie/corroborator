@@ -155,6 +155,8 @@ def index(request, *args, **kwargs):
         return render(
             request, 'new_search.html',
             {
+                #TODO - create view to allow locale switching
+                'locale': 'en',
                 'role_status_set': role_status_set,
                 'relation_status_set': relation_status_set,
                 'predefined_search_set': predefined_search_set,
@@ -172,6 +174,7 @@ def index(request, *args, **kwargs):
         )
     else:
         return render_to_response('auth.html', RequestContext(request))
+
 
 def monitoring_update_conf(request, conf_name):
     """
@@ -192,6 +195,7 @@ def monitoring_update_conf(request, conf_name):
         return HttpResponse(result_json, mimetype='application/json')
     else:
         return HTTP404
+
 
 def monitoring(request, *args, **kwargs):
     """
