@@ -10,6 +10,11 @@
           <div class="avatar">&nbsp;</div>
         {{/if}}
         <div class="content">
+          {{#if model.most_recent_status_actor}}
+            <span class="status">
+              <span class="text">{{model.most_recent_status_actor}}</span>
+            </span>
+          {{/if}}
           <div class="L1">
             {{#if model.fullname_en}}
             <p class="name"> {{model.fullname_en}}</p>

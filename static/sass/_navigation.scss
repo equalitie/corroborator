@@ -64,12 +64,16 @@
 // SEARCH
 // ========================================================================
 .Content {
-  background-color: $TAB_AREA_BG;
+  //background-color: $TAB_AREA_BG;
   //padding-top: 3*$PAD_UNIT;
 }
-
+nav#monitor-navigation {
+  margin-top:$HEADER_HEIGHT;
+  background-color: $TAB_AREA_BG;
+}
 // search input box
 nav#search-navigation {
+  background-color: $TAB_AREA_BG;
   margin-top:$HEADER_HEIGHT;
   .search {
     padding-top: 1.5em;

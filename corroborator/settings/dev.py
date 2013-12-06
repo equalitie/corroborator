@@ -73,3 +73,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = ROOT_PATH + 'static/'
 
 TIME_ZONE = 'Europe/Dublin'
+
+IMPORTER_CONF_FILE = ROOT_PATH + '/static/js/test_confs/importer.json'
+SCRAPER_CONF_FILE = ROOT_PATH + '/static/js/test_confs/scraper.json'
+MONITOR_JOB_FILE = ROOT_PATH + '/static/js/test_confs/importer_stats.json'

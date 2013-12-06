@@ -588,7 +588,6 @@ button, button:active, a, a:active {
 
 /* line 45, ../sass/_base.scss */
 .use-base {
-  color: #000000;
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 1.25em;
@@ -3557,16 +3556,18 @@ body.login {
   padding-left: 1.53846em;
 }
 
-/* line 66, ../sass/_navigation.scss */
-.Content {
+/* line 70, ../sass/_navigation.scss */
+nav#monitor-navigation {
+  margin-top: 27px;
   background-color: #212020;
 }
 
-/* line 72, ../sass/_navigation.scss */
+/* line 75, ../sass/_navigation.scss */
 nav#search-navigation {
+  background-color: #212020;
   margin-top: 27px;
 }
-/* line 74, ../sass/_navigation.scss */
+/* line 78, ../sass/_navigation.scss */
 nav#search-navigation .search {
   padding-top: 1.5em;
   float: left;
@@ -3574,7 +3575,7 @@ nav#search-navigation .search {
   margin-bottom: 0em;
   margin-left: 3.07692em;
 }
-/* line 80, ../sass/_navigation.scss */
+/* line 84, ../sass/_navigation.scss */
 nav#search-navigation .search input {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -3587,7 +3588,7 @@ nav#search-navigation .search input {
   padding-right: 2em;
   margin-right: -1.5em;
 }
-/* line 92, ../sass/_navigation.scss */
+/* line 96, ../sass/_navigation.scss */
 nav#search-navigation .search button.do-clear {
   text-shadow: none;
   border: 0px solid transparent;
@@ -3611,25 +3612,25 @@ nav#search-navigation .search button.do-clear > span {
   font-size: 65%;
 }
 
-/* line 98, ../sass/_navigation.scss */
+/* line 102, ../sass/_navigation.scss */
 .search-combo {
   float: left;
   margin-top: 1.35em;
   width: 14em;
   position: relative;
 }
-/* line 103, ../sass/_navigation.scss */
+/* line 107, ../sass/_navigation.scss */
 .search-combo .button.do-search {
   top: -0.38462em;
   position: absolute;
 }
 
-/* line 110, ../sass/_navigation.scss */
+/* line 114, ../sass/_navigation.scss */
 .tabs ul {
   float: right;
   margin-right: 3.07692em;
 }
-/* line 114, ../sass/_navigation.scss */
+/* line 118, ../sass/_navigation.scss */
 .tabs li {
   padding-top: 1em;
   float: left;
@@ -3642,11 +3643,11 @@ nav#search-navigation .search button.do-clear > span {
   position: relative;
   z-index: 1;
 }
-/* line 125, ../sass/_navigation.scss */
+/* line 129, ../sass/_navigation.scss */
 .tabs li a {
   display: block;
 }
-/* line 128, ../sass/_navigation.scss */
+/* line 132, ../sass/_navigation.scss */
 .tabs li .text {
   color: white;
   display: block;
@@ -3656,28 +3657,28 @@ nav#search-navigation .search button.do-clear > span {
   padding-right: 1.3986em;
   font-size: 110%;
 }
-/* line 137, ../sass/_navigation.scss */
+/* line 141, ../sass/_navigation.scss */
 .tabs li .count {
   padding-left: 0.25em;
   opacity: 0.5;
 }
-/* line 141, ../sass/_navigation.scss */
+/* line 145, ../sass/_navigation.scss */
 .tabs li:first-child {
   margin-left: 0em;
 }
-/* line 144, ../sass/_navigation.scss */
+/* line 148, ../sass/_navigation.scss */
 .tabs li:hover, .tabs li.current {
   background-color: #2b2a2a;
 }
-/* line 148, ../sass/_navigation.scss */
+/* line 152, ../sass/_navigation.scss */
 .tabs li.current.is-incidents {
   border-bottom: 4px solid #6bcad8;
 }
-/* line 151, ../sass/_navigation.scss */
+/* line 155, ../sass/_navigation.scss */
 .tabs li.current.is-actors {
   border-bottom: 4px solid #f1be33;
 }
-/* line 154, ../sass/_navigation.scss */
+/* line 158, ../sass/_navigation.scss */
 .tabs li.current.is-bulletins {
   border-bottom: 4px solid #b5cd5f;
 }
@@ -4835,6 +4836,60 @@ li.medium .media-document-thumbnail, li.medium .media-video-thumbnail {
   display: inline-block;
   margin-top: 1em;
   cursor: pointer;
+}
+
+/* line 1, ../sass/_monitor.scss */
+#monitor-content {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 90%;
+  margin: auto;
+  margin-top: 20px;
+}
+/* line 6, ../sass/_monitor.scss */
+#monitor-content table {
+  background-color: #f5f0ec;
+  width: 46%;
+  float: left;
+  margin-right: 4%;
+  margin-bottom: 5px;
+}
+/* line 12, ../sass/_monitor.scss */
+#monitor-content table td {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+/* line 18, ../sass/_monitor.scss */
+#monitor-content table input[type=text], #monitor-content table input[type=submit] {
+  width: 100%;
+}
+/* line 21, ../sass/_monitor.scss */
+#monitor-content table input[type=submit] {
+  font-weight: bold;
+}
+
+/* line 26, ../sass/_monitor.scss */
+.progress-container {
+  clear: left;
+  width: 46%;
+  margin-top: 5px;
+  border: none;
+}
+
+/* line 34, ../sass/_monitor.scss */
+.monitor-container .error-reporter {
+  float: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow: hidden;
+  *zoom: 1;
+  background-color: #f5f0ec;
+  width: 46%;
 }
 
 /*@ sourceMappingURL=screen.css.map */
