@@ -6,6 +6,11 @@
     {{/if}}
     <div class="content">
       <div class="L1">
+        {{#if model.most_recent_status_actor}}
+          <span class="status">
+            <span class="text">{{model.most_recent_status_actor}}</span>
+          </span>
+        {{/if}}
         {{#if model.role}}
         <span class="status" style="margin-right:5px;">
           <span class="text">{{fetchRole model.role}}</span>

@@ -107,7 +107,6 @@ define (
 
     requestUpdatedEntities = function() {
       var success = function(value) {
-        console.log(value);
         _(value).each(dispatchUpdates);
       };
       var error = function() {
