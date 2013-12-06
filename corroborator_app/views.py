@@ -6,7 +6,7 @@ Author: Bill Doran
 """
 import json
 from datetime import datetime, timedelta
-
+from django.utils import translation
 from django.db.models import Q
 from django.shortcuts import render_to_response, render
 from django.contrib.auth import authenticate, login
@@ -156,7 +156,7 @@ def index(request, *args, **kwargs):
             request, 'new_search.html',
             {
                 #TODO - create view to allow locale switching
-                'locale': 'en',
+                'locale': translation.get_language(),
                 'role_status_set': role_status_set,
                 'relation_status_set': relation_status_set,
                 'predefined_search_set': predefined_search_set,
