@@ -2,5 +2,5 @@
 define({
   'root': {
   },
-  'ar-ar': true
+  'ar': true
 });

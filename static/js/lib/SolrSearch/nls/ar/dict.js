@@ -3,7 +3,7 @@ define({
     'sort': {
       'date': 'تاريخ',
       'location': 'مكان',
-      'title': 'لقب',
+      'title': 'عنوان',
       'status': 'حالة',
       'score': 'درجة',
       'confirm_delete_header': 'حذف العناصر المحددة؟',
@@ -12,27 +12,27 @@ define({
       'cancel': 'إلغاء الأمر'
     },
     'count': {
-      'selected': 'مختار'
+      'selected': 'تحديد'
     },
     'filters': {
       'new_actor': 'شخص جديد',
-      'new_bulletin': 'معلومة جديدة',
-      'new_incident': 'حادثة جديدة',
+      'new_bulletin': 'مادة جديدة',
+      'new_incident': 'ملف جديد',
       'and': 'و',
-      'current_filters': 'مرشحات الحالي',
-      'Enter_text_here_to_see_available_filters': 'ابدأ الكتابة لرؤية المرشحات المتاحة',
-      'num_results': 'النتائج <%=numItems %>.',
-      'bulletin_labels_exact':'تسميات نشرة',
-      'bulletin_assigned_user_exact':'تعيين العضو',
+      'current_filters': 'الفلاتر المفعلة',
+      'Enter_text_here_to_see_available_filters': 'ابدأ بالطباعة لتظهرالفلاتر المتوفرة',
+      'num_results': 'نتيجة <%=numItems %>.',
+      'bulletin_labels_exact':'تصنيفات المادة',
+      'bulletin_assigned_user_exact':'المستخدم المسؤول',
       'bulletin_sources_exact':'مصادر',
       'bulletin_created_exact':'تاريخ الإنشاء',
       'most_recent_status_bulletin_exact':'حالة',
       //Incident fields
-      'confidence_score_exact':'نقاط الثقة',
-      'incident_times_exact':'تاريخ الحادث الساعة /',
-      'incident_labels_exact':'التسمية الحادث', 
-      'incident_assigned_user_exact':'تعيين العضو',
-      'incident_crimes_exact':'جرائم',
+      'confidence_score_exact':'الموثوقية',
+      'incident_times_exact':'تاريخ\\الساعة الملف',
+      'incident_labels_exact':'تصنيف الملف', 
+      'incident_assigned_user_exact':'المستخدم المسؤول',
+      'incident_crimes_exact':'أنواع الملفات',
       'incident_created_exact':'تاريخ الإنشاء',
       'most_recent_status_incident_exact':'حالة',
       //Actor fields

@@ -137,5 +137,5 @@ define({
     'Save': 'Save',
     'unselected': 'unselected'
   },
-  'ar-ar': true
+  'ar': true
 });

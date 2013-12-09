@@ -7,6 +7,7 @@
       'lib'            : 'lib',
       'jquery'         : 'components/jquery/jquery',
       'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui',
+      'jquery_time'    : 'components/jquery-timepicker-addon/jquery-ui-timepicker-addon',
       'backbone'       : 'components/backbone/backbone',
       'moment'         : 'components/moment/moment',
       'underscore'     : 'components/underscore/underscore',
@@ -25,6 +26,9 @@
       },
       jquery_ui: {
         deps: ['jquery']
+      },
+      jquery_time: {
+        deps: ['jquery', 'jquery_ui']
       }
 
     },
