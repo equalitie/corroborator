@@ -57,8 +57,8 @@ define(
       },
       showNewView: function(selectedTabView) {
         this.currentView = new selectedTabView();
-        console.log(this.currentView);
         $('#monitor-content').append(this.currentView.$el);
+        this.currentView.trigger('rendered');
       }
 
     });

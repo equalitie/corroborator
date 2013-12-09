@@ -43,6 +43,7 @@ def format_predefined_search(predef_object):
         predef_object.incident_filters
     return predef_object
 
+
 def get_solr_url(path):
     '''
     set the solr url that we are connecting to
@@ -184,7 +185,7 @@ def monitoring_update_conf(request, conf_name):
     if request.user.is_authenticated:
         mdl = MonitorDataLoader()
         result = ''
-        conf_data = request.POST['conf_data']
+        conf_data = request.POST
 
         if conf_name == 'scraper':
             result = mdl.overwrite_scraper_config(conf_data)

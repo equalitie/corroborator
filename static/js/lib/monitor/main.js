@@ -7,9 +7,9 @@ define(
     'backbone',
     'lib/monitor/router/monitor-router',
     'lib/elements/helpers/view-close',
-    'jquery', 'jquery_ui',
+    'jquery', 'jquery_ui', 'jquery_time'
   ],
-  function (Backbone, MonitorRouter) {
+  function (Backbone, MonitorRouter, $) {
   'use strict';
 
   var router = new MonitorRouter();
