@@ -17,8 +17,8 @@ from corroborator_app.api.UserApi import UserResource
 
 __all__ = ('MonitorUpdateResource',)
 
-class MonitorUpdateResource(ModelResource):
 
+class MonitorUpdateResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
     """
     tastypie api implementation
