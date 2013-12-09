@@ -1,6 +1,7 @@
 from django.conf import settings
 import json
 import os
+import re
 
 class MonitorDataLoader:
 
@@ -38,7 +39,113 @@ class MonitorDataLoader:
         Update config file
         """
         importer_config_file = settings.IMPORTER_CONF_FILE
-        return self.overwrite_config(data, importer_config_file)
+        validation = self.validate_importer_config(data)
+        if 'error' in validation:
+            return validation
+        else:
+            return self.overwrite_config(data, importer_config_file)
+
+    def validate_scraper_config(self, data):
+        """
+        Validate and sanitise configuration JSON input
+        """
+        if 'actors_dir' not in data:
+            return {'error': 'Actors Directory missing'}
+        elif os.path.exists(data['actors_dir']):
+            return {
+                'error': 'Actors Directory is not a valid system directory'
+            }
+        if 'bulletins_dir' not in data:
+            return {'error': 'Bulletins Directory missing'}
+        elif not os.path.exists(data['actors_dir']):
+            return {
+                'error': 'Bulletins Directory is not a valid system directory'
+            }
+        if 'scrapers' not in data:
+            return {
+                'error': 'scrapers not specified. At least one scraper must be specified.'
+            }
+
+    def validate_importer_config(self, data):
+        """
+        Validate and sanitise configuration JSON input
+        """
+        if 'mysql_dir' not in data:
+            return {'error': 'MySQL Directory missing'}
+        if 'actors_dir' not in data:
+            return {'error': 'Actors Directory missing'}
+        elif os.path.exists(data['actors_dir']):
+            return {
+                'error': 'Actors Directory is not a valid system directory'
+            }
+        if 'bulletins_dir' not in data:
+            return {'error': 'Bulletins Directory missing'}
+        elif not os.path.exists(data['actors_dir']):
+            return {
+                'error': 'Bulletins Directory is not a valid system directory'
+            }
+
+        if 'media_params' not in data:
+            return {'error': 'Media parameters missing'}
+        elif 'media_dir' not in data['media_params']:
+            return {'error': 'Media Directory missing'}
+        elif not os.path.exists(data['media_params']['media_dir']):
+            return {
+                'error': 'Media directory is not a valid system directory'
+            }
+        elif 'file_meta_type' not in data['media_params']:
+            return {'error': 'File Meta type missing'}
+
+        ext_result = self.validate_ext(
+            data['media_params']['file_meta_type']
+        )
+        if 'error' in ext_result:
+            return ext_result
+       
+        if 'file_types' not in data['media_params']:
+            return {
+                'error': 'File types not specified'
+            }
+        file_types = data['media_params']['file_types']
+        if 'image' not in file_types:
+            return{
+                'error': 'Image file types not specified. At least one image file type must be specified.'
+            }
+        elif 'video' not in file_types:
+            return{
+                'error': 'Video file types not specified. At least one video file type must be specified.'
+            }
+
+        image_types =  data['media_params']['file_types']['image']
+        image_types +=  data['media_params']['file_types']['video']
+        
+        for image_type in image_types:
+            result = self.validate_file_type(image_type)
+            if 'error' in result:
+                return result
+
+    def validate_file_type(self, file_type):
+        """
+        Test file type to ensure it meets requirements
+        """
+        if re.match("^\[A-Za-z0-9]+$", file_type):
+            return {'success':'true'}
+        else:
+            return {'error': file_type +\
+                ' does not match required file extension format. eg: .yaml'
+            }
+
+    def validate_ext(self, ext_str):
+        """
+        Test extension string to ensure that it meets the required
+        format
+        """
+        if re.match("^\.[A-Za-z0-9]+$", ext_str):
+            return {'success':'true'}
+        else:
+            return {'error': ext_str +\
+                ' does not match required file extension format. eg: .yaml'
+            }
 
     def get_importer_stats(self):
         """

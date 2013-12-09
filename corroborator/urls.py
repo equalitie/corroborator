@@ -77,6 +77,7 @@ v1_api.register(StatusUpdateResource())
 v1_api.register(TimeInfoResource())
 v1_api.register(UserResource())
 v1_api.register(SolrUpdateResource())
+v1_api.register(MonitorUpdateResource())
 
 urlpatterns += patterns(
     '',
