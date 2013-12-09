@@ -66,6 +66,8 @@ class MonitorDataLoader:
                 'error': 'scrapers not specified. At least one scraper must be specified.'
             }
 
+        return {'result': 'success'}
+
     def validate_importer_config(self, data):
         """
         Validate and sanitise configuration JSON input
@@ -74,15 +76,17 @@ class MonitorDataLoader:
             return {'error': 'MySQL Directory missing'}
         if 'actors_dir' not in data:
             return {'error': 'Actors Directory missing'}
-        elif os.path.exists(data['actors_dir']):
+        elif not os.path.exists(data['actors_dir']):
             return {
-                'error': 'Actors Directory is not a valid system directory'
+                'error': data['actors_dir'] + \
+                    ' is not a valid system directory'
             }
         if 'bulletins_dir' not in data:
             return {'error': 'Bulletins Directory missing'}
-        elif not os.path.exists(data['actors_dir']):
+        elif not os.path.exists(data['bulletins_dir']):
             return {
-                'error': 'Bulletins Directory is not a valid system directory'
+                'error': data['bulletins_dir'] +\
+                    ' is not a valid system directory'
             }
 
         if 'media_params' not in data:
@@ -124,11 +128,13 @@ class MonitorDataLoader:
             if 'error' in result:
                 return result
 
+        return {'result': 'success'}
+
     def validate_file_type(self, file_type):
         """
         Test file type to ensure it meets requirements
         """
-        if re.match("^\[A-Za-z0-9]+$", file_type):
+        if re.match("^[A-Za-z0-9]+$", file_type):
             return {'success':'true'}
         else:
             return {'error': file_type +\
