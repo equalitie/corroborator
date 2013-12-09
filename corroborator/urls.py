@@ -21,10 +21,12 @@ urlpatterns = patterns(
     url(r'^$', 'corroborator_app.views.index'),
     #url(r'^/$', 'corroborator_app.views.index'),
     url(r'^corroborator/$', 'corroborator_app.views.index'),
-
+    (r'^i18n/', include('django.conf.urls.i18n')),
 
     url(r'^corroborator/monitoring$', 'corroborator_app.views.monitoring'),
-    url(r'^corroborator/monitoring/update/(?P<conf_name>\w+)/$', 'corroborator_app.views.monitoring_update_conf'),
+    url(
+        r'^corroborator/monitoring/update/(?P<conf_name>\w+)/$',
+        'corroborator_app.views.monitoring_update_conf'),
 
     url(r'^new_corroborator/$', 'corroborator_app.views.index'),
     url(r'^corroborator/bulletin/(?P<bulletin_id>\d+)/(?P<mode>\w+)/$',

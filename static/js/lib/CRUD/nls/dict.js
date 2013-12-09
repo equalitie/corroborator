@@ -16,8 +16,10 @@ define({
       'Related_as': 'Related as',
       'Related_Actors': 'Related Actors',
       'Date_Of_Birth': 'Date Of Birth',
+      'Nationality': 'Nationality',
       'Nationality_en': 'Nationality(en)',
       'Nationality_ar': 'Nationality(ar)',
+      'Ethnicity': 'Ethnicity',
       'Ethnicity_en': 'Ethnicity(en)',
       'Ethnicity_ar': 'Ethnicity(ar)',
       'Occupation': 'Occupation',
@@ -135,5 +137,5 @@ define({
     'Save': 'Save',
     'unselected': 'unselected'
   },
-  'ar-ar': true
+  'ar': true
 });

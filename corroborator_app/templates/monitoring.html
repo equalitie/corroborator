@@ -1,6 +1,5 @@
 {% extends "new_base.html" %}
 
-{% include "includes/monitor_bootstrap.html" %}
 {% load i18n %}
 
 {% block top_nav %}
@@ -8,7 +7,8 @@
 {% endblock %}
 
 {% block script %}
-  {% include "includes/dev_script.html" %}
+  {% include "includes/monitor_bootstrap.html" %}
+  {% include "includes/dev_monitor_script.html" %}
 {% endblock %}
 
 {% block content%}

@@ -1,10 +1,11 @@
 // standard strings for header.js view
 define({
   'actor': {
-    'aka': 'aka',
-    'lives_in':'lives in',
-    'works_as_a_en': 'works as a (en)',
-    'works_as_a_ar': 'works as a (ar)',
+    'aka': 'الملقب',
+    'lives_in': 'يعيش في',
+    'works_as_a_en': 'يعمل(EN)',
+    'works_as_a_ar': 'يعمل(ع)',
+    'involved': 'متورط',
     'position_en': 'Position(en)',
     'position_ar': 'Position(ar)',
     'involved_in': 'involved in',

@@ -20,6 +20,7 @@ Gemfile.lock
 Guardfile
 config.rb
 corroborator/wsgidev.py
+static/js/test_confs
 static/js/reports
 static/js/oldreports
 static/js/coverage

@@ -6,7 +6,7 @@ Author: Bill Doran
 """
 import json
 from datetime import datetime, timedelta
-
+from django.utils import translation
 from django.db.models import Q
 from django.shortcuts import render_to_response, render
 from django.contrib.auth import authenticate, login
@@ -42,6 +42,7 @@ def format_predefined_search(predef_object):
     predef_object.incident_filters =\
         predef_object.incident_filters
     return predef_object
+
 
 def get_solr_url(path):
     '''
@@ -156,7 +157,7 @@ def index(request, *args, **kwargs):
             request, 'new_search.html',
             {
                 #TODO - create view to allow locale switching
-                'locale': 'en',
+                'locale': translation.get_language(),
                 'role_status_set': role_status_set,
                 'relation_status_set': relation_status_set,
                 'predefined_search_set': predefined_search_set,
@@ -184,7 +185,7 @@ def monitoring_update_conf(request, conf_name):
     if request.user.is_authenticated:
         mdl = MonitorDataLoader()
         result = ''
-        conf_data = request.POST['conf_data']
+        conf_data = request.POST
 
         if conf_name == 'scraper':
             result = mdl.overwrite_scraper_config(conf_data)
