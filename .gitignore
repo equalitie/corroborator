@@ -10,6 +10,7 @@ static/js/docs/annotated-source
 static/js/node_modules
 corroborator/settings/dev.py
 corroborator/settings/demo.py
+corroborator/wsgi_demo.py
 media/*
 apache/*
 *.sublime-project
