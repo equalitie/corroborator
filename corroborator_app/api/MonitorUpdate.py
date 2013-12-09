@@ -24,7 +24,7 @@ class MonitorUpdateResource(ModelResource):
     tastypie api implementation
     """
     class Meta:
-        queryset = SolrUpdate.objects.all()
+        queryset = MonitorUpdate.objects.all()
         resource_name = 'monitorUpdate'
         authorization = Authorization()
         authentication = ApiKeyAuthentication()
