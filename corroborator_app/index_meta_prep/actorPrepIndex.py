@@ -7,7 +7,7 @@ Bill Doran 2013/08/08
 """
 
 from corroborator_app.models import Bulletin, \
-    Incident, ActorRole
+    Incident, ActorRole, Location
 from django.conf import settings
 
 
@@ -21,6 +21,17 @@ class ActorPrepMeta():
             actor_role.relation_status for actor_role in
             object.actors_role.all()]
         return roles
+
+    def prepare_most_recent_status_actor(self, object):
+        """
+        Returns most recently created status update associated with a given Bulletin
+        """
+        status = object.actor_comments.values('status__status_en').order_by('comment_created')
+        if len(status) > 0:
+            status = status[0]
+            return status['status__status_en']
+        else:
+            return ''
 
     def prepare_roles(self, object):
         """
@@ -77,6 +88,61 @@ class ActorPrepMeta():
             return '/api/v1/location/{0}/'.format(object.current_location.id)
         else:
             return ''
+
+    def prepare_actor_searchable_current(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        if object.current_location is not None:
+            locations = []
+
+            locations.append('/api/v1/location/{0}/'.format(
+                object.current_location.id
+            ))
+            if object.current_location.parent_location is not None:
+                locations += self.get_locations_recursively(
+                    object.current_location.parent_location.id
+                )
+
+            return locations 
+        else:
+            return ''
+
+    def prepare_actor_searchable_pob(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        if object.POB is not None:
+            locations = []
+
+            locations.append('/api/v1/location/{0}/'.format(object.POB.id))
+            if object.POB.parent_location is not None:
+                locations += self.get_locations_recursively(
+                    object.POB.parent_location.id
+                )
+
+            return locations 
+        else:
+            return ''
+
+    def get_locations_recursively(self, location_id):
+        """
+        Recurse upwards through all parent locations and return a list of 
+        uri formatted locations.
+        """
+        locations = []
+        location = Location.objects.get(pk=location_id)
+        if location.parent_location is not None:
+            parent_id = location.parent_location.id
+            locations += self.get_locations_recursively(parent_id)
+            locations.append('/api/v1/location/{0}/'.format(location.id))
+            return locations
+            
+        else:
+            return [ '/api/v1/location/{0}/'.format(location.id) ]
+
 
     def prepare_resource_uri(self, object):
         """

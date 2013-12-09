@@ -39,8 +39,9 @@ define (
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
-        this.model = bulletinCollection.get(
-          options.entityDetails.id);
+        this.model = bulletinCollection.getEntity(options.entityDetails.id, 'bulletin');
+        console.info(this.model);
+        this.listenTo(this.model, 'sync', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.listenTo(this, 'resize', this.sendResizeEvent.bind(this));
         this.expanded = options.entityDetails.expanded === undefined ?

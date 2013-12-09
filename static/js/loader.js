@@ -2,7 +2,6 @@
 (function(requirejs) {
   'use strict';
   requirejs.config({
-    'locale': 'en',
     'paths': {
       'i18n'           : 'components/requirejs-i18n/i18n',
       'lib'            : 'lib',
@@ -66,6 +65,11 @@
         deps: ['jquery']
       }
 
+    },
+    config: {
+      i18n: {
+        locale: Bootstrap.locale || 'en'
+      }
     }
   });
   requirejs(['main']);

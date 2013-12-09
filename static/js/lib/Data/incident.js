@@ -28,10 +28,14 @@ define(
         filterIncidentResults = function(value) {
           return value.type === 'results_incident';
         },
+        filterExternalIncidentUpdates = function(value) {
+          return value.type === 'solr:update_incidents';
+        },
         crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
         ModelSaveMixin        = Mixins.ModelSaveMixin,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
+        CollectionUpdateMixin = Mixins.CollectionUpdateMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         Filters               = new Mixins.Filters(),
         parseComparator       = Comparator.parseComparator,
@@ -143,8 +147,11 @@ define(
     var IncidentCollection = Backbone.Collection.extend({
       model: IncidentModel,
       compareField: 'incident_created',
+      modifiedField: 'incident_modified',
+      updateFilter: filterExternalIncidentUpdates,
       initialize: function() {
         this.watchEventStream();
+        this.watchUpdate();
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
@@ -242,6 +249,7 @@ define(
     });
     // add our mixins to the collection
     _.extend(IncidentCollection.prototype, PersistSelectionMixin);
+    _.extend(IncidentCollection.prototype, CollectionUpdateMixin);
     _.extend(IncidentCollection.prototype, ModelSelectionMixin);
 
   return {

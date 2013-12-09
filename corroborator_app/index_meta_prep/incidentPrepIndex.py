@@ -43,6 +43,40 @@ class IncidentPrepMeta():
         return ['/api/v1/incident/{0}/'.format(incident.id) for incident in
         object.ref_incidents.all()]
 
+    def prepare_incident_searchable_locations(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        locations = []
+        for location in object.locations.all():
+            locations.append(
+                '/api/v1/location/{0}/'.format(location.id)
+            )
+            if location.parent_location is not None:
+                locations += self.get_locations_recursively(
+                    location.parent_location.id
+                )
+
+        return list(set(locations ))
+
+    def get_locations_recursively(self, location_id):
+        """
+        Recurse upwards through all parent locations and return a list of 
+        uri formatted locations.
+        """
+        locations = []
+        location = Location.objects.get(pk=location_id)
+        if location.parent_location is not None:
+            parent_id = location.parent_location.id
+            locations += self.get_locations_recursively(parent_id)
+            locations.append('/api/v1/location/{0}/'.format(location.id))
+            return locations
+            
+        else:
+            return [ '/api/v1/location/{0}/'.format(location.id) ]
+
+
     def prepare_locations(self, object):
         """
         Returns the correctly formated uri related to this incident instance

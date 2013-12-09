@@ -15,7 +15,7 @@ define (
     'lib/CRUD/views/search-views/revision/revision-view',
     'lib/CRUD/data/SourceCollection',
     'lib/CRUD/data/LabelCollection',
-    'lib/CRUD/data/LocationCollection',
+    'lib/Data/LocationCollection',
     // child views
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',

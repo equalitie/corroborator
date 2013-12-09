@@ -42,6 +42,7 @@ define (
         }
         this.fieldName = options.fieldName;
         this.type = options.type;
+        this.listenTo(this.model, 'sync', this.render.bind(this));
         this.render();
         this.selectInitialLanguage();
       },
@@ -104,7 +105,7 @@ define (
           templateVars.roleModel = this.actorRoleModel.toJSON();
         }
         var html = this.template(templateVars);
-        this.$el.append(html);
+        this.$el.empty().append(html);
       }
     });
 

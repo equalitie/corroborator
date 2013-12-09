@@ -27,11 +27,15 @@ define(
     // ## Incident filter view
     // display a list of filters for incidents
     IncidentFilterView = Backbone.View.extend({
+      entityType: 'incident',
       el: '.right-filters',
       filterGroupViews: [],
       events: {
         'click button.do-create-incident': 'createIncidentPressed'
       },
+      mapFilters: [
+        'incident_searchable_locations_exact'
+      ],
 
       // constructor - listen for collection reset event and render the view
       initialize: function() {

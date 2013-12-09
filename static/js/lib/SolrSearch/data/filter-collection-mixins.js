@@ -7,13 +7,18 @@ define (
   [
     'underscore', 'backbone',
     'lib/SolrSearch/data/filter-collection-elements',
-    'lib/streams'
+    'lib/SolrSearch/data/location-collection',
+    'lib/streams',
+    'i18n!lib/SolrSearch/nls/dict'
   ],
-  function (_, Backbone, FilterCollectionElements, Streams) {
+  function (_, Backbone, FilterCollectionElements, Location, Streams, i18n) {
     'use strict';
     // used by actor/bulletin/incident collections to create groups of filters
     var searchBus, filterFilterListRequest,
-        FilterGroupCollection, FilterGroupMixin, SelectedFilterMixin;
+        FilterGroupCollection, FilterGroupMixin, SelectedFilterMixin,
+        excludeKeys, excluded_keys, convertToJSON,
+        LocationCollection = new Location.LocationCollection(),
+        groupMap;
 
     searchBus = Streams.searchBus;
     FilterGroupCollection = FilterCollectionElements.FilterGroupCollection;
@@ -22,13 +27,74 @@ define (
       return value.type === 'filter_list_request';
     };
 
+    // keys we want to exclude
+    excluded_keys = [
+      'marker' // leaflet object
+    ];
+
+    // exclude keys that we don't want to save from filters
+    excludeKeys = function(model_json) {
+      _(excluded_keys).each(function(key) {
+        delete model_json[key];
+      });
+      return model_json;
+      
+    };
+
+    // convert backbone models to json for serialization and saving
+    convertToJSON = function(model) {
+      return model.toJSON();
+    };
+
+    // map filter keys to their titles
+    groupMap = function(key) {
+      var groupTitleMap = {
+          'bulletin_labels_exact':i18n.filters.bulletin_labels_exact,
+          'bulletin_assigned_user_exact':i18n.filters.bulletin_assigned_user_exact,
+          'bulletin_sources_exact':i18n.filters.bulletin_sources_exact,
+          'bulletin_created_exact':i18n.filters.bulletin_created_exact,
+          'most_recent_status_bulletin_exact':i18n.filters.most_recent_status_bulletin_exact,
+          //Incident fields
+          'confidence_score_exact':i18n.filters.confidence_score_exact,
+          'incident_times_exact':i18n.filters.incident_times_exact,
+          'incident_labels_exact':i18n.filters.incident_labels_exact, 
+          'incident_assigned_user_exact':i18n.filters.incident_assigned_user_exact,
+          'incident_crimes_exact':i18n.filters.incident_crimes_exact,
+          'incident_created_exact':i18n.filters.incident_created_exact,
+          'most_recent_status_incident_exact':i18n.filters.most_recent_status_incident_exact,
+          //Actor fields
+          'age_en_exact':i18n.filters.age_en_exact,
+          'age_ar_exact':i18n.filters.age_ar_exact,
+          'sex_en_exact':i18n.filters.sex_en_exact,
+          'sex_ar_exact':i18n.filters.sex_ar_exact,
+          'civilian_en_exact':i18n.filters.civilian_en_exact,
+          'civilian_ar_exact':i18n.filters.civilian_ar_exact,
+          'nationality_en_exact':i18n.filters.nationality_en_exact,
+          'nationality_ar_exact':i18n.filters.nationality_ar_exact,
+          'occupation_en_exact':i18n.filters.occupation_en_exact,
+          'occupation_ar_exact':i18n.filters.occupation_ar_exact,
+          'position_en_exact':i18n.filters.position_en_exact,
+          'position_ar_exact':i18n.filters.position_ar_exact,
+          'ethnicity_en_exact':i18n.filters.ethnicity_en_exact,
+          'ethnicity_ar_exact':i18n.filters.ethnicity_ar_exact,
+          'spoken_dialect_en':i18n.filters.spoken_dialect_en,
+          'spoken_dialect_ar':i18n.filters.spoken_dialect_ar,
+          'incident_searchable_locations_exact':i18n.filters.incident_searchable_locations_exact,
+          'bulletin_searchable_locations_exact':i18n.filters.bulletin_searchable_locations_exact,
+          'actor_searchable_pob_exact':i18n.filters.actor_searchable_pob_exact,
+          'actor_searchable_current_exact':i18n.filters.actor_searchable_current_exact
+      };
+      return groupTitleMap[key];
+    };
+
     // Shared code across the different entities Filter group classes
     FilterGroupMixin = {
 
       // store a flat collection of all filters
       // iterate over filter groups to create collections
-      createFilterGroupCollections: function(groups) {
+      createFilterGroupCollections: function(groups, options) {
         // empty the collection before we add the new filters
+        this.updateOptions = options || {};
         this.allFilters.reset([]);
         _.each(groups, this.createFilterGroupCollection, this);
         this.reset(this.filterGroupCollections);
@@ -40,7 +106,8 @@ define (
         searchBus.push({
           type: 'filter_group_updated',
           content: this.allFilters,
-          entity: this.entityType
+          entity: this.entityType,
+          options: this.updateOptions
         });
       },
 
@@ -90,13 +157,13 @@ define (
             displayFilterName: filterName,
             type             : this.entityType
           });
-          filterGroupCollection.add(filterModel);
-          this.allFilters.add(filterModel);
+          filterGroupCollection.addFilter(filterModel);
         }, this);
+        this.allFilters.add(filterGroupCollection.models);
 
         this.filterGroupCollections.push({
             groupKey: group.key,
-            groupTitle: group.title,
+            groupTitle: groupMap(group.key),
             collection: filterGroupCollection
         });
       }
@@ -165,9 +232,10 @@ define (
 
       // turn all the filter models int json objects
       serializedFilter: function() {
-        return this.map(function(filterModels) {
-          return filterModels.toJSON();
-        });
+        return this.chain()
+                   .map(convertToJSON)
+                   .map(excludeKeys)
+                   .value();
       },
 
       sendCurrentFilters: function(value) {

@@ -32,7 +32,11 @@ define(
             'ethnicity_en_exact',
             'ethnicity_ar_exact',
             'spoken_dialect_en',
-            'spoken_dialect_ar'
+            'spoken_dialect_ar',
+            //'current_location_exact',
+            //'POB_exact',
+            'actor_searchable_pob_exact',
+            'actor_searchable_current_exact'
             //'actor_created_exact',
             //'dob_exact',
           ],
@@ -41,14 +45,18 @@ define(
             'bulletin_labels_exact',
             'bulletin_assigned_user_exact',
             'most_recent_status_bulletin_exact',
-            'bulletin_sources_exact'
+            'bulletin_sources_exact',
+            'bulletin_searchable_locations_exact'
+            //'bulletin_locations_exact'
           ],
           // incident fields
           incident: [
             'incident_labels_exact', 
             'incident_assigned_user_exact',
             'incident_crimes_exact',
-            'most_recent_status_incident_exact'
+            'most_recent_status_incident_exact',
+            'incident_searchable_locations_exact'
+            //'incident_locations_exact'
           ]
         },
         // pull the bulletin filters from the returned list
@@ -59,7 +67,8 @@ define(
         sendFilters = function(filters, entity) {
           Streams.searchBus.push({
             type: eventIdentifier + '_' + entity,
-            content: filters
+            content: filters,
+            options: options
           });
         };
 
@@ -67,7 +76,8 @@ define(
     // main function  
     // filters the different filter types from the list
     // and then sends the events off on the search bus
-    var ParseFilter = function (searchFields, entity) {
+    var ParseFilter = function (searchFields, entity, options) {
+      this.options = options || {};
       var filters = extractFilters(searchFields, entity);
       sendFilters(filters, entity);
     };

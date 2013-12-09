@@ -30,6 +30,12 @@ define(
         filterBulletinFilterEvents = function(value) {
           return value.type === 'filter_event_bulletin';
         },
+        filterUpdateFiltersOnly = function(value) {
+          return value.options.silent === true;
+        },
+        filterUpdateFiltersAndResults = function(value) {
+          return value.options.silent === undefined;
+        },
         filterTitles = {
           'bulletin_assigned_user_exact'     : 'Assigned To',
           'most_recent_status_bulletin_exact': 'Status',
@@ -69,9 +75,18 @@ define(
         var self = this;
         searchBus.toProperty()
                  .filter(filterBulletinFilters)
+                 .filter(filterUpdateFiltersAndResults)
                  .map(extractFilters)
                  .onValue(function(value) {
                    self.createFilterGroupCollections(value);
+                 });
+        // filter auto update
+        searchBus.toProperty()
+                 .filter(filterBulletinFilters)
+                 .filter(filterUpdateFiltersOnly)
+                 .map(extractFilters)
+                 .onValue(function(value) {
+                   self.createFilterGroupCollections(value, {silent: true});
                  });
         return this;
       }
@@ -102,16 +117,18 @@ define(
                  .onValue(function(allFilters) {
                    allFilters.content.each(self.updateFilterTotals, self);
                    self.removeRedundantFilters.call(self, allFilters.content);
-                   self.sendFilter();
+                   self.sendFilter(undefined, allFilters.options);
                  });
 
         this.watchForFilterEmptyRequest();
       },
 
-      sendFilter: function(filterModel) {
+      sendFilter: function(filterModel, options) {
+        options = options || {};
         Streams.searchBus.push({
           type: 'filter_event_add_bulletin',
-          content: this.models
+          content: this.models,
+          options: options
         });
       }
     });

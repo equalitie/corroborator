@@ -65,6 +65,7 @@ define (
                 .empty();
       },
       resetCollection: function(evt) {
+        console.info('resetCollection', evt.value().content);
         this.collection.reset(evt.value().content);
       }
     };

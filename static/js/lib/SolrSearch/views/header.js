@@ -19,12 +19,13 @@ define(
     // templates
     'lib/SolrSearch/templates/header.tpl',
     'lib/SolrSearch/templates/header-count.tpl',
+    'lib/SolrSearch/templates/sort/delete-dialog.tpl',
     'lib/SolrSearch/views/sort-view',
     // translation
     'i18n!lib/SolrSearch/nls/dict'
   ],
   function ($, Backbone, Handlebars, Streams, Combo, Collections,
-    headerTmp, headerCountTmp, SortView, i18n
+    headerTmp, headerCountTmp, deleteDialogTmp, SortView, i18n
   ) {
     'use strict';
     //////////////////////////////////////////////////////////////////////
@@ -42,8 +43,9 @@ define(
         },
 
         getActionType = function(model) {
+          console.log(model);
           return {
-            option: model.get('name_en')
+            option: model.get('key')
           };
         },
         // used to combine nav and action combo events
@@ -85,10 +87,10 @@ define(
 
     // collection of menu items for the action combo
     var menuItems = new Backbone.Collection([
-      { name_en: 'Delete Selected' },
-      { name_en: 'Update Selected' },
-      { name_en: 'Select All' },
-      { name_en: 'Clear Selected' }
+      { key: 'delete', name_en: i18n.menu.Delete_selected },
+      { key: 'update', name_en: i18n.menu.Update_selected },
+      { key: 'select', name_en: i18n.menu.Select_all },
+      { key: 'clear',  name_en: i18n.menu.Clear_selected }
     ]);
 
     //////////////////////////////////////////////////////////////////////
@@ -108,6 +110,12 @@ define(
        */
       propogateEvents: function() {
         var self = this;
+        var removeDeleteActions = function(value) {
+          return value.option !== 'delete';
+        };
+        var filterDelete = function(value) {
+          return value.option === 'delete';
+        };
 
         var selectStream = Streams.searchBus.toEventStream()
                            .filter(filterActions)
@@ -118,13 +126,46 @@ define(
         var watcher = both.scan({
                             type: self.eventIdentifier + '_combined'
                           }, combineBoth);
+
         watcher.filter(filterExecuteAction)
+               .filter(removeDeleteActions)
                .onValue(function(value) {
                   Streams.searchBus.push(value);
                 });
 
+        watcher.filter(filterExecuteAction)
+               .filter(filterDelete)
+               .onValue(this.confirmDelete.bind(this));
+
+      },
+      // shwo a jquery ui dialog looking for confirmation before passing on
+      // the delete event
+      confirmDelete:function(value) {
+        var dialogHtml = deleteDialogTmp({
+          i18n: i18n
+        });
+        var $dialogHtml = $(dialogHtml);
+        var buttons = {};
+
+        buttons[i18n.sort.confirm] = function() {
+          Streams.searchBus.push(value);
+          $dialogHtml.dialog('close');
+        };
+
+        buttons[i18n.sort.cancel] = function() {
+          $dialogHtml.dialog('close');
+        };
+
+        $dialogHtml.dialog({
+          resizable: false,
+          height: 140,
+          modal: true,
+          buttons: buttons
+        });
       }
+
     });
+
 
     //////////////////////////////////////////////////////////////////////
     // NUMBER OF ELEMENTS SELECTED VIEW

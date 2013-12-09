@@ -22,3 +22,6 @@ corroborator/wsgidev.py
 static/js/reports
 static/js/oldreports
 static/js/coverage
+celerytest
+celerybeat-schedule
+demo.json

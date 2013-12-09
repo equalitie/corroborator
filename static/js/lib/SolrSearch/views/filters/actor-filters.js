@@ -34,11 +34,18 @@ define(
     // ## Actor filter view
     // display a list of filters for actors
     ActorFilterView = Backbone.View.extend({
+      entityType: 'actor',
       el: '.right-filters',
       filterGroupViews: [],
       events : {
         'click button.do-create-actor': 'createActorPressed'
       },
+      mapFilters: [
+          'actor_searchable_current_exact',
+          'actor_searchable_pob_exact'
+          //'current_location_exact',
+          //'POB_exact'
+      ],
       // store the sub views so we can get rid of them later
 
       // constructor - listen for collection reset event and render the view

@@ -1,11 +1,12 @@
 from django.http import HttpResponse, HttpResponseGone, \
     Http404
+from django.conf import settings
 import requests
 
 class SolrAuthProxy():
 
     def __init__(self):
-        self.solr_url = ''
+        self.solr_url = settings.SOLR_URL
 
     def parse_request(self, query):
         """
@@ -18,6 +19,7 @@ class SolrAuthProxy():
         """
         Return solr response to requester
         """
-        request_url = 'https://sjac.corroborator.org/solr/collection1/select'
+        request_url = settings.SOLR_URL
+        
         request_url += '?' + query
         return requests.get(request_url)

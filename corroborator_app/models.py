@@ -61,6 +61,13 @@ class StatusUpdate(models.Model):
     def __unicode__(self):
         return self.status_en
 
+    class Meta:
+        permissions = (
+            ("can_update_to_finalized", "Can finalize an entity"),
+            ("can_update", "Can update"),
+            ("can_update_to_reviewed", "Can review and entity"),
+        )
+
 
 class Comment(models.Model):
     """
@@ -354,8 +361,8 @@ class Actor(models.Model):
         ('Male', 'male'),
     )
     CIVILIAN_TYPE_EN = (
-        ('Adult', 'adult'),
-        ('Child', 'child'),
+        ('Civilian', 'Civilian'),
+        ('Non-civilian', 'Non-civilian'),
     )
 
     fullname_en = models.CharField(max_length=255)
@@ -372,9 +379,11 @@ class Actor(models.Model):
         max_length=255, choices=CIVILIAN_TYPE_AR, blank=True)
     DOB = models.DateField('date of birth', blank=True, null=True)
     date_of_death = models.DateField('date of death', blank=True, null=True)
-    date_of_disappearance = models.DateField('date of disappearance', blank=True, null=True)
+    date_of_disappearance = models.DateField(
+        'date of disappearance', blank=True, null=True)
     date_of_return = models.DateField('date of return', blank=True, null=True)
-    date_of_detention = models.DateField('date of detention', blank=True, null=True)
+    date_of_detention = models.DateField(
+        'date of detention', blank=True, null=True)
     occupation_en = models.CharField(max_length=255, blank=True, null=True)
     occupation_ar = models.CharField(max_length=255, blank=True, null=True)
     nationality_en = models.CharField(max_length=255, blank=True, null=True)
@@ -428,6 +437,15 @@ class Actor(models.Model):
 
     def __unicode__(self):
         return self.fullname_en
+
+    def most_recent_update_by(self):
+        """
+        Returns the id of the las user you created an update
+        for the given Actor
+        """
+        user_id = self.actor_comments.values('status__user')\
+            .order_by('-comment_created')
+        return user_id
 
     def count_bulletins(self):
         """
@@ -567,9 +585,9 @@ class Bulletin(models.Model):
     sources = models.ManyToManyField(Source, blank=True, null=True)
     bulletin_comments = models.ManyToManyField(Comment, blank=True, null=True)
     bulletin_imported_comments = models.ManyToManyField(
-        Comment, 
-        blank=True, 
-        null=True, 
+        Comment,
+        blank=True,
+        null=True,
         related_name="bulletin_imported_comments"
     )
     labels = models.ManyToManyField(Label, blank=True, null=True)
@@ -601,6 +619,15 @@ class Bulletin(models.Model):
                     '<span class="duration">({1} days)</span>'
                 string = string.format(date_length, str(duration))
         return string
+
+    def most_recent_update_by(self):
+        """
+        Returns the id of the las user you created an update for the
+        given Bulletin
+        """
+        user_id = self.bulletin_comments.values('status__user')\
+            .order_by('-comment_created')
+        return user_id
 
     def most_recent_status_bulletin(self):
         """
@@ -669,6 +696,15 @@ class Incident(models.Model):
                     '<span class="duration">({1} days)</span>'
                 string = string.format(date_duration, str(duration))
         return string
+
+    def most_recent_update_by(self):
+        """
+        Returns the id of the las user you created an update for
+        the given Incident
+        """
+        user_id = self.incident_comments.values('status__user')\
+            .order_by('-comment_created')
+        return user_id
 
     def most_recent_status_incident(self):
         """

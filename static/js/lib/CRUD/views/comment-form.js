@@ -204,6 +204,7 @@ define (
       // render the view
       render: function() {
         var templateVars = this.prepareTemplateVars();
+        templateVars.i18n = i18n;
         var html = this.template(templateVars);
         this.$el.empty()
                 .append(html);

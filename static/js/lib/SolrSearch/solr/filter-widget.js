@@ -33,6 +33,9 @@ define(
         filterBulletin = function(element) {
           return element.django_ct.search(/bulletin/) > -1;
         },
+        filterShouldUpdateResults = function(value) {
+          return value.options.silent !== true;
+        },
 
         // parse incident results from the result object
         filterIncident = function(element) {
@@ -178,6 +181,7 @@ define(
                    return value.type === 
                      'filter_event_add_' + this.manager.entity;
                  }.bind(this))
+                 .filter(filterShouldUpdateResults)
                  .map(mapFilterToValue)
                  .onValue(function(value) {
                      
@@ -225,4 +229,3 @@ define(
     };
 
 });
-

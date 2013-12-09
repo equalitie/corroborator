@@ -18,6 +18,7 @@ define(
         crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
+        CollectionUpdateMixin = Mixins.CollectionUpdateMixin,
         ModelSaveMixin        = Mixins.ModelSaveMixin,
         Filters               = new Mixins.Filters(),
         parseComparator       = Comparator.parseComparator,
@@ -26,6 +27,10 @@ define(
         // filter bulletin nav requests
         filterBulletin = function(value) {
           return value.navValue === 'bulletin';
+        },
+
+        filterExternalBulletinUpdates = function(value) {
+          return value.type === 'solr:update_bulletins';
         },
 
         filterUpdatedBulletins = function(value) {
@@ -147,9 +152,12 @@ define(
     // stores bulletins 
     var BulletinCollection = Backbone.Collection.extend({
       compareField: 'bulletin_created',
+      modifiedField: 'bulletin_modified',
+      updateFilter: filterExternalBulletinUpdates,
       model: BulletinModel,
       initialize: function() {
         this.watchEventStream();
+        this.watchUpdate();
         this.watchSelection();
         this.watchSort();
         this.watchCreate();
@@ -250,6 +258,7 @@ define(
     });
     _.extend(BulletinCollection.prototype, PersistSelectionMixin);
     _.extend(BulletinCollection.prototype, ModelSelectionMixin);
+    _.extend(BulletinCollection.prototype, CollectionUpdateMixin);
 
   return {
     BulletinModel: BulletinModel,

@@ -28,11 +28,18 @@ define(
     // ## Bulletin filter view
     // display a list of filters for bulletins
     BulletinFilterView = Backbone.View.extend({
+      entityType: 'bulletin',
       el: '.right-filters',
       filterGroupViews: [],
+
       events: {
         'click button.do-create-bulletin': 'createBulletinPressed'
       },
+
+      mapFilters: [
+        'bulletin_searchable_locations_exact'
+      ],
+
       // constructor - listen for collection reset event and render the view
       initialize: function() {
         this.render();

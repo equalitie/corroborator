@@ -13,7 +13,7 @@ define (
 
     'lib/CRUD/data/LabelCollection',
     'lib/CRUD/data/CrimeCollection',
-    'lib/CRUD/data/LocationCollection',
+    'lib/Data/LocationCollection',
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/bulletin/bulletin-search-field',
     'lib/CRUD/views/search-views/incident/incident-search-field',

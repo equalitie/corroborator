@@ -1,9 +1,12 @@
-// translations for header.js view
+// standard strings for header.js view
 define({
   'actor': {
     'aka': 'aka',
     'lives_in':'lives in',
-    'works_as_a': 'works as a',
+    'works_as_a_en': 'works as a (en)',
+    'works_as_a_ar': 'works as a (ar)',
+    'position_en': 'Position(en)',
+    'position_ar': 'Position(ar)',
     'involved_in': 'involved in',
     'Lives_in': 'Lives in',
     'Mentioned_in': 'Mentioned in',
@@ -12,8 +15,10 @@ define({
     'Related_as': 'Related as',
     'Related_Actors': 'Related Actors',
     'Date_Of_Birth': 'Date Of Birth',
-    'Nationality': 'Nationality',
-    'Ethnicity': 'Ethnicity',
+    'Nationality_en': 'Nationality(en)',
+    'Nationality_ar': 'Nationality(ar)',
+    'Ethnicity_en': 'Ethnicity(en)',
+    'Ethnicity_ar': 'Ethnicity(ar)',
     'Occupation': 'Occupation',
     'Speaks': 'Speaks',
     'Religion': 'Religion',

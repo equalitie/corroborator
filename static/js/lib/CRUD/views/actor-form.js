@@ -13,7 +13,7 @@ define (
     'lib/CRUD/views/search-views/actor/actor-search-field',
     'lib/CRUD/views/search-views/media/media-search-field',
     'lib/CRUD/views/search-views/revision/revision-view',
-    'lib/CRUD/data/LocationCollection',
+    'lib/Data/LocationCollection',
     // templates
     'lib/CRUD/templates/search-templates/actor/actor.tpl',
     'i18n!lib/CRUD/nls/dict'
@@ -106,6 +106,7 @@ define (
         // a little trickery here - cos we use toggleExpanded to render the view
         this.expanded = ! options.expanded;
         this.displayForm  = this.displayFormFunction();
+        //this.model.set('actors', options.selected);
         this.multiple = options.multiple;
       },
 
@@ -157,6 +158,7 @@ define (
         $('.hide-multiple').remove();
       },
 
+      // hack to make stupid map view work
       sendResizeEvent: function() {
         _.each(this.childViews, function(view) {
           view.trigger('resize');

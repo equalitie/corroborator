@@ -29,6 +29,7 @@ module.exports = function(grunt) {
           // header
           'lib/SolrSearch/templates/header-count.tpl.js'    : 'lib/SolrSearch/templates/header-count.tpl',
           'lib/SolrSearch/templates/header.tpl.js'          : 'lib/SolrSearch/templates/header.tpl',
+          'lib/SolrSearch/templates/sort/delete-dialog.tpl.js'          : 'lib/SolrSearch/templates/sort/delete-dialog.tpl',
 
           //sort
           'lib/SolrSearch/templates/sort/sort.tpl.js'       : 'lib/SolrSearch/templates/sort/sort.tpl',
@@ -43,6 +44,7 @@ module.exports = function(grunt) {
           'lib/SolrSearch/templates/filters/selected-filters.tpl.js'     : 'lib/SolrSearch/templates/filters/selected-filters.tpl',
           'lib/SolrSearch/templates/filters/date-range.tpl.js'           : 'lib/SolrSearch/templates/filters/date-range.tpl',
           'lib/SolrSearch/templates/filters/selected-filter.tpl.js'      : 'lib/SolrSearch/templates/filters/selected-filter.tpl',
+          'lib/SolrSearch/templates/filters/map-container.tpl.js'      : 'lib/SolrSearch/templates/filters/map-container.tpl',
 
           // Navigation
           'lib/Navigation/templates/search-help.tpl.js': 'lib/Navigation/templates/search-help.tpl',

@@ -6,9 +6,9 @@
 
 define (
   [
-    'underscore', 'backbone'
+    'underscore', 'backbone', 'moment', 'lib/streams'
   ],
-  function (_, Backbone) {
+  function (_, Backbone, moment, Streams) {
     'use strict';
 
         // common to all collections  
@@ -22,19 +22,53 @@ define (
             return value.content;
           },
           filterUnselectAll: function(value) {
-            return value.option === 'Clear Selected';
+            return value.option === 'clear';
           },
           filterSelectAll: function(value) {
-            return value.option === 'Select All';
+            return value.option === 'select';
           },
           filterDeleteSelected: function(value) {
-            return value.option === 'Delete Selected';
+            return value.option === 'delete';
           }
+        },
+        CollectionUpdateMixin = {
+          // watch for updates to the models in the collection
+          watchUpdate: function() {
+            Streams.searchBus.filter(this.updateFilter)
+                             .onValue(this.updateModels.bind(this));
+          },
+          updateModels: function(value) {
+            _(value.content)
+              .chain()
+              .filter(function(updateItem) {
+                return this.get(updateItem.id) !== undefined;
+              }, this)
+              .filter(function(updateItem) {
+                var modelModified =
+                      moment(this.get(updateItem.id).get(this.modifiedField)),
+                    updateItemModified = moment(updateItem.update);
+                return modelModified.isBefore(updateItemModified);
+              }, this)
+              .map(function(item) {
+                return this.get(item.id);
+              }, this)
+              .each(function (model) {
+                model.fetch();
+              });
+          },
         },
         ModelSelectionMixin = {
           // change the selected state of a single model
           toggleSelection: function(model, checked) {
             model.set({checked: checked});
+          },
+          
+          // load the model from the collection if available or from the database if not
+          getEntity: function (id, entityType) {
+            var entity = this.get(id) ||
+              new this.model({resourceUri: '/api/v1/' + entityType + '/' + id + '/'});
+            this.add(entity);
+            return entity;
           },
 
           // delete selected models
@@ -217,7 +251,8 @@ define (
     Filters              : Filters,
     PersistSelectionMixin: PersistSelectionMixin,
     ModelSaveMixin       : ModelSaveMixin,
-    ModelSelectionMixin  : ModelSelectionMixin
+    ModelSelectionMixin  : ModelSelectionMixin,
+    CollectionUpdateMixin: CollectionUpdateMixin
   };
 });
 

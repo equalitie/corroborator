@@ -178,7 +178,7 @@ def validate_status_update(query_dict):
     total_passed = 0
     required_fields = {
         'comment': string_check,
-        'status': status_update_check
+        'status_uri': status_update_check
     }
     return_error = {}
     for key, validation_function in required_fields.iteritems():

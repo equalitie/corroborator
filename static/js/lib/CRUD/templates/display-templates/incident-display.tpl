@@ -52,7 +52,7 @@
   </div>
 
   <div class="body">
-      {{#if model.incident_locations}}
+      {{#if model.locations}}
         <div class="incident-map map detail"></div>
       {{/if}}
     <div class="media detail">

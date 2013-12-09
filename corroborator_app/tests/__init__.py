@@ -13,6 +13,8 @@ from corroborator_app.tests.api.LocationApiTest import *
 from corroborator_app.tests.api.BulletinApiTest import *
 from corroborator_app.tests.api.IncidentApiTest import *
 
+from corroborator_app.tests.monitor.MonitorDataLoaderTest import *
+
 from corroborator_app.tests.authproxy.AWSProxyTest import *
 from corroborator_app.tests.authproxy.SolrProxyTest import *
 

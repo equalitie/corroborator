@@ -163,6 +163,7 @@ def actor_query_string(version_info=True):
 
 
 def create_actor_data(empty_data=False, version_info=True):
+    location_id = Location.objects.all()[0].id
     '''
     test data for the actor
     '''
@@ -171,7 +172,7 @@ def create_actor_data(empty_data=False, version_info=True):
         "sex_en": "Male",
         "age_en": "",
         "civilian_en": "",
-        "current_location": "/api/v1/location/1/",
+        "current_location": "/api/v1/location/" + str(location_id) + "/",
         "occupation_en": "Farmer",
         "occupation_ar": "",
         "position_en": "",
@@ -192,7 +193,8 @@ def create_actor_data(empty_data=False, version_info=True):
     }
     if version_info:
         actor_data.update({
-            "status": "/api/v1/status/3/",
+            "status": "Updated",
+            "status_uri": "/api/v1/status/3/",
             "comment": "comment"
         })
     else:

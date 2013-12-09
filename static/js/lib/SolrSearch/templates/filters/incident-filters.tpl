@@ -17,6 +17,9 @@
 
       <!-- filter groups go in here -->
       <div class="filter-groups">
+        <div class="incident_searchable_locations_exact map-filter-container"></div>
+        <div class="dd-filters"></div>
+        <div class="standard-filters"></div>
         <div class="date-range"></div>
       </div>
 

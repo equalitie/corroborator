@@ -141,7 +141,7 @@
 
           <!-- Date of birth -->
           <div class="field clear-after is-birthdate field hide-multiple">
-            <label>{{i18n.actor.Date_of_birth}}</label>
+            <label>{{i18n.actor.Date_Of_Birth}}</label>
             <input type="text" name="DOB" value="{{formDateFormat model.DOB}}"
             class="w-50p actor-field"/>
           </div>

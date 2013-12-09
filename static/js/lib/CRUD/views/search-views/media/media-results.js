@@ -29,9 +29,11 @@ define (
     // Specific results view for displaying medias
     MediaResultsView = Backbone.View.extend({
       entityType: 'media',
+      onInitialize: function() {
+        this.watchCrudStream();
+      },
       // watch the event stream for new medias
       watchCrudStream: function() {
-        console.log('watchCrudStream media');
         this.watchForSearchResults();
         this.watchForRejectedMedias();
       },
@@ -44,7 +46,6 @@ define (
         this.subscribers.push(subscriber);
       },
       addModelToCollection: function(evt) {
-        console.log('addModelToCollection', evt.value().content.model);
         var model = evt.value().content.model;
         var exists = this.collection.where({resource_uri: model.get('resource_uri')}).length;
         if (exists === 0) {
@@ -70,9 +71,12 @@ define (
         this.$el.append(html);
       },
 
+      collectionUpdated: function() {
+        this.renderResults();
+      },
+
       // render the search results
       renderResults: function() {
-        console.log('renderResults');
         this.destroyChildren();
         this.collection.each(this.renderResult, this);
       },
