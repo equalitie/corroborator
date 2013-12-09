@@ -58,7 +58,7 @@ from corroborator_app.api import (
     CommentResource, CrimeCategoryResource, IncidentResource,
     BulletinResource, LabelResource, MediaResource, PredefinedSearchResource,
     SourceResource, SourceTypeResource, LocationResource, StatusUpdateResource,
-    TimeInfoResource, UserResource, SolrUpdateResource
+    TimeInfoResource, UserResource, SolrUpdateResource, MonitorUpdateResource
 )
 
 v1_api = Api(api_name='v1')

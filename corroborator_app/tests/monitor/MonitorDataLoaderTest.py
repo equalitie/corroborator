@@ -22,8 +22,9 @@ class MonitorDataLoaderTestCase(TestCase):
                 "modified": "2013/10/10",
                 "author": "Bill Doran"
             },
-            "actors_dir": "/tmp/actor_csv/",
-            "bulletins_dir": "/tmp/bulletin_csv",
+            "actors_dir": "/tmp/actors_csv/",
+            "bulletins_dir": "/tmp/bulletins_csv",
+            "mysql_dir": "",
             "media_params": {
                 "media_dir": "/tmp/media/",
                 "file_meta_type": ".yaml",
@@ -40,7 +41,8 @@ class MonitorDataLoaderTestCase(TestCase):
             },
         }
         result = self.mdl.overwrite_importer_config(data)
-        self.assertEqual(result['result'],'success') 
+        test_result = result['result']
+        self.assertEqual(test_result,'success') 
 
     def test_overwrite_scraper_config(self):
         """
@@ -57,19 +59,26 @@ class MonitorDataLoaderTestCase(TestCase):
             "syrianshuhada": False
         }
         result = self.mdl.overwrite_scraper_config(data)
-        self.assertEqual(result['result'],'success') 
+        test_result = result['result']
+        self.assertEqual(test_result,'success') 
 
     def test_read_scraper_config(self):
         """
         Test that the scraper config is correctly read
         """
-        import sys
         scraper_conf = self.mdl.get_scraper_config()
-        print >> sys.stderr, scraper_conf
         self.assertEqual(
             scraper_conf['_HEADER']['modified'],
             '2013/10/10'
         ) 
+
+    def test_validate_ext(self):
+        """
+        Test file extenson validation check
+        """
+        test_file_ext = '.yaml'
+        result = self.mdl.validate_ext(test_file_ext)
+        self.assertEqual(result['success'], 'true')
 
     def test_read_importer_config(self):
         """

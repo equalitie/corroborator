@@ -193,7 +193,10 @@ def monitoring_update_conf(request, conf_name):
             result = mdl.overwrite_importer_config(conf_data)
 
         result_json = json.dumps(result)
-        return HttpResponse(result_json, mimetype='application/json')
+        if 'error' in result_json:
+            return HttpResponseServerError(result_json, mimetype='application/json')
+        else:
+            return HttpResponse(result_json, mimetype='application/json')
     else:
         return HTTP404
 
