@@ -78,7 +78,9 @@ define(
         this.set('actorsRoles',
           this.get('relatedActors').map(this.formatActorCollectionForSave, this));
         this.unset('relatedActors');
-        return this.toJSON();
+        var attrs = this.toJSON();
+        attrs.actors = attrs.selectedActors;
+        return attrs;
       },
       formatActorCollectionForSave: function(model) {
         return {

@@ -54,12 +54,10 @@ define(
         item.enabled = formContent[item.site] === "true" ? true: false;
       });
       this.set('scrapers', scrapers);
-      this.set('actor_dir', formContent.actor_dir);
-      this.set('bulletin_dir', formContent.bulletin_dir);
+      this.set('actor_dir', formContent.actors_dir);
+      this.set('bulletin_dir', formContent.bulletins_dir);
       this.set('next_job_time', 
         moment(formContent.next_job_time, 'yy-mm-dd HH:mm:ss').format('X'));
-      this.unset('conf_data');
-      this.set('conf_data', JSON.stringify(this.toJSON()));
       this.save(this.attributes, {
         headers: {
           'X-CSRFToken': cookie
@@ -68,7 +66,7 @@ define(
           model.trigger('success');
         },
         error: function(model, error) {
-          this.trigger('fail', error.responseText);
+          model.trigger('fail', error.responseText);
         }
 
       });
@@ -88,11 +86,10 @@ define(
       media_params.media_dir = formContent.media_dir;
       this.set('actors_dir', formContent.actors_dir);
       this.set('bullletins_dir', formContent.bullletins_dir);
+      this.set('mysql_dir', formContent.mysql_dir);
       this.set('media_params', media_params);
       this.set('next_job_time', 
         moment(formContent.next_job_time, 'yy-mm-dd HH:mm:ss').format('X'));
-      this.unset('conf_data');
-      this.set('conf_data', JSON.stringify(this.toJSON()));
       this.save(this.attributes, {
         headers: {
           'X-CSRFToken': cookie

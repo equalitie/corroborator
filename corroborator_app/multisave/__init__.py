@@ -34,7 +34,7 @@ def separate_field_types(model_dict, appendable_keys):
 
 def update_entities(model_dict, model_objects, appendable_keys):
     '''
-    update the actor objects received based on the query_dict
+    update the objects received based on the query_dict
     '''
     appendable_dict, remainder_dict = separate_field_types(
         model_dict, appendable_keys)

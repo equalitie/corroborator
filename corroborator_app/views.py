@@ -13,7 +13,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import (
-    HttpResponseRedirect, HttpResponse, HttpResponseServerError)
+    HttpResponseRedirect, Http404, HttpResponse, HttpResponseServerError)
 from django.conf import settings
 
 from tastypie.models import ApiKey
@@ -199,7 +199,7 @@ def monitoring_update_conf(request, conf_name):
         else:
             return HttpResponse(result_json, mimetype='application/json')
     else:
-        return HTTP404
+        return Http404
 
 
 def monitoring(request, *args, **kwargs):

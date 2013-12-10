@@ -108,6 +108,7 @@ define (
         this.displayForm  = this.displayFormFunction();
         //this.model.set('actors', options.selected);
         this.multiple = options.multiple;
+        this.model.set('selectedActors', options.selected);
       },
 
       // toggle the expanded switch and render the form

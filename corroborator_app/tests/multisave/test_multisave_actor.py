@@ -154,10 +154,10 @@ def actor_query_string(version_info=True):
         "actors_role=/api/v1/actorRole/1/&sex_ar=&age_ar=&civilian_ar=&"
     if version_info is True:
         query += "username=admin""&comment=updated" +\
-            "&status=/api/v1/statusUpdate/3/"
+            "&status_uri=/api/v1/statusUpdate/3/"
     else:
         query += "username=admin""&comment=" +\
-            "&status="
+            "&status_uri="
 
     return query
 
@@ -199,7 +199,7 @@ def create_actor_data(empty_data=False, version_info=True):
         })
     else:
         actor_data.update({
-            "status": "",
+            "status_uri": "",
             "comment": ""
         })
 

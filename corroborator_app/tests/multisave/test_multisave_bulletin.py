@@ -27,6 +27,9 @@ class MultiSaveBulletinTestCase(TestCase):
         '''
         bulletin_fixture = AutoFixture(Bulletin)
         bulletin_fixture.create(5)
+        bull = Bulletin.objects.get(id=1)
+        bull.actors_role.clear()
+        bull.save()
         location_fixture = AutoFixture(Location)
         location_fixture.create(1)
         self.test_user_util = TestUserUtility()
@@ -44,6 +47,8 @@ class MultiSaveBulletinTestCase(TestCase):
         '''
         basic test to ensure that end to end functionality is in place
         '''
+        import ipdb
+        ipdb.set_trace()
         client = Client()
         post_data = create_bulletin_data()
         response = client.post(
@@ -59,6 +64,7 @@ class MultiSaveBulletinTestCase(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 200)
+        ipdb.set_trace()
 
     def test_statusless_update_fails(self):
         client = Client()
@@ -76,7 +82,6 @@ def create_bulletin_data(empty_data=False, version_info=True):
     test data for bulletin creation
     '''
     bulletin_data = {
-        "actorsRoles": [],
         "assigned_user": "",
         "bulletins": [
             "/api/v1/bulletin/1/",
@@ -89,14 +94,14 @@ def create_bulletin_data(empty_data=False, version_info=True):
         "sources": [],
         "username": "cormac",
         "comment": "comment",
-        "status": "/api/v1/status/3/"
+        "status_uri": "/api/v1/status/3/"
     }
     if empty_data is True:
         bulletin_data['ref_bulletins'] = []
         bulletin_data['relatedActors'] = []
 
     if version_info is False:
-        bulletin_data['status'] = ""
+        bulletin_data['status_uri'] = ""
         bulletin_data['comment'] = ""
 
     return json.dumps(bulletin_data)
