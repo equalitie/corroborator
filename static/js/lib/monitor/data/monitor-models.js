@@ -54,8 +54,8 @@ define(
         item.enabled = formContent[item.site] === "true" ? true: false;
       });
       this.set('scrapers', scrapers);
-      this.set('actor_dir', formContent.actors_dir);
-      this.set('bulletin_dir', formContent.bulletins_dir);
+      this.set('actors_dir', formContent.actors_dir);
+      this.set('bulletins_dir', formContent.bulletins_dir);
       this.set('next_job_time', 
         moment(formContent.next_job_time, 'yy-mm-dd HH:mm:ss').format('X'));
       this.save(this.attributes, {

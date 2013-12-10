@@ -37,13 +37,13 @@ function program2(depth0,data) {
     + "</td>\n      <td>\n      <p class=\"error-text\">\n        "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.importer)),stack1 == null || stack1 === false ? stack1 : stack1.actor_dir_required)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n      </p>\n      <input\n        type=\"text\"\n        name=\"actors_dir\"\n        id=\"actors_dir\"\n        value=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actor_dir)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actors_dir)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"\n        class=\"required scraper-field\"></td>\n    </tr>\n    <tr class=\"field\">\n      <td>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.importer)),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_csv_directory)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</td>\n      <td>\n      <p class=\"error-text\">\n        "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.importer)),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_dir_required)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n      </p>\n      <input\n      type=\"text\"\n      name=\"bulletins_dir\"\n      id=\"bulletins_dir\"\n      value=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_dir)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletins_dir)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"\n      class=\"required scraper-field\"></td>\n    </tr>\n    <tr class=\"field\">\n      <td>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.importer)),stack1 == null || stack1 === false ? stack1 : stack1.set_job_time)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</td>\n      <td>\n      <p class=\"error-text\">\n        "
