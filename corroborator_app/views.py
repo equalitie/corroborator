@@ -186,7 +186,7 @@ def monitoring_update_conf(request, conf_name):
     if request.user.is_authenticated:
         mdl = MonitorDataLoader()
         result = ''
-        conf_data = request.POST
+        conf_data = json.loads(request.body)
 
         if conf_name == 'scraper':
             result = mdl.overwrite_scraper_config(conf_data)

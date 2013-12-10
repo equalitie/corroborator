@@ -32,6 +32,13 @@ class MonitorDataLoader:
         Update config file
         """
         scraper_config_file = settings.SCRAPER_CONF_FILE
+        validation = self.validate_scraper_config(data)
+        if 'error' in validation:
+            return validation
+        else:
+            return self.overwrite_config(data, scraper_config_file)
+
+
         return self.overwrite_config(data, scraper_config_file)
 
     def overwrite_importer_config(self, data):
@@ -51,15 +58,15 @@ class MonitorDataLoader:
         """
         if 'actors_dir' not in data:
             return {'error': 'Actors Directory missing'}
-        elif os.path.exists(data['actors_dir']):
+        elif not os.path.exists(data['actors_dir']):
             return {
-                'error': 'Actors Directory is not a valid system directory'
+                'error': data['actors_dir'] + ' is not a valid system directory'
             }
         if 'bulletins_dir' not in data:
             return {'error': 'Bulletins Directory missing'}
         elif not os.path.exists(data['actors_dir']):
             return {
-                'error': 'Bulletins Directory is not a valid system directory'
+                'error': data['bulletins_dir'] + ' is not a valid system directory'
             }
         if 'scrapers' not in data:
             return {
@@ -95,7 +102,7 @@ class MonitorDataLoader:
             return {'error': 'Media Directory missing'}
         elif not os.path.exists(data['media_params']['media_dir']):
             return {
-                'error': 'Media directory is not a valid system directory'
+                'error': data['media_params']['media_dir'] + ' is not a valid system directory'
             }
         elif 'file_meta_type' not in data['media_params']:
             return {'error': 'File Meta type missing'}
@@ -138,7 +145,7 @@ class MonitorDataLoader:
             return {'success':'true'}
         else:
             return {'error': file_type +\
-                ' does not match required file extension format. eg: .yaml'
+                ' does not match required file extension format. eg: jpg'
             }
 
     def validate_ext(self, ext_str):
