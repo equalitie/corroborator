@@ -196,6 +196,6 @@ class MonitorDataLoader:
 
             return {"result": "success"}
         except Exception, e:
-            return {"error": e}
+            return {"error": str(e)}
 
 
