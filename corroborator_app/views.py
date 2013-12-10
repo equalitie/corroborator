@@ -12,7 +12,8 @@ from django.shortcuts import render_to_response, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import (
+    HttpResponseRedirect, HttpResponse, HttpResponseServerError)
 from django.conf import settings
 
 from tastypie.models import ApiKey

@@ -1,4 +1,4 @@
-/*global Bootstrap*/
+/*global Bootstrap, window*/
 // Author: Cormac McGuire
 // ### Description: define the models to be used in the monitor views
 // 
@@ -18,6 +18,16 @@ define(
   // hold the stats for the job being monitored
   MonitorStatsModel = Backbone.Model.extend({
     initialize: function() {
+      this.pollForUpdates();
+    },
+    url: function() {
+      var base = '/api/v1/monitorUpdate/';
+      var urlvars = "?format=json&username=" +
+      Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
+        return base + urlvars;
+    },
+    pollForUpdates: function() {
+      //window.setInterval(this.fetch.bind(this), 1000);
     }
   });
   statsModel = new MonitorStatsModel(Bootstrap.importer_stats);
@@ -53,7 +63,14 @@ define(
       this.save(this.attributes, {
         headers: {
           'X-CSRFToken': cookie
+        },
+        success: function(model) {
+          model.trigger('success');
+        },
+        error: function(model, error) {
+          this.trigger('fail', error.responseText);
         }
+
       });
     }
   });
@@ -79,6 +96,12 @@ define(
       this.save(this.attributes, {
         headers: {
           'X-CSRFToken': cookie
+        },
+        success: function(model, result) {
+          model.trigger('success');
+        },
+        error: function(model, error) {
+          model.trigger('fail', error.responseText);
         }
       });
     }

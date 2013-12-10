@@ -44,8 +44,9 @@ define (
         this.listenTo(this.model, 'sync', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.listenTo(this, 'resize', this.sendResizeEvent.bind(this));
-        this.expanded = options.entityDetails.expanded === undefined ?
-          false : options.entityDetails.expanded;
+        this.expanded = options.entityDetails.expanded === undefined
+          ? false 
+          : options.entityDetails.expanded;
         this.expanded = !this.expanded;
         this.toggleExpanded();
         this.selectInitialLanguage();

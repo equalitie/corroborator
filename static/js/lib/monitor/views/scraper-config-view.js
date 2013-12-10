@@ -1,4 +1,4 @@
-/*global require*/
+/*global require, window*/
 // Author: Cormac McGuire
 // ### Description: Show the scraper config
 // 
@@ -41,13 +41,44 @@ define(
     },
     submitRequested: function(evt) {
       evt.preventDefault();
-      var $submit = $(evt.target),
+      var $submit = this.getSubmitButton(),
           passed = this.validateForm();
       if (passed) {
         $submit.val('Saving')
                .attr('enabled', 'false');
+        this.listenTo(this.model, 'success', this.saveSucceeded.bind(this));
+        this.listenTo(this.model, 'fail', this.saveFailed.bind(this));
         this.model.saveConf(this.formContent());
       }
+    },
+    getSubmitButton: function() {
+      this.$submit = this.$submit ||
+        this.$el.children()
+                .children()
+                .children()
+                .children()
+                .children()
+                .children('input[type=submit]');
+      return this.$submit;
+    },
+    removeXhrListeners: function() {
+      this.stopListening(this.model, 'success');
+      this.stopListening(this.model, 'fail');
+    },
+    saveFailed: function(error) {
+      error = JSON.parse(error);
+      var $submit = this.getSubmitButton();
+      $submit.attr('enabled', 'true')
+             .val(i18n.importer.save_config);
+      window.alert(i18n.importer.save_failed + ': ' + error.error);
+      this.removeXhrListeners();
+    },
+    saveSucceeded: function() {
+      var $submit = this.getSubmitButton();
+      $submit.attr('enabled', 'true')
+             .val(i18n.importer.save_config);
+      window.alert(i18n.importer.config_saved);
+      this.removeXhrListeners();
     },
     render: function() {
       var html = this.template({

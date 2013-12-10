@@ -288,6 +288,7 @@ define(
       // render the selected filters container
       render: function() {
         var html = selectedFiltersTmp({
+          i18n: i18n,
           model: {
             type: this.type
           }

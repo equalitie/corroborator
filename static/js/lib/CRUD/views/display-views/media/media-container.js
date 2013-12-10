@@ -31,6 +31,7 @@ define (
       className: 'medium REPEAT',
       template: mediaTmp,
       initialize: function() {
+        this.addi18n();
         this.render();
         this.$el.tooltip();
       },
@@ -83,6 +84,7 @@ define (
       containerTmp: mediaListTmp,
 
       initialize: function(options) {
+        this.addi18n();
         this.render();
         this.collection = new Backbone.Collection();
         this.loadFromList(options.content);

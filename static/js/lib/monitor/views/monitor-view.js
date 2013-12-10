@@ -23,9 +23,15 @@ define(
       this.model = statsModel;
       this.model.set(
         'num_errors', this.model.get('errors').length, {silent: true});
+      this.renderAll();
+      this.listenTo(this.model, 'change', this.renderAll.bind(this));
+    },
+
+    renderAll: function() {
       this.render()
           .showProgressBar();
     },
+
     onDestroy: function() {
     },
     render: function() {

@@ -33,5 +33,4 @@ class MonitorUpdateResource(ModelResource):
     def dehydrate(self, bundle):
         tempUser = User.objects.get(id=bundle.obj.user.id)
         bundle.data['update_username'] = tempUser.username
-        return bundle 
-
+        return bundle
