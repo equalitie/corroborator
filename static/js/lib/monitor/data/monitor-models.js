@@ -62,7 +62,7 @@ define(
       this.set('actors_dir', formContent.actors_dir);
       this.set('bulletins_dir', formContent.bulletins_dir);
       this.set('next_job_time', 
-        moment(formContent.next_job_time, 'yy-mm-dd HH:mm:ss').format('X'));
+        moment(formContent.next_job_time, 'YYYY-MM-DD HH:mm:ss').format('X'));
       this.save(this.attributes, {
         headers: {
           'X-CSRFToken': cookie
@@ -94,7 +94,7 @@ define(
       this.set('mysql_dir', formContent.mysql_dir);
       this.set('media_params', media_params);
       this.set('next_job_time', 
-        moment(formContent.next_job_time, 'yy-mm-dd HH:mm:ss').format('X'));
+        moment(formContent.next_job_time, 'YYYY-MM-DD HH:mm:ss').format('X'));
       this.save(this.attributes, {
         headers: {
           'X-CSRFToken': cookie

@@ -26,7 +26,7 @@ define (
       var formattedContext = context;
       if (moment && formattedContext) {
         var f = block.hash.format || "YYYY-MM-DD HH:mm:ss";
-        formattedContext =  moment(context).format(f);
+        formattedContext =  moment(context, 'X').format(f);
       }
       return formattedContext;
     });

@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <td>{{i18n.monitor.start_time}}</td>
-    <td>{{dateTimeFormat model.timestart}}</td>
+    <td>{{model.timestart}}</td>
   </tr>
   <tr>
     <td>{{i18n.monitor.number_files}}</td>
