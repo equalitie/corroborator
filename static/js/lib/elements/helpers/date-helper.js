@@ -25,7 +25,7 @@ define (
     Handlebars.registerHelper('dateTimeFormat', function(context, block) {
       var formattedContext = context;
       if (moment && formattedContext) {
-        var f = block.hash.format || "yy-mm-dd HH:mm:ss";
+        var f = block.hash.format || "YYYY-MM-DD HH:mm:ss";
         formattedContext =  moment(context).format(f);
       }
       return formattedContext;
