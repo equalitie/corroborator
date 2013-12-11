@@ -101,3 +101,8 @@
   margin-right: $PAD_UNIT;
   float: none;
 }
+// leaflet hacks
+// stop things popping up over other things
+.leaflet-top, .leaflet-bottom {
+  z-index: 7;
+}
