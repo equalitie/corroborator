@@ -49,7 +49,7 @@
       type="text"
       name="mysql_dir"
       id="mysql_dir"
-      value="{{models.mysql_dir}}"
+      value="{{model.mysql_dir}}"
       class="required importer-field"></td>
     </tr>
     <tr class="field">
