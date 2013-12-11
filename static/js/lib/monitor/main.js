@@ -7,9 +7,10 @@ define(
     'backbone',
     'lib/monitor/router/monitor-router',
     'lib/elements/helpers/view-close',
+    'lib/elements/helpers/date-helper',
     'jquery', 'jquery_ui', 'jquery_time'
   ],
-  function (Backbone, MonitorRouter, $) {
+  function (Backbone, MonitorRouter) {
   'use strict';
 
   var router = new MonitorRouter();
