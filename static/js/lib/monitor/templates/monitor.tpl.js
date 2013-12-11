@@ -38,8 +38,6 @@ function program2(depth0,data) {
     + "</td>\n    <td>";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.dateTimeFormat || depth0.dateTimeFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.timestart), options) : helperMissing.call(depth0, "dateTimeFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.timestart), options)))
-    + "</td>\n    <td>"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.timestart)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</td>\n  </tr>\n  <tr>\n    <td>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.monitor)),stack1 == null || stack1 === false ? stack1 : stack1.number_files)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</td>\n    <td>"
