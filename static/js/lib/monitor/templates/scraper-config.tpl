@@ -35,7 +35,7 @@
       type="text"
       name="next_job_time"
       id="next_job_time"
-      value="{{dateTimeFomat model.next_job_time}}"
+      value="{{dateTimeFormat model.next_job_time}}"
       class="required scraper-field"></td>
     </tr>
   <tr>
