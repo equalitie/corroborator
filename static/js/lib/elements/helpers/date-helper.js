@@ -35,7 +35,7 @@ define (
       var formattedContext = context;
       if (moment && formattedContext) {
         var f = block.hash.format || "YY-MM-DD HH:mm:ss";
-        formattedContext =  moment.duration(context, 'seconds').format(f);
+        formattedContext =  moment.duration(context, 'seconds').humanize();
       }
       return formattedContext;
     });
