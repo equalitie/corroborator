@@ -12,6 +12,8 @@ from corroborator_app.tests.api.ActorRoleApiTest import *
 from corroborator_app.tests.api.LocationApiTest import *
 from corroborator_app.tests.api.BulletinApiTest import *
 from corroborator_app.tests.api.IncidentApiTest import *
+from corroborator_app.tests.api.MonitorUpdateApiTest import\
+    MonitorUpdateTestCase
 
 from corroborator_app.tests.monitor.MonitorDataLoaderTest import *
 

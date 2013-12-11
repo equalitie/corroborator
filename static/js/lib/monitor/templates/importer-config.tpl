@@ -62,7 +62,7 @@
       type="text"
       name="next_job_time"
       id="next_job_time"
-      value=""
+      value="{{dateTimeFomat model.next_job_time}}"
       class="required importer-field"></td>
     </tr>
     <tr>
