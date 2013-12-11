@@ -50,7 +50,7 @@ function program2(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.importer)),stack1 == null || stack1 === false ? stack1 : stack1.job_time_required)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n      </p>\n      <input\n      type=\"text\"\n      name=\"next_job_time\"\n      id=\"next_job_time\"\n      value=\"";
   options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.dateTimeFomat || depth0.dateTimeFomat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.next_job_time), options) : helperMissing.call(depth0, "dateTimeFomat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.next_job_time), options)))
+  buffer += escapeExpression(((stack1 = helpers.dateTimeFormat || depth0.dateTimeFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.next_job_time), options) : helperMissing.call(depth0, "dateTimeFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.next_job_time), options)))
     + "\"\n      class=\"required scraper-field\"></td>\n    </tr>\n  <tr>\n    <td><b>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.scraper)),stack1 == null || stack1 === false ? stack1 : stack1.enable_scrapers)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</b></td>\n  </tr>\n  ";
