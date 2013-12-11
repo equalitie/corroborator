@@ -207,9 +207,9 @@ def multi_save_actors(request, actor_dict, username):
             mimetype='application/json'
         )
 
-    actor_id_list = extract_ids(actor_dict, 'actors')
+    actor_id_list = extract_ids(actor_dict, 'selectedActors')
     actor_dict = process_actor_data(actor_dict)
-    actor_dict.pop('actors')
+    actor_dict.pop('selectedActors')
     actor_objects = Actor.objects.filter(
         id__in=actor_id_list
     )
