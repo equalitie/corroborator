@@ -56,7 +56,6 @@ define (
         'click button#clear-user'          : 'clearUser',
         'click button.do-hide'             : 'requestCloseForm',
         'change #status'                   : 'onSelectStatus'
-
       },
 
       // define the fields that will have autocomplete enabled  
