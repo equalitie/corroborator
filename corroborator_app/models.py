@@ -31,6 +31,13 @@ class SolrUpdate(models.Model):
     user = models.ForeignKey(User)
     update_timestamp = models.DateTimeField(auto_now=True)
 
+class MonitorUpdate(models.Model):
+    """
+    Store most recent monitor update
+    used by the UI to poll for newest updates
+    """
+    user = models.ForeignKey(User)
+    update_timestamp = models.DateTimeField(auto_now=True)
 
 class PredefinedSearch(models.Model):
     """
@@ -364,7 +371,7 @@ class Actor(models.Model):
         ('Civilian', 'Civilian'),
         ('Non-civilian', 'Non-civilian'),
     )
-
+    seq_order = models.IntegerField(blank=True, null=True)
     fullname_en = models.CharField(max_length=255)
     fullname_ar = models.CharField(max_length=255, blank=True)
     nickname_en = models.CharField(max_length=255, blank=True, null=True)
@@ -560,6 +567,7 @@ class Bulletin(models.Model):
         ('Report', 'report'),
         ('News', 'news'),
     )
+    seq_order = models.IntegerField(blank=True, null=True)
     title_en = models.CharField(max_length=255)
     title_ar = models.CharField(max_length=255, blank=True)
     description_en = models.TextField(blank=True, null=True)

@@ -5,7 +5,6 @@ Test the multisave bulletin functionality
 """
 
 import json
-#import ipdb
 
 from django.test import TestCase, Client
 
@@ -27,6 +26,9 @@ class MultiSaveBulletinTestCase(TestCase):
         '''
         bulletin_fixture = AutoFixture(Bulletin)
         bulletin_fixture.create(5)
+        bull = Bulletin.objects.get(id=1)
+        bull.actors_role.clear()
+        bull.save()
         location_fixture = AutoFixture(Location)
         location_fixture.create(1)
         self.test_user_util = TestUserUtility()
@@ -45,6 +47,7 @@ class MultiSaveBulletinTestCase(TestCase):
         basic test to ensure that end to end functionality is in place
         '''
         client = Client()
+        client.login(username='user', password='password')
         post_data = create_bulletin_data()
         response = client.post(
             '/corroborator/bulletin/0/multisave/',
@@ -58,7 +61,10 @@ class MultiSaveBulletinTestCase(TestCase):
             post_data,
             content_type='application/json'
         )
+        response_data = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response_data[0]['most_recent_status_bulletin'], u'Updated')
 
     def test_statusless_update_fails(self):
         client = Client()
@@ -76,7 +82,6 @@ def create_bulletin_data(empty_data=False, version_info=True):
     test data for bulletin creation
     '''
     bulletin_data = {
-        "actorsRoles": [],
         "assigned_user": "",
         "bulletins": [
             "/api/v1/bulletin/1/",
@@ -89,14 +94,14 @@ def create_bulletin_data(empty_data=False, version_info=True):
         "sources": [],
         "username": "cormac",
         "comment": "comment",
-        "status": "/api/v1/status/3/"
+        "status_uri": "/api/v1/status/3/"
     }
     if empty_data is True:
         bulletin_data['ref_bulletins'] = []
         bulletin_data['relatedActors'] = []
 
     if version_info is False:
-        bulletin_data['status'] = ""
+        bulletin_data['status_uri'] = ""
         bulletin_data['comment'] = ""
 
     return json.dumps(bulletin_data)

@@ -12,7 +12,8 @@ from django.shortcuts import render_to_response, render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template import RequestContext
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import (
+    HttpResponseRedirect, Http404, HttpResponse, HttpResponseServerError)
 from django.conf import settings
 
 from tastypie.models import ApiKey
@@ -185,7 +186,7 @@ def monitoring_update_conf(request, conf_name):
     if request.user.is_authenticated:
         mdl = MonitorDataLoader()
         result = ''
-        conf_data = request.POST
+        conf_data = json.loads(request.body)
 
         if conf_name == 'scraper':
             result = mdl.overwrite_scraper_config(conf_data)
@@ -193,9 +194,12 @@ def monitoring_update_conf(request, conf_name):
             result = mdl.overwrite_importer_config(conf_data)
 
         result_json = json.dumps(result)
-        return HttpResponse(result_json, mimetype='application/json')
+        if 'error' in result_json:
+            return HttpResponseServerError(result_json, mimetype='application/json')
+        else:
+            return HttpResponse(result_json, mimetype='application/json')
     else:
-        return HTTP404
+        return Http404
 
 
 def monitoring(request, *args, **kwargs):

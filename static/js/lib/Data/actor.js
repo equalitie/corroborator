@@ -67,7 +67,7 @@ define(
     var ActorListUpdateModel = Backbone.Model.extend({
       textFields: [
         'sex_en', 'sex_ar', 'age_en', 'age_ar', 'civilian_en', 'civilian_ar',
-        'civilian_en', 'position_en', 'position_ar',
+        'civilian_en', 'position_en', 'position_ar','religion_en','religion_ar',
         'occupation_en', 'occupation_ar', 'ethnicity_en', 'ethnicity_ar',
         'nationality_en', 'nationality_ar', 'religion_en', 'religion_ar',
         'spoken_dialect_en', 'spoken_dialect_ar', 'current_location'
@@ -78,7 +78,9 @@ define(
         this.set('actorsRoles',
           this.get('relatedActors').map(this.formatActorCollectionForSave, this));
         this.unset('relatedActors');
-        return this.toJSON();
+        var attrs = this.toJSON();
+        attrs.actors = attrs.selectedActors;
+        return attrs;
       },
       formatActorCollectionForSave: function(model) {
         return {

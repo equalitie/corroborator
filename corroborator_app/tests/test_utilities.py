@@ -1,16 +1,14 @@
 from django.contrib.auth.models import User
 from tastypie.models import ApiKey
 
+
 class TestUserUtility(object):
     '''
     create a user to be used in unit tests
     '''
     def __init__(self):
-        self.user = User(
-            username='user',
-            password='password',
-            email='test@test.com'
-        )
+        self.user = User.objects.create_user(
+            'user', 'admin@test.com', 'password')
         self.user.save()
         self.api_key = self.create_api_key()
         self.auth_string = ''

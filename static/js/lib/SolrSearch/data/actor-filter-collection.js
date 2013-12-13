@@ -54,6 +54,8 @@ define(
           'sex_ar_exact': 'Gender::ar',
           'civilian_en_exact': 'Civilian::en',
           'civilian_ar_exact': 'Civilian::ar',
+          'religion_en_exact': 'Religion::en',
+          'religion_ar_exact': 'Religion::ar',
           'nationality_en_exact': 'Nationality::en',
           'nationality_ar_exact': 'Nationality::ar',
           'occupation_en_exact': 'Occupation::en',

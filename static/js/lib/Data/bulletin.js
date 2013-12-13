@@ -78,7 +78,7 @@ define(
       formatSaveMultiple: function() {
         this.set('actorsRoles',
           this.get('relatedActors').map(this.formatActorCollectionForSave, this));
-        this.unset('actors_role');
+        //this.unset('actors_role');
         return this.toJSON();
       },
       formatActorCollectionForSave: function(model) {

@@ -24,5 +24,6 @@ from corroborator_app.api.StatusUpdateApi import StatusUpdateResource
 from corroborator_app.api.SolrUpdateApi import SolrUpdateResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.SolrUpdateApi import SolrUpdateResource
+from corroborator_app.api.MonitorUpdateApi import MonitorUpdateResource
 
 models.signals.post_save.connect(create_api_key, sender=User)

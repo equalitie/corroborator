@@ -25,7 +25,9 @@ define({
       'job_time_required'       : 'Next Job time required',
       'set_job_time'            : 'Set next Job time',
       'save_config'             : 'Save Config',
-      'saving'                  : 'Saving'
+      'saving'                  : 'Saving',
+      'save_failed'             : 'Save Failed',
+      'config_saved'            : 'Config Updated'
     }
   },
   'ar': true

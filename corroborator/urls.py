@@ -58,7 +58,7 @@ from corroborator_app.api import (
     CommentResource, CrimeCategoryResource, IncidentResource,
     BulletinResource, LabelResource, MediaResource, PredefinedSearchResource,
     SourceResource, SourceTypeResource, LocationResource, StatusUpdateResource,
-    TimeInfoResource, UserResource, SolrUpdateResource
+    TimeInfoResource, UserResource, SolrUpdateResource, MonitorUpdateResource
 )
 
 v1_api = Api(api_name='v1')
@@ -79,6 +79,7 @@ v1_api.register(StatusUpdateResource())
 v1_api.register(TimeInfoResource())
 v1_api.register(UserResource())
 v1_api.register(SolrUpdateResource())
+v1_api.register(MonitorUpdateResource())
 
 urlpatterns += patterns(
     '',

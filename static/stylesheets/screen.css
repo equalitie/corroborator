@@ -435,6 +435,11 @@ button.do-clear > span {
   font-size: 13px;
 }
 
+/* line 279, ../sass/_buttons.scss */
+.Header input[type=submit] {
+  line-height: .75em;
+}
+
 /* HTML5 RESET STYLESHEET */
 /* line 2, ../sass/_reset.scss */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
@@ -2861,6 +2866,11 @@ ul.media li.medium:hover .do-remove {
   width: 100%;
   margin-right: 1.53846em;
   float: none;
+}
+
+/* line 106, ../sass/_hacks.scss */
+.leaflet-top, .leaflet-bottom {
+  z-index: 7;
 }
 
 /* line 5, ../sass/_forms.scss */

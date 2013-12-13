@@ -275,3 +275,7 @@ button.do-clear {
   display: inline-block;
   @include corrob_icon_attach_before;
 }
+
+.Header input[type=submit] {
+  line-height: .75em;
+}

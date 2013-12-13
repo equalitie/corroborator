@@ -7,13 +7,24 @@ TODO: separate into 4 files, common functionality can remain in __init__
 the rest should be divided between actor, bulletin and incident
 '''
 import json
+import ipdb
 
 from django.http import HttpResponseForbidden, HttpResponse
 
 from django.contrib.auth.models import User
 
-from corroborator_app.models import Incident, Actor, Bulletin, ActorRole, \
-    Location, StatusUpdate, Label, SourceType, CrimeCategory
+from corroborator_app.models import (
+    Incident,
+    Actor,
+    Bulletin,
+    ActorRole,
+    Location,
+    StatusUpdate,
+    Label,
+    SourceType,
+    CrimeCategory,
+    Comment
+)
 from corroborator_app.tasks import update_object
 
 
@@ -34,7 +45,12 @@ def separate_field_types(model_dict, appendable_keys):
 
 def update_entities(model_dict, model_objects, appendable_keys):
     '''
-    update the actor objects received based on the query_dict
+    model_dict is the key value store of updated elements
+    model_objects are the models, these can be of type Actor, Bulletin or
+    Incident
+    delegates actual updating of fields to update_entity where the field
+    is to be replaced and to update_entity_appendable where the field is
+    to be added to
     '''
     appendable_dict, remainder_dict = separate_field_types(
         model_dict, appendable_keys)
@@ -43,6 +59,7 @@ def update_entities(model_dict, model_objects, appendable_keys):
         model_dict_copy = remainder_dict.copy()
         model_dict_copy = update_related_actors(model_dict_copy, model)
         model = update_entity_appendable(appendable_dict, model)
+        model = update_entity_status(model_dict, model)
         model = update_entity(model_dict_copy, model)
         model.save()
 
@@ -50,6 +67,8 @@ def update_entities(model_dict, model_objects, appendable_keys):
 def update_entity_appendable(appendable_dict, model):
     '''
     append new values to toMany fields on the model, do not add duplicates
+    appendable_dict contains the key value store of values to be appended,
+    this adds to the value at the key but checks to see if the value exists
     '''
     for key, value in appendable_dict.iteritems():
         if len(value) is not 0:
@@ -83,6 +102,7 @@ def update_entity(query_dict, model_object):
 def extract_ids(entity_dict, key):
     '''
     extract ids from the querydict sent in the multisave request
+    delegates parsing to batch_parse_id_from_uri
     '''
     entity_uri_list = entity_dict[key]
     return batch_parse_id_from_uri(entity_uri_list)
@@ -191,6 +211,19 @@ def validate_status_update(query_dict):
     return passed, json.dumps(return_error)
 
 
+def create_comment(comment_text, status_id, user):
+    '''
+    create a status update comment to be appended to each entity
+    '''
+    comment = Comment(
+        assigned_user_id=user.id,
+        comments_en=comment_text,
+        status_id=status_id
+    )
+    comment.save()
+    return comment
+
+
 ###########################################################################
 # ACTOR SPECIFIC METHODS
 ###########################################################################
@@ -207,9 +240,10 @@ def multi_save_actors(request, actor_dict, username):
             mimetype='application/json'
         )
 
-    actor_id_list = extract_ids(actor_dict, 'actors')
+    actor_id_list = extract_ids(actor_dict, 'selectedActors')
     actor_dict = process_actor_data(actor_dict)
-    actor_dict.pop('actors')
+    actor_dict['user'] = request.user
+    actor_dict.pop('selectedActors')
     actor_objects = Actor.objects.filter(
         id__in=actor_id_list
     )
@@ -233,6 +267,7 @@ def multi_save_actors(request, actor_dict, username):
 
 def update_actors(actor_dict, actor_objects):
     appendable_fields = [
+        'actor_comments'
     ]
     update_entities(actor_dict, actor_objects, appendable_fields)
 
@@ -256,6 +291,30 @@ def process_actor_data(actor_dict):
     actor_dict = process_uris(actor_dict, location_keys, Location)
     actor_dict = process_uris(actor_dict, actor_role_keys, ActorRole)
     return actor_dict
+
+
+def update_entity_status(mutable_dict, model_object):
+    '''
+    Create a new status comment and attach it to the mutable_dict
+    '''
+    class_name = model_object.__class__.__name__
+    comment_field_map = {
+        'Bulletin': 'bulletin_comments',
+        'Actor': 'actor_comments',
+        'Incident': 'incident_comments'
+    }
+    model_comment_field_key = comment_field_map[class_name]
+
+    comment_text = mutable_dict['comment']
+    status_id = parse_id_from_uri(mutable_dict['status_uri'])
+    user = mutable_dict['user']
+    comment = create_comment(
+        comment_text,
+        status_id,
+        user
+    )
+    getattr(model_object, model_comment_field_key).add(comment)
+    return model_object
 
 
 def update_related_actors(mutable_dict, model_object):
@@ -378,6 +437,7 @@ def multi_save_bulletins(request, bulletin_dict, username):
     bulletin_objects = Bulletin.objects.filter(
         pk__in=bulletin_id_list
     )
+    bulletin_dict['user'] = request.user
     update_bulletins(bulletin_dict, bulletin_objects)
     from corroborator_app.api.BulletinApi import BulletinResource
     response_content = get_result_objects(
@@ -439,6 +499,7 @@ def multi_save_incidents(request, incident_dict, username):
     incident_objects = Incident.objects.filter(
         pk__in=incident_id_list
     )
+    incident_dict['user'] = request.user
     update_incidents(incident_dict, incident_objects)
     from corroborator_app.api.IncidentApi import IncidentResource
     response_content = get_result_objects(
