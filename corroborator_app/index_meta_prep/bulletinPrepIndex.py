@@ -124,7 +124,7 @@ class BulletinPrepMeta():
         """
         Returns most recently created status update associated with a given Bulletin
         """
-        status = object.bulletin_comments.values('status__status_en').order_by('comment_created')
+        status = object.bulletin_comments.values('status__status_en').order_by('-comment_created')
         if len(status) > 0:
             status = status[0]
             return status['status__status_en']

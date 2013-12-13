@@ -129,11 +129,13 @@ define (
 
       // display an entity
       displayEntity: function(content) {
+        console.log(content);
         this.expanded = content.expanded;
+        content.expanded = false;
         this.renderContainer(content)
             .renderEntity(content);
         if (this.expanded) {
-          this.expandView();
+          this.expandRequested();
         }
         else {
           this.collapseView();

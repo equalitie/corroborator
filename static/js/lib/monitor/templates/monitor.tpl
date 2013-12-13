@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <td>{{i18n.monitor.start_time}}</td>
-    <td>{{model.timestart}}</td>
+    <td>{{dateTimeFormat model.timestart}}</td>
   </tr>
   <tr>
     <td>{{i18n.monitor.number_files}}</td>
@@ -17,7 +17,7 @@
   </tr>
   <tr>
     <td>{{i18n.monitor.time_taken}}</td>
-    <td>{{model.timetaken}}</td>
+    <td>{{formatDuration model.timetaken}}</td>
   </tr>
 </table>
 

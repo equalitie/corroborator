@@ -36,6 +36,7 @@ define (
           
         this.model = actorCollection.getEntity(options.entityDetails.id, 'actor');
         this.listenTo(this.model, 'sync', this.displayView.bind(this));
+        this.listenTo(this.model, 'render', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.expanded = !this.expanded;
         this.toggleExpanded();
@@ -105,7 +106,8 @@ define (
         actorsContainer = new ActorListView({
           el: actorsEl,
           content: content,
-          roles: roles_en
+          roles: roles_en,
+          expanded: this.expanded
         });
         return this;
       },

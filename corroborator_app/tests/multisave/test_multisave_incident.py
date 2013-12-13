@@ -44,6 +44,7 @@ class MultiSaveIncidentTestCase(TestCase):
         basic test to ensure that end to end functionality is in place
         '''
         client = Client()
+        client.login(username='user', password='password')
         post_data = create_incident_data()
         response = client.post(
             self.api_url,
@@ -57,6 +58,9 @@ class MultiSaveIncidentTestCase(TestCase):
         self.assertEqual(len(incident_1.ref_bulletins.all()), 2)
         self.assertEqual(len(incident_1.ref_incidents.all()), 1)
         self.assertEqual(len(incident_2.actors_role.all()), 2)
+        response_data = json.loads(response.content)
+        self.assertEqual(
+            response_data[0]['most_recent_status_incident'], u'Updated')
 
     def test_incidents_updated_with_empty_relations(self):
         client = Client()
@@ -101,14 +105,14 @@ def create_incident_data(empty_data=False, version_info=True):
         "ref_incidents": ["/api/v1/incident/2/"],
         "username": "cormac",
         "comment": "comment",
-        "status": "/api/v1/status/3/",
+        "status_uri": "/api/v1/status/3/",
     }
     if empty_data is True:
         incident_data['ref_incidents'] = []
         incident_data['relatedActors'] = []
 
     if version_info is False:
-        incident_data['status'] = ""
+        incident_data['status_uri'] = ""
         incident_data['comment'] = ""
 
     return json.dumps(incident_data)

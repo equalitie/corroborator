@@ -2868,6 +2868,11 @@ ul.media li.medium:hover .do-remove {
   float: none;
 }
 
+/* line 106, ../sass/_hacks.scss */
+.leaflet-top, .leaflet-bottom {
+  z-index: 7;
+}
+
 /* line 5, ../sass/_forms.scss */
 .Application input, .Application textarea {
   font-family: Helvetica, Arial, sans-serif;

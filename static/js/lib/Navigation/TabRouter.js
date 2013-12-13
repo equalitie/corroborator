@@ -44,11 +44,17 @@ define(
     // we also want to open the filters and results at this point
     var TabRouter = Backbone.Router.extend({
       routes: {
-        ''                    : 'showHomeSearch',
-        'tab/:section'        : 'openSection',
-        'bulletin/:bulletinId': 'openBulletin',
-        'incident/:incidentId': 'openIncident',
-        'actor/:actorId'      : 'openActor'
+        ''                             : 'showHomeSearch',
+        'tab/:section'                 : 'openSection',
+        'bulletin/:bulletinId'         : 'openBulletin',
+        'bulletin/:bulletinId/'        : 'openBulletin',
+        'bulletin/:bulletinId/expanded': 'openBulletinExpanded',
+        'incident/:incidentId'         : 'openIncident',
+        'incident/:incidentId/'        : 'openIncident',
+        'incident/:incidentId/expanded': 'openIncidentEpanded',
+        'actor/:actorId'               : 'openActor',
+        'actor/:actorId/'              : 'openActor',
+        'actor/:actorId/expanded'      : 'openActorExpanded'
       },
       initialize: function() {
         this.watchForResultNav();
@@ -85,17 +91,29 @@ define(
       openBulletin: function(bulletinId) {
         this.openEntity('bulletin', bulletinId);
       },
+      openBulletinExpanded: function(bulletinId) {
+        this.openEntity('bulletin', bulletinId, true);
+      },
       openIncident: function(incidentId) {
         this.openEntity('incident', incidentId);
+      },
+      openIncidentEpanded: function(incidentId) {
+        this.openEntity('incident', incidentId, true);
       },
       openActor: function(actorId) {
         this.openEntity('actor', actorId);
       },
-      openEntity: function(type, id) {
+      openActorExpanded: function(actorId) {
+        this.openEntity('actor', actorId, true);
+      },
+      openEntity: function(type, id, expanded) {
+        console.log(expanded);
+        expanded = expanded || false;
         navBus.push({
           type: 'entity-display',
           content: {
             entity: type,
+            expanded: expanded,
             id    : id
           }
         });

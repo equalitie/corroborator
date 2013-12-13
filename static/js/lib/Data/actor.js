@@ -201,10 +201,10 @@ define(
                .filter(filterActorResults)
                .onValue(this.resetCollection.bind(this));
         searchBus.filter(filterUpdatedActors)
-                 .onValue(function(value) {
-                   this.set(value.content, {remove: false});
-                 }.bind(this));
+                 .onValue(this.multiUpdateModels.bind(this));
       },
+
+      // reset the contents of the entire collection
       resetCollection: function(searchResults) {
         var results = searchResults.content.results;
         this.numFound = searchResults.content.numFound;

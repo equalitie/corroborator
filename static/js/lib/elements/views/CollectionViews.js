@@ -46,7 +46,10 @@ define (
 
       // render a single model
       renderChild: function (model) {
-        var childView = new this.childView({model: model});
+        var childView = new this.childView({
+          model: model,
+          expanded: this.expanded
+        });
         this.childViews.push(childView);
         this.$el.children('.' + this.fieldType + '-list')
                 .append(childView.el);
@@ -87,7 +90,8 @@ define (
     // ### ModelView render a single model
     ModelView = Backbone.View.extend({
       // constructor, call the render function
-      initialize: function() {
+      initialize: function(options) {
+        this.templateVars.expanded = options.expanded ? 'expanded' : '';
         this.addi18n();
         this.render();
         this.listenTo(this.model, 'change', this.render);
@@ -98,7 +102,8 @@ define (
       render: function() {
         var html = this.template({
           model: this.model.toJSON(),
-          i18n: this.templateVars.i18n
+          i18n: this.templateVars.i18n,
+          expanded: this.templateVars.expanded
         });
         this.$el.html(html);
         this.selectInitialLanguage();

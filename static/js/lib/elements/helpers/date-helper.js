@@ -22,6 +22,24 @@ define (
       return formattedContext;
     });
 
+    Handlebars.registerHelper('dateTimeFormat', function(context, block) {
+      var formattedContext = context;
+      if (moment && formattedContext) {
+        var f = block.hash.format || "YYYY-MM-DD HH:mm:ss";
+        formattedContext =  moment.unix(context).format(f);
+      }
+      return formattedContext;
+    });
+
+    Handlebars.registerHelper('formatDuration', function(context, block) {
+      var formattedContext = context;
+      if (moment && formattedContext) {
+        var f = block.hash.format || "YY-MM-DD HH:mm:ss";
+        formattedContext =  moment.duration(context, 'seconds').humanize();
+      }
+      return formattedContext;
+    });
+
     Handlebars.registerHelper('formDateFormat', function(context, block) {
       var formattedContext = context;
       if (moment && formattedContext) {
