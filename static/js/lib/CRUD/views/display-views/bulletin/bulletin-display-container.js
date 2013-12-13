@@ -125,7 +125,8 @@ define (
         actorsContainer = new ActorListView({
           el: actorsEl,
           content: content,
-          roles: roles_en
+          roles: roles_en,
+          expanded: this.expanded
         });
         _.each(actorsContainer.childViews, function(childView) {
           childView.selectInitialLanguage();

@@ -87,6 +87,7 @@ define (
       },
 
       initialize: function(options) {
+        this.expanded = options.expanded;
         this.render();
         this.collection = new Backbone.Collection();
         this.loadFromList(options.content, options.roles);
