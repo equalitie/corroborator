@@ -196,9 +196,7 @@ define(
                .filter(filterBulletinResults)
                .onValue(this.resetCollection.bind(this));
         searchBus.filter(filterUpdatedBulletins)
-                 .onValue(function(value) {
-                   this.set(value.content, {remove: false});
-                 }.bind(this));
+                 .onValue(this.multiUpdateModels.bind(this));
       },
       resetCollection: function(searchResults) {
         var results = searchResults.content.results;

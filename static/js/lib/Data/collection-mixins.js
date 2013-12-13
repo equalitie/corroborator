@@ -37,6 +37,20 @@ define (
             Streams.searchBus.filter(this.updateFilter)
                              .onValue(this.updateModels.bind(this));
           },
+
+          // update the models without triggering a re-render of the list view
+          // fired after update selected completes
+          multiUpdateModels: function (value) {
+            var entities = value.content;
+            this.set(entities, {
+              remove: false,
+              silent: true
+            });
+            _(entities).each(function(entity) {
+              this.get(entity.id).trigger('render');
+            }, this);
+          },
+
           updateModels: function(value) {
             _(value.content)
               .chain()
