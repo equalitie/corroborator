@@ -107,7 +107,7 @@ class ActorPrepMeta():
                     object.current_location.parent_location.id
                 )
 
-            return locations 
+            return locations
         else:
             return ''
 
@@ -131,7 +131,7 @@ class ActorPrepMeta():
 
     def get_locations_recursively(self, location_id):
         """
-        Recurse upwards through all parent locations and return a list of 
+        Recurse upwards through all parent locations and return a list of
         uri formatted locations.
         """
         locations = []
@@ -141,10 +141,9 @@ class ActorPrepMeta():
             locations += self.get_locations_recursively(parent_id)
             locations.append('/api/v1/location/{0}/'.format(location.id))
             return locations
-            
-        else:
-            return [ '/api/v1/location/{0}/'.format(location.id) ]
 
+        else:
+            return ['/api/v1/location/{0}/'.format(location.id)]
 
     def prepare_resource_uri(self, object):
         """
@@ -168,7 +167,8 @@ class ActorPrepMeta():
         Return AWS URL for associated thumbnail media
         """
         if object.media is not None:
-            return settings.S3_PROXY_URL + '' + object.media.media_thumb_file.name
+            return settings.S3_PROXY_URL + '' +\
+                object.media.media_thumb_file.name
         else:
             return ''
 
@@ -177,7 +177,8 @@ class ActorPrepMeta():
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api
         """
-        return ['/api/v1/comment/{0}/'.format(comment.id) for comment in object.actor_comments.all()]
+        return ['/api/v1/comment/{0}/'.format(comment.id)
+                for comment in object.actor_comments.all()]
 
     def prepare_count_incidents(self, object):
         """

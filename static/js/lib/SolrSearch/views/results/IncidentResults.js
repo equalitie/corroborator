@@ -28,6 +28,7 @@ define (
         this.addi18n();
         this.index = options.index;
         this.listenTo(this.model, 'change', this.updateView.bind(this));
+        this.listenTo(this.model, 'render', this.render.bind(this));
         this.listenTo(this.model, 'sync', this.render.bind(this));
         this.listenTo(this.model, 'destroy', this.destroy.bind(this));
         this.render();
