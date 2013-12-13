@@ -7,7 +7,6 @@ TODO: separate into 4 files, common functionality can remain in __init__
 the rest should be divided between actor, bulletin and incident
 '''
 import json
-import ipdb
 
 from django.http import HttpResponseForbidden, HttpResponse
 
