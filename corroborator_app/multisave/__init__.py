@@ -437,6 +437,7 @@ def multi_save_bulletins(request, bulletin_dict, username):
     bulletin_objects = Bulletin.objects.filter(
         pk__in=bulletin_id_list
     )
+    bulletin_dict['user'] = request.user
     update_bulletins(bulletin_dict, bulletin_objects)
     from corroborator_app.api.BulletinApi import BulletinResource
     response_content = get_result_objects(
@@ -498,6 +499,7 @@ def multi_save_incidents(request, incident_dict, username):
     incident_objects = Incident.objects.filter(
         pk__in=incident_id_list
     )
+    incident_dict['user'] = request.user
     update_incidents(incident_dict, incident_objects)
     from corroborator_app.api.IncidentApi import IncidentResource
     response_content = get_result_objects(

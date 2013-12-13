@@ -5,7 +5,6 @@ Test the multisave bulletin functionality
 """
 
 import json
-#import ipdb
 
 from django.test import TestCase, Client
 
@@ -47,9 +46,8 @@ class MultiSaveBulletinTestCase(TestCase):
         '''
         basic test to ensure that end to end functionality is in place
         '''
-        import ipdb
-        ipdb.set_trace()
         client = Client()
+        client.login(username='user', password='password')
         post_data = create_bulletin_data()
         response = client.post(
             '/corroborator/bulletin/0/multisave/',
@@ -63,8 +61,10 @@ class MultiSaveBulletinTestCase(TestCase):
             post_data,
             content_type='application/json'
         )
+        response_data = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
-        ipdb.set_trace()
+        self.assertEqual(
+            response_data[0]['most_recent_status_bulletin'], u'Updated')
 
     def test_statusless_update_fails(self):
         client = Client()

@@ -142,9 +142,7 @@ class MultiSaveActorTestCase(TestCase):
             content_type='application/json'
         )
         response_data = json.loads(response.content)
-        actor = Actor.objects.get(id=1)
-        import ipdb
-        ipdb.set_trace()
+        #actor = Actor.objects.get(id=1)
         self.assertEqual(response_data[0]['occupation_en'], u'Farmer')
         self.assertEqual(
             response_data[0]['most_recent_status_actor'], u'Updated')
