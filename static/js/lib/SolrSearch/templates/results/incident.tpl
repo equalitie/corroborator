@@ -1,7 +1,6 @@
   <td class="is-selector">
     <input type="checkbox" {{model.checked}}>
   </td>
-  <td class="is-preview">&nbsp;</td>
   <td class="is-description">
     <a href="#incident/{{model.id}}">
       <div class="title text">

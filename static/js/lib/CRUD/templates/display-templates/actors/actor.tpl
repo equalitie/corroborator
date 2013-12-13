@@ -16,14 +16,16 @@
           <span class="text">{{fetchRole model.role}}</span>
         </span>
         {{/if}}
-        <h3 class="">
-          {{#if model.fullname_en}}
-            <p>{{model.fullname_en}}</p>
-          {{/if}}
-          {{#if model.fullname_ar}}
-            <p>{{model.fullname_ar}}</p>
-          {{/if}}
-        </h3>
+        <a href="#actor/{{model.id}}/{{expanded}}">
+          <h3 class="">
+            {{#if model.fullname_en}}
+              <p>{{model.fullname_en}}</p>
+            {{/if}}
+            {{#if model.fullname_ar}}
+              <p>{{model.fullname_ar}}</p>
+            {{/if}}
+          </h3>
+        </a>
         <span class="sex">{{model.sex_en}}</span>
         <span class="age">{{model.age_en}}</span>
         <div class="L2">

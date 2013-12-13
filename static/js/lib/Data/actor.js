@@ -204,19 +204,6 @@ define(
                  .onValue(this.multiUpdateModels.bind(this));
       },
 
-      // update the models without triggering a re-render of the list view
-      // fired after update selected completes
-      multiUpdateModels: function (value) {
-        var entities = value.content;
-        this.set(entities, {
-          remove: false,
-          silent: true
-        });
-        _(entities).each(function(entity) {
-          this.get(entity.id).trigger('render');
-        }, this);
-      },
-
       // reset the contents of the entire collection
       resetCollection: function(searchResults) {
         var results = searchResults.content.results;
