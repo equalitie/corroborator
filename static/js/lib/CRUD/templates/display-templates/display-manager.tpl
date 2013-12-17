@@ -5,7 +5,7 @@
       <span class="screen-reader-text">Hide</span>
     </a>
   </div>
-  <div class="body">
+  <div class="body {{entity}}-container">
   </div>
   <div class="footer actions">
     <div class="when-overlay-expanded">

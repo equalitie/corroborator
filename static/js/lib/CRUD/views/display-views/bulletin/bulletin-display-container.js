@@ -34,13 +34,11 @@ define (
       template: bulletinDisplayTmp,
       childViews: [],
       initialize: function(options) {
-        console.log('init bulletin display');
         this.addi18n();
         if (options.entityDetails === undefined) {
           throw new Error('you must define entityDetails');
         }
         this.model = bulletinCollection.getEntity(options.entityDetails.id, 'bulletin');
-        console.info(this.model);
         this.listenTo(this.model, 'sync', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.listenTo(this, 'resize', this.sendResizeEvent.bind(this));
@@ -155,7 +153,8 @@ define (
         content = this.model.get('ref_bulletins');
         bulletinsContainer = new BulletinListView({
           el: bulletinsEl,
-          content: content
+          content: content,
+          expanded: this.expanded
         });
         return this;
       },
@@ -167,7 +166,8 @@ define (
         content = this.model.get('ref_incidents');
         incidentsContainer = new IncidentListView({
           el: incidentsEl,
-          content: content
+          content: content,
+          expanded: this.expanded
         });
         return this;
       },

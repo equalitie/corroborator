@@ -52,15 +52,15 @@ module.exports = function() {
 
     //bulletin
     'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl.js'             : 'lib/CRUD/templates/search-templates/bulletin/bulletin.tpl',
-    'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl.js'    : 'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin.tpl',
+    'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin-display.tpl.js'    : 'lib/CRUD/templates/search-templates/bulletin/expanded-bulletin-display.tpl',
     'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl.js'      : 'lib/CRUD/templates/search-templates/bulletin/bulletin-result.tpl',
     'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl.js': 'lib/CRUD/templates/search-templates/bulletin/bulletin-search-field.tpl',
 
     //incident
-    'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl.js': 'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl',
-    'lib/CRUD/templates/search-templates/incident/incident-result.tpl.js'      : 'lib/CRUD/templates/search-templates/incident/incident-result.tpl',
-    'lib/CRUD/templates/search-templates/incident/incident.tpl.js'             : 'lib/CRUD/templates/search-templates/incident/incident.tpl',
-    'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl.js'    : 'lib/CRUD/templates/search-templates/incident/expanded-incident.tpl',
+    'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl.js'    : 'lib/CRUD/templates/search-templates/incident/incident-search-field.tpl',
+    'lib/CRUD/templates/search-templates/incident/incident-result.tpl.js'          : 'lib/CRUD/templates/search-templates/incident/incident-result.tpl',
+    'lib/CRUD/templates/search-templates/incident/incident.tpl.js'                 : 'lib/CRUD/templates/search-templates/incident/incident.tpl',
+    'lib/CRUD/templates/search-templates/incident/expanded-incident-display.tpl.js': 'lib/CRUD/templates/search-templates/incident/expanded-incident-display.tpl',
 
     //media
     'lib/CRUD/templates/search-templates/media/media-search-field.tpl.js'   : 'lib/CRUD/templates/search-templates/media/media-search-field.tpl',

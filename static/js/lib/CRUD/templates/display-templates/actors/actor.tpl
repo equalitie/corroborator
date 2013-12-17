@@ -16,7 +16,7 @@
           <span class="text">{{fetchRole model.role}}</span>
         </span>
         {{/if}}
-        <a href="#actor/{{model.id}}/{{expanded}}">
+        <a href="#actor/{{model.id}}{{#if expanded}}/{{expanded}} {{/if}}">
           <h3 class="">
             {{#if model.fullname_en}}
               <p>{{model.fullname_en}}</p>

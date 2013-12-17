@@ -2,16 +2,18 @@
   <div class="Bulletin in-list">
     <div class="L1">
       <div class="meta">
+          {{#if model.confidence_score}}
         <div class="score">
-          <span class="value">{{model.confidence_score}}</span>
+            <span class="value">{{model.confidence_score}}</span>
         </div>
+        {{/if}}
         {{#if model.most_recent_status_bulletin}}
         <span class="status">
           <span class="value">{{model.most_recent_status_bulletin}}</span>
         </span>
         {{/if}}
       </div>
-      <a href="#bulletin/{{model.id}}">
+      <a href="#bulletin/{{model.id}}/{{expanded}}">
         <div class="title i18n">
           {{#if model.title_en}}
             <p>{{model.title_en}}</p>

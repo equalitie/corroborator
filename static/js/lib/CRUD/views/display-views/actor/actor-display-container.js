@@ -85,9 +85,8 @@ define (
         var el;
         if (this.expanded === true) {
           el = this.$el.children()
-                       .children()
                        .children('.body')
-                       .children('.is-' + className);
+                       .children('.' + className);
         }
         else {
           el = this.$el.children()

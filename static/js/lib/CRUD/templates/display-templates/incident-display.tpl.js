@@ -89,7 +89,7 @@ function program16(depth0,data) {
 function program18(depth0,data) {
   
   
-  return "\n        <div class=\"incident-map map detail\"></div>\n      ";
+  return "\n        <div id=\"is-incident-map\" class=\"incident-map map detail\"></div>\n      ";
   }
 
 function program20(depth0,data) {

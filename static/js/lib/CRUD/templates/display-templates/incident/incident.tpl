@@ -11,14 +11,16 @@
         </span>
         {{/if}}
       </div>
-      <div class="title i18n">
-        {{#if model.title_en}}
-          <p>{{model.title_en}}</p>
-        {{/if}}
-        {{#if model.title_ar}}
-          <p>{{model.title_ar}}</p>
-        {{/if}}
-      </div>
+      <a href="#incident/{{model.id}}/{{expanded}}">
+        <div class="title i18n">
+          {{#if model.title_en}}
+            <p>{{model.title_en}}</p>
+          {{/if}}
+          {{#if model.title_ar}}
+            <p>{{model.title_ar}}</p>
+          {{/if}}
+        </div>
+      </a>
     </div>
     <div class="L3">
       <div class="date-location">

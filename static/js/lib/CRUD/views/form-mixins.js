@@ -29,7 +29,6 @@ define (
         disableConfirm: function() {
         },
         requestCloseForm: function(evt) {
-          evt.preventDefault();
           var dialogHTML = $(confirmDialogTmp());
           dialogHTML.dialog({
             resizable: false,

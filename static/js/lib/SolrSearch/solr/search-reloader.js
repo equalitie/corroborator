@@ -160,7 +160,7 @@ define (
     // restart the timer that periodically resends the search
     restartTimer = function(searchObject) {
       window.clearInterval(intervalId);
-      intervalId = window.setInterval(pollForUpdates, 5000, searchObject, false);
+      //intervalId = window.setInterval(pollForUpdates, 5000, searchObject, false);
       return 'new_search';
     };
  

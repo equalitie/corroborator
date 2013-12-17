@@ -125,7 +125,9 @@ define({
       'show_revision_list': 'show revision list',
     },
     'dialog': {
-      'Any_changes_you_have_made_on_the_form_will_be_lost_Are_you_sure':'Any changes you have made on the form will be lost. Are you sure?'
+      'Any_changes_you_have_made_on_the_form_will_be_lost_Are_you_sure':'Any changes you have made on the form will be lost. Are you sure?',
+      'Close': 'Close',
+      'Cancel': 'Cancel'
     },
     'Hide': 'Hide',
     'Search': 'Search',

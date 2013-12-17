@@ -89,16 +89,16 @@
       <div class="is-events group">
       </div>
       {{/if}}
-      {{#if model.incident_locations}}
+      {{#if model.locations}}
       <div class="is-locations group">
         <h4>{{i18n.incidents.locations}}</h4>
         <div class="locations">
-          {{#each model.incident_locations}}
+          {{#each model.locations}}
           <div class="location">{{this}}</div>
           {{/each}}
         </div>
       </div>
-      <div class="is-incident-map map"></div>
+      <div id="is-incident-map" class="map"></div>
       {{/if}}
       {{#if model.incident_labels}}
       <div class="is-tags group">

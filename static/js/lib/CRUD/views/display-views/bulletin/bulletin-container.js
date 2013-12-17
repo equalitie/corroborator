@@ -42,6 +42,7 @@ define (
 
       initialize: function(options) {
         this.render();
+        this.expanded = options.expanded;
         this.collection = new Backbone.Collection();
         this.loadFromList(options.content);
       }

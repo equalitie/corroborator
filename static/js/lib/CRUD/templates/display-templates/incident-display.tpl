@@ -53,7 +53,7 @@
 
   <div class="body">
       {{#if model.locations}}
-        <div class="incident-map map detail"></div>
+        <div id="is-incident-map" class="incident-map map detail"></div>
       {{/if}}
     <div class="media detail">
       <div class="placeholder">&nbsp;</div>

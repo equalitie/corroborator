@@ -13,12 +13,15 @@ define (
     'lib/CRUD/views/display-views/actor/actor-display-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-display-container',
     'lib/CRUD/views/display-views/incident/incident-display-container',
+    'lib/Navigation/TabRouter',
     'lib/CRUD/templates/display-templates/display-manager.tpl',
+    'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, $, Streams,
     ActorDisplayView, BulletinDisplayView, IncidentDisplayView,
-    displayManagerContainerTmp, i18n) {
+    TabRouter,
+    displayManagerContainerTmp, confirmDialogTmp, i18n) {
     'use strict';
 
     var DisplayManagerView,
@@ -44,7 +47,6 @@ define (
       template: displayManagerContainerTmp,
       el: '.form_overlay',
       childViews: [],
-      router: undefined,
       expanded: false,
       currentTab: '',
 
@@ -58,14 +60,43 @@ define (
 
       initialize: function() {
         this.watchNavEvents();
-        this.router = new Backbone.Router();
+      },
+      getRouter: function() {
+        this.router = this.router || TabRouter.getTabRouter();
+        return this.router;
+      },
+
+      // user clicked x on form
+      closeViewRequested: function(evt) {
+        evt.preventDefault();
+        var $dialog = $(confirmDialogTmp({i18n: i18n})),
+            buttons = {},
+            view = this,
+            closeForm = this.closeCurrentForm;
+
+        // create buttons for the dialog with i18n-able labels
+        buttons[i18n.dialog.Close] = function() {
+          closeForm.apply(view);
+          $(this).dialog('close');
+        };
+        buttons[i18n.dialog.Cancel] = function() {
+          $(this).dialog('close');
+        };
+
+        // show the dialog
+        $dialog.dialog({
+          height: 160,
+          modal: true,
+          buttons: buttons
+        });
+
       },
 
       // close the display view - trigger a navigate to tab to allow
       // for reselection of the entity
-      closeViewRequested: function(evt) {
-        evt.preventDefault();
-        this.router.navigate('#tab/' + this.currentTab, {trigger: true});
+      closeCurrentForm: function() {
+        this.getRouter().navigate(
+          '#tab/' + this.currentTab, {trigger: true});
         this.destroyChildren();
         this.$el.children().remove();
       },
@@ -98,14 +129,26 @@ define (
       },
 
       expandRequested: function() {
-          this.expandView();
+        this.expandView();
         _.last(this.childViews).trigger('expand');
-        
       },
       expandView: function() {
+        var routeTemplate = _.template(
+          '<%=model.entityType %>/<%=model.id %>/expanded'),
+            route = routeTemplate({
+              model: this.model.toJSON()
+            });
+        this.getRouter().navigate(route);
         this.$el.children().addClass('is-expanded');
       },
+
       collapseView: function() {
+        var routeTemplate = _.template(
+          '<%=model.entityType %>/<%=model.id %>'),
+            route = routeTemplate({
+              model: this.model.toJSON()
+            });
+        this.getRouter().navigate(route);
         this.$el.children().removeClass('is-expanded');
       },
 
@@ -129,7 +172,6 @@ define (
 
       // display an entity
       displayEntity: function(content) {
-        console.log(content);
         this.expanded = content.expanded;
         content.expanded = false;
         this.renderContainer(content)
@@ -152,11 +194,9 @@ define (
       renderEntity: function(entityDetails) {
         this.destroyChildren();
         var displayView = new viewMap[entityDetails.entity]({
+          el: '.' + entityDetails.entity + '-container',
           entityDetails: entityDetails
         });
-        this.$el.children()
-                .children('.body')
-                .append(displayView.$el);
 
         //trigger a resize to be passed on to the map views
         //to get over them being rendered when not actually in the dom
@@ -178,6 +218,7 @@ define (
       renderContainer: function(content) {
         content.i18n = i18n;
         var html = this.template(content);
+        this.$el.children().remove();
         this.$el.append(html);
         this.setSelectionEl();
         return this;

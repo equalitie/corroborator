@@ -81,7 +81,7 @@
 
 // RELATED ACTORS
 .Actor.in-list {
-  min-height: 80px;
+  min-height: 130px;
 }
 
 // FORMS
@@ -90,6 +90,7 @@
 .Actor.in-view .map,
 .Actor.is-edited .map, 
 .Incident.is-edited .map, 
+.incident-container .map, 
 .Bulletin.is-edited .map {
   width: 100%;
   height: 200px;
