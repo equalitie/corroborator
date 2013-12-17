@@ -1,0 +1,20 @@
+{% extends "new_base.html" %}
+{% load i18n %}
+
+{% block top_nav %}
+  {% include "nav/top_menu.html" %}
+{% endblock %}
+
+{% block script %}
+  {% include "includes/bootstrap.html" %}
+{% endblock %}
+
+{% block content%}
+<nav id="monitor-navigation">
+  {% include "nav/dataentry_tabs.html" %}
+</nav>
+
+<div id="data-entry-container" class="">
+
+</div>
+{% endblock %}
