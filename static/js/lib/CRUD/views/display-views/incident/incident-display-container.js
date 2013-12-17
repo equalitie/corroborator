@@ -13,13 +13,16 @@ define (
     'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
+    'lib/CRUD/views/search-views/revision/revision-view',
+
     'lib/CRUD/templates/display-templates/incident-display.tpl',
     'lib/CRUD/templates/display-templates/incident/expanded-incident-display.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, $, Collections, Streams, CoordinateDisplayView,
     CommentListView, EventListView, ActorListView, BulletinListView,
-    IncidentListView, incidentDisplayTmp, expandedIncidentDisplayTmp, i18n) {
+    IncidentListView, RevisionView, incidentDisplayTmp,
+    expandedIncidentDisplayTmp, i18n) {
     'use strict';
 
     var IncidentDisplayView,
@@ -56,7 +59,8 @@ define (
       },
 
       displayExpandedView: function() {
-        this.displayView();
+        this.displayView()
+            .renderRevisions();
       },
       displayView: function() {
         this.render()
@@ -170,21 +174,38 @@ define (
         return el;
       },
       renderMap: function() {
-        var mapEl, content, mapContainer, collection;
-        if (this.model.get('locations') !== undefined &&
-            this.model.get('locations').length > 0) {
-          mapEl = $('#is-incident-map');
-          content = _.map(this.model.get('locations'), function(uri) {
-            return { resourceUri: uri };
-          });
-          mapContainer = new CoordinateDisplayView({
-            el: mapEl,
-            content: content
-          });
-          this.childViews.push(mapContainer);
+        // are there any locations
+        if (!this.isList('locations', this.model)) {
+          return this;
         }
-        return this;
+        var mapEl, content, mapContainer, collection;
+          mapEl = $('#is-incident-map');
 
+        content = _.map(this.model.get('locations'), function(uri) {
+          return { resourceUri: uri };
+        });
+        mapContainer = new CoordinateDisplayView({
+          el: mapEl,
+          content: content
+        });
+        this.childViews.push(mapContainer);
+        return this;
+      },
+
+      renderRevisions: function() {
+        if (!this.isList('incident_comments', this.model)) {
+          return this;
+        }
+        var revisionView = new RevisionView({
+          el: '#revision-container',
+          content: this.model.get('incident_comments')
+        });
+        this.childViews.push(revisionView);
+      },
+
+      isList: function(key, model) {
+        var field = model.get(key);
+        return field !== undefined && field.length > 0;
       },
 
       // render the container

@@ -113,6 +113,8 @@
       {{#if model.bulletin_imported_comments}}
       <div class="is-comments group">
       </div>
+      <div id="revision-container" class="is-history group">
+      </div>
       {{/if}}
     </div>
   </div>

@@ -148,7 +148,7 @@ function program29(depth0,data) {
 function program31(depth0,data) {
   
   
-  return "\n      <div class=\"is-comments group\">\n      </div>\n      ";
+  return "\n      <div class=\"is-comments group\">\n      </div>\n      <div id=\"revision-container\" class=\"is-history group\">\n      </div>\n      ";
   }
 
   buffer += "<div class=\"Bulletin in-view is-expanded\">\n  <div class=\"header\">\n    <span class=\"id\">\n      ID <span class=\"value out\">"

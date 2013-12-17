@@ -15,13 +15,12 @@ define (
     'lib/CRUD/views/display-views/incident/incident-display-container',
     'lib/Navigation/TabRouter',
     'lib/CRUD/templates/display-templates/display-manager.tpl',
-    'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, $, Streams,
     ActorDisplayView, BulletinDisplayView, IncidentDisplayView,
     TabRouter,
-    displayManagerContainerTmp, confirmDialogTmp, i18n) {
+    displayManagerContainerTmp, i18n) {
     'use strict';
 
     var DisplayManagerView,
@@ -51,11 +50,11 @@ define (
       currentTab: '',
 
       events: {
-        'click .display.do-hide'  : 'closeViewRequested',
-        'click button.do-select'  : 'selectRequested',
-        'click button.do-expand'  : 'expandRequested',
-        'click button.do-collapse': 'collapseRequested',
-        'click .do-edit'          : 'editRequested'
+        'click .display.do-hide'        : 'closeViewRequested',
+        'click button.do-select'        : 'selectRequested',
+        'click button.do-expand'        : 'expandRequested',
+        'click button.do-collapse'      : 'collapseRequested',
+        'click .do-edit'                : 'editRequested'
       },
 
       initialize: function() {
@@ -66,35 +65,8 @@ define (
         return this.router;
       },
 
-      // user clicked x on form
       closeViewRequested: function(evt) {
         evt.preventDefault();
-        var $dialog = $(confirmDialogTmp({i18n: i18n})),
-            buttons = {},
-            view = this,
-            closeForm = this.closeCurrentForm;
-
-        // create buttons for the dialog with i18n-able labels
-        buttons[i18n.dialog.Close] = function() {
-          closeForm.apply(view);
-          $(this).dialog('close');
-        };
-        buttons[i18n.dialog.Cancel] = function() {
-          $(this).dialog('close');
-        };
-
-        // show the dialog
-        $dialog.dialog({
-          height: 160,
-          modal: true,
-          buttons: buttons
-        });
-
-      },
-
-      // close the display view - trigger a navigate to tab to allow
-      // for reselection of the entity
-      closeCurrentForm: function() {
         this.getRouter().navigate(
           '#tab/' + this.currentTab, {trigger: true});
         this.destroyChildren();

@@ -112,7 +112,7 @@
         </ul>
       </div>
       {{/if}}
-      <div class="is-history group">
+      <div id="revision-container" class="is-history group">
       </div>
     </div>
   </div>

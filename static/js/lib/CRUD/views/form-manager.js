@@ -15,10 +15,14 @@ define (
     'lib/Data/bulletin',
     'lib/Data/incident',
     'lib/Data/collections',
-    'lib/elements/overlay'
+    'lib/elements/overlay',
+    'lib/Navigation/TabRouter',
+    'lib/CRUD/templates/search-templates/confirm-dialog.tpl',
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm, Streams, 
-    Actor, Bulletin, Incident, Collections, Overlay) {
+  function ($, _, Backbone, ActorForm, BulletinForm, IncidentForm,
+  Streams, Actor, Bulletin, Incident, Collections, Overlay,
+  TabRouter, confirmDialogTmp, i18n) {
 
 
     // ## Stream processing helpers
@@ -124,11 +128,6 @@ define (
                  value.type === 'incident-results';
         },
 
-        // filter for close form request
-        filterCloseRequest = function(value) {
-          return value.type === 'close_form';
-        },
-
         filterCreateRequest = function(value) {
           return value.type === 'create_actor' ||
                  value.type === 'create_bulletin' ||
@@ -151,14 +150,55 @@ define (
       expanded: false,
       router: undefined,
       events: {
+        'click .form.do-hide' : 'closeViewRequested',
         'click .do-expand-form'  : 'expandFormRequested',
         'click .do-collapse-form': 'expandFormRequested'
+      },
+      getRouter: function() {
+        this.router = this.router || TabRouter.getTabRouter();
+        return this.router;
       },
       // constructor - watch for stream events
       initialize: function() {
         this.watchSearchStream();
         this.watchCrudStream();
         this.router = new Backbone.Router();
+      },
+
+      // user clicked x on form
+      closeViewRequested: function(evt) {
+        console.log('close view');
+        evt.preventDefault();
+        var $dialog = $(confirmDialogTmp({i18n: i18n})),
+            buttons = {},
+            view = this,
+            closeForm = this.closeCurrentForm;
+
+        // create buttons for the dialog with i18n-able labels
+        buttons[i18n.dialog.Close] = function() {
+          closeForm.apply(view);
+          $(this).dialog('close');
+        };
+        buttons[i18n.dialog.Cancel] = function() {
+          $(this).dialog('close');
+        };
+
+        // show the dialog
+        $dialog.dialog({
+          height: 160,
+          modal: true,
+          buttons: buttons
+        });
+
+      },
+
+      // close the display view - trigger a navigate to tab to allow
+      // for reselection of the entity
+      closeCurrentForm: function() {
+        this.getRouter().navigate(
+          '#tab/' + this.currentTab, {trigger: true});
+        this.destroyCurrentView();
+        this.$el.children().remove();
       },
 
       expandFormRequested: function() {
@@ -255,10 +295,6 @@ define (
                .onValue(this.openEditView.bind(this));
 
         // watch for form close request
-        crudBus.filter(filterCloseRequest)
-                 .onValue(function() {
-                   self.destroyCurrentView();
-                 });
       },
 
       openEditView: function(value) {
