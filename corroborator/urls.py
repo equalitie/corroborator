@@ -21,11 +21,13 @@ urlpatterns = patterns(
         'django.contrib.auth.views.logout',
         {'next_page': '/login'}),
     url(r'^login/$', 'corroborator_app.views.login_user'),
+    url(r'^accounts/login/$', 'corroborator_app.views.login_user'),
     url(r'^admin/', include(admin.site.urls)),
 
     #url(r'reports/', include('model_report.urls')),
 
     url(r'^$', 'corroborator_app.views.index'),
+    url(r'^data-entry/$', 'corroborator_app.views.data_entry'),
     #url(r'^/$', 'corroborator_app.views.index'),
     url(r'^corroborator/$', 'corroborator_app.views.index'),
     (r'^i18n/', include('django.conf.urls.i18n')),

@@ -8,13 +8,16 @@ import json
 from datetime import datetime, timedelta
 from django.utils import translation
 from django.db.models import Q
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import (
     HttpResponseRedirect, Http404, HttpResponse, HttpResponseServerError)
+
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
 
 from tastypie.models import ApiKey
 
@@ -109,73 +112,88 @@ def login_user(request):
     )
 
 
+@login_required
 def index(request, *args, **kwargs):
     """
     main view method - this renders the production app page and adds all
     bootstrap variables required - this is used at / and /corroborator
-     handle formatting of lists outside the view function
+    handle formatting of lists outside the view function
     """
-    if request.user.is_authenticated():
-        username = request.user.username
-        userid = request.user.id
+    for group in request.user.groups.all():
+        if group.name == u'data-entry':
+            return redirect('/data-entry/')
 
-        labels_set = Label.objects.all()
+    return render(
+        request, 'new_search.html', build_js_context(request)
+    )
 
-        role_status_set = []
-        roles = ActorRole.ROLE_STATUS
-        for role in roles:
-            role_status_set.append({
-                'key': role[0],
-                'value': role[1]}
-            )
 
-        relation_status_set = []
-        relations = ActorRole.RELATION
-        for relation in relations:
-            relation_status_set.append({
-                'key': relation[0],
-                'value': relation[1]}
-            )
+@login_required
+def data_entry(request, *args, **kwargs):
+    '''
+    show the data entry view
+    '''
 
-        predefined_search_set = PredefinedSearch.objects.filter(
-            Q(user_id=userid) | Q(make_global=True)
+    incorrect_groups = [u'data-analyst', u'chief-data-analyst', ]
+    for group in request.user.groups.all():
+        if group.name in incorrect_groups:
+            return redirect('/corroborator/')
+
+    return render(request, 'data-entry.html', build_js_context(request))
+
+
+def build_js_context(request):
+    labels_set = Label.objects.all()
+
+    role_status_set = []
+    roles = ActorRole.ROLE_STATUS
+    for role in roles:
+        role_status_set.append({
+            'key': role[0],
+            'value': role[1]}
         )
-        predefined_search_set = map(
-            format_predefined_search,
-            predefined_search_set
-        )
-        crimes_set = CrimeCategory.objects.all()
-        status_set = StatusUpdate.objects.all()
-        sources_set = Source.objects.all()
-        users_set = User.objects.all()
-        loc_set = Location.objects.all()
 
-        #api details
-        user = User.objects.get(username=username)
-        api = ApiKey.objects.get(user=user)
-
-        return render(
-            request, 'new_search.html',
-            {
-                #TODO - create view to allow locale switching
-                'locale': translation.get_language(),
-                'role_status_set': role_status_set,
-                'relation_status_set': relation_status_set,
-                'predefined_search_set': predefined_search_set,
-                'sources_set': sources_set,
-                'labels_set': labels_set,
-                'crimes_set': crimes_set,
-                'status_set': status_set,
-                'users_set': users_set,
-                'loc_set': loc_set,
-                'username': username,
-                'userid': userid,
-                'api_key': api.key,
-                'solr_url': str(get_solr_url(request.path))
-            }
+    relation_status_set = []
+    relations = ActorRole.RELATION
+    for relation in relations:
+        relation_status_set.append({
+            'key': relation[0],
+            'value': relation[1]}
         )
-    else:
-        return render_to_response('auth.html', RequestContext(request))
+
+    predefined_search_set = PredefinedSearch.objects.filter(
+        Q(user_id=request.user.id) | Q(make_global=True)
+    )
+    predefined_search_set = map(
+        format_predefined_search,
+        predefined_search_set
+    )
+    crimes_set = CrimeCategory.objects.all()
+    status_set = StatusUpdate.objects.all()
+    sources_set = Source.objects.all()
+    users_set = User.objects.all()
+    loc_set = Location.objects.all()
+
+    #api details
+    user = User.objects.get(username=request.user.username)
+    api = ApiKey.objects.get(user=user)
+
+    return {
+        'locale': translation.get_language(),
+        'role_status_set': role_status_set,
+        'relation_status_set': relation_status_set,
+        'predefined_search_set': predefined_search_set,
+        'sources_set': sources_set,
+        'labels_set': labels_set,
+        'crimes_set': crimes_set,
+        'status_set': status_set,
+        'users_set': users_set,
+        'loc_set': loc_set,
+        'username': request.user.username,
+        'userid': request.user.id,
+        'api_key': api.key,
+        'solr_url': str(get_solr_url(request.path))
+    }
 
 
 def monitoring_update_conf(request, conf_name):
@@ -217,9 +235,7 @@ def monitoring(request, *args, **kwargs):
         api = ApiKey.objects.get(user=user)
 
         mdl = MonitorDataLoader()
-        import sys 
         importer_conf_data = json.dumps(mdl.importer_config)
-        print >> sys.stderr, importer_conf_data
         scraper_conf_data = json.dumps(mdl.scraper_config)
         importer_stats_data = json.dumps(mdl.importer_stats)
 
@@ -237,14 +253,13 @@ def monitoring(request, *args, **kwargs):
     else:
         return render_to_response('auth.html', RequestContext(request))
 
-
-
 ###############################################################################
 # OBJECT REFRESH
 #
 ##############################################################################
 
-def get_updated_objects():    
+
+def get_updated_objects():
     """
     Return a set of objects updated during the last window
     """

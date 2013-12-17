@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from tastypie.models import ApiKey
 
 
@@ -33,3 +33,9 @@ class TestUserUtility(object):
                 self.api_key.key
             )
         return self.auth_string
+
+    def add_user_to_group(self, group_name='group_name'):
+        group = Group(name=group_name)
+        group.save()
+        self.user.groups.add(group)
+        self.user.save()
