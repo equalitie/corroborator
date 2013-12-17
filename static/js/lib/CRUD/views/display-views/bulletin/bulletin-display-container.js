@@ -66,7 +66,8 @@ define (
       // render expanded view
       displayExpandedView: function() {
         this.displayView()
-            .renderRelatedMedia();
+            .renderRelatedMedia()
+            .renderRevisions();
       },
 
       // display view and standard elements
@@ -212,12 +213,15 @@ define (
         }
         var revisionView = new RevisionView({
           el: '#revision-container',
-          content: this.model.get('incident_comments')
+          content: this.model.get('bulletin_comments')
         });
         this.childViews.push(revisionView);
       },
 
-
+      isList: function(key, model) {
+        var field = model.get(key);
+        return field !== undefined && field.length > 0;
+      },
 
       // render the container
       render: function() {
