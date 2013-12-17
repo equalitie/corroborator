@@ -1,5 +1,5 @@
   <div class="header">
-    <a href="#" class="display do-hide is-small">
+    <a href="#" class="form do-hide is-small">
       <span aria-hidden="true" data-icon="&#x78"></span>
       <span class="screen-reader-text">Hide</span>
     </a>

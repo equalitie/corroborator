@@ -114,6 +114,10 @@
       <div class="is-comments group">
       </div>
       {{/if}}
+      {{#if model.bulletin_comments}}
+        <div id="revision-container" class="is-history group">
+        </div>
+      {{/if}}
     </div>
   </div>
   <div class="clearer"></div>

@@ -13,14 +13,16 @@ define (
     'lib/CRUD/views/display-views/media/media-container',
     'lib/CRUD/views/display-views/comment/comment-container',
     'lib/CRUD/views/map-view',
+    'lib/CRUD/views/search-views/revision/revision-view',
+
     'lib/CRUD/templates/display-templates/bulletin-display.tpl',
     'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, 
     ActorListView, BulletinListView, IncidentListView, MediaListView,
-    CommentListView, CoordinateDisplayView, bulletinDisplayTmp,
-    expandedBulletinDisplayTmp, i18n) {
+    CommentListView, CoordinateDisplayView, RevisionView,
+    bulletinDisplayTmp, expandedBulletinDisplayTmp, i18n) {
     'use strict';
 
     var BulletinDisplayView,
@@ -64,7 +66,8 @@ define (
       // render expanded view
       displayExpandedView: function() {
         this.displayView()
-            .renderRelatedMedia();
+            .renderRelatedMedia()
+            .renderRevisions();
       },
 
       // display view and standard elements
@@ -186,6 +189,7 @@ define (
         });
         return this;
       },
+
       renderMap: function() {
         var mapEl, content, mapContainer, collection;
         mapEl = this.getContainerEl('bulletin-map');
@@ -203,7 +207,21 @@ define (
         return this;
       },
 
+      renderRevisions: function() {
+        if (!this.isList('bulletin_comments', this.model)) {
+          return this;
+        }
+        var revisionView = new RevisionView({
+          el: '#revision-container',
+          content: this.model.get('bulletin_comments')
+        });
+        this.childViews.push(revisionView);
+      },
 
+      isList: function(key, model) {
+        var field = model.get(key);
+        return field !== undefined && field.length > 0;
+      },
 
       // render the container
       render: function() {
