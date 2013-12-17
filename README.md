@@ -64,6 +64,13 @@ Then run the migration in the next setting.
 env/bin/python managestaging.py migrate
 ```
 
+#### Other configuration
+Assuming that you have Solr and Apache all good to go, you should be ready now.
+
+If you encounter the error ```ApiKey matching query does not
+exist. Lookup parameters were {'user': <User: root>}``` (or for
+another user), create an API key in the https://yoursite/admin panel.
+
 Solr Usage
 ==========
 
