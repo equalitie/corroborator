@@ -8,7 +8,12 @@ Case management with data validation, corroboration, omission and duplication ch
 virtualenv should be used for package management
 To install virtualenv
 ```
-[sudo] pip install virtualenv
+[sudo] apt-get install virtualenv
+```
+
+Other packages are required for modules and other build dependencies:
+```
+[sudo] apt-get install libmysqlclient-dev python-dev mysql-client libxslt-dev libgeos-c1
 ```
 
 #### Install local python environment
@@ -21,6 +26,12 @@ virtualenv --python=python2.7 env --no-site-packages
 #### Install required packages
 ```
 env/bin/pip install -r requirements.txt
+```
+
+You may encounter an error related to the 'distribute' module. In this case, run
+
+```
+env/bin/easy_install -U distribute
 ```
 
 #### Set up system celeryd install
@@ -40,8 +51,13 @@ env/bin/python manage.py migrate --settings=[local settings]
 Solr Usage
 ==========
 
+Solr needs a few packages installed before use:
+```
+[sudo] apt-get install supervisor openjdk-6-jdk
+```
+
 Changes to model schema where new fields are added or removed from Bulletin, Incident or Actor
-models will require an update to the solr schema. To do this the schema.xml file must be updated.  
+models will require an update to the solr schema. To do this the schema.xml file must be updated.
 Haystack will generate a new schema.xml file with the command
 
 ```
