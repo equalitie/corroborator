@@ -43,9 +43,25 @@ git submodule init
 git submodule update --recursive
 ```
 
-#### Initial db sync
+#### Create and configure database
+In mysql, create a database and user for the app:
 ```
-env/bin/python manage.py migrate --settings=[local settings]
+CREATE DATABASE corroborator_staging;
+CREATE USER 'django'@'localhost' identified by 'password';
+GRANT ALL ON corroborator_staging.* to 'django'@'localhost';
+```
+Add this username and password combination to DATABASE in ```corroborator/settings/staging.py```.
+
+#### Initial db sync
+If you have no database set up, run
+```
+env/bin/python2.7 managestaging.py syncdb
+```
+Then run the migration in the next setting.
+
+#### Existing DB migration
+```
+env/bin/python managestaging.py migrate
 ```
 
 Solr Usage
