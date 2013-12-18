@@ -12,6 +12,7 @@
 
 // display the expanded view second column correctly
 .Incident.is-edited.is-expanded .span-33p,
+.Actor.is-edited.is-expanded .span-33p,
 .Bulletin.is-edited.is-expanded .span-33p {
   width: 29%;
   padding-left: 2*$PAD_UNIT;

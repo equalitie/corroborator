@@ -8,7 +8,10 @@
       'jquery'         : 'components/jquery/jquery',
       'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui',
       'jquery_time'    : 'components/jquery-timepicker-addon/jquery-ui-timepicker-addon',
+      'jquery_slider'  : 'components/jquery-timepicker-addon/jquery-ui-sliderAccess',
+      'leaflet'        : 'components/leaflet/dist/leaflet',
       'backbone'       : 'components/backbone/backbone',
+      'bacon'          : 'components/bacon/dist/Bacon',
       'moment'         : 'components/moment/moment',
       'underscore'     : 'components/underscore/underscore',
       'handlebars'     : 'components/handlebars/handlebars',
@@ -29,6 +32,9 @@
       },
       jquery_time: {
         deps: ['jquery', 'jquery_ui']
+      },
+      jquery_slider: {
+        deps: ['jquery', 'jquery_ui', 'jquery_time']
       }
 
     },

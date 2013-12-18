@@ -2,7 +2,8 @@ var _ = require('lodash');
 
 var appTemplates = require('./grunt/search-app-templates.js'),
     monitorTemplates = require('./grunt/monitor-templates.js'),
-    templates = _.extend(appTemplates(), monitorTemplates());
+    dataEntryTemplates = require('./grunt/data-entry-templates.js'),
+    templates = _.extend(appTemplates(), monitorTemplates(), dataEntryTemplates());
 
 module.exports = function(grunt) {
 
@@ -132,7 +133,8 @@ module.exports = function(grunt) {
         'lib/CRUD/templates/search-templates/*/*.tpl',
         'lib/CRUD/templates/display-templates/*.tpl',
         'lib/CRUD/templates/display-templates/*/*.tpl',
-        'lib/monitor/templates/*/*.tpl'
+        'lib/monitor/templates/*.tpl',
+        'lib/data-entry/templates/*.tpl'
       ],
       tasks: ['handlebars', /*'karma', /*'jshint', 'requirejs', 'docco'*/]
     }

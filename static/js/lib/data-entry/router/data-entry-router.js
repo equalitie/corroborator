@@ -7,20 +7,28 @@
 define(
   [
     'backbone',
-    'lib/
+    'lib/data-entry/views/actor-form',
+    'lib/data-entry/views/bulletin-form',
   ],
-  function (Backbone) {
+  function (Backbone, ActorFormView, BulletinFormView) {
   'use strict';
+  var el = '',
+      actorFormView = new ActorFormView({el: '#actor-form'}),
+      bulletinFormView = new BulletinFormView({el: '#bulletin-form'});
 
   var DataEntryRouter = Backbone.Router.extend({
     routes: {
-      '/'           : 'showIncidentForm',
-      'tab/incident': 'showIncidentForm',
+      ''           : 'showBulletinForm',
+      'tab/actor'   : 'showActorForm',
       'tab/bulletin': 'showBulletinForm',
     },
-    showIncidentForm: function() {
+    showActorForm: function() {
+      actorFormView.show();
+      bulletinFormView.hide();
     },
     showBulletinForm: function() {
+      actorFormView.hide();
+      bulletinFormView.show();
     }
   });
 

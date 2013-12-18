@@ -7,6 +7,7 @@
 
 {% block script %}
   {% include "includes/bootstrap.html" %}
+  {% include "includes/dev_data_entry_script.html" %}
 {% endblock %}
 
 {% block content%}
@@ -15,6 +16,9 @@
 </nav>
 
 <div id="data-entry-container" class="">
-
+  <div id="data-entry-messages" class="">
+  </div>
+  <div id="actor-form"></div>
+  <div id="bulletin-form"></div>
 </div>
 {% endblock %}
