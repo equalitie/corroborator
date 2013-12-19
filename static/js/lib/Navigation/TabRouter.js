@@ -184,6 +184,7 @@ define(
     };
 
     var getTabRouter = function() {
+      console.log(tabRouter);
       return tabRouter;
     };
 

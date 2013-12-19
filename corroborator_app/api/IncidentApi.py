@@ -104,9 +104,7 @@ class IncidentResource(ModelResource):
             status_id,
             user
         )
-        bundle.data['incident_comments'] = [
-            comment_uri
-        ]
+        bundle.data['incident_comments'].append( comment_uri )
 
         with reversion.create_revision():
             bundle = super( IncidentResource, self )\

@@ -32,6 +32,7 @@ DATABASES = {
 
 
 INSTALLED_APPS += (
+    'model_report',
     'autofixture',
     'debug_toolbar',
 )

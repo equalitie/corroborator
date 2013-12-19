@@ -14,7 +14,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   if (stack1 = helpers.entity) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.entity; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "-view overlay WIREFRAME\">\n  <div class=\"header\">\n    <a href=\"#\" class=\"display do-hide is-small\">\n      <span aria-hidden=\"true\" data-icon=\"x\"></span>\n      <span class=\"screen-reader-text\">Hide</span>\n    </a>\n  </div>\n  <div class=\"body\">\n  </div>\n  <div class=\"footer actions\">\n    <div class=\"when-overlay-expanded\">\n      <button class=\"do-collapse\">\n        <span class=\"text T\">"
+    + "-view overlay WIREFRAME\">\n  <div class=\"header\">\n    <a href=\"#\" class=\"display do-hide is-small\">\n      <span aria-hidden=\"true\" data-icon=\"x\"></span>\n      <span class=\"screen-reader-text\">Hide</span>\n    </a>\n  </div>\n  <div class=\"body ";
+  if (stack1 = helpers.entity) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.entity; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "-container\">\n  </div>\n  <div class=\"footer actions\">\n    <div class=\"when-overlay-expanded\">\n      <button class=\"do-collapse\">\n        <span class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.Collapse)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " »</span>\n      </button>\n    </div>\n    <div class=\"when-overlay-not_expanded\">\n      <button class=\"do-expand\">\n        <span class=\"text T\">« "
     + escapeExpression(((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.Expand)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

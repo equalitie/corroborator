@@ -121,9 +121,7 @@ class BulletinResource(ModelResource):
             status_id,
             user
         )
-        bundle.data['bulletin_comments'] = [
-            comment_uri
-        ]
+        bundle.data['bulletin_comments'].append( comment_uri )
 
         with reversion.create_revision():
             bundle = super( BulletinResource, self )\

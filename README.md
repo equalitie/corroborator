@@ -8,7 +8,12 @@ Case management with data validation, corroboration, omission and duplication ch
 virtualenv should be used for package management
 To install virtualenv
 ```
-[sudo] pip install virtualenv
+[sudo] apt-get install virtualenv
+```
+
+Other packages are required for modules and other build dependencies:
+```
+[sudo] apt-get install libmysqlclient-dev python-dev mysql-client libxslt-dev libgeos-c1
 ```
 
 #### Install local python environment
@@ -23,6 +28,12 @@ virtualenv --python=python2.7 env --no-site-packages
 env/bin/pip install -r requirements.txt
 ```
 
+You may encounter an error related to the 'distribute' module. In this case, run
+
+```
+env/bin/easy_install -U distribute
+```
+
 #### Set up system celeryd install
 On Debian, the configuration file for celeryd exists in /etc/default/celeryd
 
@@ -32,16 +43,44 @@ git submodule init
 git submodule update --recursive
 ```
 
+#### Create and configure database
+In mysql, create a database and user for the app:
+```
+CREATE DATABASE corroborator_staging;
+CREATE USER 'django'@'localhost' identified by 'password';
+GRANT ALL ON corroborator_staging.* to 'django'@'localhost';
+```
+Add this username and password combination to DATABASE in ```corroborator/settings/staging.py```.
+
 #### Initial db sync
+If you have no database set up, run
 ```
-env/bin/python manage.py migrate --settings=[local settings]
+env/bin/python2.7 managestaging.py syncdb
 ```
+Then run the migration in the next setting.
+
+#### Existing DB migration
+```
+env/bin/python managestaging.py migrate
+```
+
+#### Other configuration
+Assuming that you have Solr and Apache all good to go, you should be ready now.
+
+If you encounter the error ```ApiKey matching query does not
+exist. Lookup parameters were {'user': <User: root>}``` (or for
+another user), create an API key in the https://yoursite/admin panel.
 
 Solr Usage
 ==========
 
+Solr needs a few packages installed before use:
+```
+[sudo] apt-get install supervisor openjdk-6-jdk
+```
+
 Changes to model schema where new fields are added or removed from Bulletin, Incident or Actor
-models will require an update to the solr schema. To do this the schema.xml file must be updated.  
+models will require an update to the solr schema. To do this the schema.xml file must be updated.
 Haystack will generate a new schema.xml file with the command
 
 ```

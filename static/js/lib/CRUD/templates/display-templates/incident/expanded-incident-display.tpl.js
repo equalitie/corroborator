@@ -127,9 +127,9 @@ function program28(depth0,data) {
   buffer += "\n      <div class=\"is-locations group\">\n        <h4>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.locations)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h4>\n        <div class=\"locations\">\n          ";
-  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_locations), {hash:{},inverse:self.noop,fn:self.program(29, program29, data),data:data});
+  stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations), {hash:{},inverse:self.noop,fn:self.program(29, program29, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n        </div>\n      </div>\n      <div class=\"is-incident-map map\"></div>\n      ";
+  buffer += "\n        </div>\n      </div>\n      <div id=\"is-incident-map\" class=\"map\"></div>\n      ";
   return buffer;
   }
 function program29(depth0,data) {
@@ -206,12 +206,12 @@ function program32(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.times), {hash:{},inverse:self.noop,fn:self.program(26, program26, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_locations), {hash:{},inverse:self.noop,fn:self.program(28, program28, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations), {hash:{},inverse:self.noop,fn:self.program(28, program28, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_labels), {hash:{},inverse:self.noop,fn:self.program(31, program31, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n      <div class=\"is-history group\">\n      </div>\n    </div>\n  </div>\n  <div class=\"clearer\"></div>\n</div>\n";
+  buffer += "\n      <div id=\"revision-container\" class=\"is-history group\">\n      </div>\n    </div>\n  </div>\n  <div class=\"clearer\"></div>\n</div>\n";
   return buffer;
   })
 

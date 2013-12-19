@@ -13,11 +13,13 @@ define (
     'lib/CRUD/views/display-views/actor/actor-display-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-display-container',
     'lib/CRUD/views/display-views/incident/incident-display-container',
+    'lib/Navigation/TabRouter',
     'lib/CRUD/templates/display-templates/display-manager.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, $, Streams,
     ActorDisplayView, BulletinDisplayView, IncidentDisplayView,
+    TabRouter,
     displayManagerContainerTmp, i18n) {
     'use strict';
 
@@ -44,28 +46,29 @@ define (
       template: displayManagerContainerTmp,
       el: '.form_overlay',
       childViews: [],
-      router: undefined,
       expanded: false,
       currentTab: '',
 
       events: {
-        'click .display.do-hide'  : 'closeViewRequested',
-        'click button.do-select'  : 'selectRequested',
-        'click button.do-expand'  : 'expandRequested',
-        'click button.do-collapse': 'collapseRequested',
-        'click .do-edit'          : 'editRequested'
+        'click .display.do-hide'        : 'closeViewRequested',
+        'click button.do-select'        : 'selectRequested',
+        'click button.do-expand'        : 'expandRequested',
+        'click button.do-collapse'      : 'collapseRequested',
+        'click .do-edit'                : 'editRequested'
       },
 
       initialize: function() {
         this.watchNavEvents();
-        this.router = new Backbone.Router();
+      },
+      getRouter: function() {
+        this.router = this.router || TabRouter.getTabRouter();
+        return this.router;
       },
 
-      // close the display view - trigger a navigate to tab to allow
-      // for reselection of the entity
       closeViewRequested: function(evt) {
         evt.preventDefault();
-        this.router.navigate('#tab/' + this.currentTab, {trigger: true});
+        this.getRouter().navigate(
+          '#tab/' + this.currentTab, {trigger: true});
         this.destroyChildren();
         this.$el.children().remove();
       },
@@ -98,14 +101,26 @@ define (
       },
 
       expandRequested: function() {
-          this.expandView();
+        this.expandView();
         _.last(this.childViews).trigger('expand');
-        
       },
       expandView: function() {
+        var routeTemplate = _.template(
+          '<%=model.entityType %>/<%=model.id %>/expanded'),
+            route = routeTemplate({
+              model: this.model.toJSON()
+            });
+        this.getRouter().navigate(route);
         this.$el.children().addClass('is-expanded');
       },
+
       collapseView: function() {
+        var routeTemplate = _.template(
+          '<%=model.entityType %>/<%=model.id %>'),
+            route = routeTemplate({
+              model: this.model.toJSON()
+            });
+        this.getRouter().navigate(route);
         this.$el.children().removeClass('is-expanded');
       },
 
@@ -129,7 +144,6 @@ define (
 
       // display an entity
       displayEntity: function(content) {
-        console.log(content);
         this.expanded = content.expanded;
         content.expanded = false;
         this.renderContainer(content)
@@ -152,11 +166,9 @@ define (
       renderEntity: function(entityDetails) {
         this.destroyChildren();
         var displayView = new viewMap[entityDetails.entity]({
+          el: '.' + entityDetails.entity + '-container',
           entityDetails: entityDetails
         });
-        this.$el.children()
-                .children('.body')
-                .append(displayView.$el);
 
         //trigger a resize to be passed on to the map views
         //to get over them being rendered when not actually in the dom
@@ -178,6 +190,7 @@ define (
       renderContainer: function(content) {
         content.i18n = i18n;
         var html = this.template(content);
+        this.$el.children().remove();
         this.$el.append(html);
         this.setSelectionEl();
         return this;

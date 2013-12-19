@@ -100,6 +100,7 @@ define (
       ],
       // constructor
       initialize: function(options) {
+        console.log(this);
         this.addi18n();
         this.populateWidgets();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
@@ -265,7 +266,7 @@ define (
       }
 
     });
-    _.extend(ActorFormView.prototype, ConfirmMixin);
+    //_.extend(ActorFormView.prototype, ConfirmMixin);
     _.extend(ActorFormView.prototype, WidgetMixin);
     _.extend(ActorFormView.prototype, Formatter);
     

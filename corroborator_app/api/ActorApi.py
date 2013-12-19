@@ -98,9 +98,8 @@ class ActorResource(ModelResource):
             status_id,
             user
         )
-        bundle.data['actor_comments'] = [
-            comment_uri
-        ]
+        bundle.data['actor_comments'].append( comment_uri )
+
         with reversion.create_revision():
             bundle = super(ActorResource, self)\
                 .obj_update(bundle, **kwargs)
@@ -156,6 +155,9 @@ class ActorResource(ModelResource):
             .prepare_thumbnail_url(bundle.obj)
         bundle.data['actor_roles_status'] = ActorPrepMeta()\
             .prepare_actor_actor_roles(bundle.obj)
+        bundle.data['most_recent_status_actor'] = \
+            ActorPrepMeta()\
+            .prepare_most_recent_status_actor(bundle.obj) 
         return bundle
 
 

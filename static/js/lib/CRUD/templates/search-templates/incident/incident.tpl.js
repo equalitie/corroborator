@@ -25,7 +25,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-  buffer += "<div class=\"header\">\n    <a href=\"#\" class=\"display do-hide is-small\">\n      <span aria-hidden=\"true\" data-icon=\"x\"></span>\n      <span class=\"screen-reader-text\">"
+  buffer += "<div class=\"header\">\n    <a href=\"#\" class=\"form do-hide is-small\">\n      <span aria-hidden=\"true\" data-icon=\"x\"></span>\n      <span class=\"screen-reader-text\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.Hide)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n    </a>\n</div>\n<div class=\"body\" style=\"bottom: 49px;\">\n  <div class=\"Incident is-edited is-expanded\">\n    <div class=\"first initial span-66p\">\n      <div class=\"header\">\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});

@@ -1,5 +1,9 @@
 from django.conf.urls import patterns, include, url
 
+# reporting
+#from model_report import report
+#report.autodiscover()
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -18,6 +22,9 @@ urlpatterns = patterns(
         {'next_page': '/login'}),
     url(r'^login/$', 'corroborator_app.views.login_user'),
     url(r'^admin/', include(admin.site.urls)),
+
+    #url(r'reports/', include('model_report.urls')),
+
     url(r'^$', 'corroborator_app.views.index'),
     #url(r'^/$', 'corroborator_app.views.index'),
     url(r'^corroborator/$', 'corroborator_app.views.index'),
