@@ -12,8 +12,10 @@ from django.contrib.auth.models import User
 
 from autofixture import AutoFixture
 
-from corroborator_app.multisave import multi_save_actors, extract_ids, \
+from corroborator_app.multisave import (
+    multi_save_actors, extract_ids,
     update_entities, process_actor_data
+)
 from corroborator_app.models import Actor, Location, ActorRole
 from corroborator_app.tests.test_utilities import TestUserUtility
 import json

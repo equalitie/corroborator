@@ -10,12 +10,17 @@ from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 
-from corroborator_app.models import ActorRelationship
-from corroborator_app.models import Actor, ActorRole, VersionStatus, Comment
+from corroborator_app.models import (
+    ActorRelationship,
+    Actor,
+    ActorRole,
+    VersionStatus,
+    Comment,
+    StatusUpdate
+)
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.MediaApi import MediaResource
-from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from corroborator_app.utilities.apiValidationTool import ApiValidation
@@ -61,27 +66,17 @@ class ActorResource(ModelResource):
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         bundle = super(ActorResource, self).obj_delete(bundle, **kwargs)
-        """
-        user = User.objects.filter(username=username)[0]
-        with reversion.create_revision():
-            bundle = super( ActorResource, self )\
-                .obj_delete( bundle, **kwargs )
-            reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])
-            reversion.add_meta(
-                VersionStatus,
-                status=bundle.data['status']
-            )
-        """
         update_object.delay(username)
         return bundle
 
     def create_comment(self, comment, status_id, user):
-        
+        '''
+        create a status comment to be attached to the user upon save
+        '''
         comment = Comment(
-            assigned_user_id = user.id,
-            comments_en = comment,
-            status_id = status_id
+            assigned_user_id=user.id,
+            comments_en=comment,
+            status_id=status_id
         )
         comment.save()
         comment_uri = '/api/v1/comment/{0}/'.format(comment.id)
@@ -92,13 +87,18 @@ class ActorResource(ModelResource):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         status_id = int(bundle.data['status_uri'].split('/')[4])
-        print status_id
+        status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
+            user,
+            status_id
+        )
+        #import ipdb
+        #ipdb.set_trace()
         comment_uri = self.create_comment(
             bundle.data['comment'],
-            status_id,
+            status_update.id,
             user
         )
-        bundle.data['actor_comments'].append( comment_uri )
+        bundle.data['actor_comments'].append(comment_uri)
 
         with reversion.create_revision():
             bundle = super(ActorResource, self)\
@@ -107,16 +107,20 @@ class ActorResource(ModelResource):
             reversion.set_comment(bundle.data['comment'])
             reversion.add_meta(
                 VersionStatus,
-                status=bundle.data['status']
+                status=status_update.status_en
             )
             #reversion.set_comment("test meta class")
         update_object.delay(username)
         return bundle
 
     def obj_create(self, bundle, **kwargs):
+        '''
+        created objects should automatically have a status of Human Created
+        '''
+        status_update = StatusUpdate.objects.get(status_en='Human Created')
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
-        status_id = bundle.data['status_uri'].split('/')[4]
+        status_id = status_update.id
         comment_uri = self.create_comment(
             bundle.data['comment'],
             status_id,
@@ -131,7 +135,7 @@ class ActorResource(ModelResource):
                 .obj_create(bundle, **kwargs)
             reversion.add_meta(
                 VersionStatus,
-                status=bundle.data['status']
+                status=status_update.status_en
             )
             reversion.set_user(user)
             reversion.set_comment(bundle.data['comment'])
@@ -157,7 +161,7 @@ class ActorResource(ModelResource):
             .prepare_actor_actor_roles(bundle.obj)
         bundle.data['most_recent_status_actor'] = \
             ActorPrepMeta()\
-            .prepare_most_recent_status_actor(bundle.obj) 
+            .prepare_most_recent_status_actor(bundle.obj)
         return bundle
 
 

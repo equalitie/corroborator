@@ -14,6 +14,8 @@ from corroborator_app.tests.api.BulletinApiTest import *
 from corroborator_app.tests.api.IncidentApiTest import *
 from corroborator_app.tests.api.MonitorUpdateApiTest import\
     MonitorUpdateTestCase
+from corroborator_app.tests.models.StatusUpdateModelTest import\
+    StatusUpdateModelTestCase
 
 from corroborator_app.tests.monitor.MonitorDataLoaderTest import *
 from corroborator_app.tests.views.AppViewTest import AppViewTestCase

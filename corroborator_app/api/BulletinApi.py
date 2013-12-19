@@ -11,7 +11,9 @@ from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
 import reversion
 
-from corroborator_app.models import Bulletin, VersionStatus, Comment
+from corroborator_app.models import(
+    Bulletin, VersionStatus, Comment, StatusUpdate
+)
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.SourceApi import SourceResource
 from corroborator_app.api.LabelApi import LabelResource
@@ -25,6 +27,7 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from django.contrib.auth.models import User
 __all__ = ('BulletinResource')
+
 
 class BulletinResource(ModelResource):
     """
@@ -47,28 +50,28 @@ class BulletinResource(ModelResource):
         null=True
     )
     actors_role = fields.ManyToManyField(
-        ActorRoleResource, 
+        ActorRoleResource,
         'actors_role',
         null=True
     )
     times = fields.ManyToManyField(TimeInfoResource, 'times', null=True)
     medias = fields.ManyToManyField(
-        MediaResource, 
-        'medias', 
+        MediaResource,
+        'medias',
         null=True
     )
     locations = fields.ManyToManyField(
-        LocationResource, 
+        LocationResource,
         'locations',
         null=True
     )
     labels = fields.ManyToManyField(
-        LabelResource, 
+        LabelResource,
         'labels',
         null=True
     )
     ref_bulletins = fields.ManyToManyField(
-        'self', 
+        'self',
         'ref_bulletins',
         null=True
     )
@@ -82,30 +85,15 @@ class BulletinResource(ModelResource):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
-        bundle = super( BulletinResource, self )\
-            .obj_delete( bundle, **kwargs )
-
-        """
-        user = User.objects.filter(username=username)[0]
-        with reversion.create_revision():
-            bundle = super( BulletinResource, self )\
-                .obj_delete( bundle, **kwargs )
-            reversion.set_comment(bundle.data['comment'])    
-            reversion.set_user(user)
-            reversion.add_meta(
-                VersionStatus, 
-                status=bundle.data['status']
-            )
-        """
-        update_object.delay(username)    
+        bundle = super(BulletinResource, self).obj_delete(bundle, **kwargs)
+        update_object.delay(username)
         return bundle
 
     def create_comment(self, comment, status_id, user):
-        
         comment = Comment(
-            assigned_user_id = user.id,
-            comments_en = comment,
-            status_id = status_id
+            assigned_user_id=user.id,
+            comments_en=comment,
+            status_id=status_id
         )
         comment.save()
         comment_uri = '/api/v1/comment/{0}/'.format(comment.id)
@@ -116,32 +104,35 @@ class BulletinResource(ModelResource):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         status_id = bundle.data['status_uri'].split('/')[4]
+        status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
+            user,
+            status_id
+        )
         comment_uri = self.create_comment(
             bundle.data['comment'],
-            status_id,
+            status_update.id,
             user
         )
-        bundle.data['bulletin_comments'].append( comment_uri )
+        bundle.data['bulletin_comments'].append(comment_uri)
 
         with reversion.create_revision():
-            bundle = super( BulletinResource, self )\
-                .obj_update( bundle, **kwargs )
+            bundle = super(BulletinResource, self).obj_update(bundle, **kwargs)
             reversion.add_meta(
-                VersionStatus, 
-                status=bundle.data['status']
+                VersionStatus,
+                status=status_update.status_en
             )
             reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])    
-        update_object.delay(username)    
+            reversion.set_comment(bundle.data['comment'])
+        update_object.delay(username)
         return bundle
- 
+
     def obj_create(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
-        status_id = bundle.data['status_uri'].split('/')[4]
+        status_update = StatusUpdate.objects.get(status_en='Human Created')
         comment_uri = self.create_comment(
             bundle.data['comment'],
-            status_id,
+            status_update.id,
             user
         )
         bundle.data['bulletin_comments'] = [
@@ -149,15 +140,15 @@ class BulletinResource(ModelResource):
         ]
 
         with reversion.create_revision():
-            bundle = super( BulletinResource, self )\
-                .obj_create( bundle, **kwargs )
+            bundle = super(BulletinResource, self)\
+                .obj_create(bundle, **kwargs)
             reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])    
+            reversion.set_comment(bundle.data['comment'])
             reversion.add_meta(
-                VersionStatus, 
-                status=bundle.data['status']
+                VersionStatus,
+                status=status_update.status_en
             )
-        update_object.delay(username)    
+        update_object.delay(username)
         return bundle
 
     def dehydrate(self, bundle):
@@ -168,14 +159,14 @@ class BulletinResource(ModelResource):
         bundle.data['bulletin_locations'] = BulletinPrepMeta()\
             .prepare_bulletin_locations(bundle.obj)
         bundle.data['bulletin_labels'] = BulletinPrepMeta()\
-            .prepare_bulletin_labels(bundle.obj) 
+            .prepare_bulletin_labels(bundle.obj)
         bundle.data['bulletin_times'] = BulletinPrepMeta()\
-            .prepare_bulletin_times(bundle.obj) 
+            .prepare_bulletin_times(bundle.obj)
         bundle.data['bulletin_sources'] = BulletinPrepMeta()\
-            .prepare_bulletin_sources(bundle.obj) 
+            .prepare_bulletin_sources(bundle.obj)
         bundle.data['most_recent_status_bulletin'] = \
             BulletinPrepMeta()\
-            .prepare_most_recent_status_bulletin(bundle.obj) 
+            .prepare_most_recent_status_bulletin(bundle.obj)
         bundle.data['count_actors'] = BulletinPrepMeta()\
             .prepare_count_actors(bundle.obj)
         bundle.data['actor_roles_status'] = BulletinPrepMeta()\
@@ -184,9 +175,8 @@ class BulletinResource(ModelResource):
             .prepare_actors(bundle.obj)
         bundle.data['actors_role'] = ActorPrepMeta()\
             .prepare_actors_role(bundle.obj)
-        
-        if bundle.data['confidence_score'] == None:
-            bundle.data['confidence_score'] = ''
 
+        if bundle.data['confidence_score'] is None:
+            bundle.data['confidence_score'] = ''
 
         return bundle

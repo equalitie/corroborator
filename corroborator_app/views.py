@@ -169,7 +169,9 @@ def build_js_context(request):
         predefined_search_set
     )
     crimes_set = CrimeCategory.objects.all()
-    status_set = StatusUpdate.objects.all()
+    status_set = StatusUpdate.filter_by_perm_objects.available_statuses(
+        request.user
+    )
     sources_set = Source.objects.all()
     users_set = User.objects.all()
     loc_set = Location.objects.all()
@@ -213,7 +215,10 @@ def monitoring_update_conf(request, conf_name):
 
         result_json = json.dumps(result)
         if 'error' in result_json:
-            return HttpResponseServerError(result_json, mimetype='application/json')
+            return HttpResponseServerError(
+                result_json,
+                mimetype='application/json'
+            )
         else:
             return HttpResponse(result_json, mimetype='application/json')
     else:
@@ -283,7 +288,9 @@ def get_updated_objects():
     }
     user_id_tpl = '/api/v1/user/{0}'
     for bulletin in bulletins:
-        user_id = user_id_tpl.format(int(bulletin.most_recent_update_by()[0]['status__user'])) \
+        updated_user_id =\
+            int(bulletin.most_recent_update_by()[0]['status__user'])
+        user_id = user_id_tpl.format(updated_user_id) \
             if len(bulletin.most_recent_update_by()) > 0 else ''
         refreshed['bulletins'].append({
             'id': bulletin.id,
@@ -294,7 +301,9 @@ def get_updated_objects():
             'update': str(bulletin.bulletin_modified)
         })
     for incident in incidents:
-        user_id = user_id_tpl.format(int(incident.most_recent_update_by()[0]['status__user']))\
+        updated_user_id =\
+            int(incident.most_recent_update_by()[0]['status__user'])
+        user_id = user_id_tpl.format(updated_user_id)\
             if len(incident.most_recent_update_by()) > 0 else ''
 
         refreshed['incidents'].append({
@@ -306,7 +315,9 @@ def get_updated_objects():
             'update': str(incident.incident_modified)
         })
     for actor in actors:
-        user_id = user_id_tpl.format(int(actor.most_recent_update_by()[0]['status__user']))\
+        updated_user_id =\
+            int(actor.most_recent_update_by()[0]['status__user'])
+        user_id = user_id_tpl.format(updated_user_id)\
             if len(actor.most_recent_update_by()) > 0 else ''
 
         refreshed['actors'].append({
@@ -326,7 +337,7 @@ def entity_refresh(request):
     """
     if request.user.is_authenticated:
         refreshed_entities = get_updated_objects()
-        data = json.dumps(refreshed_entities) 
+        data = json.dumps(refreshed_entities)
         return HttpResponse(data, mimetype='application/json')
     else:
         return Http404

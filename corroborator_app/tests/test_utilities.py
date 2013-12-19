@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from tastypie.models import ApiKey
 
 
@@ -35,7 +35,31 @@ class TestUserUtility(object):
         return self.auth_string
 
     def add_user_to_group(self, group_name='group_name'):
-        group = Group(name=group_name)
-        group.save()
+        group = self.create_corroborator_groups(group_name)
         self.user.groups.add(group)
         self.user.save()
+
+    def create_corroborator_groups(self, group_name):
+        group = Group(name=group_name)
+        group.save()
+        permissions_map = {
+            'data-entry': [],
+            'data-analyst': ['can_update', ],
+            'senior-data-analyst': ['can_update', 'can_update_to_reviewed', ],
+            'chief-data-analyst': [
+                'can_update',
+                'can_update_to_reviewed',
+                'can_update_to_finalized',
+            ],
+        }
+        for permission_string in permissions_map[group_name]:
+            permission = Permission.objects.get(codename=permission_string)
+            group.permissions.add(permission)
+        return group
+
+
+def id_from_uri(uri):
+    '''
+    get the id from an api uri in the format /api/v1/<entity>/<id>/
+    '''
+    return int(uri.split('/')[4])

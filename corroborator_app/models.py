@@ -53,6 +53,61 @@ class PredefinedSearch(models.Model):
     make_global = models.BooleanField()
 
 
+class PermStatusUpdateManager(models.Manager):
+    def available_statuses(self, user):
+        '''
+        return a list of the available statuses, allows for users to have 
+        more that one group
+        '''
+        groups = {
+            'data-analyst': [3],
+            'senior-data-analyst': [3, 4],
+            'chief-data-analyst': [3, 4, 5],
+        }
+
+        status_ids = []
+        for group in user.groups.all():
+            status_ids = status_ids + groups[group.name]
+
+        status_ids = set(status_ids)
+
+        return StatusUpdate.objects.filter(id__in=status_ids)
+
+    def get_update_status(self, user, requested_status_id):
+        '''
+        return the status that the user may update to
+        '''
+        queryset = super(PermStatusUpdateManager, self).get_query_set()
+        requested_status = queryset.get(id=requested_status_id)
+        has_perm = False
+        for group in user.groups.all():
+            has_perm = has_perm or self.has_perm_for_status_requested(
+                group,
+                requested_status.status_en)
+
+        if has_perm:
+            return requested_status
+
+        else:
+            return queryset.filter(id=3)[0]
+
+    def has_perm_for_status_requested(self, group, status_en):
+        '''
+        check that the user can update the entity based on permissions
+        set
+        '''
+        perm_status_map = {
+            'Updated': 'can_update',
+            'Reviewed': 'can_update_to_reviewed',
+            'Finalized': 'can_update_to_finalized'
+        }
+        try:
+            codename = perm_status_map[status_en]
+            return len(group.permissions.filter(codename=codename)) == 1
+        except KeyError:
+            return False
+
+
 class StatusUpdate(models.Model):
     """
     This object represents a comment status update. It records the
@@ -64,6 +119,8 @@ class StatusUpdate(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, null=True, blank=True)
+    objects = models.Manager()
+    filter_by_perm_objects = PermStatusUpdateManager()
 
     def __unicode__(self):
         return self.status_en

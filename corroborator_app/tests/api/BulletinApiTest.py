@@ -6,17 +6,18 @@ from corroborator_app.models import Bulletin, Media, Location, \
     Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Label, \
     Source, SourceType
 import json
+from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 #from django.utils.timezone import utc
 
 
 class BulletinTestCase(ResourceTestCase):
+
+    fixtures = ['status_update.json', ]
+
     def setUp(self):
         super(BulletinTestCase, self).setUp()
-        #now = datetime.datetime.utcnow().replace(tzinfo=utc)
-        #self.from_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-        #self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-        self.user = User(username='user', password='password', email='1@2.com')
-        self.user.save()
+        self.test_user_util = TestUserUtility()
+        self.user = self.test_user_util.user
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
         self.actor = Actor(
@@ -87,6 +88,7 @@ class BulletinTestCase(ResourceTestCase):
             self.user.username, self.api_key.key)
 
     def tearDown(self):
+        User.objects.all().delete()
         Actor.objects.all().delete()
         ActorRole.objects.all().delete()
         Location.objects.all().delete()
@@ -118,13 +120,10 @@ class BulletinTestCase(ResourceTestCase):
             'locations': [],
             'labels': [],
             'ref_bulletins': [],
-            'status': 'Updated',
-            'comment': 'Updated',
-            'status_uri': '/api/v1/statusUpdate/1/'
+            'comment': 'new bulletin',
         }
         url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
-        print response
         self.assertEqual(response.status_code, 201)
         new_bulletin_dict = json.loads(response.content)
         new_bulletin = Bulletin(id=new_bulletin_dict['id'])
@@ -137,122 +136,60 @@ class BulletinTestCase(ResourceTestCase):
             b.id,
             self.auth_string
         )
-        put_data = {
-            'title_en': "Test Bulletin",
-            'title_ar': "Test Bulletin Arabic",
-            'description_en': "description en",
-            'description_ar': "description Arabic",
-            'confidence_score': 73,
-            'sources': ['/api/v1/source/1/', ],
-            'bulletin_comments': ['/api/v1/comment/1/', ],
-            'assigned_user': '/api/v1/user/1/',
-            'actors_role': [],
-            'times': [],
-            'medias': [],
-            'locations': [],
-            'labels': [],
-            'ref_bulletins': [],
-            'status': 'Updated',
-            'comment': 'Updated',
-            'status_uri': '/api/v1/statusUpdate/1/'
-        }
+        put_data = create_put_data(5)
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
+        self.assertEqual(retrieve_last_comment_status(response), 'Updated')
 
-    def test_bulletin_patch_update(self):
-        url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
-        patch_data = {
-            'objects': [
-                {
-                    'id': '1',
-                    'resource_uri': '/api/v1/bulletin/1/',
-                    'title_en': "Test Bulletin",
-                    'title_ar': "Test Bulletin Arabic",
-                    'description_en': "description en",
-                    'description_ar': "description Arabic",
-                    'confidence_score': 73,
-                    #'sources': [],
-                    'bulletin_comments': ['/api/v1/comment/1/', ],
-                    'assigned_user': '/api/v1/user/1/',
-                    'actors_role': [],
-                    #'times': [],
-                    'medias': [],
-                    'locations': [],
-                    'labels': [],
-                    'ref_bulletins': [],
-                    'status': 'Updated',
-                    'comment': 'Updated',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                },
-                {
-                    'id': '2',
-                    'resource_uri': '/api/v1/bulletin/2/',
-                    'title_en': "Test Bulletin",
-                    'title_ar': "Test Bulletin Arabic",
-                    'description_en': "description en",
-                    'description_ar': "description Arabic",
-                    'confidence_score': 73,
-                    #'sources': ['/api/v1/source/1/',],
-                    'bulletin_comments': ['/api/v1/comment/1/', ],
-                    'assigned_user': '/api/v1/user/1/',
-                    'actors_role': [],
-                    'times': [],
-                    'medias': [],
-                    'locations': [],
-                    'labels': [],
-                    'ref_bulletins': [],
-                    'status': 'Updated',
-                    'comment': 'Updated',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                }
-            ]
-        }
-        response = self.api_client.patch(url, data=patch_data)
+    def test_senior_data_analyst_put(self):
+        self.test_user_util.add_user_to_group('senior-data-analyst')
+        b = Bulletin.objects.all()[0]
+        url = '/api/v1/bulletin/{0}/?format=json{1}'.format(
+            b.id,
+            self.auth_string
+        )
+        put_data = create_put_data(4)
+        response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
+        self.assertEqual(retrieve_last_comment_status(response), 'Reviewed')
 
-    def test_bulletin_patch(self):
-        url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
-        patch_data = {
-            'objects': [
-                {
-                    'title_en': "Test Bulletin",
-                    'title_ar': "Test Bulletin Arabic",
-                    'description_en': "description en",
-                    'description_ar': "description Arabic",
-                    'confidence_score': 73,
-                    #'sources': [],
-                    'bulletin_comments': ['/api/v1/comment/1/', ],
-                    'assigned_user': '/api/v1/user/1/',
-                    'actors_role': [],
-                    #'times': [],
-                    'medias': [],
-                    'locations': [],
-                    'labels': [],
-                    'ref_bulletins': [],
-                    'status': 'Updated',
-                    'comment': 'Updated',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                },
-                {
-                    'title_en': "Test Bulletin",
-                    'title_ar': "Test Bulletin Arabic",
-                    'description_en': "description en",
-                    'description_ar': "description Arabic",
-                    'confidence_score': 73,
-                    #'sources': ['/api/v1/source/1/',],
-                    'bulletin_comments': ['/api/v1/comment/1/', ],
-                    'assigned_user': '/api/v1/user/1/',
-                    'actors_role': [],
-                    'times': [],
-                    'medias': [],
-                    'locations': [],
-                    'labels': [],
-                    'ref_bulletins': [],
-                    'status': 'Updated',
-                    'comment': 'Updated',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                }
-            ]
-        }
-        response = self.api_client.patch(url, data=patch_data)
+    def test_chief_data_analyst_put(self):
+        self.test_user_util.add_user_to_group('chief-data-analyst')
+        b = Bulletin.objects.all()[0]
+        url = '/api/v1/bulletin/{0}/?format=json{1}'.format(
+            b.id,
+            self.auth_string
+        )
+        put_data = create_put_data(5)
+        response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
+        self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
+
+
+def create_put_data(status_id, bulletin_comments=[]):
+    return {
+        'title_en': "Test Bulletin",
+        'title_ar': "Test Bulletin Arabic",
+        'description_en': "description en",
+        'description_ar': "description Arabic",
+        'confidence_score': 73,
+        'sources': ['/api/v1/source/1/', ],
+        'bulletin_comments': ['/api/v1/comment/1/', ],
+        'assigned_user': '/api/v1/user/1/',
+        'actors_role': [],
+        'times': [],
+        'medias': [],
+        'locations': [],
+        'labels': [],
+        'ref_bulletins': [],
+        'comment': 'comment',
+        'status_uri': '/api/v1/statusUpdate/' + str(status_id) + '/'
+    }
+
+
+def retrieve_last_comment_status(response):
+    content = json.loads(response.content)
+    len_comments = len(content['bulletin_comments'])
+    return Comment.objects.get(
+        id=id_from_uri(content['bulletin_comments'][len_comments - 1])
+    ).status.status_en
