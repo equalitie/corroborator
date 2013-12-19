@@ -78,23 +78,6 @@
             </div>
             <!-- end score slider -->
 
-
-          <!-- Assigned to field name='assigned_user' -->
-            <div id="bulletin-assignment-block" class="bulletinAssigned  left">
-              <label>{{i18n.bulletin.Assigned_to}}</label>
-
-              <input type="text" class="with-clear is-assigned-to" value="{{model.bulletin_assigned_user}}">
-              <input type="hidden" 
-                     name="assigned_user"
-                     value="{{model.assigned_user}}"
-                     class="bulletin-field" >
-
-            <button id="clear-user" class="do-clear">
-              <span>✓</span>
-            </button>
-            </div>
-            <!-- end assigned_user -->
-
           </div>
         </div>
       </div>

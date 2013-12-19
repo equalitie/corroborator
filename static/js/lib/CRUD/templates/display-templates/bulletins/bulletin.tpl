@@ -13,7 +13,7 @@
         </span>
         {{/if}}
       </div>
-      <a href="#bulletin/{{model.id}}/{{expanded}}">
+      <a href="#bulletin/{{model.id}}{{#if expanded}}/{{expanded}}{{/if}}">
         <div class="title i18n">
           {{#if model.title_en}}
             <p>{{model.title_en}}</p>

@@ -4943,4 +4943,29 @@ input[type=button].save-data-entry:hover {
   cursor: pointer;
 }
 
+/* line 33, ../sass/_dataEntry.scss */
+.data-entry-container {
+  position: relative;
+}
+
+/* line 37, ../sass/_dataEntry.scss */
+.modal-cover {
+  position: absolute;
+  width: 100%;
+  height: 150%;
+  z-index: 1000;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  opacity: 0.3;
+}
+/* line 44, ../sass/_dataEntry.scss */
+.modal-cover p {
+  width: 200px;
+  color: white;
+  font-size: 20px;
+  text-align: centre;
+  margin: auto;
+  margin-top: 380px;
+}
+
 /*@ sourceMappingURL=screen.css.map */

@@ -83,13 +83,6 @@ define (
       // className refers to the input field which will have the autocomplete
       // result, content is an array of usernames and ids. name is the name of
       // the hidden field that stores the userid
-      autoCompleteFields: [
-        {
-          className: '.is-assigned-to',
-          content  : userList(),
-          name     : 'assigned_user'
-        }
-      ],
       // represent free text input fields that will autocomplete
       // based on the content of the collection, these labels will
       // persist based on the model type in the collecion
@@ -180,6 +173,7 @@ define (
         this.removeOldModelListeners();
         this.model = this.createModel();
         this.listenTo(this.model, 'sync', this.modelSaved.bind(this));
+        this.listenTo(this.model, 'error', this.modelSaveError.bind(this));
         this.populateWidgets();
         this.displayForm();
       },
@@ -188,8 +182,14 @@ define (
         this.stopListening(this.model);
       },
 
+      modelSaveError: function() {
+        this.getModal().children('p').text(i18n.SaveFailed);
+        setTimeout(this.hideModal.bind(this), 500);
+      },
+
       modelSaved: function() {
-        console.log('created');
+        this.getModal().children('p').text(i18n.Saved);
+        setTimeout(this.hideModal.bind(this), 500);
         this.displayNewModel();
       },
 
@@ -247,17 +247,29 @@ define (
       delegateSave: function() {
         this.displayPreview();
       },
+      getModal: function() {
+        return this.$modal || $('.modal-cover');
+      },
+      showModal: function() {
+        this.getModal().children('p').text(i18n.Saving);
+        this.getModal().removeClass('hidden');
+      },
+      hideModal: function() {
+        this.getModal().addClass('hidden');
+      },
 
       displayPreview: function() {
         var model = this.model,
             previewView = new BulletinPreviewView({
               model: this.model
             }),
-            buttons = {};
+            buttons = {},
+            showModal = this.showModal.bind(this);
 
         buttons[i18n.dialog.Confirm] = function() {
           $(this).dialog('close');
           model.save();
+          showModal();
           previewView.destroy();
         };
         buttons[i18n.dialog.Cancel] = function() {
@@ -268,7 +280,7 @@ define (
         previewView.$el.dialog({
           buttons: buttons,
           modal: true,
-          width: 700
+          width: 900
         });
 
       },

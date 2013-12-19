@@ -140,6 +140,9 @@ define({
     'Select': 'Select',
     'Edit': 'Edit',
     'Save': 'Save',
+    'Saved': 'Saved',
+    'SaveFailed': 'Save Failed',
+    'Saving': 'Saving',
     'unselected': 'unselected'
   },
   'ar': true

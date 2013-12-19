@@ -125,12 +125,18 @@ define (
         this.removeOldModelListeners();
         this.model = this.createModel();
         this.listenTo(this.model, 'sync', this.modelSaved.bind(this));
+        this.listenTo(this.model, 'error', this.modelSaveError.bind(this));
         this.populateWidgets();
         this.displayForm();
       },
 
+      modelSaveError: function() {
+        this.getModal().children('p').text(i18n.SaveFailed);
+        setTimeout(this.hideModal.bind(this), 500);
+      },
       modelSaved: function() {
-        console.log('created');
+        this.getModal().children('p').text(i18n.Saved);
+        setTimeout(this.hideModal.bind(this), 500);
         this.displayNewModel();
       },
       
@@ -204,17 +210,30 @@ define (
       delegateSave: function() {
         this.displayPreview();
       },
+      getModal: function() {
+        return this.$modal || $('.modal-cover');
+      },
+      showModal: function() {
+        this.getModal().children('p').text(i18n.Saving);
+        this.getModal().removeClass('hidden');
+      },
+      hideModal: function() {
+        this.getModal().addClass('hidden');
+      },
 
       displayPreview: function() {
         var model = this.model,
             previewView = new ActorPreviewView({
               model: this.model
             }),
-            buttons = {};
+            buttons = {},
+            showModal = this.showModal.bind(this);
+
 
         buttons[i18n.dialog.Confirm] = function() {
           $(this).dialog('close');
           model.save();
+          showModal();
           previewView.destroy();
         };
         buttons[i18n.dialog.Cancel] = function() {
