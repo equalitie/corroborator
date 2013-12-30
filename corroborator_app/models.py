@@ -60,15 +60,17 @@ class PermStatusUpdateManager(models.Manager):
         more that one group
         '''
         groups = {
-            'data-entry': [],
             'data-analyst': [3],
             'senior-data-analyst': [3, 4],
             'chief-data-analyst': [3, 4, 5],
         }
 
         status_ids = []
-        for group in user.groups.all():
-            status_ids = status_ids + groups[group.name]
+        try:
+            for group in user.groups.all():
+                status_ids = status_ids + groups[group.name]
+        except KeyError:
+            status_ids = []
 
         status_ids = set(status_ids)
 
