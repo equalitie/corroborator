@@ -68,11 +68,49 @@ function program13(depth0,data) {
 function program15(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n                  <option\n                    value=\""
-    + escapeExpression(((stack1 = depth0.resource_uri),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"\n                  >"
-    + escapeExpression(((stack1 = depth0.comment_status),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  buffer += "\n                <option value=\""
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.statuses),stack1 == null || stack1 === false ? stack1 : stack1[0])),stack1 == null || stack1 === false ? stack1 : stack1.resource_uri)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.statuses),stack1 == null || stack1 === false ? stack1 : stack1[0])),stack1 == null || stack1 === false ? stack1 : stack1.comment_status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</option>\n                ";
+  return buffer;
+  }
+
+function program17(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n                <option value=\""
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.statuses),stack1 == null || stack1 === false ? stack1 : stack1[0])),stack1 == null || stack1 === false ? stack1 : stack1.resource_uri)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">Human Created</option>\n                ";
+  return buffer;
+  }
+
+function program19(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n                  ";
+  stack1 = helpers.each.call(depth0, depth0.statuses, {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n                ";
+  return buffer;
+  }
+function program20(depth0,data) {
+  
+  var buffer = "", stack1, stack2;
+  buffer += "\n                  ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = data),stack1 == null || stack1 === false ? stack1 : stack1.index), {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n                  ";
+  return buffer;
+  }
+function program21(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n                    <option\n                      value=\""
+    + escapeExpression(((stack1 = depth0.resource_uri),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"\n                    >"
+    + escapeExpression(((stack1 = depth0.comment_status),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</option>\n                  ";
   return buffer;
   }
 
@@ -169,10 +207,11 @@ function program15(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Select_a_status_for_this_actor)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n              </p>\n              <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</label>\n              <select name=\"status_uri\" \n                      id=\"status\" \n                      class=\"required actor-field\">\n                <option value=\"\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Select_Status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</option>\n                ";
-  stack2 = helpers.each.call(depth0, depth0.statuses, {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
+    + "</label>\n              <select name=\"status_uri\" \n                      id=\"status\" \n                      class=\"required actor-field\">\n                ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.program(17, program17, data),fn:self.program(15, program15, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n                ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n              </select>\n              <input class=\"actor-field\" type=\"hidden\" name=\"status\" value=\"\">\n            </div>\n\n            <div class=\"clearer\"></div>\n            <!-- Comment content field -->\n            <div id=\"actor-status-comment\" class=\"add field\">\n\n              <p class=\"error-text\">\n                "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Comment_field_is_required)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

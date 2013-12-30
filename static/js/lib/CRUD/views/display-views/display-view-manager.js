@@ -147,7 +147,8 @@ define (
         this.expanded = content.expanded;
         content.expanded = false;
         this.renderContainer(content)
-            .renderEntity(content);
+            .renderEntity(content)
+            .disableEditIfFinalized(content);
         if (this.expanded) {
           this.expandRequested();
         }
@@ -161,6 +162,18 @@ define (
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
+      disableEditIfFinalized: function(content) {
+        console.log('disableEditIfFinalized');
+        var entityStatus =
+          this.model.get('most_recent_status_' + content.entity);
+        console.log(this.model, entityStatus);
+        if (entityStatus === 'Finalized') {
+          this.$el.children()
+                  .children()
+                  .children('button.do-edit')
+                  .remove();
+        }
+      },
 
       // render an entity
       renderEntity: function(entityDetails) {
@@ -169,12 +182,12 @@ define (
           el: '.' + entityDetails.entity + '-container',
           entityDetails: entityDetails
         });
+        this.model = displayView.model;
 
         //trigger a resize to be passed on to the map views
         //to get over them being rendered when not actually in the dom
         displayView.trigger('resize');
         displayView.selectInitialLanguage();
-        this.model = displayView.model;
         this.updateSelectListener();
         this.childViews.push(displayView);
         return this;
@@ -189,6 +202,7 @@ define (
       // render the container
       renderContainer: function(content) {
         content.i18n = i18n;
+        console.log(content);
         var html = this.template(content);
         this.$el.children().remove();
         this.$el.append(html);
