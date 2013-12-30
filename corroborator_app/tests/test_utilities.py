@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group, Permission
+from django.test.client import Client
 from tastypie.models import ApiKey
 
 
@@ -6,9 +7,12 @@ class TestUserUtility(object):
     '''
     create a user to be used in unit tests
     '''
+    username = 'user'
+    password = 'password'
+
     def __init__(self):
         self.user = User.objects.create_user(
-            'user', 'admin@test.com', 'password')
+            self.username, 'admin@test.com', self.password)
         self.user.save()
         self.api_key = self.create_api_key()
         self.auth_string = ''
@@ -38,6 +42,13 @@ class TestUserUtility(object):
         group = self.create_corroborator_groups(group_name)
         self.user.groups.add(group)
         self.user.save()
+
+    def client_login(self, client=Client()):
+        '''
+        return a logged in client using the test user, self.user
+        '''
+        client.login(username=self.username, password=self.password)
+        return client
 
     def create_corroborator_groups(self, group_name):
         group = Group(name=group_name)

@@ -114,6 +114,23 @@ class ActorTestCase(ResourceTestCase):
         self.assertEqual(response.status_code, 202)
         self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
 
+    def test_finalized_is_not_updated(self):
+        precreated_actor = Actor.objects.all()[0]
+        comment = Comment(
+            assigned_user_id=1,
+            comments_en='comment',
+            status_id=5
+        )
+        comment.save()
+        precreated_actor.actor_comments.add(comment)
+        url = '/api/v1/actor/{0}/?format=json{1}'.format(
+            precreated_actor.id, self.auth_string)
+
+        put_data = create_put_data(4)
+        response = self.api_client.put(url, data=put_data)
+        self.assertEqual(response.status_code, 202)
+        self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
+
 
 def create_put_data(status_id, actor_comments=[]):
     return {

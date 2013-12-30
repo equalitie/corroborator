@@ -527,6 +527,19 @@ class Actor(models.Model):
         roles = self.ActorRole_set.all()
         return Incident.objects.filter(actors_role__in=roles).count()
 
+    def most_recent_status_actor(self):
+        """
+        This method returns the most recent status for a given Bulletin event.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
+        status = self.actor_comments.values('status__status_en')\
+            .order_by('-comment_created')
+        if len(status) > 0:
+            status = status[0]
+            return status['status__status_en']
+        else:
+            return ''
+
 
 class ActorRelationship(models.Model):
     """

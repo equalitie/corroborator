@@ -91,8 +91,6 @@ class ActorResource(ModelResource):
             user,
             status_id
         )
-        #import ipdb
-        #ipdb.set_trace()
         comment_uri = self.create_comment(
             bundle.data['comment'],
             status_update.id,

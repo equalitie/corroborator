@@ -1,17 +1,24 @@
-from tastypie.models import ApiKey
-from django.contrib.auth.models import User
-from tastypie.test import ResourceTestCase
-from autofixture import AutoFixture
-from corroborator_app.models import (
-    Incident, CrimeCategory, Location, Actor,
-    ActorRole, Comment, TimeInfo, StatusUpdate, Label
-)
 import datetime
 import json
+
+from django.contrib.auth.models import User
 from django.utils.timezone import utc
+
+from autofixture import AutoFixture
+
+from tastypie.models import ApiKey
+from tastypie.test import ResourceTestCase
+
+from corroborator_app.models import (
+    Incident, CrimeCategory, Location, Actor, Bulletin,
+    ActorRole, Comment, TimeInfo, StatusUpdate, Label
+)
+from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 
 
 class IncidentTestCase(ResourceTestCase):
+    fixtures = ['test_data_role.json', 'status_update', ]
+
     def setUp(self):
         super(IncidentTestCase, self).setUp()
 
@@ -115,120 +122,53 @@ class IncidentTestCase(ResourceTestCase):
         i = Incident.objects.all()[0]
         url = '/api/v1/incident/{0}/?format=json{1}'.format(
             i.id, self.auth_string)
-        put_data = {
-            'title_en': "Test Incident",
-            'title_ar': "Test Incident Arabic",
-            'incident_details_en': "incident_details en",
-            'incident_details_ar': "incident_details Arabic",
-            'confidence_score': 11,
-            'assigned_user': '/api/v1/user/1/',
-            'incident_comments': ['/api/v1/comment/1/', ],
-            'bulletins': [],
-            'actors_role': [],
-            'crimes': [],
-            'labels': [],
-            'times': [],
-            'locations': [],
-            'ref_incidents': [],
-            'status': '/api/v1/statusUpdate/1/',
-            'comment': 'Comment',
-            'status_uri': '/api/v1/statusUpdate/1/'
-        }
+
+        put_data = create_put_data()
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
 
-    def test_incident_patch_update(self):
-        url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
-        patch_data = {
-            'objects': [
-                {
-                    'id': '1',
-                    'resource_uri': '/api/v1/incident/1/',
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'assigned_user': '/api/v1/user/1/',
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                },
-                {
-                    'id': '2',
-                    'resource_uri': '/api/v1/incident/2/',
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                }
-            ]
-        }
-        response = self.api_client.patch(url, data=patch_data)
-        self.assertEqual(response.status_code, 202)
+    def test_finalized_is_not_updated(self):
+        precreated_incident = Incident.objects.all()[0]
+        comment = Comment(
+            assigned_user_id=1,
+            comments_en='comment',
+            status_id=5
+        )
+        comment.save()
+        precreated_incident.incident_comments.add(comment)
+        url = '/api/v1/incident/{0}/?format=json{1}'.format(
+            precreated_incident.id, self.auth_string)
 
-    def test_incident_patch(self):
-        url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
-        patch_data = {
-            'objects': [
-                {
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'assigned_user': '/api/v1/user/1/',
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                },
-                {
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                }
-            ]
-        }
-        response = self.api_client.patch(url, data=patch_data)
+        put_data = create_put_data(4)
+        response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
+        self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
+
+
+def create_put_data(status_id=3):
+    return {
+        'title_en': "Test Incident",
+        'title_ar': "Test Incident Arabic",
+        'incident_details_en': "incident_details en",
+        'incident_details_ar': "incident_details Arabic",
+        'confidence_score': 11,
+        'assigned_user': '/api/v1/user/1/',
+        'incident_comments': ['/api/v1/comment/1/', ],
+        'bulletins': [],
+        'actors_role': [],
+        'crimes': [],
+        'labels': [],
+        'times': [],
+        'locations': [],
+        'ref_incidents': [],
+        'comment': 'Comment',
+        'status_uri': '/api/v1/statusUpdate/{0}/'.format(status_id)
+    }
+
+
+def retrieve_last_comment_status(response):
+    content = json.loads(response.content)
+    len_comments = len(content['incident_comments'])
+    return Comment.objects.get(
+        id=id_from_uri(content['incident_comments'][len_comments - 1])
+    ).status.status_en

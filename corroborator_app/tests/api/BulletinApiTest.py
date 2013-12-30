@@ -12,7 +12,7 @@ from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 
 class BulletinTestCase(ResourceTestCase):
 
-    fixtures = ['status_update.json', ]
+    fixtures = ['status_update', ]
 
     def setUp(self):
         super(BulletinTestCase, self).setUp()
@@ -29,9 +29,6 @@ class BulletinTestCase(ResourceTestCase):
         self.actor.save()
         self.role = ActorRole(role_status='Detained', actor_id=self.actor.pk)
         self.role.save()
-
-        self.statusUpdate = StatusUpdate(status_en='test status')
-        self.statusUpdate.save()
 
         self.sourceType = SourceType(
             source_type='test source type',
@@ -57,18 +54,10 @@ class BulletinTestCase(ResourceTestCase):
         self.label.save()
         self.comment = Comment(
             assigned_user_id=self.user.pk,
-            status_id=self.statusUpdate.pk,
+            status_id=3,
             comments_en='test comment'
         )
         self.comment.save()
-
-        #self.timeinfo = TimeInfo(
-            #confidence_score=1,
-            #time_from=self.from_datetime,
-            #time_to=self.to_datetime,
-            #event_name_en='test event'
-        #)
-        #self.timeinfo.save()
 
         self.media = Media(
             media_type='Video',
@@ -161,6 +150,23 @@ class BulletinTestCase(ResourceTestCase):
             self.auth_string
         )
         put_data = create_put_data(5)
+        response = self.api_client.put(url, data=put_data)
+        self.assertEqual(response.status_code, 202)
+        self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
+
+    def test_finalized_is_not_updated(self):
+        precreated_bulletin = Bulletin.objects.all()[0]
+        comment = Comment(
+            assigned_user_id=1,
+            comments_en='comment',
+            status_id=5
+        )
+        comment.save()
+        precreated_bulletin.bulletin_comments.add(comment)
+        url = '/api/v1/bulletin/{0}/?format=json{1}'.format(
+            precreated_bulletin.id, self.auth_string)
+
+        put_data = create_put_data(4)
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 202)
         self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
