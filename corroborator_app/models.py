@@ -60,6 +60,7 @@ class PermStatusUpdateManager(models.Manager):
         more that one group
         '''
         groups = {
+            'data-entry': [],
             'data-analyst': [3],
             'senior-data-analyst': [3, 4],
             'chief-data-analyst': [3, 4, 5],
