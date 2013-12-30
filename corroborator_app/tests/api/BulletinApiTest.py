@@ -168,8 +168,7 @@ class BulletinTestCase(ResourceTestCase):
 
         put_data = create_put_data(4)
         response = self.api_client.put(url, data=put_data)
-        self.assertEqual(response.status_code, 202)
-        self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
+        self.assertEqual(response.status_code, 403)
 
 
 def create_put_data(status_id, bulletin_comments=[]):

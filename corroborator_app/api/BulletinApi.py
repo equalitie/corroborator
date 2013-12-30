@@ -9,11 +9,13 @@ from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
-import reversion
+from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.http import HttpForbidden
 
 from corroborator_app.models import(
-    Bulletin, VersionStatus, Comment, StatusUpdate
+    Bulletin, Comment, StatusUpdate
 )
+from corroborator_app.api.ApiMixin import APIMixin
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.SourceApi import SourceResource
 from corroborator_app.api.LabelApi import LabelResource
@@ -29,7 +31,7 @@ from django.contrib.auth.models import User
 __all__ = ('BulletinResource')
 
 
-class BulletinResource(ModelResource):
+class BulletinResource(ModelResource, APIMixin):
     """
     tastypie api implementation for Bulletin model
     """
@@ -101,6 +103,11 @@ class BulletinResource(ModelResource):
         return comment_uri
 
     def obj_update(self, bundle, **kwargs):
+        if self.is_finalized(
+                Bulletin, kwargs['pk'], 'most_recent_status_bulletin'):
+            raise ImmediateHttpResponse(
+                HttpForbidden('This item has been finalized')
+            )
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         status_id = bundle.data['status_uri'].split('/')[4]
@@ -114,15 +121,9 @@ class BulletinResource(ModelResource):
             user
         )
         bundle.data['bulletin_comments'].append(comment_uri)
+        bundle = super(BulletinResource, self).obj_update(bundle, **kwargs)
 
-        with reversion.create_revision():
-            bundle = super(BulletinResource, self).obj_update(bundle, **kwargs)
-            reversion.add_meta(
-                VersionStatus,
-                status=status_update.status_en
-            )
-            reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])
+        self.create_revision(bundle, user, status_update)
         update_object.delay(username)
         return bundle
 
@@ -139,15 +140,8 @@ class BulletinResource(ModelResource):
             comment_uri
         ]
 
-        with reversion.create_revision():
-            bundle = super(BulletinResource, self)\
-                .obj_create(bundle, **kwargs)
-            reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])
-            reversion.add_meta(
-                VersionStatus,
-                status=status_update.status_en
-            )
+        bundle = super(BulletinResource, self).obj_create(bundle, **kwargs)
+        self.create_revision(bundle, user, status_update)
         update_object.delay(username)
         return bundle
 

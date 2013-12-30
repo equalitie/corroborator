@@ -259,8 +259,6 @@ def multi_save_actors(request, actor_dict, username):
             mimetype='application/json'
         )
     status_id = parse_id_from_uri(actor_dict['status_uri'])
-    import ipdb
-    ipdb.set_trace()
 
     actor_id_list = extract_ids(actor_dict, 'selectedActors')
     actor_id_list = filter(actor_finalized, actor_id_list)

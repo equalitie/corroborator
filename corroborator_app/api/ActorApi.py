@@ -9,30 +9,30 @@ from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
+from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.http import HttpForbidden
 
 from corroborator_app.models import (
     ActorRelationship,
     Actor,
     ActorRole,
-    VersionStatus,
-    Comment,
     StatusUpdate
 )
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.MediaApi import MediaResource
+from corroborator_app.api.ApiMixin import APIMixin
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from corroborator_app.utilities.apiValidationTool import ApiValidation
 
 from django.contrib.auth.models import User
 
-import reversion
 
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
 
 
-class ActorResource(ModelResource):
+class ActorResource(ModelResource, APIMixin):
     """
     tastypie api implementation
     """
@@ -69,24 +69,14 @@ class ActorResource(ModelResource):
         update_object.delay(username)
         return bundle
 
-    def create_comment(self, comment, status_id, user):
-        '''
-        create a status comment to be attached to the user upon save
-        '''
-        comment = Comment(
-            assigned_user_id=user.id,
-            comments_en=comment,
-            status_id=status_id
-        )
-        comment.save()
-        comment_uri = '/api/v1/comment/{0}/'.format(comment.id)
-
-        return comment_uri
-
     def obj_update(self, bundle, **kwargs):
+        if self.is_finalized(Actor, kwargs['pk'], 'most_recent_status_actor'):
+            raise ImmediateHttpResponse(
+                HttpForbidden('This item has been finalized')
+            )
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
-        status_id = int(bundle.data['status_uri'].split('/')[4])
+        status_id = self.id_from_url(bundle.data['status_uri'])
         status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
             user,
             status_id
@@ -97,17 +87,9 @@ class ActorResource(ModelResource):
             user
         )
         bundle.data['actor_comments'].append(comment_uri)
-
-        with reversion.create_revision():
-            bundle = super(ActorResource, self)\
-                .obj_update(bundle, **kwargs)
-            reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])
-            reversion.add_meta(
-                VersionStatus,
-                status=status_update.status_en
-            )
-            #reversion.set_comment("test meta class")
+        bundle = super(ActorResource, self).obj_update(bundle, **kwargs)
+        # create revision using reversion plugin
+        self.create_revision(bundle, user, status_update)
         update_object.delay(username)
         return bundle
 
@@ -127,16 +109,10 @@ class ActorResource(ModelResource):
         bundle.data['actor_comments'] = [
             comment_uri
         ]
+        bundle = super(ActorResource, self).obj_create(bundle, **kwargs)
+        # create revision using reversion plugin - method in ApiMixin
+        self.create_revision(bundle, user, status_update)
 
-        with reversion.create_revision():
-            bundle = super(ActorResource, self)\
-                .obj_create(bundle, **kwargs)
-            reversion.add_meta(
-                VersionStatus,
-                status=status_update.status_en
-            )
-            reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])
         update_object.delay(username)
         return bundle
 

@@ -11,9 +11,10 @@ from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
 from tastypie import fields
+from tastypie.exceptions import ImmediateHttpResponse
+from tastypie.http import HttpForbidden
 
-import reversion
-
+from corroborator_app.api.ApiMixin import APIMixin
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.LabelApi import LabelResource
 from corroborator_app.api.ActorRoleApi import ActorRoleResource
@@ -29,13 +30,13 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 
 from corroborator_app.models import (
-    Incident, VersionStatus, Comment, StatusUpdate
+    Incident, Comment, StatusUpdate
 )
 
 __all__ = ('IncidentResource', )
 
 
-class IncidentResource(ModelResource):
+class IncidentResource(ModelResource, APIMixin):
     """
     tastypie api implementation for Incident model
     """
@@ -91,6 +92,11 @@ class IncidentResource(ModelResource):
         return comment_uri
 
     def obj_update(self, bundle, **kwargs):
+        if self.is_finalized(
+                Incident, kwargs['pk'], 'most_recent_status_incident'):
+            raise ImmediateHttpResponse(
+                HttpForbidden('This item has been finalized')
+            )
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         status_id = bundle.data['status_uri'].split('/')[4]
@@ -105,14 +111,8 @@ class IncidentResource(ModelResource):
         )
         bundle.data['incident_comments'].append(comment_uri)
 
-        with reversion.create_revision():
-            bundle = super(IncidentResource, self).obj_update(bundle, **kwargs)
-            reversion.set_user(user)
-            reversion.add_meta(
-                VersionStatus,
-                status=status_update.status_en
-                )
-            reversion.set_comment(bundle.data['comment'])
+        bundle = super(IncidentResource, self).obj_update(bundle, **kwargs)
+        self.create_revision(bundle, user, status_update)
         update_object.delay(username)
         return bundle
 
@@ -130,15 +130,8 @@ class IncidentResource(ModelResource):
             comment_uri
         ]
 
-        with reversion.create_revision():
-            bundle = super(IncidentResource, self).obj_create(bundle, **kwargs)
-            reversion.set_user(user)
-            reversion.set_comment(bundle.data['comment'])
-            reversion.add_meta(
-                VersionStatus,
-                status=status_update.status_en
-            )
-            reversion.set_comment(bundle.data['comment'])
+        bundle = super(IncidentResource, self).obj_create(bundle, **kwargs)
+        self.create_revision(bundle, user, status_update)
         update_object.delay(username)
         return bundle
 

@@ -1,8 +1,6 @@
-import datetime
 import json
 
 from django.contrib.auth.models import User
-from django.utils.timezone import utc
 
 from autofixture import AutoFixture
 
@@ -10,8 +8,8 @@ from tastypie.models import ApiKey
 from tastypie.test import ResourceTestCase
 
 from corroborator_app.models import (
-    Incident, CrimeCategory, Location, Actor, Bulletin,
-    ActorRole, Comment, TimeInfo, StatusUpdate, Label
+    Incident, CrimeCategory, Location, Actor, ActorRole, Comment,
+    TimeInfo, StatusUpdate, Label
 )
 from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 
@@ -21,12 +19,8 @@ class IncidentTestCase(ResourceTestCase):
 
     def setUp(self):
         super(IncidentTestCase, self).setUp()
-
-        now = datetime.datetime.utcnow().replace(tzinfo=utc)
-        self.from_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-        self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-        self.user = User(username='user', password='password', email='1@2.com')
-        self.user.save()
+        self.test_user_util = TestUserUtility()
+        self.user = self.test_user_util.user
 
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
@@ -57,13 +51,6 @@ class IncidentTestCase(ResourceTestCase):
             comments_en='test comment')
         self.comment.save()
 
-        self.timeinfo = TimeInfo(
-            confidence_score=1,
-            time_from=self.from_datetime,
-            time_to=self.to_datetime,
-            event_name_en='test event')
-        self.timeinfo.save()
-
         fixture = AutoFixture(Incident, generate_m2m={1, 5})
         fixture.create(10)
 
@@ -75,6 +62,7 @@ class IncidentTestCase(ResourceTestCase):
             self.user.username, self.api_key.key)
 
     def tearDown(self):
+        User.objects.all().delete()
         Incident.objects.all().delete()
         Actor.objects.all().delete()
         ActorRole.objects.all().delete()
@@ -141,8 +129,7 @@ class IncidentTestCase(ResourceTestCase):
 
         put_data = create_put_data(4)
         response = self.api_client.put(url, data=put_data)
-        self.assertEqual(response.status_code, 202)
-        self.assertEqual(retrieve_last_comment_status(response), 'Finalized')
+        self.assertEqual(response.status_code, 403)
 
 
 def create_put_data(status_id=3):
