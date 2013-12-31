@@ -15,15 +15,39 @@
     </li>
   </ul>
   <ul class="sections list-h">
-    <li class="current">
+    <li
+      {% if search == True %}
+        class="current"
+        >{% trans "Search" %}
+      {% else %}
+        >
       <a href="/corroborator/" class="text T">{% trans "Search" %}</a>
+      {% endif %}
     </li>
+    <li 
+      {% if reporting == True %}
+        class="current"
+        >{% trans "Reporting" %}
+      {% else %}
+        >
+        <a href="/corroborator/reporting/" class="text T">{% trans "Reporting" %}</a>
+      {% endif %}
+    </li>
+
     <li>
       <a href="/admin/" class="text T">{% trans "Administration" %}</a>
     </li>
-    <li>
-      <a href="/corroborator/monitoring" class="text T">{% trans "Monitoring" %}</a>
+    <li
+      {% if monitoring == True %}
+        class="current"
+        >{% trans "Monitoring" %}
+      {% else %}
+        >
+        <a href="/corroborator/monitoring" class="text T">{% trans "Monitoring" %}</a>
+      {% endif %}
     </li>
+
+
     <li>
       <form action="{% url 'set_language' %}" method="post">
       {% csrf_token %}

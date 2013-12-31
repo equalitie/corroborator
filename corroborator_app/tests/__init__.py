@@ -1,3 +1,4 @@
+#api tests
 from corroborator_app.tests.api.ActorApiTest import *
 from corroborator_app.tests.api.ActorRelationshipApiTest import *
 from corroborator_app.tests.api.LabelApiTest import *
@@ -12,13 +13,24 @@ from corroborator_app.tests.api.ActorRoleApiTest import *
 from corroborator_app.tests.api.LocationApiTest import *
 from corroborator_app.tests.api.BulletinApiTest import *
 from corroborator_app.tests.api.IncidentApiTest import *
-from corroborator_app.tests.api.MonitorUpdateApiTest import\
+from corroborator_app.tests.api.MonitorUpdateApiTest import (
     MonitorUpdateTestCase
+)
+
+# model tests
 from corroborator_app.tests.models.StatusUpdateModelTest import\
     StatusUpdateModelTestCase
 
 from corroborator_app.tests.monitor.MonitorDataLoaderTest import *
+
+# view tests
 from corroborator_app.tests.views.AppViewTest import AppViewTestCase
+from corroborator_app.tests.views.reporting_view_test import(
+    ReportingTestCase
+)
+from corroborator_app.tests.views.views_util_tests import(
+    ViewsUtilsTestCase
+)
 
 from corroborator_app.tests.authproxy.AWSProxyTest import *
 from corroborator_app.tests.authproxy.SolrProxyTest import *

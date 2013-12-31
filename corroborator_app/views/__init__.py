@@ -2,6 +2,8 @@
 This file handles the core views for th Corroborator application.
 
 Author: Bill Doran
+TODO: move the views into separate files and extract common methods into utils
+module
 2013/02/10
 """
 import json
@@ -30,6 +32,8 @@ from corroborator_app.models import CrimeCategory, \
 from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
 from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
 
+# reporting imports
+from corroborator_app.views.reporting import reporting_view
 ###############################################################################
 # FORMATTING HELPER METHODS
 ###############################################################################

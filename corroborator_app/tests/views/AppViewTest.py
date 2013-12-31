@@ -36,13 +36,13 @@ class AppViewTestCase(TestCase):
         '''
         check that the normal js app loads correctly
         '''
-        self.client.login(username='user', password='password')
-        response = self.client.get('/corroborator/')
+        self.test_user_util.add_user_to_group('data-analyst')
+        client = self.test_user_util.client_login()
+        response = client.get('/corroborator/')
         self.assertTemplateUsed(
             response, 'new_base.html', 'base template not loaded')
         self.assertTemplateUsed(
             response, 'new_search.html', 'search template not loaded')
-        self.client.logout()
 
     def test_data_entry_users_redirected(self):
         '''

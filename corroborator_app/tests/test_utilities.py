@@ -39,6 +39,13 @@ class TestUserUtility(object):
         return self.auth_string
 
     def add_user_to_group(self, group_name='group_name'):
+        if hasattr(group_name, '__iter__'):
+            for group in group_name:
+                self._add_user_to_group(group)
+        else:
+            self._add_user_to_group(group_name)
+
+    def _add_user_to_group(self, group_name):
         group = self.create_corroborator_groups(group_name)
         self.user.groups.add(group)
         self.user.save()
