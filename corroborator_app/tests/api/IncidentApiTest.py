@@ -113,6 +113,7 @@ class IncidentTestCase(ResourceTestCase):
 
         put_data = create_put_data()
         response = self.api_client.put(url, data=put_data)
+        self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
 
     def test_finalized_is_not_updated(self):
@@ -131,6 +132,32 @@ class IncidentTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 403)
 
+    def check_dehydrated_data(self, response):
+        """
+        Test that returned data contains required dehydrated fields.
+        New fields should be added to this method as they are added to the 
+        API to ensure that consistency between front and back end.
+        """
+        dehydrate_keys = [
+            'incident_locations',
+            'incident_labels',
+            'incident_times',
+            'incident_crimes',
+            'most_recent_status_incident',
+            'count_actors',
+            'count_bulletins',
+            'count_incidents',
+            'actor_roles_status',
+            'actors',
+            'actors_role'
+        ]
+        content = json.loads(response.content)
+        self.assertEqual(
+            all(
+                test in content for test in dehydrate_keys
+            ),
+            True
+        )
 
 def create_put_data(status_id=3):
     return {
@@ -152,7 +179,7 @@ def create_put_data(status_id=3):
         'status_uri': '/api/v1/statusUpdate/{0}/'.format(status_id)
     }
 
-
+    
 def retrieve_last_comment_status(response):
     content = json.loads(response.content)
     len_comments = len(content['incident_comments'])

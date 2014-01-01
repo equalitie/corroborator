@@ -10,9 +10,9 @@ SOLR_PROXY_URL = '/corroborator/solrproxy/select'
 #Solr update refresh window in minutes
 SOLR_REFRESH_WINDOW = 100
 
-IMPORTER_CONF_FILE = '/root/test_confs/importer.json'
-SCRAPER_CONF_FILE = '/root/test_confs/scraper.json'
-MONITOR_JOB_FILE = '/root/test_confs/importer_stats.json'
+IMPORTER_CONF_FILE = '/tmp/test_confs/importer.json'
+SCRAPER_CONF_FILE = '/tmp/test_confs/scraper.json'
+MONITOR_JOB_FILE = '/tmp/test_confs/importer_stats.json'
 
 AWS_ACCESS_KEY_ID = 'AKIAIDW26NYRNYKPHBQQ'
 AWS_SECRET_ACCESS_KEY = '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'

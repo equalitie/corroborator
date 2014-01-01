@@ -22,7 +22,7 @@ HAYSTACK_SIGNAL_PROCESSOR = 'celery_haystack.signals.CelerySignalProcessor'
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'https://sjac.corroborator.org/solr'
+        'URL': 'http://localhost:8000/solr'
         # ...or for multicore...
     },
 }

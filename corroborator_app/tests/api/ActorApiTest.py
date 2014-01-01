@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
 
-from corroborator_app.models import Actor, Comment
+from corroborator_app.models import Actor, Comment, Incident, Bulletin
 from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 import json
 
@@ -65,6 +65,124 @@ class ActorTestCase(ResourceTestCase):
         self.assertEqual(len(actor_comments), 1)
         self.assertEqual(actor_comments[0].status.status_en, 'Human Created')
 
+    def test_actor_bulletin_related(self):
+        post_data = {
+            'fullname_en': "Test Actor",
+            'fullname_ar': "Test Actor Arabic",
+            'nickname_en': "Nickname en",
+            'nickname_ar': "Nickname Arabic",
+            'comment': 'created'
+        }
+        url = '/api/v1/actor/?format=json{}'.format(self.auth_string)
+        response = self.api_client.post(url, data=post_data)
+        self.assertEqual(response.status_code, 201)
+
+        new_actor_dict = json.loads(response.content)
+
+        post_data = {
+            'role_status': "K",
+            'actor': "/api/v1/actor/{0}/".format(
+                new_actor_dict['id']
+            )
+        }
+        url = '/api/v1/actorRole/?format=json{}'.format(self.auth_string)
+        response = self.api_client.post(url, data=post_data)
+        self.assertEqual(response.status_code, 201)
+
+        new_actorrole_dict = json.loads(response.content)
+        post_data = {
+            'title_en': "Test Bulletin",
+            'description_ar': "description Arabic",
+            'confidence_score': 73,
+            'sources': [],
+            'bulletin_imported_comments': [],
+            'assigned_user': '/api/v1/user/1/',
+            'actors_role': [
+                '/api/v1/actorRole/{0}/'.format(
+                    new_actorrole_dict['id']
+                )
+            ],
+            'times': [],
+            'medias': [],
+            'locations': [],
+            'labels': [],
+            'ref_bulletins': [],
+            'comment': 'new bulletin',
+        }
+        url = '/api/v1/bulletin/?format=json{}'.format(self.auth_string)
+        response = self.api_client.post(url, data=post_data)
+        self.assertEqual(response.status_code, 201)
+        request_url = '/api/v1/actor/{0}/?format=json{1}'.format(
+            new_actor_dict['id'],
+            self.auth_string
+        )
+        response = self.api_client.get(request_url) 
+        actor_dict_post = json.loads(response.content)
+        self.assertEqual(
+            actor_dict_post['related_bulletins'][0],
+            '/api/v1/bulletin/1/'
+        )
+
+    def test_actor_incident_related(self):
+        post_data = {
+            'fullname_en': "Test Actor",
+            'fullname_ar': "Test Actor Arabic",
+            'nickname_en': "Nickname en",
+            'nickname_ar': "Nickname Arabic",
+            'comment': 'created'
+        }
+        url = '/api/v1/actor/?format=json{}'.format(self.auth_string)
+        response = self.api_client.post(url, data=post_data)
+        self.assertEqual(response.status_code, 201)
+
+        new_actor_dict = json.loads(response.content)
+
+        post_data = {
+            'role_status': "K",
+            'actor': "/api/v1/actor/{0}/".format(
+                new_actor_dict['id']
+            )
+        }
+        url = '/api/v1/actorRole/?format=json{}'.format(self.auth_string)
+        response = self.api_client.post(url, data=post_data)
+        self.assertEqual(response.status_code, 201)
+
+        new_actorrole_dict = json.loads(response.content)
+        post_data = {
+            'title_en': "Test Incident",
+            'incident_details_ar': "incident_details Arabic",
+            'confidence_score': 11,
+            'assigned_user': '/api/v1/user/1/',
+            'incident_comments': ['/api/v1/comment/1/', ],
+            'bulletins': [],
+            'actors_role': [
+                '/api/v1/actorRole/{0}/'.format(
+                    new_actorrole_dict['id']
+                )
+            ],
+            'crimes': [],
+            'labels': [],
+            'times': [],
+            'locations': [],
+            'ref_incidents': [],
+            'status': '/api/v1/statusUpdate/1/',
+            'comment': 'Comment',
+            'status_uri': '/api/v1/statusUpdate/1/'
+        }
+        url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
+        response = self.api_client.post(url, data=post_data)
+        self.assertEqual(response.status_code, 201)
+        request_url = '/api/v1/actor/{0}/?format=json{1}'.format(
+            new_actor_dict['id'],
+            self.auth_string
+        )
+        response = self.api_client.get(request_url) 
+        actor_dict_post = json.loads(response.content)
+        self.assertEqual(
+            actor_dict_post['related_incidents'][0],
+            '/api/v1/incident/1/'
+        )
+
     def test_actor_put(self):
         '''
         create and actor and attach a comment to it, then send a put to create
@@ -89,6 +207,7 @@ class ActorTestCase(ResourceTestCase):
         actor_comments = [comment_uri, ]
         put_data = create_put_data(1, actor_comments)
         response = self.api_client.put(url, data=put_data)
+        self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
         self.assertEqual(retrieve_last_comment_status(response), 'Updated')
 
@@ -130,6 +249,31 @@ class ActorTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 403)
 
+    def check_dehydrated_data(self, response):
+        """
+        Test that returned data contains required dehydrated fields.
+        New fields should be added to this method as they are added to the 
+        API to ensure that consistency between front and back end.
+        """
+        dehydrate_keys = {
+            'related_bulletins',
+            'related_incidents',
+            'count_incidents',
+            'count_bulletins',
+            'roles',
+            'actors_role',
+            'actors',
+            'thumbnail_url',
+            'actor_roles_status',
+            'most_recent_status_actor'
+        }
+        content = json.loads(response.content)
+        self.assertEqual(
+            all(
+                test in content for test in dehydrate_keys
+            ),
+            True
+        )
 
 def create_put_data(status_id, actor_comments=[]):
     return {
@@ -141,7 +285,6 @@ def create_put_data(status_id, actor_comments=[]):
         'status_uri': '/api/v1/statusUpdate/' + str(status_id) + '/',
         'actor_comments': actor_comments
     }
-
 
 def retrieve_last_comment_status(response):
     content = json.loads(response.content)

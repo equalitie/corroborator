@@ -127,6 +127,7 @@ class BulletinTestCase(ResourceTestCase):
         )
         put_data = create_put_data(5)
         response = self.api_client.put(url, data=put_data)
+        self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
         self.assertEqual(retrieve_last_comment_status(response), 'Updated')
 
@@ -170,6 +171,32 @@ class BulletinTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 403)
 
+    def check_dehydrated_data(self, response):
+        """
+        Test that returned data contains required dehydrated fields.
+        New fields should be added to this method as they are added to the 
+        API to ensure that consistency between front and back end.
+        """
+        dehydrate_keys = [
+            'bulletin_comments',
+            'bulletin_imported_comments',
+            'bulletin_locations',
+            'bulletin_labels',
+            'bulletin_times',
+            'bulletin_sources',
+            'most_recent_status_bulletin',
+            'count_actors',
+            'actor_roles_status',
+            'actors',
+            'actors_role'
+        ]
+        content = json.loads(response.content)
+        self.assertEqual(
+            all(
+                test in content for test in dehydrate_keys
+            ),
+            True
+        )
 
 def create_put_data(status_id, bulletin_comments=[]):
     return {

@@ -117,8 +117,10 @@ class ActorResource(ModelResource, APIMixin):
         return bundle
 
     def dehydrate(self, bundle):
-        bundle.data['actor_comments'] = ActorPrepMeta()\
-            .prepare_actor_comments(bundle.obj)
+        bundle.data['related_bulletins'] = ActorPrepMeta()\
+            .prepare_related_bulletins(bundle.obj)
+        bundle.data['related_incidents'] = ActorPrepMeta()\
+            .prepare_related_incidents(bundle.obj)
         bundle.data['count_incidents'] = ActorPrepMeta()\
             .prepare_count_incidents(bundle.obj)
         bundle.data['count_bulletins'] = ActorPrepMeta()\
