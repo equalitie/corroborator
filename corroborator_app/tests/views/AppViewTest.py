@@ -66,3 +66,11 @@ class AppViewTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(
             response, 'includes/bootstrap.html', 'search template not loaded')
+
+    def test_assigned_user_perm(self):
+        '''
+        check that the permission for assigned user is respected, in that
+        only valid users receive the list of assigned users
+        '''
+        pass
+

@@ -8,8 +8,6 @@ module
 """
 import json
 from datetime import datetime, timedelta
-from django.utils import translation
-from django.db.models import Q
 from django.shortcuts import render_to_response, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -26,42 +24,16 @@ from tastypie.models import ApiKey
 from corroborator_app.monitor.monitorDataLoader import MonitorDataLoader
 from corroborator_app.multisave import multi_save_actors, \
     multi_save_bulletins, multi_save_incidents
-from corroborator_app.models import CrimeCategory, \
-    Location, Source, StatusUpdate, ActorRole, Label, \
-    PredefinedSearch, Bulletin, Incident, Actor
+from corroborator_app.models import (
+    Bulletin,
+    Incident,
+    Actor
+)
+
+from corroborator_app.views.context import build_js_context
+
 from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
 from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
-
-# reporting imports
-from corroborator_app.views.reporting import reporting_view
-###############################################################################
-# FORMATTING HELPER METHODS
-###############################################################################
-
-
-def format_predefined_search(predef_object):
-    """
-    Load json from db
-    """
-    predef_object.actor_filters =\
-        predef_object.actor_filters
-    predef_object.bulletin_filters =\
-        predef_object.bulletin_filters
-    predef_object.incident_filters =\
-        predef_object.incident_filters
-    return predef_object
-
-
-def get_solr_url(path):
-    '''
-    set the solr url that we are connecting to
-    '''
-    if path.find('new_corroborator') > -1:
-        solr_path = 'http://127.0.0.1:8983/solr/collection1/'
-    else:
-        solr_path = settings.SOLR_PROXY_URL
-    return solr_path
-
 
 ###############################################################################
 # MAIN VIEW METHODS -
@@ -128,7 +100,7 @@ def index(request, *args, **kwargs):
             return redirect('/data-entry/')
 
     return render(
-        request, 'new_search.html', build_js_context(request)
+        request, 'new_search.html', build_js_context(request.user)
     )
 
 
@@ -143,63 +115,7 @@ def data_entry(request, *args, **kwargs):
         if group.name in incorrect_groups:
             return redirect('/corroborator/')
 
-    return render(request, 'data-entry.html', build_js_context(request))
-
-
-def build_js_context(request):
-    labels_set = Label.objects.all()
-
-    role_status_set = []
-    roles = ActorRole.ROLE_STATUS
-    for role in roles:
-        role_status_set.append({
-            'key': role[0],
-            'value': role[1]}
-        )
-
-    relation_status_set = []
-    relations = ActorRole.RELATION
-    for relation in relations:
-        relation_status_set.append({
-            'key': relation[0],
-            'value': relation[1]}
-        )
-
-    predefined_search_set = PredefinedSearch.objects.filter(
-        Q(user_id=request.user.id) | Q(make_global=True)
-    )
-    predefined_search_set = map(
-        format_predefined_search,
-        predefined_search_set
-    )
-    crimes_set = CrimeCategory.objects.all()
-    status_set = StatusUpdate.filter_by_perm_objects.available_statuses(
-        request.user
-    )
-    sources_set = Source.objects.all()
-    users_set = User.objects.all()
-    loc_set = Location.objects.all()
-
-    #api details
-    user = User.objects.get(username=request.user.username)
-    api = ApiKey.objects.get(user=user)
-
-    return {
-        'locale': translation.get_language(),
-        'role_status_set': role_status_set,
-        'relation_status_set': relation_status_set,
-        'predefined_search_set': predefined_search_set,
-        'sources_set': sources_set,
-        'labels_set': labels_set,
-        'crimes_set': crimes_set,
-        'status_set': status_set,
-        'users_set': users_set,
-        'loc_set': loc_set,
-        'username': request.user.username,
-        'userid': request.user.id,
-        'api_key': api.key,
-        'solr_url': str(get_solr_url(request.path))
-    }
+    return render(request, 'data-entry.html', build_js_context(request.user))
 
 
 def monitoring_update_conf(request, conf_name):

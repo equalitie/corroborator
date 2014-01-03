@@ -34,7 +34,7 @@ urlpatterns = patterns(
     url(r'^corroborator/monitoring$', 'corroborator_app.views.monitoring'),
 
     url(r'^corroborator/reporting/$',
-        'corroborator_app.views.reporting_view'),
+        'corroborator_app.views.reporting.reporting_view'),
 
     url(
         r'^corroborator/monitoring/update/(?P<conf_name>\w+)/$',
