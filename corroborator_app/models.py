@@ -6,10 +6,12 @@ Author: Bill Doran
 2013/02/01
 """
 
-from haystack.utils.geo import Point
 from django.db import models
 from django.db.models import Min,  Max
 from django.contrib.auth.models import User
+
+from haystack.utils.geo import Point
+
 from queued_storage.backends import QueuedStorage
 
 from reversion.models import Revision
@@ -31,6 +33,7 @@ class SolrUpdate(models.Model):
     user = models.ForeignKey(User)
     update_timestamp = models.DateTimeField(auto_now=True)
 
+
 class MonitorUpdate(models.Model):
     """
     Store most recent monitor update
@@ -38,6 +41,7 @@ class MonitorUpdate(models.Model):
     """
     user = models.ForeignKey(User)
     update_timestamp = models.DateTimeField(auto_now=True)
+
 
 class PredefinedSearch(models.Model):
     """
@@ -56,7 +60,7 @@ class PredefinedSearch(models.Model):
 class PermStatusUpdateManager(models.Manager):
     def available_statuses(self, user):
         '''
-        return a list of the available statuses, allows for users to have 
+        return a list of the available statuses, allows for users to have
         more that one group
         '''
         groups = {
@@ -799,3 +803,5 @@ class Incident(models.Model):
             return status['status__status_en']
         else:
             return ''
+
+
