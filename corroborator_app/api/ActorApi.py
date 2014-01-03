@@ -5,6 +5,8 @@ Create api for actor relationship model, requires apikey auth
 tests in tests/api/tests.py
 """
 
+from django.contrib.auth.models import User
+
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
@@ -18,6 +20,7 @@ from corroborator_app.models import (
     ActorRole,
     StatusUpdate
 )
+from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.MediaApi import MediaResource
@@ -26,8 +29,7 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from corroborator_app.utilities.apiValidationTool import ApiValidation
 
-from django.contrib.auth.models import User
-
+from corroborator_app.views.view_utils import can_assign_users
 
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
 
@@ -37,6 +39,7 @@ class ActorResource(ModelResource, APIMixin):
     tastypie api implementation
     """
     # foreign key fields
+    assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
     POB = fields.ForeignKey(LocationResource, 'POB', null=True)
     current_location = fields.ForeignKey(
         LocationResource,
@@ -70,12 +73,17 @@ class ActorResource(ModelResource, APIMixin):
         return bundle
 
     def obj_update(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
+
         if self.is_finalized(Actor, kwargs['pk'], 'most_recent_status_actor'):
             raise ImmediateHttpResponse(
                 HttpForbidden('This item has been finalized')
             )
-        username = bundle.request.GET['username']
-        user = User.objects.filter(username=username)[0]
+
+        if can_assign_users(user) is False and 'assigned_user' in bundle.data:
+            del(bundle.data['assigned_user'])
+
         status_id = self.id_from_url(bundle.data['status_uri'])
         status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
             user,
@@ -101,6 +109,10 @@ class ActorResource(ModelResource, APIMixin):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         status_id = status_update.id
+
+        if can_assign_users(user) is False and 'assigned_user' in bundle.data:
+            del(bundle.data['assigned_user'])
+
         comment_uri = self.create_comment(
             bundle.data['comment'],
             status_id,

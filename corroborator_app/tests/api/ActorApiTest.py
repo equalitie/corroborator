@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
 
-from corroborator_app.models import Actor, Comment, Incident, Bulletin
+from corroborator_app.models import Actor, Comment
 from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 import json
 
@@ -116,7 +116,7 @@ class ActorTestCase(ResourceTestCase):
             new_actor_dict['id'],
             self.auth_string
         )
-        response = self.api_client.get(request_url) 
+        response = self.api_client.get(request_url)
         actor_dict_post = json.loads(response.content)
         self.assertEqual(
             actor_dict_post['related_bulletins'][0],
@@ -176,7 +176,7 @@ class ActorTestCase(ResourceTestCase):
             new_actor_dict['id'],
             self.auth_string
         )
-        response = self.api_client.get(request_url) 
+        response = self.api_client.get(request_url)
         actor_dict_post = json.loads(response.content)
         self.assertEqual(
             actor_dict_post['related_incidents'][0],
@@ -249,10 +249,29 @@ class ActorTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 403)
 
+    def test_assigned_user_perm_enforced(self):
+        self.test_user_util.add_user_to_group('data-analyst')
+        fixture = AutoFixture(User)
+        fixture.create(1)
+        precreated_actor = Actor.objects.all()[0]
+        precreated_actor.assigned_user = User.objects.get(id=2)
+        precreated_actor.save()
+        url = '/api/v1/actor/{0}/?format=json{1}'.format(
+            precreated_actor.id, self.auth_string)
+        put_data = create_put_data(4)
+        put_data['assigned_user'] = '/api/v1/user/1/'
+        response = self.api_client.put(url, data=put_data)
+        assigned_user_id = retrieve_user_id(response)
+        self.assertEqual(assigned_user_id, 2)
+        self.test_user_util.add_user_to_group('chief-data-analyst')
+        response = self.api_client.put(url, data=put_data)
+        assigned_user_id = retrieve_user_id(response)
+        self.assertEqual(assigned_user_id, 1)
+
     def check_dehydrated_data(self, response):
         """
         Test that returned data contains required dehydrated fields.
-        New fields should be added to this method as they are added to the 
+        New fields should be added to this method as they are added to the
         API to ensure that consistency between front and back end.
         """
         dehydrate_keys = {
@@ -275,6 +294,13 @@ class ActorTestCase(ResourceTestCase):
             True
         )
 
+
+def retrieve_user_id(response):
+    return id_from_uri(
+        json.loads(response.content)['assigned_user']
+    )
+
+
 def create_put_data(status_id, actor_comments=[]):
     return {
         'fullname_en': "Test Actor",
@@ -285,6 +311,7 @@ def create_put_data(status_id, actor_comments=[]):
         'status_uri': '/api/v1/statusUpdate/' + str(status_id) + '/',
         'actor_comments': actor_comments
     }
+
 
 def retrieve_last_comment_status(response):
     content = json.loads(response.content)

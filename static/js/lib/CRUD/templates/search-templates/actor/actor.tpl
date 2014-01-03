@@ -56,6 +56,21 @@
               </span>
             </span>
           </div>
+          <!-- Assigned to user -->
+          {{#if perms.can_assign_users}}
+          <div id="actor-assignment-block" class="field actorAssigned">
+            <label>{{i18n.incident.Assigned_to}}</label>
+
+            <input type="text" class="with-clear is-assigned-to"
+              value="{{model.actor_assigned_user}}">
+            <input
+              type="hidden"
+              name="assigned_user"
+              class="actor-field"
+              value="{{model.assigned_user}}">
+
+          </div>
+          {{/if}}
 
         </div>
         <!-- end header -->
