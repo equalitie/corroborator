@@ -74,8 +74,8 @@ class AppViewTestCase(TestCase):
         only valid users receive the list of assigned users
         '''
         self.test_user_util.add_user_to_group(group_name='data-analyst')
-        user_list = select_users(self.user)
-        self.assertEqual(len(user_list), 0)
+        has_perm = can_assign_users(self.user)
+        self.assertEqual(has_perm, False)
         self.test_user_util.add_user_to_group(group_name='chief-data-analyst')
-        user_list = select_users(self.user)
-        self.assertEqual(len(user_list), len(User.objects.all()))
+        has_perm = select_users(self.user)
+        self.assertEqual(has_perm, True)

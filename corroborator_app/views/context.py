@@ -35,12 +35,13 @@ def build_js_context(user):
         'labels_set': select_labels(),
         'crimes_set': select_crime_categories(),
         'status_set': select_statuses(user),
-        'users_set': select_users(user),
+        'users_set': select_users(),
         'loc_set': select_locations,
         'username': user.username,
         'userid': user.id,
         'api_key': select_apikey,
-        'solr_url': get_solr_url()
+        'solr_url': get_solr_url(),
+        'can_assign_users': can_assign_users(user),
     }
 
 
@@ -106,7 +107,11 @@ def select_sources():
     return Source.objects.all()
 
 
-def select_users(user):
+def select_users():
+    return User.objects.all()
+
+
+def can_assign_users(user):
     '''
     return the list of users that is used to assign users to entities,
     should be empty for all but chief data analysts
@@ -114,8 +119,7 @@ def select_users(user):
     perms = get_all_user_perm_codenames(user)
     required_perm = ['can_assign_users']
     has_perm = len(perms.intersection(set(required_perm))) > 0
-    return_obj = User.objects.all() if has_perm else []
-    return return_obj
+    return has_perm
 
 
 def get_all_user_perm_codenames(user):
