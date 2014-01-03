@@ -68,6 +68,7 @@ class TestUserUtility(object):
                 'can_update',
                 'can_update_to_reviewed',
                 'can_update_to_finalized',
+                'can_assign_users',
             ],
         }
         for permission_string in permissions_map[group_name]:

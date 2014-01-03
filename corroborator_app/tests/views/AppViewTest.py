@@ -8,6 +8,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
 from corroborator_app.tests.test_utilities import TestUserUtility
+from corroborator_app.views.context import select_users
 
 
 class AppViewTestCase(TestCase):
@@ -72,5 +73,9 @@ class AppViewTestCase(TestCase):
         check that the permission for assigned user is respected, in that
         only valid users receive the list of assigned users
         '''
-        pass
-
+        self.test_user_util.add_user_to_group(group_name='data-analyst')
+        user_list = select_users(self.user)
+        self.assertEqual(len(user_list), 0)
+        self.test_user_util.add_user_to_group(group_name='chief-data-analyst')
+        user_list = select_users(self.user)
+        self.assertEqual(len(user_list), len(User.objects.all()))
