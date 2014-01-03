@@ -8,7 +8,7 @@ from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
 from corroborator_app.tests.test_utilities import TestUserUtility
-from corroborator_app.views.context import select_users
+from corroborator_app.views.context import can_assign_users
 
 
 class AppViewTestCase(TestCase):
@@ -77,5 +77,5 @@ class AppViewTestCase(TestCase):
         has_perm = can_assign_users(self.user)
         self.assertEqual(has_perm, False)
         self.test_user_util.add_user_to_group(group_name='chief-data-analyst')
-        has_perm = select_users(self.user)
+        has_perm = can_assign_users(self.user)
         self.assertEqual(has_perm, True)

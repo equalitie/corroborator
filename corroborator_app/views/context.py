@@ -39,7 +39,7 @@ def build_js_context(user):
         'loc_set': select_locations,
         'username': user.username,
         'userid': user.id,
-        'api_key': select_apikey,
+        'api_key': select_apikey(user),
         'solr_url': get_solr_url(),
         'can_assign_users': can_assign_users(user),
     }

@@ -1,19 +1,22 @@
 
   <script type="text/javascript">
   var Bootstrap = (function() {
-    var locale = '{{locale}}';
-    var gl_s3_aws_media_url = '{{ MEDIA_URL }}';
-    var gl_ac_role_list = [];
-    var gl_ac_relation_list = [];
-    var gl_ac_crimes_list = [];
-    var special_global_ac_sources_list = [];
-    var gl_ac_loc_set = [];
-    var gl_ac_labels_list = [];
-    var gl_ac_loc_ac_set = [];
-    var gl_ac_users_list = [];
-    var solr_url = '{{ solr_url }}';
-    var comment_statuses = [];
-    var predefined_list = [];
+    var locale = '{{locale}}',
+        gl_s3_aws_media_url = '{{ MEDIA_URL }}',
+        gl_ac_role_list = [],
+        gl_ac_relation_list = [],
+        gl_ac_crimes_list = [],
+        special_global_ac_sources_list = [],
+        gl_ac_loc_set = [],
+        gl_ac_labels_list = [],
+        gl_ac_loc_ac_set = [],
+        gl_ac_users_list = [],
+        solr_url = '{{ solr_url }}',
+        comment_statuses = [],
+        predefined_list = [],
+        can_assign_users = '{{ can_assign_users }}' === 'True'
+        ? true
+        : false;
     {% for pds in predefined_search_set %}
         predefined_list.push({
             search_title:     "{{pds.search_title}}",
@@ -108,6 +111,7 @@
     //consolidate our init data under one variable
     return {
         locale: locale,
+        can_assign_users: can_assign_users,
         predefined_list: predefined_list,
         gl_s3_aws_media_url: '{{ MEDIA_URL }}',
         username: '{{username}}',
