@@ -313,6 +313,7 @@ define (
         var html = this.template({
           model: this.model.toJSON(),
           statuses: Bootstrap.comment_statuses,
+          perms: Bootstrap.perms,
           i18n: i18n
         });
         this.$el.html(html);

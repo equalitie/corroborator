@@ -29,6 +29,8 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 
 from corroborator_app.tasks import update_object
 
+from corroborator_app.views.view_utils import can_assign_users
+
 from corroborator_app.models import (
     Incident, Comment, StatusUpdate
 )
@@ -92,13 +94,18 @@ class IncidentResource(ModelResource, APIMixin):
         return comment_uri
 
     def obj_update(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
+
         if self.is_finalized(
                 Incident, kwargs['pk'], 'most_recent_status_incident'):
             raise ImmediateHttpResponse(
                 HttpForbidden('This item has been finalized')
             )
-        username = bundle.request.GET['username']
-        user = User.objects.filter(username=username)[0]
+
+        if can_assign_users(user) is False and 'assigned_user' in bundle.data:
+            del(bundle.data['assigned_user'])
+
         status_id = bundle.data['status_uri'].split('/')[4]
         status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
             user,
@@ -120,6 +127,9 @@ class IncidentResource(ModelResource, APIMixin):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         status_update = StatusUpdate.objects.get(status_en='Human Created')
+
+        if can_assign_users(user) is False and 'assigned_user' in bundle.data:
+            del(bundle.data['assigned_user'])
 
         comment_uri = self.create_comment(
             bundle.data['comment'],

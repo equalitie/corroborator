@@ -84,6 +84,7 @@
 
 
           <!-- Assigned to field name='assigned_user' -->
+          {{#if perms.can_assign_users}}
             <div id="bulletin-assignment-block" class="bulletinAssigned  left">
               <label>{{i18n.bulletin.Assigned_to}}</label>
 
@@ -97,6 +98,7 @@
               <span>✓</span>
             </button>
             </div>
+          {{/if}}
             <!-- end assigned_user -->
 
           </div>

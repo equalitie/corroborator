@@ -5,6 +5,8 @@ Create api for media model, requires apikey auth
 tests in tests/api/tests.py
 """
 
+from django.contrib.auth.models import User
+
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 from tastypie.authentication import ApiKeyAuthentication
@@ -24,10 +26,14 @@ from corroborator_app.api.CommentApi import CommentResource
 from corroborator_app.api.TimeInfoApi import TimeInfoResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.MediaApi import MediaResource
+
 from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
+
 from corroborator_app.tasks import update_object
-from django.contrib.auth.models import User
+
+from corroborator_app.views.view_utils import can_assign_users
+
 __all__ = ('BulletinResource')
 
 
@@ -103,18 +109,26 @@ class BulletinResource(ModelResource, APIMixin):
         return comment_uri
 
     def obj_update(self, bundle, **kwargs):
+        username = bundle.request.GET['username']
+        user = User.objects.filter(username=username)[0]
+
+        # permission checks
         if self.is_finalized(
                 Bulletin, kwargs['pk'], 'most_recent_status_bulletin'):
             raise ImmediateHttpResponse(
                 HttpForbidden('This item has been finalized')
             )
-        username = bundle.request.GET['username']
-        user = User.objects.filter(username=username)[0]
+
+        if can_assign_users(user) is False and 'assigned_user' in bundle.data:
+            del(bundle.data['assigned_user'])
+
+        # decide on available status
         status_id = bundle.data['status_uri'].split('/')[4]
         status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
             user,
             status_id
         )
+
         comment_uri = self.create_comment(
             bundle.data['comment'],
             status_update.id,
@@ -131,6 +145,10 @@ class BulletinResource(ModelResource, APIMixin):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
         status_update = StatusUpdate.objects.get(status_en='Human Created')
+
+        if can_assign_users(user) is False and 'assigned_user' in bundle.data:
+            del(bundle.data['assigned_user'])
+
         comment_uri = self.create_comment(
             bundle.data['comment'],
             status_update.id,

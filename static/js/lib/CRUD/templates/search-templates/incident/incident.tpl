@@ -80,6 +80,7 @@
           </div>
               
           <!-- Assigned to user -->
+          {{#if perms.can_assign_users}}
           <div id="incident-assignment-block" class="incidentAssigned left">
             <label>{{i18n.incident.Assigned_to}}</label>
 
@@ -95,6 +96,7 @@
             <span>✓</span>
           </button>
           </div>
+          {{/if}}
         </div>
       </div>
     </div>

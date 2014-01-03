@@ -100,7 +100,6 @@ define (
       ],
       // constructor
       initialize: function(options) {
-        console.log(this);
         this.addi18n();
         this.populateWidgets();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));

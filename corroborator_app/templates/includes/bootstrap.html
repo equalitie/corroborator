@@ -111,7 +111,9 @@
     //consolidate our init data under one variable
     return {
         locale: locale,
-        can_assign_users: can_assign_users,
+        perms: {
+          can_assign_users: can_assign_users,
+        },
         predefined_list: predefined_list,
         gl_s3_aws_media_url: '{{ MEDIA_URL }}',
         username: '{{username}}',

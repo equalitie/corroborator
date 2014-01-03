@@ -171,10 +171,28 @@ class BulletinTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 403)
 
+    def test_assigned_user_perm_enforced(self):
+        self.test_user_util.add_user_to_group('data-analyst')
+        fixture = AutoFixture(User)
+        fixture.create(1)
+        precreated_bulletin = Bulletin.objects.all()[0]
+        precreated_bulletin.assigned_user = User.objects.get(id=2)
+        precreated_bulletin.save()
+        url = '/api/v1/bulletin/{0}/?format=json{1}'.format(
+            precreated_bulletin.id, self.auth_string)
+        put_data = create_put_data(4)
+        response = self.api_client.put(url, data=put_data)
+        assigned_user_id = retrieve_user_id(response)
+        self.assertEqual(assigned_user_id, 2)
+        self.test_user_util.add_user_to_group('chief-data-analyst')
+        response = self.api_client.put(url, data=put_data)
+        assigned_user_id = retrieve_user_id(response)
+        self.assertEqual(assigned_user_id, 1)
+
     def check_dehydrated_data(self, response):
         """
         Test that returned data contains required dehydrated fields.
-        New fields should be added to this method as they are added to the 
+        New fields should be added to this method as they are added to the
         API to ensure that consistency between front and back end.
         """
         dehydrate_keys = [
@@ -198,6 +216,7 @@ class BulletinTestCase(ResourceTestCase):
             True
         )
 
+
 def create_put_data(status_id, bulletin_comments=[]):
     return {
         'title_en': "Test Bulletin",
@@ -217,6 +236,12 @@ def create_put_data(status_id, bulletin_comments=[]):
         'comment': 'comment',
         'status_uri': '/api/v1/statusUpdate/' + str(status_id) + '/'
     }
+
+
+def retrieve_user_id(response):
+    return id_from_uri(
+        json.loads(response.content)['assigned_user']
+    )
 
 
 def retrieve_last_comment_status(response):

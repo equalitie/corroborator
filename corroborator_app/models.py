@@ -491,6 +491,7 @@ class Actor(models.Model):
     actor_comments = models.ManyToManyField(Comment, blank=True, null=True)
 
     # Foreign Keys
+    assigned_user = models.ForeignKey(User, blank=True, null=True)
     actors_role = models.ManyToManyField(
         'ActorRole', blank=True, null=True, related_name='actors_role')
     POB = models.ForeignKey(
@@ -803,5 +804,3 @@ class Incident(models.Model):
             return status['status__status_en']
         else:
             return ''
-
-
