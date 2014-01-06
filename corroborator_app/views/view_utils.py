@@ -32,6 +32,10 @@ def has_permission(user, permission):
     return len(perms.intersection(perm_set)) > 0
 
 
+def is_in_group(user, group_name):
+    return group_name in map(lambda group: group.name, user.groups.all())
+
+
 def get_all_user_perm_codenames(user):
     '''
     combine a user and their group perms into a list

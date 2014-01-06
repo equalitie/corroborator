@@ -24,7 +24,7 @@ from corroborator_app.models import (
     Location,
 )
 from corroborator_app.views.view_utils import (
-    can_assign_users, can_finalize, can_delete
+    can_assign_users, can_finalize, can_delete, is_in_group
 )
 
 
@@ -48,6 +48,9 @@ def build_js_context(user):
         'can_assign_users': can_assign_users(user),
         'can_delete_entities': can_delete(user),
         'can_update_to_finalized': can_finalize(user),
+        'is_analyst': is_in_group(user, 'data-analyst'),
+        'is_senior_analyst': is_in_group(user, 'senior-data-analyst'),
+        'is_chief_analyst': is_in_group(user, 'chief-data-analyst'),
     }
 
 
