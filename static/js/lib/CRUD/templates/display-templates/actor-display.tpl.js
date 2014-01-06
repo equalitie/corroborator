@@ -229,6 +229,18 @@ function program42(depth0,data) {
   return "\n      <div class=\"actors group\">\n      </div>\n    ";
   }
 
+function program44(depth0,data) {
+  
+  
+  return "\n    <div class=\"bulletins group\">\n    </div>\n    ";
+  }
+
+function program46(depth0,data) {
+  
+  
+  return "\n    <div class=\"incidents group\">\n    </div>\n    ";
+  }
+
   buffer += "<div class=\"Actor in-view\">\n  <div class=\"header\">\n    <div class=\"id\">\n      ID <span class=\"value out\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.django_id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n    </div>\n    ";
@@ -294,6 +306,12 @@ function program42(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      </tbody>\n    </table>\n    ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actors_role), {hash:{},inverse:self.noop,fn:self.program(42, program42, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.related_bulletins), {hash:{},inverse:self.noop,fn:self.program(44, program44, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.related_incidents), {hash:{},inverse:self.noop,fn:self.program(46, program46, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  </div>\n</div>\n";
   return buffer;

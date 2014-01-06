@@ -5,18 +5,37 @@ Utilities for views
 """
 
 
+def can_delete(user):
+    permission = 'can_delete_entities'
+    return has_permission(user, permission)
+
+
+def can_finalize(user):
+    permission = 'can_update_to_finalized'
+    return has_permission(user, permission)
+
+
 def can_assign_users(user):
     '''
-    return the list of users that is used to assign users to entities,
-    should be empty for all but chief data analysts
+    can this user assign users to entities
+    '''
+    permission = 'can_assign_users'
+    return has_permission(user, permission)
+
+
+def has_permission(user, permission):
+    '''
+    does the user or their  group have the permission
     '''
     perms = get_all_user_perm_codenames(user)
-    required_perm = ['can_assign_users']
-    has_perm = len(perms.intersection(set(required_perm))) > 0
-    return has_perm
+    perm_set = set([permission])
+    return len(perms.intersection(perm_set)) > 0
 
 
 def get_all_user_perm_codenames(user):
+    '''
+    combine a user and their group perms into a list
+    '''
     def get_perm_codenames(perm):
         return perm.codename
 

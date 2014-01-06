@@ -17,13 +17,13 @@ define(
       CommentCollection = Comment.CommentCollection;
 
   var statusLabel = function(statusResourceUri, created_date) {
-    var dateFormat, status;
+    var dateFormat, statusObj;
     dateFormat = "MMM Do, YYYY";
-    status = _.chain(Bootstrap.comment_statuses)
+    statusObj = _.chain(Bootstrap.all_statuses)
               .where({resource_uri: statusResourceUri})
               .first()
               .value();
-    return status.comment_status + ' - ' + moment(created_date).format(dateFormat);
+    return statusObj.comment_status + ' - ' + moment(created_date).format(dateFormat);
   };
   // ###RevisionView
   // Display the Revisions for an entity

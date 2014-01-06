@@ -29,7 +29,7 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 from corroborator_app.tasks import update_object
 from corroborator_app.utilities.apiValidationTool import ApiValidation
 
-from corroborator_app.views.view_utils import can_assign_users
+from corroborator_app.views.view_utils import can_assign_users, can_finalize
 
 __all__ = ('ActorRelationshipResource', 'ActorResource', 'ActorRoleResource', )
 
@@ -76,7 +76,11 @@ class ActorResource(ModelResource, APIMixin):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
 
-        if self.is_finalized(Actor, kwargs['pk'], 'most_recent_status_actor'):
+        if self.is_finalized(
+            Actor,
+            kwargs['pk'],
+            'most_recent_status_actor'
+        ) and can_finalize(user) is False:
             raise ImmediateHttpResponse(
                 HttpForbidden('This item has been finalized')
             )

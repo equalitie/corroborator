@@ -94,7 +94,7 @@
         <h4>{{i18n.incidents.locations}}</h4>
         <div class="locations">
           {{#each model.locations}}
-          <div class="location">{{this}}</div>
+          <div class="location">{{fetchLocation this}}</div>
           {{/each}}
         </div>
       </div>

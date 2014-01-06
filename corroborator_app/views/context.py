@@ -24,7 +24,7 @@ from corroborator_app.models import (
     Location,
 )
 from corroborator_app.views.view_utils import (
-    can_assign_users,
+    can_assign_users, can_finalize, can_delete
 )
 
 
@@ -32,12 +32,13 @@ def build_js_context(user):
     return {
         'locale': select_language(),
         'role_status_set': select_roles(),
-        'relation_status_set': select_relations,
+        'relation_status_set': select_relations(),
         'predefined_search_set': select_predefined_searches(user),
         'sources_set': select_sources(),
         'labels_set': select_labels(),
         'crimes_set': select_crime_categories(),
         'status_set': select_statuses(user),
+        'all_status_set': select_all_statuses(),
         'users_set': select_users(),
         'loc_set': select_locations,
         'username': user.username,
@@ -45,6 +46,8 @@ def build_js_context(user):
         'api_key': select_apikey(user),
         'solr_url': get_solr_url(),
         'can_assign_users': can_assign_users(user),
+        'can_delete_entities': can_delete(user),
+        'can_update_to_finalized': can_finalize(user),
     }
 
 
@@ -61,6 +64,7 @@ def select_roles():
     '''
     return the available roles that actors can have in bulletins
     and incidents
+    TODO: apply i18n rules
     '''
     role_status_set = []
     roles = ActorRole.ROLE_STATUS
@@ -75,6 +79,7 @@ def select_roles():
 def select_relations():
     '''
     return a set of available relations formatted
+    TODO: apply i18n rules
     '''
     relation_status_set = []
     relations = ActorRole.RELATION
@@ -83,6 +88,7 @@ def select_relations():
             'key': relation[0],
             'value': relation[1]}
         )
+    return relation_status_set
 
 
 def select_predefined_searches(user):
@@ -94,6 +100,10 @@ def select_predefined_searches(user):
         format_predefined_search,
         predefined_search_set
     )
+
+
+def select_all_statuses():
+    return StatusUpdate.objects.all()
 
 
 def select_statuses(user):

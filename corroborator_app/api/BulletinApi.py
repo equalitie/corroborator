@@ -32,7 +32,7 @@ from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 
 from corroborator_app.tasks import update_object
 
-from corroborator_app.views.view_utils import can_assign_users
+from corroborator_app.views.view_utils import can_assign_users, can_finalize
 
 __all__ = ('BulletinResource')
 
@@ -114,7 +114,10 @@ class BulletinResource(ModelResource, APIMixin):
 
         # permission checks
         if self.is_finalized(
-                Bulletin, kwargs['pk'], 'most_recent_status_bulletin'):
+            Bulletin,
+            kwargs['pk'],
+            'most_recent_status_bulletin'
+        ) and can_finalize(user) is False:
             raise ImmediateHttpResponse(
                 HttpForbidden('This item has been finalized')
             )

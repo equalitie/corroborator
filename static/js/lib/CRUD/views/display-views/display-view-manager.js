@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // This view manages the display area, it listens for navigation events and
@@ -163,11 +163,10 @@ define (
         this.childViews = [];
       },
       disableEditIfFinalized: function(content) {
-        console.log('disableEditIfFinalized');
         var entityStatus =
           this.model.get('most_recent_status_' + content.entity);
-        console.log(this.model, entityStatus);
-        if (entityStatus === 'Finalized') {
+        if (entityStatus === 'Finalized'
+          && Bootstrap.perms.can_update_to_finalized === false) {
           this.$el.children()
                   .children()
                   .children('button.do-edit')
@@ -202,7 +201,6 @@ define (
       // render the container
       renderContainer: function(content) {
         content.i18n = i18n;
-        console.log(content);
         var html = this.template(content);
         this.$el.children().remove();
         this.$el.append(html);

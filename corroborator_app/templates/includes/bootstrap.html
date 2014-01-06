@@ -13,8 +13,15 @@
         gl_ac_users_list = [],
         solr_url = '{{ solr_url }}',
         comment_statuses = [],
+        all_statuses = [],
         predefined_list = [],
+        can_update_to_finalized = '{{ can_update_to_finalized }}' === 'True'
+        ? true
+        : false;
         can_assign_users = '{{ can_assign_users }}' === 'True'
+        ? true
+        : false;
+        can_delete_entities = '{{ can_delete_entities }}' === 'True'
         ? true
         : false;
     {% for pds in predefined_search_set %}
@@ -49,6 +56,13 @@
     {% endfor %}
 
 
+    {%for comment_status in all_status_set %}
+      all_statuses.push({
+        comment_status:"{{comment_status.status_en}}",
+        id:"/api/v1/statusUpdate/{{comment_status.id}}/",
+        resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
+      });
+    {% endfor %}
     {%for comment_status in status_set %}
       comment_statuses.push({
         comment_status:"{{comment_status.status_en}}",
@@ -113,6 +127,8 @@
         locale: locale,
         perms: {
           can_assign_users: can_assign_users,
+          can_update_to_finalized: can_update_to_finalized,
+          can_delete_entities: can_delete_entities
         },
         predefined_list: predefined_list,
         gl_s3_aws_media_url: '{{ MEDIA_URL }}',
@@ -128,6 +144,7 @@
         locations: gl_ac_loc_set,
         gl_ac_users_list: gl_ac_users_list,
         comment_statuses: comment_statuses,
+        all_statuses: all_statuses,
         solr_url: solr_url
     }
 
