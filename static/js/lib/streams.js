@@ -15,14 +15,6 @@ define(
         navBus = new Bacon.Bus(),
         crudBus = new Bacon.Bus(),
         navProperty = navBus.toProperty('incident');
-    //window.debugUpdate = function() {
-      //var searchObject = {
-        //type: 'update_current_results',
-        //content: {encoded: '', raw: ''},
-        //domain: undefined
-      //};
-      //searchBus.push(searchObject);
-    //};
     //navBus.toEventStream().log();
     //searchBus.toEventStream().log();
     //crudBus.toEventStream().log();

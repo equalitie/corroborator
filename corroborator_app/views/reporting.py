@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.http import Http404
 
 from corroborator_app.views.view_utils import is_user_in_groups
+from corroborator_app.views.context import build_js_context
 
 # groups a user must be in to view the reports page
 REPORT_GROUPS = ['senior-data-analyst', 'chief-data-analyst', ]
@@ -25,5 +26,5 @@ def reporting_view(request, *arg, **kwargs):
         raise Http404
 
     return render(
-        request, 'reporting.html', {}
+        request, 'reporting.html', build_js_context(request.user)
     )

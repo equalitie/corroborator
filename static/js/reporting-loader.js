@@ -38,7 +38,7 @@
       }
     }
   });
-  requirejs(['lib/monitor/main']);
+  requirejs(['lib/reporting/main']);
   
 
 }(requirejs));
