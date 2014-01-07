@@ -2,8 +2,9 @@ var _ = require('lodash');
 
 var appTemplates = require('./grunt/search-app-templates.js'),
     monitorTemplates = require('./grunt/monitor-templates.js'),
+    reportingTemplates = require('./grunt/reporting-templates.js'),
     dataEntryTemplates = require('./grunt/data-entry-templates.js'),
-    templates = _.extend(appTemplates(), monitorTemplates(), dataEntryTemplates());
+    templates = _.extend(appTemplates(), monitorTemplates(), dataEntryTemplates(), reportingTemplates());
 
 module.exports = function(grunt) {
 
