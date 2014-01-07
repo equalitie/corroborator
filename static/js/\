@@ -1,0 +1,16 @@
+/*global define*/
+// Author: Cormac McGuire
+// ### Routing for the reporting application
+// 
+
+define(
+  ['backbone'],
+  function(Backbone) {
+    'use strict';
+    var Router;
+
+    Router = Backbone.Router.extend({
+    });
+  
+  }
+);
