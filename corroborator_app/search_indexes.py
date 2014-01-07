@@ -62,7 +62,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     actor_modified = indexes.DateTimeField(model_attr='actor_modified', \
     faceted=True, null=True)
     most_recent_status_actor = indexes.CharField(faceted=True)
-
+    actor_modified_date = indexes.DateField(faceted=True)
+    actor_created_date = indexes.DateField(faceted=True)
 
     media = indexes.CharField()
     resource_uri = indexes.CharField()
@@ -85,6 +86,18 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Actor
+
+    def prepare_actor_created_date(self, object):
+        """
+        return date portion of actor created datetime field
+        """
+        return object.actor_created.date()
+
+    def prepare_actor_modified_date(self, object):
+        """
+        return date portion of actor modified datetime field
+        """
+        return object.actor_modified.date()
 
     def get_updated_field(self):
         return "actor_modified"
@@ -270,6 +283,9 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     faceted=True, null=True)
     incident_modified = indexes.DateTimeField(model_attr='incident_modified', \
     faceted=True, null=True)
+    incident_modified_date = indexes.DateField(faceted=True)
+    incident_created_date = indexes.DateField(faceted=True)
+
 
     deleted = indexes.BooleanField()
 
@@ -295,6 +311,18 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
 
     def prepare_assigned_user(self, object):
         return IncidentPrepMeta().prepare_assigned_user(object)
+
+    def prepare_incident_created_date(self, object):
+        """
+        return date portion of incident created datetime field
+        """
+        return object.incident_created.date()
+
+    def prepare_incident_modified_date(self, object):
+        """
+        return date portion of incident modified datetime field
+        """
+        return object.incident_modified.date()
 
     def prepare_times(self, object):
         """
@@ -443,6 +471,8 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     bulletin_modified = indexes.DateTimeField(model_attr='bulletin_modified', \
     faceted=True, null=True)
 
+    bulletin_modified_date = indexes.DateField(faceted=True)
+    bulletin_created_date = indexes.DateField(faceted=True)
 
     resource_uri = indexes.CharField()
     ref_bulletins = indexes.MultiValueField()
@@ -458,15 +488,35 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     bulletin_comments = indexes.MultiValueField()
     bulletin_imported_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
+    sources_count = indexes.IntegerField(faceted=True)
 
     def get_model(self):
         return Bulletin
+
+    def prepare_sources_count(self, object):
+        """
+        Get count of bulletin sources
+        """
+        return object.sources.count()
 
     def get_updated_field(self):
         return "bulletin_modified"
 
     def prepare_assigned_user(self, object):
         return BulletinPrepMeta().prepare_assigned_user(object)
+
+    def prepare_bulletin_created_date(self, object):
+        """
+        return date portion of bulletin created datetime field
+        """
+        return object.bulletin_created.date()
+
+    def prepare_bulletin_modified_date(self, object):
+        """
+        return date portion of bulletin modified datetime field
+        """
+        return object.bulletin_modified.date()
+
 
     def prepare_times(self, object):
         """
