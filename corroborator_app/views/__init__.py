@@ -35,6 +35,8 @@ from corroborator_app.views.context import build_js_context
 from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
 from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
 
+from corroborator_app.views.view_utils import is_in_group
+
 ###############################################################################
 # MAIN VIEW METHODS -
 ###############################################################################
@@ -173,6 +175,9 @@ def monitoring(request, *args, **kwargs):
                 'username': username,
                 'userid': userid,
                 'api_key': api.key,
+                'is_analyst': is_in_group(user, 'data-analyst'),
+                'is_senior_analyst': is_in_group(user, 'senior-data-analyst'),
+                'is_chief_analyst': is_in_group(user, 'chief-data-analyst'),
             }
         )
     else:
