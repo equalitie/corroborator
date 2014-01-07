@@ -159,6 +159,7 @@ define (
 
       // enable the autocomplete functionality
       initAutocomplete: function() {
+        console.log('label' , this.collection);
         var autocompleteSrc = this.collection.autoCompleteFormat(),
             inputEl = this.$el.children('ul')
                               .children('li')

@@ -9,6 +9,7 @@
       'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui',
       'jquery_time'    : 'components/jquery-timepicker-addon/jquery-ui-timepicker-addon',
       'backbone'       : 'components/backbone/backbone',
+      'bacon'          : 'components/bacon/dist/Bacon',
       'moment'         : 'components/moment/moment',
       'underscore'     : 'components/underscore/underscore',
       'handlebars'     : 'components/handlebars/handlebars',

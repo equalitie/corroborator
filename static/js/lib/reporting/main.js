@@ -4,10 +4,19 @@
 // 
 
 define(
-  [],
-  function() {
-  'use strict';
-
+  [
+    'backbone',
+    'lib/reporting/router/router',
+    'lib/reporting/views/tab-view'
+  ],
+  function(Backbone, Router, TabView) {
+    'use strict';
+    var tabView = new TabView({
+          el: '#monitor-navigation'
+        }),
+        router = new Router();
+    Backbone.history.start();
+    
   
   }
 );

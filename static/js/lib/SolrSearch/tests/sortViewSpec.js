@@ -35,7 +35,7 @@ define (
         expect($('tr.filters')).not.toBeEmpty();
       });
     
-      it('should send a sort request when the user clicks sort', function() {
+      xit('should send a sort request when the user clicks sort', function() {
         var eventContent;
         runs(function() {
           searchBus.toEventStream()
@@ -59,7 +59,7 @@ define (
           
       });
 
-      it('should reverse the order of the sort if the user clicks the same header twice',
+      xit('should reverse the order of the sort if the user clicks the same header twice',
       function() {
         var eventContent;
         runs(function() {

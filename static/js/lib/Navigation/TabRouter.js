@@ -107,7 +107,6 @@ define(
         this.openEntity('actor', actorId, true);
       },
       openEntity: function(type, id, expanded) {
-        console.log(expanded);
         expanded = expanded || false;
         navBus.push({
           type: 'entity-display',
@@ -184,7 +183,6 @@ define(
     };
 
     var getTabRouter = function() {
-      console.log(tabRouter);
       return tabRouter;
     };
 

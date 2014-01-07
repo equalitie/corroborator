@@ -42,6 +42,9 @@ module.exports = function(config) {
       {pattern: 'lib/SolrSearch/**/*.js', included: false},
       {pattern: 'lib/SolrSearch/**/**/*.js', included: false},
 
+      {pattern: 'lib/reporting/*.js', included: false},
+      {pattern: 'lib/reporting/**/*.js', included: false},
+
       {pattern: 'components/jquery/jquery.js', included: false},
       {pattern: 'components/jasmine-jquery/lib/jasmine-jquery.js', included: false},
       {pattern: 'components/jquery.ui/dist/jquery-ui.js', included: false},
