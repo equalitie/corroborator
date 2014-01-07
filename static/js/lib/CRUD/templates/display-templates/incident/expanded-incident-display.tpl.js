@@ -134,9 +134,10 @@ function program28(depth0,data) {
   }
 function program29(depth0,data) {
   
-  var buffer = "";
-  buffer += "\n          <div class=\"location\">"
-    + escapeExpression((typeof depth0 === functionType ? depth0.apply(depth0) : depth0))
+  var buffer = "", stack1, options;
+  buffer += "\n          <div class=\"location\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchLocation || depth0.fetchLocation),stack1 ? stack1.call(depth0, depth0, options) : helperMissing.call(depth0, "fetchLocation", depth0, options)))
     + "</div>\n          ";
   return buffer;
   }

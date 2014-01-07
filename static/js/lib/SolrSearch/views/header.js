@@ -1,4 +1,4 @@
-/*global define, Bacon */
+/*global define, Bacon, Bootstrap */
 // ### header.js
 // This displays the header view
 // it provides:  
@@ -87,11 +87,13 @@ define(
 
     // collection of menu items for the action combo
     var menuItems = new Backbone.Collection([
-      { key: 'delete', name_en: i18n.menu.Delete_selected },
       { key: 'update', name_en: i18n.menu.Update_selected },
       { key: 'select', name_en: i18n.menu.Select_all },
       { key: 'clear',  name_en: i18n.menu.Clear_selected }
     ]);
+    if (Bootstrap.perms.can_delete_entities ===  true) {
+      menuItems.add({ key: 'delete', name_en: i18n.menu.Delete_selected });
+    }
 
     //////////////////////////////////////////////////////////////////////
     // ACTION COMBO VIEW

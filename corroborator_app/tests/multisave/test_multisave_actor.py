@@ -12,8 +12,10 @@ from django.contrib.auth.models import User
 
 from autofixture import AutoFixture
 
-from corroborator_app.multisave import multi_save_actors, extract_ids, \
-    update_entities, process_actor_data
+from corroborator_app.multisave import (
+    multi_save_actors, extract_ids,
+    update_entities, process_actor_data, create_comment
+)
 from corroborator_app.models import Actor, Location, ActorRole
 from corroborator_app.tests.test_utilities import TestUserUtility
 import json
@@ -47,7 +49,7 @@ class MultiSaveActorTestCase(TestCase):
         '''
         broad test to verify that actors are getting updated
         '''
-        client = Client()
+        client = self.test_user_util.client_login()
         post_data = create_actor_data()
         response = client.post(
             '/corroborator/actor/0/multisave/',
@@ -78,6 +80,7 @@ class MultiSaveActorTestCase(TestCase):
         passed in the request
         '''
         json_dict = json.loads(create_actor_data())
+        json_dict['user'] = self.user
         json_dict = process_actor_data(json_dict)
         actor_ids = extract_ids(json_dict, 'selectedActors')
         actor = Actor.objects.get(id=1)
@@ -100,6 +103,7 @@ class MultiSaveActorTestCase(TestCase):
         '''
         json_dict = json.loads(create_actor_data())
         request = HttpRequest()
+        request.user = self.user
         multi_save_actors(request, json_dict, self.user.username)
 
         actor_1 = Actor.objects.get(id=1)
@@ -113,7 +117,7 @@ class MultiSaveActorTestCase(TestCase):
         test that the version get's updated for all actors
         and fails if not present
         '''
-        client = Client()
+        client = self.test_user_util.client_login()
         post_data = create_actor_data(version_info=False)
         response = client.post(
             '/corroborator/actor/0/multisave/',
@@ -148,8 +152,109 @@ class MultiSaveActorTestCase(TestCase):
             response_data[0]['most_recent_status_actor'], u'Updated')
         self.assertEqual(response.status_code, 200)
 
+    def test_actors_status_update_analyst(self):
+        '''
+        test that status gets set to updated no matter what id is sent
+        '''
+        client = self.test_user_util.client_login()
+        post_data = create_actor_data(
+            empty_data=False,
+            version_info=True,
+            status_id=1
+        )
+        response = client.post(
+            '/corroborator/actor/0/multisave/',
+            post_data,
+            content_type='application/json'
+        )
+        self.assertEqual(get_status_from_response(response), 'Updated')
+        post_data = create_actor_data(
+            empty_data=False,
+            version_info=True,
+            status_id=4
+        )
+        response = client.post(
+            '/corroborator/actor/0/multisave/',
+            post_data,
+            content_type='application/json'
+        )
+        self.assertEqual(get_status_from_response(response), 'Updated')
 
-def create_actor_data(empty_data=False, version_info=True):
+    def test_actors_status_update_senior(self):
+        '''
+        test that reviewed status can be added by senior
+        '''
+        self.test_user_util.add_user_to_group('senior-data-analyst')
+        client = self.test_user_util.client_login()
+        post_data = create_actor_data(
+            empty_data=False,
+            version_info=True,
+            status_id=4
+        )
+        response = client.post(
+            '/corroborator/actor/0/multisave/',
+            post_data,
+            content_type='application/json'
+        )
+        self.assertEqual(get_status_from_response(response), 'Reviewed')
+
+    def test_actors_status_update_chief(self):
+        '''
+        test that finalized status can be added by chief
+        '''
+        self.test_user_util.add_user_to_group('chief-data-analyst')
+        client = self.test_user_util.client_login()
+        post_data = create_actor_data(
+            empty_data=False,
+            version_info=True,
+            status_id=5
+        )
+        response = client.post(
+            '/corroborator/actor/0/multisave/',
+            post_data,
+            content_type='application/json'
+        )
+        self.assertEqual(get_status_from_response(response), 'Finalized')
+
+    def test_finalized_entities_are_not_updated(self):
+        '''
+        finalized entities should not be updated
+        '''
+        user = User.objects.get(id=1)
+        finalized_actor = Actor.objects.get(id=1)
+        finalized_actor.actor_comments.add(
+            create_comment('A finalizing comment', 5, user)
+        )
+        client = self.test_user_util.client_login()
+        post_data = create_actor_data(
+            empty_data=False,
+            version_info=True,
+            status_id=3
+        )
+        response = client.post(
+            '/corroborator/actor/0/multisave/',
+            post_data,
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 200)
+        finalized_actor_comments = Actor.objects.get(id=1).actor_comments.all()
+
+        self.assertEqual(len(finalized_actor_comments), 1)
+
+
+def get_status_from_response(response):
+    return get_key_from_response(response, 'most_recent_status_actor')
+
+
+def get_key_from_response(response, key):
+    '''
+    extract the status from the response array
+    '''
+    response_dict = json.loads(response.content)[0]
+    return response_dict[key]
+
+
+def create_actor_data(empty_data=False, version_info=True, status_id=3):
     location_id = Location.objects.all()[0].id
     '''
     test data for the actor
@@ -180,8 +285,7 @@ def create_actor_data(empty_data=False, version_info=True):
     }
     if version_info:
         actor_data.update({
-            "status": "Updated",
-            "status_uri": "/api/v1/status/3/",
+            "status_uri": "/api/v1/status/{0}/".format(status_id),
             "comment": "comment"
         })
     else:

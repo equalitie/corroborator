@@ -2,13 +2,17 @@
 Author: Cormac McGuire
 Created: 09/10/2013
 Test the multisave incident functionality
+End to end tests for incidents, more detailed testing in MultiSaveActorTestCase
 """
 
 import json
 
-from django.test import TestCase, Client
+from django.test import TestCase
+from django.contrib.auth.models import User
 
 from autofixture import AutoFixture
+
+from corroborator_app.multisave import create_comment
 
 from corroborator_app.tests.test_utilities import TestUserUtility
 from corroborator_app.models import Incident, Location, ActorRole
@@ -43,8 +47,7 @@ class MultiSaveIncidentTestCase(TestCase):
         '''
         basic test to ensure that end to end functionality is in place
         '''
-        client = Client()
-        client.login(username='user', password='password')
+        client = self.test_user_util.client_login()
         post_data = create_incident_data()
         response = client.post(
             self.api_url,
@@ -63,7 +66,7 @@ class MultiSaveIncidentTestCase(TestCase):
             response_data[0]['most_recent_status_incident'], u'Updated')
 
     def test_incidents_updated_with_empty_relations(self):
-        client = Client()
+        client = self.test_user_util.client_login()
         post_data = create_incident_data(empty_data=True)
         response = client.post(
             self.api_url,
@@ -73,7 +76,7 @@ class MultiSaveIncidentTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_statusless_update_fails(self):
-        client = Client()
+        client = self.test_user_util.client_login()
         post_data = create_incident_data(version_info=False)
         response = client.post(
             self.api_url,
@@ -81,6 +84,31 @@ class MultiSaveIncidentTestCase(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 403)
+
+    def test_finalized_entities_are_not_updated(self):
+        '''
+        finalized entities should not be updated
+        '''
+        user = User.objects.get(id=1)
+        finalized_incident = Incident.objects.get(id=1)
+        finalized_incident.incident_comments.add(
+            create_comment('A finalizing comment', 5, user)
+        )
+        client = self.test_user_util.client_login()
+        post_data = create_incident_data(
+            empty_data=False,
+            version_info=True
+        )
+        response = client.post(
+            '/corroborator/incident/0/multisave/',
+            post_data,
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 200)
+        finalized_incident_comments =\
+            Incident.objects.get(id=1).incident_comments.all()
+
+        self.assertEqual(len(finalized_incident_comments), 1)
 
 
 def create_incident_data(empty_data=False, version_info=True):

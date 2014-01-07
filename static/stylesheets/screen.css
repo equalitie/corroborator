@@ -4509,36 +4509,37 @@ span.status > span {
 
 /* line 14, ../sass/_display.scss */
 .Incident.is-edited.is-expanded .span-33p,
+.Actor.is-edited.is-expanded .span-33p,
 .Bulletin.is-edited.is-expanded .span-33p {
   width: 29%;
   padding-left: 3.07692em;
 }
 
-/* line 28, ../sass/_display.scss */
+/* line 29, ../sass/_display.scss */
 .incident-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #6bcad8;
 }
 
-/* line 32, ../sass/_display.scss */
+/* line 33, ../sass/_display.scss */
 .bulletin-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #b5cd5f;
 }
 
-/* line 36, ../sass/_display.scss */
+/* line 37, ../sass/_display.scss */
 .actor-view {
   border-left: solid 1px #b7b6b2;
   border-top: 5px solid #f1be33;
 }
 
-/* line 41, ../sass/_display.scss */
+/* line 42, ../sass/_display.scss */
 .detail {
   margin-top: 1.53846em;
   clear: left;
 }
 
-/* line 46, ../sass/_display.scss */
+/* line 47, ../sass/_display.scss */
 h2.title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4547,7 +4548,7 @@ h2.title {
   line-height: 27px;
 }
 
-/* line 50, ../sass/_display.scss */
+/* line 51, ../sass/_display.scss */
 h3.title {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4556,7 +4557,7 @@ h3.title {
   font-size: 14px;
 }
 
-/* line 56, ../sass/_display.scss */
+/* line 57, ../sass/_display.scss */
 .assigned-to {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4567,19 +4568,19 @@ h3.title {
   font-size: 14px;
 }
 
-/* line 65, ../sass/_display.scss */
+/* line 66, ../sass/_display.scss */
 .score {
   color: #8c8b8a;
   font-size: 15px;
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-/* line 69, ../sass/_display.scss */
+/* line 70, ../sass/_display.scss */
 .score span {
   min-height: 15px;
 }
 
-/* line 74, ../sass/_display.scss */
+/* line 75, ../sass/_display.scss */
 .tags.group .tag {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4591,27 +4592,27 @@ h3.title {
   padding-right: 1em;
 }
 
-/* line 77, ../sass/_display.scss */
+/* line 78, ../sass/_display.scss */
 .field {
   clear: left;
 }
 
-/* line 81, ../sass/_display.scss */
+/* line 82, ../sass/_display.scss */
 .date-location {
   clear: both;
 }
 
-/* line 85, ../sass/_display.scss */
+/* line 86, ../sass/_display.scss */
 .description {
   color: #8c8b8a;
 }
 
-/* line 91, ../sass/_display.scss */
+/* line 92, ../sass/_display.scss */
 .in-list {
   color: #8c8b8a;
   border: 1px solid #b7b6b2;
 }
-/* line 94, ../sass/_display.scss */
+/* line 95, ../sass/_display.scss */
 .in-list .name {
   margin-top: 0.5em;
   font-family: 'Open Sans Bold', sans-serif;
@@ -4619,32 +4620,32 @@ h3.title {
   color: #626262;
   font-size: 16px;
 }
-/* line 98, ../sass/_display.scss */
+/* line 99, ../sass/_display.scss */
 .in-list .L1, .in-list .L2 {
   font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
 }
-/* line 102, ../sass/_display.scss */
+/* line 103, ../sass/_display.scss */
 .in-list .L2 {
   margin-bottom: 0.76923em;
 }
-/* line 105, ../sass/_display.scss */
+/* line 106, ../sass/_display.scss */
 .in-list .L3 {
   margin-bottom: 0.76923em;
   font-weight: normal;
   font-size: 12px;
   font-family: Helvetica, sans-serif;
 }
-/* line 110, ../sass/_display.scss */
+/* line 111, ../sass/_display.scss */
 .in-list .L3 span {
   font-size: 12px;
 }
-/* line 114, ../sass/_display.scss */
+/* line 115, ../sass/_display.scss */
 .in-list .involved {
   font-weight: bold;
 }
-/* line 117, ../sass/_display.scss */
+/* line 118, ../sass/_display.scss */
 .in-list .title {
   font-family: 'Open Sans Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4652,12 +4653,12 @@ h3.title {
   font-size: 16px;
 }
 
-/* line 122, ../sass/_display.scss */
+/* line 123, ../sass/_display.scss */
 .Actor.in-list.search-results {
   border: none;
 }
 
-/* line 129, ../sass/_display.scss */
+/* line 130, ../sass/_display.scss */
 .overlay .footer {
   border-bottom: 0px solid #a0a0a0;
   bottom: 0em;
@@ -4667,14 +4668,14 @@ h3.title {
   height: 3.07692em;
 }
 
-/* line 138, ../sass/_display.scss */
+/* line 139, ../sass/_display.scss */
 .when-overlay-not_expanded,
 .when-overlay-expanded {
   width: 20%;
   height: 100%;
   float: left;
 }
-/* line 143, ../sass/_display.scss */
+/* line 144, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-expand,
 .when-overlay-expanded button.do-expand {
   text-transform: uppercase;
@@ -4702,7 +4703,7 @@ h3.title {
 .when-overlay-expanded button.do-expand:hover {
   background-color: #d96859;
 }
-/* line 147, ../sass/_display.scss */
+/* line 148, ../sass/_display.scss */
 .when-overlay-not_expanded button.do-collapse,
 .when-overlay-expanded button.do-collapse {
   text-transform: uppercase;
@@ -4731,7 +4732,7 @@ h3.title {
   background-color: #d96859;
 }
 
-/* line 153, ../sass/_display.scss */
+/* line 154, ../sass/_display.scss */
 button.do-select {
   text-transform: uppercase;
   font-family: 'Open Sans Semi Bold', sans-serif;
@@ -4758,7 +4759,7 @@ button.do-select:hover {
   background-color: #d96859;
 }
 
-/* line 159, ../sass/_display.scss */
+/* line 160, ../sass/_display.scss */
 button.do-edit {
   font-family: 'Open Sans Semi Bold', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -4784,7 +4785,7 @@ button.do-edit:hover {
   background-color: #d96859;
 }
 
-/* line 165, ../sass/_display.scss */
+/* line 166, ../sass/_display.scss */
 div.selection {
   height: 6px;
   width: 6px;
@@ -4801,7 +4802,7 @@ div.selection [data-icon]:before {
   font-size: 13px;
 }
 
-/* line 187, ../sass/_display.scss */
+/* line 188, ../sass/_display.scss */
 li.medium {
   display: inline-block;
 }
@@ -4814,7 +4815,7 @@ li.medium [data-icon]:before {
   -webkit-font-smoothing: antialiased;
   font-size: 6em;
 }
-/* line 177, ../sass/_display.scss */
+/* line 178, ../sass/_display.scss */
 li.medium .media-document-thumbnail, li.medium .media-video-thumbnail {
   color: #92928f;
   padding-left: 10px;
@@ -4825,7 +4826,7 @@ li.medium .media-document-thumbnail, li.medium .media-video-thumbnail {
   cursor: pointer;
 }
 
-/* line 191, ../sass/_display.scss */
+/* line 192, ../sass/_display.scss */
 .media-result div {
   display: inline-block;
 }
@@ -4838,7 +4839,7 @@ li.medium .media-document-thumbnail, li.medium .media-video-thumbnail {
   -webkit-font-smoothing: antialiased;
   font-size: 6em;
 }
-/* line 177, ../sass/_display.scss */
+/* line 178, ../sass/_display.scss */
 .media-result div .media-document-thumbnail, .media-result div .media-video-thumbnail {
   color: #92928f;
   padding-left: 10px;
@@ -4901,6 +4902,70 @@ li.medium .media-document-thumbnail, li.medium .media-video-thumbnail {
   *zoom: 1;
   background-color: #f5f0ec;
   width: 46%;
+}
+
+/* line 1, ../sass/_dataEntry.scss */
+#bulletin-form, #actor-form {
+  width: 90%;
+  margin: auto;
+  background-color: white;
+  padding: 10px;
+  overflow: hidden;
+  *zoom: 1;
+  clear: both;
+}
+
+/* line 10, ../sass/_dataEntry.scss */
+.span-28p {
+  width: 28%;
+  float: left;
+  clear: none;
+}
+
+/* line 16, ../sass/_dataEntry.scss */
+#actor-form .last input {
+  width: 100%;
+}
+
+/* line 20, ../sass/_dataEntry.scss */
+input[type=button].save-data-entry {
+  clear: both;
+  width: 100%;
+  background-color: #fd6d5a;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 8px;
+}
+/* line 28, ../sass/_dataEntry.scss */
+input[type=button].save-data-entry:hover {
+  background-color: #fd8373;
+  cursor: pointer;
+}
+
+/* line 33, ../sass/_dataEntry.scss */
+.data-entry-container {
+  position: relative;
+}
+
+/* line 37, ../sass/_dataEntry.scss */
+.modal-cover {
+  position: absolute;
+  width: 100%;
+  height: 150%;
+  z-index: 1000;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
+  opacity: 0.3;
+}
+/* line 44, ../sass/_dataEntry.scss */
+.modal-cover p {
+  width: 200px;
+  color: white;
+  font-size: 20px;
+  text-align: centre;
+  margin: auto;
+  margin-top: 380px;
 }
 
 /*@ sourceMappingURL=screen.css.map */

@@ -81,9 +81,12 @@ define (
         },
         
         validateForm: function() {
-          var validatableElements = $('.required');
-          var results = _.map(validatableElements, this.validationFuncion);
-          return _.reduce(results, this.checkPassedAll, true) || this.setError(results);
+          var $validatableElements =
+                $('.required.' + this.entityType + '-field'),
+              results = _.map($validatableElements, this.validationFuncion),
+              passed  = _.reduce(results, this.checkPassedAll, true);
+          console.log(results);
+          return passed || this.setError(results);
         },
 
         filterTestCreator: function(expected) {
@@ -131,6 +134,7 @@ define (
           var formContent = this.formContent();
           formContent = this.validateDateFields(formContent);
           this.model.set(formContent);
+          console.log('saveRequested', this.validateForm());
           if (this.validateForm() === true){
             this.saveModel();
           }
@@ -412,7 +416,6 @@ define (
           setInputVal(field.value);
           setDisplayVal(field.value);
         }
-
       };
 
     return {

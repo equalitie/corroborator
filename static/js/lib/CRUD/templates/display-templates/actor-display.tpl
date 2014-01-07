@@ -152,5 +152,13 @@
       <div class="actors group">
       </div>
     {{/if}}
+    {{#if model.related_bulletins}}
+    <div class="bulletins group">
+    </div>
+    {{/if}}
+    {{#if model.related_incidents}}
+    <div class="incidents group">
+    </div>
+    {{/if}}
   </div>
 </div>

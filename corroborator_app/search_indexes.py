@@ -78,6 +78,9 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     actor_searchable_pob = indexes.MultiValueField(faceted=True)
     actor_searchable_current = indexes.MultiValueField(faceted=True)
 
+    related_bulletins = indexes.MultiValueField()
+    related_incidents = indexes.MultiValueField()
+
     actor_comments = indexes.MultiValueField()
 
     def get_model(self):
@@ -184,6 +187,17 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return ActorPrepMeta().prepare_count_bulletins(object)
 
+    def prepare_related_bulletins(self, object):
+        """
+        Return all bulletins related to this Actor
+        """
+        return ActorPrepMeta().prepare_related_bulletins(object)
+
+    def prepare_related_incidents(self, object):
+        """
+        Return all incidents related to this Actor
+        """
+        return ActorPrepMeta().prepare_related_incidents(object)
 
 class MediaIndex(CelerySearchIndex, indexes.Indexable):
     """
@@ -257,7 +271,6 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     incident_modified = indexes.DateTimeField(model_attr='incident_modified', \
     faceted=True, null=True)
 
-    incident_comments_text = indexes.MultiValueField()
     deleted = indexes.BooleanField()
 
     incident_searchable_locations = indexes.MultiValueField(faceted=True)

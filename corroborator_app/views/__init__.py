@@ -2,48 +2,35 @@
 This file handles the core views for th Corroborator application.
 
 Author: Bill Doran
+TODO: move the views into separate files and extract common methods into utils
+module
 2013/02/10
 """
 import json
 from datetime import datetime, timedelta
-from django.utils import translation
-from django.db.models import Q
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import (
     HttpResponseRedirect, Http404, HttpResponse, HttpResponseServerError)
+
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+
 
 from tastypie.models import ApiKey
 
 from corroborator_app.monitor.monitorDataLoader import MonitorDataLoader
 from corroborator_app.multisave import multi_save_actors, \
     multi_save_bulletins, multi_save_incidents
-from corroborator_app.models import CrimeCategory, \
-    Location, Source, StatusUpdate, ActorRole, Label, \
-    PredefinedSearch, Bulletin, Incident, Actor
-from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
-from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
+from corroborator_app.models import (
+    Bulletin,
+    Incident,
+    Actor
+)
 
-###############################################################################
-# FORMATTING HELPER METHODS
-###############################################################################
-
-
-def format_predefined_search(predef_object):
-    """
-    Load json from db
-    """
-    predef_object.actor_filters =\
-        predef_object.actor_filters
-    predef_object.bulletin_filters =\
-        predef_object.bulletin_filters
-    predef_object.incident_filters =\
-        predef_object.incident_filters
-    return predef_object
-
+from corroborator_app.views.context import build_js_context
 
 def get_solr_url(path):
     '''
@@ -55,6 +42,10 @@ def get_solr_url(path):
         solr_path = 'http://demo.corroborator.org/solr/collection1/'
     return solr_path
 
+from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
+from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
+
+from corroborator_app.views.view_utils import is_in_group
 
 ###############################################################################
 # MAIN VIEW METHODS -
@@ -109,73 +100,34 @@ def login_user(request):
     )
 
 
+@login_required
 def index(request, *args, **kwargs):
     """
     main view method - this renders the production app page and adds all
     bootstrap variables required - this is used at / and /corroborator
-     handle formatting of lists outside the view function
+    handle formatting of lists outside the view function
     """
-    if request.user.is_authenticated():
-        username = request.user.username
-        userid = request.user.id
+    for group in request.user.groups.all():
+        if group.name == u'data-entry':
+            return redirect('/data-entry/')
 
-        labels_set = Label.objects.all()
+    return render(
+        request, 'new_search.html', build_js_context(request.user)
+    )
 
-        role_status_set = []
-        roles = ActorRole.ROLE_STATUS
-        for role in roles:
-            role_status_set.append({
-                'key': role[0],
-                'value': role[1]}
-            )
 
-        relation_status_set = []
-        relations = ActorRole.RELATION
-        for relation in relations:
-            relation_status_set.append({
-                'key': relation[0],
-                'value': relation[1]}
-            )
+@login_required
+def data_entry(request, *args, **kwargs):
+    '''
+    show the data entry view
+    '''
 
-        predefined_search_set = PredefinedSearch.objects.filter(
-            Q(user_id=userid) | Q(make_global=True)
-        )
-        predefined_search_set = map(
-            format_predefined_search,
-            predefined_search_set
-        )
-        crimes_set = CrimeCategory.objects.all()
-        status_set = StatusUpdate.objects.all()
-        sources_set = Source.objects.all()
-        users_set = User.objects.all()
-        loc_set = Location.objects.all()
+    incorrect_groups = [u'data-analyst', u'chief-data-analyst', ]
+    for group in request.user.groups.all():
+        if group.name in incorrect_groups:
+            return redirect('/corroborator/')
 
-        #api details
-        user = User.objects.get(username=username)
-        api = ApiKey.objects.get(user=user)
-
-        return render(
-            request, 'new_search.html',
-            {
-                #TODO - create view to allow locale switching
-                'locale': translation.get_language(),
-                'role_status_set': role_status_set,
-                'relation_status_set': relation_status_set,
-                'predefined_search_set': predefined_search_set,
-                'sources_set': sources_set,
-                'labels_set': labels_set,
-                'crimes_set': crimes_set,
-                'status_set': status_set,
-                'users_set': users_set,
-                'loc_set': loc_set,
-                'username': username,
-                'userid': userid,
-                'api_key': api.key,
-                'solr_url': str(get_solr_url(request.path))
-            }
-        )
-    else:
-        return render_to_response('auth.html', RequestContext(request))
+    return render(request, 'data-entry.html', build_js_context(request.user))
 
 
 def monitoring_update_conf(request, conf_name):
@@ -195,7 +147,10 @@ def monitoring_update_conf(request, conf_name):
 
         result_json = json.dumps(result)
         if 'error' in result_json:
-            return HttpResponseServerError(result_json, mimetype='application/json')
+            return HttpResponseServerError(
+                result_json,
+                mimetype='application/json'
+            )
         else:
             return HttpResponse(result_json, mimetype='application/json')
     else:
@@ -217,9 +172,7 @@ def monitoring(request, *args, **kwargs):
         api = ApiKey.objects.get(user=user)
 
         mdl = MonitorDataLoader()
-        import sys 
         importer_conf_data = json.dumps(mdl.importer_config)
-        print >> sys.stderr, importer_conf_data
         scraper_conf_data = json.dumps(mdl.scraper_config)
         importer_stats_data = json.dumps(mdl.importer_stats)
 
@@ -232,19 +185,21 @@ def monitoring(request, *args, **kwargs):
                 'username': username,
                 'userid': userid,
                 'api_key': api.key,
+                'is_analyst': is_in_group(user, 'data-analyst'),
+                'is_senior_analyst': is_in_group(user, 'senior-data-analyst'),
+                'is_chief_analyst': is_in_group(user, 'chief-data-analyst'),
             }
         )
     else:
         return render_to_response('auth.html', RequestContext(request))
-
-
 
 ###############################################################################
 # OBJECT REFRESH
 #
 ##############################################################################
 
-def get_updated_objects():    
+
+def get_updated_objects():
     """
     Return a set of objects updated during the last window
     """
@@ -268,7 +223,9 @@ def get_updated_objects():
     }
     user_id_tpl = '/api/v1/user/{0}'
     for bulletin in bulletins:
-        user_id = user_id_tpl.format(int(bulletin.most_recent_update_by()[0]['status__user'])) \
+        updated_user_id =\
+            int(bulletin.most_recent_update_by()[0]['status__user'])
+        user_id = user_id_tpl.format(updated_user_id) \
             if len(bulletin.most_recent_update_by()) > 0 else ''
         refreshed['bulletins'].append({
             'id': bulletin.id,
@@ -279,7 +236,9 @@ def get_updated_objects():
             'update': str(bulletin.bulletin_modified)
         })
     for incident in incidents:
-        user_id = user_id_tpl.format(int(incident.most_recent_update_by()[0]['status__user']))\
+        updated_user_id =\
+            int(incident.most_recent_update_by()[0]['status__user'])
+        user_id = user_id_tpl.format(updated_user_id)\
             if len(incident.most_recent_update_by()) > 0 else ''
 
         refreshed['incidents'].append({
@@ -291,7 +250,9 @@ def get_updated_objects():
             'update': str(incident.incident_modified)
         })
     for actor in actors:
-        user_id = user_id_tpl.format(int(actor.most_recent_update_by()[0]['status__user']))\
+        updated_user_id =\
+            int(actor.most_recent_update_by()[0]['status__user'])
+        user_id = user_id_tpl.format(updated_user_id)\
             if len(actor.most_recent_update_by()) > 0 else ''
 
         refreshed['actors'].append({
@@ -311,7 +272,7 @@ def entity_refresh(request):
     """
     if request.user.is_authenticated:
         refreshed_entities = get_updated_objects()
-        data = json.dumps(refreshed_entities) 
+        data = json.dumps(refreshed_entities)
         return HttpResponse(data, mimetype='application/json')
     else:
         return Http404

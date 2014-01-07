@@ -30,9 +30,9 @@ class PredefinedSearchResource(ModelResource):
         always_return_data = True
     def hydrate(self, bundle):
         bundle.data['incident_filters'] =\
-            json.dumps(bundle.data['incident_filters'])
+            json.dumps(bundle.data['incident_filters']) if 'incident_filters' in bundle.data else ''
         bundle.data['bulletin_filters'] =\
-            json.dumps(bundle.data['bulletin_filters'])
+            json.dumps(bundle.data['bulletin_filters']) if 'bulletin_filters' in bundle.data else ''
         bundle.data['actor_filters'] =\
-            json.dumps(bundle.data['actor_filters'])
+            json.dumps(bundle.data['actor_filters']) if 'actor_filters' in bundle.data else ''
         return bundle

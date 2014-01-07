@@ -80,6 +80,7 @@
           </div>
               
           <!-- Assigned to user -->
+          {{#if perms.can_assign_users}}
           <div id="incident-assignment-block" class="incidentAssigned left">
             <label>{{i18n.incident.Assigned_to}}</label>
 
@@ -95,6 +96,7 @@
             <span>✓</span>
           </button>
           </div>
+          {{/if}}
         </div>
       </div>
     </div>
@@ -186,12 +188,20 @@
           <select name="status_uri" 
                   id="status" 
                   class="required incident-field">
-            <option value="">{{i18n.incident.Select_Status}}</option>
-            {{#each statuses}}
-              <option
-                value="{{this.resource_uri}}"
-              >{{this.comment_status}}</option>
-            {{/each}}
+                {{#if model.id}}
+                <option value="{{statuses.0.resource_uri}}">{{statuses.0.comment_status}}</option>
+                {{else}}
+                <option value="{{statuses.0.resource_uri}}">Human Created</option>
+                {{/if}}
+                {{#if model.id}}
+                {{#each statuses}}
+                {{#if @index}}
+                  <option
+                    value="{{this.resource_uri}}"
+                  >{{this.comment_status}}</option>
+                {{/if}}
+                {{/each}}
+                {{/if}}
           </select>
           <input class="incident-field" type="hidden" name="status" value="">
         </div>

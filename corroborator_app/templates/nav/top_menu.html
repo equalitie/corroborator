@@ -3,11 +3,8 @@
   <h1 class="title text T">Corroborator</h1>
   <ul class="user">
     <li class="hover-expandable">
-      <a href="/home/" class="text T">{{username}}</a>
+      <a href="/" class="text T">{{username}}</a>
       <ul class="when-hover menu">
-        <li>
-          <a href="user-settings" class="text T">{% trans "Settings" %}</a>
-        </li>
         <li>
           <a href="/logout/" class="text T">{% trans "Logout" %}</a>
         </li>
@@ -15,15 +12,47 @@
     </li>
   </ul>
   <ul class="sections list-h">
-    <li class="current">
+    {% if is_senior_analyst or is_chief_analyst %}
+    <li
+      {% if search == True %}
+        class="current"
+        >{% trans "Search" %}
+      {% else %}
+        >
       <a href="/corroborator/" class="text T">{% trans "Search" %}</a>
+      {% endif %}
     </li>
+    {% endif %}
+    {% if is_chief_analyst %}
+    <li 
+      {% if reporting == True %}
+        class="current"
+        >{% trans "Reporting" %}
+      {% else %}
+        >
+        <a href="/corroborator/reporting/" class="text T">{% trans "Reporting" %}</a>
+      {% endif %}
+    </li>
+    {% endif %}
+
+    {% if is_chief_analyst %}
     <li>
       <a href="/admin/" class="text T">{% trans "Administration" %}</a>
     </li>
-    <li>
-      <a href="/corroborator/monitoring" class="text T">{% trans "Monitoring" %}</a>
+    {% endif %}
+    {% if is_chief_analyst %}
+    <li
+      {% if monitoring == True %}
+        class="current"
+        >{% trans "Monitoring" %}
+      {% else %}
+        >
+        <a href="/corroborator/monitoring" class="text T">{% trans "Monitoring" %}</a>
+      {% endif %}
     </li>
+    {% endif %}
+
+
     <li>
       <form action="{% url 'set_language' %}" method="post">
       {% csrf_token %}

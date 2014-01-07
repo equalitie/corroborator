@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // This view manages the display area, it listens for navigation events and
@@ -147,7 +147,8 @@ define (
         this.expanded = content.expanded;
         content.expanded = false;
         this.renderContainer(content)
-            .renderEntity(content);
+            .renderEntity(content)
+            .disableEditIfFinalized(content);
         if (this.expanded) {
           this.expandRequested();
         }
@@ -161,6 +162,17 @@ define (
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
+      disableEditIfFinalized: function(content) {
+        var entityStatus =
+          this.model.get('most_recent_status_' + content.entity);
+        if (entityStatus === 'Finalized'
+          && Bootstrap.perms.can_update_to_finalized === false) {
+          this.$el.children()
+                  .children()
+                  .children('button.do-edit')
+                  .remove();
+        }
+      },
 
       // render an entity
       renderEntity: function(entityDetails) {
@@ -169,12 +181,12 @@ define (
           el: '.' + entityDetails.entity + '-container',
           entityDetails: entityDetails
         });
+        this.model = displayView.model;
 
         //trigger a resize to be passed on to the map views
         //to get over them being rendered when not actually in the dom
         displayView.trigger('resize');
         displayView.selectInitialLanguage();
-        this.model = displayView.model;
         this.updateSelectListener();
         this.childViews.push(displayView);
         return this;

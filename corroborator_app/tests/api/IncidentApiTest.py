@@ -1,25 +1,26 @@
-from tastypie.models import ApiKey
-from django.contrib.auth.models import User
-from tastypie.test import ResourceTestCase
-from autofixture import AutoFixture
-from corroborator_app.models import (
-    Incident, CrimeCategory, Location, Actor,
-    ActorRole, Comment, TimeInfo, StatusUpdate, Label
-)
-import datetime
 import json
-from django.utils.timezone import utc
+
+from django.contrib.auth.models import User
+
+from autofixture import AutoFixture
+
+from tastypie.models import ApiKey
+from tastypie.test import ResourceTestCase
+
+from corroborator_app.models import (
+    Incident, CrimeCategory, Location, Actor, ActorRole, Comment,
+    TimeInfo, StatusUpdate, Label
+)
+from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 
 
 class IncidentTestCase(ResourceTestCase):
+    fixtures = ['test_data_role.json', 'status_update', ]
+
     def setUp(self):
         super(IncidentTestCase, self).setUp()
-
-        now = datetime.datetime.utcnow().replace(tzinfo=utc)
-        self.from_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-        self.to_datetime = now.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
-        self.user = User(username='user', password='password', email='1@2.com')
-        self.user.save()
+        self.test_user_util = TestUserUtility()
+        self.user = self.test_user_util.user
 
         self.location = Location(name_en='test location', loc_type='Village')
         self.location.save()
@@ -50,13 +51,6 @@ class IncidentTestCase(ResourceTestCase):
             comments_en='test comment')
         self.comment.save()
 
-        self.timeinfo = TimeInfo(
-            confidence_score=1,
-            time_from=self.from_datetime,
-            time_to=self.to_datetime,
-            event_name_en='test event')
-        self.timeinfo.save()
-
         fixture = AutoFixture(Incident, generate_m2m={1, 5})
         fixture.create(10)
 
@@ -68,6 +62,7 @@ class IncidentTestCase(ResourceTestCase):
             self.user.username, self.api_key.key)
 
     def tearDown(self):
+        User.objects.all().delete()
         Incident.objects.all().delete()
         Actor.objects.all().delete()
         ActorRole.objects.all().delete()
@@ -115,120 +110,104 @@ class IncidentTestCase(ResourceTestCase):
         i = Incident.objects.all()[0]
         url = '/api/v1/incident/{0}/?format=json{1}'.format(
             i.id, self.auth_string)
-        put_data = {
-            'title_en': "Test Incident",
-            'title_ar': "Test Incident Arabic",
-            'incident_details_en': "incident_details en",
-            'incident_details_ar': "incident_details Arabic",
-            'confidence_score': 11,
-            'assigned_user': '/api/v1/user/1/',
-            'incident_comments': ['/api/v1/comment/1/', ],
-            'bulletins': [],
-            'actors_role': [],
-            'crimes': [],
-            'labels': [],
-            'times': [],
-            'locations': [],
-            'ref_incidents': [],
-            'status': '/api/v1/statusUpdate/1/',
-            'comment': 'Comment',
-            'status_uri': '/api/v1/statusUpdate/1/'
-        }
+
+        put_data = create_put_data()
         response = self.api_client.put(url, data=put_data)
+        self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
 
-    def test_incident_patch_update(self):
-        url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
-        patch_data = {
-            'objects': [
-                {
-                    'id': '1',
-                    'resource_uri': '/api/v1/incident/1/',
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'assigned_user': '/api/v1/user/1/',
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                },
-                {
-                    'id': '2',
-                    'resource_uri': '/api/v1/incident/2/',
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                }
-            ]
-        }
-        response = self.api_client.patch(url, data=patch_data)
-        self.assertEqual(response.status_code, 202)
+    def test_finalized_is_not_updated(self):
+        precreated_incident = Incident.objects.all()[0]
+        comment = Comment(
+            assigned_user_id=1,
+            comments_en='comment',
+            status_id=5
+        )
+        comment.save()
+        precreated_incident.incident_comments.add(comment)
+        url = '/api/v1/incident/{0}/?format=json{1}'.format(
+            precreated_incident.id, self.auth_string)
 
-    def test_incident_patch(self):
-        url = '/api/v1/incident/?format=json{}'.format(self.auth_string)
-        patch_data = {
-            'objects': [
-                {
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'assigned_user': '/api/v1/user/1/',
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                },
-                {
-                    'title_en': "Test Incident",
-                    'title_ar': "Test Incident Arabic",
-                    'incident_details_en': "incident_details en",
-                    'incident_details_ar': "incident_details Arabic",
-                    'confidence_score': 11,
-                    'incident_comments': ['/api/v1/comment/1/', ],
-                    'bulletins': [],
-                    'actors_role': [],
-                    'crimes': [],
-                    'labels': [],
-                    'times': [],
-                    'locations': [],
-                    'ref_incidents': [],
-                    'status': 'Updated',
-                    'comment': 'Comment',
-                    'status_uri': '/api/v1/statusUpdate/1/'
-                }
-            ]
-        }
-        response = self.api_client.patch(url, data=patch_data)
-        self.assertEqual(response.status_code, 202)
+        put_data = create_put_data(4)
+        response = self.api_client.put(url, data=put_data)
+        self.assertEqual(response.status_code, 403)
+
+    def test_assigned_user_perm_enforced(self):
+        self.test_user_util.add_user_to_group('data-analyst')
+        fixture = AutoFixture(User)
+        fixture.create(1)
+        precreated_incident = Incident.objects.all()[0]
+        precreated_incident.assigned_user = User.objects.get(id=2)
+        precreated_incident.save()
+        url = '/api/v1/incident/{0}/?format=json{1}'.format(
+            precreated_incident.id, self.auth_string)
+        put_data = create_put_data(4)
+        response = self.api_client.put(url, data=put_data)
+        assigned_user_id = retrieve_user_id(response)
+        self.assertEqual(assigned_user_id, 2)
+        self.test_user_util.add_user_to_group('chief-data-analyst')
+        response = self.api_client.put(url, data=put_data)
+        assigned_user_id = retrieve_user_id(response)
+        self.assertEqual(assigned_user_id, 1)
+
+    def check_dehydrated_data(self, response):
+        """
+        Test that returned data contains required dehydrated fields.
+        New fields should be added to this method as they are added to the
+        API to ensure that consistency between front and back end.
+        """
+        dehydrate_keys = [
+            'incident_locations',
+            'incident_labels',
+            'incident_times',
+            'incident_crimes',
+            'most_recent_status_incident',
+            'count_actors',
+            'count_bulletins',
+            'count_incidents',
+            'actor_roles_status',
+            'actors',
+            'actors_role'
+        ]
+        content = json.loads(response.content)
+        self.assertEqual(
+            all(
+                test in content for test in dehydrate_keys
+            ),
+            True
+        )
+
+
+def create_put_data(status_id=3):
+    return {
+        'title_en': "Test Incident",
+        'title_ar': "Test Incident Arabic",
+        'incident_details_en': "incident_details en",
+        'incident_details_ar': "incident_details Arabic",
+        'confidence_score': 11,
+        'assigned_user': '/api/v1/user/1/',
+        'incident_comments': ['/api/v1/comment/1/', ],
+        'bulletins': [],
+        'actors_role': [],
+        'crimes': [],
+        'labels': [],
+        'times': [],
+        'locations': [],
+        'ref_incidents': [],
+        'comment': 'Comment',
+        'status_uri': '/api/v1/statusUpdate/{0}/'.format(status_id)
+    }
+
+
+def retrieve_user_id(response):
+    return id_from_uri(
+        json.loads(response.content)['assigned_user']
+    )
+
+
+def retrieve_last_comment_status(response):
+    content = json.loads(response.content)
+    len_comments = len(content['incident_comments'])
+    return Comment.objects.get(
+        id=id_from_uri(content['incident_comments'][len_comments - 1])
+    ).status.status_en

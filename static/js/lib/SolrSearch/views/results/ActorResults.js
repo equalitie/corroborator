@@ -95,6 +95,7 @@ define (
       },
       childViews: [],
       initialize: function() {
+        this.addi18n();
         this.collection = Collections.ActorCollection;
         this.listenTo(this.collection, 'add', this.renderItem.bind(this));
         this.listenTo(this.collection, 'sort', this.sortRequested.bind(this));

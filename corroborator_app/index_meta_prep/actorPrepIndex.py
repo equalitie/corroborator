@@ -12,6 +12,44 @@ from django.conf import settings
 
 
 class ActorPrepMeta():
+
+    def prepare_related_bulletins(self, object):
+        """
+        Return set of Bulletins associated with a given Actor
+        """
+        roles = ActorRole.objects.filter(
+            actor=object.id
+            ).filter(
+                bulletin__isnull=False
+            )
+        
+        related_bulletins = [
+            '/api/v1/bulletin/{0}/'.format(b.id) \
+            for ar in roles \
+            for b in ar.bulletin_set.all()
+        ]
+
+        return related_bulletins
+
+    def prepare_related_incidents(self, object):
+        """
+        Return set of Incidents associated with a given Actor
+        """
+        roles = ActorRole.objects.filter(
+            actor=object.id
+            ).filter(
+                incident__isnull=False
+            )
+        
+        related_incidents = [
+            '/api/v1/incident/{0}/'.format(b.id) \
+            for ar in roles \
+            for b in ar.incident_set.all()
+        ]
+
+        return related_incidents
+
+        
     def prepare_actor_actor_roles(self, object):
         """
         Returns a full list of the roles played by actors associate

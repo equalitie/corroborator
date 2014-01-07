@@ -127,7 +127,10 @@ define({
     'dialog': {
       'Any_changes_you_have_made_on_the_form_will_be_lost_Are_you_sure':'Any changes you have made on the form will be lost. Are you sure?',
       'Close': 'Close',
-      'Cancel': 'Cancel'
+      'Cancel': 'Cancel',
+      'Confirm': 'Confirm',
+      'Preview_add_actor': 'Actor Preview',
+      'Preview_add_bulletin': 'Bulletin Preview',
     },
     'Hide': 'Hide',
     'Search': 'Search',
@@ -137,6 +140,9 @@ define({
     'Select': 'Select',
     'Edit': 'Edit',
     'Save': 'Save',
+    'Saved': 'Saved',
+    'SaveFailed': 'Save Failed',
+    'Saving': 'Saving',
     'unselected': 'unselected'
   },
   'ar': true

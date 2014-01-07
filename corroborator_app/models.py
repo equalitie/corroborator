@@ -6,10 +6,12 @@ Author: Bill Doran
 2013/02/01
 """
 
-from haystack.utils.geo import Point
 from django.db import models
 from django.db.models import Min,  Max
 from django.contrib.auth.models import User
+
+from haystack.utils.geo import Point
+
 from queued_storage.backends import QueuedStorage
 
 from reversion.models import Revision
@@ -31,6 +33,7 @@ class SolrUpdate(models.Model):
     user = models.ForeignKey(User)
     update_timestamp = models.DateTimeField(auto_now=True)
 
+
 class MonitorUpdate(models.Model):
     """
     Store most recent monitor update
@@ -38,6 +41,7 @@ class MonitorUpdate(models.Model):
     """
     user = models.ForeignKey(User)
     update_timestamp = models.DateTimeField(auto_now=True)
+
 
 class PredefinedSearch(models.Model):
     """
@@ -53,6 +57,64 @@ class PredefinedSearch(models.Model):
     make_global = models.BooleanField()
 
 
+class PermStatusUpdateManager(models.Manager):
+    def available_statuses(self, user):
+        '''
+        return a list of the available statuses, allows for users to have
+        more that one group
+        '''
+        groups = {
+            'data-analyst': [3],
+            'senior-data-analyst': [3, 4],
+            'chief-data-analyst': [3, 4, 5],
+        }
+
+        status_ids = []
+        try:
+            for group in user.groups.all():
+                status_ids = status_ids + groups[group.name]
+        except KeyError:
+            status_ids = []
+
+        status_ids = set(status_ids)
+
+        return StatusUpdate.objects.filter(id__in=status_ids)
+
+    def get_update_status(self, user, requested_status_id):
+        '''
+        return the status that the user may update to
+        '''
+        queryset = super(PermStatusUpdateManager, self).get_query_set()
+        requested_status = queryset.get(id=requested_status_id)
+        has_perm = False
+        for group in user.groups.all():
+            has_perm = has_perm or self.has_perm_for_status_requested(
+                group,
+                requested_status.status_en)
+
+        if has_perm:
+            return requested_status
+
+        else:
+            return queryset.filter(id=3)[0]
+
+    def has_perm_for_status_requested(self, group, status_en):
+        '''
+        check that the user can update the entity based on permissions
+        set
+        '''
+        perm_status_map = {
+            'Updated': 'can_update',
+            'Reviewed': 'can_update_to_reviewed',
+            'Finalized': 'can_update_to_finalized'
+        }
+        try:
+            codename = perm_status_map[status_en]
+            return len(group.permissions.filter(codename=codename)) == 1
+        except KeyError:
+            return False
+
+
 class StatusUpdate(models.Model):
     """
     This object represents a comment status update. It records the
@@ -64,6 +126,8 @@ class StatusUpdate(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     user = models.ForeignKey(User, null=True, blank=True)
+    objects = models.Manager()
+    filter_by_perm_objects = PermStatusUpdateManager()
 
     def __unicode__(self):
         return self.status_en
@@ -427,6 +491,7 @@ class Actor(models.Model):
     actor_comments = models.ManyToManyField(Comment, blank=True, null=True)
 
     # Foreign Keys
+    assigned_user = models.ForeignKey(User, blank=True, null=True)
     actors_role = models.ManyToManyField(
         'ActorRole', blank=True, null=True, related_name='actors_role')
     POB = models.ForeignKey(
@@ -469,6 +534,19 @@ class Actor(models.Model):
         """
         roles = self.ActorRole_set.all()
         return Incident.objects.filter(actors_role__in=roles).count()
+
+    def most_recent_status_actor(self):
+        """
+        This method returns the most recent status for a given Bulletin event.
+        It is used by Django Haystack in construction of the Solr Index.
+        """
+        status = self.actor_comments.values('status__status_en')\
+            .order_by('-comment_created')
+        if len(status) > 0:
+            status = status[0]
+            return status['status__status_en']
+        else:
+            return ''
 
 
 class ActorRelationship(models.Model):

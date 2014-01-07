@@ -56,12 +56,14 @@
   <div class="span-33p">
     <div class="body">
       <div class="group">
+        {{#if model.confidence_score}}
         <div class="is-score group">
           <h4>Confidence</h4>
           <div class="score">
             <span class="value">{{model.confidence_score}}</span>
           </div>
         </div>
+        {{/if}}
         {{#if model.most_recent_status_bulletin}}
         <div class="is-status group">
           <h4>{{i18n.bulletins.update_status}}</h4>

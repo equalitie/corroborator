@@ -1,0 +1,52 @@
+#bulletin-form, #actor-form {
+  width: 90%;
+  margin: auto;
+  background-color: white;
+  padding: 10px;
+  @include clearfix;
+  clear: both;
+}
+
+.span-28p {
+  width: 28%;
+  float: left;
+  clear: none;
+}
+
+#actor-form .last input {
+width: 100%;
+}
+
+input[type=button].save-data-entry {
+  clear: both;
+  width: 100%;
+  background-color: $BRIGHT_RED;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 8px;
+  &:hover {
+    background-color: lighten($BRIGHT_RED, 5%);
+    cursor: pointer;
+  }
+}
+.data-entry-container {
+  position: relative;
+}
+
+.modal-cover {
+  position: absolute;
+  width: 100%;
+  height: 150%;
+  z-index: 1000;
+  background-color: black;
+  @include opacity(0.3);
+  p {
+    width: 200px;
+    color: white;
+    font-size: 20px;
+    text-align: centre;
+    margin: auto;
+    margin-top: 380px;
+  }
+}

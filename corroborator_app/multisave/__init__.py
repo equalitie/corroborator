@@ -156,15 +156,16 @@ def batch_parse_id_from_uri(uri_list):
     return id_list
 
 
-def string_check(comment_string):
+def string_check(string_field, label):
     '''
     check for a non 0 length string
     '''
     passed = False
     error = {
-        'comment': 'comment is missing'
+        label: '{0} is missing'.format(label)
     }
-    if comment_string.replace(' ', '').isalnum() and len(comment_string) is not 0:
+    is_alnum = string_field.replace(' ', '').isalnum()
+    if is_alnum and len(string_field) is not 0:
         passed = True
         error = {}
     return passed, error
@@ -196,17 +197,16 @@ def validate_status_update(query_dict):
     '''
     total_passed = 0
     required_fields = {
-        'comment': string_check,
-        'status_uri': status_update_check
+        'comment': string_check
     }
     return_error = {}
     for key, validation_function in required_fields.iteritems():
-        validation_passed, error = validation_function(query_dict[key])
+        validation_passed, error = validation_function(query_dict[key], key)
         if validation_passed is True:
             total_passed += 1
         else:
             return_error.update(error)
-    passed = True if (total_passed is 2) else False
+    passed = True if (total_passed == len(required_fields)) else False
     return passed, json.dumps(return_error)
 
 
@@ -215,12 +215,32 @@ def create_comment(comment_text, status_id, user):
     create a status update comment to be appended to each entity
     '''
     comment = Comment(
-        assigned_user_id=user.id,
         comments_en=comment_text,
-        status_id=status_id
+        status_id=status_id,
+        assigned_user_id=user.id
     )
     comment.save()
     return comment
+
+
+def is_finalized(entity_id, model_type, status_func_name):
+    status_func = getattr(
+        model_type.objects.get(id=entity_id),
+        status_func_name
+    )
+    return status_func() != u'Finalized'
+
+
+def bulletin_finalized(entity_id):
+    return is_finalized(entity_id, Bulletin, 'most_recent_status_bulletin')
+
+
+def incident_finalized(entity_id):
+    return is_finalized(entity_id, Incident, 'most_recent_status_incident')
+
+
+def actor_finalized(entity_id):
+    return is_finalized(entity_id, Actor, 'most_recent_status_actor')
 
 
 ###########################################################################
@@ -238,8 +258,11 @@ def multi_save_actors(request, actor_dict, username):
             error_response,
             mimetype='application/json'
         )
+    status_id = parse_id_from_uri(actor_dict['status_uri'])
 
     actor_id_list = extract_ids(actor_dict, 'selectedActors')
+    actor_id_list = filter(actor_finalized, actor_id_list)
+
     actor_dict = process_actor_data(actor_dict)
     actor_dict['user'] = request.user
     actor_dict.pop('selectedActors')
@@ -303,13 +326,18 @@ def update_entity_status(mutable_dict, model_object):
         'Incident': 'incident_comments'
     }
     model_comment_field_key = comment_field_map[class_name]
-
     comment_text = mutable_dict['comment']
-    status_id = parse_id_from_uri(mutable_dict['status_uri'])
     user = mutable_dict['user']
+    status_id = parse_id_from_uri(mutable_dict['status_uri'])
+
+    status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
+        user,
+        status_id
+    )
+
     comment = create_comment(
         comment_text,
-        status_id,
+        status_update.id,
         user
     )
     getattr(model_object, model_comment_field_key).add(comment)
@@ -431,6 +459,8 @@ def multi_save_bulletins(request, bulletin_dict, username):
         )
 
     bulletin_id_list = extract_ids(bulletin_dict, 'bulletins')
+    bulletin_id_list = filter(bulletin_finalized, bulletin_id_list)
+
     bulletin_dict = process_bulletin_dict(bulletin_dict)
     bulletin_dict.pop('bulletins')
     bulletin_objects = Bulletin.objects.filter(
@@ -493,6 +523,8 @@ def multi_save_incidents(request, incident_dict, username):
         )
 
     incident_id_list = extract_ids(incident_dict, 'incidents')
+    incident_id_list = filter(
+        incident_finalized, incident_id_list)
     incident_dict = process_incident_dict(incident_dict)
     incident_dict.pop('incidents')
     incident_objects = Incident.objects.filter(

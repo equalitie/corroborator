@@ -8,10 +8,13 @@ define (
     'backbone', 'underscore', 'lib/Data/collections',
     'lib/streams',
     'lib/CRUD/views/display-views/actor/actor-container',
+    'lib/CRUD/views/display-views/bulletin/bulletin-container',
+    'lib/CRUD/views/display-views/incident/incident-container',
     'lib/CRUD/templates/display-templates/actor-display.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, ActorListView, 
+    BulletinListView, IncidentListView,
     actorDisplayTmp, i18n) {
     'use strict';
 
@@ -45,7 +48,9 @@ define (
       // set the small template
       displayView: function() {
         this.render()
-            .renderRelatedActors();
+            .renderRelatedActors()
+            .renderRelatedBulletins()
+            .renderRelatedIncidents();
       },
 
       onDestroy: function() {
@@ -101,6 +106,7 @@ define (
         var actorsEl, content, roles_en, actorsContainer;
         actorsEl = this.getContainerEl('actors');
         content = this.model.get('actors');
+        console.log(actorsEl, content);
         roles_en = this.model.get('actor_roles_status');
         actorsContainer = new ActorListView({
           el: actorsEl,
@@ -110,6 +116,34 @@ define (
         });
         return this;
       },
+      // render the related bulletins
+      renderRelatedBulletins: function() {
+        var bulletinsEl, content, bulletinsContainer;
+        bulletinsEl = this.getContainerEl('bulletins');
+
+        content = this.model.get('related_bulletins');
+        bulletinsContainer = new BulletinListView({
+          el: bulletinsEl,
+          content: content,
+          expanded: this.expanded
+        });
+        return this;
+      },
+
+      // render the related incidents
+      renderRelatedIncidents: function() {
+        var incidentsEl, content, incidentsContainer; 
+        incidentsEl = this.getContainerEl('incidents');
+        content = this.model.get('related_incidents');
+        console.log(content);
+        incidentsContainer = new IncidentListView({
+          el: incidentsEl,
+          content: content,
+          expanded: this.expanded
+        });
+        return this;
+      },
+
       render: function() {
         this.destroyChildren();
         var html = this.template({

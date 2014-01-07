@@ -27,7 +27,11 @@ define (
         Formatter          = Mixins.Formatter,
         WidgetMixin        = Mixins.WidgetMixin,
         LocationCollection = Location.LocationCollection,
-        ConfirmMixin       = Mixins.ConfirmMixin;
+        ConfirmMixin       = Mixins.ConfirmMixin,
+
+        userList = function() {
+          return Bootstrap.gl_ac_users_list;
+        };
 
     // ### ActorFormView
     // display create update form for actor
@@ -44,6 +48,18 @@ define (
         'click button.do-hide'            : 'requestCloseForm',
         'change #status'                  : 'onSelectStatus'
       },
+
+      // define the fields that will have autocomplete enabled  
+      // className refers to the input field which will have the autocomplete
+      // result, content is an array of usernames and ids. name is the name of
+      // the hidden field that stores the userid
+      autoCompleteFields: [
+        {
+          className: '.is-assigned-to',
+          content  : userList(),
+          name     : 'assigned_user'
+        }
+      ],
 
       // keys for date fields, these need to be validated and removed
       // from the model object if invalid
@@ -100,7 +116,6 @@ define (
       ],
       // constructor
       initialize: function(options) {
-        console.log(this);
         this.addi18n();
         this.populateWidgets();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
@@ -227,6 +242,7 @@ define (
         var html = this.template({
           model: this.model.toJSON(),
           statuses: Bootstrap.comment_statuses,
+          perms: Bootstrap.perms,
           i18n: i18n
           });
         this.$el.html(html);

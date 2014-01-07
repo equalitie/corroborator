@@ -7,6 +7,9 @@ from settings.common import *
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
+SOLR_URL = 'http://127.0.0.1:8983/solr/collection1/'
+SOLR_PROXY_URL = 'http://127.0.0.1:8983/solr/collection1/'
+
 ROOT_PATH = '/Users/cormac/work/programming/python/djangodev/corroborator/'
 #DATABASES = {
     #'default': {

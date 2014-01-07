@@ -56,6 +56,21 @@
               </span>
             </span>
           </div>
+          <!-- Assigned to user -->
+          {{#if perms.can_assign_users}}
+          <div id="actor-assignment-block" class="field actorAssigned">
+            <label>{{i18n.incident.Assigned_to}}</label>
+
+            <input type="text" class="with-clear is-assigned-to"
+              value="{{model.actor_assigned_user}}">
+            <input
+              type="hidden"
+              name="assigned_user"
+              class="actor-field"
+              value="{{model.assigned_user}}">
+
+          </div>
+          {{/if}}
 
         </div>
         <!-- end header -->
@@ -333,12 +348,20 @@
               <select name="status_uri" 
                       id="status" 
                       class="required actor-field">
-                <option value="">{{i18n.actor.Select_Status}}</option>
-                {{#each statuses}}
-                  <option
-                    value="{{this.resource_uri}}"
-                  >{{this.comment_status}}</option>
-                {{/each}}
+                {{#if model.id}}
+                <option value="{{statuses.0.resource_uri}}">{{statuses.0.comment_status}}</option>
+                {{else}}
+                <option value="{{statuses.0.resource_uri}}">Human Created</option>
+                {{/if}}
+                {{#if model.id}}
+                  {{#each statuses}}
+                  {{#if @index}}
+                    <option
+                      value="{{this.resource_uri}}"
+                    >{{this.comment_status}}</option>
+                  {{/if}}
+                  {{/each}}
+                {{/if}}
               </select>
               <input class="actor-field" type="hidden" name="status" value="">
             </div>

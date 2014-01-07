@@ -7,8 +7,13 @@ Test the multisave bulletin functionality
 import json
 
 from django.test import TestCase, Client
+from django.contrib.auth.models import User
 
 from autofixture import AutoFixture
+
+from corroborator_app.multisave import (
+    create_comment
+)
 
 from corroborator_app.tests.test_utilities import TestUserUtility
 from corroborator_app.models import Bulletin, Location, ActorRole
@@ -38,6 +43,7 @@ class MultiSaveBulletinTestCase(TestCase):
         '''
         initialisation for tests
         '''
+        User.objects.all().delete()
         Bulletin.objects.all().delete()
         Location.objects.all().delete()
         ActorRole.objects.all().delete()
@@ -75,6 +81,31 @@ class MultiSaveBulletinTestCase(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 403)
+
+    def test_finalized_entities_are_not_updated(self):
+        '''
+        finalized entities should not be updated
+        '''
+        user = User.objects.get(id=1)
+        finalized_bulletin = Bulletin.objects.get(id=1)
+        finalized_bulletin.bulletin_comments.add(
+            create_comment('A finalizing comment', 5, user)
+        )
+        client = self.test_user_util.client_login()
+        post_data = create_bulletin_data(
+            empty_data=False,
+            version_info=True
+        )
+        response = client.post(
+            '/corroborator/bulletin/0/multisave/',
+            post_data,
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 200)
+        finalized_bulletin_comments =\
+            Bulletin.objects.get(id=1).bulletin_comments.all()
+
+        self.assertEqual(len(finalized_bulletin_comments), 1)
 
 
 def create_bulletin_data(empty_data=False, version_info=True):

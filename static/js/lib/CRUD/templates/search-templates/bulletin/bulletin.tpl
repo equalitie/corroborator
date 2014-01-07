@@ -84,6 +84,7 @@
 
 
           <!-- Assigned to field name='assigned_user' -->
+          {{#if perms.can_assign_users}}
             <div id="bulletin-assignment-block" class="bulletinAssigned  left">
               <label>{{i18n.bulletin.Assigned_to}}</label>
 
@@ -97,6 +98,7 @@
               <span>✓</span>
             </button>
             </div>
+          {{/if}}
             <!-- end assigned_user -->
 
           </div>
@@ -181,12 +183,20 @@
             <select name="status_uri" 
                     id="status" 
                     class="required bulletin-field">
-              <option value="">{{i18n.bulletin.Select_Status}}</option>
-              {{#each statuses}}
-                <option
-                  value="{{this.resource_uri}}"
-                >{{this.comment_status}}</option>
-              {{/each}}
+                {{#if model.id}}
+                <option value="{{statuses.0.resource_uri}}">{{statuses.0.comment_status}}</option>
+                {{else}}
+                <option value="{{statuses.0.resource_uri}}">Human Created</option>
+                {{/if}}
+                {{#if model.id}}
+                  {{#each statuses}}
+                  {{#if @index}}
+                    <option
+                      value="{{this.resource_uri}}"
+                    >{{this.comment_status}}</option>
+                  {{/if}}
+                  {{/each}}
+                {{/if}}
             </select>
           <input class="bulletin-field" type="hidden" name="status" value="">
           </div>
