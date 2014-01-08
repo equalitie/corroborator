@@ -4,10 +4,11 @@
 // 
 
 define(
-  ['backbone', 'lib/reporting/streams'],
-  function(Backbone, EventStream) {
+  ['backbone', 'lib/streams'],
+  function(Backbone, Streams) {
     'use strict';
     var Router,
+        navBus = Streams.navBus,
         routerInstance;
 
     Router = Backbone.Router.extend({
@@ -15,10 +16,11 @@ define(
         'tab/:route': 'openReportPage'
       },
       openReportPage: function(page) {
-        EventStream.push({
-          type: 'route',
+        navBus.push({
+          type: 'navigate',
           content: {
-            route: page
+            route: page,
+            entity: page
           }
         });
       }

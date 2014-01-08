@@ -6,14 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     {% include "includes/styles.html" %}
+    {% block styles %}
+    {% endblock %}
 
     <script type="text/javascript"
             charset="utf-8"
             src="{{STATIC_URL}}js/components/modernizr/modernizr.js"> </script>
-
-
-
-
 
     {% block script %}
     {% endblock %}

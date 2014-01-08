@@ -25,7 +25,8 @@ define(
           var navMap = {
             actor: ActorFilters.ActorFilterView,
             bulletin: BulletinFilters.BulletinFilterView,
-            incident: IncidentFilters.IncidentFilterView
+            incident: IncidentFilters.IncidentFilterView,
+            user: null
           };
           return navMap[value.content.entity];
         },
@@ -107,12 +108,16 @@ define(
       // next one to be displayed
       replaceView: function(View) {
         this.destroyCurrentView();
-        this.currentView = new View();
+        if (View) {
+          this.currentView = new View();
+        }
+
       },
       // call the destroy method on the current view
       destroyCurrentView: function() {
         if (this.currentView !== undefined) {
           this.currentView.destroy();
+          this.currentView = undefined;
           //delete(this.currentView);
         }
       }

@@ -12,7 +12,7 @@ define(
     'lib/SolrSearch/persist/apply-saved-search'
   ],
   function(_, SolrManager, SearchReloader, Header, Results, FilterManager,
-    SearchDetailFinder, SaveDialog, SearchLoader) {
+    SearchDetailFinder, SaveDialog, SavedSearchLoader) {
     'use strict';
     var headerView,
         searchDetailFinder,
@@ -28,7 +28,7 @@ define(
       // Do initial solr request
       // pass the callback to ensure that the initial request has been
       // done before anything else gets started
-      SearchReloader.init();
+      SearchReloader.init(true);
 
       // start a watcher for save search requests
       searchDetailFinder = new SearchDetailFinder();
@@ -38,7 +38,7 @@ define(
       SaveDialog.init();
 
       // create a watcher to load saved searches on request
-      SearchLoader.init();
+      SavedSearchLoader.init();
     };
     return {
       init: init

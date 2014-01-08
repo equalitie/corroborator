@@ -6,6 +6,9 @@
   {% include "nav/top_menu.html" with reporting=True %}
 {% endblock %}
 
+{% block styles %}
+  <link rel="stylesheet" href="{{STATIC_URL}}js/bower_components/nvd3/nv.d3.min.css">
+{% endblock %}
 {% block script %}
   {% include "includes/reporting_bootstrap.html" %}
   {% include "includes/dev_reporting_script.html" %}
@@ -18,8 +21,9 @@
 
 <div id="reporting-content" class="columns as-2">
   <div class="col first"></div>
-  <div class="col last right-filters">
-    <div class="group is-filters filters graph-selector"></div>
+  <div class="graph-container">
+    <div class="graph-selector"></div>
   </div>
+  <div class="col last right-filters"> </div>
 </div>
 {% endblock %}

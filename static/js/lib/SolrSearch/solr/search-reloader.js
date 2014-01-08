@@ -11,7 +11,7 @@ define (
   function (Streams, $, _) {
     'use strict';
 
-    var searchBus = Streams.searchBus, intervalId,
+    var searchBus = Streams.searchBus, intervalId, activatePolling,
         init, listenForSearchEvents, updateSearchValue, mapToSearchObject,
         restartTimer, sendSearches, filterSearchUpdateRequest, 
         filterSearchStringRequest, listenForSearchStringRequest,
@@ -160,11 +160,15 @@ define (
     // restart the timer that periodically resends the search
     restartTimer = function(searchObject) {
       window.clearInterval(intervalId);
-      //intervalId = window.setInterval(pollForUpdates, 5000, searchObject, false);
+      if (activatePolling === true) {
+        intervalId = window.setInterval(pollForUpdates, 5000, searchObject, false);
+      }
       return 'new_search';
     };
  
-    init = function() {
+    init = function(updateRequired) {
+      console.log('init');
+      activatePolling = updateRequired;
       listenForSearchStringRequest();
       listenForSearchEvents();
       triggerInitialSearch();

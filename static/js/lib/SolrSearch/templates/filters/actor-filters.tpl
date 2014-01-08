@@ -8,7 +8,7 @@
     </div>
   </div>
 </div>
-<div class="body actor-filter" style="top: 62px;">
+<div class="body actor-filter">
   <div class="padding">
     <div class="group is-filters filters">
       <!-- enabled filters -->

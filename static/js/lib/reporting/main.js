@@ -7,18 +7,27 @@ define(
   [
     'backbone',
     'lib/reporting/router/router',
+    'lib/SolrSearch/solr/manager',
     'lib/reporting/views/tab-view',
     'lib/reporting/views/graph-type-select-view',
     'lib/reporting/views/graph-view',
-    'lib/elements/helpers/view-close'
+    'lib/SolrSearch/views/filters/filter-manager',
+    'lib/SolrSearch/solr/search-reloader',
+    'lib/elements/helpers/view-close',
+    'jquery',
+    'jquery_ui',
+    'jquery_time'
   ],
-  function(Backbone, Router, TabView, GraphSelectorView) {
+  function(Backbone, Router, SolrManager, TabView, GraphSelectorView, GraphView, FilterManager, SearchReloader) {
     'use strict';
     var tabView = new TabView({
           el: '#monitor-navigation'
         }),
         graphTypeSelectorView = new GraphSelectorView(),
-        router = new Router();
+        router = new Router(),
+        filterManager = new FilterManager.FilterManagerView();
+
+    SearchReloader.init();
     Backbone.history.start();
     
   

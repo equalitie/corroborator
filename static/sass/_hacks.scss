@@ -53,6 +53,39 @@
   top: $TOP_DIST_COLS;
   overflow: hidden;
 }
+.actor-filter, .bulletin-filter, .incident-filter {
+  top: 62px;
+}
+
+#reporting-content {
+  .actor-filter, .bulletin-filter, .incident-filter {
+    top: 0px;
+  }
+  .graph-container {
+    width: 33.33333333%;
+    right: 0em;
+    position: fixed;
+    top: $TOP_DIST_COLS;
+    margin-right: 20px;
+  }
+  .graph-selector {
+    margin-left: 20px;
+    margin-top: 0.76923em;
+    background-color: #f9f0e8;
+    padding: 0.76923em;
+    border-left: 1px solid #bfbfba;
+    border-right: 1px solid #bfbfba;
+  }
+  .col.last.right-filters {
+    margin-top: -3em;
+    top: $TOP_DIST_COLS + 9;
+  }
+  .header {
+    display: none;
+  }
+  
+}
+
 .right-filters .header {
   left: $PAD_UNIT;
   right: 0em;

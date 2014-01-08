@@ -6,22 +6,22 @@
 define(
   [
     'backbone', 
-    'lib/reporting/streams',
+    'lib/streams',
     'lib/reporting/data/graph-types',
     'lib/reporting/templates/graph-selector.tpl',
     'i18n!lib/reporting/nls/dict'
   ],
-  function(Backbone, EventStreams, GraphTpyes, graphSelectorTpl, i18n) {
+  function(Backbone, Streams, GraphTpyes, graphSelectorTpl, i18n) {
     'use strict';
 
     var graphTypes = {
-          actors   : GraphTpyes.actorGraphs,
-          incidents: GraphTpyes.incidentGraphs,
-          bulletins: GraphTpyes.bulletinGraphs,
-          users    : GraphTpyes.userGraphs
+          actor   : GraphTpyes.actorGraphs,
+          incident: GraphTpyes.incidentGraphs,
+          bulletin: GraphTpyes.bulletinGraphs,
+          user    : GraphTpyes.userGraphs
         },
         filterRouteEvent = function(value) {
-          return value.type === 'route';
+          return value.type === 'navigate';
         },
         mapRouteToGraphTypeCollection = function(value) {
           return graphTypes[value.content.route];
@@ -40,7 +40,7 @@ define(
 
       // listen for routing events
       listenForNavigate: function() {
-        EventStreams.filter(filterRouteEvent)
+        Streams.navBus.filter(filterRouteEvent)
                     .map(mapRouteToGraphTypeCollection)
                     .onValue(this.updateGraphSelector.bind(this));
       },
@@ -97,7 +97,7 @@ define(
 
       // push a graph event
       requestGraph: function(model) {
-        EventStreams.push({
+        Streams.searchBus.push({
           type: 'graph',
           content: model
         });

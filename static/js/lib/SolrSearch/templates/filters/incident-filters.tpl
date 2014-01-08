@@ -8,7 +8,7 @@
     </div>
   </div>
 </div>
-<div class="body incident-filter" style="top: 62px;">
+<div class="body incident-filter" >
   <div class="padding">
     <div class="group is-filters filters">
       <!-- enabled filters -->

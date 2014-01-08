@@ -8,7 +8,7 @@
     </div>
   </div>
 </div>
-<div class="body bulletin-filter" style="top: 62px;">
+<div class="body bulletin-filter" >
   <div class="padding">
     <div class="group is-filters filters">
       <!-- enabled filters -->

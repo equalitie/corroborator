@@ -5,6 +5,7 @@
     'paths': {
       'i18n'           : 'components/requirejs-i18n/i18n',
       'lib'            : 'lib',
+      'leaflet'        : 'components/leaflet/dist/leaflet',
       'jquery'         : 'components/jquery/jquery',
       'jquery_ui'      : 'components/jquery.ui/dist/jquery-ui',
       'jquery_time'    : 'components/jquery-timepicker-addon/jquery-ui-timepicker-addon',
@@ -14,7 +15,11 @@
       'underscore'     : 'components/underscore/underscore',
       'handlebars'     : 'components/handlebars/handlebars',
       'd3'             : 'bower_components/d3/d3',
-      'nv'           : 'bower_components/nvd3/nv.d3'
+      'nv'           : 'bower_components/nvd3/nv.d3',
+      // ajax solr stuff
+      'core'           : 'components/ajax-solr/core',
+      'managers'       : 'components/ajax-solr/managers',
+      'widgets'        : 'components/ajax-solr/widgets'
     },
     shim: {
       d3: {
