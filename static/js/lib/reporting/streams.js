@@ -7,7 +7,7 @@ define(
   function(Bacon) {
     'use strict';
     var reportBus = new Bacon.Bus();
-    //reportBus.log();
+    reportBus.log();
     return reportBus;
   }
 );

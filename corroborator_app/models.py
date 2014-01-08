@@ -691,6 +691,8 @@ class Bulletin(models.Model):
         """
         This method returns the time range for a given Bulletin event.
         It is used by Django Haystack in construction of the Solr Index.
+        TODO: this is common to more than one model - extract it to a
+              method
         """
         time = self.times.aggregate(
             lowest=Min('time_from'), highest=Max('time_to'))

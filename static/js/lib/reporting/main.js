@@ -9,6 +9,7 @@ define(
     'lib/reporting/router/router',
     'lib/reporting/views/tab-view',
     'lib/reporting/views/graph-type-select-view',
+    'lib/reporting/views/graph-view',
     'lib/elements/helpers/view-close'
   ],
   function(Backbone, Router, TabView, GraphSelectorView) {

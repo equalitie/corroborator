@@ -7,10 +7,18 @@ define(
   ['backbone', 'i18n!lib/reporting/nls/dict'],
   function(Backbone, i18n) {
     'use strict';
-    var actorGraphs, bulletinGraphs, incidentGraphs;
 
-    console.log(i18n);
-    actorGraphs = [
+    var GraphModel = Backbone.Model.extend({
+          idAttribute: 'key'
+        }),
+        GraphTypeCollection = Backbone.Collection.extend({
+          model: GraphModel
+        }),
+
+        userGraphs, actorGraphs, bulletinGraphs, incidentGraphs;
+
+
+    actorGraphs = new GraphTypeCollection([
       {
         key: 'age_en_exact',
         type: 'bar',
@@ -46,9 +54,9 @@ define(
         type: 'trend',
         label: i18n.filters.actors_in_time
       },
-    ];
+    ]);
 
-    bulletinGraphs = [
+    bulletinGraphs = new GraphTypeCollection([
       {
         key: 'most_recent_status_bulletin_exact',
         type: 'pie',
@@ -89,9 +97,9 @@ define(
         type: 'pie',
         label: i18n.filters.number_sources
       }
-    ];
+    ]);
 
-    incidentGraphs = [
+    incidentGraphs = new GraphTypeCollection([
       {
         key: 'most_recent_status_incident_exact',
         type: 'pie',
@@ -122,10 +130,61 @@ define(
         type: 'pie',
         label: i18n.filters.score
       }
-    ];
+    ]);
+    userGraphs = new GraphTypeCollection([
+      {
+        key: 'user_login_time',
+        type: 'pie',
+        label: i18n.filters.user_login_time,
+      },
+      {
+        key: 'user_login_per_day',
+        type: 'trend',
+        label: i18n.filters.user_login_per_day,
+        user_required: true
+      },
+      {
+        key: 'user_average_updates',
+        type: 'pie',
+        label: i18n.filters.user_average_updates
+      },
+      {
+        key: 'user_assigned_items_by_status',
+        type: 'pie',
+        label: i18n.filters.user_assigned_items_by_status,
+        user_required: true
+      },
+      {
+        key: 'user_deleted_items',
+        type: 'pie',
+        label: i18n.filters.user_deleted_items
+      },
+      {
+        key: 'user_created_items',
+        type: 'pie',
+        label: i18n.filters.user_created_items
+      },
+      {
+        key: 'user_edited_items',
+        type: 'pie',
+        label: i18n.filters.user_edited_items
+      },
+      {
+        key: 'user_deleted_edited_created',
+        type: 'trend',
+        label: i18n.filters.user_deleted_edited_created
+      }
+    ]);
+
+    userGraphs.entity = 'users';
+    actorGraphs.entity = 'actors';
+    bulletinGraphs.entity = 'bulletins';
+    incidentGraphs.entity = 'incidents';
+
 
     return {
-      actorGraphs: actorGraphs,
+      userGraphs    : userGraphs,
+      actorGraphs   : actorGraphs,
       bulletinGraphs: bulletinGraphs,
       incidentGraphs: incidentGraphs
     };

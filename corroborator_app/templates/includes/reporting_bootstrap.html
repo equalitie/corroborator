@@ -1,5 +1,14 @@
 <script type="text/javascript">
   var Bootstrap = (function() {
+    var user_list = [];
+
+    {%for user in users_set.all %}
+      user_list.push({
+        label:"{{user.username}}",
+        id:"{{user.id}}",
+        resource_uri:"/api/v1/user/{{user.id}}/"
+      });
+    {% endfor %}
 
     //consolidate our init data under one variable
     return {
@@ -8,7 +17,8 @@
         userResource: '/api/v1/user/{{userid}}/',
         apiKey: '{{api_key}}',
         gl_userid: '{{userid}}',
-        solr_url: '{{solr_url}}'
+        solr_url: '{{solr_url}}',
+        user_list: user_list
     }
 
   }());

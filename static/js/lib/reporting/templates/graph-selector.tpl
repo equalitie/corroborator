@@ -1,8 +1,17 @@
 <div class="filter">
-  <label>{{i18n.filters.bulletins_by}}</label>
-  <select id="" name="">
-  {{#each collection}}
-  <option value="status">{{this.label}}</option>
-  {{/each}}
+  <label>{{by}}</label>
+  <!-- available graphs -->
+  <select id="graph-type" name="">
+    {{#each collection}}
+      <option value="{{this.key}}">{{this.label}}</option>
+    {{/each}}
+  </select>
+
+  <!--user selector -->
+  <label class="user-select hidden">User</label>
+  <select id="" name="" class="user-select hidden">
+    {{#each users}}
+      <option value="{{this.id}}">{{this.label}}</option>
+    {{/each}}
   </select>
 </div>

@@ -13,8 +13,17 @@
       'moment'         : 'components/moment/moment',
       'underscore'     : 'components/underscore/underscore',
       'handlebars'     : 'components/handlebars/handlebars',
+      'd3'             : 'bower_components/d3/d3',
+      'nv'           : 'bower_components/nvd3/nv.d3'
     },
     shim: {
+      d3: {
+        exports: 'd3'
+      },
+      nv: {
+        deps: ['d3'],
+        exports: 'nv'
+      },
       underscore: {
         exports: '_'
       },

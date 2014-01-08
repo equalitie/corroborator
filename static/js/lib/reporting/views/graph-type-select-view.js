@@ -1,6 +1,6 @@
-/*global define*/
+/*global Bootstrap*/
 // Author: Cormac McGuire
-// ### 
+// ### Handles the graph selector drop down menus
 // 
 
 define(
@@ -15,17 +15,19 @@ define(
     'use strict';
 
     var graphTypes = {
-          actors: GraphTpyes.actorGraphs,
+          actors   : GraphTpyes.actorGraphs,
           incidents: GraphTpyes.incidentGraphs,
-          bulletins: GraphTpyes.bulletinGraphs
+          bulletins: GraphTpyes.bulletinGraphs,
+          users    : GraphTpyes.userGraphs
         },
         filterRouteEvent = function(value) {
           return value.type === 'route';
         },
         mapRouteToGraphTypeCollection = function(value) {
-          return new Backbone.Collection(graphTypes[value.content.route]);
+          return graphTypes[value.content.route];
         },
         GraphSelectorView,
+        UserGraphSelectorView,
         GraphSelectorManager;
 
     // Select the graph types that can be chosen from based
@@ -55,23 +57,75 @@ define(
       }
     });
 
+    // show and handle the graph selector drop down
     GraphSelectorView = Backbone.View.extend({
       template: graphSelectorTpl,
       events: {
+        'change select#graph-type': 'graphSelected',
+        'change select.user-select': 'userSelected'
       },
       initialize: function() {
         this.render();
       },
+
       onDestroy: function() {
         this.stopListening();
       },
+
+      // user selected
+      userSelected: function(evt) {
+        var selectedUser = this.$el.children().children('select.user-select').val(),
+            selectedKey = this.$el.children().children('select#graph-type').val(),
+            model = this.collection.get(selectedKey);
+
+        model.set('user_id', selectedUser);
+        this.requestGraph(model);
+      },
+
+      // graph type selected
+      graphSelected: function(evt) {
+        var selectedKey = this.$el.children().children('select#graph-type').val(),
+            model = this.collection.get(selectedKey);
+        if (model.get('user_required') === true) {
+          this.showUsers();
+        }
+        else {
+          this.hideUsers();
+          this.requestGraph(model);
+        }
+      },
+
+      // push a graph event
+      requestGraph: function(model) {
+        EventStreams.push({
+          type: 'graph',
+          content: model
+        });
+      },
+
+      // hide user select 
+      hideUsers: function() {
+        this.$el.children().children('.user-select').addClass('hidden');
+      },
+
+      // show user select box for graphs that require a specific user
+      showUsers: function() {
+        this.$el.children().children('.user-select').removeClass('hidden');
+      },
+
       render: function() {
+        var key = this.collection.entity + '_by';
         var html = this.template({
           collection: this.collection.toJSON(),
-          i18n: i18n
+          i18n: i18n,
+          users: Bootstrap.user_list,
+          by: i18n.filters[this.collection.entity + '_by']
         });
         this.$el.html(html);
       }
+    });
+
+    UserGraphSelectorView  = Backbone.View.extend({
     });
 
     return GraphSelectorManager;
