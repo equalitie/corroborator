@@ -3,8 +3,13 @@ This file handles the construction of Solr entities based on the existing MySQL
 database model using Django Haystacks as an interface.
 """
 from haystack import indexes
-from corroborator_app.models import Bulletin, Location, \
-    Incident, Actor, Media, SolrUpdate, PredefinedSearch
+from corroborator_app.models import(
+    Bulletin,
+    Location,
+    Incident,
+    Actor,
+    Media,
+)
 from celery_haystack.indexes import CelerySearchIndex
 from django.conf import settings
 
@@ -59,8 +64,11 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     count_bulletins = indexes.IntegerField()
     actor_created = indexes.DateTimeField(
         model_attr='actor_created', faceted=True, null=True)
-    actor_modified = indexes.DateTimeField(model_attr='actor_modified', \
-    faceted=True, null=True)
+    actor_modified = indexes.DateTimeField(
+        model_attr='actor_modified',
+        faceted=True,
+        null=True
+    )
     most_recent_status_actor = indexes.CharField(faceted=True)
     actor_modified_date = indexes.DateField(faceted=True)
     actor_created_date = indexes.DateField(faceted=True)
@@ -102,7 +110,7 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     def get_updated_field(self):
         return "actor_modified"
 
-    def prepare_most_recent_status_actor(self,object):
+    def prepare_most_recent_status_actor(self, object):
         """
         Returns moste recent status associated with a given Incident
         """
@@ -187,7 +195,7 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return ActorPrepMeta().prepare_actor_comments(object)
- 
+
     def prepare_count_incidents(self, object):
         """
         Returns count of incident objects associated with a given Actor
@@ -212,6 +220,7 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return ActorPrepMeta().prepare_related_incidents(object)
 
+
 class MediaIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Media Solr document.
@@ -219,16 +228,18 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     name_en = indexes.CharField(model_attr='name_en', null=True)
     name_ar = indexes.CharField(model_attr='name_en', null=True)
-    media_type =  indexes.CharField(model_attr='media_type', null=True)
-    media_created = indexes.DateTimeField(model_attr='media_created',
-    faceted=True, null=True)
+    media_type = indexes.CharField(model_attr='media_type', null=True)
+    media_created = indexes.DateTimeField(
+        model_attr='media_created', faceted=True, null=True)
     media_file = indexes.CharField()
     resource_uri = indexes.CharField()
     media_thumb_file = indexes.CharField()
-    media_file_type = indexes.CharField(model_attr="media_file_type", null=True)
+    media_file_type = indexes.CharField(
+        model_attr="media_file_type", null=True)
 
     def get_model(self):
         return Media
+
     def get_updated_field(self):
         return "media_created"
 
@@ -238,16 +249,20 @@ class MediaIndex(CelerySearchIndex, indexes.Indexable):
         """
         #return object.get_uri()
 
-        if object.media_file.name != '' and object.media_file.name != None:
+        if (object.media_file.name != ''
+                and object.media_file.name is not None):
             return settings.S3_URL + '/' + object.media_file.name
         else:
             ''
+
     def prepare_media_thumb_file(self, object):
         #return object.get_thumb_uri()
-        if object.media_thumb_file.name != '' and object.media_thumb_file.name != None:
+        if (object.media_thumb_file.name != ''
+                and object.media_thumb_file.name is not None):
             return settings.S3_URL + '/' + object.media_thumb_file.name
         else:
             ''
+
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this media instance
@@ -261,31 +276,34 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     This document handles the construction of the Incident Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    incident_details_en = indexes.CharField(model_attr='incident_details_en',
-    null=True)
-    incident_details_ar = indexes.CharField(model_attr='incident_details_ar',
-    null=True)
+    incident_details_en = indexes.CharField(
+        model_attr='incident_details_en', null=True)
+    incident_details_ar = indexes.CharField(
+        model_attr='incident_details_ar', null=True)
     title_en = indexes.CharField(model_attr='title_en', null=True)
     title_ar = indexes.CharField(model_attr='title_ar', null=True)
-    confidence_score = indexes.IntegerField(model_attr='confidence_score',
-    null=True, faceted=True)
+    confidence_score = indexes.IntegerField(
+        model_attr='confidence_score', null=True, faceted=True)
     incident_times = indexes.MultiValueField(faceted=True)
     locations = indexes.MultiValueField(faceted=True)
     incident_labels = indexes.MultiValueField(faceted=True)
     count_actors = indexes.IntegerField()
     count_bulletins = indexes.IntegerField()
     count_incidents = indexes.IntegerField()
-    incident_assigned_user = indexes.CharField(default='unassigned',model_attr='assigned_user',
-    faceted=True, null=True)
+    incident_assigned_user = indexes.CharField(
+        default='unassigned',
+        model_attr='assigned_user',
+        faceted=True,
+        null=True
+    )
     assigned_user = indexes.CharField()
     most_recent_status_incident = indexes.CharField(faceted=True)
-    incident_created = indexes.DateTimeField(model_attr='incident_created',
-    faceted=True, null=True)
-    incident_modified = indexes.DateTimeField(model_attr='incident_modified', \
-    faceted=True, null=True)
+    incident_created = indexes.DateTimeField(
+        model_attr='incident_created', faceted=True, null=True)
+    incident_modified = indexes.DateTimeField(
+        model_attr='incident_modified', faceted=True, null=True)
     incident_modified_date = indexes.DateField(faceted=True)
     incident_created_date = indexes.DateField(faceted=True)
-
 
     deleted = indexes.BooleanField()
 
@@ -306,6 +324,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Incident
+
     def get_updated_field(self):
         return "incident_modified"
 
@@ -330,6 +349,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_times(object)
+
     def prepare_ref_incidents(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -343,6 +363,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_labels(object)
+
     def prepare_ref_bulletins(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -363,6 +384,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         associated actors
         """
         return ActorPrepMeta().prepare_actors(object)
+
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -370,26 +392,28 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         return ActorPrepMeta().prepare_actors_role(object)
 
-
     def prepare_crimes(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_crimes(object)
+
     def prepare_incident_comments(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_incident_comments(object)
+
     def prepare_resource_uri(self, object):
         """
         Returns the correctly formated uri related to this incident instance
         for the tastypie api
         """
         return IncidentPrepMeta().prepare_resource_uri(object)
-    def prepare_most_recent_status_incident(self,object):
+
+    def prepare_most_recent_status_incident(self, object):
         """
         Returns moste recent status associated with a given Incident
         """
@@ -406,6 +430,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         Returns count of Actor objects associated with a given Incident
         """
         return IncidentPrepMeta().prepare_count_actors(object)
+
     def prepare_count_incidents(self, object):
         """
         Returns count of Incident objects associated with a given Incident
@@ -452,24 +477,27 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     description_ar = indexes.CharField(model_attr='description_ar', null=True)
     title_en = indexes.CharField(model_attr='title_en', null=True)
     title_ar = indexes.CharField(model_attr='title_ar', null=True)
-    confidence_score = indexes.IntegerField(model_attr='confidence_score',
-    null=True, faceted=True)
+    confidence_score = indexes.IntegerField(
+        model_attr='confidence_score', null=True, faceted=True)
     type = indexes.CharField(model_attr='type', null=True)
     bulletin_times = indexes.MultiValueField(faceted=True, null=True)
     locations = indexes.MultiValueField(faceted=True)
     bulletin_labels = indexes.MultiValueField(faceted=True, null=True)
     bulletin_sources = indexes.MultiValueField(faceted=True, null=True)
     count_actors = indexes.IntegerField()
-    bulletin_assigned_user = indexes.CharField(default="unassigned", model_attr='assigned_user', \
-    faceted=True, null=True)
+    bulletin_assigned_user = indexes.CharField(
+        default="unassigned",
+        model_attr='assigned_user',
+        faceted=True,
+        null=True
+    )
     assigned_user = indexes.CharField()
-    most_recent_status_bulletin = indexes.CharField(faceted=True,
-    null=True)
-    bulletin_created = indexes.DateTimeField(model_attr='bulletin_created', \
-    faceted=True, null=True)
+    most_recent_status_bulletin = indexes.CharField(faceted=True, null=True)
+    bulletin_created = indexes.DateTimeField(
+        model_attr='bulletin_created', faceted=True, null=True)
 
-    bulletin_modified = indexes.DateTimeField(model_attr='bulletin_modified', \
-    faceted=True, null=True)
+    bulletin_modified = indexes.DateTimeField(
+        model_attr='bulletin_modified', faceted=True, null=True)
 
     bulletin_modified_date = indexes.DateField(faceted=True)
     bulletin_created_date = indexes.DateField(faceted=True)
@@ -517,7 +545,6 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         """
         return object.bulletin_modified.date()
 
-
     def prepare_times(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
@@ -531,24 +558,28 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_ref_bulletins(object)
+
     def prepare_labels(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_labels(object)
+
     def prepare_actor_roles_status(self, object):
         """
         Returns a list of all roles and relationships associated with this
         Actor instance
         """
         return BulletinPrepMeta().prepare_bulletin_actor_roles(object)
+
     def prepare_actors(self, object):
         """
         Returns an array of tastypi uris related to the Actor's
         associated actors
         """
         return ActorPrepMeta().prepare_actors(object)
+
     def prepare_actors_role(self, object):
         """
         Returns the correctly formated uri related to this incident instance
@@ -562,13 +593,14 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_sources(object)
+
     def prepare_bulletin_comments(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
         for the tastypie api
         """
         return BulletinPrepMeta().prepare_bulletin_comments(object)
-    
+
     def prepare_bulletin_imported_comments(self, object):
         """
         Returns the correctly formated uri related to this bulletin instance
@@ -585,7 +617,8 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
 
     def prepare_most_recent_status_bulletin(self, object):
         """
-        Returns most recently created status update associated with a given Bulletin
+        Returns most recently created status update associated
+        with a given Bulletin
         """
         return BulletinPrepMeta().prepare_most_recent_status_bulletin(object)
 
@@ -631,6 +664,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         """
         return BulletinPrepMeta().prepare_bulletin_times(object)
 
+
 class LocationIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Location Solr document.
@@ -643,6 +677,6 @@ class LocationIndex(CelerySearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Location
+
     def get_updated_field(self):
         return "location_modified"
-
