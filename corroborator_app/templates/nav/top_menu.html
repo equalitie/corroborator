@@ -35,7 +35,7 @@
     </li>
     {% endif %}
 
-    {% if is_chief_analyst %}
+    {% if is_senior_analyst or is_chief_analyst %}
     <li>
       <a href="/admin/" class="text T">{% trans "Administration" %}</a>
     </li>
