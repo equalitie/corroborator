@@ -135,7 +135,10 @@ module.exports = function(grunt) {
         'lib/CRUD/templates/display-templates/*.tpl',
         'lib/CRUD/templates/display-templates/*/*.tpl',
         'lib/monitor/templates/*.tpl',
-        'lib/data-entry/templates/*.tpl'
+        'lib/data-entry/templates/*.tpl',
+        'lib/reporting/*.js',
+        'lib/reporting/**/*.tpl',
+        'lib/reporting/**/*.js'
       ],
       tasks: ['handlebars', /*'karma', /*'jshint', 'requirejs', 'docco'*/]
     }

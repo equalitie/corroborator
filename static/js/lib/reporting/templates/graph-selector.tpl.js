@@ -34,7 +34,7 @@ function program3(depth0,data) {
     + "</label>\n  <!-- available graphs -->\n  <select id=\"graph-type\" name=\"\">\n    ";
   stack1 = helpers.each.call(depth0, depth0.collection, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  </select>\n\n  <!--user selector -->\n  <label class=\"user-select hidden\">User</label>\n  <select id=\"\" name=\"\" class=\"user-select hidden\">\n    ";
+  buffer += "\n  </select>\n</div>\n\n<div class=\"filter\">\n  <!--user selector -->\n  <label class=\"user-select hidden\">User</label>\n  <select id=\"\" name=\"\" class=\"user-select hidden\">\n    ";
   stack1 = helpers.each.call(depth0, depth0.users, {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n  </select>\n</div>\n";

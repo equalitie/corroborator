@@ -8,8 +8,8 @@ define(
     'managers/Manager.jquery',
     'core/ParameterStore'
   ], 
-  function(FacetFields, TextSearch, FilterWidget,
-    EmbeddedSearchWidget, Streams) {
+  function(FacetFields, TextSearch, FilterWidget, EmbeddedSearchWidget,
+    Streams) {
     var solrUrl = {
           solrUrl: Bootstrap.solr_url
         },
@@ -46,16 +46,6 @@ define(
           });
         },
 
-        // add the embedded search widget to a passed in manager
-        addEmbeddedSearchToManager = function(manager) {
-          manager.addWidget(new TextSearch({
-            id: 'EmbeddedSearch',
-            bus: crudBus,
-            shouldSendFilters: false,
-            fields: ['type','sources']
-          }));
-        },
-
         // add the filtered search widget to a passed in manager
         addFilterSearchToManager = function(manager) {
           manager.addWidget(new FilterWidget.FilterWidget({
@@ -74,13 +64,6 @@ define(
           }));
         };
 
-    createEmbeddedSearchManager = function() {
-      var embeddedSearchManager = new AjaxSolr.Manager(solrUrl);
-      addEmbeddedSearchToManager(embeddedSearchManager);
-      embeddedSearchManager.init();
-      addValuesToManager(embeddedSearchManager);
-      return embeddedSearchManager;
-    };
 
 
     // create a manager object to manage the main search across all entities

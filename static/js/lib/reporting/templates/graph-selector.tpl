@@ -6,7 +6,9 @@
       <option value="{{this.key}}">{{this.label}}</option>
     {{/each}}
   </select>
+</div>
 
+<div class="filter">
   <!--user selector -->
   <label class="user-select hidden">User</label>
   <select id="" name="" class="user-select hidden">
