@@ -13,7 +13,12 @@ define(
 
     Router = Backbone.Router.extend({
       routes: {
+        '': 'openIncidentPage',
+        '/': 'openIncidentPage',
         'tab/:route': 'openReportPage'
+      },
+      openIncidentPage: function() {
+        this.openReportPage('incident');
       },
       openReportPage: function(page) {
         navBus.push({
