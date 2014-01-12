@@ -22,8 +22,11 @@ from django.contrib.auth.decorators import login_required
 from tastypie.models import ApiKey
 
 from corroborator_app.monitor.monitorDataLoader import MonitorDataLoader
-from corroborator_app.multisave import multi_save_actors, \
-    multi_save_bulletins, multi_save_incidents
+from corroborator_app.multisave import (
+    multi_save_actors,
+    multi_save_bulletins,
+    multi_save_incidents
+)
 from corroborator_app.models import (
     Bulletin,
     Incident,
