@@ -1,14 +1,14 @@
 define(
   [
     'lib/SolrSearch/solr/facet-fields',
-    'lib/SolrSearch/solr/TextSearch',
+    'lib/SolrSearch/solr/reporting-widget',
     'lib/SolrSearch/solr/filter-widget',
     'lib/SolrSearch/solr/embedded-search-widget',
     'lib/streams',
     'managers/Manager.jquery',
     'core/ParameterStore'
   ], 
-  function(FacetFields, TextSearch, FilterWidget, EmbeddedSearchWidget,
+  function(FacetFields, ReportingWidget, FilterWidget, EmbeddedSearchWidget,
     Streams) {
     var solrUrl = {
           solrUrl: Bootstrap.solr_url
@@ -55,8 +55,8 @@ define(
         },
 
         // add the main text search widget to a passed in manager
-        addTextSearchToManager = function(manager) {
-          manager.addWidget(new TextSearch({
+        addReportingWidgetToManager = function(manager) {
+          manager.addWidget(new ReportingWidget({
             id: 'MainSearch',
             bus: searchBus,
             shouldSendFilters: true,
@@ -69,7 +69,7 @@ define(
     // create a manager object to manage the main search across all entities
     createMainManager = function() {
       var mainManager = new AjaxSolr.Manager(solrUrl);
-      addTextSearchToManager(mainManager);
+      addReportingWidgetToManager(mainManager);
       mainManager.init();
       addValuesToManager(mainManager);
       return mainManager;
@@ -89,7 +89,6 @@ define(
 
     // create the manager objects
     MainManager           = createMainManager();
-    EmbeddedSearchManager = createEmbeddedSearchManager();
     ActorManager          = createFilterManager('actor');
     BulletinManager       = createFilterManager('bulletin');
     IncidentManager       = createFilterManager('incident');
@@ -97,7 +96,6 @@ define(
     // module export
     return {
       MainManager          : MainManager,
-      EmbeddedSearchManager: EmbeddedSearchManager,
       ActorManager         : ActorManager,
       BulletinManager      : BulletinManager,
       IncidentManager      : IncidentManager
