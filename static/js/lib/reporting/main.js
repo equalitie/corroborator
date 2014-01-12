@@ -7,7 +7,7 @@ define(
   [
     'backbone',
     'lib/reporting/router/router',
-    'lib/SolrSearch/solr/manager',
+    'lib/SolrSearch/solr/reporting-manager',
     'lib/reporting/views/tab-view',
     'lib/reporting/views/graph-type-select-view',
     'lib/reporting/views/graph-view',
