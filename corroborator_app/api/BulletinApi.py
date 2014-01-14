@@ -140,7 +140,7 @@ class BulletinResource(ModelResource, APIMixin):
         bundle.data['bulletin_comments'].append(comment_uri)
         bundle = super(BulletinResource, self).obj_update(bundle, **kwargs)
 
-        self.create_revision(bundle, user, status_update)
+        self.create_revision(bundle, user, 'edited')
         update_object.delay(username)
         return bundle
 
@@ -162,7 +162,7 @@ class BulletinResource(ModelResource, APIMixin):
         ]
 
         bundle = super(BulletinResource, self).obj_create(bundle, **kwargs)
-        self.create_revision(bundle, user, status_update)
+        self.create_revision(bundle, user, 'created')
         update_object.delay(username)
         return bundle
 

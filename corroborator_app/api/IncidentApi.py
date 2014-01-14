@@ -122,7 +122,7 @@ class IncidentResource(ModelResource, APIMixin):
         bundle.data['incident_comments'].append(comment_uri)
 
         bundle = super(IncidentResource, self).obj_update(bundle, **kwargs)
-        self.create_revision(bundle, user, status_update)
+        self.create_revision(bundle, user, 'edited')
         update_object.delay(username)
         return bundle
 
@@ -144,7 +144,7 @@ class IncidentResource(ModelResource, APIMixin):
         ]
 
         bundle = super(IncidentResource, self).obj_create(bundle, **kwargs)
-        self.create_revision(bundle, user, status_update)
+        self.create_revision(bundle, user, 'created')
         update_object.delay(username)
         return bundle
 
