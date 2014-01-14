@@ -79,6 +79,8 @@ class IncidentResource(ModelResource, APIMixin):
         username = bundle.request.GET['username']
         bundle = super(IncidentResource, self)\
             .obj_delete(bundle, **kwargs)
+
+        self.create_revision(bundle, user, 'deleted')
         update_object.delay(username)
         return bundle
 

@@ -69,6 +69,8 @@ class ActorResource(ModelResource, APIMixin):
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         bundle = super(ActorResource, self).obj_delete(bundle, **kwargs)
+        # create revision using reversion plugin
+        self.create_revision(bundle, user, 'deleted')
         update_object.delay(username)
         return bundle
 
