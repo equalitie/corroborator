@@ -55,5 +55,5 @@ def graph_view(graph_code, user_id=None):
         json_result = ura.total_user_items_by_crud('edited')
     elif 'user_deleted_edited_created' == graph_code:
         json_result = ura.crud_per_day()
-    
-    return HttpResponse(json_result, mimetype='application/json') 
+
+    return HttpResponse(json_result, mimetype='application/json')
