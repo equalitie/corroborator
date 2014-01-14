@@ -34,5 +34,6 @@ class APIMixin():
             reversion.set_comment(bundle.data['comment'])
             reversion.add_meta(
                 VersionStatus,
-                status=status_update.status_en
+                status=status_update
+                user=user
             )

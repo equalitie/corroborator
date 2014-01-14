@@ -101,7 +101,7 @@ class ActorResource(ModelResource, APIMixin):
         bundle.data['actor_comments'].append(comment_uri)
         bundle = super(ActorResource, self).obj_update(bundle, **kwargs)
         # create revision using reversion plugin
-        self.create_revision(bundle, user, status_update)
+        self.create_revision(bundle, user, 'edited')
         update_object.delay(username)
         return bundle
 
@@ -127,7 +127,7 @@ class ActorResource(ModelResource, APIMixin):
         ]
         bundle = super(ActorResource, self).obj_create(bundle, **kwargs)
         # create revision using reversion plugin - method in ApiMixin
-        self.create_revision(bundle, user, status_update)
+        self.create_revision(bundle, user, 'created')
 
         update_object.delay(username)
         return bundle

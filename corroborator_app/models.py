@@ -6,16 +6,23 @@ Author: Bill Doran
 2013/02/01
 """
 
+from django.contrib.auth.signals import user_logged_out
 from django.db import models
 from django.db.models import Min,  Max
 from django.contrib.auth.models import User
-
+from datetime import datetime
 from haystack.utils.geo import Point
 
 from queued_storage.backends import QueuedStorage
 
 from reversion.models import Revision
 
+class UserLog(models.Model):
+    
+    user = models.ForeignKey(User)
+    login = models.DateTimeField(auto_now=True)
+    logout = models.DateTimeField(auto_now=True)
+    total_seconds = models.FloatField()
 
 class VersionStatus(models.Model):
     """
@@ -23,7 +30,8 @@ class VersionStatus(models.Model):
     """
     revision = models.OneToOneField(Revision)  # This is required
     status = models.CharField(max_length=255)
-
+    user = models.ForeignKey(User)
+    version_timestamp = models.DateTimeField(auto_now=True)
 
 class SolrUpdate(models.Model):
     """
@@ -806,3 +814,21 @@ class Incident(models.Model):
             return status['status__status_en']
         else:
             return ''
+
+
+def update_last_logout(sender, user, **kwargs):
+    """
+    A signal receiver which updates the last_logout date for
+    the user logging out.
+    """
+    logout_timestamp = datetime.now()
+    logged_time = logout_timestamp - user.last_login
+
+    ul = UserLog()
+    ul.login = user.last_login
+    ul.logout = logout_timestamp
+    ul.total_seconds = logged_time.total_seconds()
+    ul.useri = user
+    ul.save()
+
+user_logged_out.connect(update_last_logout)
