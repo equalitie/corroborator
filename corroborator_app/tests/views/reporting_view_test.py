@@ -5,6 +5,7 @@ from corroborator_app.models import (Actor, UserLog, VersionStatus,
 Bulletin, Incident )
 from autofixture import AutoFixture
 import reversion
+from datetime import datetime
 
 class ReportingTestCase(TestCase):
     '''
@@ -16,9 +17,9 @@ class ReportingTestCase(TestCase):
         self.test_util = TestUserUtility()
         fixture = AutoFixture(VersionStatus, generate_fk=True)
         fixture.create(10)
-        vs = VersionStatus.objects.all()
-        print vs[0]
         fixture = AutoFixture(UserLog, generate_fk=True)
+        fixture.create(10)
+        ficture = AutoFixture(User)
         fixture.create(10)
     def tearDown(self):
         pass
