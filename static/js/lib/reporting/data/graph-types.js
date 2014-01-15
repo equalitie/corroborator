@@ -55,6 +55,9 @@ define(
         label: i18n.filters.actors_in_time
       },
     ]);
+    actorGraphs.each(function(aGraph) {
+      aGraph.set('entity', 'actor');
+    });
 
     bulletinGraphs = new GraphTypeCollection([
       {
@@ -99,6 +102,10 @@ define(
       }
     ]);
 
+    bulletinGraphs.each(function(bGraph) {
+      bGraph.set('entity', 'bulletin');
+    });
+
     incidentGraphs = new GraphTypeCollection([
       {
         key: 'most_recent_status_incident_exact',
@@ -131,6 +138,11 @@ define(
         label: i18n.filters.score
       }
     ]);
+
+    incidentGraphs.each(function(iGraph) {
+      iGraph.set('entity', 'incident');
+    });
+
     userGraphs = new GraphTypeCollection([
       {
         key: 'user_login_time',
@@ -175,6 +187,9 @@ define(
         label: i18n.filters.user_deleted_edited_created
       }
     ]);
+    userGraphs.each(function(uGraph) {
+      uGraph.set('entity', 'user');
+    });
 
     userGraphs.entity = 'users';
     actorGraphs.entity = 'actors';

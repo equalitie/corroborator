@@ -9,50 +9,32 @@ define(
     'underscore',
     'lib/SolrSearch/solr/parse-filters',
     'lib/SolrSearch/solr/query-builder',
-    'core/AbstractTextWidget'
+    'core/AbstractTextWidget',
+    'core/AbstractFacetWidget'
   ],
   function(_, ParseFilter, QueryBuilder) {
-        // parse actor results from the result string
-        var filterQueryBuilderEvents = function(value) {
-                return value.type === 'query_builder';
-            },
-            filterEmbeddedSearchEvent = function(value) {
-              return value.type === 'new_embedded_search';
-            },
-            filterSearchUpdateEvent = function(value) {
-              return value.type === 'update_current_results';
-            },
-            filterSearchRequestEvents = function(value) {
-              return value.type === 'new_search';
-            },
-            filterActors = function(element) {
-              return element.django_ct.search(/actor/) > -1;
-            },
-
-            // parse bulletin results from the result string
-            filterMedia = function(element) {
-              return element.django_ct.search(/media/) > -1;
-            },
-
-            // parse bulletin results from the result string
-            filterLocation = function(element) {
-              return element.django_ct.search(/location/) > -1;
-            },
-
-            // parse bulletin results from the result string
-            filterBulletin = function(element) {
-              return element.django_ct.search(/bulletin/) > -1;
-            },
-
-            // parse incident results from the result string
-            filterIncident = function(element) {
-              return element.django_ct.search(/incident/) > -1;
-            };
+            
+    // look for the search event
+    var filterSearchRequestEvents = function(value) {
+          return value.type === 'new_search';
+        };
 
 
-    // AJAX SOLR SEARCH WIDGET
-    // TODO: listen for search event to update the search
+    // SINGLE REPORT LOADER
+    // build the query to load the data for each report
+    var SingleReportLoaderWidget = AjaxSolr.AbstractFacetWidget.extend({
+      init: function() {
+      },
+      // listen for a request to display
+      listenForReportRequests: function() {
+      },
+      afterRequest: function() {
+      }
+    });
 
+    // AJAX SOLR FILTER LOADER WIDGET
+    // searches across all available facets to retrieve all the filters for 
+    // our graphs
     var ReportWidget = AjaxSolr.AbstractTextWidget.extend({
       init: function (options) {
         if (this.shouldSendFilters === undefined) {
@@ -72,7 +54,6 @@ define(
 
       // new search - update filters
       sendSearchRequest: function(searchQuery) {
-        this.shouldSendResults = false;
         this.shouldSendFilters = true;
         this.sendRequest(searchQuery);
       },
@@ -86,28 +67,26 @@ define(
 
       // watch for search and update search result requests
       watchSearchStream: function() {
-
         this.bus.filter(filterSearchRequestEvents)
                  .map(this.parseQuery)
                  .onValue(this.sendSearchRequest.bind(this));
-
       },
-      // send the results off the bus in a super functional way
-      // cos that's how we do round here!
-      //
+
+      // use the ParseFilter module to pull the filters out of the search
+      // results
       sendFilters: function(filters, options) {
+        console.log('sendFilters');
         ParseFilter(filters, 'actor', options);
         ParseFilter(filters, 'bulletin', options);
         ParseFilter(filters, 'incident', options);
       },
 
+      // call back triggered after main search completes
       afterRequest: function () {
         var searchResults = this.manager.response.response.docs,
             filters = this.manager.response.facet_counts.facet_fields;
         if (this.shouldSendFilters === true) {
-          var options = this.updateRequest ? {silent: true} : {};
-          this.sendFilters(filters, options);
-          this.updateRequest = false;
+          this.sendFilters(filters, {});
         }
       }
     });

@@ -66,6 +66,7 @@ define(
       },
       initialize: function() {
         this.render();
+        this.requestGraph(this.collection.first());
       },
 
       onDestroy: function() {

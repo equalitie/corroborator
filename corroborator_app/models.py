@@ -19,10 +19,10 @@ from reversion.models import Revision
 
 class UserLog(models.Model):
     
-    user = models.ForeignKey(User)
-    login = models.DateTimeField(auto_now=True)
-    logout = models.DateTimeField(auto_now=True)
-    total_seconds = models.FloatField()
+    user = models.ForeignKey(User, null=True, blank=True)
+    login = models.DateTimeField(null=True, blank=True)
+    logout = models.DateTimeField(null=True, blank=True)
+    total_seconds = models.FloatField(null=True, blank=True)
 
 class VersionStatus(models.Model):
     """
@@ -30,7 +30,7 @@ class VersionStatus(models.Model):
     """
     revision = models.OneToOneField(Revision)  # This is required
     status = models.CharField(max_length=255)
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, null=True, blank=True)
     version_timestamp = models.DateTimeField(auto_now=True)
 
 class SolrUpdate(models.Model):

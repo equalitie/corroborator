@@ -36,10 +36,10 @@ urlpatterns = patterns(
     url(r'^corroborator/reporting/$',
         'corroborator_app.views.reporting.reporting_view'),
 
-    url(r'^corroborator/graphs/user/(?P<graph_code>\d+)/$',
-        'corroborator_app.views.reporting.graph_view'),
-    url(r'^corroborator/graphs/user/(?P<graph_code>\d+)/(?P<user_id>[0-9]+)/',
-        'corroborator_app.views.reporting.graph_view'),
+    url(r'^corroborator/graphs/user/(?P<graph_code>[a-z_]+)/$',
+        'corroborator_app.views.reporting.request_graph_data'),
+    url(r'^corroborator/graphs/user/(?P<graph_code>[a-z_]+)/(?P<user_id>[0-9]+)/',
+        'corroborator_app.views.reporting.request_graph_data'),
 
     url(
         r'^corroborator/monitoring/update/(?P<conf_name>\w+)/$',

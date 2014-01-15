@@ -11,21 +11,21 @@ class Migration(SchemaMigration):
         # Adding model 'UserLog'
         db.create_table(u'corroborator_app_userlog', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'])),
-            ('login', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('logout', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-            ('total_seconds', self.gf('django.db.models.fields.FloatField')()),
+            ('user', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True)),
+            ('login', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('logout', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
+            ('total_seconds', self.gf('django.db.models.fields.FloatField')(null=True, blank=True)),
         ))
         db.send_create_signal(u'corroborator_app', ['UserLog'])
 
         # Adding field 'VersionStatus.user'
         db.add_column(u'corroborator_app_versionstatus', 'user',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['auth.User']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True, blank=True),
                       keep_default=False)
 
         # Adding field 'VersionStatus.version_timestamp'
         db.add_column(u'corroborator_app_versionstatus', 'version_timestamp',
-                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 1, 13, 0, 0), blank=True),
+                      self.gf('django.db.models.fields.DateTimeField')(auto_now=True, default=datetime.datetime(2014, 1, 14, 0, 0), blank=True),
                       keep_default=False)
 
 
@@ -366,17 +366,17 @@ class Migration(SchemaMigration):
         u'corroborator_app.userlog': {
             'Meta': {'object_name': 'UserLog'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'login': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'logout': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'total_seconds': ('django.db.models.fields.FloatField', [], {}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"})
+            'login': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'logout': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
+            'total_seconds': ('django.db.models.fields.FloatField', [], {'null': 'True', 'blank': 'True'}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
         },
         u'corroborator_app.versionstatus': {
             'Meta': {'object_name': 'VersionStatus'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'revision': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['reversion.Revision']", 'unique': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']"}),
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'}),
             'version_timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
         },
         u'reversion.revision': {

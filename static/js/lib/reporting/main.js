@@ -13,6 +13,7 @@ define(
     'lib/reporting/views/graph-view',
     'lib/SolrSearch/views/filters/filter-manager',
     'lib/SolrSearch/solr/search-reloader',
+    'lib/reporting/streams',
     'lib/elements/helpers/view-close',
     'jquery',
     'jquery_ui',
@@ -20,12 +21,13 @@ define(
   ],
   function(Backbone, Router, SolrManager, TabView, GraphSelectorView, GraphView, FilterManager, SearchReloader) {
     'use strict';
-    var tabView = new TabView({
-          el: '#monitor-navigation'
+    var router = new Router(),
+        tabView = new TabView({
+          el: '#monitor-navigation',
+          router: router
         }),
-        graphTypeSelectorView = new GraphSelectorView(),
-        router = new Router(),
-        filterManager = new FilterManager.FilterManagerView();
+        filterManager = new FilterManager.FilterManagerView(),
+        graphTypeSelectorView = new GraphSelectorView();
 
     SearchReloader.init();
     Backbone.history.start();

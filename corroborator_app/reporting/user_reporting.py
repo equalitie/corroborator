@@ -1,6 +1,6 @@
-from corroborator_app.models import VersionStatus
+from corroborator_app.models import VersionStatus, UserLog
 from django.contrib.auth.models import User
-from django.db.models import Count
+from django.db.models import Count, Sum
 
 import json
 
@@ -17,7 +17,10 @@ class UserReportingApi(object):
         """
         graph_title = 'Total login time by User'
 
-        user_items = VersionStatus.objects.values('user__username').annotate(value=Sum('total_seconds'))
+        user_items = UserLog.objects.values('user__username').annotate(value=Sum('total_seconds'))
+
+        if user_items == []:
+            return '{"error": "No data elements found."}'
 
         return self.bar_format_json(user_items, graph_title)
 
@@ -28,21 +31,24 @@ class UserReportingApi(object):
         """
         graph_title = 'Total user login per day'
 
-        item = VersionStatus.objects.filter(
+        item = UserLog.objects.filter(
             user_id=user_id
         ).extra(
-            {'timestamp':"date(logout_timestamp)"}
-        ).values('logout_timestamp').annotate(
+            {'timestamp':"date(logout)"}
+        ).values('logout').annotate(
             val=Sum('total_seconds')
         )
         items = []
  
         items.append({
-            'values': item,
+            'values': list(item),
             'label': 'Total user login time by date'
         })
 
-        return self.trend_format_json(self, items, graph_title)
+        if items == []:
+            return '{"error": "No data elements found."}'
+
+        return self.trend_format_json(items, graph_title)
  
     def user_average_updates_per_hour(self):
         """
@@ -52,7 +58,7 @@ class UserReportingApi(object):
         graph_title = 'Average user updates per hour'
         user_updates = VersionStatus.objects.filter(
             status='edited'
-        ).values('user_username', 'user_id').annotate(total_updates=Count(id))
+        ).values('user__username', 'user__id').annotate(total_updates=Count('id'))
 
         average_updates = []
         for update in user_updates:
@@ -64,6 +70,9 @@ class UserReportingApi(object):
                 'user__username': update['user__username'],
                 'value': average 
             })
+
+        if average_updates == []:
+            return '{"error": "No data elements found."}'
 
         return self.bar_format_json(average_updates, graph_title)
 
@@ -85,52 +94,58 @@ class UserReportingApi(object):
         """
         graph_title = 'User assigned items by status'
 
-        user = User.objects.filter(pk=user_id)
+        user = User.objects.filter(pk=user_id)[0]
         statuses = {}
 
         bulletin_set = user.bulletin_set.all()
         incident_set = user.incident_set.all()
         actor_set = user.actor_set.all()
 
-        statuses.append(
-            self.get_entity_statuses(
+        statuses = self.get_entity_statuses(
                 bulletin_set,
                 statuses,
                 'bulletin'
             )
-        )
-        statuses.append(
-            self.get_entity_statuses(
+        statuses = self.get_entity_statuses(
                 incident_set,
                 statuses,
                 'incident'
             )
-        )
-        statuses.append(
-            self.get_entity_statuses(
+        statuses = self.get_entity_statuses(
                 actor_set,
                 statuses,
                 'actor'
             )
-        )
 
-        status_set = {}
-    
-        for key,value in statuses:
-            status_set.add({
-                label: key,
-                value: value
-            })
-        return self.bar_formatted_json_per_user(status_set, graph_title)
+        status_set = []
+        if len(statuses) > 0: 
+            for key in statuses:
+                status_set.append({
+                    'label': key,
+                    'value': statuses[key]
+                })
+        if status_set == []:
+            return '{"error": "No data elements found."}'
+
+        return self.bar_format_json_per_user(status_set, graph_title)
 
     def get_entity_statuses(self, entity_set, statuses, entity_type):
         for entity in entity_set:
-            if entity['most_recent_status_' + entity_type] in statuses:
-                statuses[bulletin.most_recent_status_bulletin] += 1
+            entity_status = self.get_entity_status(entity_type, entity)
+            if entity_status in statuses:
+                statuses[entity_status] += 1
             else:
-                statuses[bulletin.most_recent_status_bulletin] = 1
+                statuses[entity_status] = 1
         
         return statuses
+
+    def get_entity_status(self, entity_type,entity):
+        if 'bulletin' == entity_type:
+            return entity.most_recent_status_bulletin()
+        elif 'incident' == entity_type:
+            return entity.most_recent_status_incident
+        else:
+            return entity.most_recent_status_actor
 
     def total_user_items_by_crud(self, crud_type):
         """
@@ -141,6 +156,9 @@ class UserReportingApi(object):
         user_items = VersionStatus.objects.filter(
             status=crud_type
         ).values('user__username').annotate(value=Count('status'))
+
+        if user_items == []:
+            return '{"error": "No data elements found."}'
 
         return self.bar_format_json(user_items, graph_title)
 
@@ -165,7 +183,9 @@ class UserReportingApi(object):
             'label': 'Edited items by date'
         })
 
-        return self.trend_format_json(self, items, graph_title)
+        if items == []:
+            return '{"error": "No data elements found."}'
+        return self.trend_format_json(items, graph_title)
  
     def get_items_by_crud_date(self, crud_type):
         items = VersionStatus.objects.filter(
@@ -175,8 +195,7 @@ class UserReportingApi(object):
         ).values('version_timestamp').annotate(
             val=Count('id')
         )
- 
-        return items
+        return list(items)
 
     def trend_format_json(self, objects, graph_title):
         """
@@ -184,10 +203,9 @@ class UserReportingApi(object):
         the correct format for trend graphs
         """
         trend_json = {
-            title: graph_title,
-            values: objects
+            'title': graph_title,
+            'values': objects
         }
-        
         return json.dumps(trend_json)
 
     def bar_format_json_per_user(self, objects, graph_title):
@@ -196,8 +214,8 @@ class UserReportingApi(object):
         correct format for trend graphs
         """
         bar_json = {
-            title: graph_title,
-            values: objects
+            'title': graph_title,
+            'values': objects
         }
         
         return json.dumps(bar_json)
@@ -208,8 +226,8 @@ class UserReportingApi(object):
         correct format for trend graphs
         """
         bar_json = {
-            title: graph_title,
-            values: self.get_object_values(objects)
+            'title': graph_title,
+            'values': self.get_object_values(objects)
         }
         
         return json.dumps(bar_json)
@@ -218,8 +236,8 @@ class UserReportingApi(object):
         values = []
         for object in objects:
             item = {
-                value: object['value'],
-                label: object['user__username']
+                'value': object['value'],
+                'label': object['user__username']
             }
             values.append(item)
 

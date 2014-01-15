@@ -17,10 +17,6 @@ define(
         searchBus = Streams.searchBus,
         MainManager,
         FilterManager,
-        ActorManager,
-        BulletinManager,
-        IncidentManager,
-        createEmbeddedSearchManager,
         createFilterManager,
         createMainManager,
 
@@ -66,7 +62,7 @@ define(
 
 
 
-    // create a manager object to manage the main search across all entities
+    // create a manager object to load the filters for our three entities
     createMainManager = function() {
       var mainManager = new AjaxSolr.Manager(solrUrl);
       addReportingWidgetToManager(mainManager);
@@ -89,15 +85,9 @@ define(
 
     // create the manager objects
     MainManager           = createMainManager();
-    ActorManager          = createFilterManager('actor');
-    BulletinManager       = createFilterManager('bulletin');
-    IncidentManager       = createFilterManager('incident');
 
     // module export
     return {
-      MainManager          : MainManager,
-      ActorManager         : ActorManager,
-      BulletinManager      : BulletinManager,
-      IncidentManager      : IncidentManager
+      MainManager          : MainManager
     };
 });
