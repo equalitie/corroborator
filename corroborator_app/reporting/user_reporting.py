@@ -205,12 +205,22 @@ class UserReportingApi(object):
             status=crud_type
         ).filter(
             user__id=user_id
-        ).extra(
-            {'timestamp':"date(version_timestamp)"}
-        ).values('version_timestamp').annotate(
-            val=Count('id')
-        )
-        return list(items)
+        ).order_by(
+            'version_timestamp'
+        ).values('version_timestamp', 'id')
+
+        time_data = []
+        for key, values in groupby(items, key=lambda item: item['version_timestamp'].date()):
+            timestamp = key.strftime('%Y-%m-%d')
+            val = 0
+            for value in values:
+                val += 1
+            time_data.append([
+                timestamp,
+                val
+            ])
+
+        return time_data
 
     def trend_format_json(self, objects, graph_title):
         """

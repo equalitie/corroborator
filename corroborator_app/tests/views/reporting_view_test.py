@@ -13,6 +13,7 @@ from corroborator_app.tests.user_log_utilities import(
     generate_start_end_times,
     average_updates_value,
     create_version_status_entries_for_user,
+    crud_items_by_date,
 )
 
 
@@ -237,7 +238,7 @@ class ReportingTestCase(TestCase):
                     'value': total_updates['edited'],
                     'label': 'user'
                 }
-            ],
+           ],
             'title': 'Total edited items by User'
         })
         json_response = json.loads(ura.total_user_items_by_crud('edited'))
@@ -248,9 +249,30 @@ class ReportingTestCase(TestCase):
         '''
         Test correct return of CRUD data as json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_deleted_edited_created/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        import ipdb
+        user = User.objects.all()[0]
+        ipdb.set_trace()
+        items = crud_items_by_date(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'values': items['deleted'],
+                    'label': 'Deleted items by date'
+                },
+                {
+                    'values': items['created'],
+                    'label': 'Created items by date'
+                },
+                {
+                    'values': items['edited'],
+                    'label': 'Edited items by date'
+                }
+            ],
+            'title': 'Deleted, created and edited items by date'
+        })
+        ipdb.set_trace()
+        json_response = json.loads(ura.crud_per_day(user.id))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 

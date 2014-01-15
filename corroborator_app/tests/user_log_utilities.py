@@ -9,6 +9,7 @@ from corroborator_app.models import (
 UserLog, VersionStatus )
 from reversion.models import Revision
 from django.db.models import Count, Sum
+from itertools import groupby
 
 def generate_start_end_times(user):
     '''
@@ -109,3 +110,33 @@ def create_version_status_entries_for_user(user):
         'edited': 1
     }
 
+def crud_items_by_date(user):
+    create_version_status_entries_for_user(user)
+    items = {}
+    items['deleted'] = crud_items('deleted', user)
+    items['created'] = crud_items('created', user)
+    items['edited'] = crud_items('edited', user)
+    return items
+
+def crud_items(crud_type, user):
+    items = VersionStatus.objects.filter(
+        status=crud_type
+    ).filter(
+        user__id=user.id
+    ).order_by(
+        'version_timestamp'
+    ).values('version_timestamp', 'id')
+
+    time_data = []
+
+    for key, values in groupby(items, key=lambda item: item['version_timestamp'].date()):
+        timestamp = key.strftime('%Y-%m-%d')
+        val = 0
+        for value in values:
+            val += 1
+        time_data.append([
+            timestamp,
+            val
+        ])
+
+    return time_data
