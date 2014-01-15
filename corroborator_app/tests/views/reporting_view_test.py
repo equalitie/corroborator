@@ -56,7 +56,7 @@ class ReportingTestCase(TestCase):
         self.assertEqual(response.status_code, 404)
 
     #####################################################################
-    # i took the liberty of DRYing up the tests
+    # DRYing up the tests
     #####################################################################
     def test_graphs_respond(self):
         '''
@@ -73,7 +73,8 @@ class ReportingTestCase(TestCase):
         for graph_code in graph_codes:
             url = url_tpl.format(graph_code)
             response = self.client.get(url)
-            self.assertEqual(response.status_code, 200)
+            fail_message = '{0} failed to load'.format(url_tpl)
+            self.assertEqual(response.status_code, 200, fail_message)
 
     def test_graphs_with_user_id_respond(self):
         '''
@@ -89,7 +90,8 @@ class ReportingTestCase(TestCase):
         for graph_code in graph_codes:
             url = url_tpl.format(graph_code, user_id)
             response = self.client.get(url)
-            self.assertEqual(response.status_code, 200)
+            fail_message = '{0} failed to load'.format(url_tpl)
+            self.assertEqual(response.status_code, 200, fail_message)
 
     #####################################################################
     # tests below can now skip the login bit and test the data generation
