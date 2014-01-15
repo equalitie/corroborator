@@ -6,6 +6,11 @@ from corroborator_app.reporting.user_reporting import UserReportingApi
 from corroborator_app.models import (
     UserLog,
     VersionStatus,
+    Bulletin,
+    Incident,
+    Comment,
+    Actor,
+    StatusUpdate,
 )
 from autofixture import AutoFixture
 
@@ -21,7 +26,7 @@ class ReportingTestCase(TestCase):
     '''
     Test the reporting view and it's supporting json ajax views
     '''
-    fixtures = ['bulletin', ]
+    fixtures = ['status_update',]
 
     def setUp(self):
         self.test_util = TestUserUtility()
@@ -30,6 +35,12 @@ class ReportingTestCase(TestCase):
         #fixture = AutoFixture(UserLog, generate_fk=True)
         #fixture.create(10)
         fixture = AutoFixture(User)
+        fixture.create(1)
+        fixture = AutoFixture(Bulletin)
+        fixture.create(1)
+        fixture = AutoFixture(Incident)
+        fixture.create(1)
+        fixture = AutoFixture(Actor)
         fixture.create(1)
 
     def tearDown(self):
@@ -172,15 +183,45 @@ class ReportingTestCase(TestCase):
         Test correct return of user assigned
         items by status json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
+        user = User.objects.all()[0]
+        precreated_bulletin = Bulletin.objects.all()[0]
+        precreated_actor = Actor.objects.all()[0]
+        precreated_incident = Incident.objects.all()[0]
+        comment = Comment(
+            assigned_user_id=user.id,
+            comments_en='comment',
+            status_id=5
+        )   
+        comment.save()
+        precreated_bulletin.assigned_user = user
+        precreated_bulletin.bulletin_comments.add(comment)
 
-        user = User.objects.all()
-        user_id = user[0].id
+        precreated_actor.assigned_user = user
+        precreated_actor.actor_comments.add(comment)
 
-        url = '/corroborator/graphs/user/user_assigned_items_by_status/{0}/'.format(user_id)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        precreated_incident.assigned_user = user
+        precreated_incident.incident_comments.add(comment)
+
+        precreated_bulletin.save()
+        precreated_actor.save()
+        precreated_incident.save()
+
+        status_label = StatusUpdate.objects.filter(pk=5).values('status_en')[0]['status_en']
+
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': 3,
+                    'label': status_label
+                }
+            ],
+            'title': 'User assigned items by status'
+        })
+
+        json_response = json.loads(ura.user_assigned_items_by_status(user.id))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
 
     def test_user_deleted_items(self):
         '''

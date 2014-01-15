@@ -156,9 +156,9 @@ class UserReportingApi(object):
         if 'bulletin' == entity_type:
             return entity.most_recent_status_bulletin()
         elif 'incident' == entity_type:
-            return entity.most_recent_status_incident
+            return entity.most_recent_status_incident()
         else:
-            return entity.most_recent_status_actor
+            return entity.most_recent_status_actor()
 
     def total_user_items_by_crud(self, crud_type):
         """

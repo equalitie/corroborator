@@ -6,7 +6,8 @@ Helper functions to generate UserLog Data for tests
 
 from datetime import datetime
 from corroborator_app.models import (
-UserLog, VersionStatus )
+UserLog, VersionStatus, Actor, Comment, Bulletin,
+Incident)
 from reversion.models import Revision
 from django.db.models import Count, Sum
 from itertools import groupby
@@ -140,3 +141,5 @@ def crud_items(crud_type, user):
         ])
 
     return time_data
+
+    
