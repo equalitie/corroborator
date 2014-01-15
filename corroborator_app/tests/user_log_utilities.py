@@ -102,4 +102,10 @@ def create_version_status_entries_for_user(user):
         status='deleted',
         revision=revision
     )
+    
+    return {
+        'deleted': 1,
+        'created': 1,
+        'edited': 1
+    }
 

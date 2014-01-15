@@ -12,6 +12,7 @@ from autofixture import AutoFixture
 from corroborator_app.tests.user_log_utilities import(
     generate_start_end_times,
     average_updates_value,
+    create_version_status_entries_for_user,
 )
 
 
@@ -185,37 +186,64 @@ class ReportingTestCase(TestCase):
         Test correct return of user deleted items
         json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_deleted_items/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        user = User.objects.all()[0]
+        total_updates = create_version_status_entries_for_user(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': total_updates['deleted'],
+                    'label': 'user'
+                }
+            ],
+            'title': 'Total deleted items by User'
+        })
+        json_response = json.loads(ura.total_user_items_by_crud('deleted'))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_created_items(self):
         '''
         Test correct return of user created items
         json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_created_items/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        user = User.objects.all()[0]
+        total_updates = create_version_status_entries_for_user(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': total_updates['created'],
+                    'label': 'user'
+                }
+            ],
+            'title': 'Total created items by User'
+        })
+        json_response = json.loads(ura.total_user_items_by_crud('created'))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_edited_items(self):
         '''
         Test correct return of user edited items
         json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_edited_items/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        user = User.objects.all()[0]
+        total_updates = create_version_status_entries_for_user(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': total_updates['edited'],
+                    'label': 'user'
+                }
+            ],
+            'title': 'Total edited items by User'
+        })
+        json_response = json.loads(ura.total_user_items_by_crud('edited'))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_deleted_edited_created(self):
         '''
         Test correct return of CRUD data as json
