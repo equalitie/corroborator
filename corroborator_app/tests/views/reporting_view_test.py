@@ -81,7 +81,6 @@ class ReportingTestCase(TestCase):
         graph_codes = [
             'user_login_time', 'user_average_updates', 'user_created_items',
             'user_edited_items', 'user_edited_items',
-            'user_deleted_edited_created',
         ]
         url_tpl = '/corroborator/graphs/user/{0}/'
         for graph_code in graph_codes:
@@ -99,6 +98,7 @@ class ReportingTestCase(TestCase):
         user_id = User.objects.all()[0].id
         graph_codes = [
             'user_login_per_day', 'user_assigned_items_by_status',
+            'user_deleted_edited_created',
         ]
         url_tpl = '/corroborator/graphs/user/{0}/{1}/'
         for graph_code in graph_codes:
@@ -122,7 +122,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'values': values[1],
+                    'value': values[1],
                     'label': 'user'
                 }
             ],
@@ -290,9 +290,7 @@ class ReportingTestCase(TestCase):
         '''
         Test correct return of CRUD data as json
         '''
-        import ipdb
         user = User.objects.all()[0]
-        ipdb.set_trace()
         items = crud_items_by_date(user)
         ura = UserReportingApi()
         expected_response = json.dumps({
@@ -312,7 +310,6 @@ class ReportingTestCase(TestCase):
             ],
             'title': 'Deleted, created and edited items by date'
         })
-        ipdb.set_trace()
         json_response = json.loads(ura.crud_per_day(user.id))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
