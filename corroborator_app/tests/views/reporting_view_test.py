@@ -24,6 +24,9 @@ class ReportingTestCase(TestCase):
         self.test_util = TestUserUtility()
         fixture = AutoFixture(VersionStatus, generate_fk=True)
         fixture.create(10)
+        # we'll need to create the UserLog objects manually to ensure a valid
+        # login and logout datetime
+        # see line 110
         #fixture = AutoFixture(UserLog, generate_fk=True)
         #fixture.create(10)
         fixture = AutoFixture(User)

@@ -16,10 +16,10 @@
     <li
       {% if search == True %}
         class="current"
-        >{% trans "Search" %}
+        >{% trans "Review" %}
       {% else %}
         >
-      <a href="/corroborator/" class="text T">{% trans "Search" %}</a>
+      <a href="/corroborator/" class="text T">{% trans "Review" %}</a>
       {% endif %}
     </li>
     {% endif %}
@@ -35,7 +35,7 @@
     </li>
     {% endif %}
 
-    {% if is_chief_analyst %}
+    {% if is_senior_analyst or is_chief_analyst %}
     <li>
       <a href="/admin/" class="text T">{% trans "Administration" %}</a>
     </li>

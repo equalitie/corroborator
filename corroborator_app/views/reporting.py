@@ -14,6 +14,8 @@ from corroborator_app.views.context import build_js_context
 
 from corroborator_app.reporting.user_reporting import UserReportingApi
 
+from corroborator_app.views.context import build_js_context
+
 # groups a user must be in to view the reports page
 REPORT_GROUPS = ['senior-data-analyst', 'chief-data-analyst', ]
 
