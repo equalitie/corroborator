@@ -104,19 +104,19 @@ class ReportingTestCase(TestCase):
         Test correct return of user login time json
         '''
         user = User.objects.all()[0]
-        total = generate_start_end_times(user)
+        values = generate_start_end_times(user)
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total,
+                    'values': values[1],
                     'label': 'user'
                 }
             ],
             'title': 'Total login time by User'
         })
         ura = UserReportingApi()
-        json_response = json.loads(ura.total_user_login_time())
         expected_response = json.loads(expected_response)
+        json_response = json.loads(ura.total_user_login_time())
         self.assertEqual(expected_response, json_response)
 
     def test_user_login_per_day(self):
@@ -124,15 +124,26 @@ class ReportingTestCase(TestCase):
         Test correct return of user login
         time per day json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
+        import ipdb
+        user = User.objects.all()[0]
+        values = generate_start_end_times(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'values': values[0],
+                    'label': 'user'
+                }
+            ],
+            'title': 'Total user login time per day'
+        })
 
-        user = User.objects.all()
-        user_id = user[0].id
+        ipdb.set_trace()
+        json_response = json.loads(ura.total_user_login_per_day(user.id))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+        
 
-        url = '/corroborator/graphs/user/user_login_per_day/{0}/'.format(user_id)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
 
     def test_user_average_update(self):
         '''
