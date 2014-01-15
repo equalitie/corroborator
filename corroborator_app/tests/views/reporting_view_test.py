@@ -10,7 +10,8 @@ from corroborator_app.models import (
 from autofixture import AutoFixture
 
 from corroborator_app.tests.user_log_utilities import(
-    generate_start_end_times
+    generate_start_end_times,
+    average_updates_value,
 )
 
 
@@ -124,7 +125,6 @@ class ReportingTestCase(TestCase):
         Test correct return of user login
         time per day json
         '''
-        import ipdb
         user = User.objects.all()[0]
         values = generate_start_end_times(user)
         ura = UserReportingApi()
@@ -138,25 +138,33 @@ class ReportingTestCase(TestCase):
             'title': 'Total user login time per day'
         })
 
-        ipdb.set_trace()
         json_response = json.loads(ura.total_user_login_per_day(user.id))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
         
-
 
     def test_user_average_update(self):
         '''
         Test correct return of user
         average updates json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
+        user = User.objects.all()[0]
+        value = average_updates_value(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': value,
+                    'label': 'user'
+                }
+            ],
+            'title': 'Average user updates per hour'
+        })
 
-        url = '/corroborator/graphs/user/user_average_updates/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        json_response = json.loads(ura.user_average_updates_per_hour())
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_assigned_items_by_status(self):
         '''
         Test correct return of user assigned

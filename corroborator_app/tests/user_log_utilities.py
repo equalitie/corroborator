@@ -5,8 +5,10 @@ Helper functions to generate UserLog Data for tests
 """
 
 from datetime import datetime
-from corroborator_app.models import UserLog
-
+from corroborator_app.models import (
+UserLog, VersionStatus )
+from reversion.models import Revision
+from django.db.models import Count, Sum
 
 def generate_start_end_times(user):
     '''
@@ -49,3 +51,55 @@ def create_log_entry_for_user(user, start_time, end_time):
         logout=end_time,
         total_seconds=(end_time - start_time).total_seconds()
     )
+
+def average_updates_value(user):
+
+    create_version_status_entries_for_user(user)
+    generate_start_end_times(user)
+
+    user_updates = VersionStatus.objects.filter(
+        status='edited'
+    ).filter(
+        user_id=user.id
+    ).values(
+        'user__username', 
+        'user__id'
+    ).annotate(
+        total_updates=Count('id')
+    )
+
+    time = UserLog.objects.filter(
+        user_id=user.id
+    ).values(
+        'user'
+    ).annotate(
+        val=Sum('total_seconds')
+    )
+    hours = time[0]['val'] / 3600
+
+    return user_updates[0]['total_updates'] / hours
+
+
+def create_version_status_entries_for_user(user):
+    '''
+    Generate version status entries for a given user
+    '''
+    revision = Revision.objects.create()
+    vs_edited = VersionStatus.objects.create(
+        user=user,
+        status='edited',
+        revision=revision
+    )
+    revision = Revision.objects.create()
+    vs_created = VersionStatus.objects.create(
+        user=user,
+        status='created',
+        revision=revision
+    )
+    revision = Revision.objects.create()
+    vs_deleted = VersionStatus.objects.create(
+        user=user,
+        status='deleted',
+        revision=revision
+    )
+

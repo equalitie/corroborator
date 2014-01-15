@@ -74,10 +74,10 @@ class UserReportingApi(object):
         average_updates = []
         for update in user_updates:
             total_hours = self.total_user_login_in_hours(
-                update['user_id']
+                update['user__id']
             )
-            average = int(update['total_updates']) / int(total_hours)
-            average_updates.add({
+            average = update['total_updates'] / total_hours
+            average_updates.append({
                 'user__username': update['user__username'],
                 'value': average 
             })
@@ -87,16 +87,18 @@ class UserReportingApi(object):
 
         return self.bar_format_json(average_updates, graph_title)
 
-    def total_user_login_in_hours(user_id):
+    def total_user_login_in_hours(self,user_id):
         """
         Return the total logged in time for a user in hours
         """
-        time = VersionStatus.objects.filter(
+        time = UserLog.objects.filter(
             user_id=user_id
+        ).values(
+            'user'
         ).annotate(
             val=Sum('total_seconds')
         )
-        return time['val']
+        return time[0]['val'] / 3600
 
     def user_assigned_items_by_status(self, user_id):
         """
