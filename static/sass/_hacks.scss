@@ -73,8 +73,17 @@
     margin-top: 0.76923em;
     background-color: #f9f0e8;
     padding: 0.76923em;
-    border-left: 1px solid #bfbfba;
-    border-right: 1px solid #bfbfba;
+    border: 1px solid #bfbfba;
+  }
+  .graphs {
+    svg {
+    background-color: white;
+    border: 1px solid #bfbfba;
+      width: 90%;
+      height: 600px;
+      margin-left: 8%;
+      margin-top: .8em;
+    }
   }
   .col.last.right-filters {
     margin-top: -3em;

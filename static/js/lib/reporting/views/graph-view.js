@@ -4,11 +4,55 @@
 // 
 
 define(
-  ['backbone', 'd3', 'nv'],
-  function(Backbone, d3, nv) {
+  [
+    'backbone', 
+    'lib/streams',
+    'lib/reporting/views/pie-view'
+  ],
+  function(Backbone, Streams, PieChartView, BarGraphView, TrendGraphView) {
   'use strict';
-  console.log(d3, nv);
+  var GraphViewManager,
+      GraphView,
+      filterGraphDisplayRequest = function(value) {
+        return value.type === 'request_graph_display';
+      };
+
+
+  GraphViewManager = Backbone.View.extend({
+    el: '#reporting-content .col.first',
+    initialize: function(options) {
+      this.listenForGraphRequests();
+    },
+    listenForGraphRequests: function() {
+      Streams.searchBus.filter(filterGraphDisplayRequest)
+                       .onValue(this.displayGraph.bind(this));
+    },
+    displayGraph: function(value) {
+      if (this.chart) {
+        this.chart.destroy();
+      }
+      this.$el.children('.graphs').remove();
+      this.$el.append('<div class="graphs"><svg></svg></div>');
+      this.chart = new PieChartView({
+        data: value.content
+      });
+      this.$el.append(this.chart.$el);
+    }
+
+  });
+
+
+
+  var init = function() {
+    var graphViewManager = new GraphViewManager();
+  };
+
 
   
-  }
-);
+  return {
+    init: init
+  };
+
+
+  
+});

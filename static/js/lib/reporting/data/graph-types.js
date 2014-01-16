@@ -184,7 +184,8 @@ define(
       {
         key: 'user_deleted_edited_created',
         type: 'trend',
-        label: i18n.filters.user_deleted_edited_created
+        label: i18n.filters.user_deleted_edited_created,
+        user_required: true
       }
     ]);
     userGraphs.each(function(uGraph) {

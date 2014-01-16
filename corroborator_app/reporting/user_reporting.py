@@ -107,7 +107,7 @@ class UserReportingApi(object):
         """
         graph_title = 'User assigned items by status'
 
-        user = User.objects.filter(pk=user_id)[0]
+        user = User.objects.get(pk=user_id)
         statuses = {}
 
         bulletin_set = user.bulletin_set.all()
@@ -115,23 +115,23 @@ class UserReportingApi(object):
         actor_set = user.actor_set.all()
 
         statuses = self.get_entity_statuses(
-                bulletin_set,
-                statuses,
-                'bulletin'
-            )
+            bulletin_set,
+            statuses,
+            'bulletin'
+        )
         statuses = self.get_entity_statuses(
-                incident_set,
-                statuses,
-                'incident'
-            )
+            incident_set,
+            statuses,
+            'incident'
+        )
         statuses = self.get_entity_statuses(
-                actor_set,
-                statuses,
-                'actor'
-            )
+            actor_set,
+            statuses,
+            'actor'
+        )
 
         status_set = []
-        if len(statuses) > 0: 
+        if len(statuses) > 0:
             for key in statuses:
                 status_set.append({
                     'label': key,
@@ -149,10 +149,11 @@ class UserReportingApi(object):
                 statuses[entity_status] += 1
             else:
                 statuses[entity_status] = 1
-        
+
         return statuses
 
-    def get_entity_status(self, entity_type,entity):
+
+    def get_entity_status(self, entity_type, entity):
         if 'bulletin' == entity_type:
             return entity.most_recent_status_bulletin()
         elif 'incident' == entity_type:

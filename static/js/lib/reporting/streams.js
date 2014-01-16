@@ -39,7 +39,8 @@ define(
             filters: graphMap[value.content.get('entity')],
             key: value.content.get('key'),
             label: value.content.get('label'),
-            type: value.content.get('type')
+            type: value.content.get('type'),
+            user_id: value.content.get('user_id')
           };
 
         },
@@ -63,9 +64,12 @@ define(
         },
         // send the event that will be picked up to generate the request for
         // required graph data
-        sendGraphEvent = function(value) {
-          console.log('sendGraphEvent', value);
-        },
+        sendGraphEvent = _.debounce(function(value) {
+          Streams.searchBus.push({
+            type: 'request_graph_data',
+            content: value
+          });
+        }, 200),
         // store the filters for the specified entity, if defined
         storeFiltersAndSendGraphEvent = function(value, entity) {
           graphMap[entity].reset(value.filters);

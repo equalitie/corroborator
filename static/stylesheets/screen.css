@@ -2839,20 +2839,28 @@ ul.media li.medium:hover .do-remove {
   margin-top: 0.76923em;
   background-color: #f9f0e8;
   padding: 0.76923em;
-  border-left: 1px solid #bfbfba;
-  border-right: 1px solid #bfbfba;
+  border: 1px solid #bfbfba;
 }
 /* line 79, ../sass/_hacks.scss */
+#reporting-content .graphs svg {
+  background-color: white;
+  border: 1px solid #bfbfba;
+  width: 90%;
+  height: 600px;
+  margin-left: 8%;
+  margin-top: .8em;
+}
+/* line 88, ../sass/_hacks.scss */
 #reporting-content .col.last.right-filters {
   margin-top: -3em;
   top: 17.15em;
 }
-/* line 83, ../sass/_hacks.scss */
+/* line 92, ../sass/_hacks.scss */
 #reporting-content .header {
   display: none;
 }
 
-/* line 89, ../sass/_hacks.scss */
+/* line 98, ../sass/_hacks.scss */
 .right-filters .header {
   left: 1.53846em;
   right: 0em;
@@ -2860,7 +2868,7 @@ ul.media li.medium:hover .do-remove {
   top: 0em;
 }
 
-/* line 96, ../sass/_hacks.scss */
+/* line 105, ../sass/_hacks.scss */
 .right-filters .body {
   left: 1.53846em;
   right: 0em;
@@ -2869,23 +2877,23 @@ ul.media li.medium:hover .do-remove {
   position: absolute;
 }
 
-/* line 104, ../sass/_hacks.scss */
+/* line 113, ../sass/_hacks.scss */
 .is-filters.filters {
   margin-bottom: 1.53846em;
 }
 
-/* line 109, ../sass/_hacks.scss */
+/* line 118, ../sass/_hacks.scss */
 .Bulletin.is-expanded .span-66p .body,
 .Incident.is-expanded .span-66p .body {
   padding-right: 3.07692em;
 }
 
-/* line 116, ../sass/_hacks.scss */
+/* line 125, ../sass/_hacks.scss */
 .Actor.in-list {
   min-height: 130px;
 }
 
-/* line 121, ../sass/_hacks.scss */
+/* line 130, ../sass/_hacks.scss */
 .Incident.in-view .map,
 .Bulletin.in-view .map,
 .Actor.in-view .map,
@@ -2898,14 +2906,14 @@ ul.media li.medium:hover .do-remove {
   background-color: #f0f0f0;
 }
 
-/* line 133, ../sass/_hacks.scss */
+/* line 142, ../sass/_hacks.scss */
 .is-preview .body .span-66p {
   width: 100%;
   margin-right: 1.53846em;
   float: none;
 }
 
-/* line 140, ../sass/_hacks.scss */
+/* line 149, ../sass/_hacks.scss */
 .leaflet-top, .leaflet-bottom {
   z-index: 7;
 }
