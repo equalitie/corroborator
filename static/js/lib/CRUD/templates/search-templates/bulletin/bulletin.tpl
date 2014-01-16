@@ -120,13 +120,13 @@
             <div class="i18n with-en with-ar">
               <div lang="en">
                 <textarea id="bulletin_description_en"
-                          name="bulletin_description_en"
+                          name="description_en"
                           type="text"
                           class="bulletin-field w-100p">{{model.description_en}}</textarea>
               </div>
               <div lang="ar">
                 <textarea id="bulletin_description_ar"
-                          name="bulletin_description_ar"
+                          name="description_ar"
                           type="text"
                           class="bulletin-field w-100p">{{model.description_ar}}</textarea>
               </div>
