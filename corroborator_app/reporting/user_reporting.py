@@ -1,7 +1,7 @@
 from corroborator_app.models import VersionStatus, UserLog
 from django.contrib.auth.models import User
 from django.db.models import Count, Sum
-
+from itertools import groupby
 import json
 
 class UserReportingApi(object):
@@ -29,26 +29,37 @@ class UserReportingApi(object):
         Return total user login time per day
         for a given user.
         """
-        graph_title = 'Total user login per day'
+        graph_title = 'Total user login time per day'
 
-        item = UserLog.objects.filter(
-            user_id=user_id
-        ).extra(
-            {'timestamp':"date(logout)"}
-        ).values('logout').annotate(
-            val=Sum('total_seconds')
-        )
-        items = []
- 
-        items.append({
-            'values': list(item),
-            'label': 'Total user login time by date'
+        user = User.objects.filter(pk=user_id)[0]
+
+        items = UserLog.objects.filter(
+            user__id=user_id
+        ).order_by(
+            'logout'
+        ).values('logout', 'total_seconds')
+
+        result_data = []
+        time_data = []
+        for key, values in groupby(items, key=lambda item: item['logout'].date()):
+            timestamp = key.strftime('%Y-%m-%d')
+            val = 0
+            for value in values:
+                val += value['total_seconds']
+            time_data.append([
+                timestamp,
+                val
+            ])
+
+        result_data.append({
+            'values': time_data,
+            'label': user.username
         })
 
-        if items == []:
+        if result_data == []:
             return '{"error": "No data elements found."}'
 
-        return self.trend_format_json(items, graph_title)
+        return self.trend_format_json(result_data, graph_title)
  
     def user_average_updates_per_hour(self):
         """
@@ -63,10 +74,10 @@ class UserReportingApi(object):
         average_updates = []
         for update in user_updates:
             total_hours = self.total_user_login_in_hours(
-                update['user_id']
+                update['user__id']
             )
-            average = int(update['total_updates']) / int(total_hours)
-            average_updates.add({
+            average = update['total_updates'] / total_hours
+            average_updates.append({
                 'user__username': update['user__username'],
                 'value': average 
             })
@@ -76,16 +87,18 @@ class UserReportingApi(object):
 
         return self.bar_format_json(average_updates, graph_title)
 
-    def total_user_login_in_hours(user_id):
+    def total_user_login_in_hours(self,user_id):
         """
         Return the total logged in time for a user in hours
         """
-        time = VersionStatus.objects.filter(
+        time = UserLog.objects.filter(
             user_id=user_id
+        ).values(
+            'user'
         ).annotate(
             val=Sum('total_seconds')
         )
-        return time['val']
+        return time[0]['val'] / 3600
 
     def user_assigned_items_by_status(self, user_id):
         """
@@ -143,9 +156,9 @@ class UserReportingApi(object):
         if 'bulletin' == entity_type:
             return entity.most_recent_status_bulletin()
         elif 'incident' == entity_type:
-            return entity.most_recent_status_incident
+            return entity.most_recent_status_incident()
         else:
-            return entity.most_recent_status_actor
+            return entity.most_recent_status_actor()
 
     def total_user_items_by_crud(self, crud_type):
         """
@@ -162,7 +175,7 @@ class UserReportingApi(object):
 
         return self.bar_format_json(user_items, graph_title)
 
-    def crud_per_day(self):
+    def crud_per_day(self, user_id):
         """
         CRUD opperations total per day
         """
@@ -171,15 +184,15 @@ class UserReportingApi(object):
         items = []
  
         items.append({
-            'values': self.get_items_by_crud_date('deleted'),
+            'values': self.get_items_by_crud_date('deleted', user_id),
             'label': 'Deleted items by date'
         })
         items.append({
-            'values': self.get_items_by_crud_date('created'),
+            'values': self.get_items_by_crud_date('created', user_id),
             'label': 'Created items by date'
         })
         items.append({
-            'values': self.get_items_by_crud_date('edited'),
+            'values': self.get_items_by_crud_date('edited', user_id),
             'label': 'Edited items by date'
         })
 
@@ -187,15 +200,27 @@ class UserReportingApi(object):
             return '{"error": "No data elements found."}'
         return self.trend_format_json(items, graph_title)
  
-    def get_items_by_crud_date(self, crud_type):
+    def get_items_by_crud_date(self, crud_type, user_id):
         items = VersionStatus.objects.filter(
             status=crud_type
-        ).extra(
-            {'timestamp':"date(version_timestamp)"}
-        ).values('version_timestamp').annotate(
-            val=Count('id')
-        )
-        return list(items)
+        ).filter(
+            user__id=user_id
+        ).order_by(
+            'version_timestamp'
+        ).values('version_timestamp', 'id')
+
+        time_data = []
+        for key, values in groupby(items, key=lambda item: item['version_timestamp'].date()):
+            timestamp = key.strftime('%Y-%m-%d')
+            val = 0
+            for value in values:
+                val += 1
+            time_data.append([
+                timestamp,
+                val
+            ])
+
+        return time_data
 
     def trend_format_json(self, objects, graph_title):
         """

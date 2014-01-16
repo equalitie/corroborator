@@ -6,11 +6,19 @@ from corroborator_app.reporting.user_reporting import UserReportingApi
 from corroborator_app.models import (
     UserLog,
     VersionStatus,
+    Bulletin,
+    Incident,
+    Comment,
+    Actor,
+    StatusUpdate,
 )
 from autofixture import AutoFixture
 
 from corroborator_app.tests.user_log_utilities import(
-    generate_start_end_times
+    generate_start_end_times,
+    average_updates_value,
+    create_version_status_entries_for_user,
+    crud_items_by_date,
 )
 
 
@@ -18,7 +26,7 @@ class ReportingTestCase(TestCase):
     '''
     Test the reporting view and it's supporting json ajax views
     '''
-    fixtures = ['bulletin', ]
+    fixtures = ['status_update',]
 
     def setUp(self):
         self.test_util = TestUserUtility()
@@ -30,6 +38,12 @@ class ReportingTestCase(TestCase):
         #fixture = AutoFixture(UserLog, generate_fk=True)
         #fixture.create(10)
         fixture = AutoFixture(User)
+        fixture.create(1)
+        fixture = AutoFixture(Bulletin)
+        fixture.create(1)
+        fixture = AutoFixture(Incident)
+        fixture.create(1)
+        fixture = AutoFixture(Actor)
         fixture.create(1)
 
     def tearDown(self):
@@ -70,7 +84,6 @@ class ReportingTestCase(TestCase):
         graph_codes = [
             'user_login_time', 'user_average_updates', 'user_created_items',
             'user_edited_items', 'user_edited_items',
-            'user_deleted_edited_created',
         ]
         url_tpl = '/corroborator/graphs/user/{0}/'
         for graph_code in graph_codes:
@@ -88,6 +101,7 @@ class ReportingTestCase(TestCase):
         user_id = User.objects.all()[0].id
         graph_codes = [
             'user_login_per_day', 'user_assigned_items_by_status',
+            'user_deleted_edited_created',
         ]
         url_tpl = '/corroborator/graphs/user/{0}/{1}/'
         for graph_code in graph_codes:
@@ -107,19 +121,19 @@ class ReportingTestCase(TestCase):
         Test correct return of user login time json
         '''
         user = User.objects.all()[0]
-        total = generate_start_end_times(user)
+        values = generate_start_end_times(user)
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total,
+                    'value': values[1],
                     'label': 'user'
                 }
             ],
             'title': 'Total login time by User'
         })
         ura = UserReportingApi()
-        json_response = json.loads(ura.total_user_login_time())
         expected_response = json.loads(expected_response)
+        json_response = json.loads(ura.total_user_login_time())
         self.assertEqual(expected_response, json_response)
 
     def test_user_login_per_day(self):
@@ -127,86 +141,179 @@ class ReportingTestCase(TestCase):
         Test correct return of user login
         time per day json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
+        user = User.objects.all()[0]
+        values = generate_start_end_times(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'values': values[0],
+                    'label': 'user'
+                }
+            ],
+            'title': 'Total user login time per day'
+        })
 
-        user = User.objects.all()
-        user_id = user[0].id
-
-        url = '/corroborator/graphs/user/user_login_per_day/{0}/'.format(user_id)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        json_response = json.loads(ura.total_user_login_per_day(user.id))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+        
 
     def test_user_average_update(self):
         '''
         Test correct return of user
         average updates json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
+        user = User.objects.all()[0]
+        value = average_updates_value(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': value,
+                    'label': 'user'
+                }
+            ],
+            'title': 'Average user updates per hour'
+        })
 
-        url = '/corroborator/graphs/user/user_average_updates/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        json_response = json.loads(ura.user_average_updates_per_hour())
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_assigned_items_by_status(self):
         '''
         Test correct return of user assigned
         items by status json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
+        user = User.objects.all()[0]
+        precreated_bulletin = Bulletin.objects.all()[0]
+        precreated_actor = Actor.objects.all()[0]
+        precreated_incident = Incident.objects.all()[0]
+        comment = Comment(
+            assigned_user_id=user.id,
+            comments_en='comment',
+            status_id=5
+        )   
+        comment.save()
+        precreated_bulletin.assigned_user = user
+        precreated_bulletin.bulletin_comments.add(comment)
 
-        user = User.objects.all()
-        user_id = user[0].id
+        precreated_actor.assigned_user = user
+        precreated_actor.actor_comments.add(comment)
 
-        url = '/corroborator/graphs/user/user_assigned_items_by_status/{0}/'.format(user_id)
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        precreated_incident.assigned_user = user
+        precreated_incident.incident_comments.add(comment)
+
+        precreated_bulletin.save()
+        precreated_actor.save()
+        precreated_incident.save()
+
+        status_label = StatusUpdate.objects.filter(pk=5).values('status_en')[0]['status_en']
+
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': 3,
+                    'label': status_label
+                }
+            ],
+            'title': 'User assigned items by status'
+        })
+
+        json_response = json.loads(ura.user_assigned_items_by_status(user.id))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
 
     def test_user_deleted_items(self):
         '''
         Test correct return of user deleted items
         json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_deleted_items/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        user = User.objects.all()[0]
+        total_updates = create_version_status_entries_for_user(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': total_updates['deleted'],
+                    'label': 'user'
+                }
+            ],
+            'title': 'Total deleted items by User'
+        })
+        json_response = json.loads(ura.total_user_items_by_crud('deleted'))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_created_items(self):
         '''
         Test correct return of user created items
         json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_created_items/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        user = User.objects.all()[0]
+        total_updates = create_version_status_entries_for_user(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': total_updates['created'],
+                    'label': 'user'
+                }
+            ],
+            'title': 'Total created items by User'
+        })
+        json_response = json.loads(ura.total_user_items_by_crud('created'))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_edited_items(self):
         '''
         Test correct return of user edited items
         json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_edited_items/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
+        user = User.objects.all()[0]
+        total_updates = create_version_status_entries_for_user(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'value': total_updates['edited'],
+                    'label': 'user'
+                }
+           ],
+            'title': 'Total edited items by User'
+        })
+        json_response = json.loads(ura.total_user_items_by_crud('edited'))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 
     def test_user_deleted_edited_created(self):
         '''
         Test correct return of CRUD data as json
         '''
-        self.test_util.add_user_to_group('senior-data-analyst')
-        self.client = self.test_util.client_login()
-
-        url = '/corroborator/graphs/user/user_deleted_edited_created/'
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+        user = User.objects.all()[0]
+        items = crud_items_by_date(user)
+        ura = UserReportingApi()
+        expected_response = json.dumps({
+            'values': [
+                {
+                    'values': items['deleted'],
+                    'label': 'Deleted items by date'
+                },
+                {
+                    'values': items['created'],
+                    'label': 'Created items by date'
+                },
+                {
+                    'values': items['edited'],
+                    'label': 'Edited items by date'
+                }
+            ],
+            'title': 'Deleted, created and edited items by date'
+        })
+        json_response = json.loads(ura.crud_per_day(user.id))
+        expected_response = json.loads(expected_response)
+        self.assertEqual(expected_response, json_response)
+ 

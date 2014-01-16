@@ -45,7 +45,6 @@ def request_graph_data(request, graph_code, user_id=None):
             'user_deleted_items': total_deleted_items,
             'user_created_items': total_created_items,
             'user_edited_items': total_edited_items,
-            'user_deleted_edited_created': ura.crud_per_day,
         }
         graph_function = graph_function_map[graph_code]
         json_result = graph_function()
@@ -53,6 +52,7 @@ def request_graph_data(request, graph_code, user_id=None):
         graph_function_map = {
             'user_login_per_day': ura.total_user_login_per_day,
             'user_assigned_items_by_status': ura.user_assigned_items_by_status,
+            'user_deleted_edited_created': ura.crud_per_day,
         }
         graph_function = graph_function_map[graph_code]
         json_result = graph_function_map[graph_code](user_id)
