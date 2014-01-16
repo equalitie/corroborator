@@ -43,7 +43,7 @@ define(
         },
 
         // add the filtered search widget to a passed in manager
-        addFilterSearchToManager = function(manager) {
+        addReportWidgetToManager = function(manager) {
           manager.addWidget(new FilterWidget.FilterWidget({
             id: 'FilterSearch',
             fields: ['type','sources']
@@ -77,7 +77,7 @@ define(
     createFilterManager = function(entity) {
       var filterManager = new AjaxSolr.Manager(solrUrl);
       filterManager.entity = entity;
-      addFilterSearchToManager(filterManager);
+      addReportWidgetToManager(filterManager);
       filterManager.init();
       addValuesToManager(filterManager);
       return filterManager;
@@ -85,6 +85,7 @@ define(
 
     // create the manager objects
     MainManager           = createMainManager();
+    FilterManager         = createFilterManager();
 
     // module export
     return {

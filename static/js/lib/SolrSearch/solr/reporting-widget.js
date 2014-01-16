@@ -94,4 +94,3 @@ define(
     return ReportWidget;
 
 });
-
