@@ -10,7 +10,7 @@ from django.contrib.auth.signals import user_logged_out
 from django.db import models
 from django.db.models import Min,  Max
 from django.contrib.auth.models import User
-from datetime import datetime
+from django.utils import timezone
 from haystack.utils.geo import Point
 
 from queued_storage.backends import QueuedStorage
@@ -823,7 +823,7 @@ def update_last_logout(sender, user, **kwargs):
     A signal receiver which updates the last_logout date for
     the user logging out.
     """
-    logout_timestamp = datetime.now()
+    logout_timestamp = timezone.now()
     logged_time = logout_timestamp - user.last_login
 
     ul = UserLog()
