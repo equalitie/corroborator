@@ -115,7 +115,7 @@ define(
     // if resourceUri is set in the options the model will
     // auto fetch it's data
     var ActorModel = Backbone.Model.extend({
-      foreignKeyFields: ['POB', 'current_location', 'media'] ,
+      foreignKeyFields: ['POB', 'current_location', 'media', 'assigned_user'] ,
       manyToManyFields: [
         'actors_role'
       ],
