@@ -197,12 +197,18 @@ define(
     bulletinGraphs.entity = 'bulletins';
     incidentGraphs.entity = 'incidents';
 
+    var allGraphs = new Backbone.Collection(userGraphs.toJSON());
+    allGraphs.add(actorGraphs.toJSON());
+    allGraphs.add(bulletinGraphs.toJSON());
+    allGraphs.add(incidentGraphs.toJSON());
+    console.log(allGraphs);
 
     return {
       userGraphs    : userGraphs,
       actorGraphs   : actorGraphs,
       bulletinGraphs: bulletinGraphs,
-      incidentGraphs: incidentGraphs
+      incidentGraphs: incidentGraphs,
+      allGraphs     : allGraphs
     };
   }
 );

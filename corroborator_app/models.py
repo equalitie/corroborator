@@ -830,7 +830,7 @@ def update_last_logout(sender, user, **kwargs):
     ul.login = user.last_login
     ul.logout = logout_timestamp
     ul.total_seconds = logged_time.total_seconds()
-    ul.useri = user
+    ul.user = user
     ul.save()
 
 user_logged_out.connect(update_last_logout)
