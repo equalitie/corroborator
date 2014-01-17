@@ -19,6 +19,7 @@ define(
           return value.type === 'request_graph_data';
         },
         graphDataReceived = function(response) {
+          response.key = this.key;
           Streams.searchBus.push({
             type: 'request_graph_display',
             content: response
@@ -27,29 +28,31 @@ define(
         graphDataError = function(response) {
           console.log(arguments);
         },
-        sendGraphingRequest = function(url) {
-          console.log(url);
+        sendGraphingRequest = function(graphData) {
           $.ajax({
-            url: url,
-            success: graphDataReceived,
+            url: graphData.url,
+            success: graphDataReceived.bind(graphData),
             error: graphDataError
           });
         },
-        mapRequestToUrl = function(value) {
+        mapRequestToUrlAndKey = function(value) {
           var graphModel = userGraphs.get(value.content.key),
               urlTpl = graphModel.get('user_required') === true
                 ? _.template(
-                  '/corroborator/graphs/user/<%=graph_type %>/<%=user %>/')
-                : _.template('/corroborator/graphs/user/<%=graph_type %>/');
+                  '/corroborator/graphs/user/<%=graph_key %>/<%=user %>/')
+                : _.template('/corroborator/graphs/user/<%=graph_key %>/');
 
-          return urlTpl({
-            graph_type: value.content.key,
-            user: value.content.user_id
-          });
+          return {
+            url: urlTpl({
+              graph_key: value.content.key,
+              user: value.content.user_id
+              }),
+            key: value.content.key
+          };
         },
         startGraphListener = function() {
           Streams.searchBus.filter(userGraphFilter)
-                           .map(mapRequestToUrl)
+                           .map(mapRequestToUrlAndKey)
                            .onValue(sendGraphingRequest);
         },
         init = function() {
