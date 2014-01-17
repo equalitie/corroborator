@@ -105,7 +105,10 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of actor modified datetime field
         """
-        return object.actor_modified.date()
+        if object.actor_modified is not None:
+            return object.actor_modified.date()
+        else:
+            return ''
 
     def get_updated_field(self):
         return "actor_modified"
@@ -341,7 +344,10 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of incident modified datetime field
         """
-        return object.incident_modified.date()
+        if object.incident_modified is not None:
+            return object.incident_modified.date()
+        else:
+            return ''
 
     def prepare_times(self, object):
         """
@@ -543,7 +549,10 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of bulletin modified datetime field
         """
-        return object.bulletin_modified.date()
+        if object.bulletin_modified is not None:
+            return object.bulletin_modified.date()
+        else:
+            return ''
 
     def prepare_times(self, object):
         """
