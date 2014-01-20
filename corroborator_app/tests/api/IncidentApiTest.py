@@ -9,7 +9,7 @@ from tastypie.test import ResourceTestCase
 
 from corroborator_app.models import (
     Incident, CrimeCategory, Location, Actor, ActorRole, Comment,
-    TimeInfo, StatusUpdate, Label
+    TimeInfo, StatusUpdate, Label, VersionStatus
 )
 from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 
@@ -105,6 +105,8 @@ class IncidentTestCase(ResourceTestCase):
         new_incident = Incident(id=new_incident_dict['id'])
         incident_comments = new_incident.incident_comments.all()
         self.assertEqual(len(incident_comments), 1)
+        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        self.assertEqual(len(vs), 1)
 
     def test_incident_put(self):
         i = Incident.objects.all()[0]
@@ -115,6 +117,9 @@ class IncidentTestCase(ResourceTestCase):
         response = self.api_client.put(url, data=put_data)
         self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
+        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        self.assertEqual(len(vs), 1)
+
 
     def test_finalized_is_not_updated(self):
         precreated_incident = Incident.objects.all()[0]
