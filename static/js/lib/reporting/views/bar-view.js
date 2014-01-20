@@ -24,10 +24,8 @@ define(
         return this;
       },
       bindChartToEl: function() {
-
-        console.log(this.data);
         d3.select(this.el)
-          .datum(this.data.values)
+          .datum([this.data])
           .transition().duration(500)
           .call(this.chart);
         return this;

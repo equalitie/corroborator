@@ -28,7 +28,6 @@ define(
     },
     initialize: function (options) {
       this.model = importerModel;
-      console.log(this.model);
       this.render();
       this.listenTo(this, 'rendered', this.enableDateWidget);
     },
@@ -50,7 +49,6 @@ define(
       evt.preventDefault();
       var $submit = this.getSubmitButton(),
           passed = this.validateForm();
-          console.log($submit);
       
       if (passed) {
         $submit.val(i18n.importer.saving)

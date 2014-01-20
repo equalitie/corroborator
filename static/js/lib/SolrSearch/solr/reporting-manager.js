@@ -28,23 +28,23 @@ define(
           facet: true,
           'facet.sort':'count',
           'facet.field': fields,
-          'rows': 1000,
+          'rows': 0,
           'facet.limit': 1000,
           'facet.mincount': 1,
           'json.nl': 'map'
         },
 
         // define our search paramaters
-        addValuesToManager = function(manager) {
+        addValuesToManager = function(manager, values) {
           manager.store.addByValue('q', 'django_ct:*');
-          _.each(params, function(item, index, list) {
+          _.each(values, function(item, index, list) {
             manager.store.addByValue(index, item);
           });
         },
 
         // add the filtered search widget to a passed in manager
         addReportWidgetToManager = function(manager) {
-          manager.addWidget(new FilterWidget.FilterWidget({
+          manager.addWidget(new ReportingWidget.SingleReportLoaderWidget({
             id: 'FilterSearch',
             fields: ['type','sources']
           }));
@@ -52,7 +52,7 @@ define(
 
         // add the main text search widget to a passed in manager
         addReportingWidgetToManager = function(manager) {
-          manager.addWidget(new ReportingWidget({
+          manager.addWidget(new ReportingWidget.ReportWidget({
             id: 'MainSearch',
             bus: searchBus,
             shouldSendFilters: true,
@@ -67,7 +67,7 @@ define(
       var mainManager = new AjaxSolr.Manager(solrUrl);
       addReportingWidgetToManager(mainManager);
       mainManager.init();
-      addValuesToManager(mainManager);
+      addValuesToManager(mainManager, params);
       return mainManager;
     };
 
@@ -79,7 +79,9 @@ define(
       filterManager.entity = entity;
       addReportWidgetToManager(filterManager);
       filterManager.init();
-      addValuesToManager(filterManager);
+      var filterParams = _.clone(params);
+      delete(filterParams['facet.field']);
+      addValuesToManager(filterManager, filterParams);
       return filterManager;
     };
 

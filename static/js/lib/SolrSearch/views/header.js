@@ -43,7 +43,6 @@ define(
         },
 
         getActionType = function(model) {
-          console.log(model);
           return {
             option: model.get('key')
           };

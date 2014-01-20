@@ -32,6 +32,7 @@
       'bacon_ui'       : 'components/bacon-ui/Bacon.UI',
       'spin'           : 'components/spin.js/spin',
       'flowplayer'     : 'components/flowplayer/dist/flowplayer',
+      'sinon'          : 'bower_components/sinonjs-built/pkg/sinon-1.7.3',
       // ajax solr stuff
       'core'           : 'components/ajax-solr/core',
       'managers'       : 'components/ajax-solr/managers',
@@ -40,6 +41,9 @@
     shim: {
       underscore: {
         exports: '_'
+      },
+      sinon: {
+        exports: 'sinon'
       },
       backbone: {
         deps: ['underscore', 'jquery'],

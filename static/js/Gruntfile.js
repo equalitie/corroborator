@@ -40,12 +40,21 @@ module.exports = function(grunt) {
         'lib/SolrSearch/widgets/manager.js',
         'lib/monitor/views/*.js',
         'lib/monitor/data/*.js',
-        'lib/monitor/router/*.js'
-      ]
+        'lib/monitor/router/*.js',
+        'lib/monitor/router/*.js',
+        'lib/reporting/**/*.js',
+        'lib/reporting/*.js',
+        '!lib/reporting/nls/**/*.js',
+        '!lib/reporting/templates/*.js'
+      ],
+      options: {
+        jshintrc: './.jshintrc'
+      }
     },
     karma: { // test standard script
       unit: {
-        configFile: 'karma.conf.js'
+        configFile: 'karma.conf.js',
+        singleRun: true
       },
       ci: {
         configFile: 'karma.conf.js',
@@ -140,7 +149,8 @@ module.exports = function(grunt) {
         'lib/reporting/**/*.tpl',
         'lib/reporting/**/*.js'
       ],
-      tasks: ['handlebars', /*'karma', /*'jshint', 'requirejs', 'docco'*/]
+      tasks: ['handlebars', 'karma:unit', 'jshint']
+      //tasks: ['handlebars', 'jshint', 'karma', 'requirejs', 'docco'<]]
     }
   });
 

@@ -69,7 +69,7 @@ define (
               .each(function (model) {
                 model.fetch();
               });
-          },
+          }
         },
         ModelSelectionMixin = {
           // change the selected state of a single model

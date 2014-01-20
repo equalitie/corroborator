@@ -28,7 +28,7 @@ define(
         '': 'showMonitor',
         'tab/monitor': 'showMonitor',
         'tab/importer-config': 'showImporterConfig',
-        'tab/scraper-config': 'showScraperConfig',
+        'tab/scraper-config': 'showScraperConfig'
       },
       showMonitor: function() {
         this.applyClass('.is-monitor');
@@ -52,11 +52,13 @@ define(
                             .removeClass('active');
       },
       destroyCurrentView: function() {
-        this.currentView ? this.currentView.destroy() : null;
+        if (this.currentView) {
+          this.currentView.destroy();
+        }
         return this;
       },
-      showNewView: function(selectedTabView) {
-        this.currentView = new selectedTabView();
+      showNewView: function(SelectedTabView) {
+        this.currentView = new SelectedTabView();
         $('#monitor-content').append(this.currentView.$el);
         this.currentView.trigger('rendered');
       }

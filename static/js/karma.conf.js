@@ -66,6 +66,8 @@ module.exports = function(config) {
       {pattern: 'components/ajax-solr/core.js', included: false},
       {pattern: 'components/ajax-solr/managers.js', included: false},
       {pattern: 'components/ajax-solr/widgets.js', included: false},
+      //sinon
+      {pattern: 'bower_components/sinonjs-built/pkg/sinon-1.7.3.js', included: false}
       
 
 
@@ -115,7 +117,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: [/*'PhantomJS'/*, 'Chrome', 'Firefox', 'Safari'*/, 'ChromeCanary'],
+    browsers: ['PhantomJS'/*, 'Chrome', 'Firefox', 'Safari', 'ChromeCanary'*/],
 
 
     // If browser does not capture in given timeout [ms], kill it

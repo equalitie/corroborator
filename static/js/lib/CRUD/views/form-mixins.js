@@ -85,7 +85,6 @@ define (
                 $('.required.' + this.entityType + '-field'),
               results = _.map($validatableElements, this.validationFuncion),
               passed  = _.reduce(results, this.checkPassedAll, true);
-          console.log(results);
           return passed || this.setError(results);
         },
 
@@ -134,7 +133,6 @@ define (
           var formContent = this.formContent();
           formContent = this.validateDateFields(formContent);
           this.model.set(formContent);
-          console.log('saveRequested', this.validateForm());
           if (this.validateForm() === true){
             this.saveModel();
           }

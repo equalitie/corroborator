@@ -114,10 +114,10 @@ define(
 
     // combine events from filters and graph type selections, to prepare for
     // sending to the solr query builder
-    var GraphStreamCombiner = function() {
+    var graphStreamCombiner = function() {
       createEntityFilterWatchers();
       graphTypeWatcher();
     };
-    GraphStreamCombiner();
+    graphStreamCombiner();
   }
 );

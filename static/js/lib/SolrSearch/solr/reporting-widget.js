@@ -3,20 +3,33 @@
 // ### Description
 // This file handles the main search over all three entities  
 // The results of this will update collections in the Data folder
+// TODO: move this to reporting module
 
 define(
   [
-    'underscore',
+    'jquery', 'underscore',
+    'lib/streams',
     'lib/SolrSearch/solr/parse-filters',
     'lib/SolrSearch/solr/query-builder',
+    'lib/reporting/data/graph-types',
     'core/AbstractTextWidget',
     'core/AbstractFacetWidget'
   ],
-  function(_, ParseFilter, QueryBuilder) {
+  function($, _, Streams, ParseFilter, QueryBuilder, GraphTypes) {
             
     // look for the search event
-    var filterSearchRequestEvents = function(value) {
+    var userGraphs = GraphTypes.userGraphs,
+        filterSearchRequestEvents = function(value) {
           return value.type === 'new_search';
+        },
+        notUserGraph = function(value) {
+          return ! userGraphs.chain()
+                           .pluck('id')
+                           .contains(value.content.key)
+                           .value();
+        },
+        graphFilter = function(value) {
+          return value.type === 'request_graph_data';
         };
 
 
@@ -24,11 +37,31 @@ define(
     // build the query to load the data for each report
     var SingleReportLoaderWidget = AjaxSolr.AbstractFacetWidget.extend({
       init: function() {
+        this.listenForReportRequests();
+      },
+      sendSearch: function(value) {
+        console.log('sendSearch: ', value);
+        this.graphKey = value.content.key;
+        this.manager.store.remove('facet.field');
+        this.manager.store.addByValue('facet.field', [value.content.key]);
+        this.doRequest();
+        
       },
       // listen for a request to display
       listenForReportRequests: function() {
+        
+        Streams.searchBus.filter(graphFilter)
+                         .filter(notUserGraph)
+                         .onValue(this.sendSearch.bind(this));
+                         
       },
       afterRequest: function() {
+
+        Streams.searchBus.push({
+          type: 'parse_graph_data',
+          content: this.manager.response.facet_counts.facet_fields[this.graphKey],
+          key: this.graphKey
+        });
       }
     });
 
@@ -62,6 +95,7 @@ define(
       sendRequest: function(searchQuery) {
         this.clear();
         this.set( searchQuery );
+        console.log(searchQuery);
         this.doRequest(); 
       },
 
@@ -91,6 +125,9 @@ define(
       }
     });
 
-    return ReportWidget;
+    return {
+      ReportWidget: ReportWidget,
+      SingleReportLoaderWidget: SingleReportLoaderWidget
+    };
 
 });

@@ -16,7 +16,10 @@ define(
           return value.type === 'request_graph_data';
         },
         userGraphFilter = function(value) {
-          return value.type === 'request_graph_data';
+          return userGraphs.chain()
+                           .pluck('id')
+                           .contains(value.content.key)
+                           .value();
         },
         graphDataReceived = function(response) {
           response.key = this.key;
@@ -26,7 +29,6 @@ define(
           });
         },
         graphDataError = function(response) {
-          console.log(arguments);
         },
         sendGraphingRequest = function(graphData) {
           $.ajax({
@@ -37,8 +39,8 @@ define(
         },
         mapRequestToUrlAndKey = function(value) {
           var graphModel = userGraphs.get(value.content.key),
-              urlTpl = graphModel.get('user_required') === true
-                ? _.template(
+              urlTpl = graphModel.get('user_required') === true ? 
+                _.template(
                   '/corroborator/graphs/user/<%=graph_key %>/<%=user %>/')
                 : _.template('/corroborator/graphs/user/<%=graph_key %>/');
 
@@ -51,7 +53,8 @@ define(
           };
         },
         startGraphListener = function() {
-          Streams.searchBus.filter(userGraphFilter)
+          Streams.searchBus.filter(graphFilter)
+                           .filter(userGraphFilter)
                            .map(mapRequestToUrlAndKey)
                            .onValue(sendGraphingRequest);
         },

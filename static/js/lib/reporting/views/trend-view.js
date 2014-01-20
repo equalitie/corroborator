@@ -5,32 +5,45 @@
 
 define(
   [
-    'backbone', 'd3', 'nv'
+    'backbone', 'd3', 'nv', 'moment'
   ],
-  function(Backbone, d3, nv) {
+  function(Backbone, d3, nv, moment) {
   'use strict';
     return Backbone.View.extend({
       el: '.graphs svg',
       initialize: function(options) {
         this.data = options.data;
+        console.log(options.data.values);
         this.render();
       },
       createChart: function() {
-        this.chart = nv.models.lineWithFocusChart();
-        return this;
-      },
-      bindChartToEl: function() {
+        var self = this;
+        nv.addGraph(function() {
+          var chart = nv.models.lineChart();
 
-        d3.select(this.el)
-          .datum(this.data.values)
+          chart.xAxis
+          .axisLabel('date')
+          .tickFormat(function(d) {
+            return d3.time.format('%x')(new Date(d));
+          });
+
+          chart.yAxis
+          .axisLabel('Actors');
+          //.tickFormat(d3.format(',r'));
+
+          d3.select(self.el)
+          .datum(self.data.values)
           .transition().duration(500)
-          .call(this.chart);
+          .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+        });
         return this;
       },
       render: function() {
-        this.createChart()
-            .bindChartToEl();
-        nv.utils.windowResize(this.chart.update);
+        this.createChart();
       }
     });
   }

@@ -25,7 +25,7 @@ define(
         'trend': TrendGraphView
       },
       tapper = function(value) {
-        console.log(value);
+        //console.log(value);
       },
       selectGraphType = function(graphKey) {
         return GraphTypes.allGraphs.chain()

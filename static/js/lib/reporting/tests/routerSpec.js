@@ -7,9 +7,9 @@ define (
   [
     'jquery',
     'lib/reporting/router/router',
-    'lib/reporting/streams'
+    'lib/streams'
   ],
-  function ($, Router, EventStream) {
+  function ($, Router, Streams) {
     'use strict';
     describe('Router ', function() {
       var router,
@@ -27,12 +27,14 @@ define (
         runs(function() {
           value = 0;
           flag = false;
-          EventStream.filter(function(value) {
-                      return value.type === 'route' && value.content.route === 'actor';
-                     })
-                     .onValue(function() {
-                       flag = true;
-                     });
+          Streams.navBus.filter(
+            function(value) {
+              return value.type === 'navigate' &&
+                     value.content.route === 'actor';
+             })
+             .onValue(function() {
+               flag = true;
+             });
           router.navigate('tab/actor', {trigger: true});
         });
         waitsFor(function() {

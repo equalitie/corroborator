@@ -15,7 +15,14 @@ define(
           model: GraphModel
         }),
 
-        userGraphs, actorGraphs, bulletinGraphs, incidentGraphs;
+        userGraphs, actorGraphs, bulletinGraphs, incidentGraphs, allGraphs,
+        selectGraphTypeFromKey = function(key) {
+          return allGraphs.chain().filter(function(graphModel) {
+            return graphModel.get('key') === key;
+          }).first().value().get('type');
+        };
+
+
 
 
     actorGraphs = new GraphTypeCollection([
@@ -50,10 +57,10 @@ define(
         label: i18n.filters.status
       },
       {
-        key: 'actors_in_time',
+        key: 'actor_created',
         type: 'trend',
         label: i18n.filters.actors_in_time
-      },
+      }
     ]);
     actorGraphs.each(function(aGraph) {
       aGraph.set('entity', 'actor');
@@ -86,7 +93,7 @@ define(
         label: i18n.filters.location
       },
       {
-        key: 'bulletins_time',
+        key: 'bulletins_created_date',
         type: 'trend',
         label: i18n.filters.bulletins_in_time
       },
@@ -128,7 +135,7 @@ define(
         label: i18n.filters.location
       },
       {
-        key: 'incidents_time',
+        key: 'incident_created_date',
         type: 'trend',
         label: i18n.filters.incidents_in_time
       },
@@ -147,7 +154,7 @@ define(
       {
         key: 'user_login_time',
         type: 'pie',
-        label: i18n.filters.user_login_time,
+        label: i18n.filters.user_login_time
       },
       {
         key: 'user_login_per_day',
@@ -197,13 +204,13 @@ define(
     bulletinGraphs.entity = 'bulletins';
     incidentGraphs.entity = 'incidents';
 
-    var allGraphs = new Backbone.Collection(userGraphs.toJSON());
+    allGraphs = new Backbone.Collection(userGraphs.toJSON());
     allGraphs.add(actorGraphs.toJSON());
     allGraphs.add(bulletinGraphs.toJSON());
     allGraphs.add(incidentGraphs.toJSON());
-    console.log(allGraphs);
 
     return {
+      selectGraphTypeFromKey: selectGraphTypeFromKey,
       userGraphs    : userGraphs,
       actorGraphs   : actorGraphs,
       bulletinGraphs: bulletinGraphs,

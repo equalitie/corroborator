@@ -26,5 +26,8 @@
     "socket.io": "~0.9.15",
     "nvd3": "~1.1.15-beta",
     "d3": "~3.3.13"
+  },
+  "devDependencies": {
+    "sinonjs-built": "~1.7.3"
   }
 }

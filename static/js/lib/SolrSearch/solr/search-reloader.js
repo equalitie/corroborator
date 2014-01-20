@@ -167,7 +167,6 @@ define (
     };
  
     init = function(updateRequired) {
-      console.log('init');
       activatePolling = updateRequired;
       listenForSearchStringRequest();
       listenForSearchEvents();

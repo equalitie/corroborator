@@ -26,7 +26,6 @@ define(
         var entityTab = params[0] !== undefined
          ? '.is-' + params + 's'
          : '.is-incidents';
-         console.log(entityTab);
          this.addRemoveClasses($(entityTab));
       },
 
