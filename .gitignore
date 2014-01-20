@@ -5,9 +5,12 @@ env
 sitestatic
 sitestatic/*
 static/cache
+managedemo.py
 static/js/docs/annotated-source
 static/js/node_modules
 corroborator/settings/dev.py
+corroborator/settings/demo.py
+corroborator/wsgi_demo.py
 media/*
 apache/*
 *.sublime-project
@@ -21,3 +24,6 @@ static/js/test_confs
 static/js/reports
 static/js/oldreports
 static/js/coverage
+celerytest
+celerybeat-schedule
+demo.json

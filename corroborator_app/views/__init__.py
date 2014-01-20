@@ -35,6 +35,16 @@ from corroborator_app.models import (
 
 from corroborator_app.views.context import build_js_context
 
+def get_solr_url(path):
+    '''
+    set the solr url that we are connecting to
+    '''
+    if path.find('new_corroborator') > -1:
+        solr_path = 'http://127.0.0.1:8983/solr/collection1/'
+    else:
+        solr_path = 'http://demo.corroborator.org/solr/collection1/'
+    return solr_path
+
 from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
 from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
 
