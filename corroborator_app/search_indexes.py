@@ -99,7 +99,10 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of actor created datetime field
         """
-        return object.actor_created.date()
+        if object.actor_created is not None:
+            return object.actor_created.date()
+        else:
+            return ''
 
     def prepare_actor_modified_date(self, object):
         """
@@ -338,7 +341,6 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of incident created datetime field
         """
-
         if object.incident_created is not None:
             return object.incident_created.date()
         else:

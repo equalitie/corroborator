@@ -14,8 +14,10 @@ from tastypie import fields
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.http import HttpForbidden
 
+import reversion
+
 from corroborator_app.models import(
-    Bulletin, Comment, StatusUpdate
+    Bulletin, Comment, StatusUpdate, VersionStatus
 )
 from corroborator_app.api.ApiMixin import APIMixin
 from corroborator_app.api.UserApi import UserResource
@@ -93,10 +95,17 @@ class BulletinResource(ModelResource, APIMixin):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
-        bundle = super(BulletinResource, self).obj_delete(bundle, **kwargs)
-
-
-        self.create_revision(bundle, user, 'deleted')
+        user = User.objects.filter(username=username)[0]
+        with reversion.create_revision():
+            bundle = super(BulletinResource, self)\
+                .obj_delete(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                status='deleted',
+                user=user
+            )
+            reversion.set_user(user)
+            reversion.set_comment('Deleted')
         update_object.delay(username)
         return bundle
 
@@ -141,9 +150,16 @@ class BulletinResource(ModelResource, APIMixin):
             user
         )
         bundle.data['bulletin_comments'].append(comment_uri)
-        bundle = super(BulletinResource, self).obj_update(bundle, **kwargs)
-
-        self.create_revision(bundle, user, 'edited')
+        with reversion.create_revision():
+            bundle = super(BulletinResource, self)\
+                .obj_update(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                status='edited',
+                user=user
+            )
+            reversion.set_user(user)
+            reversion.set_comment(bundle.data['comment'])
         update_object.delay(username)
         return bundle
 
@@ -164,8 +180,16 @@ class BulletinResource(ModelResource, APIMixin):
             comment_uri
         ]
 
-        bundle = super(BulletinResource, self).obj_create(bundle, **kwargs)
-        self.create_revision(bundle, user, 'created')
+        with reversion.create_revision():
+            bundle = super(BulletinResource, self)\
+                .obj_create(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                status='created',
+                user=user
+            )
+            reversion.set_user(user)
+            reversion.set_comment(bundle.data['comment'])
         update_object.delay(username)
         return bundle
 

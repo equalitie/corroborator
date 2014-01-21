@@ -19,6 +19,10 @@ define(
         this.chart = nv.models.pieChart()
             .x(function(d) { return d.label; })
             .y(function(d) { return d.value; })
+            .tooltipContent(function(key, y, e, graph) {
+              var numString = y.toString().slice(0, -3);
+              return '<h3>' + key + '</h3><p>' + numString + '</p>';
+            })
             .showLabels(true);
         return this;
       },

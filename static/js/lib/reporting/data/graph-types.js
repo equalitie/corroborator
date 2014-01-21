@@ -131,7 +131,7 @@ define(
       },
       {
         key: 'incident_searchable_locations_exact',
-        type: 'pie',
+        type: 'bar',
         label: i18n.filters.location
       },
       {

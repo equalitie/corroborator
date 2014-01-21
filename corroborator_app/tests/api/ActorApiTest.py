@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
 
-from corroborator_app.models import Actor, Comment
+from corroborator_app.models import Actor, Comment, VersionStatus
 from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 import json
 
@@ -64,6 +64,8 @@ class ActorTestCase(ResourceTestCase):
         actor_comments = new_actor.actor_comments.all()
         self.assertEqual(len(actor_comments), 1)
         self.assertEqual(actor_comments[0].status.status_en, 'Human Created')
+        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        self.assertEqual(len(vs), 1)
 
     def test_actor_bulletin_related(self):
         post_data = {
