@@ -22,6 +22,27 @@ class IncidentPrepMeta():
             incident_object.actors_role.all()]
         return roles
 
+    def prepare_incident_confidence_bucket(self, object):
+        bins = [
+            '0-9',
+            '10-19',
+            '20-29',
+            '30-39',
+            '40-49',
+            '50-59',
+            '60-69',
+            '70-79',
+            '80-89',
+            '90-100',
+        ] 
+        confidence = object.confidence_score
+        if confidence is not None:
+            bin_number = (confidence / 10) - 1 if confidence == 100 else confidence / 10
+            return bins[bin_number]
+        else:
+            return ''
+
+
     def prepare_assigned_user(self, object):
         if object.assigned_user != None:
             return '/api/v1/user/{0}/'.format(object.assigned_user.id)
