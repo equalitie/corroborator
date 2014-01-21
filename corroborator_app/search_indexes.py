@@ -329,11 +329,16 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     incident_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
 
+    incident_confidence_bucket = indexes.CharField(faceted=True, null=True)
+
     def get_model(self):
         return Incident
 
     def get_updated_field(self):
         return "incident_modified"
+
+    def prepare_incident_confidence_bucket(self, object):
+        return IncidentPrepMeta().prepare_incident_confidence_bucket(object)
 
     def prepare_assigned_user(self, object):
         return IncidentPrepMeta().prepare_assigned_user(object)
@@ -530,9 +535,13 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     bulletin_imported_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
     sources_count = indexes.IntegerField(faceted=True)
+    bulletin_confidence_bucket = indexes.CharField(faceted=True, null=True)
 
     def get_model(self):
         return Bulletin
+
+    def prepare_bulletin_confidence_bucket(self, object):
+        return BulletinPrepMeta().prepare_bulletin_confidence_bucket(object)
 
     def prepare_sources_count(self, object):
         """
