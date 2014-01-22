@@ -490,6 +490,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Bulletin Solr document.
     """
+    bulletin_type = indexes.CharField(faceted=True, model_attr='type', null=True)
     text = indexes.CharField(document=True, use_template=True)
     description_en = indexes.CharField(model_attr='description_en', null=True)
     description_ar = indexes.CharField(model_attr='description_ar', null=True)
