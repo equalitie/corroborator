@@ -98,7 +98,7 @@ define(
         label: i18n.filters.bulletins_in_time
       },
       {
-        key: 'confidence_score_exact',
+        key: 'bulletin_confidence_bucket_exact',
         type: 'pie',
         label: i18n.filters.score
       },
@@ -127,7 +127,7 @@ define(
       {
         key: 'incident_crimes_exact',
         type: 'bar',
-        label: i18n.filters.sources
+        label: i18n.filters.crimes
       },
       {
         key: 'incident_searchable_locations_exact',
@@ -140,7 +140,7 @@ define(
         label: i18n.filters.incidents_in_time
       },
       {
-        key: 'confidence_score_exact',
+        key: 'incident_confidence_bucket_exact',
         type: 'pie',
         label: i18n.filters.score
       }

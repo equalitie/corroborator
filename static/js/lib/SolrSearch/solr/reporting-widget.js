@@ -40,12 +40,49 @@ define(
         this.listenForReportRequests();
       },
       sendSearch: function(value) {
-        console.log('sendSearch: ', value);
+        this.manager.store.remove('fq');
+        var facetFields = value.content.filters.map(function(filter) {
+          return filter.get('key');
+        }).concat(value.content.key);
+
+        this.addFilters(value.content.filters);
         this.graphKey = value.content.key;
         this.manager.store.remove('facet.field');
-        this.manager.store.addByValue('facet.field', [value.content.key]);
+        this.manager.store.addByValue('facet.field', facetFields);
         this.doRequest();
         
+      },
+      addFilters: function(filterCollection) {
+        filterCollection
+            .chain()
+            .groupBy(function(model){return model.get('key');})
+            .each(this.addFacet, this);
+      },
+      // add a Facet to the query
+      addFacet: function(filterGroup, key) {
+        this.setField(key);
+        var queryString = _.reduce(filterGroup, this.groupFilters, '');
+        this.add('(' + queryString + ')');
+      },
+
+      // reduce function to build an OR query string from filters
+      groupFilters: function(queryString, model) {
+        if (queryString.length > 0) {
+          queryString = queryString + ' OR ';
+        }
+        if(model.get('filterName').indexOf(' TO ') === -1){
+            queryString = queryString + '("' + model.get('filterName') + '")';
+        }else{
+            queryString = queryString + '(' + model.get('filterName') + ')';
+        }
+        return queryString;
+      },
+
+      // set the field for a filter
+      setField: function(key) {
+        if (this.field !== key) {
+          this.field = key;
+        }
       },
       // listen for a request to display
       listenForReportRequests: function() {
@@ -95,7 +132,6 @@ define(
       sendRequest: function(searchQuery) {
         this.clear();
         this.set( searchQuery );
-        console.log(searchQuery);
         this.doRequest(); 
       },
 
@@ -109,7 +145,6 @@ define(
       // use the ParseFilter module to pull the filters out of the search
       // results
       sendFilters: function(filters, options) {
-        console.log('sendFilters');
         ParseFilter(filters, 'actor', options);
         ParseFilter(filters, 'bulletin', options);
         ParseFilter(filters, 'incident', options);

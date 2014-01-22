@@ -26,7 +26,6 @@ define(
         },
 
         mapKeyToLabel = function(key, label) {
-          console.log(key, label);
           var labelFunctionMap = {
             actor_searchable_current_exact: locationMapper,
             bulletin_searchable_locations_exact: locationMapper,

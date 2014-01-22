@@ -35,6 +35,7 @@ define(
         combineGraphData = function(value) {
           // store the selected graph, so that filters can trigger a new graph
           selectedGraph = value.content;
+          var entity = value.content.get('entity');
           return {
             filters: graphMap[value.content.get('entity')],
             key: value.content.get('key'),
@@ -46,9 +47,10 @@ define(
         },
         // filter selected, combine filter data with selected graph type data
         combineFilterData = function (value) {
+          var filters = (new Backbone.Collection(value.content)) ||  undefined;
           try {
             return {
-              filters: graphMap[selectedGraph.get('entity')],
+              filters: filters,
               key: selectedGraph.get('key'),
               label: selectedGraph.get('label'),
               type: selectedGraph.get('type')
@@ -62,6 +64,7 @@ define(
           }
           
         },
+
         // send the event that will be picked up to generate the request for
         // required graph data
         sendGraphEvent = _.debounce(function(value) {
@@ -72,7 +75,7 @@ define(
         }, 200),
         // store the filters for the specified entity, if defined
         storeFiltersAndSendGraphEvent = function(value, entity) {
-          graphMap[entity].reset(value.filters);
+          graphMap[entity].reset(value.filters.toJSON());
           if (value.error === undefined) {
             sendGraphEvent(value);
           }
