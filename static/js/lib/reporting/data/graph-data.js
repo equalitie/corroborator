@@ -7,22 +7,43 @@ define(
   [
     'jquery', 'underscore', 'moment',
     'lib/streams',
+    'lib/Data/LocationCollection',
     'lib/reporting/data/graph-types'
   ],
-  function($, _, moment, Streams, GraphTypes) {
+  function($, _, moment, Streams, LocationCollection, GraphTypes) {
     'use strict';
     var userGraphs = GraphTypes.userGraphs,
+        locationCollection = new LocationCollection.LocationCollection(),
         selectGraphTypeFromKey = GraphTypes.selectGraphTypeFromKey,
         graphFilter = function(value) {
           return value.type === 'parse_graph_data';
         },
 
-        pieBarMapping = function(rawSolrData) {
+        locationMapper = function(key, locationUri) {
+          return locationCollection.chain().filter(function(locModel) {
+            return locModel.get('resource_uri') === locationUri;
+          }).first().value().get('name_en');
+        },
+
+        mapKeyToLabel = function(key, label) {
+          var labelFunctionMap = {
+            actor_searchable_current_exact: locationMapper,
+            bulletin_searchable_locations_exact: locationMapper,
+            incident_searchable_locations_exact: locationMapper
+          };
+          if ( _(labelFunctionMap).chain().keys().contains(key).value() ) {
+            label = labelFunctionMap[key](key, label);
+          }
+          return label;
+        },
+
+
+        pieBarMapping = function(rawSolrData, key) {
           return {
             values: (function() {
-              return _(rawSolrData).reduce(function(prevVal, item, key){
+              return _(rawSolrData).reduce(function(prevVal, item, label){
                 return prevVal.concat({
-                  label: key,
+                  label: mapKeyToLabel(key, label),
                   value: item
                 });
               }, []);
@@ -30,19 +51,21 @@ define(
           };
         },
 
+        
+
         // return an object with format like:
         // lib/reporting/test/test-data: trendData
         // this is kind of gross and only maps for one trend line
-        trendMapping = function(rawSolrData) { 
+        trendMapping = function(rawSolrData, key) { 
           if (_(rawSolrData).isObject()) {
             rawSolrData = [rawSolrData];
           }
           var returnObject = {},
               singleEntityValues = function(valueList) {
                  return {
-                   key: 'key',
-                   values: _(valueList).reduce(function(values, item, key) {
-                     key = parseInt(moment(key).unix(), 10) * 1000;
+                   key: mapKeyToLabel(key),
+                   values: _(valueList).reduce(function(values, item, label) {
+                     label = parseInt(moment(label).unix(), 10) * 1000;
                      return values.concat(
                        [{x:key, y:item}]
                      );
@@ -64,7 +87,7 @@ define(
 
         mapToParsedJsonData = function(value) {
           var type = selectGraphTypeFromKey(value.key),
-              parsedData = graphTypeMap[type](value.content);
+              parsedData = graphTypeMap[type](value.content, value.key);
           parsedData.key = value.key;
           return parsedData;
         },

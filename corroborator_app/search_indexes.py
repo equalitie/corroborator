@@ -104,7 +104,6 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         else:
             return ''
 
-
     def prepare_actor_modified_date(self, object):
         """
         return date portion of actor modified datetime field

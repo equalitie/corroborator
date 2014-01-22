@@ -46,12 +46,12 @@ define (
               key: 'actor_created',
               content:TestData.inputData.trendData
             },
-        parsedData = mapToParsedJsonData(dataEvent);
+            parsedData = mapToParsedJsonData(dataEvent);
 
-          expect(parsedData.values[0].values[0]).toEqual([
-            '2013-10-15T15:11:37Z', 3]);
-          expect(parsedData.values[0].values[2]).toEqual([
-            '2013-12-02T11:55:31Z', 4]);
+        expect(parsedData.values[0].values[0]).toEqual({
+          x:1381849897000,
+          y:3
+        });
       });
 
       xit('should dispatch routing events', function(){

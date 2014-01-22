@@ -5,9 +5,9 @@
 
 define(
   [
-    'backbone', 'd3', 'nv'
+    'underscore', 'backbone', 'd3', 'nv'
   ],
-  function(Backbone, d3, nv) {
+  function(_, Backbone, d3, nv) {
   'use strict';
     return Backbone.View.extend({
       el: '.graphs svg',
@@ -20,7 +20,14 @@ define(
             .x(function(d) { return d.label; })
             .y(function(d) { return d.value; })
             .staggerLabels(true)
-            .showValues(true);
+            .tooltips(true);
+
+        this.chart.yAxis
+            .axisLabel('Users')
+            .tickFormat(d3.format(',.0f'));
+
+        this.chart.xAxis
+            .axisLabel('Locations');
         return this;
       },
       bindChartToEl: function() {

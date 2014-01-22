@@ -11,6 +11,7 @@ define({
       'actors_in_time': 'Actors over time',
       'labels': 'Labels',
       'sources': 'Sources',
+      'crimes': 'Crimes',
       'type': 'Type',
       'bulletins_in_time': 'Bulletins over time',
       'bulletins_by': 'Bulletins by',
