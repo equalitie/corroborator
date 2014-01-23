@@ -23,10 +23,11 @@ def generate_start_end_times(user):
     end_time = datetime.strptime(
         'Jun 1 2013  4:34PM', '%b %d %Y %I:%M%p')
     total = (end_time - start_time).total_seconds()
-    date_time_set.append([
-        end_time.strftime('%Y-%m-%d'),
-        total
-    ])
+    timestamp = time.mktime(end_time.timetuple())*1e3 + end_time.microsecond/1e3
+    date_time_set.append({
+        'x': timestamp,
+        'y': total
+    })
 
     create_log_entry_for_user(user, start_time, end_time)
     start_time = datetime.strptime(
@@ -36,10 +37,11 @@ def generate_start_end_times(user):
     create_log_entry_for_user(user, start_time, end_time)
     total2 = (end_time - start_time).total_seconds()
     total += total2 
-    date_time_set.append([
-        end_time.strftime('%Y-%m-%d'),
-        total2
-    ])
+    timestamp = time.mktime(end_time.timetuple())*1e3 + end_time.microsecond/1e3
+    date_time_set.append({
+        'x': timestamp,
+        'y': total2
+    })
         
     return [date_time_set,total]
 
