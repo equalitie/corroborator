@@ -101,7 +101,7 @@ define(
         type: 'trend',
         label: i18n.filters.bulletins_in_time,
         yAxisLabel: i18n.axes.Bulletins,
-        xAxisLabel: i18n.axes.Time
+        xAxisLabel: i18n.axes.date
       },
       {
         key: 'bulletin_confidence_bucket_exact',
@@ -148,7 +148,7 @@ define(
         type: 'trend',
         label: i18n.filters.incidents_in_time,
         yAxisLabel: i18n.axes.Incidents,
-        xAxisLabel: i18n.axes.Time
+        xAxisLabel: i18n.axes.Date
       },
       {
         key: 'incident_confidence_bucket_exact',

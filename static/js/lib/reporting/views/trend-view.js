@@ -25,19 +25,19 @@ define(
             });
 
         this.chart.xAxis
-        .axisLabel('date')
+        .axisLabel(this.data.xAxisLabel)
         .tickFormat(function(d) {
           return d3.time.format('%x')(new Date(d));
         });
 
         this.chart.x2Axis
-        .axisLabel('date')
+        .axisLabel(this.data.xAxisLabel)
         .tickFormat(function(d) {
           return d3.time.format('%x')(new Date(d));
         });
 
         this.chart.yAxis
-        .axisLabel('Actors')
+        .axisLabel(this.data.yAxisLabel)
         .tickFormat(d3.format(',r'));
         return this;
       },

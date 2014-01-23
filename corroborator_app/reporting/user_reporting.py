@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import Count, Sum
 from itertools import groupby
 import json
+import time
 
 class UserReportingApi(object):
 
@@ -185,15 +186,15 @@ class UserReportingApi(object):
 
         items.append({
             'values': self.get_items_by_crud_date('deleted', user_id),
-            'label': 'Deleted items by date'
+            'key': 'Deleted items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('created', user_id),
-            'label': 'Created items by date'
+            'key': 'Created items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('edited', user_id),
-            'label': 'Edited items by date'
+            'key': 'Edited items by date'
         })
 
         if items == []:
@@ -210,8 +211,8 @@ class UserReportingApi(object):
         ).values('version_timestamp', 'id')
 
         time_data = []
-        for key, values in groupby(items, key=lambda item: item['version_timestamp'].date()):
-            timestamp = key
+        for key, values in groupby(items, key=lambda item: item['version_timestamp']):
+            timestamp = time.mktime(key.timetuple())*1e3 + key.microsecond/1e3
             val = 0
             for value in values:
                 val += 1

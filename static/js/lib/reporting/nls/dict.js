@@ -29,6 +29,14 @@ define({
       'user_created_items': 'Total created items',
       'user_edited_items': 'Total edited items',
       'user_deleted_edited_created': 'Deleted items, created items, edited items in time(daily)'
+    },
+    'axes': {
+      'Actors': 'Actors',
+      'Bulletins': 'Bulletins',
+      'Incidents': 'Incidents',
+      'Date': 'Date',
+      'Hours': 'Hours'
+
     }
   },
   'ar': true
