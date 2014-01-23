@@ -42,15 +42,15 @@ class UserReportingApi(object):
 
         result_data = []
         time_data = []
-        for key, values in groupby(items, key=lambda item: item['logout'].date()):
-            timestamp = key.strftime('%Y-%m-%d')
+        for key, values in groupby(items, key=lambda item: item['logout']):
+            timestamp = time.mktime(key.timetuple())*1e3 + key.microsecond/1e3
             val = 0
             for value in values:
                 val += value['total_seconds']
-            time_data.append([
-                timestamp,
-                val
-            ])
+            time_data.append({
+                'x': timestamp,
+                'y': val
+            })
 
         result_data.append({
             'values': time_data,
