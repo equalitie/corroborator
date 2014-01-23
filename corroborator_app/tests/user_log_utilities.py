@@ -5,6 +5,7 @@ Helper functions to generate UserLog Data for tests
 """
 
 from datetime import datetime
+import time
 from corroborator_app.models import (
 UserLog, VersionStatus, Actor, Comment, Bulletin,
 Incident)
@@ -130,15 +131,17 @@ def crud_items(crud_type, user):
 
     time_data = []
 
-    for key, values in groupby(items, key=lambda item: item['version_timestamp'].date()):
-        timestamp = key.strftime('%Y-%m-%d')
+    for key, values in groupby(items, key=lambda item: item['version_timestamp']):
+        timestamp = time.mktime(
+            key.timetuple()
+        )*1e3 + key.microsecond/1e3
         val = 0
         for value in values:
             val += 1
-        time_data.append([
-            timestamp,
-            val
-        ])
+        time_data.append({
+            'x': timestamp,
+            'y': val
+        })
 
     return time_data
 
