@@ -13,6 +13,7 @@ define(
   function($, _, moment, Streams, LocationCollection, GraphTypes) {
     'use strict';
     var userGraphs = GraphTypes.userGraphs,
+        allGraphs = GraphTypes.allGraphs,
         locationCollection = new LocationCollection.LocationCollection(),
         selectGraphTypeFromKey = GraphTypes.selectGraphTypeFromKey,
         graphFilter = function(value) {
@@ -25,16 +26,28 @@ define(
           }).first().value().get('name_en');
         },
 
+        timeSeriesMapper = function(key) {
+          return allGraphs.findWhere({key: key}).get('label');
+        },
+
         mapKeyToLabel = function(key, label) {
-          var labelFunctionMap = {
-            actor_searchable_current_exact: locationMapper,
-            bulletin_searchable_locations_exact: locationMapper,
-            incident_searchable_locations_exact: locationMapper
-          };
+          var graphModel = allGraphs.findWhere({key: key}),
+              labelFunctionMap = {
+                actor_searchable_current_exact: locationMapper,
+                bulletin_searchable_locations_exact: locationMapper,
+                incident_searchable_locations_exact: locationMapper,
+                bulletin_created_date: timeSeriesMapper,
+                actor_created: timeSeriesMapper,
+                incident_created_date: timeSeriesMapper
+              };
+
           if ( _(labelFunctionMap).chain().keys().contains(key).value() ) {
-            label = labelFunctionMap[key](key, label);
+            graphModel.set('label', labelFunctionMap[key](key, label));
           }
-          return label;
+          else {
+            graphModel.set('label', label);
+          }
+          return graphModel;
         },
 
 
@@ -42,16 +55,16 @@ define(
           return {
             values: (function() {
               return _(rawSolrData).reduce(function(prevVal, item, label){
+                var graphModel = mapKeyToLabel(key, label);
                 return prevVal.concat({
-                  label: mapKeyToLabel(key, label),
+                  label: graphModel.get('label'),
+                  yAxisLabel: graphModel.get('yAxisLabel'),
                   value: item
                 });
               }, []);
             }())
           };
         },
-
-        
 
         // return an object with format like:
         // lib/reporting/test/test-data: trendData
@@ -60,21 +73,26 @@ define(
           if (_(rawSolrData).isObject()) {
             rawSolrData = [rawSolrData];
           }
-          var returnObject = {},
+          var graphModel = mapKeyToLabel(key),
               singleEntityValues = function(valueList) {
                  return {
-                   key: mapKeyToLabel(key),
+                   key: graphModel.get('label'),
                    values: _(valueList).reduce(function(values, item, label) {
                      label = parseInt(moment(label).unix(), 10) * 1000;
                      return values.concat(
-                       [{x:key, y:item}]
+                       [{x:label, y:item}]
                      );
-                   }, [])
+                   }, []).sort(function(a, b) {
+                     return a.x - b.x;
+                   })
                  };
               };
            
-          returnObject.values = rawSolrData.map(singleEntityValues);
-          return returnObject;
+          return {
+            values: rawSolrData.map(singleEntityValues),
+            yAxisLabel: graphModel.get('yAxisLabel'),
+            xAxisLabel: graphModel.get('xAxisLabel')
+          };
           
         },
 

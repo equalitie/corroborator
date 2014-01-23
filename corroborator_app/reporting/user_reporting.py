@@ -55,7 +55,7 @@ class UserReportingApi(object):
 
         result_data.append({
             'values': time_data,
-            'label': user.username
+            'key': user.username
         })
 
         if result_data == []:
@@ -183,26 +183,25 @@ class UserReportingApi(object):
         CRUD opperations total per day
         """
         graph_title = 'Deleted, created and edited items by date'
-
         items = []
- 
+
         items.append({
             'values': self.get_items_by_crud_date('deleted', user_id),
-            'label': 'Deleted items by date'
+            'key': 'Deleted items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('created', user_id),
-            'label': 'Created items by date'
+            'key': 'Created items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('edited', user_id),
-            'label': 'Edited items by date'
+            'key': 'Edited items by date'
         })
 
         if items == []:
             return '{"error": "No data elements found."}'
         return self.trend_format_json(items, graph_title)
- 
+
     def get_items_by_crud_date(self, crud_type, user_id):
         items = VersionStatus.objects.filter(
             status=crud_type

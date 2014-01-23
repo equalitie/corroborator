@@ -22,14 +22,12 @@ define(
           }).first().value().get('type');
         };
 
-
-
-
     actorGraphs = new GraphTypeCollection([
       {
         key: 'age_en_exact',
         type: 'bar',
-        label: i18n.filters.age
+        label: i18n.filters.age,
+        yAxisLabel: i18n.axes.Actors
       },
       {
         key: 'sex_en_exact',
@@ -39,7 +37,8 @@ define(
       {
         key: 'actor_searchable_current_exact',
         type: 'bar',
-        label: i18n.filters.location
+        label: i18n.filters.location,
+        yAxisLabel: i18n.axes.Actors
       },
       {
         key: 'role',
@@ -59,7 +58,9 @@ define(
       {
         key: 'actor_created',
         type: 'trend',
-        label: i18n.filters.actors_in_time
+        label: i18n.filters.actors_in_time,
+        yAxisLabel: i18n.axes.Actors,
+        xAxisLabel: i18n.axes.Time
       }
     ]);
     actorGraphs.each(function(aGraph) {
@@ -75,12 +76,14 @@ define(
       {
         key: 'bulletin_labels_exact',
         type: 'bar',
-        label: i18n.filters.labels
+        label: i18n.filters.labels,
+        yAxisLabel: i18n.axes.Bulletins
       },
       {
         key: 'bulletin_sources_exact',
         type: 'bar',
-        label: i18n.filters.sources
+        label: i18n.filters.sources,
+        yAxisLabel: i18n.axes.Bulletins
       },
       {
         key: 'bulletin_type',
@@ -90,12 +93,15 @@ define(
       {
         key: 'bulletin_searchable_locations_exact',
         type: 'bar',
-        label: i18n.filters.location
+        label: i18n.filters.location,
+        yAxisLabel: i18n.axes.Bulletins
       },
       {
-        key: 'bulletins_created_date',
+        key: 'bulletin_created_date',
         type: 'trend',
-        label: i18n.filters.bulletins_in_time
+        label: i18n.filters.bulletins_in_time,
+        yAxisLabel: i18n.axes.Bulletins,
+        xAxisLabel: i18n.axes.date
       },
       {
         key: 'bulletin_confidence_bucket_exact',
@@ -103,7 +109,7 @@ define(
         label: i18n.filters.score
       },
       {
-        key: 'bulletin_number_sources',
+        key: 'sources_count_exact',
         type: 'pie',
         label: i18n.filters.number_sources
       }
@@ -122,22 +128,27 @@ define(
       {
         key: 'incident_labels_exact',
         type: 'bar',
-        label: i18n.filters.labels
+        label: i18n.filters.labels,
+        yAxisLabel: i18n.axes.Incidents
       },
       {
         key: 'incident_crimes_exact',
         type: 'bar',
-        label: i18n.filters.crimes
+        label: i18n.filters.crimes,
+        yAxisLabel: i18n.axes.Incidents
       },
       {
         key: 'incident_searchable_locations_exact',
         type: 'bar',
-        label: i18n.filters.location
+        label: i18n.filters.location,
+        yAxisLabel: i18n.axes.Incidents
       },
       {
         key: 'incident_created_date',
         type: 'trend',
-        label: i18n.filters.incidents_in_time
+        label: i18n.filters.incidents_in_time,
+        yAxisLabel: i18n.axes.Incidents,
+        xAxisLabel: i18n.axes.Date
       },
       {
         key: 'incident_confidence_bucket_exact',
@@ -160,7 +171,9 @@ define(
         key: 'user_login_per_day',
         type: 'trend',
         label: i18n.filters.user_login_per_day,
-        user_required: true
+        user_required: true,
+        yAxisLabel: i18n.axes.Hours,
+        xAxisLabel: i18n.axes.Date
       },
       {
         key: 'user_average_updates',
@@ -192,7 +205,9 @@ define(
         key: 'user_deleted_edited_created',
         type: 'trend',
         label: i18n.filters.user_deleted_edited_created,
-        user_required: true
+        user_required: true,
+        yAxisLabel: i18n.axes.Entities,
+        xAxisLabel: i18n.axes.Time
       }
     ]);
     userGraphs.each(function(uGraph) {
