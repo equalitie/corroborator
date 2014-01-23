@@ -54,7 +54,7 @@ class UserReportingApi(object):
 
         result_data.append({
             'values': time_data,
-            'label': user.username
+            'key': user.username
         })
 
         if result_data == []:
