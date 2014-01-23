@@ -476,6 +476,9 @@ class Actor(models.Model):
         ('Civilian', 'Civilian'),
         ('Non-civilian', 'Non-civilian'),
     )
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, default='')
+
     seq_order = models.IntegerField(blank=True, null=True)
     fullname_en = models.CharField(max_length=255)
     fullname_ar = models.CharField(max_length=255, blank=True)
@@ -617,6 +620,23 @@ class ActorRelationship(models.Model):
     def __unicode__(self):
         return self.actor.fullname_en + ': ' + self.relation_status
 
+class RoleType(models.Model):
+    """
+    This object stores RoleTypes
+    """
+    name_en = models.CharField(max_length=255, blank=True, null=True)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.CharField(max_length=255, blank=True, null=True)
+    description_ar = models.CharField(max_length=255, blank=True, null=True)
+
+class RelationType(models.Model):
+    """
+    This object stores RelationTypes
+    """
+    name_en = models.CharField(max_length=255, blank=True, null=True)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.CharField(max_length=255, blank=True, null=True)
+    description_ar = models.CharField(max_length=255, blank=True, null=True)
 
 class ActorRole(models.Model):
     """
@@ -665,6 +685,8 @@ class ActorRole(models.Model):
         blank=True,
         null=True
     )
+    role = models.ForeignKey(RoleType, blank=True, null=True)
+    relation = models.ForeignKey(RelationType, blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
     actor = models.ForeignKey(Actor, blank=True, null=True)
