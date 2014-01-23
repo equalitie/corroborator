@@ -13,37 +13,47 @@ define(
       el: '.graphs svg',
       initialize: function(options) {
         this.data = options.data;
-        console.log(options.data.values);
+        console.log(this.data);
         this.render();
       },
       createChart: function() {
-        var self = this;
-        nv.addGraph(function() {
-          var chart = nv.models.lineChart();
+        this.chart = nv.models.lineWithFocusChart()
+            .options({
+              showXAxis: true,
+              showYAxis: true,
+              transitionDuration: 250
+            });
 
-          chart.xAxis
-          .axisLabel('date')
-          .tickFormat(function(d) {
-            return d3.time.format('%x')(new Date(d));
-          });
-
-          chart.yAxis
-          .axisLabel('Actors');
-          //.tickFormat(d3.format(',r'));
-
-          d3.select(self.el)
-          .datum(self.data.values)
-          .transition().duration(500)
-          .call(chart);
-
-          nv.utils.windowResize(chart.update);
-
-          return chart;
+        this.chart.xAxis
+        .axisLabel('date')
+        .tickFormat(function(d) {
+          return d3.time.format('%x')(new Date(d));
         });
+
+        this.chart.x2Axis
+        .axisLabel('date')
+        .tickFormat(function(d) {
+          return d3.time.format('%x')(new Date(d));
+        });
+
+        this.chart.yAxis
+        .axisLabel('Actors')
+        .tickFormat(d3.format(',r'));
         return this;
       },
+
+      bindChartToEl: function() {
+        d3.select(this.el)
+        .datum(this.data.values)
+        .transition().duration(500)
+        .call(this.chart);
+        return this;
+      },
+
       render: function() {
-        this.createChart();
+        this.createChart()
+            .bindChartToEl();
+        nv.addGraph(this.chart);
       }
     });
   }

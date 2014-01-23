@@ -13,6 +13,7 @@ define(
   function($, _, moment, Streams, LocationCollection, GraphTypes) {
     'use strict';
     var userGraphs = GraphTypes.userGraphs,
+        allGraphs = GraphTypes.allGraphs,
         locationCollection = new LocationCollection.LocationCollection(),
         selectGraphTypeFromKey = GraphTypes.selectGraphTypeFromKey,
         graphFilter = function(value) {
@@ -25,11 +26,18 @@ define(
           }).first().value().get('name_en');
         },
 
+        timeSeriesMapper = function(key) {
+          return allGraphs.findWhere({key: key}).get('label');
+        },
+
         mapKeyToLabel = function(key, label) {
           var labelFunctionMap = {
             actor_searchable_current_exact: locationMapper,
             bulletin_searchable_locations_exact: locationMapper,
-            incident_searchable_locations_exact: locationMapper
+            incident_searchable_locations_exact: locationMapper,
+            bulletin_created_date: timeSeriesMapper,
+            actor_created: timeSeriesMapper,
+            incident_created_date: timeSeriesMapper
           };
           if ( _(labelFunctionMap).chain().keys().contains(key).value() ) {
             label = labelFunctionMap[key](key, label);
@@ -67,9 +75,11 @@ define(
                    values: _(valueList).reduce(function(values, item, label) {
                      label = parseInt(moment(label).unix(), 10) * 1000;
                      return values.concat(
-                       [{x:key, y:item}]
+                       [{x:label, y:item}]
                      );
-                   }, [])
+                   }, []).sort(function(a, b) {
+                     return a.x - b.x;
+                   })
                  };
               };
            

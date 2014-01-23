@@ -181,9 +181,8 @@ class UserReportingApi(object):
         CRUD opperations total per day
         """
         graph_title = 'Deleted, created and edited items by date'
-
         items = []
- 
+
         items.append({
             'values': self.get_items_by_crud_date('deleted', user_id),
             'label': 'Deleted items by date'
@@ -200,7 +199,7 @@ class UserReportingApi(object):
         if items == []:
             return '{"error": "No data elements found."}'
         return self.trend_format_json(items, graph_title)
- 
+
     def get_items_by_crud_date(self, crud_type, user_id):
         items = VersionStatus.objects.filter(
             status=crud_type
@@ -212,14 +211,14 @@ class UserReportingApi(object):
 
         time_data = []
         for key, values in groupby(items, key=lambda item: item['version_timestamp'].date()):
-            timestamp = key.strftime('%Y-%m-%d')
+            timestamp = key
             val = 0
             for value in values:
                 val += 1
-            time_data.append([
-                timestamp,
-                val
-            ])
+            time_data.append({
+                'x': timestamp,
+                'y': val
+            })
 
         return time_data
 
