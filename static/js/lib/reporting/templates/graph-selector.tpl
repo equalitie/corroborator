@@ -3,7 +3,7 @@
   <!-- available graphs -->
   <select id="graph-type" name="">
     {{#each collection}}
-      <option value="{{this.key}}">{{this.title}}</option>
+      <option value="{{this.key}}">{{this.filter_label}}</option>
     {{/each}}
   </select>
 </div>
