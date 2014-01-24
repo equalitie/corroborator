@@ -18,7 +18,7 @@ class UserReportingApi(object):
         """
         graph_title = 'Total login time by User'
 
-        user_items = UserLog.objects.values('user__username').annotate(value=Sum('total_seconds'))
+        user_items = UserLog.objects.values('user__username').annotate(value=int(Sum('total_seconds')/60))
 
         if user_items == []:
             return '{"error": "No data elements found."}'
@@ -43,11 +43,10 @@ class UserReportingApi(object):
         result_data = []
         time_data = []
         for key, values in groupby(items, key=lambda item: item['logout']):
-            #timestamp = time.mktime(key.timetuple())*1e3 + key.microsecond/1e3
-            timestamp = int( ( time.mktime( key.timetuple() ) / 1000 ) / 60)
+            timestamp = time.mktime(key.timetuple())*1e3 + key.microsecond/1e3
             val = 0
             for value in values:
-                val += value['total_seconds']
+                val += int(value['total_seconds']/60)
             time_data.append({
                 'x': timestamp,
                 'y': val
@@ -55,7 +54,7 @@ class UserReportingApi(object):
 
         result_data.append({
             'values': time_data,
-            'key': user.username
+            'label': user.username
         })
 
         if result_data == []:
