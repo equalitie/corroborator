@@ -18,8 +18,10 @@ class UserReportingApi(object):
         """
         graph_title = 'Total login time by User'
 
-        user_items = UserLog.objects.values('user__username').annotate(value=int(Sum('total_seconds')/60))
+        user_items = UserLog.objects.values('user__username').annotate(value=Sum('total_seconds'))
 
+        for item in user_items:
+            item['value'] = int(item['value'] / 60)
         if user_items == []:
             return '{"error": "No data elements found."}'
 
