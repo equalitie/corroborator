@@ -43,6 +43,9 @@ define(
 
   GraphViewManager = Backbone.View.extend({
     el: '#reporting-content .col.first',
+    graphTpl: function() {
+      return _.template('<div class="graphs"><h2><%=title %></h2></div>');
+    },
     initialize: function(options) {
       this.listenForGraphRequests();
     },
@@ -51,17 +54,19 @@ define(
                        .onValue(this.displayGraph.bind(this));
     },
     displayGraph: function(value) {
+      console.log(value);
       if (this.chart) {
         this.chart.destroy();
       }
       this.$el.children('.graphs').remove();
-      this.$el.append('<div class="graphs"><svg></svg></div>');
+
+      this.$el.append(this.graphTpl()({title: value.content.title}));
+      this.$el.children('.graphs').append('<svg></svg>');
       var ChartType = selectGraphType(value.content.key);
 
       this.chart = new ChartType({
         data: value.content
       });
-      this.$el.append(this.chart.$el);
     }
 
   });

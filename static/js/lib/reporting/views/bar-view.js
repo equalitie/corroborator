@@ -20,14 +20,15 @@ define(
             .x(function(d) { return d.label; })
             .y(function(d) { return d.value; })
             .staggerLabels(true)
+            .margin({top: 10, right: 50, bottom: 100, left: 90})
             .tooltips(true);
 
         this.chart.yAxis
-            .axisLabel('Users')
+            .axisLabel(this.data.yAxisLabel)
             .tickFormat(d3.format(',.0f'));
 
         this.chart.xAxis
-            .axisLabel('Locations');
+            .axisLabel(this.data.xAxisLabel);
         return this;
       },
       bindChartToEl: function() {

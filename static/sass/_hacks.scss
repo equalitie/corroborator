@@ -1,5 +1,6 @@
 /*global $PAD_UNIT */
 //Search area
+$FILTER_BG:#f9f0e8;
 #search-navigation .search {
   float: left;
   margin-bottom: -2px;
@@ -57,6 +58,8 @@
   top: 62px;
 }
 
+// REPORTING SHIZZ
+
 #reporting-content {
   .actor-filter, .bulletin-filter, .incident-filter {
     top: 0px;
@@ -76,14 +79,17 @@
     border: 1px solid #bfbfba;
   }
   .graphs {
-    svg {
-    background-color: white;
-    border: 1px solid #bfbfba;
-      width: 90%;
-      height: 600px;
-      margin-left: 8%;
-      margin-top: .8em;
+    h2 {
+      text-align: center;
+      padding: 15px;
+      font-size: 15px;
     }
+      height: 80%;
+    background-color: $FILTER_BG;
+    border: 1px solid #bfbfba;
+    width: 90%;
+    margin-left: 3%;
+    margin-top: .8em;
   }
   .col.last.right-filters {
     margin-top: -3em;
@@ -94,6 +100,13 @@
   }
   
 }
+.nv-context {
+  margin-top: 20px;
+}
+// END REPORTING SHIZZ
+
+
+
 
 .right-filters .header {
   left: $PAD_UNIT;

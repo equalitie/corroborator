@@ -11,7 +11,7 @@ function program1(depth0,data) {
   buffer += "\n      <option value=\""
     + escapeExpression(((stack1 = depth0.key),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">"
-    + escapeExpression(((stack1 = depth0.label),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = depth0.title),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</option>\n    ";
   return buffer;
   }

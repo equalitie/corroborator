@@ -22,7 +22,8 @@ define(
               showXAxis: true,
               showYAxis: true,
               transitionDuration: 250
-            });
+            })
+            .margin({top: 100, right: 50, bottom: 50, left: 90});
 
         this.chart.xAxis
         .axisLabel(this.data.xAxisLabel)
@@ -50,10 +51,16 @@ define(
         return this;
       },
 
+      increaseSpacing: function() {
+        d3.selectAll(".nv-context").attr('margin-top', '60px');
+      },
+
+
       render: function() {
         this.createChart()
             .bindChartToEl();
         nv.addGraph(this.chart);
+        this.increaseSpacing();
       }
     });
   }

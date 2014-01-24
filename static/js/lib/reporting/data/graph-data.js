@@ -52,18 +52,21 @@ define(
 
 
         pieBarMapping = function(rawSolrData, key) {
-          return {
-            values: (function() {
-              return _(rawSolrData).reduce(function(prevVal, item, label){
-                var graphModel = mapKeyToLabel(key, label);
-                return prevVal.concat({
-                  label: graphModel.get('label'),
-                  yAxisLabel: graphModel.get('yAxisLabel'),
-                  value: item
-                });
-              }, []);
-            }())
-          };
+          var graphModel,
+              parsedData = {
+                values: (function() {
+                  return _(rawSolrData).reduce(function(prevVal, item, label){
+                    graphModel = mapKeyToLabel(key, label);
+                    return prevVal.concat({
+                      label: graphModel.get('label'),
+                      yAxisLabel: graphModel.get('yAxisLabel'),
+                      value: item
+                    });
+                  }, []);
+                }())
+              };
+              parsedData.title = graphModel.get('title');
+              return parsedData;
         },
 
         // return an object with format like:
@@ -89,6 +92,7 @@ define(
               };
            
           return {
+            title: graphModel.get('title'),
             values: rawSolrData.map(singleEntityValues),
             yAxisLabel: graphModel.get('yAxisLabel'),
             xAxisLabel: graphModel.get('xAxisLabel')
