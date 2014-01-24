@@ -134,8 +134,6 @@ class ReportingTestCase(TestCase):
         ura = UserReportingApi()
         expected_response = json.loads(expected_response)
         json_response = json.loads(ura.total_user_login_time())
-        import ipdb
-        ipdb.set_trace()
         self.assertEqual(expected_response, json_response)
 
     def test_user_login_per_day(self):
@@ -159,7 +157,6 @@ class ReportingTestCase(TestCase):
         json_response = json.loads(ura.total_user_login_per_day(user.id))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
-        
 
     def test_user_average_update(self):
         '''

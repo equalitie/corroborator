@@ -41,7 +41,6 @@ class UserReportingApi(object):
         ).order_by(
             'logout'
         ).values('logout', 'total_seconds')
-
         result_data = []
         time_data = []
         for key, values in groupby(items, key=lambda item: item['logout']):
@@ -148,10 +147,11 @@ class UserReportingApi(object):
     def get_entity_statuses(self, entity_set, statuses, entity_type):
         for entity in entity_set:
             entity_status = self.get_entity_status(entity_type, entity)
-            if entity_status in statuses:
-                statuses[entity_status] += 1
-            else:
-                statuses[entity_status] = 1
+            if entity_status is not '':
+                if entity_status in statuses:
+                    statuses[entity_status] += 1
+                else:
+                    statuses[entity_status] = 1
 
         return statuses
 
@@ -188,15 +188,15 @@ class UserReportingApi(object):
 
         items.append({
             'values': self.get_items_by_crud_date('deleted', user_id),
-            'key': 'Deleted items by date'
+            'label': 'Deleted items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('created', user_id),
-            'key': 'Created items by date'
+            'label': 'Created items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('edited', user_id),
-            'key': 'Edited items by date'
+            'label': 'Edited items by date'
         })
 
         if items == []:
