@@ -15,9 +15,14 @@ define(
         this.data = options.data;
         this.render();
       },
+      shortenLabel: function(labelString) {
+        return labelString.length < 30 ?
+          labelString :
+          labelString.slice(0, 30) + '…';
+      },
       createChart: function() {
         this.chart = nv.models.discreteBarChart()
-            .x(function(d) { return d.label; })
+            .x(function(d) { console.log(arguments); return this.shortenLabel(d.label); }.bind(this))
             .y(function(d) { return d.value; })
             .staggerLabels(true)
             .margin({top: 10, right: 50, bottom: 100, left: 90})
