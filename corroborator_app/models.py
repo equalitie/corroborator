@@ -148,7 +148,7 @@ class EventType(models.Model):
     description_ar = models.TextField(blank=True, null=True)
 
     def __unicode__(self):
-        return self.status_en
+        return self.name_en
 
 
 

@@ -73,6 +73,36 @@ class ActorPrepMeta():
         else:
             return ''
 
+    def prepare_actor_entity_relation(self, object):
+        """
+        Returns a full list of all roles and relationships associated
+        with this Actor instance.
+        """
+        relations = [
+            actor_role.get_relation_status_display() for actor_role in
+            ActorRole.objects.filter(actor__in=[object]).all()]
+
+        result = relations
+        result = filter(None, result)
+
+        return list(set(result))
+
+
+    def prepare_actor_entity_role(self, object):
+        """
+        Returns a full list of all roles and relationships associated
+        with this Actor instance.
+        """
+        roles = [
+            actor_role.get_role_status_display() for actor_role in
+            ActorRole.objects.filter(actor__in=[object]).all()]
+
+        result = roles
+        result = filter(None, result)
+
+        return list(set(result))
+
+
     def prepare_roles(self, object):
         """
         Returns a full list of all roles and relationships associated

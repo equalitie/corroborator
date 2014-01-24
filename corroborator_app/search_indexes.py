@@ -24,6 +24,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     """
     text = indexes.CharField(document=True, use_template=True)
     dob = indexes.DateField(model_attr='DOB', null=True, faceted=True)
+    description_en = indexes.CharField(model_attr='description_en', null=True)
+    description_ar = indexes.CharField(model_attr='description_ar', null=True)
     fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
     fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
     nickname_en = indexes.CharField(model_attr='nickname_en', null=True)
@@ -91,6 +93,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     related_incidents = indexes.MultiValueField()
 
     actor_comments = indexes.MultiValueField()
+    actor_entity_role = indexes.MultiValueField(faceted=True)
+    actor_entity_relation = indexes.MultiValueField(faceted=True)
 
     def get_model(self):
         return Actor
@@ -141,12 +145,28 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return ActorPrepMeta().prepare_actor_actor_roles(object)
 
+    def prepare_actor_entity_role(self, object):
+        """
+        Returns a list of all roles and relationships associated with this
+        Actor instance
+        """
+        return ActorPrepMeta().prepare_actor_entity_role(object)
+
+    def prepare_actor_entity_relation(self, object):
+        """
+        Returns a list of all roles and relationships associated with this
+        Actor instance
+        """
+        return ActorPrepMeta().prepare_actor_entity_relation(object)
+
     def prepare_roles(self, object):
         """
         Returns a list of all roles and relationships associated with this
         Actor instance
         """
         return ActorPrepMeta().prepare_roles(object)
+
+
 
     def prepare_actors(self, object):
         """
