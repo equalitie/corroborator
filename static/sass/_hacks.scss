@@ -95,8 +95,11 @@ $FILTER_BG:#f9f0e8;
     }
   }
   .col.last.right-filters {
-    margin-top: -3em;
+    margin-top: -2.1em;
     top: $TOP_DIST_COLS + 9;
+  }
+  .group.is-filters {
+    border: 1px solid #bfbfba;
   }
   .header {
     display: none;

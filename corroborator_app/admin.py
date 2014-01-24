@@ -96,8 +96,8 @@ class TimeInfoAdmin(admin.ModelAdmin):
 
 class ActorAdmin(reversion.VersionAdmin):
     pass
-class ActorStatusAdmin(reversion.VersionAdmin):
-    pass
+#class ActorStatusAdmin(reversion.VersionAdmin):
+    #pass
 class ActorRoleAdmin(reversion.VersionAdmin):
     pass
 class RelationTypeAdmin(reversion.VersionAdmin):
@@ -128,17 +128,19 @@ class CorrobAdminRev(reversion.VersionAdmin, CorrobAdmin):
     pass
 class CorrobAdminInRev(reversion.VersionAdmin, CorrobAdminIn):
     pass
+
+
 class TimeInfoAdminRev(reversion.VersionAdmin, TimeInfoAdmin):
     pass
 #class test(LockableAdmin, CorrobAdminInRev):
     #list_display = ('get_lock_for_admin',)
 
 admin.site.register(Actor, ActorAdmin)
-admin.site.register(ActorStatus, ActorStatusAdmin)
+#admin.site.register(ActorStatus, ActorStatusAdmin)
 admin.site.register(ActorRole, ActorRoleAdmin)
-admin.site.register(RelationType, RelationTypeAdmin)
-admin.site.register(RoleType, RoleTypeAdmin)
-admin.site.register(EventType, EventTypeAdmin)
+#admin.site.register(RelationType, RelationTypeAdmin)
+#admin.site.register(RoleType, RoleTypeAdmin)
+#admin.site.register(EventType, EventTypeAdmin)
 admin.site.register(Bulletin, CorrobAdminRev)
 admin.site.register(StatusUpdate, StatusUpdateAdmin)
 admin.site.register(TimeInfo, TimeInfoAdminRev)
