@@ -3756,6 +3756,10 @@ nav#search-navigation .search button.do-clear > span {
 .tabs li.current.is-bulletins {
   border-bottom: 4px solid #b5cd5f;
 }
+/* line 161, ../sass/_navigation.scss */
+.tabs li.current.is-users {
+  border-bottom: 4px solid #fc4c4c;
+}
 
 /* line 6, ../sass/_search.scss */
 .search-combo .do-search {

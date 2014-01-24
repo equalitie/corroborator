@@ -52,7 +52,7 @@ define(
 
 
         pieBarMapping = function(rawSolrData, key) {
-          var graphModel,
+          var graphModel = allGraphs.findWhere({key: key}),
               parsedData = {
                 values: (function() {
                   return _(rawSolrData).reduce(function(prevVal, item, label){
