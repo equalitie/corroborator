@@ -23,7 +23,7 @@ def generate_start_end_times(user):
     end_time = datetime.strptime(
         'Jun 1 2013  4:33PM', '%b %d %Y %I:%M%p')
     total = int((end_time - start_time).total_seconds()/60)
-    timestamp = time.mktime(end_time.timetuple())*1e3 + end_time.microsecond/1e3
+    timestamp = time.mktime(end_time.date().timetuple())*1e3
     date_time_set.append({
         'x': timestamp,
         'y': total
@@ -37,7 +37,7 @@ def generate_start_end_times(user):
     create_log_entry_for_user(user, start_time, end_time)
     total2 = int((end_time - start_time).total_seconds()/60)
     total += total2 
-    timestamp = time.mktime(end_time.timetuple())*1e3 + end_time.microsecond/1e3
+    timestamp = time.mktime(end_time.date().timetuple())*1e3
     date_time_set.append({
         'x': timestamp,
         'y': total2
@@ -135,8 +135,8 @@ def crud_items(crud_type, user):
 
     for key, values in groupby(items, key=lambda item: item['version_timestamp']):
         timestamp = time.mktime(
-            key.timetuple()
-        )*1e3 + key.microsecond/1e3
+            key.date().timetuple()
+        )*1e3
         val = 0
         for value in values:
             val += 1
