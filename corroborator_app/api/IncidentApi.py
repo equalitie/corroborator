@@ -128,10 +128,14 @@ class IncidentResource(ModelResource, APIMixin):
         )
         comment_uri = self.create_comment(
             bundle.data['comment'],
-            status_id,
+            status_update.id,
             user
         )
-        bundle.data['incident_comments'].append(comment_uri)
+        try:
+            bundle.data['incident_comments'].append(comment_uri)
+        except KeyError:
+            bundle.data['incident_comments'] = [comment_uri, ]
+
         with reversion.create_revision():
             bundle = super(IncidentResource, self)\
                 .obj_update(bundle, **kwargs)

@@ -5,14 +5,14 @@
 
 define(
   [
-    'backbone', 
+    'underscore', 'backbone', 
     'lib/streams',
     'lib/reporting/data/graph-types',
     'lib/reporting/views/pie-view',
     'lib/reporting/views/bar-view',
     'lib/reporting/views/trend-view'
   ],
-  function(Backbone, Streams, GraphTypes, PieChartView, BarGraphView, TrendGraphView) {
+  function(_, Backbone, Streams, GraphTypes, PieChartView, BarGraphView, TrendGraphView) {
   'use strict';
   var GraphViewManager,
       GraphView,
@@ -54,7 +54,6 @@ define(
                        .onValue(this.displayGraph.bind(this));
     },
     displayGraph: function(value) {
-      console.log(value);
       if (this.chart) {
         this.chart.destroy();
       }

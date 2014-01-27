@@ -13,7 +13,6 @@ define(
       el: '.graphs svg',
       initialize: function(options) {
         this.data = options.data;
-        console.log(this.data);
         this.render();
       },
       createChart: function() {

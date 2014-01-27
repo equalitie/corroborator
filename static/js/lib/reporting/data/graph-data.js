@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, parseInt*/
 // Author: Cormac McGuire
 // ### Listen for user graph events send requests to django to generate the user graphs
 // 
@@ -62,7 +62,10 @@ define(
                       yAxisLabel: graphModel.get('yAxisLabel'),
                       value: item
                     });
-                  }, []);
+                    // could be made only execute for numerical labels
+                  }, []).sort(function(a, b) {
+                    return parseInt(a.label, 10) - parseInt(b.label, 10);
+                  });
                 }())
               };
               parsedData.title = graphModel.get('title');

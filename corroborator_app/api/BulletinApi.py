@@ -149,7 +149,11 @@ class BulletinResource(ModelResource, APIMixin):
             status_update.id,
             user
         )
-        bundle.data['bulletin_comments'].append(comment_uri)
+        try:
+            bundle.data['bulletin_comments'].append(comment_uri)
+        except KeyError:
+            bundle.data['bulletin_comments'] = [comment_uri, ]
+
         with reversion.create_revision():
             bundle = super(BulletinResource, self)\
                 .obj_update(bundle, **kwargs)

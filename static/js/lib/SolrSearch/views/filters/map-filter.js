@@ -27,7 +27,7 @@ define (
         CoordinatePopupDisplayView = CoordinateDisplayView;
 
     var locationFilterKeys = [
-      'actor_searchable_pob_exact',
+      //'actor_searchable_pob_exact',
       'actor_searchable_current_exact',
       'bulletin_searchable_locations_exact',
       'incident_searchable_locations_exact'

@@ -21,7 +21,7 @@
 
 
   <body class="use-base">
-    <div id="Application" lang="en" class="Application">
+    <div id="Application" lang="{{locale}}" class="Application {%if rtl %}rtl{%endif %}">
       <!-- top navigation area -->
       {% block top_nav %}
       {% endblock %}

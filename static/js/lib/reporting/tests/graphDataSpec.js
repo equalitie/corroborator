@@ -52,6 +52,9 @@ define (
           x:1381849897000,
           y:3
         });
+        expect(parsedData.values[0].values[0].y).toEqual(7);
+
+
       });
 
       xit('should dispatch routing events', function(){

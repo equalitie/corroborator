@@ -42,7 +42,7 @@ define(
       },
       mapFilters: [
           'actor_searchable_current_exact',
-          'actor_searchable_pob_exact'
+          //'actor_searchable_pob_exact'
           //'current_location_exact',
           //'POB_exact'
       ],

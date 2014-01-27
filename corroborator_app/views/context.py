@@ -31,6 +31,7 @@ from corroborator_app.views.view_utils import (
 def build_js_context(user):
     return {
         'locale': select_language(),
+        'rtl': is_right_to_left(),
         'role_status_set': select_roles(),
         'relation_status_set': select_relations(),
         'predefined_search_set': select_predefined_searches(user),
@@ -61,6 +62,11 @@ def select_labels():
 def select_language():
     """return the locale string"""
     return translation.get_language()
+
+
+def is_right_to_left():
+    rtl_lang_codes = ['ar', ]
+    return translation.get_language() in rtl_lang_codes
 
 
 def select_roles():
