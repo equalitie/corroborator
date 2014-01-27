@@ -31,7 +31,6 @@ define (
       className: 'medium REPEAT',
       template: mediaTmp,
       initialize: function() {
-        console.log(this.model);
         this.addi18n();
         this.render();
         this.$el.tooltip();

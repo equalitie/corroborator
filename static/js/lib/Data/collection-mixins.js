@@ -81,7 +81,8 @@ define (
           getEntity: function (id, entityType) {
             var entity = this.get(id) ||
               new this.model({resourceUri: '/api/v1/' + entityType + '/' + id + '/'});
-            this.add(entity);
+            //fetching latest version via the api because i don't trust solr version
+            entity.fetch();
             return entity;
           },
 

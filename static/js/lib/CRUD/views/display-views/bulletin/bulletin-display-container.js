@@ -41,7 +41,7 @@ define (
           throw new Error('you must define entityDetails');
         }
         this.model = bulletinCollection.getEntity(options.entityDetails.id, 'bulletin');
-        this.listenTo(this.model, 'sync', this.displayView.bind(this));
+        this.listenTo(this.model, 'sync', this.redisplayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.listenTo(this, 'resize', this.sendResizeEvent.bind(this));
         this.expanded = options.entityDetails.expanded === undefined
@@ -50,6 +50,14 @@ define (
         this.expanded = !this.expanded;
         this.toggleExpanded();
         this.selectInitialLanguage();
+      },
+
+      redisplayView: function() {
+        var displayFunction = (this.expanded)
+          ? this.displayExpandedView
+          : this.displayView;
+        displayFunction.bind(this)();
+
       },
 
       // edit button pressed 
