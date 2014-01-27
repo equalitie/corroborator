@@ -30,7 +30,7 @@ function program5(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" download=\"download."
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file_type)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n    <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
+    + "\">\n      <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
   return buffer;
   }
 
@@ -39,7 +39,7 @@ function program7(depth0,data) {
   var buffer = "", stack1;
   buffer += "\n    <a href=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" target=\"_blank\">\n    <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
+    + "\" target=\"_blank\">\n      <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
   return buffer;
   }
 
