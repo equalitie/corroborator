@@ -12,8 +12,16 @@
     <span class="screen-reader-text">Document</span>
   {{/if_eq}}
   {{#if_eq model.media_type compare='Document' }}
-    <span aria-hidden="true" data-icon="F" class="media-document-thumbnail"></span>
-    <span class="screen-reader-text">Document</span>
+    <a href="{{model.media_file}}" download="download.{{model.media_file_type}}">
+      <span aria-hidden="true" data-icon="F" class="media-document-thumbnail"></span>
+      <span class="screen-reader-text">Document</span>
+    </a>
+  {{/if_eq}}
+  {{#if_eq model.media_type compare='Pdf' }}
+    <a href="{{model.media_file}}" target="_blank">
+      <span aria-hidden="true" data-icon="F" class="media-document-thumbnail"></span>
+      <span class="screen-reader-text">Document</span>
+    </a>
   {{/if_eq}}
   <span class="type">{{model.media_type}}</span>
   <span class="date">{{dateFormat model.media_created}}</span>

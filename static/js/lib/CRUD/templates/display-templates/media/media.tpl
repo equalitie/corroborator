@@ -12,8 +12,16 @@
     <span class="screen-reader-text">{{i18n.media.document}}</span>
   {{/if_eq}}
   {{#if_eq model.media_type compare='Document' }}
-    <span title="{{model.name_en}}" aria-hidden="true" data-icon="F" class="media-document-thumbnail"></span>
-    <span class="screen-reader-text">{{i18n.media.document}}</span>
+    <a href="{{model.media_file}}" download="download.{{model.media_file_type}}">
+      <span title="{{model.name_en}}" aria-hidden="true" data-icon="F" class="media-document-thumbnail"></span>
+      <span class="screen-reader-text">{{i18n.media.document}}</span>
+    </a>
+  {{/if_eq}}
+  {{#if_eq model.media_type compare='Pdf' }}
+    <a href="{{model.media_file}}" target="_blank">
+      <span title="{{model.name_en}}" aria-hidden="true" data-icon="F" class="media-document-thumbnail"></span>
+      <span class="screen-reader-text">{{i18n.media.document}}</span>
+    </a>
   {{/if_eq}}
   <span class="type">{{model.media_type}}</span>
   <span class="date">{{dateFormat model.media_created}}</span>

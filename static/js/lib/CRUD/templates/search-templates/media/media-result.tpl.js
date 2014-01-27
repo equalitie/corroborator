@@ -25,17 +25,31 @@ function program3(depth0,data) {
 
 function program5(depth0,data) {
   
-  
-  return "\n    <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n  ";
+  var buffer = "", stack1;
+  buffer += "\n    <a href=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" download=\"download."
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file_type)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">\n    <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
+  return buffer;
   }
 
 function program7(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    <a href=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" target=\"_blank\">\n    <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
+  return buffer;
+  }
+
+function program9(depth0,data) {
   
   
   return "\n    <button class=\"do-relate right is-small\">\n      <span class=\"text\">relate</span>\n    </button>\n  ";
   }
 
-function program9(depth0,data) {
+function program11(depth0,data) {
   
   
   return "\n    <button class=\"do-remove is-small\">\n      <span class=\"text\">remove</span>\n    </button>\n  ";
@@ -61,16 +75,22 @@ function program9(depth0,data) {
   },inverse:self.noop,fn:self.program(5, program5, data),data:data};
   stack2 = ((stack1 = helpers.if_eq || depth0.if_eq),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options) : helperMissing.call(depth0, "if_eq", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n  ";
+  options = {hash:{
+    'compare': ("Pdf")
+  },inverse:self.noop,fn:self.program(7, program7, data),data:data};
+  stack2 = ((stack1 = helpers.if_eq || depth0.if_eq),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options) : helperMissing.call(depth0, "if_eq", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  <span class=\"type\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n  <span class=\"date\">";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_created), options)))
     + "</span>\n  ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.result), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.result), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.selected), {hash:{},inverse:self.noop,fn:self.program(9, program9, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.selected), {hash:{},inverse:self.noop,fn:self.program(11, program11, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n</div>\n";
   return buffer;

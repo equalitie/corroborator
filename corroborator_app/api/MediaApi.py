@@ -93,6 +93,9 @@ class MediaResource(MultipartResource, ModelResource):
                 .construct_thumb_from_image(media_file)
             bundle.data['media_thumb_file'] = media_thumb_file
 
+        if 'pdf' in bundle.data['media_file'].content_type:
+            bundle.data['media_type'] = 'Pdf'
+
         parts = media_file.name.split('.')
         media_file_type = parts[len(parts)-1]
         bundle.data['media_file_type'] = media_file_type

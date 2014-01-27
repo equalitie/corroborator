@@ -32,11 +32,28 @@ function program3(depth0,data) {
 function program5(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    <span title=\""
+  buffer += "\n    <a href=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" download=\"download."
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file_type)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\">\n      <span title=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n    <span class=\"screen-reader-text\">"
+    + "\" aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.document)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n  ";
+    + "</span>\n    </a>\n  ";
+  return buffer;
+  }
+
+function program7(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n    <a href=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" target=\"_blank\">\n      <span title=\""
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\" aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.document)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </a>\n  ";
   return buffer;
   }
 
@@ -56,6 +73,12 @@ function program5(depth0,data) {
   options = {hash:{
     'compare': ("Document")
   },inverse:self.noop,fn:self.program(5, program5, data),data:data};
+  stack2 = ((stack1 = helpers.if_eq || depth0.if_eq),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options) : helperMissing.call(depth0, "if_eq", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n  ";
+  options = {hash:{
+    'compare': ("Pdf")
+  },inverse:self.noop,fn:self.program(7, program7, data),data:data};
   stack2 = ((stack1 = helpers.if_eq || depth0.if_eq),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options) : helperMissing.call(depth0, "if_eq", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_type), options));
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  <span class=\"type\">"
