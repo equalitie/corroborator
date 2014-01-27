@@ -64,10 +64,13 @@ class MediaResource(MultipartResource, ModelResource):
         '''
         formatting for media_files
         '''
-        bundle.data['media_file'] = \
-            settings.S3_PROXY_URL + '' + bundle.obj.media_file.name
-        bundle.data['media_thumb_file'] = \
-            settings.S3_PROXY_URL + '' + bundle.obj.media_thumb_file.name
+        try:
+            bundle.data['media_file'] = \
+                settings.S3_PROXY_URL + '' + bundle.obj.media_file.name
+            bundle.data['media_thumb_file'] = \
+                settings.S3_PROXY_URL + '' + bundle.obj.media_thumb_file.name
+        except:
+            pass
         return bundle
 
     def obj_create(self, bundle, **kwargs):
