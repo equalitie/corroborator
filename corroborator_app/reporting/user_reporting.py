@@ -4,6 +4,7 @@ from django.db.models import Count, Sum
 from itertools import groupby
 import json
 import time
+from django.utils.translation import ugettext
 
 class UserReportingApi(object):
 
@@ -232,7 +233,7 @@ class UserReportingApi(object):
         the correct format for trend graphs
         """
         trend_json = {
-            'title': graph_title,
+            'title': ugettext(graph_title),
             'values': objects
         }
         return json.dumps(trend_json)
@@ -243,7 +244,7 @@ class UserReportingApi(object):
         correct format for trend graphs
         """
         bar_json = {
-            'title': graph_title,
+            'title': ugettext(graph_title),
             'values': objects
         }
         
@@ -255,7 +256,7 @@ class UserReportingApi(object):
         correct format for trend graphs
         """
         bar_json = {
-            'title': graph_title,
+            'title': ugettext(graph_title),
             'values': self.get_object_values(objects)
         }
         

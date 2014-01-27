@@ -90,6 +90,7 @@
     {%for crime in crimes_set.all %}
       gl_ac_crimes_list.push({
         name_en:"{{crime.name_en}}",
+        name_ar:"{{crime.name_ar}}",
         id:"{{crime.id}}",
         resource_uri:"/api/v1/crimeCategory/{{crime.id}}/"
       });
