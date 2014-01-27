@@ -38,21 +38,26 @@
         {{/if}}
       </div>
       {{#if model.bulletin_sources}}
+      <h3 class="title">{{i18n.bulletin.Sources}}</h3>
       <div class="sources">
           ({{commaSeparatedList model.bulletin_sources}})
       </div>
       {{/if}}
     </div>
-    <ul class="tags group detail">
-      {{#each model.bulletin_labels}}
-      <li class="tag">
-      <span class="text">{{this}}</span>
-      </li>
-      {{/each}}
-    </ul>
+    {{#if model.bulletin_labels}}
+      <h3 class="title">{{i18n.bulletin.Labels}}</h3>
+      <ul class="tags group detail">
+        {{#each model.bulletin_labels}}
+        <li class="tag">
+        <span class="text">{{this}}</span>
+        </li>
+        {{/each}}
+      </ul>
+    {{/if}}
   </div>
   <div class="body">
     {{#if model.locations}}
+    <h3 class="title">{{i18n.bulletin.Locations}}</h3>
     <div class="bulletin-map map detail"></div>
     {{/if}}
     <div class="media">

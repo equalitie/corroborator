@@ -67,6 +67,9 @@ define({
       'Select_Status': 'Select Status',
       'Comment_field_is_required': 'Comment field is required',
       'Comment': 'Comment',
+      'Locations': 'Locations',
+      'Sources': 'Sources',
+      'Labels': 'Labels',
       'close': 'close'
     },
     'incident': {

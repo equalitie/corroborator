@@ -43,6 +43,7 @@
 
     </div>
     {{#if model.incident_labels}}
+    <h3 class="title">{{i18n.incident.Labels}}</h3>
     <ul class="tags group detail">
       {{#each model.incident_labels}}
       <li class="tag"> <span class="text">{{this}}</span> </li>
@@ -53,6 +54,7 @@
 
   <div class="body">
       {{#if model.locations}}
+        <h3 class="title">{{i18n.incident.Locations}}</h3>
         <div id="is-incident-map" class="incident-map map detail"></div>
       {{/if}}
     <div class="media detail">
@@ -60,13 +62,13 @@
     </div>
     {{#if model.incident_details_en }}
     <div class="description detail">
-      <h3 class="title">{{i18n.incidents.Description}}</h3>
+      <h3 class="title">{{i18n.incident.Description}}</h3>
       {{model.incident_details_en}}
     </div>
     {{/if}}
     {{#if model.incident_details_ar }}
     <div class="description detail">
-      <h3 class="title">{{i18n.incidents.Description}}</h3>
+      <h3 class="title">{{i18n.incident.Description}}</h3>
       {{model.incident_details_ar}}
     </div>
     {{/if}}

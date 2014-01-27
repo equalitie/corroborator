@@ -71,7 +71,9 @@ function program13(depth0,data) {
 function program15(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n    <ul class=\"tags group detail\">\n      ";
+  buffer += "\n    <h3 class=\"title\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Labels)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h3>\n    <ul class=\"tags group detail\">\n      ";
   stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_labels), {hash:{},inverse:self.noop,fn:self.program(16, program16, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    </ul>\n    ";
@@ -88,15 +90,18 @@ function program16(depth0,data) {
 
 function program18(depth0,data) {
   
-  
-  return "\n        <div id=\"is-incident-map\" class=\"incident-map map detail\"></div>\n      ";
+  var buffer = "", stack1;
+  buffer += "\n        <h3 class=\"title\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Locations)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h3>\n        <div id=\"is-incident-map\" class=\"incident-map map detail\"></div>\n      ";
+  return buffer;
   }
 
 function program20(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n    <div class=\"description detail\">\n      <h3 class=\"title\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h3>\n      "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_details_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n    </div>\n    ";
@@ -107,7 +112,7 @@ function program22(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n    <div class=\"description detail\">\n      <h3 class=\"title\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h3>\n      "
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_details_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n    </div>\n    ";

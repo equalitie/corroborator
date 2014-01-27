@@ -212,6 +212,7 @@ define (
       render: function() {
         this.destroyChildren();
         this.$el.children().remove();
+        console.log(i18n);
         var html = this.template({
           model: this.model.toJSON(),
           i18n: i18n

@@ -77,9 +77,9 @@
           <h4>{{i18n.incidents.assigned_to}}</h4>
           <div class="assigned-to">
             {{#if model.assigned_user}}
-            <span class="value">{{fetchUser model.assigned_user}}</span>
+            <span class="value">{{i18n.incident.Assigned_to}}: {{fetchUser model.assigned_user}}</span>
             {{else}}
-            <span class="value">{{i18n.incidents.unassigned}}</span>
+            <span class="value">{{i18n.incident.Assigned_to}}: {{i18n.incidents.unassigned}}</span>
             {{/if}}
           </div>
         </div>
@@ -91,7 +91,7 @@
       {{/if}}
       {{#if model.locations}}
       <div class="is-locations group">
-        <h4>{{i18n.incidents.locations}}</h4>
+        <h4>{{i18n.incident.Locations}}</h4>
         <div class="locations">
           {{#each model.locations}}
           <div class="location">{{fetchLocation this}}</div>
@@ -102,8 +102,8 @@
       {{/if}}
       {{#if model.incident_labels}}
       <div class="is-tags group">
-        <h4>{{i18n.incidents.labels}}</h4>
-        <ul class="tags">
+        <h4>{{i18n.incident.Labels}}</h4>
+        <ul class="tags group display">
           {{#each model.incident_labels}}
           <li class="tag">
             <span class="text">{{this}}</span>
