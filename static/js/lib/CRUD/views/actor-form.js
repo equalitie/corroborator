@@ -116,6 +116,7 @@ define (
       ],
       // constructor
       initialize: function(options) {
+        this.multiple = options.multiple;
         this.addi18n();
         this.populateWidgets();
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
@@ -123,7 +124,6 @@ define (
         this.expanded = ! options.expanded;
         this.displayForm  = this.displayFormFunction();
         //this.model.set('actors', options.selected);
-        this.multiple = options.multiple;
         this.model.set('selectedActors', options.selected);
       },
 
@@ -239,10 +239,13 @@ define (
 
       // render the form
       render: function() {
+        var isNew = (this.multiple !== true && this.model.id === undefined);
         var html = this.template({
           model: this.model.toJSON(),
+          createStatus: Bootstrap.create_status,
           statuses: Bootstrap.comment_statuses,
           perms: Bootstrap.perms,
+          isNew: isNew,
           i18n: i18n
           });
         this.$el.html(html);

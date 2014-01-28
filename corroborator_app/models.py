@@ -6,6 +6,7 @@ Author: Bill Doran
 2013/02/01
 """
 
+from django.utils import translation
 from django.contrib.auth.signals import user_logged_out
 from django.db import models
 from django.db.models import Min,  Max
@@ -16,6 +17,14 @@ from haystack.utils.geo import Point
 from queued_storage.backends import QueuedStorage
 
 from reversion.models import Revision
+
+
+def lang_helper(object_instance, field):
+    '''
+    helper method to select the correct language version of a model field
+    '''
+    lang_string = translation.get_language()
+    return getattr(object_instance, field + '_' + lang_string)
 
 
 class UserLog(models.Model):
@@ -88,7 +97,7 @@ class PermStatusUpdateManager(models.Manager):
 
         status_ids = set(status_ids)
 
-        return StatusUpdate.objects.filter(id__in=status_ids)
+        return StatusUpdate.translated.filter(id__in=status_ids)
 
     def get_update_status(self, user, requested_status_id):
         '''
@@ -124,6 +133,7 @@ class PermStatusUpdateManager(models.Manager):
         except KeyError:
             return False
 
+
 class ActorStatus(models.Model):
     """
     This object represents an actor. It records the
@@ -136,6 +146,7 @@ class ActorStatus(models.Model):
 
     def __unicode__(self):
         return self.status_en
+
 
 class EventType(models.Model):
     """
@@ -151,6 +162,31 @@ class EventType(models.Model):
         return self.name_en
 
 
+class StatusTranslationManager(models.Manager):
+    '''
+    return versions of status updates with the correct language selected
+    '''
+    def get(self, *args, **kwargs):
+        model = super(StatusTranslationManager, self).get(*args, **kwargs)
+        return self.prepare_model(model)
+
+    def all(self, *args, **kwargs):
+        models = super(StatusTranslationManager, self).all(*args, **kwargs)
+        return [self.prepare_model(model) for model in models]
+
+    def filter(self, *args, **kwargs):
+        models = super(StatusTranslationManager, self).filter(*args, **kwargs)
+        return [self.prepare_model(model) for model in models]
+
+    def prepare_model(self, model):
+        lang_string = translation.get_language()
+        status = getattr(model, 'status_' + lang_string).encode('utf8')
+        return {
+            'comment_status': status,
+            'id': '/api/v1/statusUpdate/{0}/'.format(model.id),
+            'resource_uri': '/api/v1/statusUpdate/{0}/'.format(model.id),
+        }
+
 
 class StatusUpdate(models.Model):
     """
@@ -165,6 +201,7 @@ class StatusUpdate(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     objects = models.Manager()
     filter_by_perm_objects = PermStatusUpdateManager()
+    translated = StatusTranslationManager()
 
     def __unicode__(self):
         return self.status_en
@@ -187,6 +224,10 @@ class Comment(models.Model):
     comments_en = models.TextField(blank=True)
     comments_ar = models.TextField(blank=True, null=True)
     comment_created = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def comment(self):
+        return lang_helper(self, 'comment')
 
     class Meta:
         """
@@ -228,6 +269,15 @@ class Location(models.Model):
         'self', max_length=255, blank=True, null=True)
     location_created = models.DateTimeField(auto_now_add=True, null=True)
     location_modified = models.DateTimeField(auto_now=True, null=True)
+    objects = models.Manager()
+
+    @property
+    def label(self):
+        return lang_helper(self, 'name')
+
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
 
     def __unicode__(self):
         return self.name_en
@@ -240,6 +290,7 @@ class Location(models.Model):
         geo point.
         """
         return Point(self.longitude,  self.latitude)
+
 
 class TimeInfo(models.Model):
     """
@@ -259,10 +310,17 @@ class TimeInfo(models.Model):
         Location, blank=True, null=True)
     event_type = models.ForeignKey(
         EventType, blank=True, null=True)
+
+    @property
+    def event_name(self):
+        return lang_helper(self, 'event_name')
+
+    @property
+    def comments(self):
+        return lang_helper(self, 'comments')
+
     def __unicode__(self):
         return self.event_name_en
-
-
 
 
 class Label(models.Model):
@@ -276,6 +334,10 @@ class Label(models.Model):
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, null=True)
     ref_label = models.ForeignKey('self', blank=True, null=True)
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
 
     def __unicode__(self):
         return self.name_en
@@ -293,6 +355,14 @@ class CrimeCategory(models.Model):
     description_ar = models.TextField(blank=True, null=True)
     ref_crime = models.ForeignKey('self', blank=True, null=True)
     parent = models.CharField(max_length=255, blank=True, null=True)
+
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
 
     def __unicode__(self):
         return self.name_en
@@ -323,6 +393,14 @@ class Source(models.Model):
     comments_ar = models.TextField(blank=True, null=True)
     ref_source = models.ForeignKey('self', blank=True, null=True)
 
+    @property
+    def comments(self):
+        return lang_helper(self, 'comments')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
+
     def __unicode__(self):
         return self.name_en
 
@@ -338,6 +416,14 @@ class Dialect(models.Model):
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
 
+    @property
+    def comments(self):
+        return lang_helper(self, 'comments')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
+
 
 class Position(models.Model):
     """
@@ -349,6 +435,14 @@ class Position(models.Model):
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
 
 
 class Occupation(models.Model):
@@ -362,6 +456,14 @@ class Occupation(models.Model):
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
 
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
+
 
 class Ethnicity(models.Model):
     """
@@ -373,6 +475,14 @@ class Ethnicity(models.Model):
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
 
 
 class Religion(models.Model):
@@ -386,6 +496,14 @@ class Religion(models.Model):
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
 
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
+
 
 class Nationality(models.Model):
     """
@@ -397,6 +515,14 @@ class Nationality(models.Model):
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
 
 
 class Media(models.Model):
@@ -426,6 +552,10 @@ class Media(models.Model):
     media_created = models.DateTimeField(auto_now_add=True)
     media_file_type = models.CharField(max_length=255, blank=True, null=True)
     media_created = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
 
     def get_uri(self):
         """
@@ -620,6 +750,7 @@ class ActorRelationship(models.Model):
     def __unicode__(self):
         return self.actor.fullname_en + ': ' + self.relation_status
 
+
 class RoleType(models.Model):
     """
     This object stores RoleTypes
@@ -629,6 +760,7 @@ class RoleType(models.Model):
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
 
+
 class RelationType(models.Model):
     """
     This object stores RelationTypes
@@ -637,6 +769,7 @@ class RelationType(models.Model):
     name_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.CharField(max_length=255, blank=True, null=True)
     description_ar = models.CharField(max_length=255, blank=True, null=True)
+
 
 class ActorRole(models.Model):
     """

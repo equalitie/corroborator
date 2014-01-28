@@ -39,6 +39,7 @@ def build_js_context(user):
         'labels_set': select_labels(),
         'crimes_set': select_crime_categories(),
         'status_set': select_statuses(user),
+        'create_status': create_status(),
         'all_status_set': select_all_statuses(),
         'users_set': select_users(),
         'loc_set': select_locations,
@@ -112,13 +113,17 @@ def select_predefined_searches(user):
 
 
 def select_all_statuses():
-    return StatusUpdate.objects.all()
+    return StatusUpdate.translated.all()
 
 
 def select_statuses(user):
     return StatusUpdate.filter_by_perm_objects.available_statuses(
         user
     )
+
+
+def create_status():
+    return StatusUpdate.translated.get(status_en='Human Created')
 
 
 def select_crime_categories():

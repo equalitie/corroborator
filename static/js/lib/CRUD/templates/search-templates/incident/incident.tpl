@@ -188,12 +188,12 @@
           <select name="status_uri" 
                   id="status" 
                   class="required incident-field">
-                {{#if model.id}}
-                <option value="{{statuses.0.resource_uri}}">{{statuses.0.comment_status}}</option>
+                {{#if isNew}}
+                <option value="{{createStatus.resource_uri}}">{{createStatus.comment_status}}</option>
                 {{else}}
-                <option value="{{statuses.0.resource_uri}}">Human Created</option>
+                <option value="{{statuses.0.resource_uri}}">{{statuses.0.comment_status}}</option>
                 {{/if}}
-                {{#if model.id}}
+                {{#unless isNew}}
                 {{#each statuses}}
                 {{#if @index}}
                   <option
@@ -201,7 +201,7 @@
                   >{{this.comment_status}}</option>
                 {{/if}}
                 {{/each}}
-                {{/if}}
+                {{/unless}}
           </select>
           <input class="incident-field" type="hidden" name="status" value="">
         </div>

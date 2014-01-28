@@ -310,9 +310,12 @@ define (
 
       // render the form
       render: function() {
+        var isNew = (this.multiple !== true && this.model.id === undefined);
         var html = this.template({
           model: this.model.toJSON(),
+          isNew: isNew,
           statuses: Bootstrap.comment_statuses,
+          createStatus: Bootstrap.create_status,
           perms: Bootstrap.perms,
           i18n: i18n
         });

@@ -142,7 +142,7 @@ define (
       // convert single model to format expected by jquery ui autocomplete
       mapAutoCompleteFormat: function(model) {
         return {
-          label: model.get('name_en'),
+          label: model.get('label') || model.get('name_en'),
           id   : model.get('resource_uri')
         };
       },

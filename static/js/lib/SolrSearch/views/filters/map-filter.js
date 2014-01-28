@@ -163,6 +163,7 @@ define (
         return this;
       },
       enableLabelField: function(field) {
+        //debugger;
         var labelWidget = new LabelWidget({
           entityType     : this.entityType,
           collection     : field.collection,

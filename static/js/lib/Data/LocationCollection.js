@@ -49,13 +49,14 @@ define (
 
       // map a list of models to autocomplete format
       autoCompleteFormat: function() {
+        console.info([this.at(0)].map(this.mapAutoCompleteFormat));
         return this.map(this.mapAutoCompleteFormat);
       },
 
       // convert single model to format expected by jquery ui autocomplete
       mapAutoCompleteFormat: function(model) {
         return {
-          label: model.get('name_en'),
+          label: model.get('label'),
           id   : model.get('resource_uri')
         };
       }

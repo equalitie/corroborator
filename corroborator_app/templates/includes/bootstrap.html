@@ -110,14 +110,14 @@
         
         {% autoescape off %}
         name_en:"{{loc.name_en}}",
+        label: "{{loc.label}}",
         {% endautoescape %}
         name_ar:"{{loc.name_ar}}",
         latitude:"{{loc.latitude}}",
         longitude: "{{loc.longitude}}",
         loc_type: "{{loc.loc_type}}",
         parent_text: "{{parent_text}}",
-        description_en: "{{description_en}}",
-        description_ar: "{{description_ar}}",
+        description: "{{description}}",
         parent_location: "{{parent_location}}",
         resource_uri: "/api/v1/location/{{loc.id}}/"
       });
@@ -145,6 +145,9 @@
         locations: gl_ac_loc_set,
         gl_ac_users_list: gl_ac_users_list,
         comment_statuses: comment_statuses,
+        {% autoescape off %}
+        create_status: {{create_status}},
+        {% endautoescape %}
         all_statuses: all_statuses,
         solr_url: solr_url
     }
