@@ -6,6 +6,7 @@ import json
 import time
 from django.utils.translation import ugettext
 
+
 class UserReportingApi(object):
 
     def __init__(self):
@@ -19,7 +20,8 @@ class UserReportingApi(object):
         """
         graph_title = 'Total login time by User'
 
-        user_items = UserLog.objects.values('user__username').annotate(value=Sum('total_seconds'))
+        user_items = UserLog.objects.values('user__username')\
+            .annotate(value=Sum('total_seconds'))
 
         for item in user_items:
             item['value'] = int(item['value'] / 60)
@@ -64,16 +66,19 @@ class UserReportingApi(object):
             return '{"error": "No data elements found."}'
 
         return self.trend_format_json(result_data, graph_title)
- 
+
     def user_average_updates_per_hour(self):
         """
-        Return average updates per hour of login for 
+        Return average updates per hour of login for
         a given user.
         """
         graph_title = 'Average user updates per hour'
         user_updates = VersionStatus.objects.filter(
             status='edited'
-        ).values('user__username', 'user__id').annotate(total_updates=Count('id'))
+        ).values(
+            'user__username',
+            'user__id'
+        ).annotate(total_updates=Count('id'))
 
         average_updates = []
         for update in user_updates:
@@ -83,7 +88,7 @@ class UserReportingApi(object):
             average = update['total_updates'] / total_hours
             average_updates.append({
                 'user__username': update['user__username'],
-                'value': average 
+                'value': average
             })
 
         if average_updates == []:
@@ -91,7 +96,7 @@ class UserReportingApi(object):
 
         return self.bar_format_json(average_updates, graph_title)
 
-    def total_user_login_in_hours(self,user_id):
+    def total_user_login_in_hours(self, user_id):
         """
         Return the total logged in time for a user in hours
         """
@@ -157,7 +162,6 @@ class UserReportingApi(object):
 
         return statuses
 
-
     def get_entity_status(self, entity_type, entity):
         if 'bulletin' == entity_type:
             return entity.most_recent_status_bulletin()
@@ -190,15 +194,15 @@ class UserReportingApi(object):
 
         items.append({
             'values': self.get_items_by_crud_date('deleted', user_id),
-            'label': 'Deleted items by date'
+            'key': 'Deleted items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('created', user_id),
-            'label': 'Created items by date'
+            'key': 'Created items by date'
         })
         items.append({
             'values': self.get_items_by_crud_date('edited', user_id),
-            'label': 'Edited items by date'
+            'key': 'Edited items by date'
         })
 
         if items == []:
@@ -215,8 +219,11 @@ class UserReportingApi(object):
         ).values('version_timestamp', 'id')
 
         time_data = []
-        for key, values in groupby(items, key=lambda item: item['version_timestamp']):
-            timestamp = time.mktime(key.date().timetuple())*1e3
+        for key, values in groupby(
+            items,
+            key=lambda item: item['version_timestamp'].date()
+        ):
+            timestamp = time.mktime(key.timetuple())*1e3
             val = 0
             for value in values:
                 val += 1

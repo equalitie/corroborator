@@ -44,9 +44,9 @@ define(
         yAxisLabel: i18n.axes.Actors
       },
       {
-        key: 'role',
+        key: 'actor_entity_role_exact',
         type: 'pie',
-        title: i18n.title.actor_entity_role,
+        title: i18n.title.role,
         filter_label: i18n.filters.role
       },
       {
@@ -97,7 +97,7 @@ define(
         yAxisLabel: i18n.axes.Bulletins
       },
       {
-        key: 'bulletin_type',
+        key: 'bulletin_type_exact',
         type: 'pie',
         title: i18n.title.bulletin_type,
         filter_label: i18n.filters.type
