@@ -46,7 +46,7 @@ define(
       {
         key: 'role',
         type: 'pie',
-        title: i18n.title.actor_role,
+        title: i18n.title.actor_entity_role,
         filter_label: i18n.filters.role
       },
       {

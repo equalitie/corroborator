@@ -32,14 +32,14 @@ define(
     events: {
       'click li'    : 'revisionViewRequest',
       'click button': 'toggleVisibleList',
-      'click p'     : 'toggleVisibleList',
+      'click p'     : 'toggleVisibleList'
     },
     template: revisionContainerTmp,
     fetchedTotal: 0,
     initialize: function (options) {
       var comments = _.map(options.content, function(commentResourceUri) {
         return {resourceUri: commentResourceUri};
-      });
+      }).reverse();
       this.collection = new CommentCollection(comments);
       this.listenTo(this.collection, 'change', this.modelFetched.bind(this));
     },

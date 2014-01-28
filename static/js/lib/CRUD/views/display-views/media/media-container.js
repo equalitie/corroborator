@@ -37,7 +37,7 @@ define (
       },
       events: {
         'click .media-image-thumbnail'   : 'previewImage',
-        'click .media-video-thumbnail'   : 'previewMedia',
+        'click .media-video-thumbnail'   : 'previewMedia'
       },
       previewMedia: function() {
         this.model.trigger('previewMedia', this.model);
