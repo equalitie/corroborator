@@ -74,6 +74,12 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     most_recent_status_actor = indexes.CharField(faceted=True)
     actor_modified_date = indexes.DateField(faceted=True)
     actor_created_date = indexes.DateField(faceted=True)
+    actor_assigned_user = indexes.CharField(
+        default="unassigned",
+        model_attr='assigned_user',
+        faceted=True,
+        null=True
+    )
 
     media = indexes.CharField()
     resource_uri = indexes.CharField()
