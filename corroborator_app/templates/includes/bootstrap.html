@@ -58,16 +58,16 @@
 
     {%for comment_status in all_status_set %}
       all_statuses.push({
-        comment_status:"{{comment_status.status_en}}",
-        id:"/api/v1/statusUpdate/{{comment_status.id}}/",
-        resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
+        comment_status:"{{comment_status.comment_status}}",
+        id:"{{comment_status.resource_uri}}",
+        resource_uri:"{{comment_status.resource_uri}}"
       });
     {% endfor %}
     {%for comment_status in status_set %}
       comment_statuses.push({
-        comment_status:"{{comment_status.status_en}}",
-        id:"/api/v1/statusUpdate/{{comment_status.id}}/",
-        resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
+        comment_status:"{{comment_status.comment_status}}",
+        id:"{{comment_status.resource_uri}}",
+        resource_uri:"{{comment_status.resource_uri}}"
       });
     {% endfor %}
 

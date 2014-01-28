@@ -308,6 +308,13 @@ def process_actor_data(actor_dict):
     convert the query_dict into a format that can be iterated over and turned
     into a model update
     '''
+    keys_to_process = [
+        {"assigned_user": User},
+    ]
+    for uri_dict in keys_to_process:
+        key, ModelClass = uri_dict.popitem()
+        actor_dict = process_uris(actor_dict, [key], ModelClass)
+
     location_keys = ['current_location', 'POB']
     actor_role_keys = ['actors_role']
     actor_dict = process_uris(actor_dict, location_keys, Location)
