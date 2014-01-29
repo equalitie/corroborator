@@ -15,16 +15,17 @@ define(
           'bulletin_created_exact',
           'bulletin_searchable_locations_exact',
           'most_recent_status_bulletin_exact',
-          //Incident fields
+
           'confidence_score_exact',
           'incident_times_exact',
-          'incident_labels_exact', 
+          'incident_labels_en_exact', 
+          'incident_labels_ar_exact', 
           'incident_assigned_user_exact',
+
           'incident_crimes_exact',
           'incident_created_exact',
           'incident_searchable_locations_exact',
           'most_recent_status_incident_exact',
-          //Actor fields
           'age_en_exact',
           'age_ar_exact',
           'sex_en_exact',

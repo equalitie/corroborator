@@ -27,6 +27,7 @@ define(
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
         CollectionUpdateMixin = Mixins.CollectionUpdateMixin,
         ModelSaveMixin        = Mixins.ModelSaveMixin,
+        TranslateMixin        = Mixins.TranslateMixin,
         Filters               = new Mixins.Filters(),
         parseComparator       = Comparator.parseComparator,
 
@@ -115,6 +116,7 @@ define(
     // if resourceUri is set in the options the model will
     // auto fetch it's data
     var ActorModel = Backbone.Model.extend({
+      translatableFields: ['incident_labels'],
       foreignKeyFields: ['POB', 'current_location', 'media', 'assigned_user'] ,
       manyToManyFields: [
         'actors_role'
@@ -130,6 +132,14 @@ define(
           this.fetch();
         }
       },
+      translate: function(locale) {
+        var jsonModel = this.toJSON();
+        _(this.translatableFields).each(function(field) {
+          jsonModel[field] = jsonModel[field + '_' + Bootstrap.locale];
+        });
+        return jsonModel;
+      },
+
       url: function() {
         var base = '/api/v1/actor/';
         if (this.id) {
@@ -141,6 +151,7 @@ define(
       }
     });
     _.extend(ActorModel.prototype, ModelSaveMixin);
+    _.extend(ActorModel.prototype, TranslateMixin);
 
     var SimpleActorCollection = Backbone.Collection.extend({
       model: ActorModel,

@@ -26,7 +26,9 @@ function program3(depth0,data) {
 function program5(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n      <div class=\"is-crimes group\">\n        <h4>Crimes</h4>\n        <ul class=\"crimes\">\n          ";
+  buffer += "\n      <div class=\"is-crimes group\">\n        <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Crime)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n        <ul class=\"crimes\">\n          ";
   stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_crimes), {hash:{},inverse:self.noop,fn:self.program(6, program6, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        </ul>\n      </div>\n      ";
@@ -89,9 +91,10 @@ function program18(depth0,data) {
 
 function program20(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n        <div class=\"is-status group\">\n          <h4>Update status</h4>\n          <div class=\"status\">\n            <span class=\"value\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.most_recent_status_incident),stack1 == null || stack1 === false ? stack1 : stack1[0])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  var buffer = "", stack1, options;
+  buffer += "\n        <div class=\"is-status group\">\n          <h4>Update status</h4>\n          <div class=\"status\">\n            <span class=\"value\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchStatus || depth0.fetchStatus),stack1 ? stack1.call(depth0, ((stack1 = depth0.most_recent_status_incident),stack1 == null || stack1 === false ? stack1 : stack1[0]), options) : helperMissing.call(depth0, "fetchStatus", ((stack1 = depth0.most_recent_status_incident),stack1 == null || stack1 === false ? stack1 : stack1[0]), options)))
     + "</span>\n          </div>\n        </div>\n        ";
   return buffer;
   }

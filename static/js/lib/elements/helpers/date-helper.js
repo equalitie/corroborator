@@ -56,6 +56,16 @@ define (
         return options.inverse(this);
     });
 
+    Handlebars.registerHelper('fetchStatus', function(context, options) {
+        var formattedContext = context;
+        if (context) {
+          var statuses = Bootstrap.all_statuses,
+              statusSearchField = {resource_uri: context};
+          formattedContext = _.findWhere(statuses, statusSearchField).comment_status;
+        }
+        return formattedContext;
+    });
+
     Handlebars.registerHelper('fetchUser', function(context, options) {
         var formattedContext = context;
         if (context) {

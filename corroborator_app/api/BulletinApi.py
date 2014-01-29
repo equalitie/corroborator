@@ -198,29 +198,23 @@ class BulletinResource(ModelResource, APIMixin):
         return bundle
 
     def dehydrate(self, bundle):
-        bundle.data['bulletin_comments'] = BulletinPrepMeta()\
-            .prepare_bulletin_comments(bundle.obj)
-        bundle.data['bulletin_imported_comments'] = BulletinPrepMeta()\
-            .prepare_bulletin_imported_comments(bundle.obj)
-        bundle.data['bulletin_locations'] = BulletinPrepMeta()\
-            .prepare_bulletin_locations(bundle.obj)
-        bundle.data['bulletin_labels'] = BulletinPrepMeta()\
-            .prepare_bulletin_labels(bundle.obj)
-        bundle.data['bulletin_times'] = BulletinPrepMeta()\
-            .prepare_bulletin_times(bundle.obj)
-        bundle.data['bulletin_sources'] = BulletinPrepMeta()\
-            .prepare_bulletin_sources(bundle.obj)
-        bundle.data['most_recent_status_bulletin'] = \
-            BulletinPrepMeta()\
-            .prepare_most_recent_status_bulletin(bundle.obj)
-        bundle.data['count_actors'] = BulletinPrepMeta()\
-            .prepare_count_actors(bundle.obj)
-        bundle.data['actor_roles_status'] = BulletinPrepMeta()\
-            .prepare_bulletin_actor_roles(bundle.obj)
-        bundle.data['actors'] = ActorPrepMeta()\
-            .prepare_actors(bundle.obj)
-        bundle.data['actors_role'] = ActorPrepMeta()\
-            .prepare_actors_role(bundle.obj)
+        bulletin_fields = [
+            'bulletin_comments', 'bulletin_imported_comments',
+            'bulletin_locations', 'bulletin_labels', 'bulletin_sources',
+            'bulletin_times', 'most_recent_status_bulletin',
+            'count_actors', 'actor_roles_status',
+        ]
+        actor_fields = ['actors', 'actors_role', ]
+        bulletin_prep = BulletinPrepMeta()
+        actor_prep = ActorPrepMeta()
+
+        for field in bulletin_fields:
+            prep_func = getattr(bulletin_prep, 'prepare_' + field)
+            bundle.data[field] = prep_func(bundle.obj)
+
+        for field in actor_fields:
+            prep_func = getattr(actor_prep, 'prepare_' + field)
+            bundle.data[field] = prep_func(bundle.obj)
 
         if bundle.data['confidence_score'] is None:
             bundle.data['confidence_score'] = ''

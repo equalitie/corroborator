@@ -9,7 +9,7 @@
         {{/if}}
         {{#if model.most_recent_status_incident}}
         <span class="status">
-          <span class="value">{{model.most_recent_status_incident}}</span>
+          <span class="value">{{fetchStatus model.most_recent_status_incident}}</span>
         </span>
         {{/if}}
       </div>

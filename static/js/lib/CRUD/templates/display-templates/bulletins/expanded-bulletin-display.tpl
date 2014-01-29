@@ -68,7 +68,7 @@
         <div class="is-status group">
           <h4>{{i18n.bulletins.update_status}}</h4>
           <div class="status">
-            <span class="value status">{{model.most_recent_status_bulletin}}</span>
+            <span class="value status">{{fetchStatus model.most_recent_status_bulletin}}</span>
           </div>
         </div>
         {{/if}}

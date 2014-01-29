@@ -1,7 +1,7 @@
 <input type="hidden" value="{{search_request}}" />
 <span class="text T">
   <span class="select-search">
-    {{name_en}}
+    {{name}}
   </span>
   {{#if_eq search_request compare='predefined_search' }}
     <span aria-hidden="true" data-icon="x" class="delete-saved-search"></span>

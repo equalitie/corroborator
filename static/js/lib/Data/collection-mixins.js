@@ -145,6 +145,18 @@ define (
           }
         },
 
+        // ### helper for translating model fields
+        // expects to have the field + field_<locale>
+        TranslateMixin = {
+          translate: function(locale) {
+            var jsonModel = this.toJSON();
+            _(this.translatableFields).each(function(field) {
+              jsonModel[field] = jsonModel[field + '_' + Bootstrap.locale];
+            });
+            return jsonModel;
+          }
+        },
+
         // ### helper methods for persisting models with tastypie  
         // formats many to many fields  
         // removes empty foreign key fields  
@@ -266,6 +278,7 @@ define (
     Filters              : Filters,
     PersistSelectionMixin: PersistSelectionMixin,
     ModelSaveMixin       : ModelSaveMixin,
+    TranslateMixin       : TranslateMixin,
     ModelSelectionMixin  : ModelSelectionMixin,
     CollectionUpdateMixin: CollectionUpdateMixin
   };

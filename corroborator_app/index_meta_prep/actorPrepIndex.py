@@ -13,44 +13,56 @@ from django.conf import settings
 
 class ActorPrepMeta():
 
-    def prepare_related_bulletins(self, object):
+    def prepare_actor_created_date(self, object):
         """
-        Return set of Bulletins associated with a given Actor
+        return date portion of actor created datetime field
         """
-        roles = ActorRole.objects.filter(
-            actor=object.id
-            ).filter(
-                bulletin__isnull=False
-            )
-        
-        related_bulletins = [
-            '/api/v1/bulletin/{0}/'.format(b.id) \
-            for ar in roles \
-            for b in ar.bulletin_set.all()
-        ]
+        if object.actor_created is not None:
+            return object.actor_created.date()
+        else:
+            return ''
 
-        return related_bulletins
-
-    def prepare_related_incidents(self, object):
+    def prepare_actor_modified_date(self, object):
         """
-        Return set of Incidents associated with a given Actor
+        return date portion of actor modified datetime field
         """
-        roles = ActorRole.objects.filter(
-            actor=object.id
-            ).filter(
-                incident__isnull=False
-            )
-        
-        related_incidents = [
-            '/api/v1/incident/{0}/'.format(b.id) \
-            for ar in roles \
-            for b in ar.incident_set.all()
-        ]
+        if object.actor_modified is not None:
+            return object.actor_modified.date()
+        else:
+            return ''
 
-        return related_incidents
+    def prepare_most_recent_status_actor(self, object):
+        """
+        Returns most recently created status update associated with a
+        given Bulletin
+        """
+        status = object.actor_comments.values(
+            'status__id').order_by('-comment_created')
+        if len(status) > 0:
+            status = status[0]
+            return '/api/v1/statusUpdate/{0}/'.format(status['status__id'])
+        else:
+            return ''
 
-        
-    def prepare_actor_actor_roles(self, object):
+    def prepare_actor_searchable_pob(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        if object.POB is not None:
+            locations = []
+
+            locations.append('/api/v1/location/{0}/'.format(object.POB.id))
+            if object.POB.parent_location is not None:
+                locations += self.get_locations_recursively(
+                    object.POB.parent_location.id
+                )
+
+            return locations
+        else:
+            return ''
+
+    def prepare_actor_roles_status(self, object):
         """
         Returns a full list of the roles played by actors associate
         with this object
@@ -59,34 +71,6 @@ class ActorPrepMeta():
             actor_role.relation_status for actor_role in
             object.actors_role.all()]
         return roles
-
-    def prepare_most_recent_status_actor(self, object):
-        """
-        Returns most recently created status update associated with a
-        given Bulletin
-        """
-        status = object.actor_comments.values(
-            'status__status_en').order_by('-comment_created')
-        if len(status) > 0:
-            status = status[0]
-            return status['status__status_en']
-        else:
-            return ''
-
-    def prepare_actor_entity_relation(self, object):
-        """
-        Returns a full list of all roles and relationships associated
-        with this Actor instance.
-        """
-        relations = [
-            actor_role.get_relation_status_display() for actor_role in
-            ActorRole.objects.filter(actor__in=[object]).all()]
-
-        result = relations
-        result = filter(None, result)
-
-        return list(set(result))
-
 
     def prepare_actor_entity_role(self, object):
         """
@@ -102,6 +86,19 @@ class ActorPrepMeta():
 
         return list(set(result))
 
+    def prepare_actor_entity_relation(self, object):
+        """
+        Returns a full list of all roles and relationships associated
+        with this Actor instance.
+        """
+        relations = [
+            actor_role.get_relation_status_display() for actor_role in
+            ActorRole.objects.filter(actor__in=[object]).all()]
+
+        result = relations
+        result = filter(None, result)
+
+        return list(set(result))
 
     def prepare_roles(self, object):
         """
@@ -120,15 +117,6 @@ class ActorPrepMeta():
 
         return list(set(result))
 
-    def prepare_actors_role(self, object):
-        """
-        Returns the correctly formated uri related to this incident instance
-        for the tastypie api
-        """
-        return [
-            '/api/v1/actorRole/{0}/'.format(actor_role.id)
-            for actor_role in object.actors_role.all()]
-
     def prepare_actors(self, object):
         """
         Returns array of tastypie uris for the given Actor object's associated
@@ -138,6 +126,15 @@ class ActorPrepMeta():
             '/api/v1/actor/{0}/'.format(actor_role.actor.id)
             for actor_role in object.actors_role.all()]
         return actors
+
+    def prepare_actors_role(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return [
+            '/api/v1/actorRole/{0}/'.format(actor_role.id)
+            for actor_role in object.actors_role.all()]
 
     def prepare_POB(self, object):
         """
@@ -156,6 +153,23 @@ class ActorPrepMeta():
         """
         if object.current_location is not None:
             return '/api/v1/location/{0}/'.format(object.current_location.id)
+        else:
+            return ''
+
+    def prepare_resource_uri(self, object):
+        """
+        Returns the correctly formated uri related to this actor instance
+        for the tastypie api
+        """
+        return '/api/v1/actor/{0}/'.format(object.id)
+
+    def prepare_media(self, object):
+        """
+        Returns media uri of image associated with given Actor
+        """
+        if object.media is not None:
+            #return object.media.media_file.name
+            return '/api/v1/media/{0}/'.format(object.media.id)
         else:
             return ''
 
@@ -179,23 +193,37 @@ class ActorPrepMeta():
         else:
             return ''
 
-    def prepare_actor_searchable_pob(self, object):
+    def prepare_related_bulletins(self, object):
         """
-        Returns the correctly formated uri related to this actor instance
-        for the tastypie api
+        Return set of Bulletins associated with a given Actor
         """
-        if object.POB is not None:
-            locations = []
+        roles = ActorRole.objects.filter(
+            actor=object.id).filter(bulletin__isnull=False)
 
-            locations.append('/api/v1/location/{0}/'.format(object.POB.id))
-            if object.POB.parent_location is not None:
-                locations += self.get_locations_recursively(
-                    object.POB.parent_location.id
-                )
+        related_bulletins = [
+            '/api/v1/bulletin/{0}/'.format(b.id)
+            for ar in roles
+            for b in ar.bulletin_set.all()
+        ]
 
-            return locations
-        else:
-            return ''
+        return related_bulletins
+
+    def prepare_related_incidents(self, object):
+        """
+        Return set of Incidents associated with a given Actor
+        """
+        roles = ActorRole.objects.filter(
+            actor=object.id).filter(incident__isnull=False)
+
+        related_incidents = [
+            '/api/v1/incident/{0}/'.format(b.id)
+            for ar in roles
+            for b in ar.incident_set.all()
+        ]
+
+        return related_incidents
+
+
 
     def get_locations_recursively(self, location_id):
         """
@@ -213,22 +241,6 @@ class ActorPrepMeta():
         else:
             return ['/api/v1/location/{0}/'.format(location.id)]
 
-    def prepare_resource_uri(self, object):
-        """
-        Returns the correctly formated uri related to this actor instance
-        for the tastypie api
-        """
-        return '/api/v1/actor/{0}/'.format(object.id)
-
-    def prepare_media(self, object):
-        """
-        Returns media uri of image associated with given Actor
-        """
-        if object.media is not None:
-            #return object.media.media_file.name
-            return '/api/v1/media/{0}/'.format(object.media.id)
-        else:
-            return ''
 
     def prepare_thumbnail_url(self, object):
         """

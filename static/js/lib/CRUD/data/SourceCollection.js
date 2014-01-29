@@ -41,7 +41,7 @@ define (
       },
       mapAutoCompleteFormat: function(model) {
         return {
-          label: model.get('name_en'),
+          label: model.get('name'),
           id   : model.get('resource_uri')
         };
       }

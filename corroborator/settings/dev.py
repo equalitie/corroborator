@@ -25,6 +25,7 @@ ROOT_PATH = '/Users/cormac/work/programming/python/djangodev/corroborator/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        #'NAME': 'corroborator_small',
         'NAME': 'corroborator',
         'USER': 'root',
         'PASSWORD': 'F4QsJfHj9Rw47cAB',

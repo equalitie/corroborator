@@ -180,29 +180,19 @@ class IncidentResource(ModelResource, APIMixin):
         return bundle
 
     def dehydrate(self, bundle):
-        bundle.data['incident_locations'] = IncidentPrepMeta()\
-            .prepare_incident_locations(bundle.obj)
-        bundle.data['incident_labels'] = IncidentPrepMeta()\
-            .prepare_incident_labels(bundle.obj)
-        bundle.data['incident_times'] = IncidentPrepMeta()\
-            .prepare_incident_times(bundle.obj)
-        bundle.data['incident_crimes'] = IncidentPrepMeta()\
-            .prepare_incident_crimes(bundle.obj)
-        bundle.data['most_recent_status_incident'] = \
-            IncidentPrepMeta()\
-            .prepare_most_recent_status_incident(bundle.obj)
-        bundle.data['count_actors'] = IncidentPrepMeta()\
-            .prepare_count_actors(bundle.obj)
-        bundle.data['count_bulletins'] = IncidentPrepMeta()\
-            .prepare_count_bulletins(bundle.obj)
-        bundle.data['count_incidents'] = IncidentPrepMeta()\
-            .prepare_count_incidents(bundle.obj)
-        bundle.data['actor_roles_status'] = IncidentPrepMeta()\
-            .prepare_incident_actor_roles(bundle.obj)
-        bundle.data['actors'] = ActorPrepMeta()\
-            .prepare_actors(bundle.obj)
-        bundle.data['actors_role'] = ActorPrepMeta()\
-            .prepare_actors_role(bundle.obj)
+        fields = [
+            'incident_locations', 'incident_labels_en', 'incident_times',
+            'incident_crimes_en', 'incident_crimes_ar',
+            'most_recent_status_incident', 'count_actors',
+            'count_bulletins', 'count_incidents', 'actor_roles_status',
+            'actors', 'actors_role', 'incident_labels_ar'
+        ]
+
+        incident_prep_instance = IncidentPrepMeta()
+
+        for field in fields:
+            prep_func = getattr(incident_prep_instance, 'prepare_' + field)
+            bundle.data[field] = prep_func(bundle.obj)
 
         if bundle.data['confidence_score'] is None:
             bundle.data['confidence_score'] = ''

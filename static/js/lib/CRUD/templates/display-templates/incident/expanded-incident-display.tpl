@@ -16,7 +16,7 @@
     <div class="body">
       {{#if model.incident_crimes}}
       <div class="is-crimes group">
-        <h4>Crimes</h4>
+        <h4>{{i18n.incident.Crime}}</h4>
         <ul class="crimes">
           {{#each model.incident_crimes}}
           <li class="crime">
@@ -69,7 +69,7 @@
         <div class="is-status group">
           <h4>Update status</h4>
           <div class="status">
-            <span class="value">{{most_recent_status_incident.[0]}}</span>
+            <span class="value">{{fetchStatus most_recent_status_incident.[0]}}</span>
           </div>
         </div>
         {{/if}}

@@ -12,7 +12,7 @@
         <div class="content">
           {{#if model.most_recent_status_actor}}
             <span class="status">
-              <span class="text">{{model.most_recent_status_actor}}</span>
+              <span class="text">{{fetchStatus model.most_recent_status_actor}}</span>
             </span>
           {{/if}}
           <div class="L1">

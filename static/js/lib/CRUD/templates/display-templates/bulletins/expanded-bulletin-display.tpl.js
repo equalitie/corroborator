@@ -84,11 +84,12 @@ function program17(depth0,data) {
 
 function program19(depth0,data) {
   
-  var buffer = "", stack1;
+  var buffer = "", stack1, options;
   buffer += "\n        <div class=\"is-status group\">\n          <h4>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletins)),stack1 == null || stack1 === false ? stack1 : stack1.update_status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h4>\n          <div class=\"status\">\n            <span class=\"value status\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n          <div class=\"status\">\n            <span class=\"value status\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchStatus || depth0.fetchStatus),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin), options) : helperMissing.call(depth0, "fetchStatus", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin), options)))
     + "</span>\n          </div>\n        </div>\n        ";
   return buffer;
   }

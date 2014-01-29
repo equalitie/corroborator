@@ -30,7 +30,7 @@
   <td class="is-status">
     {{#if model.most_recent_status_incident}}
       <span class="status">
-        <span class="text">{{model.most_recent_status_incident}}</span>
+        <span class="text">{{fetchStatus model.most_recent_status_incident}}</span>
       </span>
     {{/if}}
   </td>

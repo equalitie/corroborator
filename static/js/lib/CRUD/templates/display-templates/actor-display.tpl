@@ -11,7 +11,7 @@
     <div class="infos">
       {{#if model.most_recent_status_actor}}
         <span class="status">
-          <span class="text">{{model.most_recent_status_actor}}</span>
+          <span class="text">{{fetchStatus model.most_recent_status_actor}}</span>
         </span>
       {{/if}}
       <h2 class="title">

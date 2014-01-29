@@ -70,7 +70,7 @@ define({
   'incident': {
     'Crime': 'نوع',
     'Assigned_to': 'تحت مسؤولية',
-    'Related_incidents': 'Related incidents',
+    'Related_incidents': 'الملفات المرتبطة',
     'Relate': 'مرتبط',
     'Remove': 'إزالة',
     'Title_field_is_required': 'حقل العنوان مطلوب',

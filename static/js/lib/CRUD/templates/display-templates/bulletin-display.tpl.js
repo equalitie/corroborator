@@ -44,9 +44,10 @@ function program7(depth0,data) {
 
 function program9(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n      <span class=\"status\">\n        <span class=\"value\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  var buffer = "", stack1, options;
+  buffer += "\n      <span class=\"status\">\n        <span class=\"value\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchStatus || depth0.fetchStatus),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin), options) : helperMissing.call(depth0, "fetchStatus", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_bulletin), options)))
     + "</span>\n      </span>\n      ";
   return buffer;
   }

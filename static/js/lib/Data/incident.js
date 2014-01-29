@@ -34,6 +34,7 @@ define(
         crudBus               = Streams.crudBus,
         searchBus             = Streams.searchBus,
         ModelSaveMixin        = Mixins.ModelSaveMixin,
+        TranslateMixin        = Mixins.TranslateMixin,
         PersistSelectionMixin = Mixins.PersistSelectionMixin,
         CollectionUpdateMixin = Mixins.CollectionUpdateMixin,
         ModelSelectionMixin   = Mixins.ModelSelectionMixin,
@@ -118,6 +119,7 @@ define(
         'crimes', 'labels', 'incident_comments', 'times', 'actors_role',
         'ref_bulletins', 'ref_incidents', 'locations'
       ],
+      translatableFields: ['incident_labels', 'incident_crimes'],
       initialize: function(options) {
         this.set('entityType', 'incident');
         if (options.resourceUri !== undefined) {
@@ -140,6 +142,7 @@ define(
 
     });
     _.extend(IncidentModel.prototype, ModelSaveMixin);
+    _.extend(IncidentModel.prototype, TranslateMixin);
 
     // ### Incident Collection
     // provide sort, selection functionality  

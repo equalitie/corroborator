@@ -1,4 +1,10 @@
+# coding=utf-8
 """
+encoding must be utf-8 to allow inline arabic
+probably should change this to be trans string but may need more work on
+the solution
+---
+
 This file describes the Model entities and their relations for the Corroborator
 application.
 
@@ -9,7 +15,7 @@ Author: Bill Doran
 from django.utils import translation
 from django.contrib.auth.signals import user_logged_out
 from django.db import models
-from django.db.models import Min,  Max
+from django.db.models import Min, Max
 from django.contrib.auth.models import User
 from django.utils import timezone
 from haystack.utils.geo import Point
@@ -571,24 +577,24 @@ class Actor(models.Model):
     This object captures the unique properties of an individual Actor
     """
     AGE_TYPE_AR = (
-        ('Adult', 'adult'),
-        ('Child', 'child'),
-    )
-    SEX_TYPE_AR = (
-        ('Female', 'female'),
-        ('Male', 'male'),
-    )
-    CIVILIAN_TYPE_AR = (
-        ('Adult', 'adult'),
-        ('Child', 'child'),
+        ('Adult', u'بالغ'),
+        ('Child', u'طفل'),
     )
     AGE_TYPE_EN = (
         ('Adult', 'adult'),
         ('Child', 'child'),
     )
+    SEX_TYPE_AR = (
+        ('Female', u'إنثى'),
+        ('Male', u'ذكر'),
+    )
     SEX_TYPE_EN = (
         ('Female', 'female'),
         ('Male', 'male'),
+    )
+    CIVILIAN_TYPE_AR = (
+        ('Civilian', u'مدني'),
+        ('Non-civilian', u'غير مدني'),
     )
     CIVILIAN_TYPE_EN = (
         ('Civilian', 'Civilian'),
@@ -602,21 +608,34 @@ class Actor(models.Model):
     fullname_ar = models.CharField(max_length=255, blank=True)
     nickname_en = models.CharField(max_length=255, blank=True, null=True)
     nickname_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    # these are the fields that should be the same across languages
+    # each one has a property that will return the correct version for the
+    # selected locale
     age_en = models.CharField(max_length=255, choices=AGE_TYPE_EN, blank=True)
     age_ar = models.CharField(max_length=255, choices=AGE_TYPE_AR, blank=True)
+
+    @property
+    def age(self):
+        return lang_helper(self, 'age')
+
     sex_en = models.CharField(max_length=255, choices=SEX_TYPE_EN, blank=True)
     sex_ar = models.CharField(max_length=255, choices=SEX_TYPE_AR, blank=True)
+
+    @property
+    def sex(self):
+        return lang_helper(self, 'sex')
+
     civilian_en = models.CharField(
         max_length=255, choices=CIVILIAN_TYPE_EN, blank=True)
     civilian_ar = models.CharField(
         max_length=255, choices=CIVILIAN_TYPE_AR, blank=True)
-    DOB = models.DateField('date of birth', blank=True, null=True)
-    date_of_death = models.DateField('date of death', blank=True, null=True)
-    date_of_disappearance = models.DateField(
-        'date of disappearance', blank=True, null=True)
-    date_of_return = models.DateField('date of return', blank=True, null=True)
-    date_of_detention = models.DateField(
-        'date of detention', blank=True, null=True)
+
+    @property
+    def civilian(self):
+        return lang_helper(self, 'civilian')
+
+    # these probably need to reference a separate model
     occupation_en = models.CharField(max_length=255, blank=True, null=True)
     occupation_ar = models.CharField(max_length=255, blank=True, null=True)
     nationality_en = models.CharField(max_length=255, blank=True, null=True)
@@ -629,6 +648,22 @@ class Actor(models.Model):
     religion_ar = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_en = models.CharField(max_length=255, blank=True, null=True)
     spoken_dialect_ar = models.CharField(max_length=255, blank=True, null=True)
+    family_status_en = models.CharField(max_length=255, blank=True, null=True)
+    family_status_ar = models.CharField(max_length=255, blank=True, null=True)
+    cause_of_death_en = models.CharField(max_length=255, blank=True, null=True)
+    cause_of_death_ar = models.CharField(max_length=255, blank=True, null=True)
+    legal_status_en = models.CharField(max_length=255, blank=True, null=True)
+    legal_status_ar = models.CharField(max_length=255, blank=True, null=True)
+    health_status_en = models.CharField(max_length=255, blank=True, null=True)
+    health_status_ar = models.CharField(max_length=255, blank=True, null=True)
+
+    DOB = models.DateField('date of birth', blank=True, null=True)
+    date_of_death = models.DateField('date of death', blank=True, null=True)
+    date_of_disappearance = models.DateField(
+        'date of disappearance', blank=True, null=True)
+    date_of_return = models.DateField('date of return', blank=True, null=True)
+    date_of_detention = models.DateField(
+        'date of detention', blank=True, null=True)
 
     origin_id = models.CharField(max_length=255, blank=True, null=True)
     age_numeric = models.IntegerField(blank=True, null=True)
@@ -636,15 +671,7 @@ class Actor(models.Model):
     family_name_ar = models.CharField(max_length=255, blank=True, null=True)
     national_id_card = models.CharField(max_length=255, blank=True, null=True)
     national_number = models.CharField(max_length=255, blank=True, null=True)
-    legal_status_en = models.CharField(max_length=255, blank=True, null=True)
-    legal_status_ar = models.CharField(max_length=255, blank=True, null=True)
-    health_status_en = models.CharField(max_length=255, blank=True, null=True)
-    health_status_ar = models.CharField(max_length=255, blank=True, null=True)
 
-    family_status_en = models.CharField(max_length=255, blank=True, null=True)
-    family_status_ar = models.CharField(max_length=255, blank=True, null=True)
-    cause_of_death_en = models.CharField(max_length=255, blank=True, null=True)
-    cause_of_death_ar = models.CharField(max_length=255, blank=True, null=True)
     """
     This field tracks whether the entitiy has been deleted and should thus be
     ignored by the UI
@@ -764,7 +791,20 @@ class ActorRole(models.Model):
     This object model captures the role of a given actor
     in relation to either an Incident or a Bulletin.
     """
-    ROLE_STATUS = (
+    ROLE_STATUS_AR = (
+        ('K', 'Killed(ar)'),
+        ('T', 'Tortured'),
+        ('WO', 'Wounded'),
+        ('D', 'Detained'),
+        ('KN', 'Kidnapped'),
+        ('WN', 'Witness'),
+        ('A', 'Arrested'),
+        ('M', 'Martyr'),
+        ('MG', 'Missing'),
+        ('I', 'Injured'),
+    )
+
+    ROLE_STATUS_EN = (
         ('K', 'Killed'),
         ('T', 'Tortured'),
         ('WO', 'Wounded'),
@@ -776,8 +816,16 @@ class ActorRole(models.Model):
         ('MG', 'Missing'),
         ('I', 'Injured'),
     )
-    RELATION = (
+    RELATION_EN = (
         ('P', 'Parent'),
+        ('S', 'Sibling'),
+        ('FM', 'Family member'),
+        ('SPO', 'Superior officer'),
+        ('SBO', 'Subordinate officer'),
+    )
+
+    RELATION_AR = (
+        ('P', 'Parent(ar)'),
         ('S', 'Sibling'),
         ('FM', 'Family member'),
         ('SPO', 'Superior officer'),
@@ -794,7 +842,7 @@ class ActorRole(models.Model):
     role_status = models.CharField(
         'status',
         max_length=25,
-        choices=ROLE_STATUS,
+        choices=ROLE_STATUS_EN,
         blank=True,
         null=True
     )
@@ -802,7 +850,7 @@ class ActorRole(models.Model):
     relation_status = models.CharField(
         'status',
         max_length=25,
-        choices=RELATION,
+        choices=RELATION_EN,
         blank=True,
         null=True
     )

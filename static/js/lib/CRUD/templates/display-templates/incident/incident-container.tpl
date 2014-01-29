@@ -1,4 +1,4 @@
-<h3 class="title">Related Incidents</h3>
+<h3 class="title">{{i18n.incident.Related_incidents}}</h3>
 <ul class="elements incidents-list">
 </ul>
 <div class="clearer"></div>

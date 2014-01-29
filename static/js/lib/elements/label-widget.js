@@ -298,6 +298,7 @@ define (
 
       // render the container view
       render: function() {
+        console.info(this.templateVars);
         var html = labelWidgetTmp(this.templateVars);
         this.$el.empty()
                 .append(html);

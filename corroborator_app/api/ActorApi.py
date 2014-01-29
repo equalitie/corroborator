@@ -164,27 +164,16 @@ class ActorResource(ModelResource, APIMixin):
         return bundle
 
     def dehydrate(self, bundle):
-        bundle.data['related_bulletins'] = ActorPrepMeta()\
-            .prepare_related_bulletins(bundle.obj)
-        bundle.data['related_incidents'] = ActorPrepMeta()\
-            .prepare_related_incidents(bundle.obj)
-        bundle.data['count_incidents'] = ActorPrepMeta()\
-            .prepare_count_incidents(bundle.obj)
-        bundle.data['count_bulletins'] = ActorPrepMeta()\
-            .prepare_count_bulletins(bundle.obj)
-        bundle.data['roles'] = ActorPrepMeta()\
-            .prepare_roles(bundle.obj)
-        bundle.data['actors_role'] = ActorPrepMeta()\
-            .prepare_actors_role(bundle.obj)
-        bundle.data['actors'] = ActorPrepMeta()\
-            .prepare_actors(bundle.obj)
-        bundle.data['thumbnail_url'] = ActorPrepMeta()\
-            .prepare_thumbnail_url(bundle.obj)
-        bundle.data['actor_roles_status'] = ActorPrepMeta()\
-            .prepare_actor_actor_roles(bundle.obj)
-        bundle.data['most_recent_status_actor'] = \
-            ActorPrepMeta()\
-            .prepare_most_recent_status_actor(bundle.obj)
+
+        fields = [
+            'related_bulletins', 'related_incidents', 'count_incidents',
+            'count_bulletins', 'roles', 'actors_role', 'actors',
+            'thumbnail_url', 'actor_roles_status', 'most_recent_status_actor'
+        ]
+        actor_prep = ActorPrepMeta()
+        for field in fields:
+            prep_func = getattr(actor_prep, 'prepare_' + field)
+            bundle.data[field] = prep_func(bundle.obj)
         return bundle
 
 

@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // Display the incident element and it's related content
@@ -212,9 +212,9 @@ define (
       render: function() {
         this.destroyChildren();
         this.$el.children().remove();
-        console.log(i18n);
+        console.info(this.model.toJSON());
         var html = this.template({
-          model: this.model.toJSON(),
+          model: this.model.translate(),
           i18n: i18n
         });
         this.$el.html(html);
