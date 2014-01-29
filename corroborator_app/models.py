@@ -24,7 +24,10 @@ def lang_helper(object_instance, field):
     helper method to select the correct language version of a model field
     '''
     lang_string = translation.get_language()
-    return getattr(object_instance, field + '_' + lang_string)
+    try:
+        return getattr(object_instance, field + '_' + lang_string)
+    except AttributeError:
+        return getattr(object_instance, field + '_en')
 
 
 class UserLog(models.Model):
@@ -179,8 +182,8 @@ class StatusTranslationManager(models.Manager):
         return [self.prepare_model(model) for model in models]
 
     def prepare_model(self, model):
-        lang_string = translation.get_language()
-        status = getattr(model, 'status_' + lang_string).encode('utf8')
+        status = lang_helper(model, 'status')
+
         return {
             'comment_status': status,
             'id': '/api/v1/statusUpdate/{0}/'.format(model.id),

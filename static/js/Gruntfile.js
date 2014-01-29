@@ -80,7 +80,7 @@ module.exports = function(grunt) {
           baseUrl       : '.',
           name          : 'main',
           mainConfigFile: 'loader.js',
-          out           : 'dist/build.js',
+          out           : 'dist/build-ar.js',
         }
       }
     },

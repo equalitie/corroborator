@@ -1,5 +1,12 @@
 
   <script type="text/javascript">
+  var require = {
+    config: {
+      i18n: {
+        locale: '{{locale}}' || 'en'
+      }
+    }
+  };
   var Bootstrap = (function() {
     var locale = '{{locale}}',
         gl_s3_aws_media_url = '{{ MEDIA_URL }}',

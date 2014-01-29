@@ -49,7 +49,6 @@ define (
 
       // map a list of models to autocomplete format
       autoCompleteFormat: function() {
-        console.info([this.at(0)].map(this.mapAutoCompleteFormat));
         return this.map(this.mapAutoCompleteFormat);
       },
 
