@@ -256,6 +256,10 @@ class Location(models.Model):
     objects = models.Manager()
 
     @property
+    def name(self):
+        return lang_helper(self, 'name')
+
+    @property
     def label(self):
         return lang_helper(self, 'name')
 

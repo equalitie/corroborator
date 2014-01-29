@@ -77,7 +77,7 @@
 
     {%for label in labels_set.all %}
       gl_ac_labels_list.push({
-        name_en:"{{label.name}}",
+        name:"{{label.name}}",
         id:"{{label.id}}",
         resource_uri:"/api/v1/label/{{label.id}}/"
       });
@@ -93,8 +93,7 @@
 
     {%for crime in crimes_set.all %}
       gl_ac_crimes_list.push({
-        name_en:"{{crime.name_en}}",
-        name_ar:"{{crime.name_ar}}",
+        name:"{{crime.name}}",
         id:"{{crime.id}}",
         resource_uri:"/api/v1/crimeCategory/{{crime.id}}/"
       });
@@ -102,8 +101,7 @@
 
     {%for source in sources_set.all %}
       special_global_ac_sources_list.push({
-        name_en:"{{source.name_en}}",
-        name_ar:"{{source.name_ar}}",
+        name:"{{source.name}}",
         id:"{{source.id}}",
         resource_uri:"/api/v1/source/{{source.id}}/"
       });
@@ -113,10 +111,9 @@
       gl_ac_loc_set.push({
         
         {% autoescape off %}
-        name_en:"{{loc.name_en}}",
+        name:"{{loc.name}}",
         label: "{{loc.label}}",
         {% endautoescape %}
-        name_ar:"{{loc.name_ar}}",
         latitude:"{{loc.latitude}}",
         longitude: "{{loc.longitude}}",
         loc_type: "{{loc.loc_type}}",
