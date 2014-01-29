@@ -1,12 +1,4 @@
-
-  <script type="text/javascript">
-  var require = {
-    config: {
-      i18n: {
-        locale: '{{locale}}' || 'en'
-      }
-    }
-  };
+<script type="text/javascript">
   var Bootstrap = (function() {
     var locale = '{{locale}}',
         gl_s3_aws_media_url = '{{ MEDIA_URL }}',
@@ -66,21 +58,26 @@
     {%for comment_status in all_status_set %}
       all_statuses.push({
         comment_status:"{{comment_status.comment_status}}",
-        id:"{{comment_status.resource_uri}}",
-        resource_uri:"{{comment_status.resource_uri}}"
+        id:{{comment_status.id}},
+        resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
       });
     {% endfor %}
     {%for comment_status in status_set %}
       comment_statuses.push({
         comment_status:"{{comment_status.comment_status}}",
-        id:"{{comment_status.resource_uri}}",
-        resource_uri:"{{comment_status.resource_uri}}"
+        id:{{comment_status.id}},
+        resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
       });
     {% endfor %}
+    var create_status = {
+        comment_status:"{{create_status.comment_status}}",
+        id:"{{create_status.id}}",
+        resource_uri:"/api/v1/statusUpdate/{{create_status.id}}/"
+      };
 
     {%for label in labels_set.all %}
       gl_ac_labels_list.push({
-        name_en:"{{label.name_en}}",
+        name_en:"{{label.name}}",
         id:"{{label.id}}",
         resource_uri:"/api/v1/label/{{label.id}}/"
       });
@@ -152,12 +149,10 @@
         locations: gl_ac_loc_set,
         gl_ac_users_list: gl_ac_users_list,
         comment_statuses: comment_statuses,
-        {% autoescape off %}
-        create_status: {{create_status}},
-        {% endautoescape %}
+        create_status: create_status,
         all_statuses: all_statuses,
         solr_url: solr_url
-    }
+    };
 
   }());
-  </script>
+</script>

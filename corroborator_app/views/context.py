@@ -113,7 +113,7 @@ def select_predefined_searches(user):
 
 
 def select_all_statuses():
-    return StatusUpdate.translated.all()
+    return StatusUpdate.objects.all()
 
 
 def select_statuses(user):
@@ -123,7 +123,7 @@ def select_statuses(user):
 
 
 def create_status():
-    return StatusUpdate.translated.get(status_en='Human Created')
+    return StatusUpdate.objects.get(status_en='Human Created')
 
 
 def select_crime_categories():

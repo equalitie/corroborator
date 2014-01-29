@@ -79,6 +79,34 @@ class PredefinedSearch(models.Model):
     make_global = models.BooleanField()
 
 
+class ActorStatus(models.Model):
+    """
+    This object represents an actor. It records the
+    the current state of a given Actor entity.
+    """
+    status_en = models.CharField(max_length=255)
+    status_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.status_en
+
+
+class EventType(models.Model):
+    """
+    This object represents an event type. It records the
+    the type of event represented by a given detail entity.
+    """
+    name_en = models.CharField(max_length=255)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name_en
+
+
 class PermStatusUpdateManager(models.Manager):
     def available_statuses(self, user):
         '''
@@ -100,7 +128,7 @@ class PermStatusUpdateManager(models.Manager):
 
         status_ids = set(status_ids)
 
-        return StatusUpdate.translated.filter(id__in=status_ids)
+        return StatusUpdate.objects.filter(id__in=status_ids)
 
     def get_update_status(self, user, requested_status_id):
         '''
@@ -137,60 +165,6 @@ class PermStatusUpdateManager(models.Manager):
             return False
 
 
-class ActorStatus(models.Model):
-    """
-    This object represents an actor. It records the
-    the current state of a given Actor entity.
-    """
-    status_en = models.CharField(max_length=255)
-    status_ar = models.CharField(max_length=255, blank=True, null=True)
-    description_en = models.TextField(blank=True, null=True)
-    description_ar = models.TextField(blank=True, null=True)
-
-    def __unicode__(self):
-        return self.status_en
-
-
-class EventType(models.Model):
-    """
-    This object represents an event type. It records the
-    the type of event represented by a given detail entity.
-    """
-    name_en = models.CharField(max_length=255)
-    name_ar = models.CharField(max_length=255, blank=True, null=True)
-    description_en = models.TextField(blank=True, null=True)
-    description_ar = models.TextField(blank=True, null=True)
-
-    def __unicode__(self):
-        return self.name_en
-
-
-class StatusTranslationManager(models.Manager):
-    '''
-    return versions of status updates with the correct language selected
-    '''
-    def get(self, *args, **kwargs):
-        model = super(StatusTranslationManager, self).get(*args, **kwargs)
-        return self.prepare_model(model)
-
-    def all(self, *args, **kwargs):
-        models = super(StatusTranslationManager, self).all(*args, **kwargs)
-        return [self.prepare_model(model) for model in models]
-
-    def filter(self, *args, **kwargs):
-        models = super(StatusTranslationManager, self).filter(*args, **kwargs)
-        return [self.prepare_model(model) for model in models]
-
-    def prepare_model(self, model):
-        status = lang_helper(model, 'status')
-
-        return {
-            'comment_status': status,
-            'id': '/api/v1/statusUpdate/{0}/'.format(model.id),
-            'resource_uri': '/api/v1/statusUpdate/{0}/'.format(model.id),
-        }
-
-
 class StatusUpdate(models.Model):
     """
     This object represents a comment status update. It records the
@@ -204,7 +178,14 @@ class StatusUpdate(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     objects = models.Manager()
     filter_by_perm_objects = PermStatusUpdateManager()
-    translated = StatusTranslationManager()
+
+    @property
+    def comment_status(self):
+        return lang_helper(self, 'status')
+
+    @property
+    def description(self):
+        return lang_helper(self, 'description')
 
     def __unicode__(self):
         return self.status_en
