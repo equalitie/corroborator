@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-11-07 17:45+0000\n"
+"POT-Creation-Date: 2014-01-28 23:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,71 +19,84 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#. Translators: this is the html page title
-#: templates/auth.html:11
+#: templates/auth.html:8
 msgid "Corroborator | Log in"
 msgstr "trans C Log in"
 
-#: templates/auth.html:24 templates/new_base.html:5
+#: templates/auth.html:21 templates/base.html:5 templates/new_base.html:5
 msgid "Corroborator"
 msgstr ""
 
-#: templates/auth.html:34
+#: templates/auth.html:29
 msgid "username:"
 msgstr ""
 
-#: templates/auth.html:40
+#: templates/auth.html:35
 msgid "password:"
 msgstr ""
 
-#: templates/auth.html:46
+#: templates/auth.html:41
 msgid "Log In"
 msgstr ""
 
-#: templates/new_search.html:26
+#: templates/new_search.html:27
 msgid "Search help"
 msgstr ""
 
-#: templates/new_search.html:30
+#: templates/new_search.html:31
 msgid "search in progress"
 msgstr ""
 
-#: templates/new_search.html:40
+#: templates/new_search.html:41
 msgid "My assigned items"
 msgstr ""
 
-#: templates/nav/tabs.html:7
-msgid "Incidents"
-msgstr ""
-
+#: templates/nav/dataentry_tabs.html:7 templates/nav/reporting_tabs.html:15
 #: templates/nav/tabs.html:15
 msgid "Bulletins"
 msgstr ""
 
+#: templates/nav/dataentry_tabs.html:14 templates/nav/reporting_tabs.html:23
 #: templates/nav/tabs.html:24
 msgid "Actors"
 msgstr ""
 
-#: templates/nav/top_menu.html:9
-msgid "Settings"
+#: templates/nav/monitoring_tabs.html:7
+msgid "Monitor"
 msgstr ""
 
-#: templates/nav/top_menu.html:12
+#: templates/nav/monitoring_tabs.html:14
+msgid "Importer config"
+msgstr ""
+
+#: templates/nav/monitoring_tabs.html:22
+msgid "Scraper config"
+msgstr ""
+
+#: templates/nav/reporting_tabs.html:7 templates/nav/tabs.html:7
+msgid "Incidents"
+msgstr ""
+
+#: templates/nav/reporting_tabs.html:31
+msgid "Users"
+msgstr ""
+
+#: templates/nav/top_menu.html:9
 msgid "Logout"
 msgstr ""
 
-#: templates/nav/top_menu.html:19
-msgid "Search"
+#: templates/nav/top_menu.html:19 templates/nav/top_menu.html.py:22
+msgid "Review"
 msgstr ""
 
-#: templates/nav/top_menu.html:22
+#: templates/nav/top_menu.html:30 templates/nav/top_menu.html.py:33
+msgid "Reporting"
+msgstr ""
+
+#: templates/nav/top_menu.html:40
 msgid "Administration"
 msgstr ""
 
-#: templates/nav/top_menu.html:25
+#: templates/nav/top_menu.html:47 templates/nav/top_menu.html.py:50
 msgid "Monitoring"
-msgstr ""
-
-#: templates/nav/top_menu.html:28
-msgid "Batch import"
 msgstr ""

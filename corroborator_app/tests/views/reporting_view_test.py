@@ -125,7 +125,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': values[1],
+                    'value': 360,
                     'label': 'user'
                 }
             ],
@@ -147,7 +147,15 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'values': values[0],
+                    'values': [
+                        {
+                            "y": 180, 
+                            "x": 1370041200000.0
+                        },
+                        {
+                            "y": 180, 
+                            "x": 1370127600000.0
+                        }],
                     'label': 'user'
                 }
             ],
@@ -169,7 +177,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': value,
+                    'value': 0.5,
                     'label': 'user'
                 }
             ],
@@ -216,7 +224,7 @@ class ReportingTestCase(TestCase):
             'values': [
                 {
                     'value': 3,
-                    'label': status_label
+                    'label': 'Finalized'
                 }
             ],
             'title': 'User assigned items by status'
@@ -237,7 +245,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total_updates['deleted'],
+                    'value': 3,
                     'label': 'user'
                 }
             ],
@@ -258,7 +266,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total_updates['created'],
+                    'value': 3,
                     'label': 'user'
                 }
             ],
@@ -279,7 +287,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total_updates['edited'],
+                    'value': 3,
                     'label': 'user'
                 }
             ],
@@ -299,15 +307,24 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'values': items['deleted'],
+                    'values': [{
+                            "y": 3, 
+                            "x": 1390867200000.0
+                    }],
                     'key': 'Deleted items by date'
                 },
                 {
-                    'values': items['created'],
+                    'values': [{
+                            "y": 3, 
+                            "x": 1390867200000.0
+                    }],
                     'key': 'Created items by date'
                 },
                 {
-                    'values': items['edited'],
+                    'values': [{
+                            "y": 3, 
+                            "x": 1390867200000.0
+                    }],
                     'key': 'Edited items by date'
                 }
             ],
