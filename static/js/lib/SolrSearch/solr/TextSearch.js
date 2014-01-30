@@ -195,6 +195,7 @@ define(
         if (this.shouldSendFilters === true) {
           var options = this.updateRequest ? {silent: true} : {};
           this.sendFilters(filters, options);
+          console.log(filters);
           this.updateRequest = false;
         }
       }

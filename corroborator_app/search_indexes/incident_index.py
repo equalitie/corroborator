@@ -21,8 +21,7 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable, IncidentPrepMeta):
         model_attr='confidence_score', null=True, faceted=True)
     incident_times = indexes.MultiValueField(faceted=True)
     locations = indexes.MultiValueField(faceted=True)
-    incident_labels_en = indexes.MultiValueField(faceted=True)
-    incident_labels_ar = indexes.MultiValueField(faceted=True)
+    incident_labels = indexes.MultiValueField(faceted=True)
     incident_assigned_user = indexes.CharField(
         default='unassigned',
         model_attr='assigned_user',

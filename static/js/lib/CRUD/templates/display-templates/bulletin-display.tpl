@@ -44,12 +44,12 @@
       </div>
       {{/if}}
     </div>
-    {{#if model.bulletin_labels}}
+    {{#if model.labels}}
       <h3 class="title">{{i18n.bulletin.Labels}}</h3>
       <ul class="tags group detail">
-        {{#each model.bulletin_labels}}
+        {{#each model.labels}}
         <li class="tag">
-        <span class="text">{{this}}</span>
+        <span class="text">{{fetchLabel this}}</span>
         </li>
         {{/each}}
       </ul>

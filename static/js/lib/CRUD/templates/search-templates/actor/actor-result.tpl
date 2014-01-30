@@ -12,8 +12,8 @@
         {{#if model.fullname_ar}}
         <p class="name">{{model.fullname_ar}}</p>
         {{/if}}
-        <p class="sex">{{model.sex_en}}</p>
-        <p class="age">{{model.age_en}}</p>
+        <p class="sex">{{model.sex}}</p>
+        <p class="age">{{model.age}}</p>
       </div>
       <div class="L2">
           {{#if model.nickname_en}}

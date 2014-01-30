@@ -20,7 +20,7 @@ function program3(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n    "
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.filterName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.displayFilterName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "("
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.numItems)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + ")\n  ";

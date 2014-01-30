@@ -167,6 +167,7 @@ define (
     };
  
     init = function(updateRequired) {
+      activatePolling = false;
       activatePolling = updateRequired;
       listenForSearchStringRequest();
       listenForSearchEvents();
@@ -177,4 +178,3 @@ define (
       init: init
     };
 });
-

@@ -106,7 +106,6 @@ define (
         var actorsEl, content, roles_en, actorsContainer;
         actorsEl = this.getContainerEl('actors');
         content = this.model.get('actors');
-        console.log(actorsEl, content);
         roles_en = this.model.get('actor_roles_status');
         actorsContainer = new ActorListView({
           el: actorsEl,
@@ -121,7 +120,6 @@ define (
         var bulletinsEl, content, bulletinsContainer;
         bulletinsEl = this.getContainerEl('bulletins');
         content = this.model.get('related_bulletins');
-        console.log(content);
         bulletinsContainer = new BulletinListView({
           el: bulletinsEl,
           content: content,
@@ -135,7 +133,6 @@ define (
         var incidentsEl, content, incidentsContainer; 
         incidentsEl = this.getContainerEl('incidents');
         content = this.model.get('related_incidents');
-        console.log(content);
         incidentsContainer = new IncidentListView({
           el: incidentsEl,
           content: content,

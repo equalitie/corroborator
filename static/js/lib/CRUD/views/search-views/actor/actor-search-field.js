@@ -77,7 +77,6 @@ define (
 
       // load the actors from the existing object
       loadActors: function(mainModel) {
-        console.log(mainModel);
         var actorRoleArrays = {
           roles:       mainModel.get('actor_roles_status'),
           actors:      mainModel.get('actors'),

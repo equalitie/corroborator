@@ -23,16 +23,16 @@
             <p class="name"> {{model.fullname_ar}}</p>
             {{/if}}
 
-            {{#if model.sex_en}}
-              <p class="sex">{{model.sex_en}}</p>
+            {{#if model.sex}}
+              <p class="sex">{{model.sex}}</p>
             {{/if}}
-            {{#if model.sex_en}}
-              {{#if model.age_en}}
+            {{#if model.sex}}
+              {{#if model.age}}
                 <p class="age">,&nbsp;</p>
               {{/if}}
             {{/if}}
-            {{#if model.age_en}}
-            <p class="age"> {{model.age_en}}</p>
+            {{#if model.age}}
+            <p class="age"> {{model.age}}</p>
             {{/if}}
           </div>
 

@@ -18,22 +18,24 @@ define(
 
           'confidence_score_exact',
           'incident_times_exact',
-          'incident_labels_en_exact', 
-          'incident_labels_ar_exact', 
+          'incident_labels_exact', 
           'incident_assigned_user_exact',
 
           'incident_crimes_exact',
           'incident_created_exact',
           'incident_searchable_locations_exact',
           'most_recent_status_incident_exact',
-          'age_en_exact',
-          'age_ar_exact',
-          'sex_en_exact',
-          'sex_ar_exact',
+
+          'most_recent_status_actor_exact',
+          'age_exact',
+          'sex_exact',
+          'civilian_exact',
+          'civilian_exact',
+
           'religion_en_exact',
           'religion_ar_exact',
-          'civilian_en_exact',
-          'civilian_ar_exact',
+
+
           'nationality_en_exact',
           'nationality_ar_exact',
           'occupation_en_exact',

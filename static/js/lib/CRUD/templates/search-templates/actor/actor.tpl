@@ -80,17 +80,17 @@
           <div class="group details">
             <div class="field span-33p">
               <label>{{i18n.actor.Sex}}</label>
-              <div id="sex_en" class="button combo">
+              <div id="sex" class="button combo">
         
                 <span class="T selected-option">
-                  {{#if model.sex_en}}
-                    {{model.sex_en}}
+                  {{#if model.sex}}
+                    {{model.sex}}
                   {{else}}
                     Sex
                   {{/if}}
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
-                <input name="sex_en" type="hidden" value="{{model.sex_en}}"class="actor-field">
+                <input name="sex" type="hidden" value="{{model.sex}}"class="actor-field">
         
                 <ul class="options">
                   <li class="option selected">
@@ -104,17 +104,17 @@
             </div>
             <div class="field span-33p">
               <label>{{i18n.actor.ChildAdult}}</label>
-              <div id="age_en" class="button combo">
+              <div id="age" class="button combo">
         
                 <span class="T selected-option">
-                  {{#if model.sex_en}}
-                    {{model.age_en}}
+                  {{#if model.sex}}
+                    {{model.age}}
                   {{else}}
                     {{i18n.actor.Age}}
                   {{/if}}
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
-                <input name="age_en" type="hidden" value="{{model.age_en}}" class="actor-field">
+                <input name="age" type="hidden" value="{{model.age}}" class="actor-field">
         
 
                 <ul class="options">
@@ -129,17 +129,17 @@
             </div>
             <div class="field span-33p">
               <label>{{i18n.actor.CivilianNoncivilian}}</label>
-              <div id="civilian_en" class="button combo">
+              <div id="civilian" class="button combo">
         
                 <span class="T selected-option">
-                  {{#if model.civilian_en}}
-                    {{model.civilian_en}}
+                  {{#if model.civilian}}
+                    {{model.civilian}}
                   {{else}}
                     {{i18n.actor.Civilian}}
                   {{/if}}
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
-                <input type="hidden" name="civilian_en" value="" class="actor-field">
+                <input type="hidden" name="civilian" value="" class="actor-field">
         
 
                 <ul class="options">

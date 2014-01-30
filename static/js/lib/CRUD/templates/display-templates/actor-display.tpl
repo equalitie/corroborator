@@ -21,16 +21,18 @@
         {{#if model.fullname_ar}}
           <p>{{model.fullname_ar}}</p>
         {{/if}}
-        (<span class="sex">{{model.sex_en}}</span>)
+        {{#if model.sex}}
+        (<span class="sex">{{fetchSex model.sex}}</span>)
+        {{/if}}
       </h2>
       <div class="aka">{{model.nickname_en}}</div>
       <div class="type">
-        {{#if model.age_en}}
-          {{model.age_en}}
-          {{#if model.civilian_en}}, {{/if}}
+        {{#if model.age}}
+          {{fetchAge model.age}}
+          {{#if model.civilian}}, {{/if}}
         {{/if}}
-        {{#if model.civilian_en}}
-          {{model.civilian_en}}
+        {{#if model.civilian}}
+          {{fetchCivilian model.civilian}}
         {{/if}}
       </div>
     </div>

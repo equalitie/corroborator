@@ -58,6 +58,7 @@
     {%for comment_status in all_status_set %}
       all_statuses.push({
         comment_status:"{{comment_status.comment_status}}",
+        name:"{{comment_status.name}}",
         id:{{comment_status.id}},
         resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
       });
@@ -65,12 +66,14 @@
     {%for comment_status in status_set %}
       comment_statuses.push({
         comment_status:"{{comment_status.comment_status}}",
+        name:"{{comment_status.name}}",
         id:{{comment_status.id}},
         resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
       });
     {% endfor %}
     var create_status = {
         comment_status:"{{create_status.comment_status}}",
+        name:"{{comment_status.name}}",
         id:"{{create_status.id}}",
         resource_uri:"/api/v1/statusUpdate/{{create_status.id}}/"
       };

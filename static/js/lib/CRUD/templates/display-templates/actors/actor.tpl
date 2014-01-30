@@ -26,8 +26,8 @@
             {{/if}}
           </h3>
         </a>
-        <span class="sex">{{model.sex_en}}</span>
-        <span class="age">{{model.age_en}}</span>
+        <span class="sex">{{model.sex}}</span>
+        <span class="age">{{model.age}}</span>
         <div class="L2">
           {{#if model.nickname_en}}
             <span class="aka">{{i18n.actor.aka}} «{{model.nickname_en}}»</span>

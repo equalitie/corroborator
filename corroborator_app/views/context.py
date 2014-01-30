@@ -77,11 +77,7 @@ def select_roles():
     TODO: apply i18n rules
     '''
     role_status_set = []
-    try:
-        lang_code = translation.get_language().upper()
-        roles = getattr(ActorRole, 'ROLE_STATUS_' + lang_code)
-    except AttributeError:
-        roles = ActorRole.ROLE_STATUS_EN
+    roles = ActorRole.ROLE_STATUS
 
     for role in roles:
         role_status_set.append({
@@ -97,11 +93,7 @@ def select_relations():
     TODO: apply i18n rules
     '''
     relation_status_set = []
-    try:
-        lang_code = translation.get_language().upper()
-        relations = getattr(ActorRole, 'RELATION_' + lang_code)
-    except AttributeError:
-        relations = ActorRole.RELATION_EN
+    relations = ActorRole.RELATION
 
     for relation in relations:
         relation_status_set.append({

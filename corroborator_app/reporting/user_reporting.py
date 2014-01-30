@@ -4,7 +4,7 @@ from django.db.models import Count, Sum
 from itertools import groupby
 import json
 import time
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext as _
 
 
 class UserReportingApi(object):
@@ -18,7 +18,7 @@ class UserReportingApi(object):
         """
         Return total user login time
         """
-        graph_title = 'Total login time by User'
+        graph_title = _('Total login time by User')
 
         user_items = UserLog.objects.values('user__username')\
             .annotate(value=Sum('total_seconds'))
@@ -35,7 +35,7 @@ class UserReportingApi(object):
         Return total user login time per day
         for a given user.
         """
-        graph_title = 'Total user login time per day'
+        graph_title = _('Total user login time per day')
 
         user = User.objects.filter(pk=user_id)[0]
 
@@ -72,7 +72,7 @@ class UserReportingApi(object):
         Return average updates per hour of login for
         a given user.
         """
-        graph_title = 'Average user updates per hour'
+        graph_title = _('Average user updates per hour')
         user_updates = VersionStatus.objects.filter(
             status='edited'
         ).values(
@@ -114,7 +114,7 @@ class UserReportingApi(object):
         Return number of items assigned to a given user
         in terms of status.
         """
-        graph_title = 'User assigned items by status'
+        graph_title = _('User assigned items by status')
 
         user = User.objects.get(pk=user_id)
         statuses = {}
@@ -174,7 +174,8 @@ class UserReportingApi(object):
         """
         Return JSON object containing set of deleted items
         """
-        graph_title = 'Total {0} items by User'.format(crud_type)
+        graph_title =\
+            _('Total %(type) items by User') % {'type': crud_type, }
 
         user_items = VersionStatus.objects.filter(
             status=crud_type
@@ -189,20 +190,20 @@ class UserReportingApi(object):
         """
         CRUD opperations total per day
         """
-        graph_title = 'Deleted, created and edited items by date'
+        graph_title = _('Deleted, created and edited items by date')
         items = []
 
         items.append({
             'values': self.get_items_by_crud_date('deleted', user_id),
-            'key': 'Deleted items by date'
+            'key': _('Deleted items by date')
         })
         items.append({
             'values': self.get_items_by_crud_date('created', user_id),
-            'key': 'Created items by date'
+            'key': _('Created items by date')
         })
         items.append({
             'values': self.get_items_by_crud_date('edited', user_id),
-            'key': 'Edited items by date'
+            'key': _('Edited items by date')
         })
 
         if items == []:
@@ -240,7 +241,7 @@ class UserReportingApi(object):
         the correct format for trend graphs
         """
         trend_json = {
-            'title': ugettext(graph_title),
+            'title': graph_title,
             'values': objects
         }
         return json.dumps(trend_json)
@@ -251,10 +252,10 @@ class UserReportingApi(object):
         correct format for trend graphs
         """
         bar_json = {
-            'title': ugettext(graph_title),
+            'title': graph_title,
             'values': objects
         }
-        
+
         return json.dumps(bar_json)
 
     def bar_format_json(self, objects, graph_title):
@@ -263,10 +264,10 @@ class UserReportingApi(object):
         correct format for trend graphs
         """
         bar_json = {
-            'title': ugettext(graph_title),
+            'title': graph_title,
             'values': self.get_object_values(objects)
         }
-        
+
         return json.dumps(bar_json)
 
     def get_object_values(self, objects):
@@ -279,4 +280,3 @@ class UserReportingApi(object):
             values.append(item)
 
         return values
-

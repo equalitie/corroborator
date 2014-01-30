@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // Mixins to allow reuse of common code
@@ -18,13 +18,60 @@ define (
         FilterGroupCollection, FilterGroupMixin, SelectedFilterMixin,
         excludeKeys, excluded_keys, convertToJSON,
         LocationCollection = new Location.LocationCollection(),
-        groupMap;
+        groupMap, fetchDisplayFilterName;
 
     searchBus = Streams.searchBus;
     FilterGroupCollection = FilterCollectionElements.FilterGroupCollection;
 
     filterFilterListRequest = function(value) {
       return value.type === 'filter_list_request';
+    };
+
+    // return the name associated with the resourceList and resource_uri
+    // if only a list is specified return a function that will get the name
+    // from a uri
+    var mapResourceToLabel = function(resourceList, uri) {
+      var uriMapper = function(resource_uri) {
+        return _(resourceList).findWhere({resource_uri: resource_uri}).name;
+      };
+      return (arguments.length === 1) ?
+        uriMapper:
+        uriMapper(uri);
+    };
+    // map keys to values, for multichoice fields on models, like sex,
+    // civilian, age
+    var mapKeyToLabel = function(keyList, key) {
+      var keyMapper = function(filterName) {
+        return _(keyList).findWhere({key: filterName}).value;
+      };
+      return (arguments.length === 1) ?
+        keyMapper:
+        keyMapper(key);
+    };
+
+    var filterMap  = {
+      'most_recent_status_bulletin_exact': mapResourceToLabel(Bootstrap.all_statuses),
+      'most_recent_status_incident_exact': mapResourceToLabel(Bootstrap.all_statuses),
+      'most_recent_status_actor_exact': mapResourceToLabel(Bootstrap.all_statuses),
+      'bulletin_sources_exact': mapResourceToLabel(Bootstrap.sources),
+      'bulletin_labels_exact': mapResourceToLabel(Bootstrap.labels),
+      'incident_labels_exact': mapResourceToLabel(Bootstrap.labels),
+      'labels_exact': mapResourceToLabel(Bootstrap.labels),
+      'bulletin_searchable_locations_exact': mapResourceToLabel(Bootstrap.locations),
+      'incident_searchable_locations_exact': mapResourceToLabel(Bootstrap.locations),
+      'actor_searchable_current_exact': mapResourceToLabel(Bootstrap.locations),
+      'actor_searchable_pob_exact': mapResourceToLabel(Bootstrap.locations),
+      'age_exact': mapKeyToLabel(Bootstrap.ages),
+      'sex_exact': mapKeyToLabel(Bootstrap.sexes),
+      'civialian_exact': mapKeyToLabel(Bootstrap.civilian)
+    };
+
+    // search the filterMap for a function to transform a resource_uri into a name
+    fetchDisplayFilterName = function(filterName, key) {
+      if (_(filterMap).chain().keys().contains(key).value()) {
+        return filterMap[key](filterName);
+      }
+      return filterName;
     };
 
     // keys we want to exclude
@@ -154,7 +201,7 @@ define (
             title            : group.title,
             numItems         : numItems,
             filterName       : filterName,
-            displayFilterName: filterName,
+            displayFilterName: fetchDisplayFilterName(filterName, group.key),
             type             : this.entityType
           });
           filterGroupCollection.addFilter(filterModel);

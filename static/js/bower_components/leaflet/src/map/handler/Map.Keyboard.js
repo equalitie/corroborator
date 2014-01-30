@@ -65,7 +65,7 @@ L.Map.Keyboard = L.Handler.extend({
 		var body = document.body,
 		    docEl = document.documentElement,
 		    top = body.scrollTop || docEl.scrollTop,
-		    left = body.scrollLeft || docEl.scrollLeft;
+		    left = body.scrollTop || docEl.scrollLeft;
 
 		this._map._container.focus();
 

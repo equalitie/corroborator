@@ -181,11 +181,10 @@ class IncidentResource(ModelResource, APIMixin):
 
     def dehydrate(self, bundle):
         fields = [
-            'incident_locations', 'incident_labels_en', 'incident_times',
-            'incident_crimes_en', 'incident_crimes_ar',
-            'most_recent_status_incident', 'count_actors',
+            'incident_locations', 'incident_labels', 'incident_times',
+            'incident_crimes', 'most_recent_status_incident', 'count_actors',
             'count_bulletins', 'count_incidents', 'actor_roles_status',
-            'actors', 'actors_role', 'incident_labels_ar'
+            'actors', 'actors_role',
         ]
 
         incident_prep_instance = IncidentPrepMeta()

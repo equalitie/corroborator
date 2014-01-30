@@ -2,6 +2,6 @@
   {{#if model.name_en}}
     {{model.name_en}}({{model.numItems}})
   {{else}}
-    {{model.filterName}}({{model.numItems}})
+    {{model.displayFilterName}}({{model.numItems}})
   {{/if}}
 </span>

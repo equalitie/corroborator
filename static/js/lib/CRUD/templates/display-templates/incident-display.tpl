@@ -42,11 +42,11 @@
 
 
     </div>
-    {{#if model.incident_labels}}
+    {{#if model.labels}}
     <h3 class="title">{{i18n.incident.Labels}}</h3>
     <ul class="tags group detail">
-      {{#each model.incident_labels}}
-      <li class="tag"> <span class="text">{{this}}</span> </li>
+      {{#each model.labels}}
+      <li class="tag"> <span class="text">{{fetchLabel this}}</span> </li>
       {{/each}}
     </ul>
     {{/if}}

@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-28 23:23+0000\n"
+"POT-Creation-Date: 2014-01-30 12:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +17,127 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: models.py:599
+msgid "adult"
+msgstr "بالغ"
+
+#: models.py:600
+msgid "child"
+msgstr "طفل"
+
+#: models.py:603
+msgid "female"
+msgstr "إنثى"
+
+#: models.py:604
+msgid "male"
+msgstr "ذكر"
+
+#: models.py:607
+msgid "Civilian"
+msgstr "مدني"
+
+#: models.py:608
+msgid "Non-civilian"
+msgstr "غير مدني"
+
+#: models.py:800
+msgid "Killed"
+msgstr "مقتول"
+
+#: models.py:801
+msgid "Tortured"
+msgstr "تعرض للتعذيب"
+
+#: models.py:802
+msgid "Wounded"
+msgstr "جريح"
+
+#: models.py:803
+msgid "Detained"
+msgstr ""
+
+#: models.py:804
+msgid "Kidnapped"
+msgstr "مخطوف"
+
+#: models.py:805
+msgid "Witness"
+msgstr "شاهد"
+
+#: models.py:806
+msgid "Arrested"
+msgstr "تعرض للاعتقال"
+
+#: models.py:807
+msgid "Martyr"
+msgstr "شهيد"
+
+#: models.py:808
+msgid "Missing"
+msgstr "مفقود"
+
+#: models.py:809
+msgid "Injured"
+msgstr "مصاب"
+
+#: models.py:812
+msgid "Parent"
+msgstr "أب/أم"
+
+#: models.py:813
+msgid "Sibling"
+msgstr "أخ/أخت"
+
+#: models.py:814
+msgid "Family member"
+msgstr "أحد أفراد العائلة"
+
+#: models.py:815
+msgid "Superior officer"
+msgstr "الضابط الرئيس"
+
+#: models.py:816
+msgid "Subordinate officer"
+msgstr "الضابط المرؤس"
+
+#: reporting/user_reporting.py:21
+msgid "Total login time by User"
+msgstr ""
+
+#: reporting/user_reporting.py:38
+msgid "Total user login time per day"
+msgstr ""
+
+#: reporting/user_reporting.py:75
+msgid "Average user updates per hour"
+msgstr ""
+
+#: reporting/user_reporting.py:117
+msgid "User assigned items by status"
+msgstr ""
+
+#: reporting/user_reporting.py:178
+#, python-format
+msgid "Total %(type) items by User"
+msgstr ""
+
+#: reporting/user_reporting.py:193
+msgid "Deleted, created and edited items by date"
+msgstr ""
+
+#: reporting/user_reporting.py:198
+msgid "Deleted items by date"
+msgstr ""
+
+#: reporting/user_reporting.py:202
+msgid "Created items by date"
+msgstr ""
+
+#: reporting/user_reporting.py:206
+msgid "Edited items by date"
+msgstr ""
 
 #: templates/auth.html:8
 msgid "Corroborator | Log in"
@@ -54,12 +174,12 @@ msgstr ""
 #: templates/nav/dataentry_tabs.html:7 templates/nav/reporting_tabs.html:15
 #: templates/nav/tabs.html:15
 msgid "Bulletins"
-msgstr ""
+msgstr "مواد"
 
 #: templates/nav/dataentry_tabs.html:14 templates/nav/reporting_tabs.html:23
 #: templates/nav/tabs.html:24
 msgid "Actors"
-msgstr ""
+msgstr "أشخاص"
 
 #: templates/nav/monitoring_tabs.html:7
 msgid "Monitor"
@@ -75,7 +195,7 @@ msgstr ""
 
 #: templates/nav/reporting_tabs.html:7 templates/nav/tabs.html:7
 msgid "Incidents"
-msgstr ""
+msgstr "ملفات"
 
 #: templates/nav/reporting_tabs.html:31
 msgid "Users"

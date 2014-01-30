@@ -17,14 +17,11 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable, ActorPrepMeta):
     fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
     nickname_en = indexes.CharField(model_attr='nickname_en', null=True)
     nickname_ar = indexes.CharField(model_attr='nickname_ar', null=True)
-    age_en = indexes.CharField(model_attr='age_en', faceted=True, null=True)
-    age_ar = indexes.CharField(model_attr='age_ar', null=True, faceted=True)
-    sex_en = indexes.CharField(model_attr='sex_en', faceted=True, null=True)
-    sex_ar = indexes.CharField(model_attr='sex_ar', null=True, faceted=True)
-    civilian_en = indexes.CharField(
-        model_attr='civilian_en', faceted=True, null=True)
-    civilian_ar = indexes.CharField(
-        model_attr='civilian_ar', null=True, faceted=True)
+    age = indexes.CharField(model_attr='age', faceted=True, null=True)
+    sex = indexes.CharField(model_attr='sex', faceted=True, null=True)
+    civilian = indexes.CharField(
+        model_attr='civilian', faceted=True, null=True)
+
     occupation_en = indexes.CharField(
         model_attr='occupation_en', null=True, faceted=True)
     occupation_ar = indexes.CharField(

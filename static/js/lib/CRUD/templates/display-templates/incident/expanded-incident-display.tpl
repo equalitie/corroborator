@@ -100,13 +100,13 @@
       </div>
       <div id="is-incident-map" class="map"></div>
       {{/if}}
-      {{#if model.incident_labels}}
+      {{#if model.labels}}
       <div class="is-tags group">
         <h4>{{i18n.incident.Labels}}</h4>
         <ul class="tags group display">
-          {{#each model.incident_labels}}
+          {{#each model.labels}}
           <li class="tag">
-            <span class="text">{{this}}</span>
+            <span class="text">{{fetchLabel this}}</span>
           </li>
           {{/each}}
         </ul>

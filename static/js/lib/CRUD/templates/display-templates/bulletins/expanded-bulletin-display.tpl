@@ -101,12 +101,12 @@
       <div class="is-bulletin-map map"></div>
       {{/if}}
       <div class="is-tags group">
-        {{#if model.bulletin_labels}}
+        {{#if model.labels}}
         <h4>Labels</h4>
         <ul class="tags group detail">
-          {{#each model.bulletin_labels}}
+          {{#each model.labels}}
           <li class="tag">
-            <span class="text">{{this}}</span>
+            <span class="text">{{fetchLabel this}}</span>
           </li>
           {{/each}}
         </ul>

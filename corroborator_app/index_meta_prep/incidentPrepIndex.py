@@ -203,17 +203,13 @@ class IncidentPrepMeta():
         else:
             return ''
 
-    def prepare_incident_labels_ar(self, object):
+    def prepare_incident_labels(self, object):
         """
         Returns set of label objects associated with a given Incident
         """
-        return [label.name_ar for label in object.labels.all()]
-
-    def prepare_incident_labels_en(self, object):
-        """
-        Returns set of label objects associated with a given Incident
-        """
-        return [label.name_en for label in object.labels.all()]
+        return [
+            '/api/v1/label/{0}/'.format(label.id)
+            for label in object.labels.all()]
 
     def prepare_count_actors(self, object):
         """
@@ -245,14 +241,10 @@ class IncidentPrepMeta():
         """
         return [time.time_from for time in object.times.all()]
 
-    def prepare_incident_crimes_ar(self, object):
+    def prepare_incident_crimes(self, object):
         """
         Returns set of crime objects associated with a given incident
         """
-        return [crime.name_ar for crime in object.crimes.all()]
-
-    def prepare_incident_crimes_en(self, object):
-        """
-        Returns set of crime objects associated with a given incident
-        """
-        return [crime.name_en for crime in object.crimes.all()]
+        return [
+            '/api/v1/crimeCategory/{0}/'.format(crime.id) for crime in
+            object.crimes.all()]

@@ -56,12 +56,45 @@ define (
         return options.inverse(this);
     });
 
+    var mapKeyToLabel = function(keyList, key) {
+      var keyMapper = function(fieldName) {
+        return _(keyList).findWhere({key: fieldName}).value;
+      };
+      return (arguments.length === 1) ?
+        keyMapper:
+        keyMapper(key);
+    };
+
+    var keyMap = {
+      'age': mapKeyToLabel(Bootstrap.ages),
+      'sex': mapKeyToLabel(Bootstrap.sexes),
+      'civialian': mapKeyToLabel(Bootstrap.civilian)
+    };
+
+    Handlebars.registerHelper('fetchKey', function(context, options) {
+        var formattedContext = context;
+        if (context) {
+          formattedContext = keyMap['sex'](context);
+        }
+        return formattedContext;
+    });
+
+    Handlebars.registerHelper('fetchLabel', function(context, options) {
+        var formattedContext = context;
+        if (context) {
+          var labels = Bootstrap.labels,
+              labelSearchField = {resource_uri: context};
+          formattedContext = _.findWhere(labels, labelSearchField).name;
+        }
+        return formattedContext;
+    });
+
     Handlebars.registerHelper('fetchStatus', function(context, options) {
         var formattedContext = context;
         if (context) {
           var statuses = Bootstrap.all_statuses,
               statusSearchField = {resource_uri: context};
-          formattedContext = _.findWhere(statuses, statusSearchField).comment_status;
+          formattedContext = _.findWhere(statuses, statusSearchField).name;
         }
         return formattedContext;
     });
@@ -71,7 +104,7 @@ define (
         if (context) {
           var users = Bootstrap.gl_ac_users_list,
               userSearchField = {resource_uri: context};
-          formattedContext = _.findWhere(users, userSearchField).label;
+          formattedContext = _.findWhere(users, userSearchField).name;
         }
         return formattedContext;
     });
@@ -81,7 +114,7 @@ define (
         if (context) {
           var roles = Bootstrap.gl_ac_role_list.concat(Bootstrap.gl_ac_relation_list),
               roleSearchField = {key: context};
-          formattedContext = _.findWhere(roles, roleSearchField).value;
+          formattedContext = _.findWhere(roles, roleSearchField).name;
         }
         return formattedContext;
     });
@@ -93,9 +126,9 @@ define (
           locationName = '';
           locations = Bootstrap.locations;
           locationSearchField = {resource_uri: context};
-          retrievedLocation = _.findWhere(locations, locationSearchField);
+          retrievedLocation = _.findWhere(locations, locationSearchField).name;
           if (retrievedLocation) {
-            locationName = retrievedLocation.name_en;
+            locationName = retrievedLocation;
           }
           formattedContext = locationName;
         }

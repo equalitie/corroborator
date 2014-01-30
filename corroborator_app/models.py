@@ -11,6 +11,8 @@ application.
 Author: Bill Doran
 2013/02/01
 """
+from django.utils.translation import ugettext as _
+
 
 from django.utils import translation
 from django.contrib.auth.signals import user_logged_out
@@ -184,6 +186,10 @@ class StatusUpdate(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     objects = models.Manager()
     filter_by_perm_objects = PermStatusUpdateManager()
+
+    @property
+    def name(self):
+        return lang_helper(self, 'status')
 
     @property
     def comment_status(self):
@@ -576,29 +582,17 @@ class Actor(models.Model):
     """
     This object captures the unique properties of an individual Actor
     """
-    AGE_TYPE_AR = (
-        ('Adult', u'بالغ'),
-        ('Child', u'طفل'),
+    AGE_TYPE = (
+        ('Adult', _('adult')),
+        ('Child', _('child')),
     )
-    AGE_TYPE_EN = (
-        ('Adult', 'adult'),
-        ('Child', 'child'),
+    SEX_TYPE = (
+        ('Female', _('female')),
+        ('Male', _('male')),
     )
-    SEX_TYPE_AR = (
-        ('Female', u'إنثى'),
-        ('Male', u'ذكر'),
-    )
-    SEX_TYPE_EN = (
-        ('Female', 'female'),
-        ('Male', 'male'),
-    )
-    CIVILIAN_TYPE_AR = (
-        ('Civilian', u'مدني'),
-        ('Non-civilian', u'غير مدني'),
-    )
-    CIVILIAN_TYPE_EN = (
-        ('Civilian', 'Civilian'),
-        ('Non-civilian', 'Non-civilian'),
+    CIVILIAN_TYPE = (
+        ('Civilian', _('Civilian')),
+        ('Non-civilian', _('Non-civilian')),
     )
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, default='')
@@ -612,28 +606,26 @@ class Actor(models.Model):
     # these are the fields that should be the same across languages
     # each one has a property that will return the correct version for the
     # selected locale
-    age_en = models.CharField(max_length=255, choices=AGE_TYPE_EN, blank=True)
-    age_ar = models.CharField(max_length=255, choices=AGE_TYPE_AR, blank=True)
+    age = models.CharField(
+        max_length=255,
+        choices=AGE_TYPE,
+        blank=True,
+        db_column='age_en',
+    )
 
-    @property
-    def age(self):
-        return lang_helper(self, 'age')
+    sex = models.CharField(
+        max_length=255,
+        choices=SEX_TYPE,
+        blank=True,
+        db_column='sex_en',
+    )
 
-    sex_en = models.CharField(max_length=255, choices=SEX_TYPE_EN, blank=True)
-    sex_ar = models.CharField(max_length=255, choices=SEX_TYPE_AR, blank=True)
-
-    @property
-    def sex(self):
-        return lang_helper(self, 'sex')
-
-    civilian_en = models.CharField(
-        max_length=255, choices=CIVILIAN_TYPE_EN, blank=True)
-    civilian_ar = models.CharField(
-        max_length=255, choices=CIVILIAN_TYPE_AR, blank=True)
-
-    @property
-    def civilian(self):
-        return lang_helper(self, 'civilian')
+    civilian = models.CharField(
+        max_length=255,
+        choices=CIVILIAN_TYPE,
+        blank=True,
+        db_column='civilian_en'
+    )
 
     # these probably need to reference a separate model
     occupation_en = models.CharField(max_length=255, blank=True, null=True)
@@ -791,46 +783,26 @@ class ActorRole(models.Model):
     This object model captures the role of a given actor
     in relation to either an Incident or a Bulletin.
     """
-    ROLE_STATUS_AR = (
-        ('K', 'Killed(ar)'),
-        ('T', 'Tortured'),
-        ('WO', 'Wounded'),
-        ('D', 'Detained'),
-        ('KN', 'Kidnapped'),
-        ('WN', 'Witness'),
-        ('A', 'Arrested'),
-        ('M', 'Martyr'),
-        ('MG', 'Missing'),
-        ('I', 'Injured'),
+    ROLE_STATUS = (
+        ('K', _('Killed')),
+        ('T', _('Tortured')),
+        ('WO', _('Wounded')),
+        ('D', _('Detained')),
+        ('KN', _('Kidnapped')),
+        ('WN', _('Witness')),
+        ('A', _('Arrested')),
+        ('M', _('Martyr')),
+        ('MG', _('Missing')),
+        ('I', _('Injured')),
+    )
+    RELATION = (
+        ('P', _('Parent')),
+        ('S', _('Sibling')),
+        ('FM', _('Family member')),
+        ('SPO', _('Superior officer')),
+        ('SBO', _('Subordinate officer')),
     )
 
-    ROLE_STATUS_EN = (
-        ('K', 'Killed'),
-        ('T', 'Tortured'),
-        ('WO', 'Wounded'),
-        ('D', 'Detained'),
-        ('KN', 'Kidnapped'),
-        ('WN', 'Witness'),
-        ('A', 'Arrested'),
-        ('M', 'Martyr'),
-        ('MG', 'Missing'),
-        ('I', 'Injured'),
-    )
-    RELATION_EN = (
-        ('P', 'Parent'),
-        ('S', 'Sibling'),
-        ('FM', 'Family member'),
-        ('SPO', 'Superior officer'),
-        ('SBO', 'Subordinate officer'),
-    )
-
-    RELATION_AR = (
-        ('P', 'Parent(ar)'),
-        ('S', 'Sibling'),
-        ('FM', 'Family member'),
-        ('SPO', 'Superior officer'),
-        ('SBO', 'Subordinate officer'),
-    )
     role_en = models.CharField(
         max_length=255,
         blank=True,
@@ -842,7 +814,7 @@ class ActorRole(models.Model):
     role_status = models.CharField(
         'status',
         max_length=25,
-        choices=ROLE_STATUS_EN,
+        choices=ROLE_STATUS,
         blank=True,
         null=True
     )
@@ -850,7 +822,7 @@ class ActorRole(models.Model):
     relation_status = models.CharField(
         'status',
         max_length=25,
-        choices=RELATION_EN,
+        choices=RELATION,
         blank=True,
         null=True
     )

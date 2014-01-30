@@ -17,14 +17,11 @@ define(
         // actor fields
         fields = {
           actor: [
-            'age_en_exact',
-            'age_ar_exact',
-            'sex_en_exact',
-            'sex_ar_exact',
+            'age_exact',
+            'sex_exact',
             'religion_en_exact',
             'religion_ar_exact',
-            'civilian_en_exact',
-            'civilian_ar_exact',
+            'civilian_exact',
             'nationality_en_exact',
             'nationality_ar_exact',
             'occupation_en_exact',
