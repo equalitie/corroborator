@@ -10,10 +10,14 @@
       'jquery_time'    : 'bower_components/jquery-timepicker-addon/jquery-ui-timepicker-addon',
       'backbone'       : 'bower_components/backbone/backbone',
       'moment'         : 'bower_components/moment/moment',
+      'moment_langs'   : 'bower_components/moment/min/langs',
       'underscore'     : 'bower_components/underscore/underscore',
       'handlebars'     : 'bower_components/handlebars/handlebars',
     },
     shim: {
+      moment_langs: {
+        deps: ['moment']
+      },
       underscore: {
         exports: '_'
       },
