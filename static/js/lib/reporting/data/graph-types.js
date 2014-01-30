@@ -24,14 +24,14 @@ define(
 
     actorGraphs = new GraphTypeCollection([
       {
-        key: 'age_en_exact',
+        key: 'age_exact',
         type: 'bar',
         title: i18n.title.actor_age,
         filter_label: i18n.filters.age,
         yAxisLabel: i18n.axes.Actors
       },
       {
-        key: 'sex_en_exact',
+        key: 'sex_exact',
         type: 'pie',
         title: i18n.title.actor_sex,
         filter_label: i18n.filters.sex
@@ -50,7 +50,7 @@ define(
         filter_label: i18n.filters.role
       },
       {
-        key: 'civilian_en_exact',
+        key: 'civilian_exact',
         type: 'pie',
         title: i18n.title.actor_civilian,
         filter_label: i18n.filters.civilian

@@ -3,7 +3,7 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, self=this, helperMissing=helpers.helperMissing;
+  var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
@@ -38,8 +38,11 @@ function program5(depth0,data) {
 
 function program7(depth0,data) {
   
-  
-  return "\n                    Sex\n                  ";
+  var buffer = "", stack1;
+  buffer += "\n                    "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Sex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n                  ";
+  return buffer;
   }
 
 function program9(depth0,data) {
@@ -62,9 +65,10 @@ function program11(depth0,data) {
 
 function program13(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n                    "
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.civilian)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  var buffer = "", stack1, options;
+  buffer += "\n                    ";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchCivilian || depth0.fetchCivilian),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.civilian), options) : helperMissing.call(depth0, "fetchCivilian", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.civilian), options)))
     + "\n                  ";
   return buffer;
   }
@@ -132,13 +136,17 @@ function program23(depth0,data) {
   buffer += "  <div class=\"header\">\n    <a href=\"#\" class=\"form do-hide is-small\">\n      <span aria-hidden=\"true\" data-icon=\"&#x78\"></span>\n      <span class=\"screen-reader-text\">Hide</span>\n    </a>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"first initial span-66p\">\n    <!-- switch class here is-expanded -> in-preview -->\n      <div class=\"Actor is-edited is-expanded\">\n        <div class=\"header\">\n          <!-- id field - hide for new actor -->\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n          <!-- actor name -->\n          <div class=\"field clear-after hide-multiple\">\n            <label>Name</label>\n            <p class=\"error-text\">\n              "
+  buffer += "\n          <!-- actor name -->\n          <div class=\"field clear-after hide-multiple\">\n            <label>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n            <p class=\"error-text\">\n              "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Name_must_be_entered)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n            </p>\n            <span class=\"i18n with-en with-ar\">\n              <div lang=\"en\">\n                <input type=\"text\"\n                       name=\"fullname_en\"\n                       id=\"fullname_en\" \n                       value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"\n                       class=\"required actor-field w-100p\">\n              </div>\n              <div lang=\"ar\">\n                <input type=\"text\" name=\"fullname_ar\" id=\"fullname_ar\"\n                  value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" class=\"actor-field w-100p\">\n              </div>\n              <span class=\"toggle\">\n                <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n              </span>\n            </span>\n          </div>\n\n          <!-- actor nickname -->\n          <div class=\"field clear-after hide-multiple\">\n            <label>Nickname</label>\n            <span class=\"i18n with-en with-ar\">\n              <div lang=\"en\">\n                <input type=\"text\" name=\"nickname_en\" id=\"nickname_en\" \n                  value=\""
+    + "\" class=\"actor-field w-100p\">\n              </div>\n              <span class=\"toggle\">\n                <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n              </span>\n            </span>\n          </div>\n\n          <!-- actor nickname -->\n          <div class=\"field clear-after hide-multiple\">\n            <label>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Nickname)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n            <span class=\"i18n with-en with-ar\">\n              <div lang=\"en\">\n                <input type=\"text\" name=\"nickname_en\" id=\"nickname_en\" \n                  value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nickname_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" class=\"actor-field w-100p\">\n              </div>\n              <div lang=\"ar\">\n                <input type=\"text\" name=\"nickname_ar\" id=\"nickname_ar\" \n                  value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nickname_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -152,9 +160,9 @@ function program23(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                <span aria-hidden=\"true\" data-icon=\"&#x64;\"></span>\n                </span>\n                <input name=\"sex\" type=\"hidden\" value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"class=\"actor-field\">\n        \n                <ul class=\"options\">\n                  <li class=\"option selected\">\n                    <span class=\"text T\">"
+    + "\"class=\"actor-field\">\n        \n                <ul class=\"options\">\n                  <li class=\"option selected\">\n                    <span data-val=\"Male\" class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Male)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span class=\"text T\">"
+    + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span data-val=\"Female\" class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Female)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n            <div class=\"field span-33p\">\n              <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.ChildAdult)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
@@ -163,18 +171,18 @@ function program23(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n                <span aria-hidden=\"true\" data-icon=\"&#x64;\"></span>\n                </span>\n                <input name=\"age\" type=\"hidden\" value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" class=\"actor-field\">\n        \n\n                <ul class=\"options\">\n                  <li class=\"option selected\">\n                    <span class=\"text T\">"
+    + "\" class=\"actor-field\">\n        \n\n                <ul class=\"options\">\n                  <li class=\"option selected\">\n                    <span data-val=\"Child\" class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Child)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span class=\"text T\">"
+    + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span data-val=\"Adult\" class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Adult)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n            <div class=\"field span-33p\">\n              <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.CivilianNoncivilian)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</label>\n              <div id=\"civilian\" class=\"button combo\">\n        \n                <span class=\"T selected-option\">\n                  ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.civilian), {hash:{},inverse:self.program(15, program15, data),fn:self.program(13, program13, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n                <span aria-hidden=\"true\" data-icon=\"&#x64;\"></span>\n                </span>\n                <input type=\"hidden\" name=\"civilian\" value=\"\" class=\"actor-field\">\n        \n\n                <ul class=\"options\">\n                  <li class=\"option selected\">\n                    <span class=\"text T\">"
+  buffer += "\n                <span aria-hidden=\"true\" data-icon=\"&#x64;\"></span>\n                </span>\n                <input type=\"hidden\" name=\"civilian\" value=\"\" class=\"actor-field\">\n        \n\n                <ul class=\"options\">\n                  <li class=\"option selected\">\n                    <span data-val=\"Civilian\" class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Civilian)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span class=\"text T\">"
+    + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span data-val=\"Non-civilian\" class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Noncivilian)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </div>\n\n          <!-- Date of birth -->\n          <div class=\"field clear-after is-birthdate field hide-multiple\">\n            <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Date_Of_Birth)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

@@ -1,8 +1,12 @@
 <script type="text/javascript">
   var Bootstrap = (function() {
     var locale = '{{locale}}',
+        ages = [],
+        sexes = [],
+        civilian = [],
         gl_s3_aws_media_url = '{{ MEDIA_URL }}',
         gl_ac_role_list = [],
+        user_list = [],
         gl_ac_relation_list = [],
         gl_ac_crimes_list = [],
         special_global_ac_sources_list = [],
@@ -36,10 +40,32 @@
             id:               '{{pds.id}}',
             // some stuff just for frontend purposes
             name_en:          "{{pds.search_title}}",
+            name:          "{{pds.search_title}}",
             search_request:   "predefined_search",
             type:             "predefined_search"
         });
     {% endfor %}
+    {%for sex in sexes_set %}
+      sexes.push({ 
+        key:"{{sex.key}}",
+        value: "{{sex.value}}"
+      });
+    {% endfor %}
+
+    {%for age in age_set %}
+      ages.push({ 
+        key:"{{age.key}}",
+        value: "{{age.value}}"
+      });
+    {% endfor %}
+
+    {%for civ in civilian %}
+      civilian.push({ 
+        key:"{{civ.key}}",
+        value: "{{civ.value}}"
+      });
+    {% endfor %}
+
     {%for relation in relation_status_set %}
       gl_ac_relation_list.push({ 
         key:"{{relation.key}}",
@@ -131,6 +157,14 @@
       });
     {% endfor %}
 
+    {%for user in users_set.all %}
+      user_list.push({
+        label:"{{user.username}}",
+        id:"{{user.id}}",
+        resource_uri:"/api/v1/user/{{user.id}}/"
+      });
+    {% endfor %}
+
     //consolidate our init data under one variable
     return {
         locale: locale,
@@ -139,6 +173,10 @@
           can_update_to_finalized: can_update_to_finalized,
           can_delete_entities: can_delete_entities
         },
+        ages: ages,
+        sexes:sexes,
+        civilian: civilian,
+        user_list: user_list,
         predefined_list: predefined_list,
         gl_s3_aws_media_url: '{{ MEDIA_URL }}',
         username: '{{username}}',

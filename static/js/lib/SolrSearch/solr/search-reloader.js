@@ -167,8 +167,8 @@ define (
     };
  
     init = function(updateRequired) {
-      activatePolling = false;
       activatePolling = updateRequired;
+      activatePolling = false;
       listenForSearchStringRequest();
       listenForSearchEvents();
       triggerInitialSearch();

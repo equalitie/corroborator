@@ -17,7 +17,7 @@
           {{/if}}
           <!-- actor name -->
           <div class="field clear-after hide-multiple">
-            <label>Name</label>
+            <label>{{i18n.actor.Name}}</label>
             <p class="error-text">
               {{i18n.actor.Name_must_be_entered}}
             </p>
@@ -41,7 +41,7 @@
 
           <!-- actor nickname -->
           <div class="field clear-after hide-multiple">
-            <label>Nickname</label>
+            <label>{{i18n.actor.Nickname}}</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
                 <input type="text" name="nickname_en" id="nickname_en" 
@@ -86,7 +86,7 @@
                   {{#if model.sex}}
                     {{model.sex}}
                   {{else}}
-                    Sex
+                    {{i18n.actor.Sex}}
                   {{/if}}
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
@@ -94,10 +94,10 @@
         
                 <ul class="options">
                   <li class="option selected">
-                    <span class="text T">{{i18n.actor.Male}}</span>
+                    <span data-val="Male" class="text T">{{i18n.actor.Male}}</span>
                   </li>
                   <li class="option">
-                    <span class="text T">{{i18n.actor.Female}}</span>
+                    <span data-val="Female" class="text T">{{i18n.actor.Female}}</span>
                   </li>
                 </ul>
               </div>
@@ -119,10 +119,10 @@
 
                 <ul class="options">
                   <li class="option selected">
-                    <span class="text T">{{i18n.actor.Child}}</span>
+                    <span data-val="Child" class="text T">{{i18n.actor.Child}}</span>
                   </li>
                   <li class="option">
-                    <span class="text T">{{i18n.actor.Adult}}</span>
+                    <span data-val="Adult" class="text T">{{i18n.actor.Adult}}</span>
                   </li>
                 </ul>
               </div>
@@ -133,7 +133,7 @@
         
                 <span class="T selected-option">
                   {{#if model.civilian}}
-                    {{model.civilian}}
+                    {{fetchCivilian model.civilian}}
                   {{else}}
                     {{i18n.actor.Civilian}}
                   {{/if}}
@@ -144,10 +144,10 @@
 
                 <ul class="options">
                   <li class="option selected">
-                    <span class="text T">{{i18n.actor.Civilian}}</span>
+                    <span data-val="Civilian" class="text T">{{i18n.actor.Civilian}}</span>
                   </li>
                   <li class="option">
-                    <span class="text T">{{i18n.actor.Noncivilian}}</span>
+                    <span data-val="Non-civilian" class="text T">{{i18n.actor.Noncivilian}}</span>
                   </li>
                 </ul>
               </div>

@@ -23,10 +23,12 @@ define(
     'lib/streams',
     'lib/Navigation/views/search-info',
     'lib/Navigation/views/home-search',
-    'lib/Navigation/activity'
+    'lib/Navigation/activity',
+    'i18n!lib/Navigation/nls/dict'
   ],
   function(_, InputView, NavCombo, Dialog, TabRouter,
-          Streams, HomeSearchView, SearchInfoView, Activity
+          Streams, HomeSearchView, SearchInfoView, Activity,
+          i18n
   ) {
     'use strict';
     var textEntered,
@@ -37,7 +39,7 @@ define(
       var Comboview = new NavCombo.View({
         el: '.search-combo',
         primary: {
-          name_en: 'Search',
+          name: i18n.Search,
           search_request: 'search_request'
         }
       });

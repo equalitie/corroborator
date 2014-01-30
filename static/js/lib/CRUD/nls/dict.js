@@ -27,6 +27,7 @@ define({
       'Religion': 'Religion',
       'Remove': 'Remove',
       'Actors': 'Actors',
+      'Actor_Image': 'Actor Image',
       'Incidents': 'Incidents',
       'Bulletins': 'Bulletins',
       'Name_must_be_entered': 'Name must be entered',
@@ -34,6 +35,8 @@ define({
       'Nickname': 'Nickname',
       'Sex': 'Sex',
       'Age': 'Age',
+      'Place_Of_Birth':'Place Of Birth',
+      'Current_Location': 'Current Location',
       'Male': 'Male',
       'Female': 'Female',
       'Adult': 'Adult',
@@ -70,7 +73,9 @@ define({
       'Locations': 'Locations',
       'Sources': 'Sources',
       'Labels': 'Labels',
-      'close': 'close'
+      'close': 'close',
+      'Status': 'Status',
+      'Related_Media': 'Related Media'
     },
     'incident': {
       'Crime': 'Crime',
@@ -107,11 +112,15 @@ define({
     'media': {
       'media': 'Media',
       'document': 'Document',
+      'video': 'video',
       'Upload_Failed_Problem_contacting_server': 'Upload Failed - Problem contacting server',
+      'Upload_new_media': 'Upload new media',
       'No_file_attached': 'No file attached',
       'Media_uploaded_successfully': 'Media uploaded successfully',
       'file_label': 'file label',
       'file_type': 'file type',
+      'Remove': 'Remove',
+      'Relate': 'Relate',
       'file_upload': 'file upload'
     },
     'comment': {
@@ -132,6 +141,7 @@ define({
       'Close': 'Close',
       'Cancel': 'Cancel',
       'Confirm': 'Confirm',
+      'Close_edit_form': 'Close edit form',
       'Preview_add_actor': 'Actor Preview',
       'Preview_add_bulletin': 'Bulletin Preview',
     },

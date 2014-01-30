@@ -167,7 +167,6 @@ define (
 
       // user clicked x on form
       closeViewRequested: function(evt) {
-        console.log('close view');
         evt.preventDefault();
         var $dialog = $(confirmDialogTmp({i18n: i18n})),
             buttons = {},

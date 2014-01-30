@@ -1,7 +1,7 @@
 <div class="Application" lang="en">
   <div class="message-text">
     <p class="server fail message">{{i18n.media.Upload_Failed_Problem_contacting_server}}</p>
-    <p class="file fail message">No file attached</p>
+    <p class="file fail message">{{i18n.media.No_file_attached}}</p>
     <p class="success message"> {{i18n.media.Media_uploaded_successfully}} </p>
   </div>
   <div class="media-progressbar"></div>

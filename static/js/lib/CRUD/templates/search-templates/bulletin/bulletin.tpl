@@ -179,7 +179,7 @@
             <p class="error-text">
               {{i18n.bulletin.Select_a_status_for_this_bulletin}}
             </p>
-            <label>Status</label>
+            <label>{{i18n.bulletin.Status}}</label>
             <select name="status_uri" 
                     id="status" 
                     class="required bulletin-field">

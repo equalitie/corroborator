@@ -88,7 +88,7 @@ define (
           multiple: true,
           display: {
             field_name : 'sources',
-            field_label: 'Sources'
+            field_label: i18n.bulletin.Sources
           },
           content: {
             values: 'sources',
@@ -101,7 +101,7 @@ define (
           multiple: true,
           display: {
             field_name : 'labels',
-            field_label: 'Labels'
+            field_label: i18n.bulletin.Labels
           },
           content: {
             values: 'labels',
@@ -116,7 +116,7 @@ define (
           eventIdentifier: 'bulletin_map',
           display: {
             field_name : 'locations',
-            field_label: 'Locations'
+            field_label: i18n.bulletin.Locations
           },
           content: {
             values: 'locations',
@@ -292,7 +292,7 @@ define (
           content   : this.model.get('medias'),
           multiple  : true,
           entityType: 'bulletin',
-          label     : 'Related media',
+          label     : i18n.bulletin.Related_Media,
           name      : 'medias'
         });
 

@@ -149,8 +149,9 @@ module.exports = function(grunt) {
         'lib/reporting/**/*.tpl',
         'lib/reporting/**/*.js'
       ],
-      tasks: ['handlebars', 'karma:unit', 'jshint']
-      //tasks: ['handlebars', 'jshint', 'karma', 'requirejs', 'docco'<]]
+      tasks: ['handlebars']
+      //tasks: ['handlebars', 'karma:unit', 'jshint']
+      //tasks: ['handlebars', 'jshint', 'karma', 'requirejs', 'docco']]
     }
   });
 

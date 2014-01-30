@@ -7,6 +7,7 @@ A map is created with tuples key: value
 the key is the key for the json object the value is the name of the
 function that will generate the values for the specified key
 """
+from django.utils.translation import ugettext as _
 from django.utils import translation
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -37,6 +38,9 @@ def build_js_context(user):
         'predefined_search_set': select_predefined_searches(user),
         'sources_set': select_sources(),
         'labels_set': select_labels(),
+        'age_set': select_ages(),
+        'sexes_set': select_sexes(),
+        'civilian': select_civilian(),
         'crimes_set': select_crime_categories(),
         'status_set': select_statuses(user),
         'create_status': create_status(),
@@ -58,6 +62,49 @@ def build_js_context(user):
 
 def select_labels():
     return Label.objects.all()
+
+
+# 3 not cool translation methods added late in the day
+# need to be replaced with something proper
+def select_civilian():
+    civ_set = []
+    civ_set.append({
+        'key': 'Civilian',
+        'value': _('Civilian')
+    })
+    civ_set.append({
+        'key': 'Non-civilian',
+        'value': _('Non-civilian')
+    })
+    return civ_set
+
+
+def select_sexes():
+    sex_set = []
+
+    sex_set.append({
+        'key': 'Male',
+        'value': _('male'),
+    })
+    sex_set.append({
+        'key': 'Female',
+        'value': _('female'),
+    })
+    return sex_set
+
+
+def select_ages():
+    age_set = []
+
+    age_set.append({
+        'key': 'Adult',
+        'value': _('adult'),
+    })
+    age_set.append({
+        'key': 'Child',
+        'value': _('child'),
+    })
+    return age_set
 
 
 def select_language():

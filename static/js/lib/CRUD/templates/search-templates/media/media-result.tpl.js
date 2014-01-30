@@ -19,7 +19,9 @@ function program3(depth0,data) {
   var buffer = "", stack1;
   buffer += "\n    <!--<img src=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_thumb_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"  -->\n         <!--class=\"media-video-thumbnail\"-->\n         <!--/>-->\n    <span aria-hidden=\"true\" data-icon=\"&#x56;\" class=\"media-video-thumbnail\"></span>\n    <span class=\"screen-reader-text\">Document</span>\n  ";
+    + "\"  -->\n         <!--class=\"media-video-thumbnail\"-->\n         <!--/>-->\n    <span aria-hidden=\"true\" data-icon=\"&#x56;\" class=\"media-video-thumbnail\"></span>\n    <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.video)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n  ";
   return buffer;
   }
 
@@ -30,7 +32,9 @@ function program5(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" download=\"download."
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file_type)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n      <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
+    + "\">\n      <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.document)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </a>\n  ";
   return buffer;
   }
 
@@ -39,20 +43,28 @@ function program7(depth0,data) {
   var buffer = "", stack1;
   buffer += "\n    <a href=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.media_file)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" target=\"_blank\">\n      <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">Document</span>\n    </a>\n  ";
+    + "\" target=\"_blank\">\n      <span aria-hidden=\"true\" data-icon=\"F\" class=\"media-document-thumbnail\"></span>\n      <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.document)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </a>\n  ";
   return buffer;
   }
 
 function program9(depth0,data) {
   
-  
-  return "\n    <button class=\"do-relate right is-small\">\n      <span class=\"text\">relate</span>\n    </button>\n  ";
+  var buffer = "", stack1;
+  buffer += "\n    <button class=\"do-relate right is-small\">\n      <span class=\"text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.Relate)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </button>\n  ";
+  return buffer;
   }
 
 function program11(depth0,data) {
   
-  
-  return "\n    <button class=\"do-remove is-small\">\n      <span class=\"text\">remove</span>\n    </button>\n  ";
+  var buffer = "", stack1;
+  buffer += "\n    <button class=\"do-remove is-small\">\n      <span class=\"text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.Remove)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </button>\n  ";
+  return buffer;
   }
 
   buffer += "<div title=\""

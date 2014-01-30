@@ -22,7 +22,9 @@ function program1(depth0,data) {
 
   buffer += "<div class=\"Application\" lang=\"en\">\n  <div class=\"message-text\">\n    <p class=\"server fail message\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.Upload_Failed_Problem_contacting_server)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</p>\n    <p class=\"file fail message\">No file attached</p>\n    <p class=\"success message\"> "
+    + "</p>\n    <p class=\"file fail message\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.No_file_attached)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</p>\n    <p class=\"success message\"> "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.Media_uploaded_successfully)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " </p>\n  </div>\n  <div class=\"media-progressbar\"></div>\n  <form \n    method=\"post\"\n    class=\"media-form\">\n    <!--enctype=\"multipart/form-data\"-->\n    <div class=\"field\">\n      <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.file_label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

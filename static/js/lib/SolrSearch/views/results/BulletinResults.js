@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // Show the bulletin results
@@ -109,13 +109,14 @@ define (
       chunkSize: 30,
       loadAfter: 10,
       currentPage: 0,
+      offset: Bootstrap.locale === 'ar' ? 20: 0,
 
       // event listener for scroll events, when the scrollbar gets below a 
       // certain height load the next 'page' of elements
       handleScroll: function(evt) {
         var currentPosition, slice, start, end;
         currentPosition = this.$el.scrollTop();
-        if (currentPosition > this.loadAfter * this.listElementHeight) {
+        if (currentPosition > this.loadAfter * (this.listElementHeight-this.offset)) {
           this.loadAfter = this.loadAfter + this.chunkSize;
           start = this.currentPage * this.chunkSize;
           end   = start + this.chunkSize;

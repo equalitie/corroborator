@@ -86,12 +86,12 @@ define(
 
     // collection of menu items for the action combo
     var menuItems = new Backbone.Collection([
-      { key: 'update', name_en: i18n.menu.Update_selected },
-      { key: 'select', name_en: i18n.menu.Select_all },
-      { key: 'clear',  name_en: i18n.menu.Clear_selected }
+      { key: 'update', name: i18n.menu.Update_selected },
+      { key: 'select', name: i18n.menu.Select_all },
+      { key: 'clear',  name: i18n.menu.Clear_selected }
     ]);
     if (Bootstrap.perms.can_delete_entities ===  true) {
-      menuItems.add({ key: 'delete', name_en: i18n.menu.Delete_selected });
+      menuItems.add({ key: 'delete', name: i18n.menu.Delete_selected });
     }
 
     //////////////////////////////////////////////////////////////////////
@@ -229,7 +229,7 @@ define(
           collection: menuItems,
           bus: Streams.searchBus,
           primary: {
-            name_en: 'Actions',
+            name: 'Actions',
             search_request: 'none'
           }
         });

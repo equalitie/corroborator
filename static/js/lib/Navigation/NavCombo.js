@@ -95,7 +95,7 @@ define(
     var createFullCollection = function() {
       var fullCollection = Collection;
       var item = {
-        name_en: 'Save current search...',
+        name: 'Save current search...',
         search_request: 'save_search',
         type: 'default'
       };

@@ -80,7 +80,7 @@ define (
           multiple: true,
           display: {
             field_name : 'crimes',
-            field_label: 'Crimes'
+            field_label: i18n.incident.Crime
           },
           content: {
             values: 'crimes'
@@ -92,7 +92,7 @@ define (
           multiple: true,
           display: {
             field_name : 'labels',
-            field_label: 'Labels'
+            field_label: i18n.incident.Labels
           },
           content: {
             values: 'labels'
@@ -106,7 +106,7 @@ define (
           eventIdentifier: 'incident_map',
           display: {
             field_name : 'locations',
-            field_label: 'Locations'
+            field_label: i18n.incident.Locations
           },
           content: {
             values: 'locations'

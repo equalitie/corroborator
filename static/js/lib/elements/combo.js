@@ -100,7 +100,7 @@ define(
       // TODO: change type
       setPrimary: function(primary) {
         this.primary = new Backbone.Model({
-          name_en: primary.name_en,
+          name: primary.name,
           search_request: primary.search_request,
           type: 'search'
         });
@@ -121,6 +121,7 @@ define(
 
       // render each item in the list 
       renderListItem: function(model, index, list) {
+        console.info(model);
         var options = {
           model: model,
           eventIdentifier: this.eventIdentifier
@@ -160,15 +161,15 @@ define(
         this.$el.children()
                 .children('li')
                 .click(function() {
-                  var selectedText = $(this).children('span').text();
-                  self.setSelectedText(selectedText);
+                  var $selectedSpan = $(this).children('span');
+                  self.setSelectedText($selectedSpan);
                 });
       },
-      setSelectedText: function(selectedText) {
+      setSelectedText: function($selectedSpan) {
         this.$el.children('span.selected-option')
-                .text(selectedText)
+                .text($selectedSpan.text())
                 .append('<span aria-hidden="true" data-icon="d"></span>');
-        this.input.val(selectedText);
+        this.input.val($selectedSpan.data('val'));
       }
     };
 

@@ -175,7 +175,7 @@ class UserReportingApi(object):
         Return JSON object containing set of deleted items
         """
         graph_title =\
-            _('Total %(type) items by User') % {'type': crud_type, }
+            _('Total %(type)s items by User') % {'type': crud_type, }
 
         user_items = VersionStatus.objects.filter(
             status=crud_type

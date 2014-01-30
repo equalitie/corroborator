@@ -14,6 +14,7 @@
       'leaflet'        : 'bower_components/leaflet/dist/leaflet',
       'backbone'       : 'bower_components/backbone/backbone',
       'moment'         : 'bower_components/moment/moment',
+      'moment_langs'   : 'bower_components/moment/min/langs',
       'underscore'     : 'bower_components/underscore/underscore',
       'handlebars'     : 'bower_components/handlebars/handlebars',
       'bacon'          : 'bower_components/bacon/dist/Bacon',
@@ -26,6 +27,9 @@
       'widgets'        : 'bower_components/ajax-solr/widgets',
     },
     shim: {
+      moment_langs: {
+        deps: ['moment']
+      },
       underscore: {
         exports: '_'
       },

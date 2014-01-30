@@ -5,7 +5,7 @@
 
 define (
   [
-    'handlebars', 'moment', 'underscore'
+    'handlebars', 'moment', 'underscore', 'moment_langs'
   ],
   function (Handlebars, moment, _) {
     'use strict';
@@ -15,6 +15,7 @@ define (
     //  usage: {{dateFormat creation_date format="MMMM YYYY"}}
     Handlebars.registerHelper('dateFormat', function(context, block) {
       var formattedContext = context;
+      moment.lang(Bootstrap.locale);
       if (moment && formattedContext !== undefined) {
         var f = block.hash.format || "MMM Do, YYYY";
         formattedContext =  moment(context).format(f);
@@ -68,10 +69,24 @@ define (
     var keyMap = {
       'age': mapKeyToLabel(Bootstrap.ages),
       'sex': mapKeyToLabel(Bootstrap.sexes),
-      'civialian': mapKeyToLabel(Bootstrap.civilian)
+      'civilian': mapKeyToLabel(Bootstrap.civilian)
     };
 
-    Handlebars.registerHelper('fetchKey', function(context, options) {
+    Handlebars.registerHelper('fetchCivilian', function(context, options) {
+        var formattedContext = context;
+        if (context) {
+          formattedContext = keyMap['civilian'](context);
+        }
+        return formattedContext;
+    });
+    Handlebars.registerHelper('fetchAge', function(context, options) {
+        var formattedContext = context;
+        if (context) {
+          formattedContext = keyMap['age'](context);
+        }
+        return formattedContext;
+    });
+    Handlebars.registerHelper('fetchSex', function(context, options) {
         var formattedContext = context;
         if (context) {
           formattedContext = keyMap['sex'](context);

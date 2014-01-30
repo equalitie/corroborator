@@ -6,14 +6,14 @@
     <span>✓</span>
   </button>
   <button class="do-search do-search-embedded medias">
-    <span>Search</span>
+    <span>{{i18n.Search}}</span>
   </button>
 </div>
 
 <ul class="media"></ul>
 
 <button class="do-upload upload-media">
-  <span>Upload New Media</span>
+  <span>{{i18n.media.Upload_new_media}}</span>
 </button>
 <select {{#if multiple}} multiple="{{multiple}}"{{/if}} name="{{name}}" id="media-added-field"
   class="{{entityType}}-field hidden"></select>

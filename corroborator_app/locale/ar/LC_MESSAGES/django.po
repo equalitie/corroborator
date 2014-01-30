@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-30 12:19+0000\n"
+"POT-Creation-Date: 2014-01-30 20:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,158 +18,158 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: models.py:599
+#: models.py:586 views/context.py:101
 msgid "adult"
 msgstr "بالغ"
 
-#: models.py:600
+#: models.py:587 views/context.py:105
 msgid "child"
 msgstr "طفل"
 
-#: models.py:603
+#: models.py:590 views/context.py:91
 msgid "female"
 msgstr "إنثى"
 
-#: models.py:604
+#: models.py:591 views/context.py:87
 msgid "male"
 msgstr "ذكر"
 
-#: models.py:607
+#: models.py:594 views/context.py:73
 msgid "Civilian"
 msgstr "مدني"
 
-#: models.py:608
+#: models.py:595 views/context.py:77
 msgid "Non-civilian"
 msgstr "غير مدني"
 
-#: models.py:800
+#: models.py:787
 msgid "Killed"
 msgstr "مقتول"
 
-#: models.py:801
+#: models.py:788
 msgid "Tortured"
 msgstr "تعرض للتعذيب"
 
-#: models.py:802
+#: models.py:789
 msgid "Wounded"
 msgstr "جريح"
 
-#: models.py:803
+#: models.py:790
 msgid "Detained"
 msgstr ""
 
-#: models.py:804
+#: models.py:791
 msgid "Kidnapped"
 msgstr "مخطوف"
 
-#: models.py:805
+#: models.py:792
 msgid "Witness"
 msgstr "شاهد"
 
-#: models.py:806
+#: models.py:793
 msgid "Arrested"
 msgstr "تعرض للاعتقال"
 
-#: models.py:807
+#: models.py:794
 msgid "Martyr"
 msgstr "شهيد"
 
-#: models.py:808
+#: models.py:795
 msgid "Missing"
 msgstr "مفقود"
 
-#: models.py:809
+#: models.py:796
 msgid "Injured"
 msgstr "مصاب"
 
-#: models.py:812
+#: models.py:799
 msgid "Parent"
 msgstr "أب/أم"
 
-#: models.py:813
+#: models.py:800
 msgid "Sibling"
 msgstr "أخ/أخت"
 
-#: models.py:814
+#: models.py:801
 msgid "Family member"
 msgstr "أحد أفراد العائلة"
 
-#: models.py:815
+#: models.py:802
 msgid "Superior officer"
 msgstr "الضابط الرئيس"
 
-#: models.py:816
+#: models.py:803
 msgid "Subordinate officer"
 msgstr "الضابط المرؤس"
 
 #: reporting/user_reporting.py:21
 msgid "Total login time by User"
-msgstr ""
+msgstr "الوقت الكلي الذي أمضاه المستخدم"
 
 #: reporting/user_reporting.py:38
 msgid "Total user login time per day"
-msgstr ""
+msgstr "الوقت الذي أمضاه المستخدم يوميا"
 
 #: reporting/user_reporting.py:75
 msgid "Average user updates per hour"
-msgstr ""
+msgstr "وسطي التحديثات التي قام بها المستخدم في الساعة الواحدة"
 
 #: reporting/user_reporting.py:117
 msgid "User assigned items by status"
-msgstr ""
+msgstr "عدد العناصر المفرزة للأشخاص - وفق الحالة"
 
 #: reporting/user_reporting.py:178
 #, python-format
-msgid "Total %(type) items by User"
-msgstr ""
+msgid "Total %(type)s items by User"
+msgstr "العدد الكلي للعناصر %(type)s بحسب المستخدم"
 
 #: reporting/user_reporting.py:193
 msgid "Deleted, created and edited items by date"
-msgstr ""
+msgstr "عدد العناصر المنشأة والمعدلة والمحذوفة بحسب التاريخ"
 
 #: reporting/user_reporting.py:198
 msgid "Deleted items by date"
-msgstr ""
+msgstr "عدد العناصر المحذوفة بحسب التاريخ"
 
 #: reporting/user_reporting.py:202
 msgid "Created items by date"
-msgstr ""
+msgstr "عدد العناصر المنشأة بحسب التاريخ"
 
 #: reporting/user_reporting.py:206
 msgid "Edited items by date"
-msgstr ""
+msgstr "عدد العناصر المعدلة بحسب التاريخ"
 
 #: templates/auth.html:8
 msgid "Corroborator | Log in"
-msgstr "trans C Log in"
+msgstr "دخول | نظام التوثيق"
 
 #: templates/auth.html:21 templates/base.html:5 templates/new_base.html:5
 msgid "Corroborator"
-msgstr ""
+msgstr "نظام التوثيق"
 
 #: templates/auth.html:29
 msgid "username:"
-msgstr ""
+msgstr "اسم المستخدم"
 
 #: templates/auth.html:35
 msgid "password:"
-msgstr ""
+msgstr "كلمة المرور"
 
 #: templates/auth.html:41
 msgid "Log In"
-msgstr ""
+msgstr "دخول"
 
 #: templates/new_search.html:27
 msgid "Search help"
-msgstr ""
+msgstr "المساعدة - البحث"
 
 #: templates/new_search.html:31
 msgid "search in progress"
-msgstr ""
+msgstr "البحث مستمر"
 
 #: templates/new_search.html:41
 msgid "My assigned items"
-msgstr ""
+msgstr "العناصر المفرزة لي"
 
 #: templates/nav/dataentry_tabs.html:7 templates/nav/reporting_tabs.html:15
 #: templates/nav/tabs.html:15
@@ -183,15 +183,15 @@ msgstr "أشخاص"
 
 #: templates/nav/monitoring_tabs.html:7
 msgid "Monitor"
-msgstr ""
+msgstr "المراقبة"
 
 #: templates/nav/monitoring_tabs.html:14
 msgid "Importer config"
-msgstr ""
+msgstr "iإعدادات المستورد"
 
 #: templates/nav/monitoring_tabs.html:22
 msgid "Scraper config"
-msgstr ""
+msgstr "إعدادات الماسح"
 
 #: templates/nav/reporting_tabs.html:7 templates/nav/tabs.html:7
 msgid "Incidents"
@@ -199,24 +199,28 @@ msgstr "ملفات"
 
 #: templates/nav/reporting_tabs.html:31
 msgid "Users"
-msgstr ""
+msgstr "المستخدمون"
 
 #: templates/nav/top_menu.html:9
 msgid "Logout"
-msgstr ""
+msgstr "خروج"
 
 #: templates/nav/top_menu.html:19 templates/nav/top_menu.html.py:22
-msgid "Review"
-msgstr ""
+msgid "Main"
+msgstr "الرئيسية"
 
 #: templates/nav/top_menu.html:30 templates/nav/top_menu.html.py:33
 msgid "Reporting"
-msgstr ""
+msgstr "التقارير"
 
 #: templates/nav/top_menu.html:40
 msgid "Administration"
-msgstr ""
+msgstr "الإدارة"
 
 #: templates/nav/top_menu.html:47 templates/nav/top_menu.html.py:50
 msgid "Monitoring"
-msgstr ""
+msgstr "الرصد"
+
+#, fuzzy
+#~ msgid "civilian"
+#~ msgstr "مدني"

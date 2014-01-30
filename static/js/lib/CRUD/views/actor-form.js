@@ -66,7 +66,7 @@ define (
       dateFields: ['DOB'], 
 
       // ids of combo boxes
-      comboIds: ['#sex_en', '#age_en', '#civilian_en'],
+      comboIds: ['#sex', '#age', '#civilian'],
 
       // represent free text input fields that will autocomplete
       // based on the content of the collection, these labels will
@@ -80,7 +80,7 @@ define (
           eventIdentifier: 'actor_pob',
           display: {
             field_name : 'POB',
-            field_label: 'Place Of Birth'
+            field_label: i18n.actor.Place_Of_Birth
           },
           content: {
             values: 'POB'
@@ -94,7 +94,7 @@ define (
           eventIdentifier: 'actor_current',
           display: {
             field_name : 'current_location',
-            field_label: 'Current Location'
+            field_label: i18n.actor.Current_Location
           },
           content: {
             values: 'current_location'
@@ -267,7 +267,7 @@ define (
           content: this.model.get('media'),
           entityType: 'actor',
           multiple: false,
-          label: 'Actor Image',
+          label: i18n.actor.Actor_Image,
           name: 'media'
         });
 
