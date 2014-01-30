@@ -28,6 +28,7 @@
     "d3": "~3.3.13"
   },
   "devDependencies": {
-    "sinonjs-built": "~1.7.3"
+    "sinonjs-built": "~1.7.3",
+    "modernizr": "~2.7.1"
   }
 }
