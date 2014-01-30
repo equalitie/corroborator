@@ -233,7 +233,6 @@ define(
 
       // render the filter
       render: function() {
-        console.info(this.model.toJSON());
         var html = singleFilterTmp({model: this.model.toJSON()});
         this.$el.empty()
                 .append(html);

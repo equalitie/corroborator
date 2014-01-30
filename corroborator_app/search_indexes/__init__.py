@@ -9,14 +9,14 @@ from corroborator_app.models import(
 )
 from celery_haystack.indexes import CelerySearchIndex
 from django.conf import settings
-#from actor_index import ActorIndex
-#from bulletin_index import BulletinIndex
 from incident_index import IncidentIndex
+from actor_index import ActorIndex
+from bulletin_index import BulletinIndex
 
 
-#__all__ = [
-    #ActorIndex, BulletinIndex, IncidentIndex,
-#]
+__all__ = [
+    IncidentIndex, ActorIndex, BulletinIndex,
+]
 
 
 class MediaIndex(CelerySearchIndex, indexes.Indexable):
