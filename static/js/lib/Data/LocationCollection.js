@@ -24,27 +24,24 @@ define (
       
       initialize: function(options) {
         if (options.resourceUri !== undefined) {
-          var id = mapResourceUriToId(options.resourceUri);
-          this.set('id', id);
-          this.set('resource_uri', options.resourceUri);
-          this.fetch();
+        // bold v bold, ask me and I'll tell you the why
+        // to do with /lib/CRUD/views/map-view lines 55 and 61
+        // set is fine, setTimeout is not really
+          setTimeout(function() {
+            this.set(_(Bootstrap.locations).chain().filter(function(loc) {
+              return options.resourceUri === loc.resource_uri;
+            }).last().value());
+          }.bind(this), 1000);
         }
-      },
-      url: function() {
-        var base = '/api/v1/location/';
-        if (this.id) {
-          base = base + this.id + '/';
-        }
-        var urlvars = "?format=json&username=" +
-        Bootstrap.username + "&api_key=" + Bootstrap.apiKey;
-          return base + urlvars;
       }
     });
     
     LocationCollection = Backbone.Collection.extend({
       model: LocationModel,
-      initialize: function() {
-        this.reset(Bootstrap.locations);
+      initialize: function(options) {
+        if (this.length === 0) {
+          this.reset(Bootstrap.locations);
+        }
       },
 
       // map a list of models to autocomplete format

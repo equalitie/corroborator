@@ -56,6 +56,7 @@ define (
       // render the incident
       render: function() {
         var html = incidentTmp({
+          i18n: i18n,
           model: this.model.toJSON()
         });
         this.$el.addClass('result REPEAT Incident in-table');

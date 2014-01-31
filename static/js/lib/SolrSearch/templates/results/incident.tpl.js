@@ -26,16 +26,12 @@ function program3(depth0,data) {
 function program5(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n        <span class=\"actors\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actors)),stack1 == null || stack1 === false ? stack1 : stack1.length)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n        ";
+  buffer += "\n        <span class=\"actors\">\n        ";
   options = {hash:{
-    'word': ("actor"),
+    'tpl': (((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.num_actors)),
     'numItems': (((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actors)),stack1 == null || stack1 === false ? stack1 : stack1.length))
   },data:data};
   buffer += escapeExpression(((stack1 = helpers.pluralise || depth0.pluralise),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "pluralise", options)))
-    + " "
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.involved)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n        </span> \n        ";
   return buffer;
   }
@@ -46,8 +42,11 @@ function program7(depth0,data) {
   buffer += "\n          "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1['in'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\n          ";
-  options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.commaSeparatedList || depth0.commaSeparatedList),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_locations), options) : helperMissing.call(depth0, "commaSeparatedList", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_locations), options)))
+  options = {hash:{
+    'list': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations)),
+    'key': ("locations")
+  },data:data};
+  buffer += escapeExpression(((stack1 = helpers.commaSeparatedList || depth0.commaSeparatedList),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "commaSeparatedList", options)))
     + "\n        ";
   return buffer;
   }

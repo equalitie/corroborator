@@ -97,12 +97,18 @@ define (
 
       // remove subscribers and any extraneous map shizzle
       onDestroy: function() {
+        //console.log('onDestroy', this.subscribers.length);
+
         this.stopListening();
-        _.each(this.subscribers, function(unsub) {unsub();});
+        //TODO figure out why map views get added to forms twice
+        //_.each(this.subscribers,function(unsub) {unsub();});
+        this.subscribers = [];
+        delete(this.subscribers);
       },
 
       // add a new location to the collection
       addLocation: function(evt) {
+        console.log('addLocation', evt.value().content);
         this.collection.add(evt.value().content);
       },
 

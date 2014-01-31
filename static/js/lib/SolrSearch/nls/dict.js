@@ -1,4 +1,3 @@
-// standard strings for header.js view
 define({
   'root': {
     'sort': {
@@ -15,6 +14,21 @@ define({
     'count': {
       'selected': 'selected'
     },
+    'header': {
+      'actions': 'Actions',
+      'actor': {
+        'single': '<em>1 </span>actor</em> selected',
+        'plural': '<em><%=num %> </span>actors</em> selected',
+      },
+      'incident': {
+        'single': '<em>1 </span>incident</em> selected',
+        'plural': '<em><%=num %> </span>incidents</em> selected',
+      },
+      'bulletin': {
+        'single': '<em>1</span>bulletin</em> selected',
+        'plural': '<em><%=num %> </span>bulletins</em> selected',
+      },
+    },
     'filters': {
       'new_actor': 'New Actor',
       'new_bulletin': 'New Bulletin',
@@ -28,6 +42,8 @@ define({
       'bulletin_sources_exact':'Sources',
       'bulletin_created_exact':'Created date',
       'most_recent_status_bulletin_exact':'Status',
+      'bulletin_searchable_locations_exact':'Bulletin Location',
+      'bulletin_created_between': 'Bulletin created between',
       //Incident fields
       'confidence_score_exact':'Confidence Score',
       'incident_times_exact':'Incident date/time',
@@ -36,6 +52,8 @@ define({
       'incident_crimes_exact':'Crimes',
       'incident_created_exact':'Created date',
       'most_recent_status_incident_exact':'Status',
+      'incident_searchable_locations_exact':'Incident Location',
+      'incident_created_between': 'Incident created between',
       //Actor fields
       'age_exact':'Age',
       'sex_exact':'Sex',
@@ -52,16 +70,23 @@ define({
       'ethnicity_ar_exact':'Ethnicity(ar)',
       'spoken_dialect_en':'Dialect(en)',
       'spoken_dialect_ar':'Dialect(ar)',
-      'incident_searchable_locations_exact':'Incident Location',
-      'bulletin_searchable_locations_exact':'Bulletin Location',
       'actor_searchable_pob_exact':'Place Of birth',
-      'actor_searchable_current_exact':'Current Location'
+      'actor_searchable_current_exact':'Current Location',
+      'date_of_birth_between': 'Date of birth between'
     },
     'results': {
+      'num_actors': {
+        'single': '<%=num %> actor involved',
+        'plural': '<%=num %> actors involved',
+      },
+      'involved_in':{
+        'single': 'involved in <%=num %> incident',
+        'plural': 'involved in <%=num %> incidents'
+      },
       'aka': 'aka',
       'lives_in': 'lives in',
       'works_as_a': 'works as a',
-      'involved_in': 'involved in',
+      //'involved_in': 'involved in',
       'involved': 'involved',
       'no_results': 'No Results',
       'in': 'in'

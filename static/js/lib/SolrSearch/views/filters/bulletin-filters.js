@@ -63,7 +63,7 @@ define(
         this.dateRangeView = new DateRangeView({
           el: '.date-range',
           entityType: 'bulletin',
-          title: 'Bulletin created between'
+          title: i18n.filters.bulletin_created_between
         });
       },
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-30 20:11+0000\n"
+"POT-Creation-Date: 2014-01-31 09:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: models.py:586 views/context.py:101
+#: models.py:586 views/context.py:99
 msgid "adult"
 msgstr "بالغ"
 
-#: models.py:587 views/context.py:105
+#: models.py:587 views/context.py:103
 msgid "child"
 msgstr "طفل"
 
-#: models.py:590 views/context.py:91
+#: models.py:590 views/context.py:90
 msgid "female"
 msgstr "إنثى"
 
-#: models.py:591 views/context.py:87
+#: models.py:591 views/context.py:86
 msgid "male"
 msgstr "ذكر"
 
@@ -41,66 +41,6 @@ msgstr "مدني"
 #: models.py:595 views/context.py:77
 msgid "Non-civilian"
 msgstr "غير مدني"
-
-#: models.py:787
-msgid "Killed"
-msgstr "مقتول"
-
-#: models.py:788
-msgid "Tortured"
-msgstr "تعرض للتعذيب"
-
-#: models.py:789
-msgid "Wounded"
-msgstr "جريح"
-
-#: models.py:790
-msgid "Detained"
-msgstr ""
-
-#: models.py:791
-msgid "Kidnapped"
-msgstr "مخطوف"
-
-#: models.py:792
-msgid "Witness"
-msgstr "شاهد"
-
-#: models.py:793
-msgid "Arrested"
-msgstr "تعرض للاعتقال"
-
-#: models.py:794
-msgid "Martyr"
-msgstr "شهيد"
-
-#: models.py:795
-msgid "Missing"
-msgstr "مفقود"
-
-#: models.py:796
-msgid "Injured"
-msgstr "مصاب"
-
-#: models.py:799
-msgid "Parent"
-msgstr "أب/أم"
-
-#: models.py:800
-msgid "Sibling"
-msgstr "أخ/أخت"
-
-#: models.py:801
-msgid "Family member"
-msgstr "أحد أفراد العائلة"
-
-#: models.py:802
-msgid "Superior officer"
-msgstr "الضابط الرئيس"
-
-#: models.py:803
-msgid "Subordinate officer"
-msgstr "الضابط المرؤس"
 
 #: reporting/user_reporting.py:21
 msgid "Total login time by User"
@@ -220,6 +160,86 @@ msgstr "الإدارة"
 #: templates/nav/top_menu.html:47 templates/nav/top_menu.html.py:50
 msgid "Monitoring"
 msgstr "الرصد"
+
+#: views/context.py:127
+msgid "Killed"
+msgstr "مقتول"
+
+#: views/context.py:128
+msgid "Tortured"
+msgstr "تعرض للتعذيب"
+
+#: views/context.py:129
+msgid "Wounded"
+msgstr "جريح"
+
+#: views/context.py:130
+msgid "Detained"
+msgstr ""
+
+#: views/context.py:131
+msgid "Kidnapped"
+msgstr "مخطوف"
+
+#: views/context.py:132
+msgid "Witness"
+msgstr "شاهد"
+
+#: views/context.py:133
+msgid "Arrested"
+msgstr "تعرض للاعتقال"
+
+#: views/context.py:134
+msgid "Martyr"
+msgstr "شهيد"
+
+#: views/context.py:135
+msgid "Missing"
+msgstr "مفقود"
+
+#: views/context.py:136
+msgid "Injured"
+msgstr "مصاب"
+
+#: views/context.py:155
+msgid "Parent"
+msgstr "أب/أم"
+
+#: views/context.py:156
+msgid "Sibling"
+msgstr "أخ/أخت"
+
+#: views/context.py:157
+msgid "Family member"
+msgstr "أحد أفراد العائلة"
+
+#: views/context.py:158
+msgid "Superior officer"
+msgstr "الضابط الرئيس"
+
+#: views/context.py:159
+msgid "Subordinate officer"
+msgstr "الضابط المرؤس"
+
+#, fuzzy
+#~ msgid "parent"
+#~ msgstr "أب/أم"
+
+#, fuzzy
+#~ msgid "sibling"
+#~ msgstr "أخ/أخت"
+
+#, fuzzy
+#~ msgid "family member"
+#~ msgstr "أحد أفراد العائلة"
+
+#, fuzzy
+#~ msgid "superior officer"
+#~ msgstr "الضابط الرئيس"
+
+#, fuzzy
+#~ msgid "subordinate officer"
+#~ msgstr "الضابط المرؤس"
 
 #, fuzzy
 #~ msgid "civilian"

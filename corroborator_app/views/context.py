@@ -67,44 +67,42 @@ def select_labels():
 # 3 not cool translation methods added late in the day
 # need to be replaced with something proper
 def select_civilian():
-    civ_set = []
-    civ_set.append({
-        'key': 'Civilian',
-        'value': _('Civilian')
-    })
-    civ_set.append({
-        'key': 'Non-civilian',
-        'value': _('Non-civilian')
-    })
-    return civ_set
+    return [
+        {
+            'key': 'Civilian',
+            'value': _('Civilian')
+        },
+        {
+            'key': 'Non-civilian',
+            'value': _('Non-civilian')
+        }
+    ]
 
 
 def select_sexes():
-    sex_set = []
-
-    sex_set.append({
-        'key': 'Male',
-        'value': _('male'),
-    })
-    sex_set.append({
-        'key': 'Female',
-        'value': _('female'),
-    })
-    return sex_set
+    return [
+        {
+            'key': 'Male',
+            'value': _('male'),
+        },
+        {
+            'key': 'Female',
+            'value': _('female'),
+        }
+    ]
 
 
 def select_ages():
-    age_set = []
-
-    age_set.append({
-        'key': 'Adult',
-        'value': _('adult'),
-    })
-    age_set.append({
-        'key': 'Child',
-        'value': _('child'),
-    })
-    return age_set
+    return [
+        {
+            'key': 'Adult',
+            'value': _('adult'),
+        },
+        {
+            'key': 'Child',
+            'value': _('child'),
+        }
+    ]
 
 
 def select_language():
@@ -121,15 +119,27 @@ def select_roles():
     '''
     return the available roles that actors can have in bulletins
     and incidents
-    TODO: apply i18n rules
     '''
     role_status_set = []
     roles = ActorRole.ROLE_STATUS
+    role_map = {
+        'K': _('Killed'),
+        'T': _('Tortured'),
+        'WO': _('Wounded'),
+        'D': _('Detained'),
+        'KN': _('Kidnapped'),
+        'WN': _('Witness'),
+        'A': _('Arrested'),
+        'M': _('Martyr'),
+        'MG': _('Missing'),
+        'I': _('Injured'),
+    }
 
     for role in roles:
+        key = role[0]
         role_status_set.append({
-            'key': role[0],
-            'value': role[1]
+            'key': key,
+            'value': role_map[key]
         })
     return role_status_set
 
@@ -137,16 +147,23 @@ def select_roles():
 def select_relations():
     '''
     return a set of available relations formatted
-    TODO: apply i18n rules
     '''
     relation_status_set = []
     relations = ActorRole.RELATION
+    relation_map = {
+        'P': _('Parent'),
+        'S': _('Sibling'),
+        'FM': _('Family member'),
+        'SPO': _('Superior officer'),
+        'SBO': _('Subordinate officer'),
+    }
 
     for relation in relations:
+        key = relation[0]
         relation_status_set.append({
-            'key': relation[0],
-            'value': relation[1]}
-        )
+            'key': key,
+            'value': relation_map[key]
+        })
     return relation_status_set
 
 

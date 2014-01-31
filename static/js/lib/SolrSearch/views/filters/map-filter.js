@@ -73,9 +73,7 @@ define (
         var popupTextTmpEn, popupTextTmpAr, marker;
         marker = model.get('marker');
         popupTextTmpEn = _.template(
-          '<b><%=model.name_en%></b><br/>' + additionalText); 
-        popupTextTmpAr = _.template(
-          '<b><%=model.name_ar%></b><br/>' + additionalText); 
+          '<b><%=model.name%></b><br/>' + additionalText); 
         marker.bindPopup(popupTextTmpEn({model: model.toJSON()})).openPopup();
       }
     };

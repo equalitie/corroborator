@@ -194,19 +194,14 @@ define(
         this.render();
       },
 
-      pluralise: function(word, number) {
-        if (number !== 1) {
-          word = word + 's';
-        }
-        return word;
-      },
       render: function() {
         var numItems = 
           this.collection.filter(function(model) {
             return model.get('checked') === 'checked';
           }).length;
         var html = headerCountTmp({
-          domain:   this.pluralise(this.collectionName, numItems),
+          i18n: i18n,
+          entity: this.collectionName,
           numItems: numItems
         });
         this.$el.empty()
@@ -229,7 +224,7 @@ define(
           collection: menuItems,
           bus: Streams.searchBus,
           primary: {
-            name: 'Actions',
+            name: i18n.header.actions,
             search_request: 'none'
           }
         });

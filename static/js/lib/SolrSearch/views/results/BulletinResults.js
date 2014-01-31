@@ -58,6 +58,7 @@ define (
       // render the bulletin
       render: function() {
         var html = bulletinTmp({
+          i18n: i18n,
           model: this.model.toJSON()
         });
         this.$el.empty()

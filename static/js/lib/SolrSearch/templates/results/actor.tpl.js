@@ -50,9 +50,10 @@ function program9(depth0,data) {
 
 function program11(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n              <p class=\"sex\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  var buffer = "", stack1, options;
+  buffer += "\n              <p class=\"sex\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchSex || depth0.fetchSex),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex), options) : helperMissing.call(depth0, "fetchSex", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex), options)))
     + "</p>\n            ";
   return buffer;
   }
@@ -74,9 +75,10 @@ function program14(depth0,data) {
 
 function program16(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n            <p class=\"age\"> "
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  var buffer = "", stack1, options;
+  buffer += "\n            <p class=\"age\"> ";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchAge || depth0.fetchAge),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age), options) : helperMissing.call(depth0, "fetchAge", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age), options)))
     + "</p>\n            ";
   return buffer;
   }
@@ -125,13 +127,9 @@ function program23(depth0,data) {
 function program25(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n              <br>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.involved_in)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <span class=\"incidents-count\">\n              "
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\n              ";
+  buffer += "\n              <br><span class=\"incidents-count\">\n              ";
   options = {hash:{
-    'word': ("incident"),
+    'tpl': (((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.results)),stack1 == null || stack1 === false ? stack1 : stack1.involved_in)),
     'numItems': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents))
   },data:data};
   buffer += escapeExpression(((stack1 = helpers.pluralise || depth0.pluralise),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "pluralise", options)))

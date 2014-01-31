@@ -194,6 +194,8 @@ define(
         this.render();
         this.typeFilterFunction =
           createFilterLoadFunction(this.model.get('type'));
+
+        //if (this.model.get('key') === 'actor_searchable_pob_exact') debugger;
         this.contentFilter = createFilterLoadContentFunction(
           this.model.get('filterName'),
           this.model.get('key')

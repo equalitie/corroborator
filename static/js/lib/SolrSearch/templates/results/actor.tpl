@@ -24,7 +24,7 @@
             {{/if}}
 
             {{#if model.sex}}
-              <p class="sex">{{model.sex}}</p>
+              <p class="sex">{{fetchSex model.sex}}</p>
             {{/if}}
             {{#if model.sex}}
               {{#if model.age}}
@@ -32,7 +32,7 @@
               {{/if}}
             {{/if}}
             {{#if model.age}}
-            <p class="age"> {{model.age}}</p>
+            <p class="age"> {{fetchAge model.age}}</p>
             {{/if}}
           </div>
 
@@ -56,9 +56,8 @@
               {{/if}}
 
               {{#if model.count_incidents}}
-              <br>{{i18n.results.involved_in}} <span class="incidents-count">
-              {{model.count_incidents}}
-              {{pluralise word='incident' numItems=model.count_incidents}}</span>
+              <br><span class="incidents-count">
+              {{pluralise tpl=i18n.results.involved_in numItems=model.count_incidents}}</span>
               {{/if}}
             </div>
           </div>

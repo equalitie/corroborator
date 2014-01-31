@@ -63,7 +63,8 @@ define (
       'actor_searchable_pob_exact': mapResourceToLabel(Bootstrap.locations),
       'age_exact': mapKeyToLabel(Bootstrap.ages),
       'sex_exact': mapKeyToLabel(Bootstrap.sexes),
-      'civialian_exact': mapKeyToLabel(Bootstrap.civilian)
+      'civialian_exact': mapKeyToLabel(Bootstrap.civilian),
+      'incident_crimes_exact': mapResourceToLabel(Bootstrap.crimes)
     };
 
     // search the filterMap for a function to transform a resource_uri into a name
@@ -85,7 +86,6 @@ define (
         delete model_json[key];
       });
       return model_json;
-      
     };
 
     // convert backbone models to json for serialization and saving

@@ -51,7 +51,7 @@ define(
         this.dateRangeView = new DateRangeView({
           el: '.date-range',
           entityType: 'incident',
-          title: 'Incident Created between'
+          title: i18n.filters.incident_created_between
         });
       },
 

@@ -784,23 +784,23 @@ class ActorRole(models.Model):
     in relation to either an Incident or a Bulletin.
     """
     ROLE_STATUS = (
-        ('K', _('Killed')),
-        ('T', _('Tortured')),
-        ('WO', _('Wounded')),
-        ('D', _('Detained')),
-        ('KN', _('Kidnapped')),
-        ('WN', _('Witness')),
-        ('A', _('Arrested')),
-        ('M', _('Martyr')),
-        ('MG', _('Missing')),
-        ('I', _('Injured')),
+        ('K', 'Killed'),
+        ('T', 'Tortured'),
+        ('WO', 'Wounded'),
+        ('D', 'Detained'),
+        ('KN', 'Kidnapped'),
+        ('WN', 'Witness'),
+        ('A', 'Arrested'),
+        ('M', 'Martyr'),
+        ('MG', 'Missing'),
+        ('I', 'Injured'),
     )
     RELATION = (
-        ('P', _('Parent')),
-        ('S', _('Sibling')),
-        ('FM', _('Family member')),
-        ('SPO', _('Superior officer')),
-        ('SBO', _('Subordinate officer')),
+        ('P', 'Parent'),
+        ('S', 'Sibling'),
+        ('FM', 'Family member'),
+        ('SPO', 'Superior officer'),
+        ('SBO', 'Subordinate officer'),
     )
 
     role_en = models.CharField(

@@ -1,1 +1,1 @@
-<em>{{numItems}} </span>{{domain}}</em> {{i18n.count.selected}}
+{{{pluralise tpl=i18n.header tplVar=entity numItems=numItems showEmpty=true}}}

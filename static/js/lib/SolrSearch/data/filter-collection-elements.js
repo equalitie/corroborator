@@ -39,8 +39,8 @@ define (
           };
         },
         locationFilterKeys = [
-          'POB_exact',
-          'current_location_exact',
+          //'POB_exact',
+          //'current_location_exact',
           'bulletin_locations_exact',
           'incident_locations_exact',
           'actor_searchable_pob_exact',
@@ -57,7 +57,7 @@ define (
           }).clone(); // cloned to make sure later versions don't override
           locModel.set(model.toJSON());
           locModel.set('displayFilterName', 
-            i18n.filters[locModel.get('key')] + ': ' + locModel.get('name_en'));
+            i18n.filters[locModel.get('key')] + ': ' + locModel.get('name'));
           return locModel;
         };
 

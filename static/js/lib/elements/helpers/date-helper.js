@@ -9,9 +9,106 @@ define (
   ],
   function (Handlebars, moment, _) {
     'use strict';
-    //  format an ISO date using Moment.js
-    //  http://momentjs.com/
-    //  moment syntax example: moment(Date("2011-07-18T15:50:52")).format("MMMM YYYY")
+
+    Handlebars.registerHelper('if_eq', function(context, options) {
+      if (context === options.hash.compare) {
+        return options.fn(this);
+      }
+      return options.inverse(this);
+    });
+
+    var mapKeyToLabel = function(fieldKey, key) {
+      return _(Bootstrap[key]).findWhere({key: fieldKey}).value;
+    };
+
+    var getFromUri = function(uri, key) {
+      var searchField = {resource_uri: uri};
+      return _.findWhere(Bootstrap[key], searchField).name;
+    };
+
+    // key value functions
+    // could be consolidated into one function
+    Handlebars.registerHelper('fetchCivilian', function(context, options) {
+        if (context) {
+          return mapKeyToLabel(context, 'civilian');
+        }
+        return context;
+    });
+    Handlebars.registerHelper('fetchAge', function(context, options) {
+        if (context) {
+          return mapKeyToLabel(context, 'ages');
+        }
+        return context;
+    });
+    Handlebars.registerHelper('fetchSex', function(context, options) {
+        if (context) {
+          return mapKeyToLabel(context, 'sexes');
+        }
+        return context;
+    });
+
+    Handlebars.registerHelper('fetchRole', function(context, options) {
+        var formattedContext = context;
+        if (context) {
+          var roles = Bootstrap.gl_ac_role_list.concat(Bootstrap.gl_ac_relation_list),
+              roleSearchField = {key: context};
+          formattedContext = _.findWhere(roles, roleSearchField).value;
+        }
+        return formattedContext;
+    });
+
+    // resource_uri functions
+    Handlebars.registerHelper('fetchLabel', function(context, options) {
+        if (context) {
+          return getFromUri(context, 'labels');
+        }
+        return context;
+    });
+
+    Handlebars.registerHelper('fetchStatus', function(context, options) {
+        if (context) {
+          return getFromUri(context, 'all_statuses');
+        }
+        return context;
+    });
+
+    Handlebars.registerHelper('fetchUser', function(context, options) {
+        if (context) {
+          return getFromUri(context, 'gl_ac_users_list');
+        }
+        return context;
+    });
+
+
+
+    Handlebars.registerHelper('fetchLocation', function(context, options) {
+        var formattedContext = context;
+        if (context !== undefined) {
+          return getFromUri(context, 'locations');
+        }
+        return '';
+    });
+
+    // Text formatters
+    Handlebars.registerHelper('pluralise', function(context, options) {
+      var tpl = (context.hash.tplVar) ?
+        context.hash.tpl[context.hash.tplVar] :
+        context.hash.tpl;
+      if (context.hash.numItems === 0 && !context.hash.showEmpty) {
+        return '';
+      }
+      var out = (context.hash.numItems === 1 )?
+        _.template(tpl.single)({
+          num: context.hash.numItems
+        }):
+        _.template(tpl.plural)({
+          num: context.hash.numItems
+        });
+      //console.log(context, tpl, out);
+      return out;
+    });
+
+    //  Date helpers
     //  usage: {{dateFormat creation_date format="MMMM YYYY"}}
     Handlebars.registerHelper('dateFormat', function(context, block) {
       var formattedContext = context;
@@ -50,106 +147,7 @@ define (
       return formattedContext;
     });
 
-    Handlebars.registerHelper('if_eq', function(context, options) {
-        if (context === options.hash.compare) {
-          return options.fn(this);
-        }
-        return options.inverse(this);
-    });
-
-    var mapKeyToLabel = function(keyList, key) {
-      var keyMapper = function(fieldName) {
-        return _(keyList).findWhere({key: fieldName}).value;
-      };
-      return (arguments.length === 1) ?
-        keyMapper:
-        keyMapper(key);
-    };
-
-    var keyMap = {
-      'age': mapKeyToLabel(Bootstrap.ages),
-      'sex': mapKeyToLabel(Bootstrap.sexes),
-      'civilian': mapKeyToLabel(Bootstrap.civilian)
-    };
-
-    Handlebars.registerHelper('fetchCivilian', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          formattedContext = keyMap['civilian'](context);
-        }
-        return formattedContext;
-    });
-    Handlebars.registerHelper('fetchAge', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          formattedContext = keyMap['age'](context);
-        }
-        return formattedContext;
-    });
-    Handlebars.registerHelper('fetchSex', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          formattedContext = keyMap['sex'](context);
-        }
-        return formattedContext;
-    });
-
-    Handlebars.registerHelper('fetchLabel', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          var labels = Bootstrap.labels,
-              labelSearchField = {resource_uri: context};
-          formattedContext = _.findWhere(labels, labelSearchField).name;
-        }
-        return formattedContext;
-    });
-
-    Handlebars.registerHelper('fetchStatus', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          var statuses = Bootstrap.all_statuses,
-              statusSearchField = {resource_uri: context};
-          formattedContext = _.findWhere(statuses, statusSearchField).name;
-        }
-        return formattedContext;
-    });
-
-    Handlebars.registerHelper('fetchUser', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          var users = Bootstrap.gl_ac_users_list,
-              userSearchField = {resource_uri: context};
-          formattedContext = _.findWhere(users, userSearchField).name;
-        }
-        return formattedContext;
-    });
-
-    Handlebars.registerHelper('fetchRole', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          var roles = Bootstrap.gl_ac_role_list.concat(Bootstrap.gl_ac_relation_list),
-              roleSearchField = {key: context};
-          formattedContext = _.findWhere(roles, roleSearchField).name;
-        }
-        return formattedContext;
-    });
-
-    Handlebars.registerHelper('fetchLocation', function(context, options) {
-        var formattedContext = context;
-        if (context !== undefined) {
-          var locations, locationName, locationSearchField, retrievedLocation;
-          locationName = '';
-          locations = Bootstrap.locations;
-          locationSearchField = {resource_uri: context};
-          retrievedLocation = _.findWhere(locations, locationSearchField).name;
-          if (retrievedLocation) {
-            locationName = retrievedLocation;
-          }
-          formattedContext = locationName;
-        }
-        return formattedContext;
-    });
-
+    // List functions
     Handlebars.registerHelper('sourceList', function(context, block) {
       var ret = '',
           start = '<span class="source">',
@@ -165,19 +163,21 @@ define (
       return new Handlebars.SafeString(ret);
     });
 
-    Handlebars.registerHelper('pluralise', function(context, options) {
-      var word, numItems, suffix;
-      word = context.hash.word;
-      numItems = context.hash.numItems;
-      suffix = numItems === 1 ? '': 's';
-      return word + suffix;
-    });
 
     Handlebars.registerHelper('commaSeparatedList', function(context, block) {
+      var list = [];
+      if (context.hash) {
+        list = _(context.hash.list).map(function(loc_uri) {
+          return getFromUri(loc_uri, 'locations');
+        });
+      }
+      else {
+        list = context;
+      }
       var ret = "", i=0, j=0;
-      if (context !== undefined) {
-        for(i=0, j=context.length; i<j; i++) {
-          ret = ret + context[i];
+      if (list !== undefined) {
+        for(i=0, j=list.length; i<j; i++) {
+          ret = ret + list[i];
           if (i<j-1) {
             ret = ret + ", ";
           }

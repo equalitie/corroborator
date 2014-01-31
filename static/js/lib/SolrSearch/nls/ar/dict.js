@@ -14,6 +14,21 @@ define({
     'count': {
       'selected': 'تحديد'
     },
+    'header': {
+      'actions': 'الأوامر',
+      'actor': {
+        'single': '<em>1 </span>actor</em> selected',
+        'plural': '<em><%=num %> </span>actors</em> selected',
+      },
+      'incident': {
+        'single': '<em>1 </span>incident</em> selected',
+        'plural': '<em><%=num %> </span>incidents</em> selected',
+      },
+      'bulletin': {
+        'single': '<em>1</span>bulletin</em> selected',
+        'plural': '<em><%=num %> </span>bulletins</em> selected',
+      },
+    },
     'filters': {
       'new_actor': 'شخص جديد',
       'new_bulletin': 'مادة جديدة',
@@ -27,6 +42,8 @@ define({
       'bulletin_sources_exact':'مصادر',
       'bulletin_created_exact':'تاريخ الإنشاء',
       'most_recent_status_bulletin_exact':'حالة',
+      'bulletin_searchable_locations_exact':'نشرة الموقع',
+      'bulletin_created_between': 'أنشئت المادة ما بين',
       //Incident fields
       'confidence_score_exact':'الموثوقية',
       'incident_times_exact':'تاريخ\\الساعة الملف',
@@ -35,6 +52,8 @@ define({
       'incident_crimes_exact':'أنواع الملفات',
       'incident_created_exact':'تاريخ الإنشاء',
       'most_recent_status_incident_exact':'حالة',
+      'incident_searchable_locations_exact':'الحادث الموقع',
+      'incident_created_between': 'أنشئ الملف ما بين',
       //Actor fields
       'age_exact':'سن',
       'sex_exact':'جنس ',
@@ -49,16 +68,22 @@ define({
       'ethnicity_ar_exact':'العرق (ع)',
       'spoken_dialect_en':'لهجة(en)',
       'spoken_dialect_ar':'لهجة(ع)',
-      'incident_searchable_locations_exact':'الحادث الموقع',
-      'bulletin_searchable_locations_exact':'نشرة الموقع',
       'actor_searchable_pob_exact':'مكان الميلاد',
-      'actor_searchable_current_exact':'الموقع الحالي'
+      'actor_searchable_current_exact':'الموقع الحالي',
+      'date_of_birth_between': 'Date of birth between'
     },
     'results': {
+      'num_actors': {
+        'single': '<%=num %> actor involved',
+        'plural': '<%=num %> actors involved',
+      },
       'aka': 'الملقب',
       'lives_in': 'يعيش في <placename>',
       'works_as_a': 'يعمل <jobname>',
-      'involved_in': 'involved in',
+      'involved_in':{
+        'single': 'involved in <%=num %> incident',
+        'plural': 'involved in <%=num %> incidents'
+      },
       'involved': 'متورط',
       'no_results': 'لا نتائج',
       'in': 'في'

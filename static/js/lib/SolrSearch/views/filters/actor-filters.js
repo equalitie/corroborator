@@ -63,7 +63,7 @@ define(
           el: '.date-range',
           entityType: 'actor',
           filterKey: 'dob_exact',
-          title: 'Date of birth between'
+          title: i18n.filters.date_of_birth_between
         });
       },
 

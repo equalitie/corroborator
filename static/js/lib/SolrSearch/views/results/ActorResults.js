@@ -71,6 +71,7 @@ define (
         this.$el.empty();
         var pos = this.index % 2 === 1 ? 'right': 'left';
         var html = actorTmp({
+          i18n: i18n,
           model: this.model.toJSON(),
           pos:pos
         });
