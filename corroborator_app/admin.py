@@ -2,7 +2,8 @@ from django.contrib import admin
 from corroborator_app.models import\
     Incident, CrimeCategory, Actor, Bulletin, TimeInfo, Location, Source,\
     StatusUpdate, ActorRole, Label, SourceType, Comment, Media,\
-    PredefinedSearch, ActorRelationship
+    PredefinedSearch, ActorRelationship, ActorStatus, EventType, RoleType, RelationType
+    
 import reversion
 
 #from locking.admin import LockableAdmin
@@ -96,7 +97,15 @@ class TimeInfoAdmin(admin.ModelAdmin):
 
 class ActorAdmin(reversion.VersionAdmin):
     pass
+class ActorStatusAdmin(reversion.VersionAdmin):
+    pass
 class ActorRoleAdmin(reversion.VersionAdmin):
+    pass
+class RelationTypeAdmin(reversion.VersionAdmin):
+    pass
+class RoleTypeAdmin(reversion.VersionAdmin):
+    pass
+class EventTypeAdmin(reversion.VersionAdmin):
     pass
 class StatusUpdateAdmin(reversion.VersionAdmin):
     pass
@@ -120,13 +129,19 @@ class CorrobAdminRev(reversion.VersionAdmin, CorrobAdmin):
     pass
 class CorrobAdminInRev(reversion.VersionAdmin, CorrobAdminIn):
     pass
+
+
 class TimeInfoAdminRev(reversion.VersionAdmin, TimeInfoAdmin):
     pass
 #class test(LockableAdmin, CorrobAdminInRev):
     #list_display = ('get_lock_for_admin',)
 
 admin.site.register(Actor, ActorAdmin)
+admin.site.register(ActorStatus, ActorStatusAdmin)
 admin.site.register(ActorRole, ActorRoleAdmin)
+admin.site.register(RelationType, RelationTypeAdmin)
+admin.site.register(RoleType, RoleTypeAdmin)
+admin.site.register(EventType, EventTypeAdmin)
 admin.site.register(Bulletin, CorrobAdminRev)
 admin.site.register(StatusUpdate, StatusUpdateAdmin)
 admin.site.register(TimeInfo, TimeInfoAdminRev)
@@ -138,5 +153,5 @@ admin.site.register(CrimeCategory, CrimeCategoryAdmin)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(PredefinedSearch, PredefinedSearchAdmin)
-#admin.site.register(Incident, CorrobAdminInRev)
+admin.site.register(Incident, CorrobAdminInRev)
 #admin.site.register(Incident, test)

@@ -31,8 +31,10 @@ from corroborator_app.tasks import update_object
 
 from corroborator_app.views.view_utils import can_assign_users, can_finalize
 
+import reversion
+
 from corroborator_app.models import (
-    Incident, Comment, StatusUpdate
+    Incident, Comment, StatusUpdate, VersionStatus
 )
 
 __all__ = ('IncidentResource', )
@@ -77,10 +79,18 @@ class IncidentResource(ModelResource, APIMixin):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
-        bundle = super(IncidentResource, self)\
-            .obj_delete(bundle, **kwargs)
+        user = User.objects.filter(username=username)[0]
 
-        self.create_revision(bundle, user, 'deleted')
+        with reversion.create_revision():
+            bundle = super(IncidentResource, self)\
+                .obj_delete(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                user=user,
+                status='deleted'
+            )
+            reversion.set_user(user)
+            reversion.set_comment('Deleted')
         update_object.delay(username)
         return bundle
 
@@ -97,8 +107,8 @@ class IncidentResource(ModelResource, APIMixin):
 
     def obj_update(self, bundle, **kwargs):
         username = bundle.request.GET['username']
-        user = User.objects.filter(username=username)[0]
 
+        user = User.objects.filter(username=username)[0]
         if self.is_finalized(
             Incident,
             kwargs['pk'],
@@ -118,13 +128,24 @@ class IncidentResource(ModelResource, APIMixin):
         )
         comment_uri = self.create_comment(
             bundle.data['comment'],
-            status_id,
+            status_update.id,
             user
         )
-        bundle.data['incident_comments'].append(comment_uri)
+        try:
+            bundle.data['incident_comments'].append(comment_uri)
+        except KeyError:
+            bundle.data['incident_comments'] = [comment_uri, ]
 
-        bundle = super(IncidentResource, self).obj_update(bundle, **kwargs)
-        self.create_revision(bundle, user, 'edited')
+        with reversion.create_revision():
+            bundle = super(IncidentResource, self)\
+                .obj_update(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                user=user,
+                status='edited'
+            )
+            reversion.set_user(user)
+            reversion.set_comment(bundle.data['comment'])
         update_object.delay(username)
         return bundle
 
@@ -145,8 +166,16 @@ class IncidentResource(ModelResource, APIMixin):
             comment_uri
         ]
 
-        bundle = super(IncidentResource, self).obj_create(bundle, **kwargs)
-        self.create_revision(bundle, user, 'created')
+        with reversion.create_revision():
+            bundle = super(IncidentResource, self)\
+                .obj_create(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                status='created',
+                user=user
+            )
+            reversion.set_user(user)
+            reversion.set_comment(bundle.data['comment'])
         update_object.delay(username)
         return bundle
 

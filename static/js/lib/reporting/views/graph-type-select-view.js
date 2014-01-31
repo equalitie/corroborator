@@ -27,7 +27,6 @@ define(
           return graphTypes[value.content.route];
         },
         GraphSelectorView,
-        UserGraphSelectorView,
         GraphSelectorManager;
 
     // Select the graph types that can be chosen from based
@@ -66,6 +65,7 @@ define(
       },
       initialize: function() {
         this.render();
+        this.cacheSelectBoxSelectors();
         this.requestGraph(this.collection.first());
       },
 
@@ -73,22 +73,27 @@ define(
         this.stopListening();
       },
 
+      cacheSelectBoxSelectors: function() {
+        this.$userSelectBox = this.$userSelectBox ||
+          this.$el.children().children('select.user-select');
+        this.$graphSelector = this.$graphSelector || 
+          this.$el.children().children('select#graph-type');
+      },
+
       // user selected
       userSelected: function(evt) {
-        var selectedUser = this.$el.children().children('select.user-select').val(),
-            selectedKey = this.$el.children().children('select#graph-type').val(),
-            model = this.collection.get(selectedKey);
-
-        model.set('user_id', selectedUser);
+        var model = this.collection.get(this.$graphSelector.val());
+        model.set('user_id', this.$userSelectBox.val());
         this.requestGraph(model);
       },
 
       // graph type selected
       graphSelected: function(evt) {
-        var selectedKey = this.$el.children().children('select#graph-type').val(),
+        var selectedKey = this.$graphSelector.val(),
             model = this.collection.get(selectedKey);
         if (model.get('user_required') === true) {
           this.showUsers();
+          this.userSelected();
         }
         else {
           this.hideUsers();
@@ -106,12 +111,12 @@ define(
 
       // hide user select 
       hideUsers: function() {
-        this.$el.children().children('.user-select').addClass('hidden');
+        this.$userSelectBox.addClass('hidden');
       },
 
       // show user select box for graphs that require a specific user
       showUsers: function() {
-        this.$el.children().children('.user-select').removeClass('hidden');
+        this.$userSelectBox.removeClass('hidden');
       },
 
       render: function() {
@@ -124,9 +129,6 @@ define(
         });
         this.$el.html(html);
       }
-    });
-
-    UserGraphSelectorView  = Backbone.View.extend({
     });
 
     return GraphSelectorManager;

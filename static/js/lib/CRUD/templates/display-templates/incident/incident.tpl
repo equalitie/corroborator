@@ -2,9 +2,11 @@
   <div class="Incident in-list">
     <div class="L1">
       <div class="meta">
-        <div class="score">
-          <span class="value">{{model.confidence_score}}</span>
-        </div>
+        {{#if model.confidence_score}}
+          <div class="score">
+            <span class="value">{{model.confidence_score}}</span>
+          </div>
+        {{/if}}
         {{#if model.most_recent_status_incident}}
         <span class="status">
           <span class="value">{{model.most_recent_status_incident}}</span>

@@ -124,6 +124,33 @@ class PermStatusUpdateManager(models.Manager):
         except KeyError:
             return False
 
+class ActorStatus(models.Model):
+    """
+    This object represents an actor. It records the
+    the current state of a given Actor entity.
+    """
+    status_en = models.CharField(max_length=255)
+    status_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.status_en
+
+class EventType(models.Model):
+    """
+    This object represents an event type. It records the
+    the type of event represented by a given detail entity.
+    """
+    name_en = models.CharField(max_length=255)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name_en
+
+
 
 class StatusUpdate(models.Model):
     """
@@ -177,25 +204,6 @@ class Comment(models.Model):
         #return desc
 
 
-class TimeInfo(models.Model):
-    """
-    This object captures the time aspect of an event for
-    either a Bulletin or Incident/
-    """
-    time_from = models.DateTimeField(blank=True, null=True)
-    time_to = models.DateTimeField(blank=True, null=True)
-    comments_en = models.TextField(blank=True, null=True)
-    comments_ar = models.TextField(blank=True, null=True)
-    event_name_en = models.CharField(
-        'event name en', max_length=255, blank=True, null=True)
-    event_name_ar = models.CharField(
-        'event name ar', max_length=255, blank=True, null=True)
-    confidence_score = models.IntegerField(null=True, blank=True, max_length=3)
-
-    def __unicode__(self):
-        return self.event_name_en
-
-
 class Location(models.Model):
     """
     This object represents a geographical location. It is possible for
@@ -232,6 +240,29 @@ class Location(models.Model):
         geo point.
         """
         return Point(self.longitude,  self.latitude)
+
+class TimeInfo(models.Model):
+    """
+    This object captures the time aspect of an event for
+    either a Bulletin or Incident/
+    """
+    time_from = models.DateTimeField(blank=True, null=True)
+    time_to = models.DateTimeField(blank=True, null=True)
+    comments_en = models.TextField(blank=True, null=True)
+    comments_ar = models.TextField(blank=True, null=True)
+    event_name_en = models.CharField(
+        'event name en', max_length=255, blank=True, null=True)
+    event_name_ar = models.CharField(
+        'event name ar', max_length=255, blank=True, null=True)
+    confidence_score = models.IntegerField(null=True, blank=True, max_length=3)
+    event_location = models.ForeignKey(
+        Location, blank=True, null=True)
+    event_type = models.ForeignKey(
+        EventType, blank=True, null=True)
+    def __unicode__(self):
+        return self.event_name_en
+
+
 
 
 class Label(models.Model):
@@ -445,6 +476,9 @@ class Actor(models.Model):
         ('Civilian', 'Civilian'),
         ('Non-civilian', 'Non-civilian'),
     )
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, default='')
+
     seq_order = models.IntegerField(blank=True, null=True)
     fullname_en = models.CharField(max_length=255)
     fullname_ar = models.CharField(max_length=255, blank=True)
@@ -501,6 +535,7 @@ class Actor(models.Model):
     actor_comments = models.ManyToManyField(Comment, blank=True, null=True)
 
     # Foreign Keys
+    actor_status = models.ForeignKey(ActorStatus, blank=True, null=True)
     assigned_user = models.ForeignKey(User, blank=True, null=True)
     actors_role = models.ManyToManyField(
         'ActorRole', blank=True, null=True, related_name='actors_role')
@@ -516,6 +551,9 @@ class Actor(models.Model):
     media = models.ForeignKey(Media, blank=True, null=True)
     actor_created = models.DateTimeField(auto_now_add=True)
     actor_modified = models.DateTimeField(auto_now=True)
+
+    labels = models.ManyToManyField(Label, blank=True, null=True)
+    sources = models.ManyToManyField(Source, blank=True, null=True)
 
     def __unicode__(self):
         return self.fullname_en
@@ -582,6 +620,23 @@ class ActorRelationship(models.Model):
     def __unicode__(self):
         return self.actor.fullname_en + ': ' + self.relation_status
 
+class RoleType(models.Model):
+    """
+    This object stores RoleTypes
+    """
+    name_en = models.CharField(max_length=255, blank=True, null=True)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.CharField(max_length=255, blank=True, null=True)
+    description_ar = models.CharField(max_length=255, blank=True, null=True)
+
+class RelationType(models.Model):
+    """
+    This object stores RelationTypes
+    """
+    name_en = models.CharField(max_length=255, blank=True, null=True)
+    name_ar = models.CharField(max_length=255, blank=True, null=True)
+    description_en = models.CharField(max_length=255, blank=True, null=True)
+    description_ar = models.CharField(max_length=255, blank=True, null=True)
 
 class ActorRole(models.Model):
     """
@@ -630,6 +685,8 @@ class ActorRole(models.Model):
         blank=True,
         null=True
     )
+    role = models.ForeignKey(RoleType, blank=True, null=True)
+    relation = models.ForeignKey(RelationType, blank=True, null=True)
     comments_en = models.TextField(blank=True, null=True)
     comments_ar = models.TextField(blank=True, null=True)
     actor = models.ForeignKey(Actor, blank=True, null=True)

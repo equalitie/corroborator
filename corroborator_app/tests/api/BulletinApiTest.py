@@ -4,7 +4,7 @@ from tastypie.test import ResourceTestCase
 from autofixture import AutoFixture
 from corroborator_app.models import Bulletin, Media, Location, \
     Actor, ActorRole, Comment, TimeInfo, StatusUpdate, Label, \
-    Source, SourceType
+    Source, VersionStatus, SourceType
 import json
 from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 #from django.utils.timezone import utc
@@ -118,6 +118,8 @@ class BulletinTestCase(ResourceTestCase):
         new_bulletin = Bulletin(id=new_bulletin_dict['id'])
         bulletin_comments = new_bulletin.bulletin_comments.all()
         self.assertEqual(len(bulletin_comments), 1)
+        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        self.assertEqual(len(vs), 1)
 
     def test_bulletin_put(self):
         b = Bulletin.objects.all()[0]
@@ -130,6 +132,9 @@ class BulletinTestCase(ResourceTestCase):
         self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
         self.assertEqual(retrieve_last_comment_status(response), 'Updated')
+        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        self.assertEqual(len(vs), 1)
+
 
     def test_senior_data_analyst_put(self):
         self.test_user_util.add_user_to_group('senior-data-analyst')

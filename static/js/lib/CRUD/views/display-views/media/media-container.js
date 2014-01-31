@@ -37,8 +37,7 @@ define (
       },
       events: {
         'click .media-image-thumbnail'   : 'previewImage',
-        'click .media-video-thumbnail'   : 'previewMedia',
-        'click .media-document-thumbnail': 'previewFile'
+        'click .media-video-thumbnail'   : 'previewMedia'
       },
       previewMedia: function() {
         this.model.trigger('previewMedia', this.model);
@@ -48,14 +47,6 @@ define (
           image: true,
           uri: this.model.get('media_file'),
           alt: this.model.get('name_en')
-        });
-        this.openDialog($(dialogHtml));
-      },
-      previewFile: function() {
-        console.log(this.model.toJSON());
-        var dialogHtml = mediaViewerTmp({
-          file: true,
-          model: this.model.toJSON()
         });
         this.openDialog($(dialogHtml));
       },

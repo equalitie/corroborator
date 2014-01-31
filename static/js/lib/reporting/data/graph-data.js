@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, parseInt*/
 // Author: Cormac McGuire
 // ### Listen for user graph events send requests to django to generate the user graphs
 // 
@@ -7,51 +7,99 @@ define(
   [
     'jquery', 'underscore', 'moment',
     'lib/streams',
+    'lib/Data/LocationCollection',
     'lib/reporting/data/graph-types'
   ],
-  function($, _, moment, Streams, GraphTypes) {
+  function($, _, moment, Streams, LocationCollection, GraphTypes) {
     'use strict';
     var userGraphs = GraphTypes.userGraphs,
+        allGraphs = GraphTypes.allGraphs,
+        locationCollection = new LocationCollection.LocationCollection(),
         selectGraphTypeFromKey = GraphTypes.selectGraphTypeFromKey,
         graphFilter = function(value) {
           return value.type === 'parse_graph_data';
         },
 
-        pieBarMapping = function(rawSolrData) {
-          return {
-            values: (function() {
-              return _(rawSolrData).reduce(function(prevVal, item, key){
-                return prevVal.concat({
-                  label: key,
-                  value: item
-                });
-              }, []);
-            }())
-          };
+        locationMapper = function(key, locationUri) {
+          return locationCollection.chain().filter(function(locModel) {
+            return locModel.get('resource_uri') === locationUri;
+          }).first().value().get('name_en');
+        },
+
+        timeSeriesMapper = function(key) {
+          return allGraphs.findWhere({key: key}).get('label');
+        },
+
+        mapKeyToLabel = function(key, label) {
+          var graphModel = allGraphs.findWhere({key: key}),
+              labelFunctionMap = {
+                actor_searchable_current_exact: locationMapper,
+                bulletin_searchable_locations_exact: locationMapper,
+                incident_searchable_locations_exact: locationMapper,
+                bulletin_created_date: timeSeriesMapper,
+                actor_created: timeSeriesMapper,
+                incident_created_date: timeSeriesMapper
+              };
+
+          if ( _(labelFunctionMap).chain().keys().contains(key).value() ) {
+            graphModel.set('label', labelFunctionMap[key](key, label));
+          }
+          else {
+            graphModel.set('label', label);
+          }
+          return graphModel;
+        },
+
+
+        pieBarMapping = function(rawSolrData, key) {
+          var graphModel = allGraphs.findWhere({key: key}),
+              parsedData = {
+                values: (function() {
+                  return _(rawSolrData).reduce(function(prevVal, item, label){
+                    graphModel = mapKeyToLabel(key, label);
+                    return prevVal.concat({
+                      label: graphModel.get('label'),
+                      yAxisLabel: graphModel.get('yAxisLabel'),
+                      value: item
+                    });
+                    // could be made only execute for numerical labels
+                  }, []).sort(function(a, b) {
+                    return parseInt(a.label, 10) - parseInt(b.label, 10);
+                  });
+                }())
+              };
+              parsedData.title = graphModel.get('title');
+              return parsedData;
         },
 
         // return an object with format like:
         // lib/reporting/test/test-data: trendData
         // this is kind of gross and only maps for one trend line
-        trendMapping = function(rawSolrData) { 
+        trendMapping = function(rawSolrData, key) { 
           if (_(rawSolrData).isObject()) {
             rawSolrData = [rawSolrData];
           }
-          var returnObject = {},
+          var graphModel = mapKeyToLabel(key),
               singleEntityValues = function(valueList) {
                  return {
-                   key: 'key',
-                   values: _(valueList).reduce(function(values, item, key) {
-                     key = parseInt(moment(key).unix(), 10) * 1000;
+                   key: graphModel.get('label'),
+                   values: _(valueList).reduce(function(values, item, label) {
+                     label = parseInt(moment(label).unix(), 10) * 1000;
                      return values.concat(
-                       [{x:key, y:item}]
+                       [{x:label, y:item}]
                      );
-                   }, [])
+                   }, []).sort(function(a, b) {
+                     return a.x - b.x;
+                   })
                  };
               };
            
-          returnObject.values = rawSolrData.map(singleEntityValues);
-          return returnObject;
+          return {
+            title: graphModel.get('title'),
+            values: rawSolrData.map(singleEntityValues),
+            yAxisLabel: graphModel.get('yAxisLabel'),
+            xAxisLabel: graphModel.get('xAxisLabel')
+          };
           
         },
 
@@ -64,7 +112,7 @@ define(
 
         mapToParsedJsonData = function(value) {
           var type = selectGraphTypeFromKey(value.key),
-              parsedData = graphTypeMap[type](value.content);
+              parsedData = graphTypeMap[type](value.content, value.key);
           parsedData.key = value.key;
           return parsedData;
         },

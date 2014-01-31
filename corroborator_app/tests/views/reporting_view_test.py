@@ -26,7 +26,7 @@ class ReportingTestCase(TestCase):
     '''
     Test the reporting view and it's supporting json ajax views
     '''
-    fixtures = ['status_update',]
+    fixtures = ['status_update', ]
 
     def setUp(self):
         self.test_util = TestUserUtility()
@@ -125,7 +125,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': values[1],
+                    'value': 360,
                     'label': 'user'
                 }
             ],
@@ -147,7 +147,15 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'values': values[0],
+                    'values': [
+                        {
+                            "y": 180, 
+                            "x": 1370041200000.0
+                        },
+                        {
+                            "y": 180, 
+                            "x": 1370127600000.0
+                        }],
                     'label': 'user'
                 }
             ],
@@ -157,7 +165,6 @@ class ReportingTestCase(TestCase):
         json_response = json.loads(ura.total_user_login_per_day(user.id))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
-        
 
     def test_user_average_update(self):
         '''
@@ -170,7 +177,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': value,
+                    'value': 0.5,
                     'label': 'user'
                 }
             ],
@@ -180,7 +187,7 @@ class ReportingTestCase(TestCase):
         json_response = json.loads(ura.user_average_updates_per_hour())
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
- 
+
     def test_user_assigned_items_by_status(self):
         '''
         Test correct return of user assigned
@@ -194,7 +201,7 @@ class ReportingTestCase(TestCase):
             assigned_user_id=user.id,
             comments_en='comment',
             status_id=5
-        )   
+        )
         comment.save()
         precreated_bulletin.assigned_user = user
         precreated_bulletin.bulletin_comments.add(comment)
@@ -209,14 +216,15 @@ class ReportingTestCase(TestCase):
         precreated_actor.save()
         precreated_incident.save()
 
-        status_label = StatusUpdate.objects.filter(pk=5).values('status_en')[0]['status_en']
+        status_label = StatusUpdate.objects.filter(pk=5)\
+            .values('status_en')[0]['status_en']
 
         ura = UserReportingApi()
         expected_response = json.dumps({
             'values': [
                 {
                     'value': 3,
-                    'label': status_label
+                    'label': 'Finalized'
                 }
             ],
             'title': 'User assigned items by status'
@@ -237,7 +245,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total_updates['deleted'],
+                    'value': 3,
                     'label': 'user'
                 }
             ],
@@ -246,7 +254,7 @@ class ReportingTestCase(TestCase):
         json_response = json.loads(ura.total_user_items_by_crud('deleted'))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
- 
+
     def test_user_created_items(self):
         '''
         Test correct return of user created items
@@ -258,7 +266,7 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total_updates['created'],
+                    'value': 3,
                     'label': 'user'
                 }
             ],
@@ -267,7 +275,7 @@ class ReportingTestCase(TestCase):
         json_response = json.loads(ura.total_user_items_by_crud('created'))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
- 
+
     def test_user_edited_items(self):
         '''
         Test correct return of user edited items
@@ -279,16 +287,16 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'value': total_updates['edited'],
+                    'value': 3,
                     'label': 'user'
                 }
-           ],
+            ],
             'title': 'Total edited items by User'
         })
         json_response = json.loads(ura.total_user_items_by_crud('edited'))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
- 
+
     def test_user_deleted_edited_created(self):
         '''
         Test correct return of CRUD data as json
@@ -299,16 +307,25 @@ class ReportingTestCase(TestCase):
         expected_response = json.dumps({
             'values': [
                 {
-                    'values': items['deleted'],
-                    'label': 'Deleted items by date'
+                    'values': [{
+                            "y": 3, 
+                            "x": 1390867200000.0
+                    }],
+                    'key': 'Deleted items by date'
                 },
                 {
-                    'values': items['created'],
-                    'label': 'Created items by date'
+                    'values': [{
+                            "y": 3, 
+                            "x": 1390867200000.0
+                    }],
+                    'key': 'Created items by date'
                 },
                 {
-                    'values': items['edited'],
-                    'label': 'Edited items by date'
+                    'values': [{
+                            "y": 3, 
+                            "x": 1390867200000.0
+                    }],
+                    'key': 'Edited items by date'
                 }
             ],
             'title': 'Deleted, created and edited items by date'
@@ -316,4 +333,3 @@ class ReportingTestCase(TestCase):
         json_response = json.loads(ura.crud_per_day(user.id))
         expected_response = json.loads(expected_response)
         self.assertEqual(expected_response, json_response)
- 

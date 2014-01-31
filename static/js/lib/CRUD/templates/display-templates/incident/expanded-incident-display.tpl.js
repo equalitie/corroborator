@@ -99,7 +99,9 @@ function program20(depth0,data) {
 function program22(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n            <span class=\"value\">";
+  buffer += "\n            <span class=\"value\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Assigned_to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ": ";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.fetchUser || depth0.fetchUser),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user), options) : helperMissing.call(depth0, "fetchUser", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user), options)))
     + "</span>\n            ";
@@ -110,6 +112,8 @@ function program24(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n            <span class=\"value\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Assigned_to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + ": "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.unassigned)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n            ";
   return buffer;
@@ -125,7 +129,7 @@ function program28(depth0,data) {
   
   var buffer = "", stack1, stack2;
   buffer += "\n      <div class=\"is-locations group\">\n        <h4>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.locations)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Locations)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h4>\n        <div class=\"locations\">\n          ";
   stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations), {hash:{},inverse:self.noop,fn:self.program(29, program29, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
@@ -146,8 +150,8 @@ function program31(depth0,data) {
   
   var buffer = "", stack1, stack2;
   buffer += "\n      <div class=\"is-tags group\">\n        <h4>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.labels)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h4>\n        <ul class=\"tags\">\n          ";
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Labels)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n        <ul class=\"tags group display\">\n          ";
   stack2 = helpers.each.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_labels), {hash:{},inverse:self.noop,fn:self.program(32, program32, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        </ul>\n      </div>\n      ";

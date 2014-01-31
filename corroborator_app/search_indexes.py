@@ -24,6 +24,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     """
     text = indexes.CharField(document=True, use_template=True)
     dob = indexes.DateField(model_attr='DOB', null=True, faceted=True)
+    description_en = indexes.CharField(model_attr='description_en', null=True)
+    description_ar = indexes.CharField(model_attr='description_ar', null=True)
     fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
     fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
     nickname_en = indexes.CharField(model_attr='nickname_en', null=True)
@@ -72,6 +74,12 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     most_recent_status_actor = indexes.CharField(faceted=True)
     actor_modified_date = indexes.DateField(faceted=True)
     actor_created_date = indexes.DateField(faceted=True)
+    actor_assigned_user = indexes.CharField(
+        default="unassigned",
+        model_attr='assigned_user',
+        faceted=True,
+        null=True
+    )
 
     media = indexes.CharField()
     resource_uri = indexes.CharField()
@@ -91,6 +99,8 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
     related_incidents = indexes.MultiValueField()
 
     actor_comments = indexes.MultiValueField()
+    actor_entity_role = indexes.MultiValueField(faceted=True)
+    actor_entity_relation = indexes.MultiValueField(faceted=True)
 
     def get_model(self):
         return Actor
@@ -99,7 +109,10 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of actor created datetime field
         """
-        return object.actor_created.date()
+        if object.actor_created is not None:
+            return object.actor_created.date()
+        else:
+            return ''
 
     def prepare_actor_modified_date(self, object):
         """
@@ -138,12 +151,28 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable):
         """
         return ActorPrepMeta().prepare_actor_actor_roles(object)
 
+    def prepare_actor_entity_role(self, object):
+        """
+        Returns a list of all roles and relationships associated with this
+        Actor instance
+        """
+        return ActorPrepMeta().prepare_actor_entity_role(object)
+
+    def prepare_actor_entity_relation(self, object):
+        """
+        Returns a list of all roles and relationships associated with this
+        Actor instance
+        """
+        return ActorPrepMeta().prepare_actor_entity_relation(object)
+
     def prepare_roles(self, object):
         """
         Returns a list of all roles and relationships associated with this
         Actor instance
         """
         return ActorPrepMeta().prepare_roles(object)
+
+
 
     def prepare_actors(self, object):
         """
@@ -325,11 +354,16 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
     incident_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
 
+    incident_confidence_bucket = indexes.CharField(faceted=True, null=True)
+
     def get_model(self):
         return Incident
 
     def get_updated_field(self):
         return "incident_modified"
+
+    def prepare_incident_confidence_bucket(self, object):
+        return IncidentPrepMeta().prepare_incident_confidence_bucket(object)
 
     def prepare_assigned_user(self, object):
         return IncidentPrepMeta().prepare_assigned_user(object)
@@ -338,7 +372,10 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of incident created datetime field
         """
-        return object.incident_created.date()
+        if object.incident_created is not None:
+            return object.incident_created.date()
+        else:
+            return ''
 
     def prepare_incident_modified_date(self, object):
         """
@@ -478,6 +515,7 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     """
     This document handles the construction of the Bulletin Solr document.
     """
+    bulletin_type = indexes.CharField(faceted=True, model_attr='type', null=True)
     text = indexes.CharField(document=True, use_template=True)
     description_en = indexes.CharField(model_attr='description_en', null=True)
     description_ar = indexes.CharField(model_attr='description_ar', null=True)
@@ -523,9 +561,13 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
     bulletin_imported_comments = indexes.MultiValueField()
     times = indexes.MultiValueField()
     sources_count = indexes.IntegerField(faceted=True)
+    bulletin_confidence_bucket = indexes.CharField(faceted=True, null=True)
 
     def get_model(self):
         return Bulletin
+
+    def prepare_bulletin_confidence_bucket(self, object):
+        return BulletinPrepMeta().prepare_bulletin_confidence_bucket(object)
 
     def prepare_sources_count(self, object):
         """
@@ -543,7 +585,10 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable):
         """
         return date portion of bulletin created datetime field
         """
-        return object.bulletin_created.date()
+        if object.bulletin_created is not None:
+            return object.bulletin_created.date()
+        else:
+            return ''
 
     def prepare_bulletin_modified_date(self, object):
         """

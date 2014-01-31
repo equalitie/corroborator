@@ -5,6 +5,7 @@ Helper functions to generate UserLog Data for tests
 """
 
 from datetime import datetime
+import time
 from corroborator_app.models import (
 UserLog, VersionStatus, Actor, Comment, Bulletin,
 Incident)
@@ -20,12 +21,13 @@ def generate_start_end_times(user):
     start_time = datetime.strptime(
         'Jun 1 2013  1:33PM', '%b %d %Y %I:%M%p')
     end_time = datetime.strptime(
-        'Jun 1 2013  4:34PM', '%b %d %Y %I:%M%p')
-    total = (end_time - start_time).total_seconds()
-    date_time_set.append([
-        end_time.strftime('%Y-%m-%d'),
-        total
-    ])
+        'Jun 1 2013  4:33PM', '%b %d %Y %I:%M%p')
+    total = int((end_time - start_time).total_seconds()/60)
+    timestamp = time.mktime(end_time.date().timetuple())*1e3
+    date_time_set.append({
+        'x': timestamp,
+        'y': total
+    })
 
     create_log_entry_for_user(user, start_time, end_time)
     start_time = datetime.strptime(
@@ -33,12 +35,13 @@ def generate_start_end_times(user):
     end_time = datetime.strptime(
         'Jun 2 2013  4:33PM', '%b %d %Y %I:%M%p')
     create_log_entry_for_user(user, start_time, end_time)
-    total2 = (end_time - start_time).total_seconds()
+    total2 = int((end_time - start_time).total_seconds()/60)
     total += total2 
-    date_time_set.append([
-        end_time.strftime('%Y-%m-%d'),
-        total2
-    ])
+    timestamp = time.mktime(end_time.date().timetuple())*1e3
+    date_time_set.append({
+        'x': timestamp,
+        'y': total2
+    })
         
     return [date_time_set,total]
 
@@ -130,15 +133,17 @@ def crud_items(crud_type, user):
 
     time_data = []
 
-    for key, values in groupby(items, key=lambda item: item['version_timestamp'].date()):
-        timestamp = key.strftime('%Y-%m-%d')
+    for key, values in groupby(items, key=lambda item: item['version_timestamp']):
+        timestamp = time.mktime(
+            key.date().timetuple()
+        )*1e3
         val = 0
         for value in values:
             val += 1
-        time_data.append([
-            timestamp,
-            val
-        ])
+        time_data.append({
+            'x': timestamp,
+            'y': val
+        })
 
     return time_data
 

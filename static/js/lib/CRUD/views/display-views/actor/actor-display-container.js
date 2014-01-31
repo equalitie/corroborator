@@ -120,8 +120,8 @@ define (
       renderRelatedBulletins: function() {
         var bulletinsEl, content, bulletinsContainer;
         bulletinsEl = this.getContainerEl('bulletins');
-
         content = this.model.get('related_bulletins');
+        console.log(content);
         bulletinsContainer = new BulletinListView({
           el: bulletinsEl,
           content: content,

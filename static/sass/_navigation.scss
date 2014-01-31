@@ -158,5 +158,8 @@ nav#search-navigation {
   li.current.is-bulletins {
     border-bottom: 4px solid $SELECTED_BULLETIN_BORDER;
   }
+  li.current.is-users {
+    border-bottom: 4px solid $SELECTED_USER_BORDER;
+  }
 }
 

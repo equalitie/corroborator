@@ -5,14 +5,14 @@
 
 define(
   [
-    'backbone', 
+    'underscore', 'backbone', 
     'lib/streams',
     'lib/reporting/data/graph-types',
     'lib/reporting/views/pie-view',
     'lib/reporting/views/bar-view',
     'lib/reporting/views/trend-view'
   ],
-  function(Backbone, Streams, GraphTypes, PieChartView, BarGraphView, TrendGraphView) {
+  function(_, Backbone, Streams, GraphTypes, PieChartView, BarGraphView, TrendGraphView) {
   'use strict';
   var GraphViewManager,
       GraphView,
@@ -43,6 +43,9 @@ define(
 
   GraphViewManager = Backbone.View.extend({
     el: '#reporting-content .col.first',
+    graphTpl: function() {
+      return _.template('<div class="graphs"><h2><%=title %></h2></div>');
+    },
     initialize: function(options) {
       this.listenForGraphRequests();
     },
@@ -55,13 +58,14 @@ define(
         this.chart.destroy();
       }
       this.$el.children('.graphs').remove();
-      this.$el.append('<div class="graphs"><svg></svg></div>');
+
+      this.$el.append(this.graphTpl()({title: value.content.title}));
+      this.$el.children('.graphs').append('<svg></svg>');
       var ChartType = selectGraphType(value.content.key);
 
       this.chart = new ChartType({
         data: value.content
       });
-      this.$el.append(this.chart.$el);
     }
 
   });

@@ -14,10 +14,13 @@ from tastypie import fields
 from tastypie.exceptions import ImmediateHttpResponse
 from tastypie.http import HttpForbidden
 
+import reversion
+
 from corroborator_app.models import (
     ActorRelationship,
     Actor,
     ActorRole,
+    VersionStatus,
     StatusUpdate
 )
 from corroborator_app.api.UserApi import UserResource
@@ -68,9 +71,18 @@ class ActorResource(ModelResource, APIMixin):
 
     def obj_delete(self, bundle, **kwargs):
         username = bundle.request.GET['username']
-        bundle = super(ActorResource, self).obj_delete(bundle, **kwargs)
-        # create revision using reversion plugin
-        self.create_revision(bundle, user, 'deleted')
+        user = User.objects.filter(username=username)[0]
+
+        with reversion.create_revision():
+            bundle = super(ActorResource, self)\
+                .obj_delete(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                status='deleted',
+                user=user
+            )
+            reversion.set_user(user)
+            reversion.set_comment('Deleted')
         update_object.delay(username)
         return bundle
 
@@ -100,10 +112,21 @@ class ActorResource(ModelResource, APIMixin):
             status_update.id,
             user
         )
-        bundle.data['actor_comments'].append(comment_uri)
-        bundle = super(ActorResource, self).obj_update(bundle, **kwargs)
-        # create revision using reversion plugin
-        self.create_revision(bundle, user, 'edited')
+        try:
+            bundle.data['actor_comments'].append(comment_uri)
+        except KeyError:
+            bundle.data['actor_comments'] = [comment_uri, ]
+
+        with reversion.create_revision():
+            bundle = super(ActorResource, self)\
+                .obj_update(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                status='edited',
+                user=user
+            )
+            reversion.set_user(user)
+            reversion.set_comment(bundle.data['comment'])
         update_object.delay(username)
         return bundle
 
@@ -127,10 +150,16 @@ class ActorResource(ModelResource, APIMixin):
         bundle.data['actor_comments'] = [
             comment_uri
         ]
-        bundle = super(ActorResource, self).obj_create(bundle, **kwargs)
-        # create revision using reversion plugin - method in ApiMixin
-        self.create_revision(bundle, user, 'created')
-
+        with reversion.create_revision():
+            bundle = super(ActorResource, self)\
+                .obj_create(bundle, **kwargs)
+            reversion.add_meta(
+                VersionStatus,
+                status='created',
+                user=user
+            )
+            reversion.set_user(user)
+            reversion.set_comment(bundle.data['comment'])
         update_object.delay(username)
         return bundle
 

@@ -64,10 +64,13 @@ class MediaResource(MultipartResource, ModelResource):
         '''
         formatting for media_files
         '''
-        bundle.data['media_file'] = \
-            settings.S3_PROXY_URL + '' + bundle.obj.media_file.name
-        bundle.data['media_thumb_file'] = \
-            settings.S3_PROXY_URL + '' + bundle.obj.media_thumb_file.name
+        try:
+            bundle.data['media_file'] = \
+                settings.S3_PROXY_URL + '' + bundle.obj.media_file.name
+            bundle.data['media_thumb_file'] = \
+                settings.S3_PROXY_URL + '' + bundle.obj.media_thumb_file.name
+        except:
+            pass
         return bundle
 
     def obj_create(self, bundle, **kwargs):
@@ -89,6 +92,9 @@ class MediaResource(MultipartResource, ModelResource):
             media_thumb_file = Thumbnailer()\
                 .construct_thumb_from_image(media_file)
             bundle.data['media_thumb_file'] = media_thumb_file
+
+        if 'pdf' in bundle.data['media_file'].content_type:
+            bundle.data['media_type'] = 'Pdf'
 
         parts = media_file.name.split('.')
         media_file_type = parts[len(parts)-1]

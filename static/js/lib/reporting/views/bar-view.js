@@ -5,9 +5,9 @@
 
 define(
   [
-    'backbone', 'd3', 'nv'
+    'underscore', 'backbone', 'd3', 'nv'
   ],
-  function(Backbone, d3, nv) {
+  function(_, Backbone, d3, nv) {
   'use strict';
     return Backbone.View.extend({
       el: '.graphs svg',
@@ -15,12 +15,25 @@ define(
         this.data = options.data;
         this.render();
       },
+      shortenLabel: function(labelString) {
+        return labelString.length < 30 ?
+          labelString :
+          labelString.slice(0, 30) + '…';
+      },
       createChart: function() {
         this.chart = nv.models.discreteBarChart()
-            .x(function(d) { return d.label; })
+            .x(function(d) { return this.shortenLabel(d.label); }.bind(this))
             .y(function(d) { return d.value; })
             .staggerLabels(true)
-            .showValues(true);
+            .margin({top: 10, right: 50, bottom: 100, left: 90})
+            .tooltips(true);
+
+        this.chart.yAxis
+            .axisLabel(this.data.yAxisLabel)
+            .tickFormat(d3.format(',.0f'));
+
+        this.chart.xAxis
+            .axisLabel(this.data.xAxisLabel);
         return this;
       },
       bindChartToEl: function() {
