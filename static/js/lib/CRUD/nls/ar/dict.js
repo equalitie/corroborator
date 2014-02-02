@@ -2,8 +2,8 @@
 define({
   'actor': {
     'aka': 'الملقب',
-    'works_as_a_en': 'يعمل ك<%=word %> (EN)',
-    'works_as_a_ar': 'يعمل ك<%=word %> (ع)',
+    'works_as_a_en': 'يعمل ك (EN)',
+    'works_as_a_ar': 'يعمل ك (ع)',
     'involved': 'متورط',
     'position_en':'موقف (EN)',
     'position_ar':'موقف (ع)',

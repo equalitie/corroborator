@@ -78,8 +78,10 @@ define({
         'plural': '<%=num %> actors involved',
       },
       'aka': 'الملقب',
-      'lives_in': 'يعيش في <placename>',
-      'works_as_a': 'يعمل <jobname>',
+      'lives_in': 'يعيش في',
+      //'lives_in': 'يعيش في <placename>',
+      'works_as_a': 'يعمل',
+      //'works_as_a': 'يعمل <jobname>',
       'involved_in':{
         'single': 'involved in <%=num %> incident',
         'plural': 'involved in <%=num %> incidents'
