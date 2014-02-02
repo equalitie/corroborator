@@ -12,6 +12,7 @@ define (
     'lib/CRUD/views/display-views/incident/incident-container',
     'lib/CRUD/views/display-views/media/media-container',
     'lib/CRUD/views/display-views/comment/comment-container',
+    'lib/CRUD/views/display-views/event/event-container',
     'lib/CRUD/views/map-view',
     'lib/CRUD/views/search-views/revision/revision-view',
 
@@ -21,7 +22,7 @@ define (
   ],
   function (Backbone, _, Collections, Streams, 
     ActorListView, BulletinListView, IncidentListView, MediaListView,
-    CommentListView, CoordinateDisplayView, RevisionView,
+    CommentListView, EventListView, CoordinateDisplayView, RevisionView,
     bulletinDisplayTmp, expandedBulletinDisplayTmp, i18n) {
     'use strict';
 
@@ -74,6 +75,7 @@ define (
       // render expanded view
       displayExpandedView: function() {
         this.displayView()
+            .renderRelatedEvents()
             .renderRelatedMedia()
             .renderRevisions();
       },
@@ -139,6 +141,20 @@ define (
         });
         _.each(actorsContainer.childViews, function(childView) {
           childView.selectInitialLanguage();
+        });
+        return this;
+      },
+
+      // render the comments
+      renderRelatedEvents: function() {
+        var eventsEl, content, eventsContainer;
+        eventsEl = this.getContainerEl('events');
+
+        content = this.model.get('times');
+        console.log(content, eventsEl);
+        eventsContainer = new EventListView({
+          el: eventsEl,
+          content: content
         });
         return this;
       },

@@ -26,16 +26,16 @@
         </ul>
       </div>
       {{/if}}
-      {{#if model.description_en}}
+      {{#if model.incident_details_en}}
       <div class="is-description group">
-        <h4>{{i18n.incidents.description}}</h4>
-        <div class="description">{{model.description_en}}</div>
+        <h4>{{i18n.incident.Description}}</h4>
+        <div class="description">{{model.incident_details_en}}</div>
       </div>
       {{/if}}
-      {{#if model.description_ar}}
+      {{#if model.incident_details_ar}}
       <div class="is-description group">
-        <h4>{{i18n.incidents.description}}</h4>
-        <div class="description">{{model.description_ar}}</div>
+        <h4>{{i18n.incident.Description}}</h4>
+        <div class="description">{{model.incident_details_ar}}</div>
       </div>
       {{/if}}
       {{#if model.incident_comments}}
@@ -60,21 +60,21 @@
     <div class="body">
       <div class="group">
         <div class="is-score group">
-          <h4>{{i18n.incidents.confidence}}</h4>
+          <h4>{{i18n.incident.confidence}}</h4>
           <div class="score">
             <span class="value">{{model.confidence_score}}</span>
           </div>
         </div>
-        {{#if most_recent_status_incident.[0]}}
+        {{#if model.most_recent_status_incident}}
         <div class="is-status group">
-          <h4>Update status</h4>
+          <h4>{{i18n.bulletins.update_status}}</h4>
           <div class="status">
-            <span class="value">{{fetchStatus most_recent_status_incident.[0]}}</span>
+            <span class="value status">{{fetchStatus model.most_recent_status_incident}}</span>
           </div>
         </div>
         {{/if}}
         <div class="is-assigned-to group">
-          <h4>{{i18n.incidents.assigned_to}}</h4>
+          <h4>{{i18n.incident.assigned_to}}</h4>
           <div class="assigned-to">
             {{#if model.assigned_user}}
             <span class="value">{{i18n.incident.Assigned_to}}: {{fetchUser model.assigned_user}}</span>

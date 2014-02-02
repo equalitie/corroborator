@@ -316,7 +316,8 @@ define (
       // this view
       removeEvent: function(evt) {
         evt.preventDefault();
-        //this.model.destroy();
+        this.collection.remove(this.model);
+        this.model.destroy();
         this.destroy();
       },
 

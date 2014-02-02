@@ -19,7 +19,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
     + "-field bulletin_event-description\"\n          value=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\">\n      </div>\n      <span class=\"toggle\">\n        <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n      </span>\n    </div>\n\n\n  </div>\n  <div class=\"clearer\">&nbsp;</div>\n  <div class=\"span-70p\">\n\n  <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n      <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.event)),stack1 == null || stack1 === false ? stack1 : stack1.Comment)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</label>\n        <textarea \n          id=\"comments_en\"\n          name=\"comments_en\"\n          class=\"";

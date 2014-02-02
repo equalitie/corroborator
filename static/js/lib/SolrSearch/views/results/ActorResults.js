@@ -165,14 +165,18 @@ define (
         this.childViews.push(resultView);
       },
       setLanguage: function() {
-        _.each(this.childViews, function(actorView) {
-          actorView.selectInitialLanguage();
-        });
+        try {
+          _.each(this.childViews, function(actorView) {
+            actorView.selectInitialLanguage();
+          });
+        }
+        catch (e) {
+        }
       },
 
       renderEmpty: function() {
         var emptyView = new Backbone.View({
-          className: 'empty-results'
+          className: 'empty-results',
         });
         emptyView.$el.html(emptyResultsTmp({
           i18n: i18n

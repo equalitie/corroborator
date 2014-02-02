@@ -47,9 +47,9 @@ function program8(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n      <div class=\"is-description group\">\n        <h4>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h4>\n        <div class=\"description\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_details_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n      </div>\n      ";
   return buffer;
   }
@@ -58,9 +58,9 @@ function program10(depth0,data) {
   
   var buffer = "", stack1;
   buffer += "\n      <div class=\"is-description group\">\n        <h4>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.Description)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h4>\n        <div class=\"description\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_details_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n      </div>\n      ";
   return buffer;
   }
@@ -92,9 +92,11 @@ function program18(depth0,data) {
 function program20(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n        <div class=\"is-status group\">\n          <h4>Update status</h4>\n          <div class=\"status\">\n            <span class=\"value\">";
+  buffer += "\n        <div class=\"is-status group\">\n          <h4>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletins)),stack1 == null || stack1 === false ? stack1 : stack1.update_status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n          <div class=\"status\">\n            <span class=\"value status\">";
   options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.fetchStatus || depth0.fetchStatus),stack1 ? stack1.call(depth0, ((stack1 = depth0.most_recent_status_incident),stack1 == null || stack1 === false ? stack1 : stack1[0]), options) : helperMissing.call(depth0, "fetchStatus", ((stack1 = depth0.most_recent_status_incident),stack1 == null || stack1 === false ? stack1 : stack1[0]), options)))
+  buffer += escapeExpression(((stack1 = helpers.fetchStatus || depth0.fetchStatus),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_incident), options) : helperMissing.call(depth0, "fetchStatus", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_incident), options)))
     + "</span>\n          </div>\n        </div>\n        ";
   return buffer;
   }
@@ -182,10 +184,10 @@ function program32(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_crimes), {hash:{},inverse:self.noop,fn:self.program(5, program5, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_en), {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_details_en), {hash:{},inverse:self.noop,fn:self.program(8, program8, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.description_ar), {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_details_ar), {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.incident_comments), {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
@@ -200,14 +202,14 @@ function program32(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ref_incidents), {hash:{},inverse:self.noop,fn:self.program(18, program18, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    </div>\n  </div>\n  <div class=\"last span-33p\">\n    <div class=\"body\">\n      <div class=\"group\">\n        <div class=\"is-score group\">\n          <h4>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.confidence)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.confidence)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h4>\n          <div class=\"score\">\n            <span class=\"value\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.confidence_score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n          </div>\n        </div>\n        ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.most_recent_status_incident),stack1 == null || stack1 === false ? stack1 : stack1[0]), {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.most_recent_status_incident), {hash:{},inverse:self.noop,fn:self.program(20, program20, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        <div class=\"is-assigned-to group\">\n          <h4>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incidents)),stack1 == null || stack1 === false ? stack1 : stack1.assigned_to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.incident)),stack1 == null || stack1 === false ? stack1 : stack1.assigned_to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h4>\n          <div class=\"assigned-to\">\n            ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user), {hash:{},inverse:self.program(24, program24, data),fn:self.program(22, program22, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }

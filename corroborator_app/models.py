@@ -311,14 +311,6 @@ class TimeInfo(models.Model):
     event_type = models.ForeignKey(
         EventType, blank=True, null=True)
 
-    @property
-    def event_name(self):
-        return lang_helper(self, 'event_name')
-
-    @property
-    def comments(self):
-        return lang_helper(self, 'comments')
-
     def __unicode__(self):
         return self.event_name_en
 

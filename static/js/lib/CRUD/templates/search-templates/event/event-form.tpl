@@ -10,7 +10,7 @@
       <div lang="ar">
         <input type="text" name="event_name_ar" 
           class="w-100p {{entityType}}-field bulletin_event-description"
-          value="{{model.event_name_en}}">
+          value="{{model.event_name_ar}}">
       </div>
       <span class="toggle">
         <span lang="en">EN</span><span lang="ar">AR</span>

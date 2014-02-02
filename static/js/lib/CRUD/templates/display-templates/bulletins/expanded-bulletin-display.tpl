@@ -29,13 +29,13 @@
 
       {{#if model.description_en}}
       <div class="is-description group">
-        <h4>{{i18n.bulletins.Description}}</h4>
+        <h4>{{i18n.bulletin.Description}}</h4>
         <div class="description">{{model.description_en}}</div>
       </div>
       {{/if}}
       {{#if model.description_ar}}
       <div class="is-description group">
-        <h4>{{i18n.bulletins.Description}}</h4>
+        <h4>{{i18n.bulletin.Description}}</h4>
         <div class="description">{{model.description_ar}}</div>
       </div>
       {{/if}}

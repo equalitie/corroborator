@@ -42,6 +42,7 @@ class TimeInfoTestCase(ResourceTestCase):
             'confidence_score': 79,
             'event_name_en': "Event",
         }
+        print post_data
         url = '/api/v1/timeInfo/?format=json{}'.format(self.auth_string)
         response = self.api_client.post(url, data=post_data)
         self.assertEqual(response.status_code, 201)

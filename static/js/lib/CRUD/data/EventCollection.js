@@ -14,7 +14,6 @@ define (
     var EventCollection,
         EventModel,
         ModelSyncMixin = Mixins.ModelSyncMixin,
-        StatusCollection,
         mapResourceUriToId = function(resourceUri) {
           return _.last(resourceUri.match(/\/(\d+)\/$/));
         };
@@ -60,7 +59,6 @@ define (
     return {
       EventCollection: EventCollection,
       EventModel: EventModel,
-      StatusCollection: StatusCollection
     };
     
 });
