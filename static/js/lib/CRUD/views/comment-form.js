@@ -264,7 +264,7 @@ define (
       // define event handlers
       events: {
         'click .do-edit-comment': 'editComment',
-        'click .do-remove': 'removeComment'
+        'click .do-remove-comment': 'removeComment'
       },
       // constructor - render the view
       initialize: function() {
