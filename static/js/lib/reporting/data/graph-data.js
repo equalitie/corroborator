@@ -1,4 +1,4 @@
-/*global define, parseInt*/
+/*global Bootstrap, define, parseInt*/
 // Author: Cormac McGuire
 // ### Listen for user graph events send requests to django to generate the user graphs
 // 

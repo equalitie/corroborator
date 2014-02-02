@@ -121,7 +121,6 @@ define(
 
       // render each item in the list 
       renderListItem: function(model, index, list) {
-        console.info(model);
         var options = {
           model: model,
           eventIdentifier: this.eventIdentifier

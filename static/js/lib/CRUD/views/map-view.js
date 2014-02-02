@@ -108,7 +108,6 @@ define (
 
       // add a new location to the collection
       addLocation: function(evt) {
-        console.log('addLocation', evt.value().content);
         this.collection.add(evt.value().content);
       },
 

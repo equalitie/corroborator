@@ -1,4 +1,4 @@
-/*global define, Bootstrap*/
+/*global setTimeout, define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
 // Collection to hold sources
