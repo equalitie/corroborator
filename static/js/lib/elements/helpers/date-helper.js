@@ -90,6 +90,21 @@ define (
     });
 
     // Text formatters
+
+    Handlebars.registerHelper('locationTpl', function(context, options) {
+      var tpl = _.template(context.hash.tpl);
+      return tpl({
+        location: getFromUri(context.hash.location, 'locations')
+      });
+    });
+
+    Handlebars.registerHelper('wordTpl', function(context, options) {
+      var tpl = _.template(context.hash.tpl);
+      return tpl({
+        word: context.hash.word
+      });
+    })
+
     Handlebars.registerHelper('pluralise', function(context, options) {
       var tpl = (context.hash.tplVar) ?
         context.hash.tpl[context.hash.tplVar] :
@@ -155,7 +170,7 @@ define (
           i=0, j=context.length;
 
       for(i, j; i<j; i++) {
-        ret =  ret + start + context[i] + end;
+        ret =  ret + start + getFromUri(context[i], 'sources') + end;
         if (i<j-1) {
           ret =  ret + ', ';
         }

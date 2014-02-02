@@ -1,12 +1,5 @@
 
   <script type="text/javascript">
-    var require = {
-      config: {
-        i18n: {
-          locale: '{{locale}}' || 'en'
-        }
-      }
-    };
     var Bootstrap = (function() {
       var importer_stats = {{ importer_stats_data|safe }};
       var importer_conf = {{ importer_conf_data|safe }};
@@ -20,7 +13,8 @@
           username: '{{username}}',
           userResource: '/api/v1/user/{{userid}}/',
           apiKey: '{{api_key}}',
-          gl_userid: '{{userid}}'
+          gl_userid: '{{userid}}',
+          locale: '{{locale}}'
       }
     }());
   </script>

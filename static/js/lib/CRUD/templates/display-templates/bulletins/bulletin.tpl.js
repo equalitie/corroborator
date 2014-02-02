@@ -58,20 +58,25 @@ function program11(depth0,data) {
   buffer += "\n          "
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletins)),stack1 == null || stack1 === false ? stack1 : stack1['in'])),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + " \n          <span class=\"location\">\n            ";
-  options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.commaSeparatedList || depth0.commaSeparatedList),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_locations), options) : helperMissing.call(depth0, "commaSeparatedList", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_locations), options)))
+  options = {hash:{
+    'list': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations))
+  },data:data};
+  buffer += escapeExpression(((stack1 = helpers.commaSeparatedList || depth0.commaSeparatedList),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "commaSeparatedList", options)))
     + "\n          </span>\n        ";
   return buffer;
   }
 
 function program13(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n      <div class=\"involved\">\n        <span class=\"actors-count\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_actors)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span> "
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletins)),stack1 == null || stack1 === false ? stack1 : stack1.actors_involved)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\n      </div>\n      ";
+  var buffer = "", stack1, stack2, options;
+  buffer += "\n      <div class=\"involved\">\n        ";
+  options = {hash:{
+    'tpl': (((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.actors_involved)),
+    'numItems': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_actors))
+  },data:data};
+  stack2 = ((stack1 = helpers.pluralise || depth0.pluralise),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "pluralise", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n      </div>\n      ";
   return buffer;
   }
 

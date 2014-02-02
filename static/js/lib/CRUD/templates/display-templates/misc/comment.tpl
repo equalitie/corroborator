@@ -9,6 +9,6 @@
   </div>
     <div class="meta-history">
       <span class="date">{{dateFormat model.comment_created}}</span>
-      {{i18n.comments.by}} <span class="who">{{fetchUser model.assigned_user}}</span>
+      <!--{{i18n.comment.by}} <span class="who">{{fetchUser model.assigned_user}}</span>-->
   </div>
 </div>

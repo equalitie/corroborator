@@ -63,6 +63,8 @@ function program9(depth0,data) {
 
   buffer += "<li class=\"event\">\n  <div class=\"content\">\n    <div class=\"name\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</div>\n    <div class=\"name\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.event_name_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n    <div class=\"time\">\n      ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.time_from), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }

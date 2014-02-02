@@ -76,18 +76,21 @@
           </div>
               
           <!-- Assigned to user -->
-          <div id="incident-assignment-block" class="incidentAssigned left">
-            <label>{{i18n.incident.Assigned_to}}</label>
+          {{#if model.incident_assigned}}
+            <div id="incident-assignment-block" class="incidentAssigned left">
+              <label>{{i18n.incident.Assigned_to}}</label>
 
-            <input type="text" class="with-clear is-assigned-to"
-              value="{{model.incident_assigned}}">
-            <input type="hidden" name="assigned_user"
-              value="{{model.assigned_user}}">
+              <input type="text" class="with-clear is-assigned-to"
+                value="{{model.incident_assigned}}">
+              <input type="hidden" name="assigned_user"
+                value="{{model.assigned_user}}">
 
-          <button id="clear-user" class="do-clear">
-            <span>✓</span>
-          </button>
-          </div>
+            <button id="clear-user" class="do-clear">
+              <span>✓</span>
+            </button>
+            </div>
+          {{/if}}
+
         </div>
       </div>
     </div>

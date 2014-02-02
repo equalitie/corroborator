@@ -30,13 +30,13 @@
         {{#if model.bulletin_locations}}
           {{i18n.bulletins.in}} 
           <span class="location">
-            {{commaSeparatedList model.bulletin_locations}}
+            {{commaSeparatedList list=model.locations}}
           </span>
         {{/if}}
       </div>
       {{#if model.count_actors}}
       <div class="involved">
-        <span class="actors-count">{{model.count_actors}}</span> {{i18n.bulletins.actors_involved}}
+        {{{pluralise tpl=i18n.bulletin.actors_involved numItems=model.count_actors}}}
       </div>
       {{/if}}
     </div>

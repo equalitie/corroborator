@@ -11,7 +11,10 @@
 
 </div>
 <div class="content">
-  <div class="name">{{model.event_name_en}}</div>
+  <div class="name"><b>{{model.event_name_en}}</b></div>
+  <div class="name"><b>{{model.event_name_ar}}</b></div>
+  <div class="name">{{model.comments_en}}</div>
+  <div class="name">{{model.comments_ar}}</div>
   <div class="time">
   {{#if model.time_from}}
     {{#if model.time_to}}

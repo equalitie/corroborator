@@ -102,7 +102,7 @@
       {{/if}}
       <div class="is-tags group">
         {{#if model.labels}}
-        <h4>Labels</h4>
+        <h4>{{i18n.bulletin.Labels}}</h4>
         <ul class="tags group detail">
           {{#each model.labels}}
           <li class="tag">
@@ -113,6 +113,7 @@
         {{/if}}
       </div>
       {{#if model.bulletin_imported_comments}}
+      <h4>{{i18n.comment.comments}}</h4>
       <div class="is-comments group">
       </div>
       {{/if}}

@@ -26,8 +26,8 @@
             {{/if}}
           </h3>
         </a>
-        <span class="sex">{{model.sex}}</span>
-        <span class="age">{{model.age}}</span>
+        <span class="sex">{{fetchSex model.sex}}</span>
+        <span class="age">{{fetchAge model.age}}</span>
         <div class="L2">
           {{#if model.nickname_en}}
             <span class="aka">{{i18n.actor.aka}} «{{model.nickname_en}}»</span>
@@ -37,15 +37,16 @@
       <div class="when-not_expanded">
         <div class="L3">
           {{#if model.current_location}}
-            {{i18n.actor.lives_in}}
-            <span class="location">{{fetchLocation model.current_location}}</span>
+            <span class="location">{{locationTpl tpl=i18n.actor.lives_in location=model.current_location}}</span>
+          {{/if}}
+          {{#if model.occupation_ar}}
+            <span class="occupation">{{wordTpl tpl=i18n.actor.works_as_a_ar word=model.occupation_en}}</span>
           {{/if}}
           {{#if model.occupation_en}}
-            {{i18n.actor.works_as_a}} <span class="occupation">{{model.occupation_en}}</span>
+            <span class="occupation">{{wordTpl tpl=i18n.actor.works_as_a_en word=model.occupation_en}}</span>
           {{/if}}
           {{#if model.count_incidents}}
-          <br>{{i18n.actor.involved_in}} 
-          <span class="incidents-count">{{model.count_incidents}} incidents</span>
+          <br>{{{pluralise tpl=i18n.actor.involved_in_incident numItems=model.count_incidents}}}
           {{/if}}
         </div>
       </div>

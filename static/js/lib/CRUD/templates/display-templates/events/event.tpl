@@ -1,6 +1,7 @@
 <li class="event">
   <div class="content">
     <div class="name">{{model.event_name_en}}</div>
+    <div class="name">{{model.event_name_ar}}</div>
     <div class="time">
       {{#if model.time_from}}
       {{#if model.time_to}}

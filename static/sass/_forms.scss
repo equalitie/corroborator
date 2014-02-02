@@ -45,10 +45,9 @@ input[type=text] {
 }
 
 // ======================================================================
-// EVENT BUTTONS
+// EVENT AND COMMENT BUTTONS
 // ======================================================================
-.events {
-  button.do-remove-event {
+  button.do-remove-event, button.do-remove-comment {
     @include corrob_icon_attach_before;
     width: 1.7em;
     font-size: 1.5em;
@@ -57,17 +56,28 @@ input[type=text] {
     color: $COLOR_INPUT_BD;
     margin-right: 5px;
   }
-  button.do-edit-event {
+  button.do-edit-event, button.do-edit-comment {
     @include corrob_icon_attach_before;
     width: 1.5em;
     font-size: 1.5em;
     background: none;
+    float: right;
     color: $COLOR_INPUT_BD;
     &:hover {
       background: none;
     }
   }
-}
+
+  //event slider
+  .ui_tpicker_hour_slider, .ui_tpicker_minute_slider {
+    background: #e6e6e6;
+    a.ui-slider-handle {
+      background: #555555;
+    }
+    a.ui-slider-handle:hover,  a.ui-slider-handle:active, a.ui-slider-handle:focus {
+      background: #f4a77c;
+    }
+  }
 
 // ======================================================================
 // SAVE SEARCH DIALOG INPUT

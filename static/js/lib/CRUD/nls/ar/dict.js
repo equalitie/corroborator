@@ -2,14 +2,16 @@
 define({
   'actor': {
     'aka': 'الملقب',
-    'lives_in': 'يعيش في',
-    'works_as_a_en': 'يعمل(EN)',
-    'works_as_a_ar': 'يعمل(ع)',
+    'works_as_a_en': 'يعمل ك<%=word %> (EN)',
+    'works_as_a_ar': 'يعمل ك<%=word %> (ع)',
     'involved': 'متورط',
     'position_en':'موقف (EN)',
     'position_ar':'موقف (ع)',
-    'involved_in': 'involved in',
-    'Lives_in': 'يعيش في',
+      'involved_in_incident': {
+        'single': 'involved in <span class="incident-count"> 1 incident</span>',
+        'plural': 'involved in <span class="incident-count"> <%=num %> incidents</span>',
+      },
+    'lives_in': 'يعيش في <%=location %>',
     'Mentioned_in': 'Mentioned in',
     'Born_in': 'مولود في',
     'Add_as': 'إضافة ك',
@@ -55,7 +57,10 @@ define({
   },
   'bulletin': {
     'in': 'في',
-    'actors_involved': '<num> أشخاص مشاركين',
+    'actors_involved': {
+      'single': '<span class="actors-count">1</span> أشخاص مشاركين',
+      'plural': '<span class="actors-count"><%=num %></span> أشخاص مشاركين',
+    },
     'update_status': 'تحديث الحالة',
     'unassigned': 'غيرمفرز',
     'Relate': 'مرتبط',

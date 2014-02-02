@@ -3,7 +3,7 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
+  var buffer = "", stack1, stack2, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
@@ -83,34 +83,53 @@ function program15(depth0,data) {
 function program17(depth0,data) {
   
   var buffer = "", stack1, options;
-  buffer += "\n            "
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.lives_in)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\n            <span class=\"location\">";
-  options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.fetchLocation || depth0.fetchLocation),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), options) : helperMissing.call(depth0, "fetchLocation", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), options)))
+  buffer += "\n            <span class=\"location\">";
+  options = {hash:{
+    'tpl': (((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.lives_in)),
+    'location': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location))
+  },data:data};
+  buffer += escapeExpression(((stack1 = helpers.locationTpl || depth0.locationTpl),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "locationTpl", options)))
     + "</span>\n          ";
   return buffer;
   }
 
 function program19(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n            "
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.works_as_a)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " <span class=\"occupation\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  var buffer = "", stack1, options;
+  buffer += "\n            <span class=\"occupation\">";
+  options = {hash:{
+    'tpl': (((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.works_as_a_ar)),
+    'word': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en))
+  },data:data};
+  buffer += escapeExpression(((stack1 = helpers.wordTpl || depth0.wordTpl),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "wordTpl", options)))
     + "</span>\n          ";
   return buffer;
   }
 
 function program21(depth0,data) {
   
-  var buffer = "", stack1;
-  buffer += "\n          <br>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.involved_in)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " \n          <span class=\"incidents-count\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + " incidents</span>\n          ";
+  var buffer = "", stack1, options;
+  buffer += "\n            <span class=\"occupation\">";
+  options = {hash:{
+    'tpl': (((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.works_as_a_en)),
+    'word': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en))
+  },data:data};
+  buffer += escapeExpression(((stack1 = helpers.wordTpl || depth0.wordTpl),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "wordTpl", options)))
+    + "</span>\n          ";
+  return buffer;
+  }
+
+function program23(depth0,data) {
+  
+  var buffer = "", stack1, stack2, options;
+  buffer += "\n          <br>";
+  options = {hash:{
+    'tpl': (((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.involved_in_incident)),
+    'numItems': (((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents))
+  },data:data};
+  stack2 = ((stack1 = helpers.pluralise || depth0.pluralise),stack1 ? stack1.call(depth0, options) : helperMissing.call(depth0, "pluralise", options));
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n          ";
   return buffer;
   }
 
@@ -133,10 +152,12 @@ function program21(depth0,data) {
   buffer += "\n            ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.fullname_ar), {hash:{},inverse:self.noop,fn:self.program(13, program13, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n          </h3>\n        </a>\n        <span class=\"sex\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n        <span class=\"age\">"
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+  buffer += "\n          </h3>\n        </a>\n        <span class=\"sex\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchSex || depth0.fetchSex),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex), options) : helperMissing.call(depth0, "fetchSex", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.sex), options)))
+    + "</span>\n        <span class=\"age\">";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchAge || depth0.fetchAge),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age), options) : helperMissing.call(depth0, "fetchAge", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.age), options)))
     + "</span>\n        <div class=\"L2\">\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.nickname_en), {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
@@ -144,10 +165,13 @@ function program21(depth0,data) {
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.current_location), {hash:{},inverse:self.noop,fn:self.program(17, program17, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en), {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_ar), {hash:{},inverse:self.noop,fn:self.program(19, program19, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          ";
-  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents), {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data});
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en), {hash:{},inverse:self.noop,fn:self.program(21, program21, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n          ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.count_incidents), {hash:{},inverse:self.noop,fn:self.program(23, program23, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n        </div>\n      </div>\n    </div>\n  </div>\n";
   return buffer;

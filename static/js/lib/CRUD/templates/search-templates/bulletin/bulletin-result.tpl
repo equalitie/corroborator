@@ -2,12 +2,14 @@
   <div class="content">
     <div class="L1">
       <div class="meta">
-        <div class="score">
-          <span class="value">{{model.confidence_score}}</span>
-        </div>
+        {{#if model.confidence_score}}
+          <div class="score">
+            <span class="value">{{model.confidence_score}}</span>
+          </div>
+        {{/if}}
         {{#if model.status}}
         <div class="status">
-          <span class="value">{{model.status}}</span>
+          <span class="value">{{fetchStatus model.status}}</span>
         </div>
         {{/if}}
       </div>
@@ -29,8 +31,7 @@
       </div>
       {{#if model.count_actors}}
       <div class="involved">
-        <span class="actors-count">{{model.count_actors}}</span>
-        {{i18n.bulletin.actors_involved}}
+        {{{pluralise tpl=i18n.bulletin.actors_involved numItems=model.count_actors}}}
       </div>
       {{/if}}
     </div>

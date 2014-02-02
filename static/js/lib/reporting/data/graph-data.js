@@ -20,25 +20,34 @@ define(
           return value.type === 'parse_graph_data';
         },
 
-        locationMapper = function(key, locationUri) {
-          return locationCollection.chain().filter(function(locModel) {
-            return locModel.get('resource_uri') === locationUri;
-          }).first().value().get('name_en');
-        },
-
         timeSeriesMapper = function(key) {
           return allGraphs.findWhere({key: key}).get('label');
+        },
+
+        getFromUri = function(key) {
+            return function(filterKey, uri) {
+              var searchField = {resource_uri: uri};
+              return _.findWhere(Bootstrap[key], searchField).name;
+            };
         },
 
         mapKeyToLabel = function(key, label) {
           var graphModel = allGraphs.findWhere({key: key}),
               labelFunctionMap = {
-                actor_searchable_current_exact: locationMapper,
-                bulletin_searchable_locations_exact: locationMapper,
-                incident_searchable_locations_exact: locationMapper,
+                actor_searchable_current_exact: getFromUri('locations'),
+                bulletin_searchable_locations_exact: getFromUri('locations'),
+                incident_searchable_locations_exact: getFromUri('locations'),
                 bulletin_created_date: timeSeriesMapper,
                 actor_created: timeSeriesMapper,
-                incident_created_date: timeSeriesMapper
+                incident_created_date: timeSeriesMapper,
+                most_recent_status_actor_exact: getFromUri('all_statuses'),
+                most_recent_status_incident_exact: getFromUri('all_statuses'),
+                most_recent_status_bulletin_exact: getFromUri('all_statuses'),
+                bulletin_labels_exact: getFromUri('labels'),
+                incident_labels_exact: getFromUri('labels'),
+                incident_crimes_exact: getFromUri('crimes'),
+                bulletin_sources_exact: getFromUri('sources')
+
               };
 
           if ( _(labelFunctionMap).chain().keys().contains(key).value() ) {

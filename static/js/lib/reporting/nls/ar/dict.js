@@ -49,7 +49,7 @@ define({
     'incidents_by': 'بحسب المكان',
     'users_by': 'Users by',
     'actors_by': 'بحسب المكان',
-    'Score': 'الموثوقية',
+    'score': 'الموثوقية',
     'number_sources': 'المواد بحسب',
     'incidents_in_time': 'Incidents over time',
     'user_login_time': 'الوقت الكلي الذي أمضاه المستخدم',

@@ -15,9 +15,10 @@ define(
     'lib/streams',
     // local libs
     'lib/elements/combo',
-    'lib/Data/collections'
+    'lib/Data/collections',
+    'i18n!lib/Navigation/nls/dict'
   ],
-  function ($, _, Backbone, Bacon, Streams, Combo, Collections) {
+  function ($, _, Backbone, Bacon, Streams, Combo, Collections, i18n) {
     'use strict';
     var Collection = Collections.SavedSearchCollection;
     var localBus = new Bacon.Bus(),
@@ -95,7 +96,7 @@ define(
     var createFullCollection = function() {
       var fullCollection = Collection;
       var item = {
-        name: 'Save current search...',
+        name: i18n.Save_current_search,
         search_request: 'save_search',
         type: 'default'
       };

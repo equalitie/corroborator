@@ -20,16 +20,13 @@
       </div>
       <div class="details text">
         <span class="date">{{dateFormat model.bulletin_created}}</span>
-        {{#if model.bulletin_locations}}
-          in 
-          {{#each model.bulletin_locations}}
-            <span class="location">{{#if @index}}, {{/if}}{{this}}</span>
-          {{/each}}
+        {{#if model.locations}}
+          {{commaSeparatedList list=model.locations}}
         {{/if}}
 
         {{#if model.bulletin_sources}}
           (
-          {{commaSeparatedList model.bulletin_sources}}
+          {{sourceList model.bulletin_sources}}
           )
         {{/if}}
       </div>

@@ -3,13 +3,15 @@ define({
   'root': {
     'actor': {
       'aka': 'aka',
-      'lives_in':'lives in',
-      'works_as_a_en': 'works as a (en)',
-      'works_as_a_ar': 'works as a (ar)',
+      'works_as_a_en': 'works as a <%=word %> (en)',
+      'works_as_a_ar': 'works as a <%=word %> (ar)',
       'position_en': 'Position(en)',
       'position_ar': 'Position(ar)',
-      'involved_in': 'involved in',
-      'Lives_in': 'Lives in',
+      'involved_in_incident': {
+        'single': 'involved in <span class="incident-count"> 1 incident</span>',
+        'plural': 'involved in <span class="incident-count"> <%=num %> incidents</span>',
+      },
+      'lives_in': 'Lives in <%=location %>',
       'Mentioned_in': 'Mentioned in',
       'Born_in': 'Born in',
       'Add_as': 'Add as',
@@ -55,7 +57,10 @@ define({
     },
     'bulletin': {
       'in': 'in',
-      'actors_involved': 'actors involved',
+      'actors_involved': {
+        'single': '<span class="actors-count">1</span> actor involved',
+        'plural': '<span class="actors-count"><%=num %></span> actors involved',
+      },
       'update_status': 'Update status',
       'unassigned': 'Unassigned',
       'Relate': 'Relate',
@@ -125,7 +130,7 @@ define({
     },
     'comment': {
       'Comment': 'Comment',
-      'Comments': 'Comments',
+      'comments': 'Comments',
       'Remove': 'Remove',
       'by': 'by',
       'Select_Status': 'Select Status',

@@ -8,6 +8,7 @@ module
 """
 import json
 from datetime import datetime, timedelta
+from django.utils import translation
 from django.shortcuts import render_to_response, render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -172,6 +173,7 @@ def monitoring(request, *args, **kwargs):
         return render(
             request, 'monitoring.html',
             {
+                'locale': translation.get_language(),
                 'importer_conf_data': importer_conf_data,
                 'scraper_conf_data': scraper_conf_data,
                 'importer_stats_data': importer_stats_data,
