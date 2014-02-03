@@ -151,7 +151,6 @@ define (
         eventsEl = this.getContainerEl('events');
 
         content = this.model.get('times');
-        console.log(content, eventsEl);
         eventsContainer = new EventListView({
           el: eventsEl,
           content: content

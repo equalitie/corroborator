@@ -264,6 +264,12 @@ function program50(depth0,data) {
   return "\n    <div class=\"incidents group\">\n    </div>\n    ";
   }
 
+function program52(depth0,data) {
+  
+  
+  return "\n    <div id=\"revision-container\">\n    </div>\n    ";
+  }
+
   buffer += "<div class=\"Actor in-view\">\n  <div class=\"header\">\n    <div class=\"id\">\n      ID <span class=\"value out\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.django_id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n    </div>\n    ";
@@ -339,6 +345,9 @@ function program50(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n    ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.related_incidents), {hash:{},inverse:self.noop,fn:self.program(50, program50, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.actor_comments), {hash:{},inverse:self.noop,fn:self.program(52, program52, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  </div>\n</div>\n";
   return buffer;

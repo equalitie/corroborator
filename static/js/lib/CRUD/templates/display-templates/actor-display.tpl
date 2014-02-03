@@ -169,5 +169,9 @@
     <div class="incidents group">
     </div>
     {{/if}}
+    {{#if model.actor_comments}}
+    <div id="revision-container">
+    </div>
+    {{/if}}
   </div>
 </div>

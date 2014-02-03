@@ -10,11 +10,12 @@ define (
     'lib/CRUD/views/display-views/actor/actor-container',
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
+    'lib/CRUD/views/search-views/revision/revision-view',
     'lib/CRUD/templates/display-templates/actor-display.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, ActorListView, 
-    BulletinListView, IncidentListView,
+    BulletinListView, IncidentListView, RevisionView,
     actorDisplayTmp, i18n) {
     'use strict';
 
@@ -50,7 +51,8 @@ define (
         this.render()
             .renderRelatedActors()
             .renderRelatedBulletins()
-            .renderRelatedIncidents();
+            .renderRelatedIncidents()
+            .renderRevisions();
       },
 
       onDestroy: function() {
@@ -115,6 +117,24 @@ define (
         });
         return this;
       },
+
+      renderRevisions: function() {
+        if (!this.isList('actor_comments', this.model)) {
+          return this;
+        }
+        var revisionView = new RevisionView({
+          el: '#revision-container',
+          content: this.model.get('actor_comments')
+        });
+        this.childViews.push(revisionView);
+        return this;
+      },
+
+      isList: function(key, model) {
+        var field = model.get(key);
+        return field !== undefined && field.length > 0;
+      },
+
       // render the related bulletins
       renderRelatedBulletins: function() {
         var bulletinsEl, content, bulletinsContainer;

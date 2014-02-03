@@ -1,7 +1,28 @@
 <li class="event">
   <div class="content">
-    <div class="name">{{model.event_name_en}}</div>
-    <div class="name">{{model.event_name_ar}}</div>
+    
+    {{#if model.confidence_score}}
+    <div class="score">
+      <div class="value">{{model.confidence_score}}</div>
+    </div>
+    {{/if}}
+
+    {{#if model.event_name_en}}
+      <div class="name">{{model.event_name_en}}</div>
+    {{/if}}
+
+    {{#if model.event_name_ar}}
+      <div class="name">{{model.event_name_ar}}</div>
+    {{/if}}
+
+    {{#if model.comments_en}}
+      <div class="name">{{model.comments_en}}</div>
+    {{/if}}
+
+    {{#if model.comments_ar}}
+      <div class="name">{{model.comments_ar}}</div>
+    {{/if}}
+
     <div class="time">
       {{#if model.time_from}}
       {{#if model.time_to}}

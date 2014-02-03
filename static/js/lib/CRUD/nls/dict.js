@@ -3,8 +3,8 @@ define({
   'root': {
     'actor': {
       'aka': 'aka',
-      'works_as_a_en': 'works as a <%=word %> (en)',
-      'works_as_a_ar': 'works as a <%=word %> (ar)',
+      'works_as_a_en': 'works as a (en)',
+      'works_as_a_ar': 'works as a (ar)',
       'position_en': 'Position(en)',
       'position_ar': 'Position(ar)',
       'involved_in_incident': {

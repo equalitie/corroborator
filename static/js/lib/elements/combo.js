@@ -55,6 +55,7 @@ define(
 
       // render the list items
       render: function() {
+        console.log(this.model.toJSON());
         var html = comboInnerTmp(this.model.toJSON());
         this.$el.append(html);
         this.$el.addClass('option selected');
