@@ -119,11 +119,11 @@ define(
           this.openEntity('incident', incidentId);
       },
       openIncidentEpanded: function(incidentId) {
-        if (this.isValid(bulletinId))
+        if (this.isValid(incidentId))
           this.openEntity('incident', incidentId, true);
       },
       openActor: function(actorId) {
-        if (this.isValid(bulletinId))
+        if (this.isValid(actorId))
           this.openEntity('actor', actorId);
       },
       openActorExpanded: function(actorId) {
