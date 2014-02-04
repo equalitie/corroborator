@@ -99,7 +99,6 @@ define (
     });
 
     Handlebars.registerHelper('wordTpl', function(context, options) {
-      console.log(context);
       var tpl = _.template(context.hash.tpl);
       return tpl({
         word: context.hash.word
@@ -120,7 +119,6 @@ define (
         _.template(tpl.plural)({
           num: context.hash.numItems
         });
-      //console.log(context, tpl, out);
       return out;
     });
 
