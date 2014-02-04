@@ -49,7 +49,7 @@ define (
           ? false 
           : options.entityDetails.expanded;
         this.expanded = !this.expanded;
-        this.toggleExpanded();
+        //this.toggleExpanded();
         this.selectInitialLanguage();
       },
 
