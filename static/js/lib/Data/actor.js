@@ -129,11 +129,19 @@ define(
           this.set('django_id', id);
           this.set('id', id);
           this.set('resource_uri', options.resourceUri);
-          this.fetch({
-            error: this.notFound.bind(this)
-          });
+          this.fetch();
         }
       },
+
+      fetchWithUpdate: function() {
+        this.fetch({
+          error: this.notFound.bind(this),
+          success: function () {
+            this.trigger('render');
+          }.bind(this)
+        });
+      },
+
       notFound: function() {
         this.trigger('sync-error');
       },
