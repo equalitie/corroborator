@@ -77,16 +77,16 @@ class MediaResource(MultipartResource, ModelResource):
         username = bundle.request.GET['username']
         media_file = bundle.data['media_file']
 
-        if 'video' in bundle.data['media_file'].content_type:
-            ffmpeg_wrapper = MiniFFMPEGWrapper()
-            ffmpeg_wrapper.video_file = media_file.temporary_file_path()
-            ffmpeg_wrapper.create_jpeg_from_video()
-            thumb_source_file = UploadedFile(ffmpeg_wrapper.out_filename)
-            thumbnailer = Thumbnailer()
-            bundle.data['media_thumb_file'] =\
-                thumbnailer.construct_thumb_from_image(
-                    thumb_source_file
-                )
+        #if 'video' in bundle.data['media_file'].content_type:
+            #ffmpeg_wrapper = MiniFFMPEGWrapper()
+            #ffmpeg_wrapper.video_file = media_file.temporary_file_path()
+            #ffmpeg_wrapper.create_jpeg_from_video()
+            #thumb_source_file = UploadedFile(ffmpeg_wrapper.out_filename)
+            #thumbnailer = Thumbnailer()
+            #bundle.data['media_thumb_file'] =\
+                #thumbnailer.construct_thumb_from_image(
+                    #thumb_source_file
+                #)
 
         if 'image' in bundle.data['media_file'].content_type:
             media_thumb_file = Thumbnailer()\
