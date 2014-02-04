@@ -8,9 +8,9 @@ define(
   [
     'backbone',
     'lib/CRUD/templates/display-templates/misc/entity-not-found.tpl',
-    'i18n!/lib/CRUD/nls/dict'
+    'i18n!lib/CRUD/nls/dict'
   ],
-  function(Backbone, entityNotFoundTpl) {
+  function(Backbone, entityNotFoundTpl, i18n) {
   'use strict';
   
     return Backbone.View.extend({

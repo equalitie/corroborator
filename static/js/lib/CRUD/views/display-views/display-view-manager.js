@@ -106,20 +106,22 @@ define (
       },
       expandView: function() {
         var routeTemplate = _.template(
-          '<%=model.entityType %>/<%=model.id %>/expanded'),
+          '<%=model.entityType %>/<%=model.django_id %>/expanded'),
             route = routeTemplate({
               model: this.model.toJSON()
             });
+        console.log(route, this.model);
         this.getRouter().navigate(route);
         this.$el.children().addClass('is-expanded');
       },
 
       collapseView: function() {
         var routeTemplate = _.template(
-          '<%=model.entityType %>/<%=model.id %>'),
+          '<%=model.entityType %>/<%=model.django_id %>'),
             route = routeTemplate({
               model: this.model.toJSON()
             });
+        console.log(route, this.model);
         this.getRouter().navigate(route);
         this.$el.children().removeClass('is-expanded');
       },

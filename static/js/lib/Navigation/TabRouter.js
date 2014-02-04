@@ -47,6 +47,9 @@ define(
         ''                             : 'showHomeSearch',
         'tab/:section'                 : 'openSection',
         'bulletin/:bulletinId'         : 'openBulletin',
+        'bulletin/'                    : 'openBulletinSection',
+        'incident/'                    : 'openIncidentSection',
+        'actor/'                       : 'openActorSection',
         'bulletin/:bulletinId/'        : 'openBulletin',
         'bulletin/:bulletinId/expanded': 'openBulletinExpanded',
         'incident/:incidentId'         : 'openIncident',
@@ -88,20 +91,40 @@ define(
           }
         });
       },
+      openActorSection: function() {
+        this.openSection('actor');
+      },
+      openBulletinSection: function() {
+        this.openSection('bulletin');
+      },
+      openIncidentSection: function() {
+        this.openSection('incident');
+      },
+
+      isValid: function(id) {
+        id = parseInt(id, 10);
+        return (_.isNaN(id) === false);
+      },
+
       openBulletin: function(bulletinId) {
-        this.openEntity('bulletin', bulletinId);
+        if (this.isValid(bulletinId))
+          this.openEntity('bulletin', bulletinId);
       },
       openBulletinExpanded: function(bulletinId) {
-        this.openEntity('bulletin', bulletinId, true);
+        if (this.isValid(bulletinId))
+          this.openEntity('bulletin', bulletinId, true);
       },
       openIncident: function(incidentId) {
-        this.openEntity('incident', incidentId);
+        if (this.isValid(incidentId))
+          this.openEntity('incident', incidentId);
       },
       openIncidentEpanded: function(incidentId) {
-        this.openEntity('incident', incidentId, true);
+        if (this.isValid(bulletinId))
+          this.openEntity('incident', incidentId, true);
       },
       openActor: function(actorId) {
-        this.openEntity('actor', actorId);
+        if (this.isValid(bulletinId))
+          this.openEntity('actor', actorId);
       },
       openActorExpanded: function(actorId) {
         this.openEntity('actor', actorId, true);

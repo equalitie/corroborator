@@ -15,6 +15,7 @@ define (
     'lib/CRUD/views/display-views/event/event-container',
     'lib/CRUD/views/map-view',
     'lib/CRUD/views/search-views/revision/revision-view',
+    'lib/CRUD/views/display-views/misc/entity-not-found',
 
     'lib/CRUD/templates/display-templates/bulletin-display.tpl',
     'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl',
@@ -23,7 +24,7 @@ define (
   function (Backbone, _, Collections, Streams, 
     ActorListView, BulletinListView, IncidentListView, MediaListView,
     CommentListView, EventListView, CoordinateDisplayView, RevisionView,
-    bulletinDisplayTmp, expandedBulletinDisplayTmp, i18n) {
+    EntityNotFoundView, bulletinDisplayTmp, expandedBulletinDisplayTmp, i18n) {
     'use strict';
 
     var BulletinDisplayView,
@@ -43,14 +44,23 @@ define (
         }
         this.model = bulletinCollection.getEntity(options.entityDetails.id, 'bulletin');
         this.listenTo(this.model, 'sync', this.redisplayView.bind(this));
+        this.listenTo(this.model, 'sync-error', this.displayNotFoundView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
         this.listenTo(this, 'resize', this.sendResizeEvent.bind(this));
         this.expanded = options.entityDetails.expanded === undefined
           ? false 
           : options.entityDetails.expanded;
-        //this.expanded = !this.expanded;
-        //this.toggleExpanded();
         this.selectInitialLanguage();
+      },
+
+      displayNotFoundView: function() {
+        this.destroyChildren();
+        var entityNotFoundView = new EntityNotFoundView({
+          entity: i18n.bulletin_label
+        });
+        this.childViews.push(entityNotFoundView);
+        this.$el.html(entityNotFoundView.$el);
+        return this;
       },
 
       redisplayView: function() {

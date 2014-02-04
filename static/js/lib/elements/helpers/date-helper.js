@@ -99,11 +99,12 @@ define (
     });
 
     Handlebars.registerHelper('wordTpl', function(context, options) {
+      console.log(context);
       var tpl = _.template(context.hash.tpl);
       return tpl({
         word: context.hash.word
       });
-    })
+    });
 
     Handlebars.registerHelper('pluralise', function(context, options) {
       var tpl = (context.hash.tplVar) ?

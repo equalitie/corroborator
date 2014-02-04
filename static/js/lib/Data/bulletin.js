@@ -131,9 +131,13 @@ define(
           this.set('django_id', id);
           this.set('id', id);
           this.set('resource_uri', options.resourceUri);
-          this.fetch();
+          this.fetch({error: this.notFound.bind(this)});
         }
       },
+      notFound: function() {
+        this.trigger('sync-error');
+      },
+
       idAttribute: 'id',
       url: function() {
         var base = '/api/v1/bulletin/';

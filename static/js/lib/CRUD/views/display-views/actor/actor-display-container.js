@@ -11,11 +11,12 @@ define (
     'lib/CRUD/views/display-views/bulletin/bulletin-container',
     'lib/CRUD/views/display-views/incident/incident-container',
     'lib/CRUD/views/search-views/revision/revision-view',
+    'lib/CRUD/views/display-views/misc/entity-not-found',
     'lib/CRUD/templates/display-templates/actor-display.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function (Backbone, _, Collections, Streams, ActorListView, 
-    BulletinListView, IncidentListView, RevisionView,
+    BulletinListView, IncidentListView, RevisionView, EntityNotFoundView,
     actorDisplayTmp, i18n) {
     'use strict';
 
@@ -40,10 +41,19 @@ define (
           
         this.model = actorCollection.getEntity(options.entityDetails.id, 'actor');
         this.listenTo(this.model, 'sync', this.displayView.bind(this));
+        this.listenTo(this.model, 'sync-error', this.displayNotFoundView.bind(this));
         this.listenTo(this.model, 'render', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
-        //this.expanded = !this.expanded;
-        //this.toggleExpanded();
+      },
+
+      displayNotFoundView: function() {
+        this.destroyChildren();
+        var entityNotFoundView = new EntityNotFoundView({
+          entity: i18n.actor_label
+        });
+        this.childViews.push(entityNotFoundView);
+        this.$el.html(entityNotFoundView.$el);
+        return this;
       },
 
       // set the small template

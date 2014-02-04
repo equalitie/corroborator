@@ -162,7 +162,10 @@ define({
     'SaveFailed': 'Save Failed',
     'Saving': 'Saving',
     'unselected': 'unselected',
-    'Entity_not_found': '<%=entity %> not found'
+    'actor_label': 'Actor',
+    'bulletin_label': 'Bulletin',
+    'incident_label': 'Incident',
+    'Entity_not_found': '<%=word %> not found'
   },
   'ar': true
 });
