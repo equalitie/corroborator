@@ -42,7 +42,6 @@ define (
         this.model = actorCollection.getEntity(options.entityDetails.id, 'actor');
         this.listenTo(this.model, 'sync', this.displayView.bind(this));
         this.listenTo(this.model, 'sync-error', this.displayNotFoundView.bind(this));
-        this.listenTo(this.model, 'render', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
       },
 
@@ -147,6 +146,7 @@ define (
 
       // render the related bulletins
       renderRelatedBulletins: function() {
+        console.log('renderRelatedBulletins');
         var bulletinsEl, content, bulletinsContainer;
         bulletinsEl = this.getContainerEl('bulletins');
         content = this.model.get('related_bulletins');
