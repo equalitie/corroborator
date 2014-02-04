@@ -80,7 +80,7 @@
     </div>
     {{/if}}
     {{#if model.ref_incidents}}
-    <div class="incidents group">
+    <div class="is-incidents group">
     </div>
     {{/if}}
     {{#if model.ref_bulletins}}

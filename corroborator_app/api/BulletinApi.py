@@ -202,7 +202,7 @@ class BulletinResource(ModelResource, APIMixin):
             'bulletin_comments', 'bulletin_imported_comments',
             'bulletin_locations', 'bulletin_labels', 'bulletin_sources',
             'bulletin_times', 'most_recent_status_bulletin',
-            'count_actors', 'actor_roles_status',
+            'count_actors', 'actor_roles_status', 'ref_incidents',
         ]
         actor_fields = ['actors', 'actors_role', ]
         bulletin_prep = BulletinPrepMeta()

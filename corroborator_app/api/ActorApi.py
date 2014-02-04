@@ -164,7 +164,6 @@ class ActorResource(ModelResource, APIMixin):
         return bundle
 
     def dehydrate(self, bundle):
-
         fields = [
             'related_bulletins', 'related_incidents', 'count_incidents',
             'count_bulletins', 'roles', 'actors_role', 'actors',

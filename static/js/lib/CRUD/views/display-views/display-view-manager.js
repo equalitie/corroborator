@@ -110,7 +110,6 @@ define (
             route = routeTemplate({
               model: this.model.toJSON()
             });
-        console.log(route, this.model);
         this.getRouter().navigate(route);
         this.$el.children().addClass('is-expanded');
       },
@@ -121,7 +120,6 @@ define (
             route = routeTemplate({
               model: this.model.toJSON()
             });
-        console.log(route, this.model);
         this.getRouter().navigate(route);
         this.$el.children().removeClass('is-expanded');
       },

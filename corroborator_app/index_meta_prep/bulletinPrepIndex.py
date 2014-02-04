@@ -6,7 +6,7 @@ and the Tastypie dehyrdate cycle
 Bill Doran 2013/08/08
 """
 
-from corroborator_app.models import Location
+from corroborator_app.models import Location, Incident
 
 
 class BulletinPrepMeta():
@@ -58,6 +58,16 @@ class BulletinPrepMeta():
         return [
             '/api/v1/timeInfo/{0}/'.format(timeinfo.id)
             for timeinfo in object.times.all()]
+
+    def prepare_ref_incidents(self, object):
+        """
+        Returns the correctly formated uri related to this incident instance
+        for the tastypie api
+        """
+        return [
+            '/api/v1/incident/{0}/'.format(incident.id) for incident in
+            Incident.objects.filter(ref_bulletins__id=object.id)
+        ]
 
     def prepare_ref_bulletins(self, object):
         """

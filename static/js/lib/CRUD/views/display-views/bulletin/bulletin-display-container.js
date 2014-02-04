@@ -198,7 +198,7 @@ define (
       // render the related incidents
       renderRelatedIncidents: function() {
         var incidentsEl, content, incidentsContainer; 
-        incidentsContainer = this.getContainerEl('incidents');
+        incidentsEl = this.getContainerEl('incidents');
         content = this.model.get('ref_incidents');
         incidentsContainer = new IncidentListView({
           el: incidentsEl,
