@@ -54,9 +54,10 @@ define (
         this.expanded = options.entityDetails.expanded === undefined 
           ? false 
           : options.entityDetails.expanded;
-        this.expanded = !this.expanded;
-        this.toggleExpanded();
+        //this.expanded = !this.expanded;
+        //this.toggleExpanded();
       },
+
 
       displayExpandedView: function() {
         this.displayView()
@@ -212,7 +213,6 @@ define (
       render: function() {
         this.destroyChildren();
         this.$el.children().remove();
-        console.info(this.model.toJSON());
         var html = this.template({
           model: this.model.translate(),
           i18n: i18n

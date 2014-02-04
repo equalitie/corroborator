@@ -43,6 +43,8 @@ module.exports = function() {
     // dialogs
     'lib/SolrSearch/templates/save-search-dialog.tpl.js': 'lib/SolrSearch/templates/save-search-dialog.tpl',
 
+    // entity not found
+    'lib/CRUD/templates/display-templates/misc/entity-not-found.tpl.js': 'lib/CRUD/templates/display-templates/misc/entity-not-found.tpl',
     // forms
     // actor
     'lib/CRUD/templates/search-templates/actor/actor.tpl.js'                : 'lib/CRUD/templates/search-templates/actor/actor.tpl',

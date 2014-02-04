@@ -161,7 +161,8 @@ define({
     'Saved': 'Saved',
     'SaveFailed': 'Save Failed',
     'Saving': 'Saving',
-    'unselected': 'unselected'
+    'unselected': 'unselected',
+    'Entity_not_found': '<%=entity %> not found'
   },
   'ar': true
 });

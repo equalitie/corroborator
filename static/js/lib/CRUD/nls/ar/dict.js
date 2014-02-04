@@ -159,5 +159,6 @@ define({
   'Select': 'تحديد',
   'Edit': 'تعديل',
   'Save': 'حفظ',
-  'unselected': 'غير محدد'
+  'unselected': 'غير محدد',
+  'Entity_not_found': '<%=entity %> not found'
 });

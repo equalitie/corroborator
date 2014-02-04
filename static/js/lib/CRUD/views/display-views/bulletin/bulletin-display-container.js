@@ -48,7 +48,7 @@ define (
         this.expanded = options.entityDetails.expanded === undefined
           ? false 
           : options.entityDetails.expanded;
-        this.expanded = !this.expanded;
+        //this.expanded = !this.expanded;
         //this.toggleExpanded();
         this.selectInitialLanguage();
       },

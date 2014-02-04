@@ -42,7 +42,7 @@ define (
         this.listenTo(this.model, 'sync', this.displayView.bind(this));
         this.listenTo(this.model, 'render', this.displayView.bind(this));
         this.listenTo(this, 'expand', this.toggleExpanded.bind(this));
-        this.expanded = !this.expanded;
+        //this.expanded = !this.expanded;
         //this.toggleExpanded();
       },
 
