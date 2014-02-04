@@ -127,7 +127,12 @@ define(
           this.set('django_id', id);
           this.set('resource_uri', options.resourceUri);
           this.id = id;
-          this.fetch({error: this.notFound.bind(this)});
+          this.fetch({
+            error: this.notFound.bind(this),
+            success: function () {
+              this.trigger('render');
+            }.bind(this)
+          });
         }
       },
       notFound: function() {
