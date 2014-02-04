@@ -79,11 +79,9 @@ define (
           
           // load the model from the collection if available or from the database if not
           getEntity: function (id, entityType) {
-            //setting resourceUri auto fetches models
-            // TODO: make this more explicit
             // make sure that whatever rubbish goes into the address bar comes out as an int
             id = parseInt(id, 10);
-            var entity = this.get(id) || new this.model({resourceUri: '/api/v1/' + entityType + '/' + id + '/'});
+            var entity = this.get(id) || new this.model({resource_uri: '/api/v1/' + entityType + '/' + id + '/'});
             //fetching latest version via the api because i don't trust solr version
             entity.fetch();
             return entity;
