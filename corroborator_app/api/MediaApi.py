@@ -91,6 +91,7 @@ class MediaResource(MultipartResource, ModelResource):
                 #)
 
         if 'image' in bundle.data['media_file'].content_type:
+            bundle.data['media_type'] = 'Picture'
             media_thumb_file = Thumbnailer()\
                 .construct_thumb_from_image(media_file)
             bundle.data['media_thumb_file'] = media_thumb_file
