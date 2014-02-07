@@ -154,7 +154,7 @@ class PermStatusUpdateManager(models.Manager):
         for group in user.groups.all():
             has_perm = has_perm or self.has_perm_for_status_requested(
                 group,
-                requested_status.status_en)
+                requested_status.key)
 
         if has_perm:
             return requested_status
@@ -162,7 +162,7 @@ class PermStatusUpdateManager(models.Manager):
         else:
             return queryset.filter(id=3)[0]
 
-    def has_perm_for_status_requested(self, group, status_en):
+    def has_perm_for_status_requested(self, group, key):
         '''
         check that the user can update the entity based on permissions
         set
