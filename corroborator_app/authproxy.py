@@ -32,11 +32,11 @@ class SolrAuthProxy:
         self.solr_url = ''
 
     def get_solr_response(self, kwargs):
-        request_url = 'https://sjac.corroborator.org/solr/collection1/select'
+        request_url = settings.SOLR_URL
         request_url += '?' + kwargs['QUERY_STRING']
         return requests.get(request_url)
 
     def parse_request(self, kwargs):
         print kwargs
         solr_response = self.get_solr_response(kwargs)
-        return HttpResponse(solr_response.text)            
+        return HttpResponse(solr_response.text)
