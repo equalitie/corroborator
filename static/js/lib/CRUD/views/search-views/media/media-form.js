@@ -63,25 +63,25 @@ define (
 
       // open the dialog box
       openDialog: function() {
+        var buttons = {};
+        buttons[i18n.media.upload_media] = this.uploadRequested.bind(this);
+        buttons[i18n.media.cancel] = this.cancelRequested.bind(this);
         this.$el.dialog({
           autoOpen : true,
           height   : 380,
           width    : 350,
-          title    : "Upload New Media",
+          title    : i18n.media.Upload_new_media,
           modal    : true,
           draggable: false,
           close    : this.cancelRequested.bind(this),
-          buttons  : {
-            'Upload Media': this.uploadRequested.bind(this),
-            'Cancel'      : this.cancelRequested.bind(this)
-          }
+          buttons  : buttons
         });
       },
       formify: function() {
         this.$formEl = this.$el.children()
                                .children('form.media-form');
         this.$formEl.ajaxForm(function() {
-                      console.log('did something');
+                      //console.log('did something');
                      });
       },
 
@@ -100,7 +100,7 @@ define (
         this.$formEl.ajaxSubmit(this.formOptions());
       },
       validateFile: function(arr, $form, options) {
-        if (arr[3].value === "") {
+        if (arr[2].value === "") {
             this.progressbar.hide();
             this.showMessage('.file');
             window.setTimeout(this.hideMessage.bind(this, '.file'), 2000);

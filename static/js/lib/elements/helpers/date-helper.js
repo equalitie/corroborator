@@ -74,7 +74,7 @@ define (
 
     Handlebars.registerHelper('fetchUser', function(context, options) {
         if (context) {
-          return getFromUri(context, 'gl_ac_users_list');
+          return getFromUri(context, 'user_list');
         }
         return context;
     });

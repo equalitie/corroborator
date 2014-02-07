@@ -118,7 +118,8 @@ class BulletinTestCase(ResourceTestCase):
         new_bulletin = Bulletin(id=new_bulletin_dict['id'])
         bulletin_comments = new_bulletin.bulletin_comments.all()
         self.assertEqual(len(bulletin_comments), 1)
-        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        vs = VersionStatus.objects.filter(
+            user_id=self.user.id).order_by('version_timestamp')
         self.assertEqual(len(vs), 1)
 
     def test_bulletin_put(self):
@@ -132,9 +133,9 @@ class BulletinTestCase(ResourceTestCase):
         self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
         self.assertEqual(retrieve_last_comment_status(response), 'Updated')
-        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        vs = VersionStatus.objects.filter(
+            user_id=self.user.id).order_by('version_timestamp')
         self.assertEqual(len(vs), 1)
-
 
     def test_senior_data_analyst_put(self):
         self.test_user_util.add_user_to_group('senior-data-analyst')
@@ -224,22 +225,63 @@ class BulletinTestCase(ResourceTestCase):
 
 def create_put_data(status_id, bulletin_comments=[]):
     return {
-        'title_en': "Test Bulletin",
-        'title_ar': "Test Bulletin Arabic",
-        'description_en': "description en",
-        'description_ar': "description Arabic",
-        'confidence_score': 73,
-        'sources': ['/api/v1/source/1/', ],
-        'bulletin_comments': ['/api/v1/comment/1/', ],
-        'assigned_user': '/api/v1/user/1/',
-        'actors_role': [],
-        'times': [],
-        'medias': [],
-        'locations': [],
-        'labels': [],
-        'ref_bulletins': [],
-        'comment': 'comment',
-        'status_uri': '/api/v1/statusUpdate/' + str(status_id) + '/'
+        "_version_": 1459109771449729000,
+        "title_ar": "",
+        "title_en": "IRX.A0001.566.001",
+        "actor_roles_status": [],
+        "actors": [],
+        "description_ar": "",
+        "description_en": "",
+        "confidence_score": 44,
+        "sources": [],
+        "bulletin_comments": [],
+        "assigned_user": "/api/v1/user/1/",
+        "actors_role": [],
+        "times": [],
+        "medias": [],
+        "locations": [],
+        "ref_bulletins": [],
+        "labels": [],
+        "comment": "comment",
+        "status_uri": "/api/v1/statusUpdate/" + str(status_id) + "/",
+        # above is what actually gets saved, below is mostly solr
+        "bulletin_assigned_user": "admin",
+        "bulletin_assigned_user_exact": "admin",
+        "bulletin_confidence_bucket": "40-49",
+        "bulletin_confidence_bucket_exact": "40-49",
+        "bulletin_created": "2013-10-15T01:40:22",
+        "bulletin_created_date": "2013-10-15T00:00:00Z",
+        "bulletin_created_date_exact": "2013-10-15T00:00:00Z",
+        "bulletin_created_exact": "2013-10-15T00:40:22Z",
+        "bulletin_imported_comments": [],
+        "bulletin_labels": [],
+        "bulletin_locations": [],
+        # this was causing problems in saving bulletins, should be a datetime
+        #"bulletin_modified": True,
+        "bulletin_sources": [],
+        "bulletin_times": [],
+        "bulletin_type": "Video",
+        "bulletin_type_exact": "Video",
+        "confidence_score_exact": 44,
+        "count_actors": 0,
+        "deleted": False,
+        "django_ct": "corroborator_app.bulletin",
+        "django_id": "1",
+        "entityType": "bulletin",
+        "id": 1,
+        "most_recent_status_bulletin": "",
+        "origin_id": None,
+        "ref_bulletins": [],
+        "ref_incidents": [],
+        "resource_uri": "/api/v1/bulletin/12/",
+        "seq_order": None,
+        "sources_count": 0,
+        "sources_count_exact": 0,
+        "status": "",
+        "text": ":40 a.m.\n\n\n\n\n\n\n\n\n\n",
+        "type": "Video",
+        "uri": None,
+        "username": "admin"
     }
 
 

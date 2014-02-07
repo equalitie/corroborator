@@ -257,6 +257,21 @@ define (
             }
             return this;
           },
+          // this is to remove the bulletin_modified field if it is set to true
+          // it's set to true for some older bulletins, don't know why, it should
+          // be a datetime
+          // backend guys should investigate but maybe leave the functionality
+          // for d fens
+          removeFieldIfTrue: function() {
+            if (this.removeIfTrueFields !== undefined) {
+              _.each(this.removeIfTrueFields, function(key) {
+                if (this.get(key) === true) {
+                  this.unset(key);
+                }
+              }, this);
+            }
+            return this;
+          },
           // apply our formatting methods and then delegate to builtin
           // backbone sync
           sync: function(method, model) {
@@ -264,6 +279,7 @@ define (
             if (_.contains(createEditMethods, method)) {
               this.removeEmptyForeignKeyFields()
                   .formatEmptyTextFields()
+                  .removeFieldIfTrue()
                   .removeEmptyDateTimeFields()
                   .removeEmptyDateFields()
                   .formatManyToManyFields()

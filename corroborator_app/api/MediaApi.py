@@ -76,8 +76,10 @@ class MediaResource(MultipartResource, ModelResource):
     def obj_create(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         media_file = bundle.data['media_file']
+        bundle.data['media_type'] = 'Document'
 
-        #if 'video' in bundle.data['media_file'].content_type:
+        if 'video' in bundle.data['media_file'].content_type:
+            bundle.data['media_type'] = 'Video'
             #ffmpeg_wrapper = MiniFFMPEGWrapper()
             #ffmpeg_wrapper.video_file = media_file.temporary_file_path()
             #ffmpeg_wrapper.create_jpeg_from_video()

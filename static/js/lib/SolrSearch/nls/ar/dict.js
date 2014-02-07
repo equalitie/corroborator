@@ -1,11 +1,11 @@
 // standard strings for header.js view
 define({
     'sort': {
-      'date': 'تاريخ',
-      'location': 'مكان',
-      'title': 'عنوان',
-      'status': 'حالة',
-      'score': 'درجة',
+      'date': 'التاريخ',
+      'location': 'التاريخ',
+      'title': 'المكان',
+      'status': 'المكان',
+      'score': 'المكان',
       'confirm_delete_header': 'حذف العناصر المحددة؟',
       'confirm_delete_message': 'سيتم حذف هذه العناصر. هل أنت متأكد؟',
       'confirm': 'تأكيد',
@@ -17,16 +17,16 @@ define({
     'header': {
       'actions': 'الأوامر',
       'actor': {
-        'single': '<em>1 </span>actor</em> selected',
-        'plural': '<em><%=num %> </span>actors</em> selected',
+        'single': 'تم اختيار شخص واحد',
+        'plural': 'تم اختيار <%=num %> شخص'
       },
       'incident': {
-        'single': '<em>1 </span>incident</em> selected',
-        'plural': '<em><%=num %> </span>incidents</em> selected',
+        'single': 'تم اختيار ملف واحد',
+        'plural': 'تم اختيار <%=num %> ملف',
       },
       'bulletin': {
-        'single': '<em>1</span>bulletin</em> selected',
-        'plural': '<em><%=num %> </span>bulletins</em> selected',
+        'single': 'تم اختيار مادة واحدة',
+        'plural': 'تم اختيار <%=num %> مادة',
       },
     },
     'filters': {
@@ -39,10 +39,10 @@ define({
       'num_results': 'نتيجة <%=numItems %>.',
       'bulletin_labels_exact':'تصنيفات المادة',
       'bulletin_assigned_user_exact':'المستخدم المسؤول',
-      'bulletin_sources_exact':'مصادر',
+      'bulletin_sources_exact':'المصادر',
       'bulletin_created_exact':'تاريخ الإنشاء',
-      'most_recent_status_bulletin_exact':'حالة',
-      'bulletin_searchable_locations_exact':'نشرة الموقع',
+      'most_recent_status_bulletin_exact':'الحالة',
+      'bulletin_searchable_locations_exact':'موقع المادة',
       'bulletin_created_between': 'أنشئت المادة ما بين',
       //Incident fields
       'confidence_score_exact':'الموثوقية',
@@ -51,26 +51,28 @@ define({
       'incident_assigned_user_exact':'المستخدم المسؤول',
       'incident_crimes_exact':'أنواع الملفات',
       'incident_created_exact':'تاريخ الإنشاء',
-      'most_recent_status_incident_exact':'حالة',
-      'incident_searchable_locations_exact':'الحادث الموقع',
+      'most_recent_status_incident_exact':'الحالة',
+      'incident_searchable_locations_exact':'موقع المادة',
       'incident_created_between': 'أنشئ الملف ما بين',
       //Actor fields
-      'age_exact':'سن',
-      'sex_exact':'جنس ',
-      'civilian_exact':'Civilian',
+      'age_exact':'العمر',
+      'sex_exact':'الجنس',
+      'civilian_exact':'مدني',
       'nationality_en_exact':'الجنسية (EN)',
       'nationality_ar_exact':'الجنسية (ع)',
-      'occupation_en_exact':'احتلال (EN)',
-      'occupation_ar_exact':'احتلال (ع)',
-      'position_en_exact':'موقف (EN)',
-      'position_ar_exact':'موقف (ع)',
+      'occupation_en_exact':'المهنة',
+      'occupation_ar_exact':'المهنة',
+      'position_en_exact':'المنصب أو الرتبة',
+      'position_ar_exact':'المنصب أو الرتبة',
+      'religion_en_exact':'الدين',
+      'religion_ar_exact':'الدين',
       'ethnicity_en_exact':'العرق (EN)',
       'ethnicity_ar_exact':'العرق (ع)',
       'spoken_dialect_en':'لهجة(en)',
       'spoken_dialect_ar':'لهجة(ع)',
       'actor_searchable_pob_exact':'مكان الميلاد',
       'actor_searchable_current_exact':'الموقع الحالي',
-      'date_of_birth_between': 'Date of birth between'
+      'date_of_birth_between': 'تاريخ الميلاد'
     },
     'results': {
       'num_actors': {
@@ -91,10 +93,10 @@ define({
       'in': 'في'
     },
     'menu': {
-      'Delete_selected': 'حذف مختارة',
-      'Update_selected': 'تحديث مختارة',
-      'Select_all': 'تحديد كافة',
-      'Clear_selected': 'مسح المحدد',
+      'Update_selected': 'تحديث العناصر المحددة',
+      'Select_all': 'تحديد كافة العناصر',
+      'Clear_selected': 'تحديد كافة العناصر',
+      'Delete_selected': 'حذف العناصر المحددة'
     },
     'dialog': {
       'Save_search_as': 'حفظ البحث ك',

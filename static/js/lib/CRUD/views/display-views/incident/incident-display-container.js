@@ -68,7 +68,6 @@ define (
         return this;
       },
 
-
       displayExpandedView: function() {
         this.displayView()
             .renderRevisions();
@@ -207,6 +206,7 @@ define (
         if (!this.isList('incident_comments', this.model)) {
           return this;
         }
+        console.log(this.model.get('incident_comments'));
         var revisionView = new RevisionView({
           el: '#revision-container',
           content: this.model.get('incident_comments')

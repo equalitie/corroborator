@@ -113,7 +113,12 @@ define(
     // provide api endpoint for Bulletin model  
     // if resourceUri is set in the options the model will
     // auto fetch it's data
+    // extended via the 
     var BulletinModel = Backbone.Model.extend({
+      idAttribute: 'id',
+      // the four arrays which follow are used to mark them for formatting to make
+      // django/tastypie happy
+      // format methods in collection-mixins
       foreignKeyFields: [
         'assigned_user'
       ],
@@ -124,6 +129,15 @@ define(
         'sources', 'bulletin_comments', 'actors_role', 'times', 'medias',
         'locations', 'labels', 'ref_bulletins', 'bulletin_imported_comments'
       ],
+      // this is to remove the bulletin_modified field if it is set to true
+      // it's set to true for some older bulletins, don't know why, it should
+      // be a datetime
+      removeIfTrueFields: [
+        'bulletin_modified'
+      ],
+
+      // autoFetch if resourceUri set
+      // TODO: remove this auto fetch
       initialize: function(options) {
         this.set('entityType', 'bulletin');
         if (options.resourceUri !== undefined) {
@@ -135,6 +149,7 @@ define(
         }
       },
 
+      // fetches and triggers a render request
       fetchWithUpdate: function() {
         this.fetch({
           error: this.notFound.bind(this),
@@ -144,11 +159,13 @@ define(
         });
       },
 
+      // if the fetch is not successful trigger and error
+      // used in display of entities
       notFound: function() {
         this.trigger('sync-error');
       },
 
-      idAttribute: 'id',
+      // build the url for fetch
       url: function() {
         var base = '/api/v1/bulletin/';
         if (this.id) {

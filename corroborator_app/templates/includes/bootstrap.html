@@ -160,6 +160,7 @@
     {%for user in users_set.all %}
       user_list.push({
         label:"{{user.username}}",
+        name:"{{user.username}}",
         id:"{{user.id}}",
         resource_uri:"/api/v1/user/{{user.id}}/"
       });
