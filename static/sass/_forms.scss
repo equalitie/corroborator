@@ -392,9 +392,17 @@ body.login {
   margin-right: 50%;
 }
 
+.rtl #bulletin-comment-block label,
+.rtl #bulletin-event-block label,
+.rtl #bulletin-location-block label,
+.rtl #bulletin-label-block label,
 .rtl #actor-pob-block label,
-.rtl #actor-current-location-block label{
-  margin-right: 65%;
+.rtl #actor-current-location-block label,
+.rtl #incident-crime-block label,
+.rtl #incident-event-block label,
+.rtl #incident-location-block label,
+.rtl #incident-label-block label{
+  margin-right: 100%;
 }
 
 .rtl {

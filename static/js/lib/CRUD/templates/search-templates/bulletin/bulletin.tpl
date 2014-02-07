@@ -28,7 +28,6 @@
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
-              <label>{{i18n.bulletin.Title}}</label>
               <textarea 
                 id="incident_title_ar"
                 name="title_ar"
