@@ -3,7 +3,7 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this;
+  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing, self=this;
 
 function program1(depth0,data) {
   
@@ -16,11 +16,12 @@ function program1(depth0,data) {
 
 function program3(depth0,data) {
   
-  var buffer = "", stack1;
+  var buffer = "", stack1, options;
   buffer += "\n            <div id=\"bulletin-assignment-block\" class=\"bulletinAssigned  left\">\n              <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.Assigned_to)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</label>\n\n              <input type=\"text\" class=\"with-clear is-assigned-to\" value=\""
-    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_assigned_user)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n\n              <input type=\"text\" class=\"with-clear is-assigned-to\" value=\"";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.fetchUser || depth0.fetchUser),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user), options) : helperMissing.call(depth0, "fetchUser", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user), options)))
     + "\">\n              <input type=\"hidden\" \n                     name=\"assigned_user\"\n                     value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"\n                     class=\"bulletin-field\" >\n\n            <button id=\"clear-user\" class=\"do-clear\">\n              <span>✓</span>\n            </button>\n            </div>\n          ";
@@ -87,9 +88,7 @@ function program11(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.Title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</label>\n            <span class=\"i18n with-en with-ar\">\n              <div lang=\"en\">\n              <textarea \n                id=\"incident_title_en\"\n                type=\"text\"\n                name=\"title_en\"\n                class=\"required bulletin-field \n                w-100p\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.title_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</textarea>\n            </div>\n            <div lang=\"ar\">\n              <label>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.Title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</label>\n              <textarea \n                id=\"incident_title_ar\"\n                name=\"title_ar\"\n                type=\"text\"\n                class=\"bulletin-field\n                w-100p\">"
+    + "</textarea>\n            </div>\n            <div lang=\"ar\">\n              <textarea \n                id=\"incident_title_ar\"\n                name=\"title_ar\"\n                type=\"text\"\n                class=\"bulletin-field\n                w-100p\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.title_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</textarea>\n              </div>\n              <span class=\"toggle\">\n                <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n              </span>\n            </span>\n          </div>\n        </div>\n      </div>\n      <div class=\"last initial span-33p\">\n        <div class=\"group details\">\n          <div class=\"field clear-after\">\n\n            <!-- score slider -->\n            <div id=\"bulletin-score-block\" class=\"is-score right\">\n              <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin)),stack1 == null || stack1 === false ? stack1 : stack1.Score)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

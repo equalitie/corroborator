@@ -12,13 +12,18 @@ define(
     return Backbone.View.extend({
       el: '.graphs svg',
       initialize: function(options) {
+        this.$el.parent().addClass('bar');
         this.data = options.data;
         this.render();
       },
+      onDestroy: function() {
+        this.$el.parent().removeClass('bar');
+      },
+
       shortenLabel: function(labelString) {
-        return labelString.length < 30 ?
+        return labelString.length < 15 ?
           labelString :
-          labelString.slice(0, 30) + '…';
+          labelString.slice(0, 15) + '…';
       },
       createChart: function() {
         this.chart = nv.models.discreteBarChart()

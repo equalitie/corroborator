@@ -14,7 +14,9 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "  <div class=\"header\">\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"Bulletin is-edited is-expanded\">\n      <div class=\"first initial span-66p\">\n        <div class=\"header\">\n          ";
+  buffer += "  <div class=\"header\">\n    <h1>"
+    + escapeExpression(((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h1>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"Bulletin is-edited is-expanded\">\n      <div class=\"first initial span-66p\">\n        <div class=\"header\">\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          <div class=\"field is-title hide-multiple\">\n            <p class=\"error-text\">\n              "

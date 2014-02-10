@@ -20,6 +20,7 @@
   }
 }
 
+
 .is-edited {
   // give an empty score element some height
   .score {
@@ -375,4 +376,48 @@ body.login {
     border: none;
     cursor: pointer;
   }
+}
+
+
+.rtl .field label {
+  text-align: right;
+}
+.rtl .with-en.with-ar input,
+.rtl .actorAssigned input,
+{
+  width: 100%;
+}
+
+.rtl .is-birthdate label {
+  margin-right: 50%;
+}
+
+.rtl #bulletin-comment-block label,
+.rtl #bulletin-event-block label,
+.rtl #bulletin-location-block label,
+.rtl #bulletin-label-block label,
+.rtl #actor-pob-block label,
+.rtl #actor-current-location-block label,
+.rtl #incident-crime-block label,
+.rtl #incident-event-block label,
+.rtl #incident-location-block label,
+.rtl #incident-label-block label{
+  margin-right: 100%;
+}
+
+.rtl {
+  .is-media label,
+  .is-actors label,
+  .is-bulletins label,
+  .is-incidents label {
+    margin-right: 25%;
+  }
+  select#status {
+    float: right;
+  }
+  .span-33p label {
+    margin-right: 15%;
+  }
+
+
 }

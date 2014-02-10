@@ -8,7 +8,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <option value=\"";
+  buffer += "-->\n        <!--<option value=\"";
   if (stack1 = helpers.value) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.value; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -16,7 +16,7 @@ function program1(depth0,data) {
   if (stack1 = helpers.text) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.text; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</option>\n        ";
+    + "</option>-->\n        <!--";
   return buffer;
   }
 
@@ -36,20 +36,20 @@ function program1(depth0,data) {
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "-field w-100p\" />\n        </div>\n        <span class=\"toggle\">\n          <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n        </span>\n      </div>\n    </div>\n    <div class=\"field\">\n      <label>"
+    + "-field w-100p\" />\n        </div>\n        <span class=\"toggle\">\n          <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n        </span>\n      </div>\n    </div>\n    <!--<div class=\"field\">-->\n      <!--<label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.file_type)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</label>\n      <select name=\"media_type\" id=\"";
+    + "</label>-->\n      <!--<select name=\"media_type\" id=\"";
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "-media_type\"\n        class=\"";
+    + "-media_type\"-->\n        <!--class=\"";
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
   else { stack2 = depth0.entityType; stack2 = typeof stack2 === functionType ? stack2.apply(depth0) : stack2; }
   buffer += escapeExpression(stack2)
-    + "-field\">\n        ";
+    + "-field\">-->\n        <!--";
   stack2 = helpers.each.call(depth0, depth0.mediaTypes, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n      </select>\n    </div>\n    <div class=\"field\">\n      <label>"
+  buffer += "-->\n      <!--</select>-->\n    <!--</div>-->\n    <div class=\"field\">\n      <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.media)),stack1 == null || stack1 === false ? stack1 : stack1.file_upload)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</label>\n      <input id=\"";
   if (stack2 = helpers.entityType) { stack2 = stack2.call(depth0, {hash:{},data:data}); }

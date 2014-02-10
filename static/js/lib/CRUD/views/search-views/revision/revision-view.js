@@ -16,14 +16,21 @@ define(
   var RevisionView,
       CommentCollection = Comment.CommentCollection;
 
-  var statusLabel = function(statusResourceUri, created_date) {
-    var dateFormat, statusObj;
+  var getFromUri = function(uri, key) {
+    var searchField = {resource_uri: uri};
+    return _.findWhere(Bootstrap[key], searchField).name;
+  };
+
+  var statusLabel = function(model, created_date) {
+    var dateFormat, statusObj, labelTemplate;
+    labelTemplate = _.template('<%=status %> - <%=date %> - <%=user %>');
     dateFormat = "MMM Do, YYYY";
-    statusObj = _.chain(Bootstrap.all_statuses)
-              .where({resource_uri: statusResourceUri})
-              .first()
-              .value();
-    return statusObj.comment_status + ' - ' + moment(created_date).format(dateFormat);
+    return labelTemplate({
+      status: getFromUri(model.get('status'), 'all_statuses'),
+      date: moment(model.get('comment_created')).format(dateFormat),
+      user: getFromUri(model.get('assigned_user'), 'user_list')
+    });
+
   };
   // ###RevisionView
   // Display the Revisions for an entity
@@ -71,7 +78,7 @@ define(
       this.fetchedTotal =  this.fetchedTotal + 1;
       model.set(
         'status_label',
-        statusLabel(model.get('status'), model.get('comment_created')),
+        statusLabel(model),
         {silent: true}
       );
       

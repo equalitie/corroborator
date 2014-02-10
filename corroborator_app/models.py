@@ -18,6 +18,8 @@ from django.utils import translation
 from django.contrib.auth.signals import user_logged_out
 from django.db import models
 from django.db.models import Min, Max
+from django.db.models import Q
+
 from django.contrib.auth.models import User
 from django.utils import timezone
 from haystack.utils.geo import Point
@@ -121,22 +123,26 @@ class PermStatusUpdateManager(models.Manager):
         return a list of the available statuses, allows for users to have
         more that one group
         '''
+        special_status_keys = [
+            'm_created', 'h_created', 'reviewed', 'updated', 'finalized', ]
         groups = {
-            'data-analyst': [3],
-            'senior-data-analyst': [3, 4],
-            'chief-data-analyst': [3, 4, 5],
+            'data-analyst': ['updated'],
+            'senior-data-analyst': ['updated', 'reviewed', ],
+            'chief-data-analyst': ['updated', 'reviewed', 'finalized', ],
         }
 
-        status_ids = []
+        status_keys = []
         try:
             for group in user.groups.all():
-                status_ids = status_ids + groups[group.name]
+                status_keys = status_keys + groups[group.name]
         except KeyError:
-            status_ids = []
+            status_keys = []
 
-        status_ids = set(status_ids)
+        status_keys = set(status_keys)
 
-        return StatusUpdate.objects.filter(id__in=status_ids)
+        return StatusUpdate.objects.filter(
+            Q(key__in=status_keys) | ~Q(key__in=special_status_keys)
+        )
 
     def get_update_status(self, user, requested_status_id):
         '''
@@ -148,7 +154,7 @@ class PermStatusUpdateManager(models.Manager):
         for group in user.groups.all():
             has_perm = has_perm or self.has_perm_for_status_requested(
                 group,
-                requested_status.status_en)
+                requested_status.key)
 
         if has_perm:
             return requested_status
@@ -156,18 +162,18 @@ class PermStatusUpdateManager(models.Manager):
         else:
             return queryset.filter(id=3)[0]
 
-    def has_perm_for_status_requested(self, group, status_en):
+    def has_perm_for_status_requested(self, group, key):
         '''
         check that the user can update the entity based on permissions
         set
         '''
         perm_status_map = {
-            'Updated': 'can_update',
-            'Reviewed': 'can_update_to_reviewed',
+            'updated': 'can_update',
+            'reviewed': 'can_update_to_reviewed',
             'Finalized': 'can_update_to_finalized'
         }
         try:
-            codename = perm_status_map[status_en]
+            codename = perm_status_map[key]
             return len(group.permissions.filter(codename=codename)) == 1
         except KeyError:
             return False
@@ -179,6 +185,7 @@ class StatusUpdate(models.Model):
     the change in state of a Bulletin or Incident based on a user's
     actions.
     """
+    key = models.CharField(max_length=20)
     status_en = models.CharField(max_length=255)
     status_ar = models.CharField(max_length=255, blank=True, null=True)
     description_en = models.TextField(blank=True, null=True)

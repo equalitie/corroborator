@@ -85,6 +85,7 @@
       all_statuses.push({
         comment_status:"{{comment_status.comment_status}}",
         name:"{{comment_status.name}}",
+        key:"{{comment_status.key}}",
         id:{{comment_status.id}},
         resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
       });
@@ -93,6 +94,7 @@
       comment_statuses.push({
         comment_status:"{{comment_status.comment_status}}",
         name:"{{comment_status.name}}",
+        key:"{{comment_status.key}}",
         id:{{comment_status.id}},
         resource_uri:"/api/v1/statusUpdate/{{comment_status.id}}/"
       });
@@ -100,6 +102,7 @@
     var create_status = {
         comment_status:"{{create_status.comment_status}}",
         name:"{{comment_status.name}}",
+        key:"{{comment_status.key}}",
         id:"{{create_status.id}}",
         resource_uri:"/api/v1/statusUpdate/{{create_status.id}}/"
       };
@@ -160,6 +163,7 @@
     {%for user in users_set.all %}
       user_list.push({
         label:"{{user.username}}",
+        name:"{{user.username}}",
         id:"{{user.id}}",
         resource_uri:"/api/v1/user/{{user.id}}/"
       });

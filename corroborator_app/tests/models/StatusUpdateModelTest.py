@@ -24,12 +24,12 @@ class StatusUpdateModelTestCase(TestCase):
         self.test_utility.add_user_to_group('data-analyst')
         statuses =\
             StatusUpdate.filter_by_perm_objects.available_statuses(self.user)
-        self.assertIs(len(statuses), 1)
+        self.assertIs(len(statuses), 2)
         self.test_utility.add_user_to_group('senior-data-analyst')
         statuses =\
             StatusUpdate.filter_by_perm_objects.available_statuses(self.user)
-        self.assertIs(len(statuses), 2)
+        self.assertIs(len(statuses), 3)
         self.test_utility.add_user_to_group('chief-data-analyst')
         statuses =\
             StatusUpdate.filter_by_perm_objects.available_statuses(self.user)
-        self.assertIs(len(statuses), 3)
+        self.assertIs(len(statuses), 4)

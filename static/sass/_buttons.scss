@@ -20,6 +20,10 @@
     }
 }
 
+@mixin rtl_clear_button {
+  @include clear_button;
+}
+
 @mixin button (
   $background_color: $COLOR_INPUT_BD,
   $hover_color: false,
@@ -237,6 +241,10 @@ a.button.download {
 button.do-clear {
   @include clear_button;
 }
+.rtl button.do-clear {
+  @include rtl_clear_button;
+}
+
 .info, .home {
   @include button(
     $background_color: transparent,

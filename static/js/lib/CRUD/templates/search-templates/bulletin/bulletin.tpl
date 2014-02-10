@@ -28,7 +28,6 @@
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
-              <label>{{i18n.bulletin.Title}}</label>
               <textarea 
                 id="incident_title_ar"
                 name="title_ar"
@@ -88,7 +87,7 @@
             <div id="bulletin-assignment-block" class="bulletinAssigned  left">
               <label>{{i18n.bulletin.Assigned_to}}</label>
 
-              <input type="text" class="with-clear is-assigned-to" value="{{model.bulletin_assigned_user}}">
+              <input type="text" class="with-clear is-assigned-to" value="{{fetchUser model.assigned_user}}">
               <input type="hidden" 
                      name="assigned_user"
                      value="{{model.assigned_user}}"

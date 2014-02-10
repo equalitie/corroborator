@@ -126,7 +126,9 @@ define({
       'file_type': 'file type',
       'Remove': 'Remove',
       'Relate': 'Relate',
-      'file_upload': 'file upload'
+      'file_upload': 'file upload',
+      'upload_media': 'Upload Media',
+      'cancel': 'Cancel'
     },
     'comment': {
       'Comment': 'Comment',

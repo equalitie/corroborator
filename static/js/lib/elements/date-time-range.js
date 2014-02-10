@@ -7,9 +7,10 @@ define (
   [
     'jquery', 'backbone',
     'lib/elements/templates/date-time-range.tpl',
+    'i18n!lib/elements/nls/dict',
     'jquery_slider'
   ],
-  function ($, Backbone, dateRangeTmp) {
+  function ($, Backbone, dateRangeTmp, i18n) {
     'use strict';
     var DateTimeRangeView;
 
@@ -39,6 +40,7 @@ define (
 
       render: function() {
         var html = this.template({
+          i18n: i18n,
           entityType: this.entityType,
           options: this.templateVars
         });

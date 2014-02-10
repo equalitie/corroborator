@@ -16,7 +16,7 @@ define({
     'Born_in': 'مولود في',
     'Add_as': 'إضافة ك',
     'Related_as': 'مرتبط ك',
-    'Related_Actors': 'أشخاص مرتبطين',
+    'Related_Actors': 'الأشخاص المرتبطين',
     'Date_Of_Birth': 'تاريخ الميلاد',
     'Nationality': 'الجنسية',
     'Nationality_en': 'الجنسية(en)',
@@ -35,7 +35,7 @@ define({
     'Name_must_be_entered': 'يجب إدخال الإسم',
     'Name': 'الإسم',
     'Nickname': 'اللقب',
-    'Sex': 'جنس',
+    'Sex': 'الجنس',
     'Age': 'السن',
     'Place_Of_Birth':'مكان الميلاد',
     'Current_Location' : 'الموقع الحالي',
@@ -47,7 +47,7 @@ define({
     'CivilianNoncivilian': 'مدني\\غير مدني',
     'Civilian': 'مدني',
     'Noncivilian': 'غير مدني',
-    'Position_rank': 'منصب(رتبة)',
+    'Position_rank': 'المنصب أو الرتبة',
     'Spoken_dialects': 'اللهجات المحكية',
     'Select_a_status_for_this_actor': 'اختر حالة الشخص',
     'Select_status': 'اختر الحالة',
@@ -74,17 +74,17 @@ define({
     'Select_a_status_for_this_bulletin': 'اختر حالة لهذة المادة',
     'Select_Status': 'اختر الحالة',
     'Comment_field_is_required': 'حقل التعليق مطلوب',
-    'Comment': 'تعليق',
+    'Comment': 'سبب التحديث',
     'close': 'إغلاق',
 
-    'Status': 'حالة',
-    'Sources': 'مصادر',
-    'Labels': 'تصنيفات',
+    'Status': 'الحالة',
+    'Sources': 'المصادر',
+    'Labels': 'التصنيفات',
     'Locations': 'المواقع',
     'Related_Media': 'المواد المرتبطة'
   },
   'incident': {
-    'Crime': 'نوع',
+    'Crime': 'النوع',
     'Assigned_to': 'تحت مسؤولية',
     'Related_incidents': 'الملفات المرتبطة',
     'Relate': 'مرتبط',
@@ -98,15 +98,15 @@ define({
     'Confidence':'الموثوقيه',
     'Unassigned': 'غيرمفرز',
     'Locations': 'المواقع',
-    'Labels': 'تصنيفات',
+    'Labels': 'التصنيفات',
     'Select_a_status_for_this_incident': 'اختر حالة لهذا الملف',
     'Select_status': 'اختر الحالة',
-    'Status': 'حالة',
+    'Status': 'الحالة',
     'You_must_supply_a_reason_for_the_edit': 'الرجاء كتابة تعليق عن سبب هذا التعديل',
     'Reason_For_Update': 'سبب التحديث',
   },
   'event': {
-    'Events': 'أحداث',
+    'Events': 'الأحداث',
     'from': 'من',
     'to': 'إلى',
     'Remove': 'إزالة',
@@ -127,7 +127,9 @@ define({
     'file_type': 'نوع الملف',
     'Remove': 'إزالة',
     'Relate': 'مرتبط',
-    'file_upload': 'تحميل ملف'
+    'file_upload': 'تحميل ملف',
+    'upload_media': 'تحميل المادة',
+    'cancel': 'إلغاء'
   },
   'comment': {
     'Comment': 'تعليق',
@@ -136,7 +138,7 @@ define({
     'by': 'من قبل',
     'Select_Status': 'اختر الحالة',
     'Status': 'حالة',
-    'Save_comment': 'Save comment'
+    'Save_comment': 'حفظ التعليق'
   },
   'revision': {
     'REVISIONS': 'نتقيحات',

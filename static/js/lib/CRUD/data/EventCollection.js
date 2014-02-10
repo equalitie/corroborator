@@ -13,7 +13,7 @@ define (
     'use strict';
     var EventCollection,
         EventModel,
-        ModelSyncMixin = Mixins.ModelSyncMixin,
+        ModelSaveMixin = Mixins.ModelSaveMixin,
         mapResourceUriToId = function(resourceUri) {
           return _.last(resourceUri.match(/\/(\d+)\/$/));
         };
@@ -24,6 +24,9 @@ define (
       dateTimeFields: [
         'time_from',
         'time_to'
+      ],
+      intFields: [
+        'confidence_score'
       ],
       idAttribute: 'id',
       initialize: function(options) {
@@ -44,7 +47,7 @@ define (
           return base + urlvars;
       }
     });
-    _.extend(EventModel.prototype, ModelSyncMixin);
+    _.extend(EventModel.prototype, ModelSaveMixin);
     
 
     // ### EventCollection

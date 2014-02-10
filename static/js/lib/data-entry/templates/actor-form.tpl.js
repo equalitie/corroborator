@@ -65,7 +65,9 @@ function program13(depth0,data) {
   return buffer;
   }
 
-  buffer += "  <div class=\"header\">\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"Actor is-edited is-expanded\">\n    <div class=\"first initial span-66p\">\n    <!-- switch class here is-expanded -> in-preview -->\n      <div class=\"Actor is-edited is-expanded\">\n        <div class=\"header\">\n          <!-- id field - hide for new actor -->\n          ";
+  buffer += "  <div class=\"header\">\n    <h1>"
+    + escapeExpression(((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor_label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h1>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"Actor is-edited is-expanded\">\n    <div class=\"first initial span-66p\">\n    <!-- switch class here is-expanded -> in-preview -->\n      <div class=\"Actor is-edited is-expanded\">\n        <div class=\"header\">\n          <!-- id field - hide for new actor -->\n          ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n          <!-- actor name -->\n          <div class=\"field clear-after hide-multiple\">\n            <label>Name</label>\n            <p class=\"error-text\">\n              "

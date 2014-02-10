@@ -1,4 +1,5 @@
   <div class="header">
+    <h1>{{i18n.actor_label}}</h1>
   </div>
   <div class="body" style="bottom: 49px;">
     <div class="Actor is-edited is-expanded">

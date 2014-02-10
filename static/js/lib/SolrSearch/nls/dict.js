@@ -17,16 +17,16 @@ define({
     'header': {
       'actions': 'Actions',
       'actor': {
-        'single': '<em>1 </span>actor</em> selected',
+        'single': '<em>1 actor</em> selected',
         'plural': '<em><%=num %> </span>actors</em> selected',
       },
       'incident': {
-        'single': '<em>1 </span>incident</em> selected',
-        'plural': '<em><%=num %> </span>incidents</em> selected',
+        'single': '<em>1 incident</em> selected',
+        'plural': '<em><%=num %> incidents</em> selected',
       },
       'bulletin': {
-        'single': '<em>1</span>bulletin</em> selected',
-        'plural': '<em><%=num %> </span>bulletins</em> selected',
+        'single': '<em>1 bulletin</em> selected',
+        'plural': '<em><%=num %> bulletins</em> selected',
       },
     },
     'filters': {

@@ -1,5 +1,6 @@
 <div id="video-edit-preview"></div>
 <label>{{label}}</label>
+{{#unless noSearch}}
 <div class="search">
   <input type="text" class="with-clear">
   <button class="do-clear">
@@ -9,6 +10,7 @@
     <span>{{i18n.Search}}</span>
   </button>
 </div>
+{{/unless}}
 
 <ul class="media"></ul>
 

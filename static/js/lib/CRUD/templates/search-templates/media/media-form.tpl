@@ -25,15 +25,15 @@
         </span>
       </div>
     </div>
-    <div class="field">
-      <label>{{i18n.media.file_type}}</label>
-      <select name="media_type" id="{{entityType}}-media_type"
-        class="{{entityType}}-field">
-        {{#each mediaTypes}}
-        <option value="{{value}}">{{text}}</option>
-        {{/each}}
-      </select>
-    </div>
+    <!--<div class="field">-->
+      <!--<label>{{i18n.media.file_type}}</label>-->
+      <!--<select name="media_type" id="{{entityType}}-media_type"-->
+        <!--class="{{entityType}}-field">-->
+        <!--{{#each mediaTypes}}-->
+        <!--<option value="{{value}}">{{text}}</option>-->
+        <!--{{/each}}-->
+      <!--</select>-->
+    <!--</div>-->
     <div class="field">
       <label>{{i18n.media.file_upload}}</label>
       <input id="{{entityType}}-file-upload"

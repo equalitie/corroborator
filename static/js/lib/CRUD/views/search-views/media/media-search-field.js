@@ -54,6 +54,7 @@ define (
         this.label = options.label;
         this.multiple = options.multiple;
         this.name = options.name;
+        this.noSearch = options.noSearch || false;
         this.listenTo(this.collection, 'sync reset add remove',
           this.renderMedias.bind(this));
         this.listenTo(this.collection, 'reset add remove',
@@ -235,6 +236,7 @@ define (
           multiple: this.multiple,
           entityType: this.entityType,
           name: this.name,
+          noSearch: this.noSearch,
           i18n: i18n
         });
         this.$el.empty()

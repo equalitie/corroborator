@@ -198,7 +198,6 @@ define (
 
       // render the form
       render: function() {
-        console.log(this.model.toJSON());
         var html = this.template({
           model: this.model.toJSON(),
           statuses: Bootstrap.comment_statuses,

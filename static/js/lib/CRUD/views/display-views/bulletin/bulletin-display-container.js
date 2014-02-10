@@ -152,6 +152,7 @@ define (
         _.each(actorsContainer.childViews, function(childView) {
           childView.selectInitialLanguage();
         });
+        this.childViews.push(actorsContainer);
         return this;
       },
 
@@ -165,6 +166,7 @@ define (
           el: eventsEl,
           content: content
         });
+        this.childViews.push(eventsContainer);
         return this;
       },
 
@@ -178,6 +180,7 @@ define (
           el: commentsEl,
           content: content
         });
+        this.childViews.push(commentsContainer);
         return this;
       },
 
@@ -192,6 +195,7 @@ define (
           content: content,
           expanded: this.expanded
         });
+        this.childViews.push(bulletinsContainer);
         return this;
       },
 
@@ -205,10 +209,11 @@ define (
           content: content,
           expanded: this.expanded
         });
+        this.childViews.push(incidentsContainer);
         return this;
       },
 
-      // render the related incidents
+      // render the related media
       renderRelatedMedia: function() {
         var content, mediaEl, mediaView;
         mediaEl = this.$el.children()
@@ -220,6 +225,7 @@ define (
           el: mediaEl,
           content: content
         });
+        this.childViews.push(mediaView);
         return this;
       },
 
