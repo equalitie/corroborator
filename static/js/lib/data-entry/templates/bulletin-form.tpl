@@ -1,4 +1,5 @@
   <div class="header">
+    <h1>{{i18n.bulletin_label}}</h1>
   </div>
   <div class="body" style="bottom: 49px;">
     <div class="Bulletin is-edited is-expanded">

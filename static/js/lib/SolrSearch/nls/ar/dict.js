@@ -76,8 +76,8 @@ define({
     },
     'results': {
       'num_actors': {
-        'single': '<%=num %> actor involved',
-        'plural': '<%=num %> actors involved',
+        'single': 'شخص واحد مرتبط',
+        'plural': '<%=num %> شخص مرتبط',
       },
       'aka': 'الملقب',
       'lives_in': 'يعيش في',
@@ -85,8 +85,8 @@ define({
       'works_as_a': 'يعمل',
       //'works_as_a': 'يعمل <jobname>',
       'involved_in':{
-        'single': 'involved in <%=num %> incident',
-        'plural': 'involved in <%=num %> incidents'
+        'single': 'مرتبط بملف واحد',
+        'plural': 'مرتبط بـ <%=num %> ملف'
       },
       'involved': 'متورط',
       'no_results': 'لا نتائج',

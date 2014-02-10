@@ -23,13 +23,33 @@ define(
       'tab/bulletin': 'showBulletinForm',
     },
     showActorForm: function() {
+      this.setActorAsCurrentTab();
       actorFormView.show();
       bulletinFormView.hide();
     },
     showBulletinForm: function() {
+      this.setBulletinAsCurrentTab();
       actorFormView.hide();
       bulletinFormView.show();
+    },
+    // these should really be in a view
+    getUl: function() {
+      this.$ul = this.$ul || $('.tabs').children('ul');
+      return this.$ul;
+    },
+    setBulletinAsCurrentTab: function() {
+      this.getUl().children('.is-bulletins')
+                  .addClass('current')
+                  .siblings()
+                  .removeClass('current');
+    },
+    setActorAsCurrentTab: function() {
+      this.getUl().children('.is-actors')
+                  .addClass('current')
+                  .siblings()
+                  .removeClass('current');
     }
+
   });
 
   return DataEntryRouter;

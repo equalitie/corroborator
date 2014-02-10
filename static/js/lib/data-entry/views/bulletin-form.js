@@ -16,6 +16,7 @@ define (
     // child views
     'lib/CRUD/views/comment-form',
     'lib/CRUD/views/event-form',
+    'lib/CRUD/views/search-views/media/media-search-field',
     // templates/search-templates
     'lib/data-entry/templates/bulletin-form.tpl',
     'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl',
@@ -25,7 +26,7 @@ define (
     // data
     Source, Label, Location, Bulletin,
     // views
-    CommentForm, EventForm,
+    CommentForm, EventForm, MediaSearchView,
     bulletinFormTmp, bulletinDisplayTmp, i18n) {
     'use strict';
 
@@ -303,6 +304,15 @@ define (
           entityType: 'bulletin'
         });
 
+        var mediaSearchView = new MediaSearchView({
+          el        : '#bulletin-media-block',
+          content   : this.model.get('medias'),
+          multiple  : true,
+          entityType: 'bulletin',
+          label     : i18n.bulletin.Related_Media,
+          noSearch  : true,
+          name      : 'medias'
+        });
 
 
         // add each new view to the child views array
