@@ -641,6 +641,7 @@ class Actor(models.Model):
     health_status_en = models.CharField(max_length=255, blank=True, null=True)
     health_status_ar = models.CharField(max_length=255, blank=True, null=True)
 
+    times = models.ManyToManyField(TimeInfo, blank=True, null=True)
     DOB = models.DateField('date of birth', blank=True, null=True)
     date_of_death = models.DateField('date of death', blank=True, null=True)
     date_of_disappearance = models.DateField(
