@@ -135,7 +135,7 @@ define(
       // constructor
       initialize: function() {
         this.collection = this.model.get('collection');
-        this.listenTo(this.collection, 'add', this.renderFilter.bind(this));
+        this.listenTo(this.collection, 'add', this.renderFilters.bind(this));
         this.listenTo(this.collection, 'remove', this.renderFilters.bind(this));
         this.render();
       },
