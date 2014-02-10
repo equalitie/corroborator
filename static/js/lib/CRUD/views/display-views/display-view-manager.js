@@ -30,6 +30,11 @@ define (
           bulletin: BulletinDisplayView,
           incident: IncidentDisplayView
         },
+        isFinalized = function(uri) {
+          var entityStatus = _.findWhere(
+            Bootstrap.all_statuses, {resource_uri: uri});
+          return entityStatus.key === 'finalized';
+        },
         extractEntity = function(value) {
           return value.content;
         },
@@ -162,10 +167,12 @@ define (
         _.invoke(this.childViews, 'destroy');
         this.childViews = [];
       },
+
       disableEditIfFinalized: function(content) {
         var entityStatus =
           this.model.get('most_recent_status_' + content.entity);
-        if (entityStatus === 'Finalized'
+
+        if (isFinalized(entityStatus)
           && Bootstrap.perms.can_update_to_finalized === false) {
           this.$el.children()
                   .children()
