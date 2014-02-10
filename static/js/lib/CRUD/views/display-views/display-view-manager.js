@@ -31,9 +31,14 @@ define (
           incident: IncidentDisplayView
         },
         isFinalized = function(uri) {
-          var entityStatus = _.findWhere(
-            Bootstrap.all_statuses, {resource_uri: uri});
-          return entityStatus.key === 'finalized';
+          try {
+            var entityStatus = _.findWhere(
+              Bootstrap.all_statuses, {resource_uri: uri});
+            return entityStatus.key === 'finalized';
+          }
+          catch(e) {
+            return false;
+          }
         },
         extractEntity = function(value) {
           return value.content;
