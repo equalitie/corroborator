@@ -15,8 +15,12 @@ define (
     'lib/Data/bulletin',
     // child views
     'lib/CRUD/views/comment-form',
+    'lib/CRUD/views/display-views/comment/comment-container',
     'lib/CRUD/views/event-form',
+    'lib/CRUD/views/display-views/event/event-container',
     'lib/CRUD/views/search-views/media/media-search-field',
+    'lib/CRUD/views/display-views/media/media-container',
+    'lib/CRUD/views/map-view',
     // templates/search-templates
     'lib/data-entry/templates/bulletin-form.tpl',
     'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl',
@@ -26,7 +30,8 @@ define (
     // data
     Source, Label, Location, Bulletin,
     // views
-    CommentForm, EventForm, MediaSearchView,
+    CommentForm, CommentListView, EventForm, EventListView, MediaSearchView,
+    MediaListView, CoordinateDisplayView,
     bulletinFormTmp, bulletinDisplayTmp, i18n) {
     'use strict';
 
@@ -51,15 +56,102 @@ define (
     // show the bulletin before saving it
     BulletinPreviewView = Backbone.View.extend({
       template: bulletinDisplayTmp,
+      childViews: [],
       initialize: function (options) {
-        this.render();
+        this.render()
+            .renderRelatedMedia()
+            .renderRelatedComments()
+            .renderRelatedEvents()
+            .renderMap();
+      },
+      // destroy child views and remove listeners
+      onDestroy: function() {
+        this.destroyChildren();
+      },
+      // invoke destroy on all child views and clear the array
+      destroyChildren: function() {
+        _.invoke(this.childViews, 'destroy');
+        this.childViews = [];
+      },
+      // get the containing el for normal and expanded view
+      getContainerEl: function(className) {
+        return  this.$el.children()
+                       .children()
+                       .children('.body')
+                       .children('.is-' + className);
+      },
+      ensureArray: function(val) {
+        return _.isArray(val) 
+          ? val
+          : [val];
+      },
+
+      // render the comments
+      renderRelatedEvents: function() {
+        var eventsEl, content, eventsContainer;
+        eventsEl = this.getContainerEl('events');
+
+        content = this.model.get('times');
+        eventsContainer = new EventListView({
+          el: eventsEl,
+          content: this.ensureArray(content)
+        });
+        this.childViews.push(eventsContainer);
+        return this;
+      },
+      // render the comments
+      renderRelatedComments: function() {
+        var commentsEl, content, commentsContainer;
+        commentsEl = this.getContainerEl('comments');
+
+        content = this.model.get('bulletin_imported_comments');
+        commentsContainer = new CommentListView({
+          el: commentsEl,
+          content: this.ensureArray(content)
+        });
+        this.childViews.push(commentsContainer);
+        return this;
+      },
+      // render the related media
+      renderRelatedMedia: function() {
+        var content, mediaEl, mediaView;
+        mediaEl = this.$el.children()
+                          .children()
+                          .children('.body')
+                          .children('.is-media');
+        content = this.model.get('medias');        
+        mediaView = new MediaListView({
+          el: mediaEl,
+          content: this.ensureArray(content)
+        });
+        this.childViews.push(mediaView);
+        return this;
+      },
+      renderMap: function() {
+        var mapEl, content, mapContainer, collection;
+        mapEl = this.getContainerEl('bulletin-map');
+        if (this.model.get('locations') !== undefined &&
+            this.model.get('locations').length > 0) {
+          content = _.map(this.ensureArray(this.model.get('locations')),
+          function(uri) {
+            return { resourceUri: uri };
+          });
+          mapContainer = new CoordinateDisplayView({
+            el: mapEl,
+            content: content
+          });
+          this.childViews.push(mapContainer);
+        }
+        return this;
       },
       render: function() {
+        console.log(this.model);
         this.$el.html(this.template({
           model: this.model.toJSON(),
           i18n: i18n
         }));
         this.$el.attr('title', i18n.dialog.Preview_add_bulletin);
+        return this;
       }
     });
 
