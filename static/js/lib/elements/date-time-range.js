@@ -39,7 +39,6 @@ define (
       },
 
       render: function() {
-        console.log(i18n);
         var html = this.template({
           i18n: i18n,
           entityType: this.entityType,

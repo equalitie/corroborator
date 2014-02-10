@@ -146,7 +146,6 @@ define (
 
       // render the related bulletins
       renderRelatedBulletins: function() {
-        console.log('renderRelatedBulletins');
         var bulletinsEl, content, bulletinsContainer;
         bulletinsEl = this.getContainerEl('bulletins');
         content = this.model.get('related_bulletins');
