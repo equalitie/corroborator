@@ -89,6 +89,12 @@ class ActorResource(ModelResource, APIMixin):
     def obj_update(self, bundle, **kwargs):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
+        bundle.data['id'] = kwargs['pk']
+
+        if self.can_edit(user, bundle, Actor) is False:
+            raise ImmediateHttpResponse(
+                HttpForbidden('You do not have permission to edit this entity')
+            )
 
         if self.is_finalized(
             Actor,

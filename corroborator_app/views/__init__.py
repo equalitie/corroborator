@@ -34,7 +34,8 @@ from corroborator_app.models import (
     Actor
 )
 
-from corroborator_app.views.context import build_js_context
+from corroborator_app.views.context import (
+    build_js_context, build_data_entry_context)
 
 from corroborator_app.authproxy.awsAuthProxy import AWSAuthProxy
 from corroborator_app.authproxy.solrAuthProxy import SolrAuthProxy
@@ -121,7 +122,11 @@ def data_entry(request, *args, **kwargs):
         if group.name in incorrect_groups:
             return redirect('/corroborator/')
 
-    return render(request, 'data-entry.html', build_js_context(request.user))
+    return render(
+        request,
+        'data-entry.html',
+        build_data_entry_context(request.user)
+    )
 
 
 def monitoring_update_conf(request, conf_name):

@@ -61,14 +61,16 @@ class TestUserUtility(object):
         group = Group(name=group_name)
         group.save()
         permissions_map = {
-            'data-entry': [],
-            'data-analyst': ['can_update', ],
-            'senior-data-analyst': ['can_update', 'can_update_to_reviewed', ],
+            'data-entry': ['can_edit_assigned_entities', ],
+            'data-analyst': ['can_update', 'can_edit_entities', ],
+            'senior-data-analyst': [
+                'can_update', 'can_update_to_reviewed', 'can_edit_entities', ],
             'chief-data-analyst': [
                 'can_update',
                 'can_update_to_reviewed',
                 'can_update_to_finalized',
                 'can_assign_users',
+                'can_edit_entities',
             ],
         }
         for permission_string in permissions_map[group_name]:

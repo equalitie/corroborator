@@ -123,19 +123,36 @@ class BulletinTestCase(ResourceTestCase):
         self.assertEqual(len(vs), 1)
 
     def test_bulletin_put(self):
-        b = Bulletin.objects.all()[0]
+        self.test_user_util.add_user_to_group('data-analyst')
+        b = Bulletin.objects.all()[1]
         url = '/api/v1/bulletin/{0}/?format=json{1}'.format(
             b.id,
             self.auth_string
         )
         put_data = create_put_data(5)
         response = self.api_client.put(url, data=put_data)
-        self.check_dehydrated_data(response)
         self.assertEqual(response.status_code, 202)
+        self.check_dehydrated_data(response)
         self.assertEqual(retrieve_last_comment_status(response), 'Updated')
         vs = VersionStatus.objects.filter(
             user_id=self.user.id).order_by('version_timestamp')
         self.assertEqual(len(vs), 1)
+
+    def test_data_entry_put(self):
+        self.test_user_util.add_user_to_group('data-entry')
+        b = Bulletin.objects.all()[0]
+        url = '/api/v1/bulletin/{0}/?format=json{1}'.format(
+            b.id,
+            self.auth_string
+        )
+        put_data = create_put_data(3)
+        response = self.api_client.put(url, data=put_data)
+        self.assertEqual(response.status_code, 202)
+        self.assertEqual(retrieve_last_comment_status(response), 'Updated')
+        b.assigned_user = None
+        b.save()
+        response = self.api_client.put(url, data=put_data)
+        self.assertEqual(response.status_code, 403)
 
     def test_senior_data_analyst_put(self):
         self.test_user_util.add_user_to_group('senior-data-analyst')

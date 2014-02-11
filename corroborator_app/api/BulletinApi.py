@@ -124,6 +124,11 @@ class BulletinResource(ModelResource, APIMixin):
         username = bundle.request.GET['username']
         user = User.objects.filter(username=username)[0]
 
+        if self.can_edit(user, bundle, Bulletin) is False:
+            raise ImmediateHttpResponse(
+                HttpForbidden('You do not have permission to edit this entity')
+            )
+
         # permission checks
         if self.is_finalized(
             Bulletin,
@@ -144,6 +149,7 @@ class BulletinResource(ModelResource, APIMixin):
             status_id
         )
 
+        # create the commnt from the status update and the bundled comment
         comment_uri = self.create_comment(
             bundle.data['comment'],
             status_update.id,

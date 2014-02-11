@@ -64,7 +64,8 @@ class ActorTestCase(ResourceTestCase):
         actor_comments = new_actor.actor_comments.all()
         self.assertEqual(len(actor_comments), 1)
         self.assertEqual(actor_comments[0].status.status_en, 'Human Created')
-        vs = VersionStatus.objects.filter(user_id=self.user.id).order_by('version_timestamp')
+        vs = VersionStatus.objects.filter(
+            user_id=self.user.id).order_by('version_timestamp')
         self.assertEqual(len(vs), 1)
 
     def test_actor_bulletin_related(self):
@@ -247,6 +248,7 @@ class ActorTestCase(ResourceTestCase):
         url = '/api/v1/actor/{0}/?format=json{1}'.format(
             precreated_actor.id, self.auth_string)
 
+        print url
         put_data = create_put_data(4)
         response = self.api_client.put(url, data=put_data)
         self.assertEqual(response.status_code, 403)

@@ -70,7 +70,8 @@ class MultiSaveBulletinTestCase(TestCase):
         response_data = json.loads(response.content)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            response_data[0]['most_recent_status_bulletin'], u'Updated')
+            response_data[0]['most_recent_status_bulletin'],
+            u'/api/v1/statusUpdate/3/')
 
     def test_statusless_update_fails(self):
         client = Client()

@@ -63,7 +63,8 @@ class MultiSaveIncidentTestCase(TestCase):
         self.assertEqual(len(incident_2.actors_role.all()), 2)
         response_data = json.loads(response.content)
         self.assertEqual(
-            response_data[0]['most_recent_status_incident'], u'Updated')
+            response_data[0]['most_recent_status_incident'],
+            u'/api/v1/statusUpdate/3/')
 
     def test_incidents_updated_with_empty_relations(self):
         client = self.test_user_util.client_login()

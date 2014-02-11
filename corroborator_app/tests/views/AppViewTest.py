@@ -16,6 +16,7 @@ class AppViewTestCase(TestCase):
     test that the correct js app get's loaded depending on the user's
     permissions
     '''
+    fixtures = ['test_data_role.json', 'status_update', ]
 
     def setUp(self):
         self.client = Client()

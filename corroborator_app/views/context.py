@@ -8,6 +8,7 @@ the key is the key for the json object the value is the name of the
 function that will generate the values for the specified key
 """
 from django.utils.translation import ugettext as _
+from django.core import serializers
 from django.utils import translation
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -16,6 +17,8 @@ from django.conf import settings
 from tastypie.models import ApiKey
 
 from corroborator_app.models import (
+    Actor,
+    Bulletin,
     ActorRole,
     Label,
     PredefinedSearch,
@@ -27,6 +30,16 @@ from corroborator_app.models import (
 from corroborator_app.views.view_utils import (
     can_assign_users, can_finalize, can_delete, is_in_group
 )
+from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
+
+
+def build_data_entry_context(user):
+    context = build_js_context(user)
+    actors = build_actor_list(Actor.objects.filter(assigned_user=user))
+    
+    context['actors'] = serializers.serialize('json', actors)
+    bulletins = Bulletin.objects.filter(assigned_user=user)
+    return context
 
 
 def build_js_context(user):

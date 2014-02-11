@@ -16,8 +16,8 @@ from corroborator_app.multisave import (
     multi_save_actors, extract_ids,
     update_entities, process_actor_data, create_comment
 )
-from corroborator_app.models import Actor, Location, ActorRole
-from corroborator_app.tests.test_utilities import TestUserUtility
+from corroborator_app.models import Actor, Location, ActorRole, StatusUpdate
+from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 import json
 
 
@@ -149,7 +149,8 @@ class MultiSaveActorTestCase(TestCase):
         #actor = Actor.objects.get(id=1)
         self.assertEqual(response_data[0]['occupation_en'], u'Farmer')
         self.assertEqual(
-            response_data[0]['most_recent_status_actor'], u'Updated')
+            response_data[0]['most_recent_status_actor'],
+            u'/api/v1/statusUpdate/3/')
         self.assertEqual(response.status_code, 200)
 
     def test_actors_status_update_analyst(self):
@@ -243,7 +244,9 @@ class MultiSaveActorTestCase(TestCase):
 
 
 def get_status_from_response(response):
-    return get_key_from_response(response, 'most_recent_status_actor')
+    status_id = id_from_uri(
+        get_key_from_response(response, 'most_recent_status_actor'))
+    return StatusUpdate.objects.get(id=status_id).status_en
 
 
 def get_key_from_response(response, key):

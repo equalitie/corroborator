@@ -28,6 +28,9 @@ from queued_storage.backends import QueuedStorage
 
 from reversion.models import Revision
 
+from corroborator_app.index_meta_prep.actorPrepIndex import ActorManager
+from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinManager
+
 
 def lang_helper(object_instance, field):
     '''
@@ -146,7 +149,8 @@ class PermStatusUpdateManager(models.Manager):
 
     def get_update_status(self, user, requested_status_id):
         '''
-        return the status that the user may update to
+        return the status that the user may update to, so if a user tries to
+        update to finalized and may not, just return the updated status
         '''
         queryset = super(PermStatusUpdateManager, self).get_query_set()
         requested_status = queryset.get(id=requested_status_id)
@@ -170,7 +174,7 @@ class PermStatusUpdateManager(models.Manager):
         perm_status_map = {
             'updated': 'can_update',
             'reviewed': 'can_update_to_reviewed',
-            'Finalized': 'can_update_to_finalized'
+            'finalized': 'can_update_to_finalized'
         }
         try:
             codename = perm_status_map[key]
