@@ -6,9 +6,14 @@ and the Tastypie dehyrdate cycle
 Bill Doran 2013/08/08
 """
 
-from corroborator_app.models import Bulletin, \
-    Incident, ActorRole, Location
 from django.conf import settings
+
+from corroborator_app.models import (
+    Bulletin,
+    Incident,
+    ActorRole,
+    Location
+)
 
 
 class ActorPrepMeta():

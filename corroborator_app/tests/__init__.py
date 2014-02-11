@@ -20,6 +20,8 @@ from corroborator_app.tests.api.MonitorUpdateApiTest import (
 # model tests
 from corroborator_app.tests.models.StatusUpdateModelTest import\
     StatusUpdateModelTestCase
+from corroborator_app.tests.models.ActorBootstrapTest import\
+    ActorBootstrapTestCase
 
 from corroborator_app.tests.monitor.MonitorDataLoaderTest import *
 

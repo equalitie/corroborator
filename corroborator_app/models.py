@@ -28,8 +28,10 @@ from queued_storage.backends import QueuedStorage
 
 from reversion.models import Revision
 
-from corroborator_app.index_meta_prep.actorPrepIndex import ActorManager
-from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinManager
+#from corroborator_app.index_meta_prep.actorPrepIndex import(
+    #ActorBootstrapManager
+#)
+#from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinManager
 
 
 def lang_helper(object_instance, field):
@@ -581,6 +583,18 @@ class Media(models.Model):
             return ''
 
 
+class ActorBootstrapManager(models.Manager):
+    '''
+    format the actors for bootstrapping to make them compatible with tastypie
+    api calls
+    '''
+
+    def filter(self, *args, **kwargs):
+        results = super(ActorBootstrapManager, self).filter(*args, **kwargs)
+        # do something with results
+        return results
+
+
 class Actor(models.Model):
     """
     This object captures the unique properties of an individual Actor
@@ -597,6 +611,9 @@ class Actor(models.Model):
         ('Civilian', _('Civilian')),
         ('Non-civilian', _('Non-civilian')),
     )
+    objects = models.Manager()
+    bootstrap_actors = ActorBootstrapManager()
+
     description_en = models.TextField(blank=True, null=True)
     description_ar = models.TextField(blank=True, default='')
 

@@ -5,6 +5,7 @@ from celery_haystack.indexes import CelerySearchIndex
 from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 
 
+
 class ActorIndex(CelerySearchIndex, indexes.Indexable, ActorPrepMeta):
     """
     This class manages the construction of the Actor Solr document.
