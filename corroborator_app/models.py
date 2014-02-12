@@ -887,8 +887,8 @@ class BulletinBootstrapManager(models.Manager):
         # do something with results
         bulletin_fields = [
             'bulletin_comments', 'bulletin_imported_comments',
-            'bulletin_locations', 'bulletin_labels', 'bulletin_sources',
-            'bulletin_times', 'most_recent_status_bulletin',
+            'bulletin_locations', 'bulletin_labels',
+            'bulletin_sources', 'most_recent_status_bulletin',
             'count_actors', 'actor_roles_status', 'ref_incidents',
             'assigned_user','sources_count','times','ref_bulletins',
             'locations','labels','sources','medias',

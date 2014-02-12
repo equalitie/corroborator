@@ -27,7 +27,7 @@ class BulletinBootstrapTestCase(TestCase):
         '''
         test that we are getting our bulletin back the way we want him or her
         '''
-        test_bulletn = {
+        test_bulletin = {
             u'origin_id': None, 
             u'labels': ['/api/v1/label/1/'], 
             u'locations': ['/api/v1/location/74/'], 
@@ -36,7 +36,6 @@ class BulletinBootstrapTestCase(TestCase):
             u'assigned_user': '/api/v1/user/2/', 
             u'actors_role': ['/api/v1/actorRole/227/', '/api/v1/actorRole/228/'], 
             u'ref_bulletins': ['/api/v1/bulletin/3/', '/api/v1/bulletin/4/', '/api/v1/bulletin/5/', '/api/v1/bulletin/46/'], 
-            #'bulletin_times': [datetime.datetime(2013, 8, 23, 5, 0, tzinfo=<UTC>)], 
             'bulletin_sources': ['/api/v1/source/1/', '/api/v1/source/7/', '/api/v1/source/9/'], 
             u'confidence_score': 50, 
             u'bulletin_created': u'2013-05-24T23:05:31Z', 
@@ -63,7 +62,4 @@ class BulletinBootstrapTestCase(TestCase):
                 '/api/v1/incident/11/', '/api/v1/incident/12/', '/api/v1/incident/13/']
         }
         bulletins = Bulletin.bootstrap_bulletins.filter(id=2)
-        import ipdb
-        ipdb.set_trace()
-        print bulletins[0]
         self.assertEqual(bulletins[0],  test_bulletin)
