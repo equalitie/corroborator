@@ -65,6 +65,17 @@ function program13(depth0,data) {
   return buffer;
   }
 
+function program15(depth0,data) {
+  
+  var buffer = "", stack1;
+  buffer += "\n          <div id=\"actor-status-comment-block\" class=\"field add\">\n            <p class=\"error-text\">\n              "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Comment_field_is_required)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\n            </p>\n            <label>"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Comment)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</label>\n            <textarea \n              id=\"comment\"\n              name=\"comment\"\n              class=\"required actor-field w-100p\"></textarea>\n          </div>\n          ";
+  return buffer;
+  }
+
   buffer += "  <div class=\"header\">\n    <h1>"
     + escapeExpression(((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor_label)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</h1>\n  </div>\n  <div class=\"body\" style=\"bottom: 49px;\">\n    <div class=\"Actor is-edited is-expanded\">\n    <div class=\"first initial span-66p\">\n    <!-- switch class here is-expanded -> in-preview -->\n      <div class=\"Actor is-edited is-expanded\">\n        <div class=\"header\">\n          <!-- id field - hide for new actor -->\n          ";
@@ -116,7 +127,10 @@ function program13(depth0,data) {
     + "</label>\n            <input type=\"text\" name=\"DOB\" value=\"";
   options = {hash:{},data:data};
   buffer += escapeExpression(((stack1 = helpers.formDateFormat || depth0.formDateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options) : helperMissing.call(depth0, "formDateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.DOB), options)))
-    + "\"\n            class=\"w-50p actor-field\"/>\n          </div>\n\n          <!-- Place of birth -->\n          <div id=\"actor-pob-block\" class=\"field hide-multiple\">\n          </div>\n\n          <!-- map block -->\n          <div id=\"actor-pob-map-block\" class=\"field hide-multiple\"></div>\n\n          <!-- Current Location -->\n          <div id=\"actor-current-location-block\" class=\"field\"></div>\n\n          <!-- map block -->\n          <div id=\"actor-current-map-block\" class=\"field\"></div>\n\n\n          <!-- media search - search for actor images -->\n          <div id=\"actor-media-block\" class=\"field is-media hide-multiple\">\n          </div>\n\n\n        </div>\n      </div>\n    <div class=\"clearer\"></div>\n  </div>\n  <div class=\"last span-33p\">\n    <div class=\"body\">\n      <!-- Occupation -->\n      <div class=\"field is-occupation\">\n        <label>"
+    + "\"\n            class=\"w-50p actor-field\"/>\n          </div>\n\n          <!-- Place of birth -->\n          <div id=\"actor-pob-block\" class=\"field hide-multiple\">\n          </div>\n\n          <!-- map block -->\n          <div id=\"actor-pob-map-block\" class=\"field hide-multiple\"></div>\n\n          <!-- Current Location -->\n          <div id=\"actor-current-location-block\" class=\"field\"></div>\n\n          <!-- map block -->\n          <div id=\"actor-current-map-block\" class=\"field\"></div>\n\n          <!-- media search - search for actor images -->\n          <div id=\"actor-media-block\" class=\"field is-media hide-multiple\">\n          </div>\n\n          <!-- Update Comment content field -->\n          ";
+  stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.id), {hash:{},inverse:self.noop,fn:self.program(15, program15, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n\n        </div>\n      </div>\n    <div class=\"clearer\"></div>\n  </div>\n  <div class=\"last span-33p\">\n    <div class=\"body\">\n      <!-- Occupation -->\n      <div class=\"field is-occupation\">\n        <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Occupation)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</label>\n        <span class=\"i18n with-en with-ar\">\n            <div lang=\"en\">\n                <input type=\"text\" \n                    class=\"actor-field with-select\" \n                    value=\""
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.occupation_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))

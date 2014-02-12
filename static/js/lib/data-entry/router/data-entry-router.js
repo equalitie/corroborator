@@ -9,29 +9,45 @@ define(
     'backbone',
     'lib/data-entry/views/actor-form',
     'lib/data-entry/views/bulletin-form',
+    'lib/data-entry/views/list-views',
   ],
-  function (Backbone, ActorFormView, BulletinFormView) {
+  function (Backbone, ActorFormView, BulletinFormView, ListViews) {
   'use strict';
   var el = '',
       actorFormView = new ActorFormView({el: '#actor-form'}),
-      bulletinFormView = new BulletinFormView({el: '#bulletin-form'});
+      bulletinFormView = new BulletinFormView({el: '#bulletin-form'}),
+      actorListView  = ListViews.actorListView,
+      bulletinListView = ListViews.bulletinListView;
 
   var DataEntryRouter = Backbone.Router.extend({
     routes: {
-      ''           : 'showBulletinForm',
-      'tab/actor'   : 'showActorForm',
-      'tab/bulletin': 'showBulletinForm',
+      //'actor/:actorId'      : 'editActor',
+      //'bulletin/:bulletinId': 'editBulletin',
+      ''                    : 'showBulletinForm',
+      'tab/actor'           : 'showActorForm',
+      'tab/bulletin'        : 'showBulletinForm'
     },
-    showActorForm: function() {
+    showActorForm: function(actorId) {
       this.setActorAsCurrentTab();
-      actorFormView.show();
+      actorFormView.show(actorId);
+      actorListView.show();
       bulletinFormView.hide();
+      bulletinListView.hide();
     },
-    showBulletinForm: function() {
+    showBulletinForm: function(bulletinId) {
       this.setBulletinAsCurrentTab();
       actorFormView.hide();
-      bulletinFormView.show();
+      actorListView.hide();
+      bulletinListView.show();
+      bulletinFormView.show(bulletinId);
     },
+    editActor: function(actorId) {
+      this.showActorForm(actorId);
+    },
+    editBulletin: function(bulletinId) {
+      this.showBulletinForm(bulletinId);
+    },
+
     // these should really be in a view
     getUl: function() {
       this.$ul = this.$ul || $('.tabs').children('ul');

@@ -5,6 +5,16 @@ Utilities for views
 """
 
 
+def can_edit_assigned_entities(user):
+    permission = 'can_edit_assigned_entities'
+    return has_permission(user, permission)
+
+
+def can_edit_entities(user):
+    permission = 'can_edit_entities'
+    return has_permission(user, permission)
+
+
 def can_delete(user):
     permission = 'can_delete_entities'
     return has_permission(user, permission)

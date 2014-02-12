@@ -157,11 +157,23 @@
           <!-- map block -->
           <div id="actor-current-map-block" class="field"></div>
 
-
           <!-- media search - search for actor images -->
           <div id="actor-media-block" class="field is-media hide-multiple">
           </div>
 
+          <!-- Update Comment content field -->
+          {{#if model.id}}
+          <div id="actor-status-comment-block" class="field add">
+            <p class="error-text">
+              {{i18n.actor.Comment_field_is_required}}
+            </p>
+            <label>{{i18n.actor.Comment}}</label>
+            <textarea 
+              id="comment"
+              name="comment"
+              class="required actor-field w-100p"></textarea>
+          </div>
+          {{/if}}
 
         </div>
       </div>

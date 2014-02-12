@@ -7,8 +7,8 @@ A map is created with tuples key: value
 the key is the key for the json object the value is the name of the
 function that will generate the values for the specified key
 """
+import json
 from django.utils.translation import ugettext as _
-from django.core import serializers
 from django.utils import translation
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -28,17 +28,19 @@ from corroborator_app.models import (
     Location,
 )
 from corroborator_app.views.view_utils import (
-    can_assign_users, can_finalize, can_delete, is_in_group
+    can_assign_users, can_finalize, can_delete, is_in_group,
+    can_edit_entities, can_edit_assigned_entities
 )
-from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
 
 
 def build_data_entry_context(user):
     context = build_js_context(user)
-    actors = build_actor_list(Actor.objects.filter(assigned_user=user))
-    
-    context['actors'] = serializers.serialize('json', actors)
-    bulletins = Bulletin.objects.filter(assigned_user=user)
+
+    actors = Actor.bootstrap_actors.filter(assigned_user=user)
+    bulletins = Bulletin.bootstrap_bulletins.filter(assigned_user=user)
+
+    context['actors'] = json.dumps(actors)
+    context['bulletins'] = json.dumps(bulletins)
     return context
 
 
@@ -67,6 +69,8 @@ def build_js_context(user):
         'can_assign_users': can_assign_users(user),
         'can_delete_entities': can_delete(user),
         'can_update_to_finalized': can_finalize(user),
+        'can_edit_assigned_entities': can_edit_assigned_entities(user),
+        'can_edit_entities': can_edit_entities(user),
         'is_analyst': is_in_group(user, 'data-analyst'),
         'is_senior_analyst': is_in_group(user, 'senior-data-analyst'),
         'is_chief_analyst': is_in_group(user, 'chief-data-analyst'),

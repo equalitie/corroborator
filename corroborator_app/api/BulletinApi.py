@@ -126,7 +126,7 @@ class BulletinResource(ModelResource, APIMixin):
 
         if self.can_edit(user, bundle, Bulletin) is False:
             raise ImmediateHttpResponse(
-                HttpForbidden('You do not have permission to edit this entity')
+                HttpForbidden('You do not have permission to edit this entity: ' + str(user.id) + ', id: ' + str(bundle.data['id']))
             )
 
         # permission checks
@@ -143,7 +143,8 @@ class BulletinResource(ModelResource, APIMixin):
             del(bundle.data['assigned_user'])
 
         # decide on available status
-        status_id = bundle.data['status_uri'].split('/')[4]
+        status_id = self.id_from_url(bundle.data)
+
         status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
             user,
             status_id

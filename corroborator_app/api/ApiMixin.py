@@ -25,11 +25,15 @@ class APIMixin():
 
         return comment_uri
 
-    def id_from_url(self, uri_string):
+    def id_from_url(self, data):
         '''
         get the id from a uri
+        updated id hard coded, should be looked up
         '''
-        return int(uri_string.split('/')[4])
+        try:
+            return data['status_uri'].split('/')[4]
+        except KeyError:
+            return 3
 
     def can_edit(self, user, bundle, ModelType):
         '''
@@ -72,7 +76,7 @@ class APIMixin():
 
         model = ModelType.objects.get(id=bundle.data['id'])
         try:
-            return has_perm and model.assigned_user.id is user.id
+            return has_perm and int(model.assigned_user.id) == int(user.id)
         except AttributeError:
             return False
 

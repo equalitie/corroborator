@@ -108,7 +108,7 @@ class ActorResource(ModelResource, APIMixin):
         if can_assign_users(user) is False and 'assigned_user' in bundle.data:
             del(bundle.data['assigned_user'])
 
-        status_id = self.id_from_url(bundle.data['status_uri'])
+        status_id = self.id_from_url(bundle.data)
         status_update = StatusUpdate.filter_by_perm_objects.get_update_status(
             user,
             status_id

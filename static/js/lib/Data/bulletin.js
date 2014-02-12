@@ -178,6 +178,10 @@ define(
     });
     _.extend(BulletinModel.prototype, ModelSaveMixin);
 
+    var SimpleBulletinCollection = Backbone.Collection.extend({
+      model: BulletinModel
+    });
+
     // ### Bulletin Collection
     // provide sort, selection functionality  
     // stores bulletins 
@@ -292,6 +296,7 @@ define(
   return {
     BulletinModel: BulletinModel,
     BulletinCollection: BulletinCollection,
+    SimpleBulletinCollection: SimpleBulletinCollection,
     BulletinListUpdateModel: BulletinListUpdateModel
   };
 

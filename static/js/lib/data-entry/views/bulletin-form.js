@@ -21,6 +21,8 @@ define (
     'lib/CRUD/views/search-views/media/media-search-field',
     'lib/CRUD/views/display-views/media/media-container',
     'lib/CRUD/views/map-view',
+    'lib/data-entry/data/collections',
+    'lib/data-entry/utils',
     // templates/search-templates
     'lib/data-entry/templates/bulletin-form.tpl',
     'lib/CRUD/templates/display-templates/bulletins/expanded-bulletin-display.tpl',
@@ -32,6 +34,7 @@ define (
     // views
     CommentForm, CommentListView, EventForm, EventListView, MediaSearchView,
     MediaListView, CoordinateDisplayView,
+    Collections, Utils,
     bulletinFormTmp, bulletinDisplayTmp, i18n) {
     'use strict';
 
@@ -47,6 +50,8 @@ define (
         SourceCollection     = Source.SourceCollection,
         LabelCollection      = Label.LabelCollection,
         LocationCollection   = Location.LocationCollection,
+        bulletinCollection   = Collections.bulletinCollection,
+        maybe                = Utils.maybe,
 
         userList = function() {
           return Bootstrap.gl_ac_users_list;
@@ -259,6 +264,14 @@ define (
       initialize: function(options) {
         this.addi18n();
         this.displayNewModel();
+        this.showEditForm = maybe(this.showEditForm);
+      },
+
+      // this function gets wrapped with maybe on init, so it wont be called
+      // if actorid is null
+      showEditForm: function(bulletinId) {
+        this.model = bulletinCollection.get(bulletinId) || this.model;
+        this.displayForm();
       },
 
       // create and display a blank model to be added to
@@ -294,8 +307,9 @@ define (
         });
       },
 
-      show: function() {
+      show: function(bulletinId) {
         this.$el.removeClass('hidden');
+        this.showEditForm(bulletinId);
       },
       hide: function() {
         this.$el.addClass('hidden');

@@ -27,6 +27,12 @@
         can_delete_entities = '{{ can_delete_entities }}' === 'True'
         ? true
         : false;
+        can_edit_entities = '{{ can_edit_entities }}' === 'True'
+        ? true
+        : false;
+        can_edit_assigned_entities = '{{ can_edit_assigned_entities }}' === 'True'
+        ? true
+        : false;
     {% for pds in predefined_search_set %}
         predefined_list.push({
             search_title:     "{{pds.search_title}}",
@@ -168,12 +174,6 @@
         resource_uri:"/api/v1/user/{{user.id}}/"
       });
     {% endfor %}
-    {% if actors %}
-    var actors = {{actors|safe}};
-    {% endif %} 
-    {% if bulletins %}
-    var bulletins = {{bulletins|safe}};
-    {% endif %} 
 
     //consolidate our init data under one variable
     return {
@@ -181,10 +181,10 @@
         perms: {
           can_assign_users: can_assign_users,
           can_update_to_finalized: can_update_to_finalized,
-          can_delete_entities: can_delete_entities
+          can_delete_entities: can_delete_entities,
+          can_edit_entities: can_edit_entities,
+          can_edit_assigned_entities: can_edit_assigned_entities
         },
-        {% if actors %}actors: actors, {% endif %}
-        {% if bulletins %}bulletins: bulletins, {% endif %}
         ages: ages,
         sexes:sexes,
         civilian: civilian,

@@ -583,6 +583,7 @@ class Media(models.Model):
         else:
             return ''
 
+
 class ActorBootstrapManager(models.Manager):
     '''
     format the actors for bootstrapping to make them compatible with tastypie
@@ -592,24 +593,28 @@ class ActorBootstrapManager(models.Manager):
     def filter(self, *args, **kwargs):
         results = super(ActorBootstrapManager, self).filter(*args, **kwargs)
         # do something with results
-        fields = [ 
+        fields = [
             'related_bulletins', 'related_incidents', 'count_incidents',
             'count_bulletins', 'roles', 'actors_role', 'actors',
             'thumbnail_url', 'actor_roles_status', 'most_recent_status_actor',
-            'POB', 'current_location', 'actor_comments'
+            'POB', 'current_location', 'actor_comments', 'assigned_user',
+            'resource_uri',
         ]
-        from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
-        import ipdb
+        from corroborator_app.index_meta_prep.actorPrepIndex import (
+            ActorPrepMeta
+        )
         actor_prep = ActorPrepMeta()
         bootstrap_results = []
         for result in results:
-            updated_actor = serializers.serialize('json',[result])
+            updated_actor = serializers.serialize('json', [result])
             updated_actor = json.loads(updated_actor)[0]['fields']
+            updated_actor['id'] = result.id
             for field in fields:
                 prep_func = getattr(actor_prep, 'prepare_' + field)
                 updated_actor[field] = prep_func(result)
             bootstrap_results.append(updated_actor)
         return bootstrap_results
+
 
 class Actor(models.Model):
     """
@@ -876,6 +881,7 @@ class ActorRole(models.Model):
             return str(self.id) + ': ' + self.role_status\
                 + ': ' + str(self.actor.id)
 
+
 class BulletinBootstrapManager(models.Manager):
     '''
     format the actors for bootstrapping to make them compatible with tastypie
@@ -890,28 +896,31 @@ class BulletinBootstrapManager(models.Manager):
             'bulletin_locations', 'bulletin_labels',
             'bulletin_sources', 'most_recent_status_bulletin',
             'count_actors', 'actor_roles_status', 'ref_incidents',
-            'assigned_user','sources_count','times','ref_bulletins',
-            'locations','labels','sources','medias',
+            'assigned_user', 'sources_count', 'times', 'ref_bulletins',
+            'locations', 'labels', 'sources', 'medias', 'resource_uri',
         ]
         actor_fields = ['actors', 'actors_role', ]
-        from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
-        from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
-        import ipdb
+        from corroborator_app.index_meta_prep.bulletinPrepIndex import (
+            BulletinPrepMeta)
+        from corroborator_app.index_meta_prep.actorPrepIndex import (
+            ActorPrepMeta
+        )
         bulletin_prep = BulletinPrepMeta()
         actor_prep = ActorPrepMeta()
         bootstrap_results = []
         for result in results:
-            updated_bulletin = serializers.serialize('json',[result])
+            updated_bulletin = serializers.serialize('json', [result])
             updated_bulletin = json.loads(updated_bulletin)[0]['fields']
+            updated_bulletin['id'] = result.id
             for field in bulletin_fields:
                 prep_func = getattr(
-                    bulletin_prep, 
+                    bulletin_prep,
                     'prepare_' + field
                 )
                 updated_bulletin[field] = prep_func(result)
             for field in actor_fields:
                 prep_func = getattr(
-                    actor_prep, 
+                    actor_prep,
                     'prepare_' + field
                 )
                 updated_bulletin[field] = prep_func(result)

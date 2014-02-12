@@ -1,10 +1,10 @@
 #bulletin-form, #actor-form {
-  width: 90%;
-  margin: auto;
+  @include box-sizing(border-box);
+  width: 70%;
+  /*margin: auto;*/
   background-color: white;
-  padding: 10px;
-  @include clearfix;
-  clear: both;
+  padding: 1em;
+  float:left;
 }
 
 .span-28p {
@@ -32,10 +32,12 @@ input[type=button].save-data-entry {
 }
 .data-entry-container {
   position: relative;
+  width: 100%;
+  @include clearfix;
 }
 
 .modal-cover {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 150%;
   z-index: 1000;
@@ -49,4 +51,9 @@ input[type=button].save-data-entry {
     margin: auto;
     margin-top: 380px;
   }
+}
+.assigned-entities {
+  width: 30%;
+  min-height: 400px;
+  float: left;
 }

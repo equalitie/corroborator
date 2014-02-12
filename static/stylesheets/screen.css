@@ -5001,13 +5001,14 @@ li.medium .media-document-thumbnail, li.medium .media-video-thumbnail {
 
 /* line 1, ../sass/_dataEntry.scss */
 #bulletin-form, #actor-form {
-  width: 90%;
-  margin: auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 70%;
+  /*margin: auto;*/
   background-color: white;
-  padding: 10px;
-  overflow: hidden;
-  *zoom: 1;
-  clear: both;
+  padding: 1em;
+  float: left;
 }
 
 /* line 10, ../sass/_dataEntry.scss */
@@ -5041,11 +5042,14 @@ input[type=button].save-data-entry:hover {
 /* line 33, ../sass/_dataEntry.scss */
 .data-entry-container {
   position: relative;
+  width: 100%;
+  overflow: hidden;
+  *zoom: 1;
 }
 
-/* line 37, ../sass/_dataEntry.scss */
+/* line 39, ../sass/_dataEntry.scss */
 .modal-cover {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 150%;
   z-index: 1000;
@@ -5053,7 +5057,7 @@ input[type=button].save-data-entry:hover {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=30);
   opacity: 0.3;
 }
-/* line 44, ../sass/_dataEntry.scss */
+/* line 46, ../sass/_dataEntry.scss */
 .modal-cover p {
   width: 200px;
   color: white;
@@ -5061,6 +5065,13 @@ input[type=button].save-data-entry:hover {
   text-align: centre;
   margin: auto;
   margin-top: 380px;
+}
+
+/* line 55, ../sass/_dataEntry.scss */
+.assigned-entities {
+  width: 30%;
+  min-height: 400px;
+  float: left;
 }
 
 /* line 2, ../sass/_reporting.scss */

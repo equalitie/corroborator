@@ -7,17 +7,20 @@
 define (
   [
     'jquery', 'underscore', 'backbone',
-    'lib/data-entry/streams',
-    'lib/CRUD/views/form-mixins',
     'lib/Data/LocationCollection',
     'lib/Data/actor',
+    'lib/CRUD/views/form-mixins',
+    'lib/data-entry/data/collections',
+    'lib/data-entry/streams',
+    'lib/data-entry/utils',
     // templates
     'lib/CRUD/templates/display-templates/actor-display.tpl',
     'lib/data-entry/templates/actor-form.tpl',
+    // i18n
     'i18n!lib/CRUD/nls/dict'
   ],
   function ($, _, Backbone,
-    Streams, Mixins, Location, Actor,
+    Location, Actor, Mixins, Collections, Streams, Utils,
     actorDisplayTmp, actorFormTmp, i18n) {
     'use strict';
 
@@ -27,7 +30,11 @@ define (
         dataEntryBus       = Streams.dataEntryBus,
         Formatter          = Mixins.Formatter,
         WidgetMixin        = Mixins.WidgetMixin,
-        LocationCollection = Location.LocationCollection;
+        LocationCollection = Location.LocationCollection,
+        actorCollection    = Collections.actorCollection,
+        // TODO add this as an underscore mixin
+        maybe = Utils.maybe;
+
 
     // ###ActorPreviewView
     // show a dialog with a preview of the actor
@@ -118,6 +125,7 @@ define (
       initialize: function(options) {
         this.addi18n();
         this.displayNewModel();
+        this.showEditForm = maybe(this.showEditForm);
       },
 
       // create and display a blank model to be added to
@@ -129,6 +137,8 @@ define (
         this.populateWidgets();
         this.displayForm();
       },
+
+      
 
       modelSaveError: function() {
         this.getModal().children('p').text(i18n.SaveFailed);
@@ -152,15 +162,23 @@ define (
         this.stopListening(this.model);
       },
 
+      // this function gets wrapped with maybe on init, so it wont be called
+      // if actorid is null
+      showEditForm: function(actorId) {
+        this.model = actorCollection.get(actorId) || this.model;
+        this.displayForm();
+      },
 
-      show: function() {
+      show: function(actorId) {
         this.$el.removeClass('hidden');
+        this.showEditForm(actorId);
+        
       },
       hide: function() {
         this.$el.addClass('hidden');
       },
 
-      // return a function that creates the form only once
+      // show the form
       displayForm: function() {
         this.render()
             .renderChildren()

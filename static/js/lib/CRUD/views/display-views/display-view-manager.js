@@ -173,12 +173,34 @@ define (
         this.childViews = [];
       },
 
+      passesFinalized: function(entityStatus) {
+        return !(isFinalized(entityStatus)
+          && Bootstrap.perms.can_update_to_finalized === false);
+      },
+      mayEdit: function() {
+        if (Bootstrap.perms.can_edit_entities) return true;
+        if (Bootstrap.perms.can_edit_assigned_entities &&
+            this.model.get('assigned_user') === Bootstrap.userResource) {
+          return true;
+        }
+        return false;
+
+      },
+
+
+      isEditable: function(entityStatus) {
+        var passesFinalized = this.passesFinalized(entityStatus),
+            mayEdit = this.mayEdit();
+        return passesFinalized && mayEdit;
+      },
+
+
       disableEditIfFinalized: function(content) {
         var entityStatus =
           this.model.get('most_recent_status_' + content.entity);
 
-        if (isFinalized(entityStatus)
-          && Bootstrap.perms.can_update_to_finalized === false) {
+
+        if (this.isEditable(entityStatus) === false) {
           this.$el.children()
                   .children()
                   .children('button.do-edit')

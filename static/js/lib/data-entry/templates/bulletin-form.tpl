@@ -131,6 +131,21 @@
           <div id="bulletin-bulletin-block" class="field is-bulletins">
           </div>
 
+
+          <!-- Update Comment content field -->
+          {{#if model.id}}
+          <div id="bulletin-status-comment-block" class="field add">
+            <p class="error-text">
+              {{i18n.bulletin.Comment_field_is_required}}
+            </p>
+            <label>{{i18n.bulletin.Comment}}</label>
+            <textarea 
+              id="comment"
+              name="comment"
+              class="required bulletin-field w-100p"></textarea>
+          </div>
+          {{/if}}
+
         </div>
       </div>
       <!-- end first col -->

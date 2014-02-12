@@ -18,6 +18,12 @@ from corroborator_app.models import (
 
 class ActorPrepMeta():
 
+    def prepare_assigned_user(self, object):
+        if object.assigned_user is not None:
+            return '/api/v1/user/{0}/'.format(object.assigned_user.id)
+        else:
+            return ''
+
     def prepare_actor_created_date(self, object):
         """
         return date portion of actor created datetime field
