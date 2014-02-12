@@ -22,7 +22,8 @@ from corroborator_app.tests.models.StatusUpdateModelTest import\
     StatusUpdateModelTestCase
 from corroborator_app.tests.models.ActorBootstrapTest import\
     ActorBootstrapTestCase
-
+from corroborator_app.tests.models.BulletinBootstrapTest import\
+    BulletinBootstrapTestCase
 from corroborator_app.tests.monitor.MonitorDataLoaderTest import *
 
 # view tests

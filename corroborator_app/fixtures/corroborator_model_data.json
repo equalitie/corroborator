@@ -4,7 +4,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1058
+    "revision": 1058,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -12,7 +13,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1059
+    "revision": 1059,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -20,7 +22,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1060
+    "revision": 1060,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -28,7 +31,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1061
+    "revision": 1061,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -36,7 +40,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1062
+    "revision": 1062,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -44,7 +49,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1063
+    "revision": 1063,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -52,7 +58,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1064
+    "revision": 1064,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -60,7 +67,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1065
+    "revision": 1065,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -68,7 +76,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1066
+    "revision": 1066,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -76,7 +85,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/4/", 
-    "revision": 1067
+    "revision": 1067,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -84,7 +94,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1068
+    "revision": 1068,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -92,7 +103,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1069
+    "revision": 1069,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -100,7 +112,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1070
+    "revision": 1070,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -108,7 +121,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1071
+    "revision": 1071,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -116,7 +130,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1072
+    "revision": 1072,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -124,7 +139,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1073
+    "revision": 1073,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -132,7 +148,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1074
+    "revision": 1074,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -140,7 +157,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1075
+    "revision": 1075,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -148,7 +166,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1076
+    "revision": 1076,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -156,7 +175,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1077
+    "revision": 1077,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -164,7 +184,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1078
+    "revision": 1078,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -172,7 +193,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1079
+    "revision": 1079,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -180,7 +202,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1080
+    "revision": 1080,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -188,7 +211,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/4/", 
-    "revision": 1081
+    "revision": 1081,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -196,7 +220,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1082
+    "revision": 1082,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -204,7 +229,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1083
+    "revision": 1083,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -212,7 +238,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1084
+    "revision": 1084,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -220,7 +247,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1085
+    "revision": 1085,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -228,7 +256,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1086
+    "revision": 1086,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -236,7 +265,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1087
+    "revision": 1087,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -244,7 +274,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1088
+    "revision": 1088,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -252,7 +283,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1089
+    "revision": 1089,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -260,7 +292,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1090
+    "revision": 1090,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -268,7 +301,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1091
+    "revision": 1091,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -276,7 +310,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1092
+    "revision": 1092,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -284,7 +319,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1093
+    "revision": 1093,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -292,7 +328,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1094
+    "revision": 1094,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -300,7 +337,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1095
+    "revision": 1095,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -308,7 +346,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1096
+    "revision": 1096,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -316,7 +355,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/4/", 
-    "revision": 1097
+    "revision": 1097,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -324,7 +364,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1098
+    "revision": 1098,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -332,7 +373,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1099
+    "revision": 1099,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -340,7 +382,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1100
+    "revision": 1100,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -348,7 +391,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1101
+    "revision": 1101,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -356,7 +400,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1102
+    "revision": 1102,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -364,7 +409,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1103
+    "revision": 1103,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -372,7 +418,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1104
+    "revision": 1104,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -380,7 +427,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1105
+    "revision": 1105,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -388,7 +436,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1106
+    "revision": 1106,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -396,7 +445,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1107
+    "revision": 1107,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -404,7 +454,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1108
+    "revision": 1108,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -412,7 +463,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1109
+    "revision": 1109,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -420,7 +472,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1110
+    "revision": 1110,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -428,7 +481,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1111
+    "revision": 1111,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -436,7 +490,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1112
+    "revision": 1112,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -444,7 +499,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1113
+    "revision": 1113,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -452,7 +508,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1114
+    "revision": 1114,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -460,7 +517,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1115
+    "revision": 1115,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -468,7 +526,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1116
+    "revision": 1116,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -476,7 +535,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1117
+    "revision": 1117,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -484,7 +544,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1118
+    "revision": 1118,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -492,7 +553,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1119
+    "revision": 1119,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -500,7 +562,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1120
+    "revision": 1120,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -508,7 +571,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1121
+    "revision": 1121,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -516,7 +580,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1122
+    "revision": 1122,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -524,7 +589,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1123
+    "revision": 1123,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -532,7 +598,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1124
+    "revision": 1124,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -540,7 +607,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1125
+    "revision": 1125,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -548,7 +616,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1126
+    "revision": 1126,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -556,7 +625,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1127
+    "revision": 1127,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -564,7 +634,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1128
+    "revision": 1128,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -572,7 +643,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1129
+    "revision": 1129,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -580,7 +652,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1130
+    "revision": 1130,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -588,7 +661,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1131
+    "revision": 1131,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -596,7 +670,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1132
+    "revision": 1132,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -604,7 +679,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1133
+    "revision": 1133,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -612,7 +688,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1134
+    "revision": 1134,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -620,7 +697,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1135
+    "revision": 1135,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -628,7 +706,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1136
+    "revision": 1136,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -636,7 +715,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/4/", 
-    "revision": 1137
+    "revision": 1137,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -644,7 +724,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1138
+    "revision": 1138,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -652,7 +733,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1139
+    "revision": 1139,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -660,7 +742,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1140
+    "revision": 1140,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -668,7 +751,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/1/", 
-    "revision": 1141
+    "revision": 1141,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -676,7 +760,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1142
+    "revision": 1142,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -684,7 +769,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1143
+    "revision": 1143,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -692,7 +778,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1144
+    "revision": 1144,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -700,7 +787,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1145
+    "revision": 1145,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -708,7 +796,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1146
+    "revision": 1146,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -716,7 +805,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1147
+    "revision": 1147,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -724,7 +814,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/2/", 
-    "revision": 1148
+    "revision": 1148,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -732,7 +823,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1149
+    "revision": 1149,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -740,7 +832,8 @@
   "model": "corroborator_app.versionstatus", 
   "fields": {
     "status": "/api/v1/statusUpdate/3/", 
-    "revision": 1150
+    "revision": 1150,
+    "version_timestamp":"2013-05-24T23:05:31Z" 
   }
 },
 {
@@ -9211,13 +9304,13 @@
   "pk": 50, 
   "model": "corroborator_app.actor", 
   "fields": {
+    "actor_modified": "2013-08-09T16:57:12Z",
     "nickname_en": "", 
-    "sex_ar": "", 
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       89
     ], 
@@ -9227,7 +9320,7 @@
     "media": 164, 
     "POB": 63, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-09T16:57:12Z", 
@@ -9237,7 +9330,7 @@
     "fullname_ar": "", 
     "fullname_en": "test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9248,13 +9341,13 @@
   "pk": 52, 
   "model": "corroborator_app.actor", 
   "fields": {
+    "actor_modified": "2013-08-09T16:57:12Z",
     "nickname_en": "test", 
-    "sex_ar": "", 
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "Male", 
+     
+    "sex": "Male", 
     "current_location": 69, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       89, 
       90
@@ -9265,7 +9358,7 @@
     "media": 164, 
     "POB": 63, 
     "occupation_en": "", 
-    "age_en": "Child", 
+    "age": "Child", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-09T17:26:09Z", 
@@ -9275,7 +9368,7 @@
     "fullname_ar": "", 
     "fullname_en": "fred", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9286,13 +9379,13 @@
   "pk": 54, 
   "model": "corroborator_app.actor", 
   "fields": {
+    "actor_modified": "2013-08-09T16:57:12Z",
     "nickname_en": "", 
-    "sex_ar": "", 
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 85, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -9300,7 +9393,7 @@
     "media": 161, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-09T21:14:28Z", 
@@ -9310,7 +9403,7 @@
     "fullname_ar": "", 
     "fullname_en": "test actor for update refresh signal", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9321,13 +9414,13 @@
   "pk": 56, 
   "model": "corroborator_app.actor", 
   "fields": {
+    "actor_modified": "2013-08-09T16:57:12Z",
     "nickname_en": "nickname", 
-    "sex_ar": "", 
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 85, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -9335,7 +9428,7 @@
     "media": 156, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-09T22:32:33Z", 
@@ -9345,7 +9438,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9357,12 +9450,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "testytestests  ", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 85, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -9370,7 +9463,7 @@
     "media": 185, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-09T22:38:26Z", 
@@ -9380,7 +9473,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion again", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9392,12 +9485,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "test update to see if inclusion of actor occurs", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -9405,7 +9498,7 @@
     "media": 184, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-11T16:24:51Z", 
@@ -9415,7 +9508,7 @@
     "fullname_ar": "", 
     "fullname_en": "test celery based update of index", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9427,12 +9520,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "re test", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -9440,7 +9533,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-11T16:35:22Z", 
@@ -9450,7 +9543,7 @@
     "fullname_ar": "", 
     "fullname_en": "this is test 2 of the update testing", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9462,12 +9555,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       235
     ], 
@@ -9477,7 +9570,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-11T17:08:31Z", 
@@ -9487,7 +9580,7 @@
     "fullname_ar": "", 
     "fullname_en": "testing celery again", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9499,12 +9592,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       22
     ], 
@@ -9514,7 +9607,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:05:17Z", 
@@ -9524,7 +9617,7 @@
     "fullname_ar": "", 
     "fullname_en": "test 2", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9536,12 +9629,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       23
     ], 
@@ -9551,7 +9644,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:12:11Z", 
@@ -9561,7 +9654,7 @@
     "fullname_ar": "", 
     "fullname_en": "test 2", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9573,12 +9666,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       23
     ], 
@@ -9588,7 +9681,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:12:43Z", 
@@ -9598,7 +9691,7 @@
     "fullname_ar": "", 
     "fullname_en": "test celery async", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9610,12 +9703,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -9623,7 +9716,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:44:41Z", 
@@ -9633,7 +9726,7 @@
     "fullname_ar": "", 
     "fullname_en": "test 8900000", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9645,12 +9738,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       24
     ], 
@@ -9660,7 +9753,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:47:25Z", 
@@ -9670,7 +9763,7 @@
     "fullname_ar": "", 
     "fullname_en": "test celery taskifier", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9682,12 +9775,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       26
     ], 
@@ -9697,7 +9790,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:48:23Z", 
@@ -9707,7 +9800,7 @@
     "fullname_ar": "", 
     "fullname_en": "test another celery aspect", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9719,12 +9812,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       30
     ], 
@@ -9734,7 +9827,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:50:14Z", 
@@ -9744,7 +9837,7 @@
     "fullname_ar": "", 
     "fullname_en": "test test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9756,12 +9849,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       30
     ], 
@@ -9771,7 +9864,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T00:50:22Z", 
@@ -9781,7 +9874,7 @@
     "fullname_ar": "", 
     "fullname_en": "test test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9793,12 +9886,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       31
     ], 
@@ -9808,7 +9901,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T14:55:56Z", 
@@ -9818,7 +9911,7 @@
     "fullname_ar": "", 
     "fullname_en": "test name", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9830,12 +9923,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       32
     ], 
@@ -9845,7 +9938,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T15:02:15Z", 
@@ -9855,7 +9948,7 @@
     "fullname_ar": "", 
     "fullname_en": "test celery via dev console", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9867,12 +9960,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "est", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       33, 
       35
@@ -9883,7 +9976,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T15:02:51Z", 
@@ -9893,7 +9986,7 @@
     "fullname_ar": "", 
     "fullname_en": "test 09090909", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9905,12 +9998,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "add nickname", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       41
     ], 
@@ -9920,7 +10013,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-12T15:42:04Z", 
@@ -9930,7 +10023,7 @@
     "fullname_ar": "", 
     "fullname_en": "Wholly new actor", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9942,12 +10035,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "their nickname", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": "2013-08-01", 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       49
     ], 
@@ -9957,7 +10050,7 @@
     "media": null, 
     "POB": 66, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-13T12:44:01Z", 
@@ -9967,7 +10060,7 @@
     "fullname_ar": "", 
     "fullname_en": "a brand new actor", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -9979,12 +10072,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -9992,7 +10085,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-13T18:55:05Z", 
@@ -10002,7 +10095,7 @@
     "fullname_ar": "", 
     "fullname_en": "test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10014,12 +10107,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10027,7 +10120,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T15:31:45Z", 
@@ -10037,7 +10130,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10049,12 +10142,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10062,7 +10155,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T15:38:02Z", 
@@ -10072,7 +10165,7 @@
     "fullname_ar": "", 
     "fullname_en": "test 2", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10084,12 +10177,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10097,7 +10190,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T15:42:08Z", 
@@ -10107,7 +10200,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10119,12 +10212,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10132,7 +10225,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T15:43:30Z", 
@@ -10142,7 +10235,7 @@
     "fullname_ar": "", 
     "fullname_en": "test solr updater", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10154,12 +10247,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10167,7 +10260,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T15:45:27Z", 
@@ -10177,7 +10270,7 @@
     "fullname_ar": "", 
     "fullname_en": "est update", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10189,12 +10282,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10202,7 +10295,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T15:47:12Z", 
@@ -10212,7 +10305,7 @@
     "fullname_ar": "", 
     "fullname_en": "test update", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10224,12 +10317,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10237,7 +10330,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T15:50:53Z", 
@@ -10247,7 +10340,7 @@
     "fullname_ar": "", 
     "fullname_en": "nnnnnnnnnnnnneeeeeeeeeeeeeeeeeeeerrrrrrrrrrrrrrrrrruuuuuuuuuuuuuuuuuuuuummmmmmmmmmmmmmm", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10259,12 +10352,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "test2", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10272,7 +10365,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-15T16:08:22Z", 
@@ -10282,7 +10375,7 @@
     "fullname_ar": "", 
     "fullname_en": "splattt", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10294,12 +10387,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10307,7 +10400,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-19T16:30:53Z", 
@@ -10317,7 +10410,7 @@
     "fullname_ar": "", 
     "fullname_en": "test 2", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10329,12 +10422,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10342,7 +10435,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-19T16:32:58Z", 
@@ -10352,7 +10445,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10364,12 +10457,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10377,7 +10470,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-19T16:33:47Z", 
@@ -10387,7 +10480,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10399,12 +10492,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10412,7 +10505,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-19T16:35:33Z", 
@@ -10422,7 +10515,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10434,12 +10527,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10447,7 +10540,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-19T16:39:40Z", 
@@ -10457,7 +10550,7 @@
     "fullname_ar": "", 
     "fullname_en": "test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10469,12 +10562,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10482,7 +10575,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:17:32Z", 
@@ -10492,7 +10585,7 @@
     "fullname_ar": "", 
     "fullname_en": "test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10504,12 +10597,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10517,7 +10610,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:21:41Z", 
@@ -10527,7 +10620,7 @@
     "fullname_ar": "", 
     "fullname_en": "tttttttt", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10539,12 +10632,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10552,7 +10645,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:22:25Z", 
@@ -10562,7 +10655,7 @@
     "fullname_ar": "", 
     "fullname_en": "this is a new actor because something weird is happening now", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10574,12 +10667,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10587,7 +10680,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:22:47Z", 
@@ -10597,7 +10690,7 @@
     "fullname_ar": "", 
     "fullname_en": "this is another new actor to check 2nd save", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10609,12 +10702,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10622,7 +10715,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:24:41Z", 
@@ -10632,7 +10725,7 @@
     "fullname_ar": "", 
     "fullname_en": "post 500 new actor", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10644,12 +10737,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10657,7 +10750,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:45:59Z", 
@@ -10667,7 +10760,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion add comment", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10679,12 +10772,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10692,7 +10785,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:48:47Z", 
@@ -10702,7 +10795,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion with new comment using with statement", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10714,12 +10807,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10727,7 +10820,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:50:43Z", 
@@ -10737,7 +10830,7 @@
     "fullname_ar": "", 
     "fullname_en": "test again the nth time", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10749,12 +10842,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [
       93
     ], 
@@ -10764,7 +10857,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T17:51:26Z", 
@@ -10774,7 +10867,7 @@
     "fullname_ar": "", 
     "fullname_en": "test reversion with related fields", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10786,12 +10879,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10799,7 +10892,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T18:40:08Z", 
@@ -10809,7 +10902,7 @@
     "fullname_ar": "", 
     "fullname_en": "test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10821,12 +10914,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10834,7 +10927,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T18:41:47Z", 
@@ -10844,7 +10937,7 @@
     "fullname_ar": "", 
     "fullname_en": "one more time with some feeling", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10856,12 +10949,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10869,7 +10962,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-21T18:45:39Z", 
@@ -10879,7 +10972,7 @@
     "fullname_ar": "", 
     "fullname_en": "test the save thing", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10891,12 +10984,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10904,7 +10997,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-23T17:21:22Z", 
@@ -10914,7 +11007,7 @@
     "fullname_ar": "", 
     "fullname_en": "test", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10926,12 +11019,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": 63, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10939,7 +11032,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-23T17:22:17Z", 
@@ -10949,7 +11042,7 @@
     "fullname_ar": "", 
     "fullname_en": "test versioning", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10961,12 +11054,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": null, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -10974,7 +11067,7 @@
     "media": null, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-26T16:41:19Z", 
@@ -10984,7 +11077,7 @@
     "fullname_ar": "", 
     "fullname_en": "aaaaaaa", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -10996,12 +11089,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": null, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -11009,7 +11102,7 @@
     "media": 158, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-26T17:03:56Z", 
@@ -11019,7 +11112,7 @@
     "fullname_ar": "", 
     "fullname_en": "new actor with thumb", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -11031,12 +11124,12 @@
   "model": "corroborator_app.actor", 
   "fields": {
     "nickname_en": "", 
-    "sex_ar": "", 
+    "actor_modified": "2013-08-09T16:57:12Z",
     "DOB": null, 
-    "age_ar": "", 
-    "sex_en": "", 
+     
+    "sex": "", 
     "current_location": null, 
-    "civilian_ar": "", 
+     
     "actors_role": [], 
     "nickname_ar": "", 
     "position_en": "", 
@@ -11044,7 +11137,7 @@
     "media": 184, 
     "POB": null, 
     "occupation_en": "", 
-    "age_en": "", 
+    "age": "", 
     "position_ar": "", 
     "occupation_ar": "", 
     "actor_created": "2013-08-26T18:01:03Z", 
@@ -11054,7 +11147,7 @@
     "fullname_ar": "", 
     "fullname_en": "added new", 
     "ethnicity_en": "", 
-    "civilian_en": "", 
+    "civilian": "", 
     "spoken_dialect_ar": "", 
     "nationality_ar": "", 
     "ethnicity_ar": "", 
@@ -13893,6 +13986,7 @@
       8
     ], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       1, 
       7, 
@@ -13940,6 +14034,7 @@
       7
     ], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       1, 
       7, 
@@ -13982,6 +14077,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       1, 
       7, 
@@ -14019,6 +14115,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       1, 
       7, 
@@ -14055,6 +14152,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       7, 
       9
@@ -14086,6 +14184,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-09-06T16:07:08Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14116,6 +14215,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14144,6 +14244,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14172,6 +14273,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14200,6 +14302,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14228,6 +14331,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14256,6 +14360,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14284,6 +14389,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14312,6 +14418,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14340,6 +14447,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14368,6 +14476,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14396,6 +14505,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14424,6 +14534,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14452,6 +14563,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14480,6 +14592,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14508,6 +14621,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14536,6 +14650,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14564,6 +14679,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14592,6 +14708,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14620,6 +14737,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14648,6 +14766,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14676,6 +14795,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14704,6 +14824,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14732,6 +14853,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14760,6 +14882,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14788,6 +14911,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14816,6 +14940,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14844,6 +14969,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14872,6 +14998,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14900,6 +15027,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14928,6 +15056,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14956,6 +15085,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -14984,6 +15114,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15012,6 +15143,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15040,6 +15172,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15068,6 +15201,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15098,6 +15232,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15126,6 +15261,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15154,6 +15290,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15182,6 +15319,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15210,6 +15348,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15238,6 +15377,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15266,6 +15406,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15294,6 +15435,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15322,6 +15464,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15350,6 +15493,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15378,6 +15522,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15406,6 +15551,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15434,6 +15580,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15462,6 +15609,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15490,6 +15638,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15518,6 +15667,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15546,6 +15696,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15574,6 +15725,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15602,6 +15754,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15630,6 +15783,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15658,6 +15812,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15686,6 +15841,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15714,6 +15870,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15742,6 +15899,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15770,6 +15928,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15798,6 +15957,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15826,6 +15986,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15854,6 +16015,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15882,6 +16044,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15910,6 +16073,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15938,6 +16102,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15966,6 +16131,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -15994,6 +16160,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16022,6 +16189,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16050,6 +16218,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16078,6 +16247,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16106,6 +16276,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16134,6 +16305,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16162,6 +16334,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16190,6 +16363,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16218,6 +16392,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16246,6 +16421,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16274,6 +16450,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16302,6 +16479,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16330,6 +16508,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16358,6 +16537,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16386,6 +16566,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16414,6 +16595,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16442,6 +16624,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16470,6 +16653,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16498,6 +16682,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16526,6 +16711,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16554,6 +16740,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16582,6 +16769,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16610,6 +16798,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16638,6 +16827,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16666,6 +16856,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16694,6 +16885,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16722,6 +16914,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16750,6 +16943,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16778,6 +16972,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16807,6 +17002,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16835,6 +17031,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16863,6 +17060,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16891,6 +17089,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16919,6 +17118,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16947,6 +17147,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -16975,6 +17176,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17003,6 +17205,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17031,6 +17234,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17059,6 +17263,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17087,6 +17292,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17115,6 +17321,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17143,6 +17350,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17171,6 +17379,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17199,6 +17408,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17227,6 +17437,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17255,6 +17466,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17283,6 +17495,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17311,6 +17524,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17339,6 +17553,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17367,6 +17582,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17395,6 +17611,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17423,6 +17640,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17451,6 +17669,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17479,6 +17698,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17507,6 +17727,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17535,6 +17756,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17563,6 +17785,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17591,6 +17814,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17619,6 +17843,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17647,6 +17872,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17675,6 +17901,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17703,6 +17930,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17731,6 +17959,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17759,6 +17988,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17787,6 +18017,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17815,6 +18046,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17843,6 +18075,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17871,6 +18104,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17899,6 +18133,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17927,6 +18162,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17955,6 +18191,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -17983,6 +18220,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18011,6 +18249,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18039,6 +18278,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-05-24T23:05:31Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18067,6 +18307,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-10T13:51:30Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18093,6 +18334,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-10T20:14:15Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18119,6 +18361,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-11T17:10:05Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18145,6 +18388,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-12T13:02:03Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18171,6 +18415,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-12T16:43:38Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       9
     ], 
@@ -18200,6 +18445,7 @@
     "description_en": "", 
     "times": [], 
     "bulletin_created": "2013-08-12T19:48:04Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       2, 
       8, 
@@ -18228,6 +18474,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-23T17:58:05Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18254,6 +18501,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-23T18:01:01Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18278,6 +18526,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-23T18:01:35Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18302,6 +18551,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-23T20:45:33Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18330,6 +18580,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-24T00:41:13Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       8
     ], 
@@ -18360,6 +18611,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-24T00:41:55Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       8
     ], 
@@ -18388,6 +18640,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-24T01:02:58Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18419,6 +18672,7 @@
       5
     ], 
     "bulletin_created": "2013-08-24T01:03:48Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       1, 
       8
@@ -18455,6 +18709,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T16:28:56Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18479,6 +18734,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T16:40:07Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18503,6 +18759,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T16:42:04Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18527,6 +18784,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T16:52:09Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18551,6 +18809,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T16:53:18Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18575,6 +18834,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T17:26:14Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18599,6 +18859,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T19:23:15Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18623,6 +18884,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-08-26T19:24:32Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [], 
     "bulletin_comments": [], 
     "locations": [], 
@@ -18647,6 +18909,7 @@
     "description_en": null, 
     "times": [], 
     "bulletin_created": "2013-09-06T15:08:47Z", 
+    "bulletin_modified": "2013-05-24T23:05:31Z",
     "sources": [
       7
     ], 
@@ -18715,6 +18978,7 @@
       6
     ], 
     "incident_created": "2013-08-09T12:23:58Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": 3, 
     "ref_incidents": [
       2, 
@@ -18782,6 +19046,7 @@
       7
     ], 
     "incident_created": "2013-08-09T17:46:54Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       1
@@ -18843,6 +19108,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-09T17:48:15Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       1, 
@@ -18912,6 +19178,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-09T17:56:56Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": 3, 
     "ref_incidents": [
       1, 
@@ -18977,6 +19244,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-11T12:12:19Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -19046,6 +19314,7 @@
       8
     ], 
     "incident_created": "2013-08-12T16:20:27Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       1, 
@@ -19117,6 +19386,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-13T20:30:06Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -19190,6 +19460,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-13T20:35:03Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -19269,6 +19540,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-19T20:25:35Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": 6, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -19357,6 +19629,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-19T20:34:47Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       1
@@ -19453,6 +19726,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-19T20:35:53Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       1
@@ -19556,6 +19830,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-19T20:38:22Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       1
@@ -19665,6 +19940,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T15:45:01Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       3
@@ -19776,6 +20052,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T17:16:56Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -19891,6 +20168,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T17:17:11Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20012,6 +20290,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T17:21:09Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20139,6 +20418,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T17:23:23Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20272,6 +20552,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T17:25:00Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20411,6 +20692,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T17:38:02Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20556,6 +20838,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-21T18:07:41Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20578,6 +20861,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-23T18:03:50Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20600,6 +20884,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-23T18:07:51Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20622,6 +20907,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-24T01:17:14Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20644,6 +20930,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-24T01:18:44Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20678,6 +20965,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-24T01:22:22Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [
       3, 
@@ -20705,6 +20993,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-08-24T01:28:19Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20727,6 +21016,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-24T01:36:52Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20749,6 +21039,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-26T16:56:45Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20771,6 +21062,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-26T17:02:38Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20793,6 +21085,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-26T17:41:37Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20815,6 +21108,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T13:58:06Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20837,6 +21131,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T13:59:00Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20859,6 +21154,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:06:39Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20881,6 +21177,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:10:02Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20903,6 +21200,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:22:44Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20925,6 +21223,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:26:44Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20947,6 +21246,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:28:02Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20969,6 +21269,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:28:58Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -20991,6 +21292,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:30:57Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -21013,6 +21315,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:32:45Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -21035,6 +21338,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:34:39Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -21057,6 +21361,7 @@
     "actors_role": [], 
     "incident_comments": [], 
     "incident_created": "2013-08-28T14:43:27Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": null, 
     "ref_incidents": [], 
     "incident_details_en": ""
@@ -21088,6 +21393,7 @@
     ], 
     "incident_comments": [], 
     "incident_created": "2013-09-06T16:15:15Z", 
+    "incident_modified": "2013-08-09T12:23:58Z", 
     "assigned_user": 5, 
     "ref_incidents": [], 
     "incident_details_en": "ma ba3ref sho"

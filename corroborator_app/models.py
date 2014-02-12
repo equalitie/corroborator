@@ -12,7 +12,8 @@ Author: Bill Doran
 2013/02/01
 """
 from django.utils.translation import ugettext as _
-
+from django.core import serializers
+import json
 
 from django.utils import translation
 from django.contrib.auth.signals import user_logged_out
@@ -582,7 +583,6 @@ class Media(models.Model):
         else:
             return ''
 
-
 class ActorBootstrapManager(models.Manager):
     '''
     format the actors for bootstrapping to make them compatible with tastypie
@@ -592,8 +592,24 @@ class ActorBootstrapManager(models.Manager):
     def filter(self, *args, **kwargs):
         results = super(ActorBootstrapManager, self).filter(*args, **kwargs)
         # do something with results
-        return results
-
+        fields = [ 
+            'related_bulletins', 'related_incidents', 'count_incidents',
+            'count_bulletins', 'roles', 'actors_role', 'actors',
+            'thumbnail_url', 'actor_roles_status', 'most_recent_status_actor',
+            'POB', 'current_location', 'actor_comments'
+        ]
+        from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
+        import ipdb
+        actor_prep = ActorPrepMeta()
+        bootstrap_results = []
+        for result in results:
+            updated_actor = serializers.serialize('json',[result])
+            updated_actor = json.loads(updated_actor)[0]['fields']
+            for field in fields:
+                prep_func = getattr(actor_prep, 'prepare_' + field)
+                updated_actor[field] = prep_func(result)
+            bootstrap_results.append(updated_actor)
+        return bootstrap_results
 
 class Actor(models.Model):
     """
@@ -860,6 +876,50 @@ class ActorRole(models.Model):
             return str(self.id) + ': ' + self.role_status\
                 + ': ' + str(self.actor.id)
 
+class BulletinBootstrapManager(models.Manager):
+    '''
+    format the actors for bootstrapping to make them compatible with tastypie
+    api calls
+    '''
+
+    def filter(self, *args, **kwargs):
+        results = super(BulletinBootstrapManager, self).filter(*args, **kwargs)
+        # do something with results
+        bulletin_fields = [
+            'bulletin_comments', 'bulletin_imported_comments',
+            'bulletin_locations', 'bulletin_labels', 'bulletin_sources',
+            'bulletin_times', 'most_recent_status_bulletin',
+            'count_actors', 'actor_roles_status', 'ref_incidents',
+            'assigned_user','sources_count','times','ref_bulletins',
+            'locations','labels','sources','medias',
+        ]
+        actor_fields = ['actors', 'actors_role', ]
+        from corroborator_app.index_meta_prep.bulletinPrepIndex import BulletinPrepMeta
+        from corroborator_app.index_meta_prep.actorPrepIndex import ActorPrepMeta
+        import ipdb
+        bulletin_prep = BulletinPrepMeta()
+        actor_prep = ActorPrepMeta()
+        bootstrap_results = []
+        for result in results:
+            updated_bulletin = serializers.serialize('json',[result])
+            updated_bulletin = json.loads(updated_bulletin)[0]['fields']
+            for field in bulletin_fields:
+                prep_func = getattr(
+                    bulletin_prep, 
+                    'prepare_' + field
+                )
+                updated_bulletin[field] = prep_func(result)
+            for field in actor_fields:
+                prep_func = getattr(
+                    actor_prep, 
+                    'prepare_' + field
+                )
+                updated_bulletin[field] = prep_func(result)
+            if updated_bulletin['confidence_score'] is None:
+                updated_bulletin['confidence_score'] = ''
+            bootstrap_results.append(updated_bulletin)
+        return bootstrap_results
+
 
 class Bulletin(models.Model):
     """
@@ -873,6 +933,9 @@ class Bulletin(models.Model):
         ('Report', 'report'),
         ('News', 'news'),
     )
+    objects = models.Manager()
+    bootstrap_bulletins = BulletinBootstrapManager()
+
     seq_order = models.IntegerField(blank=True, null=True)
     title_en = models.CharField(max_length=255)
     title_ar = models.CharField(max_length=255, blank=True)

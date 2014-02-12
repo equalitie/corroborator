@@ -25,4 +25,4 @@ class ActorBootstrapTestCase(TestCase):
         test that we are getting our actor back the way we want him or her
         '''
         actors = Actor.bootstrap_actors.filter(id=1)
-        self.assertEqual(actors[0].fullname_en, 'Mustafa Mohammed Shikhani')
+        self.assertEqual(actors[0]['actors'],  ['/api/v1/actor/3/'])
