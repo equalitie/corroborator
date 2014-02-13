@@ -301,7 +301,7 @@ def solr_proxy(request, *args, **kwargs):
     returning the query results if the provided request passes
     auth testing
     """
-    if request.user.is_authenticated:
+    if request.user.is_authenticated():
         query = request.META['QUERY_STRING']
         return SolrAuthProxy().parse_request(query)
     else:
