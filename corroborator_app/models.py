@@ -41,7 +41,10 @@ def lang_helper(object_instance, field):
     '''
     lang_string = translation.get_language()
     try:
-        return getattr(object_instance, field + '_' + lang_string)
+        trans = getattr(object_instance, field + '_' + lang_string)
+        if trans is not None:
+            return trans
+        return getattr(object_instance, field + '_en')
     except AttributeError:
         return getattr(object_instance, field + '_en')
 
