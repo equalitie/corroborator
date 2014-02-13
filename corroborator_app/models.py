@@ -42,7 +42,7 @@ def lang_helper(object_instance, field):
     lang_string = translation.get_language()
     try:
         trans = getattr(object_instance, field + '_' + lang_string)
-        if trans is not None:
+        if trans is not None and trans is not '':
             return trans
         return getattr(object_instance, field + '_en')
     except AttributeError:
@@ -850,16 +850,11 @@ class ActorRole(models.Model):
     in relation to either an Incident or a Bulletin.
     """
     ROLE_STATUS = (
-        ('K', 'Killed'),
-        ('T', 'Tortured'),
-        ('WO', 'Wounded'),
-        ('D', 'Detained'),
-        ('KN', 'Kidnapped'),
+        ('V', 'Victim'),
         ('WN', 'Witness'),
-        ('A', 'Arrested'),
-        ('M', 'Martyr'),
-        ('MG', 'Missing'),
-        ('I', 'Injured'),
+        ('P', 'Perpetrator'),
+        ('A', 'Appeared'),
+        ('O', 'Other'),
     )
     RELATION = (
         ('P', 'Parent'),

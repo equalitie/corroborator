@@ -150,16 +150,11 @@ def select_roles():
     role_status_set = []
     roles = ActorRole.ROLE_STATUS
     role_map = {
-        'K': _('Killed'),
-        'T': _('Tortured'),
-        'WO': _('Wounded'),
-        'D': _('Detained'),
-        'KN': _('Kidnapped'),
+        'V': _('Victim'),
         'WN': _('Witness'),
-        'A': _('Arrested'),
-        'M': _('Martyr'),
-        'MG': _('Missing'),
-        'I': _('Injured'),
+        'P': _('Perpetrator'),
+        'A': _('Appeared'),
+        'O': _('Other'),
     }
 
     for role in roles:
