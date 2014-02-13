@@ -38,6 +38,28 @@
               </span>
             </span>
           </div>
+          <!-- description -->
+          <div id="actor-description-block" class="field is-description hide-multiple">
+            <label>{{i18n.bulletin.Description}}</label>
+            <div class="i18n with-en with-ar">
+              <div lang="en">
+                <textarea id="actor_description_en"
+                          name="description_en"
+                          type="text"
+                          class="actor-field w-100p">{{model.description_en}}</textarea>
+              </div>
+              <div lang="ar">
+                <textarea id="actor_description_ar"
+                          name="description_ar"
+                          type="text"
+                          class="actor-field w-100p">{{model.description_ar}}</textarea>
+              </div>
+              <span class="toggle">
+                <span lang="en">EN</span>
+                <span lang="ar">AR</span>
+              </span>
+            </div>
+          </div>
 
           <!-- actor nickname -->
           <div class="field clear-after hide-multiple">
@@ -56,6 +78,11 @@
               </span>
             </span>
           </div>
+
+          <!-- Place of birth -->
+          <div id="actor-condition-block" class="field hide-multiple">
+          </div>
+
           <!-- Assigned to user -->
           {{#if perms.can_assign_users}}
           <div id="actor-assignment-block" class="field actorAssigned">

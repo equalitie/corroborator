@@ -14,20 +14,22 @@ define (
     'lib/CRUD/views/search-views/media/media-search-field',
     'lib/CRUD/views/search-views/revision/revision-view',
     'lib/Data/LocationCollection',
+    'lib/CRUD/data/ConditionCollection',
     // templates
     'lib/CRUD/templates/search-templates/actor/actor.tpl',
     'i18n!lib/CRUD/nls/dict'
   ],
   function ($, _, Backbone, Streams, Mixins, ActorSearchView, MediaSearchView,
-    RevisionView, Location, actorFormTmp, i18n) {
+    RevisionView, Location, Condition,  actorFormTmp, i18n) {
     'use strict';
 
     var ActorFormView,
-        crudBus            = Streams.crudBus,
-        Formatter          = Mixins.Formatter,
-        WidgetMixin        = Mixins.WidgetMixin,
-        LocationCollection = Location.LocationCollection,
-        ConfirmMixin       = Mixins.ConfirmMixin,
+        crudBus             = Streams.crudBus,
+        Formatter           = Mixins.Formatter,
+        WidgetMixin         = Mixins.WidgetMixin,
+        LocationCollection  = Location.LocationCollection,
+        ConfirmMixin        = Mixins.ConfirmMixin,
+        ConditionCollection = Condition.ConditionCollection,
 
         userList = function() {
           return Bootstrap.gl_ac_users_list;
@@ -72,6 +74,20 @@ define (
       // based on the content of the collection, these labels will
       // persist based on the model type in the collecion
       labelFields: {
+        condition: {
+          containerid: '#actor-condition-block',
+          collection : ConditionCollection,
+          multiple: false,
+          bus: crudBus,
+          eventIdentifier: 'actor_condition',
+          display: {
+            field_name : 'condition',
+            field_label: i18n.actor.condition
+          },
+          content: {
+            values: 'condition'
+          }
+        },
         POB: {
           containerid: '#actor-pob-block',
           collection : LocationCollection,

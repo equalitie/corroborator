@@ -72,6 +72,7 @@ urlpatterns = patterns(
 from tastypie.api import Api
 from corroborator_app.api import (
     ActorResource, ActorRoleResource, ActorRelationshipResource,
+    ActorConditionResource,
     CommentResource, CrimeCategoryResource, IncidentResource,
     BulletinResource, LabelResource, MediaResource, PredefinedSearchResource,
     SourceResource, SourceTypeResource, LocationResource, StatusUpdateResource,
@@ -82,6 +83,7 @@ v1_api = Api(api_name='v1')
 v1_api.register(ActorResource())
 v1_api.register(ActorRoleResource())
 v1_api.register(ActorRelationshipResource())
+v1_api.register(ActorConditionResource())
 v1_api.register(CommentResource())
 v1_api.register(CrimeCategoryResource())
 v1_api.register(IncidentResource())

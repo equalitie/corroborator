@@ -20,6 +20,7 @@ from corroborator_app.models import (
     Actor,
     Bulletin,
     ActorRole,
+    ActorCondition,
     Label,
     PredefinedSearch,
     Source,
@@ -60,6 +61,7 @@ def build_js_context(user):
         'status_set': select_statuses(user),
         'create_status': create_status(),
         'all_status_set': select_all_statuses(),
+        'conditions': select_conditions(),
         'users_set': select_users(),
         'loc_set': select_locations,
         'username': user.username,
@@ -79,6 +81,10 @@ def build_js_context(user):
 
 def select_labels():
     return Label.objects.all()
+
+
+def select_conditions():
+    return ActorCondition.objects.all()
 
 
 # 3 not cool translation methods added late in the day

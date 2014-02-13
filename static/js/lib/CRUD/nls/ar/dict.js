@@ -1,6 +1,7 @@
 // standard strings for header.js view
 define({
   'actor': {
+    'condition': 'condition',
     'aka': 'الملقب',
     'works_as_a_en': 'يعمل ك (EN)',
     'works_as_a_ar': 'يعمل ك (ع)',

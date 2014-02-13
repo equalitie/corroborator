@@ -1,12 +1,29 @@
 from django.contrib import admin
-from corroborator_app.models import\
-    Incident, CrimeCategory, Actor, Bulletin, TimeInfo, Location, Source,\
-    StatusUpdate, ActorRole, Label, SourceType, Comment, Media,\
-    PredefinedSearch, ActorRelationship, ActorStatus, EventType, RoleType, RelationType
-    
+from corroborator_app.models import (
+    Incident,
+    CrimeCategory,
+    Actor,
+    Bulletin,
+    TimeInfo,
+    Location,
+    Source,
+   StatusUpdate,
+    ActorRole,
+    Label,
+    SourceType,
+    Comment,
+    Media,
+    PredefinedSearch,
+    ActorRelationship,
+    ActorCondition,
+    ActorStatus,
+    EventType,
+    RoleType,
+    RelationType
+)
+
 import reversion
 
-#from locking.admin import LockableAdmin
 
 class CommentsInlineIn(admin.TabularInline):
     model = Incident.incident_comments.through
@@ -82,6 +99,7 @@ class CorrobAdmin(admin.ModelAdmin):
     exclude = ('times', 'locations', 'sources', 'actors_role', 'labels')
     """
 
+
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('status_en', 'description_en', )
     readonly_fields = ('user', )
@@ -95,38 +113,71 @@ class StatusAdmin(admin.ModelAdmin):
 class TimeInfoAdmin(admin.ModelAdmin):
     list_display = ('time_from', 'time_to', 'comments_en', )
 
+
 class ActorAdmin(reversion.VersionAdmin):
     pass
-class ActorStatusAdmin(reversion.VersionAdmin):
+
+
+class ActorConditionAdmin(reversion.VersionAdmin):
     pass
+
+
 class ActorRoleAdmin(reversion.VersionAdmin):
     pass
+
+
 class RelationTypeAdmin(reversion.VersionAdmin):
     pass
+
+
 class RoleTypeAdmin(reversion.VersionAdmin):
     pass
+
+
 class EventTypeAdmin(reversion.VersionAdmin):
     pass
+
+
 class StatusUpdateAdmin(reversion.VersionAdmin):
     pass
+
+
 class LocationAdmin(reversion.VersionAdmin):
     pass
+
+
 class SourceAdmin(reversion.VersionAdmin):
     pass
+
+
 class SourceTypeAdmin(reversion.VersionAdmin):
     pass
+
+
 class LabelAdmin(reversion.VersionAdmin):
     pass
+
+
 class CrimeCategoryAdmin(reversion.VersionAdmin):
     pass
+
+
 class MediaAdmin(reversion.VersionAdmin):
     pass
+
+
 class CommentAdmin(reversion.VersionAdmin):
     pass
+
+
 class PredefinedSearchAdmin(reversion.VersionAdmin):
     pass
+
+
 class CorrobAdminRev(reversion.VersionAdmin, CorrobAdmin):
     pass
+
+
 class CorrobAdminInRev(reversion.VersionAdmin, CorrobAdminIn):
     pass
 
@@ -137,7 +188,7 @@ class TimeInfoAdminRev(reversion.VersionAdmin, TimeInfoAdmin):
     #list_display = ('get_lock_for_admin',)
 
 admin.site.register(Actor, ActorAdmin)
-admin.site.register(ActorStatus, ActorStatusAdmin)
+admin.site.register(ActorCondition, ActorConditionAdmin)
 admin.site.register(ActorRole, ActorRoleAdmin)
 admin.site.register(RelationType, RelationTypeAdmin)
 admin.site.register(RoleType, RoleTypeAdmin)

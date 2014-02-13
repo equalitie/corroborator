@@ -23,6 +23,7 @@ from corroborator_app.models import (
     VersionStatus,
     StatusUpdate
 )
+from corroborator_app.api.ActorConditionApi import ActorConditionResource
 from corroborator_app.api.UserApi import UserResource
 from corroborator_app.api.LocationApi import LocationResource
 from corroborator_app.api.CommentApi import CommentResource
@@ -42,6 +43,8 @@ class ActorResource(ModelResource, APIMixin):
     tastypie api implementation
     """
     # foreign key fields
+    condition = fields.ForeignKey(
+        ActorConditionResource, 'condition', null=True)
     assigned_user = fields.ForeignKey(UserResource, 'assigned_user', null=True)
     POB = fields.ForeignKey(LocationResource, 'POB', null=True)
     current_location = fields.ForeignKey(

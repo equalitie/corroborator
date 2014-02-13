@@ -13,6 +13,7 @@
         gl_ac_loc_set = [],
         gl_ac_labels_list = [],
         gl_ac_loc_ac_set = [],
+        conditions = [],
         gl_ac_users_list = [],
         solr_url = '{{ solr_url }}',
         comment_statuses = [],
@@ -33,6 +34,18 @@
         can_edit_assigned_entities = '{{ can_edit_assigned_entities }}' === 'True'
         ? true
         : false;
+    {% for condition in conditions %}
+        conditions.push({
+          id            : {{condition.id}},
+          resource_uri  : "/api/v1/actorCondition/{{condition.id}}/",
+          name_en       : '{{condition.name_en}}',
+          name          : '{{condition.name}}',
+          name_ar       : '{{condition.name_ar}}',
+          key           : '{{condition.key}}',
+          description_en: '{{condition.description_en}}',
+          description_ar: '{{condition.description_ar}}',
+        });
+    {% endfor %}
     {% for pds in predefined_search_set %}
         predefined_list.push({
             search_title:     "{{pds.search_title}}",
@@ -205,6 +218,7 @@
         comment_statuses: comment_statuses,
         create_status: create_status,
         all_statuses: all_statuses,
+        conditions: conditions,
         solr_url: solr_url
     };
 

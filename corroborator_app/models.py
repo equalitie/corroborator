@@ -124,13 +124,14 @@ class EventType(models.Model):
 
 
 class PermStatusUpdateManager(models.Manager):
+    special_status_keys = [
+        'm_created', 'h_created', 'reviewed', 'updated', 'finalized', ]
+
     def available_statuses(self, user):
         '''
         return a list of the available statuses, allows for users to have
         more that one group
         '''
-        special_status_keys = [
-            'm_created', 'h_created', 'reviewed', 'updated', 'finalized', ]
         groups = {
             'data-analyst': ['updated'],
             'senior-data-analyst': ['updated', 'reviewed', ],
@@ -147,7 +148,7 @@ class PermStatusUpdateManager(models.Manager):
         status_keys = set(status_keys)
 
         return StatusUpdate.objects.filter(
-            Q(key__in=status_keys) | ~Q(key__in=special_status_keys)
+            Q(key__in=status_keys) | ~Q(key__in=self.special_status_keys)
         )
 
     def get_update_status(self, user, requested_status_id):
@@ -174,6 +175,9 @@ class PermStatusUpdateManager(models.Manager):
         check that the user can update the entity based on permissions
         set
         '''
+        if key not in self.special_status_keys:
+            return True
+
         perm_status_map = {
             'updated': 'can_update',
             'reviewed': 'can_update_to_reviewed',
@@ -183,7 +187,7 @@ class PermStatusUpdateManager(models.Manager):
             codename = perm_status_map[key]
             return len(group.permissions.filter(codename=codename)) == 1
         except KeyError:
-            return False
+            return True
 
 
 class StatusUpdate(models.Model):
@@ -616,6 +620,21 @@ class ActorBootstrapManager(models.Manager):
         return bootstrap_results
 
 
+class ActorCondition(models.Model):
+    """
+    What is the condition of the Actor
+    """
+    name_en = models.CharField(max_length=25)
+    name_ar = models.CharField(max_length=25)
+    description_en = models.TextField(blank=True, null=True)
+    description_ar = models.TextField(blank=True, null=True)
+    key = models.CharField(max_length=8, unique=True)
+
+    @property
+    def name(self):
+        return lang_helper(self, 'name')
+
+
 class Actor(models.Model):
     """
     This object captures the unique properties of an individual Actor
@@ -713,7 +732,8 @@ class Actor(models.Model):
     actor_comments = models.ManyToManyField(Comment, blank=True, null=True)
 
     # Foreign Keys
-    actor_status = models.ForeignKey(ActorStatus, blank=True, null=True)
+    #actor_status = models.ForeignKey(ActorStatus, blank=True, null=True)
+    condition = models.ForeignKey(ActorCondition, blank=True, null=True)
     assigned_user = models.ForeignKey(User, blank=True, null=True)
     actors_role = models.ManyToManyField(
         'ActorRole', blank=True, null=True, related_name='actors_role')

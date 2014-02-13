@@ -58,6 +58,13 @@ define (
     });
 
     // resource_uri functions
+    Handlebars.registerHelper('fetchCondition', function(context, options) {
+        if (context) {
+          return getFromUri(context, 'conditions');
+        }
+        return context;
+    });
+
     Handlebars.registerHelper('fetchLabel', function(context, options) {
         if (context) {
           return getFromUri(context, 'labels');
@@ -181,9 +188,14 @@ define (
     Handlebars.registerHelper('commaSeparatedList', function(context, block) {
       var list = [];
       if (context.hash) {
-        list = _(context.hash.list).map(function(loc_uri) {
+        list = _.isArray(context.hash.list) ? context.hash.list : [context.hash.list];
+        try {
+        list = _(list).map(function(loc_uri) {
           return getFromUri(loc_uri, 'locations');
         });
+        }
+        catch(e) {
+        }
       }
       else {
         list = context;

@@ -45,6 +45,24 @@
     </div>
   </div>
   <div class="body">
+    {{#if model.condition }}
+      <div class="assigned-to">
+        <span class="value">{{fetchCondition model.condition}}</span>
+      </div>
+      
+    {{/if}}
+    {{#if model.description_en }}
+    <div class="description detail">
+      <h3 class="title">{{i18n.bulletin.Description}}</h3>
+      {{model.description_en}}
+    </div>
+    {{/if}}
+    {{#if model.description_ar }}
+    <div class="description detail">
+      <h3 class="title">{{i18n.bulletin.Description}}</h3>
+      {{model.description_ar}}
+    </div>
+    {{/if}}
     <table class="details">
       <tbody>
         {{#if model.current_location}}

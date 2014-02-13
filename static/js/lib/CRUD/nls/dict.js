@@ -2,6 +2,7 @@
 define({
   'root': {
     'actor': {
+      'condition': 'condition',
       'aka': 'aka',
       'works_as_a_en': 'works as a (en)',
       'works_as_a_ar': 'works as a (ar)',

@@ -126,7 +126,7 @@ class BulletinResource(ModelResource, APIMixin):
 
         if self.can_edit(user, bundle, Bulletin) is False:
             raise ImmediateHttpResponse(
-                HttpForbidden('You do not have permission to edit this entity: ' + str(user.id) + ', id: ' + str(bundle.data['id']))
+                HttpForbidden('You do not have permission to edit this entity')
             )
 
         # permission checks
