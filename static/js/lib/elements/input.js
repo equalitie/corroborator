@@ -38,7 +38,7 @@ define(
       // clear the contents of the input box
       clearInput: function() {
         this.$el.children('input').val('');
-        this.sendText('');
+        //this.sendText('');
       },
       getInput: function() {
         var inputText = this.$el.children('input').val();
