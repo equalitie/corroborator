@@ -98,6 +98,10 @@ def select_civilian():
         {
             'key': 'Non-civilian',
             'value': _('Non-civilian')
+        },
+        {
+            'key': 'Police',
+            'value': _('Police')
         }
     ]
 

@@ -650,6 +650,7 @@ class Actor(models.Model):
     CIVILIAN_TYPE = (
         ('Civilian', _('Civilian')),
         ('Non-civilian', _('Non-civilian')),
+        ('Police', _('Police')),
     )
     objects = models.Manager()
     bootstrap_actors = ActorBootstrapManager()

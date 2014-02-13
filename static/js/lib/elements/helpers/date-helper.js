@@ -22,8 +22,7 @@ define (
         return _(Bootstrap[key]).findWhere({key: fieldKey}).value;
       }
       catch(e) {
-        console.log(e, fieldKey, key);
-        return 'label missing';
+        return 'label missing for item: ' + fieldKey + ' with value: ' + key;
       }
     };
 
