@@ -11,10 +11,6 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable, IncidentPrepMeta):
     This document handles the construction of the Incident Solr document.
     """
     text = indexes.CharField(document=True, use_template=True)
-    incident_details_en = indexes.CharField(
-        model_attr='incident_details_en', null=True)
-    incident_details_ar = indexes.CharField(
-        model_attr='incident_details_ar', null=True)
     title_en = indexes.CharField(model_attr='title_en', null=True)
     title_ar = indexes.CharField(model_attr='title_ar', null=True)
     confidence_score = indexes.IntegerField(
@@ -29,7 +25,6 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable, IncidentPrepMeta):
         null=True
     )
 
-    deleted = indexes.BooleanField()
 
     # prepare functions for these can be found in IncidentPrepMeta
     count_actors = indexes.IntegerField()
@@ -48,20 +43,28 @@ class IncidentIndex(CelerySearchIndex, indexes.Indexable, IncidentPrepMeta):
     incident_searchable_locations = indexes.MultiValueField(faceted=True)
     resource_uri = indexes.CharField()
 
+    incident_crimes = indexes.MultiValueField(faceted=True)
+    crimes = indexes.MultiValueField()
+
+    labels = indexes.MultiValueField()
+
+    incident_confidence_bucket = indexes.CharField(faceted=True, null=True)
+
+    """
+    times = indexes.MultiValueField()
     actors_role = indexes.MultiValueField()
     actors = indexes.MultiValueField()
     actor_roles_status = indexes.MultiValueField()
 
-    incident_crimes = indexes.MultiValueField(faceted=True)
-    crimes = indexes.MultiValueField()
 
-    ref_incidents = indexes.MultiValueField()
-    labels = indexes.MultiValueField()
-    ref_bulletins = indexes.MultiValueField()
     incident_comments = indexes.MultiValueField()
-    times = indexes.MultiValueField()
-
-    incident_confidence_bucket = indexes.CharField(faceted=True, null=True)
+    ref_bulletins = indexes.MultiValueField()
+    ref_incidents = indexes.MultiValueField()
+    incident_details_en = indexes.CharField(
+        model_attr='incident_details_en', null=True)
+    incident_details_ar = indexes.CharField(
+        model_attr='incident_details_ar', null=True)
+    """
 
     def get_model(self):
         return Incident
