@@ -187,10 +187,10 @@ define(
       },
 
       afterRequest: function () {
-        this.manager.response.facet_counts.facet_fields['occupation_en_exact'] = {};
-        this.manager.response.facet_counts.facet_fields['occupation_ar_exact'] = {};
-        this.manager.response.facet_counts.facet_fields['position_en_exact'] = {};
-        this.manager.response.facet_counts.facet_fields['position_ar_exact'] = {};
+        //this.manager.response.facet_counts.facet_fields['occupation_en_exact'] = {};
+        //this.manager.response.facet_counts.facet_fields['occupation_ar_exact'] = {};
+        //this.manager.response.facet_counts.facet_fields['position_en_exact'] = {};
+        //this.manager.response.facet_counts.facet_fields['position_ar_exact'] = {};
         var searchResults = this.manager.response.response.docs,
             filters = this.manager.response.facet_counts.facet_fields;
         if (this.shouldSendResults === true) {
