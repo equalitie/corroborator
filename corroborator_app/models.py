@@ -1,12 +1,11 @@
 # coding=utf-8
 """
 encoding must be utf-8 to allow inline arabic
-probably should change this to be trans string but may need more work on
-the solution
----
+no longer necessary
 
 This file describes the Model entities and their relations for the Corroborator
 application.
+TODO: split into different model modules
 
 Author: Bill Doran
 2013/02/01
@@ -40,9 +39,13 @@ def lang_helper(object_instance, field):
     helper method to select the correct language version of a model field
     '''
     lang_string = translation.get_language()
+    return pick_attribute(object_instance, field, lang_string)
+
+
+def pick_attribute(object_instance, field, locale):
     try:
-        trans = getattr(object_instance, field + '_' + lang_string)
-        if trans is not None and trans is not '':
+        trans = getattr(object_instance, field + '_' + locale)
+        if trans is not None and trans is not u'':
             return trans
         return getattr(object_instance, field + '_en')
     except AttributeError:

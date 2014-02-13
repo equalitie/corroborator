@@ -4,6 +4,7 @@ Dev settings
 """
 from settings.common import *
 
+SESSION_COOKIE_AGE = 400 * 60
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 
