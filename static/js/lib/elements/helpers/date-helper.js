@@ -18,7 +18,13 @@ define (
     });
 
     var mapKeyToLabel = function(fieldKey, key) {
-      return _(Bootstrap[key]).findWhere({key: fieldKey}).value;
+      try {
+        return _(Bootstrap[key]).findWhere({key: fieldKey}).value;
+      }
+      catch(e) {
+        console.log(e, fieldKey, key);
+        return 'label missing';
+      }
     };
 
     var getFromUri = function(uri, key) {
