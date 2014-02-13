@@ -12,8 +12,21 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable, ActorPrepMeta):
     """
     text = indexes.CharField(document=True, use_template=True)
     dob = indexes.DateField(model_attr='DOB', null=True, faceted=True)
+    #Field removed to reduce size of solr index
+    """
     description_en = indexes.CharField(model_attr='description_en', null=True)
     description_ar = indexes.CharField(model_attr='description_ar', null=True)
+    actor_comments = indexes.MultiValueField()
+    actor_entity_role = indexes.MultiValueField(faceted=True)
+    actor_entity_relation = indexes.MultiValueField(faceted=True)
+    roles = indexes.MultiValueField()
+    actor_roles_status = indexes.MultiValueField()
+    actors_role = indexes.MultiValueField()
+    actors = indexes.MultiValueField()
+    media = indexes.CharField()
+    related_bulletins = indexes.MultiValueField()
+    related_incidents = indexes.MultiValueField()
+    """
     fullname_en = indexes.CharField(model_attr='fullname_en', null=True)
     fullname_ar = indexes.CharField(model_attr='fullname_ar', null=True)
     nickname_en = indexes.CharField(model_attr='nickname_en', null=True)
@@ -66,26 +79,13 @@ class ActorIndex(CelerySearchIndex, indexes.Indexable, ActorPrepMeta):
         null=True
     )
 
-    media = indexes.CharField()
     resource_uri = indexes.CharField()
     POB = indexes.CharField(faceted=True)
     current_location = indexes.CharField(faceted=True)
-    roles = indexes.MultiValueField()
-    actor_roles_status = indexes.MultiValueField()
-    actors_role = indexes.MultiValueField()
-    actors = indexes.MultiValueField()
-    deleted = indexes.BooleanField()
     thumbnail_url = indexes.CharField()
 
     actor_searchable_pob = indexes.MultiValueField(faceted=True)
     actor_searchable_current = indexes.MultiValueField(faceted=True)
-
-    related_bulletins = indexes.MultiValueField()
-    related_incidents = indexes.MultiValueField()
-
-    actor_comments = indexes.MultiValueField()
-    actor_entity_role = indexes.MultiValueField(faceted=True)
-    actor_entity_relation = indexes.MultiValueField(faceted=True)
 
     def get_model(self):
         return Actor

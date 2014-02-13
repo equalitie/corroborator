@@ -13,8 +13,6 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable, BulletinPrepMeta):
     bulletin_type = indexes.CharField(
         faceted=True, model_attr='type', null=True)
     text = indexes.CharField(document=True, use_template=True)
-    description_en = indexes.CharField(model_attr='description_en', null=True)
-    description_ar = indexes.CharField(model_attr='description_ar', null=True)
     title_en = indexes.CharField(model_attr='title_en', null=True)
     title_ar = indexes.CharField(model_attr='title_ar', null=True)
     confidence_score = indexes.IntegerField(
@@ -43,22 +41,25 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable, BulletinPrepMeta):
     bulletin_created_date = indexes.DateField(faceted=True)
 
     resource_uri = indexes.CharField()
-    ref_bulletins = indexes.MultiValueField()
-    medias = indexes.MultiValueField()
     labels = indexes.MultiValueField()
-    actors_role = indexes.MultiValueField()
-    actor_roles_status = indexes.MultiValueField()
-    actors = indexes.MultiValueField()
-
     bulletin_searchable_locations = indexes.MultiValueField(faceted=True)
 
     sources = indexes.MultiValueField()
-    bulletin_comments = indexes.MultiValueField()
-    bulletin_imported_comments = indexes.MultiValueField()
-    times = indexes.MultiValueField()
     sources_count = indexes.IntegerField(faceted=True)
     bulletin_confidence_bucket = indexes.CharField(faceted=True, null=True)
-
+    """
+    times = indexes.MultiValueField()
+    bulletin_imported_comments = indexes.MultiValueField()
+    bulletin_comments = indexes.MultiValueField()
+    ref_bulletins = indexes.MultiValueField()
+    actors_role = indexes.MultiValueField()
+    actor_roles_status = indexes.MultiValueField()
+    actors = indexes.MultiValueField()
+    description_en = indexes.CharField(model_attr='description_en', null=True)
+    description_ar = indexes.CharField(model_attr='description_ar', null=True)
+    medias = indexes.MultiValueField()
+    """
+ 
     def prepare_actors(self, object):
         """
         Returns an array of tastypi uris related to the Actor's
