@@ -275,7 +275,7 @@ def entity_refresh(request):
         data = json.dumps(refreshed_entities)
         return HttpResponse(data, mimetype='application/json')
     else:
-        return Http404
+        raise Http404
 ###############################################################################
 # AUTH PROXIES
 #
@@ -292,7 +292,7 @@ def aws_proxy(request, media_name):
     if request.user.is_authenticated:
         return AWSAuthProxy().get(media_name)
     else:
-        return Http404
+        raise Http404
 
 
 def solr_proxy(request, *args, **kwargs):
@@ -305,7 +305,7 @@ def solr_proxy(request, *args, **kwargs):
         query = request.META['QUERY_STRING']
         return SolrAuthProxy().parse_request(query)
     else:
-        return Http404
+        raise Http404
 
 ###############################################################################
 # MULTISAVE VIEWS
