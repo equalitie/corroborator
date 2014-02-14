@@ -17,6 +17,7 @@ from corroborator_app.multisave import (
 
 from corroborator_app.tests.test_utilities import TestUserUtility
 from corroborator_app.models import Bulletin, Location, ActorRole
+from reversion.models import Version
 
 
 class MultiSaveBulletinTestCase(TestCase):
@@ -72,6 +73,9 @@ class MultiSaveBulletinTestCase(TestCase):
         self.assertEqual(
             response_data[0]['most_recent_status_bulletin'],
             u'/api/v1/statusUpdate/3/')
+        revision = Version.objects.filter(object_id=1)        
+        self.assertNotEqual(revision, None)
+
 
     def test_statusless_update_fails(self):
         client = Client()
