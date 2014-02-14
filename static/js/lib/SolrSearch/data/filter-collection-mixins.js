@@ -206,7 +206,6 @@ define (
           filterGroupCollection.addFilter(filterModel);
         }, this);
         this.allFilters.add(filterGroupCollection.models);
-
         this.filterGroupCollections.push({
             groupKey: group.key,
             groupTitle: groupMap(group.key),

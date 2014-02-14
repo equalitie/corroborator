@@ -33,7 +33,7 @@ define(
           'facet.sort':'count',
           'facet.field': fields,
           'rows': 500,
-          'facet.limit': 1000,
+          'facet.limit': 50,
           'facet.mincount': 1,
           'json.nl': 'map'
         },
