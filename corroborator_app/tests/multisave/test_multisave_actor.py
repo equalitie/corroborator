@@ -68,8 +68,6 @@ class MultiSaveActorTestCase(TestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 200)
-        import ipdb
-        ipdb.set_trace()
         revision = Version.objects.filter(object_id=1)        
         self.assertNotEqual(revision, None)
 
