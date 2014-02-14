@@ -116,7 +116,7 @@ define (
       },
       expandView: function() {
         var routeTemplate = _.template(
-          '<%=model.entityType %>/<%=model.django_id %>/expanded'),
+          '<%=model.entityType %>/<%=model.id %>/expanded'),
             route = routeTemplate({
               model: this.model.toJSON()
             });
@@ -126,7 +126,7 @@ define (
 
       collapseView: function() {
         var routeTemplate = _.template(
-          '<%=model.entityType %>/<%=model.django_id %>'),
+          '<%=model.entityType %>/<%=model.id %>'),
             route = routeTemplate({
               model: this.model.toJSON()
             });
