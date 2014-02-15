@@ -14,9 +14,9 @@ define(
   ],
   function(Backbone, Streams, Mixins) {
 
-        // filter out the actor filters event
     var FilterGroupMixin = Mixins.FilterGroupMixin,
         SelectedFilterMixin = Mixins.SelectedFilterMixin,
+        // filters for the bulletin facet events
         filterBulletinFilters = function(value) {
           return value.type === 'parse_filters_bulletin';
         },
@@ -36,6 +36,7 @@ define(
         filterUpdateFiltersAndResults = function(value) {
           return value.options.silent === undefined;
         },
+        // these are obsolete now because 
         filterTitles = {
           'bulletin_assigned_user_exact'     : 'Assigned To',
           'most_recent_status_bulletin_exact': 'Status',

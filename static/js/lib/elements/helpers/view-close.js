@@ -1,7 +1,9 @@
 /*global define*/
 // Author: Cormac McGuire
 // ### Description
-// What the file is for
+// Add a destroy method to backbone views, to properly remove dom elements
+// and remove associated events
+// adds en/ar switch handling for fields
 
 define (
   [

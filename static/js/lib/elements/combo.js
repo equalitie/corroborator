@@ -6,8 +6,6 @@
 // collection contains the elements to be displayed  
 // When creating an instance of the view, you can either pass in the element to watch
 // or have one rendered.  
-// you may also pass a custom event dispatcher which will be used instead of the 
-// global dispatcher for sending events
 // 
 define(
   [

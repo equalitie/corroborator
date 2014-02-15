@@ -26,8 +26,9 @@ define(
       // Display results
       Results.init();
       // Do initial solr request
-      // pass the callback to ensure that the initial request has been
-      // done before anything else gets started
+      // and tell it to reload periodically, turned off currently, this is a big 
+      // performance hit :(
+      // All entities when viewed are now updated automatically from the api
       SearchReloader.init(true);
 
       // start a watcher for save search requests

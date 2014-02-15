@@ -1,7 +1,11 @@
 // Author: Cormac McGuire
 
 // ### Description
-// Handle create update of incident(s)
+// Entry point for the handling of CRUD functionality
+// Creates a form manager that shows forms for our different entities
+// Creates a display manager that displays the different entities
+// Creates the EmbeddedResultsManagerView which listens for requests
+// to display actors, bulletins, incidents and media which can then be related
 // 
 define (
   [

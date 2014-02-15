@@ -1,7 +1,8 @@
 /*global define*/
 // Author: Cormac McGuire
 // ### Description
-// Define list views that can be reused to display collections
+// Define list views that can be reused to display collections, it will
+// auto load the individual list elements from the api
 
 define (
   [

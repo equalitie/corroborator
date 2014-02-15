@@ -5,7 +5,6 @@
 // represent an input field, reacts to the enter button being pressed
 // when focus is on the input by sending the content of the input box
 // into the search Stream
-// TODO: implement stream integration
 // 
 // When creating an instance of the view, you can either pass in the element to
 // watch or have one rendered.
@@ -38,7 +37,7 @@ define(
       // clear the contents of the input box
       clearInput: function() {
         this.$el.children('input').val('');
-        //this.sendText('');
+        this.sendText('');
       },
       getInput: function() {
         var inputText = this.$el.children('input').val();
@@ -75,6 +74,7 @@ define(
           .debounce(300);
       },
       // check the length of the text
+      // only send the search if the text is longer than 3 chars
       textLength: function(text) {
         if (text.length > 3) {
           return text;
@@ -82,6 +82,7 @@ define(
         return '';
       },
       // catch the keyup event
+      // send the search when enter is pressed
       pressed: function(e) {
         if (e.keyCode === 13) {
           this.sendText(this.$el.children('input').val());

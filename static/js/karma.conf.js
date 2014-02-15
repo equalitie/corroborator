@@ -45,27 +45,28 @@ module.exports = function(config) {
       {pattern: 'lib/reporting/*.js', included: false},
       {pattern: 'lib/reporting/**/*.js', included: false},
 
-      {pattern: 'components/jquery/jquery.js', included: false},
-      {pattern: 'components/jasmine-jquery/lib/jasmine-jquery.js', included: false},
-      {pattern: 'components/jquery.ui/dist/jquery-ui.js', included: false},
+      {pattern: 'bower_components/jquery/jquery.js', included: false},
+      {pattern: 'bower_components/jasmine-jquery/lib/jasmine-jquery.js', included: false},
+      {pattern: 'bower_components/jquery.ui/dist/jquery-ui.js', included: false},
 
-      {pattern: 'components/requirejs-i18n/i18n.js', included: false},
-      {pattern: 'components/jquery-form/jquery.form.js', included: false},
-      {pattern: 'components/jquery-timepicker-addon/jquery-ui-timepicker-addon.js', included: false},
-      {pattern: 'components/jquery-timepicker-addon/jquery-ui-sliderAccess.js', included: false},
-      {pattern: 'components/leaflet/dist/leaflet.js', included: false},
-      {pattern: 'components/backbone/backbone.js', included: false},
-      {pattern: 'components/moment/moment.js', included: false},
-      {pattern: 'components/underscore/underscore.js', included: false},
-      {pattern: 'components/handlebars/handlebars.js', included: false},
-      {pattern: 'components/bacon/dist/Bacon.js', included: false},
-      {pattern: 'components/bacon-ui/Bacon.UI.js', included: false},
-      {pattern: 'components/spin.js/spin.js', included: false},
-      {pattern: 'components/flowplayer/dist/flowplayer.js', included: false},
+      {pattern: 'bower_components/requirejs-i18n/i18n.js', included: false},
+      {pattern: 'bower_components/jquery-form/jquery.form.js', included: false},
+      {pattern: 'bower_components/jquery-timepicker-addon/jquery-ui-timepicker-addon.js', included: false},
+      {pattern: 'bower_components/jquery-timepicker-addon/jquery-ui-sliderAccess.js', included: false},
+      {pattern: 'bower_components/leaflet/dist/leaflet.js', included: false},
+      {pattern: 'bower_components/backbone/backbone.js', included: false},
+      {pattern: 'bower_components/moment/moment.js', included: false},
+      {pattern: 'bower_components/moment/min/langs.js', included: false},
+      {pattern: 'bower_components/underscore/underscore.js', included: false},
+      {pattern: 'bower_components/handlebars/handlebars.js', included: false},
+      {pattern: 'bower_components/bacon/dist/Bacon.js', included: false},
+      {pattern: 'bower_components/bacon-ui/Bacon.UI.js', included: false},
+      {pattern: 'bower_components/spin.js/spin.js', included: false},
+      {pattern: 'bower_components/flowplayer/dist/flowplayer.js', included: false},
       // ajax solr stuff
-      {pattern: 'components/ajax-solr/core.js', included: false},
-      {pattern: 'components/ajax-solr/managers.js', included: false},
-      {pattern: 'components/ajax-solr/widgets.js', included: false},
+      {pattern: 'bower_components/ajax-solr/core.js', included: false},
+      {pattern: 'bower_components/ajax-solr/managers.js', included: false},
+      {pattern: 'bower_components/ajax-solr/widgets.js', included: false},
       //sinon
       {pattern: 'bower_components/sinonjs-built/pkg/sinon-1.7.3.js', included: false}
       
@@ -117,7 +118,7 @@ module.exports = function(config) {
     // - Safari (only Mac)
     // - PhantomJS
     // - IE (only Windows)
-    browsers: ['PhantomJS'/*, 'Chrome', 'Firefox', 'Safari', 'ChromeCanary'*/],
+    browsers: [/*'PhantomJS',*/ 'Chrome'/*, 'Firefox', 'Safari', 'ChromeCanary'*/],
 
 
     // If browser does not capture in given timeout [ms], kill it

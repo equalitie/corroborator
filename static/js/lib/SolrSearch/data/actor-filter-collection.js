@@ -1,4 +1,3 @@
-
 /*global define*/
 // Author: Cormac McGuire  
 // Collection to store the filters sent by solr  
@@ -27,7 +26,7 @@ define(
                  value.entity === 'actor';
         },
         
-        // actor filters returned
+        // event filters
         filterActorFilters = function(value) {
           return value.type === 'parse_filters_actor';
         },
@@ -160,13 +159,14 @@ define(
         this.watchForFilterEmptyRequest();
       },
 
+      // watch for select actor filter events and add the selected filter to the
+      // collection
       watchForFilterSelect: function() {
         searchBus.filter(filterActorFilterEvents)
                  .onValue(function (value) {
                    this.add(value.content.filter);
                  }.bind(this));
       },
-
 
 
       // a new text search has been run, remove all filters which no longer
@@ -192,6 +192,7 @@ define(
       }
 
     });
+    // extend the Collection with methods common to all selected filter collections
     _.extend(SelectedActorFilterCollection.prototype, SelectedFilterMixin);
     
 

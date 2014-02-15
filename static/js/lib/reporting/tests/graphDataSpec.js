@@ -18,7 +18,7 @@ define (
       beforeEach(function() {
       });
       afterEach(function() {});
-      it('should parse data to pie/bar charts', function(){
+      xit('should parse data to pie/bar charts', function(){
         var test_data = TestData.inputData.pieBarData,
             dataEvent = {
               key: 'age_en_exact',
@@ -31,7 +31,7 @@ define (
         expect(parsedData.values[0].value).toBe(3454);
       });
 
-      it('should parse the type of a graph from its key', function(){
+      xit('should parse the type of a graph from its key', function(){
         var key = 'age_en_exact',
             type = GraphTypes.selectGraphTypeFromKey(key);
         expect(type).toEqual('bar');

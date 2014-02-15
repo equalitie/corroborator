@@ -46,6 +46,7 @@ define(
         this.destroyCurrentView()
             .showNewView(newView);
       },
+      // toggle active classes on the tabs
       applyClass: function (selectedClassName) {
         $(selectedClassName).addClass('active')
                             .siblings()

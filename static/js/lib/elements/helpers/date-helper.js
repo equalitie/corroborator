@@ -1,7 +1,9 @@
 /*global define, Bootstrap*/
 // Author: Cormac McGuire
 // ### Description
-// define a date formatter helper to use in our templates
+// handlebars helpers for template files
+// This is used throughout the application to resolve resource uris
+// to the labels defined for them in the collections from the Bootstrap
 
 define (
   [
@@ -53,13 +55,19 @@ define (
     });
 
     Handlebars.registerHelper('fetchRole', function(context, options) {
-        var formattedContext = context;
-        if (context) {
-          var roles = Bootstrap.gl_ac_role_list.concat(Bootstrap.gl_ac_relation_list),
-              roleSearchField = {key: context};
-          formattedContext = _.findWhere(roles, roleSearchField).value;
+        try {
+          var formattedContext = context;
+          
+          if (context) {
+            var roles = Bootstrap.gl_ac_role_list.concat(Bootstrap.gl_ac_relation_list),
+                roleSearchField = {key: context};
+            formattedContext = _.findWhere(roles, roleSearchField).value;
+          }
+          return formattedContext;
         }
-        return formattedContext;
+        catch(e) {
+          return context;
+        }
     });
 
     // resource_uri functions
@@ -101,14 +109,15 @@ define (
         return '';
     });
 
-    // Text formatters
-
     Handlebars.registerHelper('locationTpl', function(context, options) {
       var tpl = _.template(context.hash.tpl);
       return tpl({
         location: getFromUri(context.hash.location, 'locations')
       });
     });
+
+
+    // translate i18n strings
 
     Handlebars.registerHelper('wordTpl', function(context, options) {
       var tpl = _.template(context.hash.tpl);
@@ -190,6 +199,8 @@ define (
     });
 
 
+
+    //create a list of items from uris separated by commas
     Handlebars.registerHelper('commaSeparatedList', function(context, block) {
       var list = [];
       if (context.hash) {

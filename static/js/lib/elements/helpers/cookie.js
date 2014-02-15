@@ -1,7 +1,7 @@
 /*global define, document*/
 // Author: Cormac McGuire
 // ### Description
-// Get the django csrf cookie
+// Get the django csrf cookie, used in the media upload form
 
 define (
   [
