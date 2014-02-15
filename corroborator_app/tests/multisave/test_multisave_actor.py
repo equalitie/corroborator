@@ -20,6 +20,7 @@ from corroborator_app.models import Actor, Location, ActorRole, StatusUpdate
 from corroborator_app.tests.test_utilities import TestUserUtility, id_from_uri
 import json
 
+from reversion.models import Version
 
 class MultiSaveActorTestCase(TestCase):
     '''
@@ -51,19 +52,24 @@ class MultiSaveActorTestCase(TestCase):
         '''
         client = self.test_user_util.client_login()
         post_data = create_actor_data()
+
         response = client.post(
             '/corroborator/actor/0/multisave/',
             post_data,
             content_type='application/json'
         )
+
         self.assertEqual(response.status_code, 200)
         post_data = create_actor_data(empty_data=True)
+
         response = client.post(
             '/corroborator/actor/0/multisave/',
             post_data,
             content_type='application/json'
         )
         self.assertEqual(response.status_code, 200)
+        revision = Version.objects.filter(object_id=1)        
+        self.assertNotEqual(revision, None)
 
     def test_extract_ids(self):
         '''

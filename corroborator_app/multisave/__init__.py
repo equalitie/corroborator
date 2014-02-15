@@ -22,10 +22,12 @@ from corroborator_app.models import (
     Label,
     SourceType,
     CrimeCategory,
-    Comment
+    Comment,
+    VersionStatus,
 )
 from corroborator_app.tasks import update_object
 
+import reversion
 
 ###########################################################################
 # COMMON METHODS
@@ -60,7 +62,17 @@ def update_entities(model_dict, model_objects, appendable_keys):
         model = update_entity_appendable(appendable_dict, model)
         model = update_entity_status(model_dict, model)
         model = update_entity(model_dict_copy, model)
-        model.save()
+        user = model_dict['user']
+        with reversion.create_revision():
+            model.save()
+            reversion.add_meta(
+                VersionStatus,
+                status='edited',
+                user=user
+            )
+            reversion.set_user(user)
+            comment_text = model_dict['comment']
+            reversion.set_comment(comment_text)
 
 
 def update_entity_appendable(appendable_dict, model):

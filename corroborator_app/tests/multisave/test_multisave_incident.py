@@ -17,6 +17,7 @@ from corroborator_app.multisave import create_comment
 from corroborator_app.tests.test_utilities import TestUserUtility
 from corroborator_app.models import Incident, Location, ActorRole
 
+from reversion.models import Version
 
 class MultiSaveIncidentTestCase(TestCase):
     '''
@@ -65,6 +66,9 @@ class MultiSaveIncidentTestCase(TestCase):
         self.assertEqual(
             response_data[0]['most_recent_status_incident'],
             u'/api/v1/statusUpdate/3/')
+        revision = Version.objects.filter(object_id=1)        
+        self.assertNotEqual(revision, None)
+
 
     def test_incidents_updated_with_empty_relations(self):
         client = self.test_user_util.client_login()
