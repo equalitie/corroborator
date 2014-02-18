@@ -13,7 +13,7 @@ define(
     // solr shizz
     'core/Core',
     'core/AbstractFacetWidget'
-  ], 
+  ],
   function(Backbone, _, Streams, ParseFilter, QueryBuilder) {
     'use strict';
     var FilterWidget,
@@ -54,7 +54,7 @@ define(
           Streams.searchBus.push({
             type: 'results_' + entityType,
             content: results
-          }); 
+          });
         },
 
         // extract content from filter event
@@ -69,8 +69,8 @@ define(
       entity: '',
       sendFilter: true,
 
-      // constructor  
-      // start our event listeners  
+      // constructor
+      // start our event listeners
       // create a collection to manager our filters, bind the sendRequest
       // function to change events on the collection
       init: function(){
@@ -101,7 +101,7 @@ define(
         if (queryString.length) {
           var parsedQueryString = this.parseQuery(this.queryString);
           this.manager.store.addByValue('q', parsedQueryString );
-          this.manager.store.addByValue('rows', 500 );
+          this.manager.store.addByValue('rows', 1000 );
           this.sendRequest();
         }
         else {
@@ -111,11 +111,11 @@ define(
 
       sendBlankQuery: function() {
         this.manager.store.addByValue('q', 'django_ct:*' + this.manager.entity);
-        this.manager.store.addByValue('rows', 500 );
+        this.manager.store.addByValue('rows', 1000 );
         this.sendRequest();
       },
-      
-      
+
+
 
 
       // empty the previous query, and rebuild a new one, then send the request
@@ -161,7 +161,7 @@ define(
                  .onValue(function(value) {
                     self.manager.store.addByValue('q', value.content.raw );
                     self.sendRequest();
-                 });    
+                 });
       },
       parseQuery: function(searchQuery) {
         var qb = new QueryBuilder(searchQuery, this.manager.entity);
@@ -178,13 +178,13 @@ define(
       // watch for the addition and removal of filters
       watchFilterEvents: function() {
         searchBus.filter(function(value) {
-                   return value.type === 
+                   return value.type ===
                      'filter_event_add_' + this.manager.entity;
                  }.bind(this))
                  .filter(filterShouldUpdateResults)
                  .map(mapFilterToValue)
                  .onValue(function(value) {
-                     
+
                    this.filterCollection.reset(value);
                    this.sendFilter = false;
                    this.emptyQueryStrings()
@@ -192,7 +192,7 @@ define(
                  }.bind(this));
       },
 
-      
+
       // push results up to the search stream
       sendResults: function(searchResults) {
         searchResults.results =

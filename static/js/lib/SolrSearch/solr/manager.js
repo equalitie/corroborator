@@ -7,7 +7,7 @@ define(
     'lib/streams',
     'managers/Manager.jquery',
     'core/ParameterStore'
-  ], 
+  ],
   function(FacetFields, TextSearch, FilterWidget,
     EmbeddedSearchWidget, Streams) {
     var solrUrl = {
@@ -32,7 +32,7 @@ define(
           facet: true,
           'facet.sort':'count',
           'facet.field': fields,
-          'rows': 500,
+          'rows': 1000,
           'facet.limit': 50,
           'facet.mincount': 1,
           'json.nl': 'map'
@@ -92,7 +92,7 @@ define(
       return mainManager;
     };
 
-    // create the filtered search for one entity  
+    // create the filtered search for one entity
     // this will need to listen for filters sent to the main search also
     // because we want to perform sub filtering here
     createFilterManager = function(entity) {

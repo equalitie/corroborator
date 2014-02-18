@@ -7,7 +7,7 @@ define(
     'lib/streams',
     'managers/Manager.jquery',
     'core/ParameterStore'
-  ], 
+  ],
   function(FacetFields, ReportingWidget, FilterWidget, EmbeddedSearchWidget,
     Streams) {
     var solrUrl = {
@@ -71,7 +71,7 @@ define(
       return mainManager;
     };
 
-    // create the filtered search for one entity  
+    // create the filtered search for one entity
     // this will need to listen for filters sent to the main search also
     // because we want to perform sub filtering here
     createFilterManager = function(entity) {
