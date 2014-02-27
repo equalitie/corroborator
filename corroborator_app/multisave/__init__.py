@@ -525,6 +525,12 @@ def process_bulletin_dict(bulletin_dict):
 
 def update_bulletins(bulletin_dict, bulletin_objects):
     appendable_fields = [
+        'labels',
+        'sources',
+        'locations',
+        'ref_incidents',
+        'ref_bulletins',
+
     ]
     update_entities(bulletin_dict, bulletin_objects, appendable_fields)
 
