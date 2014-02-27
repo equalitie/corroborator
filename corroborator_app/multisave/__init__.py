@@ -176,8 +176,9 @@ def string_check(string_field, label):
     error = {
         label: '{0} is missing'.format(label)
     }
-    is_alnum = string_field.replace(' ', '').isalnum()
-    if is_alnum and len(string_field) is not 0:
+    #is_alnum = string_field.replace(' ', '').isalnum()
+    #if is_alnum and len(string_field) is not 0:
+    if len(string_field) is not 0:
         passed = True
         error = {}
     return passed, error
@@ -530,7 +531,6 @@ def update_bulletins(bulletin_dict, bulletin_objects):
         'locations',
         'ref_incidents',
         'ref_bulletins',
-
     ]
     update_entities(bulletin_dict, bulletin_objects, appendable_fields)
 
