@@ -1,19 +1,19 @@
 // standard strings for header.js view
 define({
   'actor': {
-    'condition': 'condition',
+    'condition': 'الحالة',
     'aka': 'الملقب',
     'works_as_a_en': 'يعمل ك (EN)',
-    'works_as_a_ar': 'يعمل ك (ع)',
+    'works_as_a_ar': 'يعمل في العربية',
     'involved': 'متورط',
     'position_en':'موقف (EN)',
-    'position_ar':'موقف (ع)',
+    'position_ar': 'موقف في العربية',
       'involved_in_incident': {
-        'single': 'involved in <span class="incident-count"> 1 incident</span>',
-        'plural': 'involved in <span class="incident-count"> <%=num %> incidents</span>',
+        'single': 'مشارك في <span class="incident-count"> ملف واحد</span>',
+        'plural': 'مشارك في <span class="incident-count"> <%=num %> ملفات</span>',
       },
     'lives_in': 'يعيش في <%=location %>',
-    'Mentioned_in': 'Mentioned in',
+    'Mentioned_in': 'مذكور في',
     'Born_in': 'مولود في',
     'Add_as': 'إضافة ك',
     'Related_as': 'مرتبط ك',
@@ -52,7 +52,7 @@ define({
     'Spoken_dialects': 'اللهجات المحكية',
     'Select_a_status_for_this_actor': 'اختر حالة الشخص',
     'Select_status': 'اختر الحالة',
-    'Status': 'حالة',
+    'Status': 'الحالة',
     'Comment_field_is_required': 'حقل التعليق مطلوب',
     'Comment': 'تعليق'
   },
@@ -120,7 +120,7 @@ define({
     'media': 'مادة',
     'document': 'ملف',
     'video': 'فيديو',
-    'Upload_Failed_Problem_contacting_server': 'Upload Failed - Problem contacting server',
+    'Upload_Failed_Problem_contacting_server': 'التحميل قد فشل — مشكلة في التواصل مع الموقع',
     'Upload_new_media': 'تحميل مادة جديدة',
     'No_file_attached': 'لا يوجد ملف',
     'Media_uploaded_successfully': 'تم تحميل المادة بنجاح',
@@ -138,7 +138,7 @@ define({
     'Remove': 'إزالة',
     'by': 'من قبل',
     'Select_Status': 'اختر الحالة',
-    'Status': 'حالة',
+    'Status': 'الحالة',
     'Save_comment': 'حفظ التعليق'
   },
   'revision': {
@@ -151,8 +151,8 @@ define({
       'Cancel': 'إلغاء الأمر',
       'Confirm': 'تأكيد',
       'Close_edit_form': 'أغلق استمارة التعديل',
-      'Preview_add_actor': 'Actor Preview',
-      'Preview_add_bulletin': 'Bulletin Preview'
+      'Preview_add_actor': 'عرض مسبق للشخص',
+      'Preview_add_bulletin': 'عرض مسبق للمواد'
   },
   'Hide': 'إخفاء',
   'Search': 'بحث',
@@ -163,5 +163,5 @@ define({
   'Edit': 'تعديل',
   'Save': 'حفظ',
   'unselected': 'غير محدد',
-  'Entity_not_found': '<%=entity %> not found'
+  'Entity_not_found': '<%=entity %> غير موجود'
 });
