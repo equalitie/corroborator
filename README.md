@@ -3,7 +3,8 @@ corroborator
 
 Case management with data validation, corroboration, omission and duplication checking
 
-## Installation
+Installation
+==========
 
 virtualenv should be used for package management
 To install virtualenv
@@ -35,7 +36,12 @@ env/bin/easy_install -U distribute
 ```
 
 #### Set up system celeryd install
-On Debian, the configuration file for celeryd exists in /etc/default/celeryd
+Install celeryd
+```
+apt-get install celeryd
+```
+
+On Debian, the configuration file for celeryd exists in /etc/default/celeryd - an example configuration file is provided in conf/celeryd.conf. Paths in this configuration file must be modified first. The celery daemon must be restarted once this file is installed via ```/etc/init.d/celeryd restart```.
 
 #### pull in git submodules
 ```
@@ -64,6 +70,22 @@ Then run the migration in the next setting.
 env/bin/python managestaging.py migrate
 ```
 
+### Solr installation
+
+Solr needs a few packages installed before use:
+```
+[sudo] apt-get install supervisor openjdk-6-jdk
+```
+
+Solr installation is a simple matter of untarring and chowning the
+file as is appropriate for your webserver configuration. Some extra
+configuration is required, as detailed in the section below.
+
+Solr can be tempermental so we run it via Supervisord. An example
+configuration file for solr exists in ```conf/solr.supervisor.conf```
+- it can be dropped into ```/etc/supervisor/conf.d/``` on Debian. Make
+sure to change the paths as required.
+
 #### Other configuration
 Assuming that you have Solr and Apache all good to go, you should be ready now.
 
@@ -73,11 +95,6 @@ another user), create an API key in the https://yoursite/admin panel.
 
 Solr Usage
 ==========
-
-Solr needs a few packages installed before use:
-```
-[sudo] apt-get install supervisor openjdk-6-jdk
-```
 
 Changes to model schema where new fields are added or removed from Bulletin, Incident or Actor
 models will require an update to the solr schema. To do this the schema.xml file must be updated.
