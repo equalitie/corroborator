@@ -3,7 +3,6 @@ Author: Cormac McGuire
 Created: 10/10/2013
 Test the thumbnail creation on both image and video files
 """
-import ipdb
 import os
 import mimetypes
 
