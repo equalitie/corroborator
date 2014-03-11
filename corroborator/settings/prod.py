@@ -12,7 +12,6 @@ DATABASES = {
 }
 INSTALLED_APPS += (
     'autofixture',
-    'interntest',
 )
 #Haystack backend configuration
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
