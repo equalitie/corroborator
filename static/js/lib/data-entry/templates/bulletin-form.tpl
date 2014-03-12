@@ -17,16 +17,16 @@
             <label>{{i18n.bulletin.Title}}</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
-              <textarea 
+              <textarea
                 id="incident_title_en"
                 type="text"
                 name="title_en"
-                class="required bulletin-field 
+                class="required bulletin-field
                 w-100p">{{model.title_en}}</textarea>
             </div>
             <div lang="ar">
               <label>{{i18n.bulletin.Title}}</label>
-              <textarea 
+              <textarea
                 id="incident_title_ar"
                 name="title_ar"
                 type="text"
@@ -50,7 +50,7 @@
               <div class="score">
 
                 <span id="bulletin_confidence_score" class="value">{{model.confidence_score}}</span>
-                <input type="hidden" 
+                <input type="hidden"
                        name="confidence_score"
                        value="{{model.confidence_score}}"
                        class="bulletin-field">
@@ -60,7 +60,7 @@
                   <div class="rail">
                     <div class="slider">
                     </a>
-                    </div>  
+                    </div>
                     <!-- <div class="cursor">&nbsp;</div> -->
                     <div class="axis">
                       <div class="start">
@@ -93,7 +93,7 @@
 
           <div id="bulletin-media-block" class="field is-media hide-multiple">
           </div>
-        
+
           <!-- description -->
           <div id="bulletin-description-block" class="field is-description hide-multiple">
             <label>{{i18n.bulletin.Description}}</label>
@@ -139,7 +139,7 @@
               {{i18n.bulletin.Comment_field_is_required}}
             </p>
             <label>{{i18n.bulletin.Comment}}</label>
-            <textarea 
+            <textarea
               id="comment"
               name="comment"
               class="required bulletin-field w-100p"></textarea>
@@ -153,8 +153,8 @@
         <div class="body">
 
           <!-- Event block -->
-          <div id="bulletin-comment-block" class="field is-comments hide-multiple clear">
-          </div>
+          <!-- <div id="bulletin-comment-block" class="field is-comments hide-multiple clear"> -->
+          <!-- </div> -->
 
           <!-- Event block -->
           <div id="bulletin-event-block" class="field is-events hide-multiple clear">
