@@ -112,7 +112,7 @@
         </ul>
         {{/if}}
       </div>
-      {{#if model.bulletin_imported_comments}}
+      <!-- {{#if model.bulletin_imported_comments}} -->
       <h4>{{i18n.comment.comments}}</h4>
       <div class="is-comments group">
       </div>
