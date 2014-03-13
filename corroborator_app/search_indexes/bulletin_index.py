@@ -39,10 +39,10 @@ class BulletinIndex(CelerySearchIndex, indexes.Indexable, BulletinPrepMeta):
 
     bulletin_modified_date = indexes.DateField(faceted=True)
     bulletin_created_date = indexes.DateField(faceted=True)
+    bulletin_searchable_locations = indexes.MultiValueField(faceted=True, null=True)
 
     resource_uri = indexes.CharField()
     labels = indexes.MultiValueField()
-    bulletin_searchable_locations = indexes.MultiValueField(faceted=True)
 
     sources = indexes.MultiValueField()
     sources_count = indexes.IntegerField(faceted=True)

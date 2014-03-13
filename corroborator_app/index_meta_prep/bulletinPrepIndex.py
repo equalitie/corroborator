@@ -6,7 +6,7 @@ and the Tastypie dehyrdate cycle
 Bill Doran 2013/08/08
 """
 
-from corroborator_app.models import Location, Incident
+from corroborator_app.models import Location, Incident, Label
 
 
 class BulletinPrepMeta():
@@ -86,6 +86,40 @@ class BulletinPrepMeta():
         return [
             '/api/v1/location/{0}/'.format(location.id)
             for location in object.locations.all()]
+
+    def prepare_bulletin_labels(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        labels = []
+        for label in object.labels.all():
+            labels.append(
+                '/api/v1/label/{0}/'.format(label.id)
+            )
+            if label.ref_label is not None:
+                labels += self.get_labels_recursively(
+                    label.ref_label.id
+                )
+
+        return list(set(labels))
+
+    def get_labels_recursively(self, label_id):
+        """
+        Recurse upwards through all parent locations and return a list of
+        uri formatted locations.
+        """
+        labels = []
+        label = Label.objects.get(pk=label_id)
+        if label.ref_label is not None:
+            parent_id = label.ref_label.id
+            labels += self.get_labels_recursively(parent_id)
+            labels.append('/api/v1/label/{0}/'.format(label.id))
+            return labels
+
+        else:
+            return ['/api/v1/label/{0}/'.format(label.id)]
+
 
     def prepare_bulletin_searchable_locations(self, object):
         """
@@ -221,7 +255,7 @@ class BulletinPrepMeta():
         template = '/api/v1/media/{0}/'
         medias = object.medias.all()
         return [template.format(media.id) for media in medias]
-
+    '''
     def prepare_bulletin_labels(self, object):
         """
         Returns set of label objects associated with a given Bulletin
@@ -229,7 +263,7 @@ class BulletinPrepMeta():
         template = '/api/v1/label/{0}/'
         labels = object.labels.all()
         return [template.format(label.id) for label in labels]
-
+    '''
     def prepare_count_actors(self, object):
         """
         Returns count of Actor objects associated with a given Bulletin

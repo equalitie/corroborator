@@ -1,32 +1,20 @@
-<!-- Comment status field  dropdown should match others -->
-<div class="clearer"></div>
-<!-- Comment content field -->
-<div class="add">
-
-  <div class="i18n with-en with-ar">
-      <div lang="en">
-      <label>{{i18n.comment.Comment}}</label>
-        <textarea 
-          id="comments_en"
-          name="comments_en"
-          class="comment-field w-100p">{{model.comments_en}}</textarea>
-      </div>
-      <div lang="ar">
-        <textarea 
-          id="comments_ar"
-          name="comments_ar"
-          class="comment-field w-100p">{{model.comments_ar}}</textarea>
-      </div>
-  <span class="toggle">
-  <span lang="en">EN</span><span lang="ar">AR</span>
-  </span>
+  <div class="actions">
+    <button class="do-remove-comment is-small">
+      <span aria-hidden="true" data-icon="X"></span>
+      <span class="screen-reader-text">{{i18n.event.Remove}}</span>
+    </button>
+    <button class="do-edit-comment is-small">
+      <span aria-hidden="true" data-icon="e"></span>
+      <span class="screen-reader-text">{{i18n.Edit}}</span>
+    </button>
   </div>
-
-
-
-</div>
-
-
-<button class="do-addComment">
-  <span class="T">{{i18n.comment.Save_comment}}</span>
-</button>
+  <div class="content">
+  <div class="text T">{{model.comments_en}}</div>
+  <div class="text T">{{model.comments_ar}}</div>
+    <div class="meta">
+      <span class="created"> {{dateFormat model.comment_created}}</span>
+      {{i18n.comment.by}} <span class="who">{{model.assigned_user}}</span>
+    <!--<span class="bulletin_comment_status"> - {{model.status}}</span>-->
+    </div>
+  </div>
+  <div class="clearer"> &nbsp;</div>

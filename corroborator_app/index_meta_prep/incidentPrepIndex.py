@@ -6,7 +6,7 @@ and the Tastypie dehyrdate cycle
 Bill Doran 2013/08/08
 """
 
-from corroborator_app.models import Location
+from corroborator_app.models import Location, Label
 
 
 class IncidentPrepMeta():
@@ -97,6 +97,39 @@ class IncidentPrepMeta():
         return [
             '/api/v1/incident/{0}/'.format(incident.id) for incident in
             object.ref_incidents.all()]
+
+    def prepare_incident_labels(self, object):
+        """
+        Returns the correctly formated uri related to this bulletin instance
+        for the tastypie api
+        """
+        labels = []
+        for label in object.labels.all():
+            labels.append(
+                '/api/v1/label/{0}/'.format(label.id)
+            )
+            if label.ref_label is not None:
+                labels += self.get_labels_recursively(
+                    label.ref_label.id
+                )
+
+        return list(set(labels))
+
+    def get_labels_recursively(self, label_id):
+        """
+        Recurse upwards through all parent locations and return a list of
+        uri formatted locations.
+        """
+        labels = []
+        label = Label.objects.get(pk=label_id)
+        if label.ref_label is not None:
+            parent_id = label.ref_label.id
+            labels += self.get_labels_recursively(parent_id)
+            labels.append('/api/v1/label/{0}/'.format(label.id))
+            return labels
+
+        else:
+            return ['/api/v1/label/{0}/'.format(label.id)]
 
     def prepare_incident_searchable_locations(self, object):
         """
@@ -202,7 +235,7 @@ class IncidentPrepMeta():
             return '/api/v1/statusUpdate/{0}/'.format(status['status__id'])
         else:
             return ''
-
+    '''
     def prepare_incident_labels(self, object):
         """
         Returns set of label objects associated with a given Incident
@@ -210,7 +243,7 @@ class IncidentPrepMeta():
         return [
             '/api/v1/label/{0}/'.format(label.id)
             for label in object.labels.all()]
-
+    '''
     def prepare_count_actors(self, object):
         """
         Returns count of Actor objects associated with a given Incident

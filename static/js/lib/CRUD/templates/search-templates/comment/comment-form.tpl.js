@@ -3,18 +3,27 @@ define(['handlebars'], function(Handlebars) {
 return Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, options, functionType="function", escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
 
 
-  buffer += "<!-- Comment status field  dropdown should match others -->\n<div class=\"clearer\"></div>\n<!-- Comment content field -->\n<div class=\"add\">\n\n  <div class=\"i18n with-en with-ar\">\n      <div lang=\"en\">\n      <label>"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.comment)),stack1 == null || stack1 === false ? stack1 : stack1.Comment)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</label>\n        <textarea \n          id=\"comments_en\"\n          name=\"comments_en\"\n          class=\"comment-field w-100p\">"
+  buffer += "  <div class=\"actions\">\n    <button class=\"do-remove-comment is-small\">\n      <span aria-hidden=\"true\" data-icon=\"X\"></span>\n      <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.event)),stack1 == null || stack1 === false ? stack1 : stack1.Remove)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </button>\n    <button class=\"do-edit-comment is-small\">\n      <span aria-hidden=\"true\" data-icon=\"e\"></span>\n      <span class=\"screen-reader-text\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.Edit)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    </button>\n  </div>\n  <div class=\"content\">\n  <div class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_en)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</textarea>\n      </div>\n      <div lang=\"ar\">\n        <textarea \n          id=\"comments_ar\"\n          name=\"comments_ar\"\n          class=\"comment-field w-100p\">"
+    + "</div>\n  <div class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comments_ar)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</textarea>\n      </div>\n  <span class=\"toggle\">\n  <span lang=\"en\">EN</span><span lang=\"ar\">AR</span>\n  </span>\n  </div>\n\n\n\n</div>\n\n\n<button class=\"do-addComment\">\n  <span class=\"T\">"
-    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.comment)),stack1 == null || stack1 === false ? stack1 : stack1.Save_comment)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</span>\n</button>\n";
+    + "</div>\n    <div class=\"meta\">\n      <span class=\"created\"> ";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.comment_created), options)))
+    + "</span>\n      "
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.comment)),stack1 == null || stack1 === false ? stack1 : stack1.by)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + " <span class=\"who\">"
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.assigned_user)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n    <!--<span class=\"bulletin_comment_status\"> - "
+    + escapeExpression(((stack1 = ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.status)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>-->\n    </div>\n  </div>\n  <div class=\"clearer\"> &nbsp;</div>\n";
   return buffer;
   })
 
