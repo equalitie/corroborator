@@ -60,7 +60,7 @@ define({
       'user_deleted_items': 'Total deleted items',
       'user_created_items': 'Total created items',
       'user_edited_items': 'Total edited items',
-      'user_deleted_edited_created': 'Deleted items, created items, edited items in time(daily)'
+      'user_deleted_edited_created': 'Deleted items, created items, edited items in time (daily)'
     },
     'axes': {
       'Actors': 'Actors',
@@ -73,4 +73,3 @@ define({
   },
   'ar': true
 });
-
