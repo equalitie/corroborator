@@ -25,7 +25,7 @@
               <div lang="en">
                 <input type="text"
                        name="fullname_en"
-                       id="fullname_en" 
+                       id="fullname_en"
                        value="{{model.fullname_en}}"
                        class="required actor-field w-100p">
               </div>
@@ -66,11 +66,11 @@
             <label>{{i18n.actor.Nickname}}</label>
             <span class="i18n with-en with-ar">
               <div lang="en">
-                <input type="text" name="nickname_en" id="nickname_en" 
+                <input type="text" name="nickname_en" id="nickname_en"
                   value="{{model.nickname_en}}" class="actor-field w-100p">
               </div>
               <div lang="ar">
-                <input type="text" name="nickname_ar" id="nickname_ar" 
+                <input type="text" name="nickname_ar" id="nickname_ar"
                   value="{{model.nickname_ar}}" class="actor-field w-100p">
               </div>
               <span class="toggle">
@@ -108,7 +108,7 @@
             <div class="field span-33p">
               <label>{{i18n.actor.Sex}}</label>
               <div id="sex" class="button combo">
-        
+
                 <span class="T selected-option">
                   {{#if model.sex}}
                     {{model.sex}}
@@ -118,7 +118,7 @@
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
                 <input name="sex" type="hidden" value="{{model.sex}}"class="actor-field">
-        
+
                 <ul class="options">
                   <li class="option selected">
                     <span data-val="Male" class="text T">{{i18n.actor.Male}}</span>
@@ -132,7 +132,7 @@
             <div class="field span-33p">
               <label>{{i18n.actor.ChildAdult}}</label>
               <div id="age" class="button combo">
-        
+
                 <span class="T selected-option">
                   {{#if model.sex}}
                     {{model.age}}
@@ -142,7 +142,7 @@
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
                 <input name="age" type="hidden" value="{{model.age}}" class="actor-field">
-        
+
 
                 <ul class="options">
                   <li class="option selected">
@@ -157,7 +157,7 @@
             <div class="field span-33p">
               <label>{{i18n.actor.CivilianNoncivilian}}</label>
               <div id="civilian" class="button combo">
-        
+
                 <span class="T selected-option">
                   {{#if model.civilian}}
                     {{fetchCivilian model.civilian}}
@@ -167,7 +167,7 @@
                 <span aria-hidden="true" data-icon="&#x64;"></span>
                 </span>
                 <input type="hidden" name="civilian" value="" class="actor-field">
-        
+
 
                 <ul class="options">
                   <li class="option selected">
@@ -206,23 +206,23 @@
             <label>{{i18n.actor.Occupation}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
-                    <input type="text" 
-                        class="actor-field with-select w-30p" 
-                        value="{{model.occupation_en}}" 
-                        name="occupation_en" 
+                    <input type="text"
+                        class="actor-field with-select w-30p"
+                        value="{{model.occupation_en}}"
+                        name="occupation_en"
                         id="actor_occupation_en">
                 </div>
                 <div lang="ar">
-                    <input type="text" 
-                        class="actor-field with-select w-30p" 
-                        value="{{model.occupation_ar}}" 
-                        name="occupation_ar" 
+                    <input type="text"
+                        class="actor-field with-select w-30p"
+                        value="{{model.occupation_ar}}"
+                        name="occupation_ar"
                         id="actor_occupation_ar">
                 </div>
                 <span class="toggle">
                     <span lang="en">EN</span><span lang="ar">AR</span>
                 </span>
-            </span>  
+            </span>
           </div>
 
           <!-- Position -->
@@ -230,43 +230,44 @@
             <span class="i18n with-en with-ar">
                 <div lang="en">
                   <label>{{i18n.actor.Position_rank}}</label>
-                    <input type="text" 
-                        class="with-select actor-field w-30p" 
-                        value="{{model.position_en}}" 
-                        name="position_en" 
+                    <input type="text"
+                        class="with-select actor-field w-30p"
+                        value="{{model.position_en}}"
+                        name="position_en"
                         id="actor_position_en" >
 
                 </div>
                 <div lang="ar">
-                    <label>{{i18n.actor.Position_rank}}</label>
-                    <input type="text" 
-                        class="with-select actor-field w-30p" 
-                        value="{{model.position_ar}}" 
-                        name="position_ar" 
+                    <label dir="rtl">{{i18n.actor.Position_rank}}</label>
+                    <input type="text"
+                        class="with-select actor-field w-30p"
+                        value="{{model.position_ar}}"
+                        name="position_ar"
                         id="actor_position_ar" >
                 </div>
                 <span class="toggle">
                     <span lang="en">EN</span><span lang="ar">AR</span>
                 </span>
-            </span>      
+            </span>
           </div>
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
-            <label>{{i18n.actor.Ethnicity}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
-                    <input type="text" 
-                        class="with-select actor-field w-30p" 
+                    <label>{{i18n.actor.Ethnicity}}</label>
+                    <input type="text"
+                        class="with-select actor-field w-30p"
                         value="{{model.ethnicity_en}}"
-                        name="ethnicity_en" 
+                        name="ethnicity_en"
                         id="actor_ethnicity_en" >
                 </div>
                 <div lang="ar">
-                    <input type="text" 
-                        class="with-select actor-field w-30p" 
+                    <label dir="rtl">{{i18n.actor.Ethnicity}}</label>
+                    <input type="text"
+                        class="with-select actor-field w-30p"
                         value="{{model.ethnicity_ar}}"
-                        name="ethnicity_ar" 
+                        name="ethnicity_ar"
                         id="actor_ethnicity_ar" >
                 </div>
                 <span class="toggle">
@@ -280,23 +281,23 @@
             <label>{{i18n.actor.Nationality}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
-                    <input type="text" 
-                        class="with-select actor-field w-30p" 
+                    <input type="text"
+                        class="with-select actor-field w-30p"
                         value="{{model.nationality_en}}"
-                        name="nationality_en" 
+                        name="nationality_en"
                         id="actor_nationality_en">
                 </div>
                 <div lang="ar">
-                    <input type="text" 
-                        class="with-select actor-field w-30p" 
+                    <input type="text"
+                        class="with-select actor-field w-30p"
                         value="{{model.nationality_ar}}"
-                        name="nationality_ar" 
+                        name="nationality_ar"
                         id="actor_nationality_ar">
                 </div>
                 <span class="toggle">
                     <span lang="en">EN</span><span lang="ar">AR</span>
                 </span>
-            </span>    
+            </span>
           </div>
 
           <!-- Religion -->
@@ -304,23 +305,23 @@
             <label>{{i18n.actor.Religion}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
-                    <input type="text" 
-                    class="with-select actor-field w-30p" 
+                    <input type="text"
+                    class="with-select actor-field w-30p"
                     value="{{model.religion_en}}"
-                    name="religion_en" 
+                    name="religion_en"
                     id="actor_religion_en" >
                 </div>
                 <div lang="ar">
-                    <input type="text" 
-                    class="with-select actor-field w-30p" 
+                    <input type="text"
+                    class="with-select actor-field w-30p"
                     value="{{model.religion_ar}}"
-                    name="religion_ar" 
+                    name="religion_ar"
                     id="actor_religion_ar" >
                 </div>
                 <span class="toggle">
                     <span lang="en">EN</span><span lang="ar">AR</span>
                 </span>
-            </span>          
+            </span>
           </div>
 
           <!-- Spoken Dialects -->
@@ -328,23 +329,23 @@
             <label>{{i18n.actor.Spoken_dialects}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
-                    <input type="text" 
-                    class="with-select actor-field w-30p" 
+                    <input type="text"
+                    class="with-select actor-field w-30p"
                     name="spoken_dialect_en"
-                    value="{{model.spoken_dialect_en}}" 
+                    value="{{model.spoken_dialect_en}}"
                     id="actor_spoken_dialect_en" >
                 </div>
                 <div lang="ar">
-                    <input type="text" 
-                    class="with-select actor-field w-30p" 
+                    <input type="text"
+                    class="with-select actor-field w-30p"
                     name="spoken_dialect_ar"
-                    value="{{model.spoken_dialect_ar}}" 
+                    value="{{model.spoken_dialect_ar}}"
                     id="actor_spoken_dialect_ar" >
                 </div>
                 <span class="toggle">
                     <span lang="en">EN</span><span lang="ar">AR</span>
                 </span>
-            </span>          
+            </span>
           </div>
 
           <!-- Actor Field -->
@@ -373,8 +374,8 @@
                 {{i18n.actor.Select_a_status_for_this_actor}}
               </p>
               <label>{{i18n.actor.Status}}</label>
-              <select name="status_uri" 
-                      id="status" 
+              <select name="status_uri"
+                      id="status"
                       class="required actor-field">
                 {{#if isNew}}
                 <option value="{{createStatus.resource_uri}}">{{createStatus.comment_status}}</option>
@@ -402,7 +403,7 @@
                 {{i18n.actor.Comment_field_is_required}}
               </p>
               <label>{{i18n.actor.Comment}}</label>
-              <textarea 
+              <textarea
                 id="comment"
                 name="comment"
                 class="required actor-field w-100p"></textarea>
