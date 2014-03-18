@@ -238,7 +238,7 @@
 
                 </div>
                 <div lang="ar">
-                    <label dir="rtl">{{i18n.actor.Position_rank}}</label>
+                    <label>{{i18n.actor.Position_rank}}</label>
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.position_ar}}"
@@ -253,9 +253,9 @@
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
+            <label>{{i18n.actor.Ethnicity}}meow</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
-                    <label>{{i18n.actor.Ethnicity}}</label>
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.ethnicity_en}}"
@@ -263,7 +263,6 @@
                         id="actor_ethnicity_en" >
                 </div>
                 <div lang="ar">
-                    <label dir="rtl">{{i18n.actor.Ethnicity}}</label>
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.ethnicity_ar}}"
