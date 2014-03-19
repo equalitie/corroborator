@@ -1,7 +1,7 @@
 // ======================================================================
 // OVERALL INPUT ELEMENT STYLING
 // ======================================================================
-.Application{ 
+.Application{
   input, textarea {
   font-family: Helvetica, Arial, sans-serif;
   font-size: $FONT_SIZE * 1px;
@@ -91,10 +91,10 @@ input#search-title {
 input {
   display: inline-block;
   &.is-label {
- 
+
   }
   &.with-select {
- 
+
   }
   &.with-clear {
     padding-right: 2em;
@@ -204,7 +204,7 @@ input {
   width: 20%;
   height: 100%;
   float: left;
-  button.do-expand-form { 
+  button.do-expand-form {
     text-transform: uppercase;
     @include bottom_button(100%, none);
     border-right: 1px solid $BRIGHT_RED_HOVER;
@@ -253,7 +253,7 @@ button.do-save {
   padding: 0em;
   padding-bottom: $PAD_UNIT/2;
 
-  
+
   .stats {
     @include clearfix;
   }
@@ -357,7 +357,7 @@ body.login {
     padding-top: 6px;
     width: 20%;
   }
-  input{ 
+  input{
     width: 80%;
     height: 2em;
     background-color: $TAB_AREA_BG;
@@ -378,7 +378,7 @@ body.login {
   }
 }
 
-
+/*
 .rtl .field label {
   text-align: right;
 }
@@ -418,6 +418,6 @@ body.login {
   .span-33p label {
     margin-right: 15%;
   }
-
+*/
 
 }
