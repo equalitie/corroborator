@@ -67,12 +67,13 @@ define (
       resetCollection: function(evt) {
         console.info('resetCollection', evt.value().content);
         var currentOpenForEditing = $('#view-actor-id').text()
-        for (var i in evt.value().content) {
-          if (evt.value().content[i].django_id == currentOpenForEditing) {
-              delete evt.value().content[i]
+        var result = evt.value().content
+        for (var i in result) {
+          if (result[i].django_id == currentOpenForEditing) {
+               result.splice(i, 1)
           }
         }
-        this.collection.reset(evt.value().content);
+        this.collection.reset(result);
       }
     };
 
