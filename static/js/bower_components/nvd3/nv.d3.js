@@ -698,6 +698,10 @@ window.nv.tooltip.* also has various helper methods.
 
   //Original tooltip.show function. Kept for backward compatibility.
   // pos = [left,top]
+  document.onmousemove = function(e){
+    nv.tooltip.cursorX = e.pageX;
+    nv.tooltip.cursorY = e.pageY;
+  }
   nv.tooltip.show = function(pos, content, gravity, dist, parentContainer, classes) {
 
         //Create new tooltip div if it doesn't exist on DOM.
@@ -715,8 +719,8 @@ window.nv.tooltip.* also has various helper methods.
         container.style.opacity = 0;
         container.innerHTML = content;
         body.appendChild(container);
-        pos[0] = 0
-        pos[1] = 1
+        pos[0] = nv.tooltip.cursorX
+        pos[1] = nv.tooltip.cursorY
         //If the parent container is an overflow <div> with scrollbars, subtract the scroll offsets.
         //if (parentContainer) {
         //   pos[0] = pos[0] - parentContainer.scrollLeft;
