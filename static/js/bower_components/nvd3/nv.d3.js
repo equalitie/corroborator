@@ -703,7 +703,8 @@ window.nv.tooltip.* also has various helper methods.
     nv.tooltip.cursorY = e.pageY;
   }
   nv.tooltip.show = function(pos, content, gravity, dist, parentContainer, classes) {
-
+        pos[0] = nv.tooltip.cursorY
+        pos[1] = nv.tooltip.cursorX
         //Create new tooltip div if it doesn't exist on DOM.
         var   container = document.createElement('div');
         container.className = 'nvtooltip ' + (classes ? classes : 'xy-tooltip');
@@ -719,13 +720,11 @@ window.nv.tooltip.* also has various helper methods.
         container.style.opacity = 0;
         container.innerHTML = content;
         body.appendChild(container);
-        pos[0] = nv.tooltip.cursorY
-        pos[1] = nv.tooltip.cursorX
         //If the parent container is an overflow <div> with scrollbars, subtract the scroll offsets.
-        //if (parentContainer) {
-        //   pos[0] = pos[0] - parentContainer.scrollLeft;
-        //   pos[1] = pos[1] - parentContainer.scrollTop;
-        //}
+        if (parentContainer) {
+           pos[0] = pos[0] - parentContainer.scrollLeft;
+           pos[1] = pos[1] - parentContainer.scrollTop;
+        }
         nv.tooltip.calcTooltipPosition(pos, gravity, dist, container);
   };
 
@@ -838,8 +837,8 @@ window.nv.tooltip.* also has various helper methods.
             }
 
 
-            container.style.left = left+'px';
-            container.style.top = top+'px';
+            container.style.left = pos[0]+'px';
+            container.style.top = pos[1]+'px';
             container.style.opacity = 1;
             container.style.position = 'absolute';
 
