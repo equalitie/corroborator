@@ -833,7 +833,8 @@ window.nv.tooltip.* also has various helper methods.
                 break;
             }
 
-
+            left += 100
+            top  += 100
             container.style.left = left+'px';
             container.style.top = top+'px';
             container.style.opacity = 1;
