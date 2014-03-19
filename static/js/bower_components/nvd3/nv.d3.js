@@ -698,13 +698,8 @@ window.nv.tooltip.* also has various helper methods.
 
   //Original tooltip.show function. Kept for backward compatibility.
   // pos = [left,top]
-  document.onmousemove = function(e){
-    nv.tooltip.cursorX = e.pageX;
-    nv.tooltip.cursorY = e.pageY;
-  }
   nv.tooltip.show = function(pos, content, gravity, dist, parentContainer, classes) {
-        pos[0] = nv.tooltip.cursorY
-        pos[1] = nv.tooltip.cursorX
+
         //Create new tooltip div if it doesn't exist on DOM.
         var   container = document.createElement('div');
         container.className = 'nvtooltip ' + (classes ? classes : 'xy-tooltip');
@@ -720,6 +715,8 @@ window.nv.tooltip.* also has various helper methods.
         container.style.opacity = 0;
         container.innerHTML = content;
         body.appendChild(container);
+        pos[0] = Math.round(pos[0] / 3)
+        pos[1] = Math.round(pos[1] / 3)
         //If the parent container is an overflow <div> with scrollbars, subtract the scroll offsets.
         if (parentContainer) {
            pos[0] = pos[0] - parentContainer.scrollLeft;
@@ -837,8 +834,8 @@ window.nv.tooltip.* also has various helper methods.
             }
 
 
-            container.style.left = pos[0]+'px';
-            container.style.top = pos[1]+'px';
+            container.style.left = left+'px';
+            container.style.top = top+'px';
             container.style.opacity = 1;
             container.style.position = 'absolute';
 
