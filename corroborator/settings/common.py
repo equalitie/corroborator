@@ -5,8 +5,8 @@ import djcelery
 djcelery.setup_loader()
 DEBUG = True
 
-SOLR_URL = 'http://localhost:8000/solr/collection1/select'
-SOLR_PROXY_URL = '/corroborator/solrproxy/select'
+SOLR_URL = 'http://localhost/solr/collection1/select'
+SOLR_PROXY_URL = '/corroborator/solrproxy/'
 #Solr update refresh window in minutes
 SOLR_REFRESH_WINDOW = 100
 
@@ -26,7 +26,8 @@ MEDIA_URL = S3_URL + '/'
 MEDIA_READ_URL = S3_URL_READ + '/'
 S3_PROXY_URL = '/corroborator/aws/'
 
-SESSION_COOKIE_AGE = 30
+CORROBORATOR_LOGIN_TIMEOUT = 30
+#SESSION_COOKIE_AGE = 10
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 TEMPLATE_DEBUG = DEBUG
@@ -44,7 +45,7 @@ TASTYPIE_DEFAULT_FORMATS = ['json']
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'UTC'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -111,6 +112,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'corroborator_app.custom_middleware.SessionAuditMiddleware',
     #'reversion.middleware.RevisionMiddleware',
     # Uncomment line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',

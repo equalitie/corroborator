@@ -10,18 +10,23 @@ TODO: split into different model modules
 Author: Bill Doran
 2013/02/01
 """
+
 from django.utils.translation import ugettext as _
 from django.core import serializers
 import json
 
 from django.utils import translation
-from django.contrib.auth.signals import user_logged_out
+from django.contrib.auth.signals import user_logged_out, user_logged_in
+from django.db.models.signals import post_save
+from django.conf import settings
+from django.contrib.sessions.models import Session
 from django.db import models
 from django.db.models import Min, Max
 from django.db.models import Q
 
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import datetime
 from haystack.utils.geo import Point
 
 from queued_storage.backends import QueuedStorage
@@ -1129,17 +1134,19 @@ class Incident(models.Model):
             return status['status__status_en']
         else:
             return ''
-
-
-def update_last_logout(sender, user, **kwargs):
+def update_last_logout(sender, request, user, **kwargs):
     """
     A signal receiver which updates the last_logout date for
     the user logging out.
     """
     logout_timestamp = timezone.now()
+    if 'lastRequest' in request.session:
+        logout_timestamp = request.session['lastRequest']
+        del request.session['lastRequest'] 
+        
     logged_time = logout_timestamp - user.last_login
 
-    ul = UserLog()
+    ul = UserLog( )
     ul.login = user.last_login
     ul.logout = logout_timestamp
     ul.total_seconds = logged_time.total_seconds()
