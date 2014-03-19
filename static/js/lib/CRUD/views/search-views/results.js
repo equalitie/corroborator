@@ -14,7 +14,7 @@ define (
     var EmbeddedSearchResultsView,
         crudBus = Streams.crudBus;
     // ### EmbeddedSearchResultsView
-    // 
+    //
     EmbeddedSearchResultsView = {
       events: {
         'click .do-hideResults': 'closeResults'
@@ -66,13 +66,18 @@ define (
       },
       resetCollection: function(evt) {
         console.info('resetCollection', evt.value().content);
+        var currentOpenForEditing = $('#view-actor-id').text()
+        for (var i in evt.value().content) {
+          if (evt.value().content[i].django == currentOpenForEditing) {
+              delete evt.value().content[i]
+          }
+        }
         this.collection.reset(evt.value().content);
       }
     };
 
-    
+
     return {
       EmbeddedSearchResultsView: EmbeddedSearchResultsView
     };
 });
-
