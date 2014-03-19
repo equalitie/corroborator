@@ -68,7 +68,7 @@ define (
         console.info('resetCollection', evt.value().content);
         var currentOpenForEditing = $('#view-actor-id').text()
         for (var i in evt.value().content) {
-          if (evt.value().content[i].django == currentOpenForEditing) {
+          if (evt.value().content[i].django_id == currentOpenForEditing) {
               delete evt.value().content[i]
           }
         }
