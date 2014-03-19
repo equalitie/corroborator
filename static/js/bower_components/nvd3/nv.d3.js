@@ -715,8 +715,8 @@ window.nv.tooltip.* also has various helper methods.
         container.style.opacity = 0;
         container.innerHTML = content;
         body.appendChild(container);
-        pos[0] = Math.round(pos[0] / 3)
-        pos[1] = Math.round(pos[1] / 3)
+        pos[0] -= 50
+        pos[1] -= 50
         //If the parent container is an overflow <div> with scrollbars, subtract the scroll offsets.
         if (parentContainer) {
            pos[0] = pos[0] - parentContainer.scrollLeft;
