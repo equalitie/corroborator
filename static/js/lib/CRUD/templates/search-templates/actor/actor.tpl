@@ -253,7 +253,7 @@
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
-            <label>{{i18n.actor.Ethnicity}}meow</label>
+            <label>{{i18n.actor.Ethnicity}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
                     <input type="text"
