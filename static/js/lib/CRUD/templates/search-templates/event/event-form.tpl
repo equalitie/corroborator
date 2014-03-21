@@ -1,14 +1,13 @@
   <div class="span-70p">
 
     <div class="i18n with-en with-ar">
+      <label>{{i18n.event.Description}}</label>
       <div lang="en">
-        <label>{{i18n.event.Description}}</label>
         <input type="text" name="event_name_en"
           class="w-100p {{entityType}}-field bulletin_event-description"
           value="{{model.event_name_en}}">
       </div>
       <div lang="ar">
-        <label>{{i18n.event.Description}}</label>
         <input type="text" name="event_name_ar"
           class="w-100p {{entityType}}-field bulletin_event-description"
           value="{{model.event_name_ar}}">
@@ -24,15 +23,14 @@
   <div class="span-70p">
 
   <div class="i18n with-en with-ar">
-      <div lang="en">
       <label>{{i18n.event.Comment}}</label>
+      <div lang="en">
         <textarea
           id="comments_en"
           name="comments_en"
           class="{{entityType}}-field w-100p">{{model.comments_en}}</textarea>
       </div>
       <div lang="ar">
-        <label>{{i18n.event.Comment}}</label>
         <textarea
           id="comments_ar"
           name="comments_ar"
