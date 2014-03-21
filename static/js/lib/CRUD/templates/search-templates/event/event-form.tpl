@@ -3,12 +3,13 @@
     <div class="i18n with-en with-ar">
       <div lang="en">
         <label>{{i18n.event.Description}}</label>
-        <input type="text" name="event_name_en" 
+        <input type="text" name="event_name_en"
           class="w-100p {{entityType}}-field bulletin_event-description"
           value="{{model.event_name_en}}">
       </div>
       <div lang="ar">
-        <input type="text" name="event_name_ar" 
+        <label>{{i18n.event.Description}}</label>
+        <input type="text" name="event_name_ar"
           class="w-100p {{entityType}}-field bulletin_event-description"
           value="{{model.event_name_ar}}">
       </div>
@@ -25,13 +26,14 @@
   <div class="i18n with-en with-ar">
       <div lang="en">
       <label>{{i18n.event.Comment}}</label>
-        <textarea 
+        <textarea
           id="comments_en"
           name="comments_en"
           class="{{entityType}}-field w-100p">{{model.comments_en}}</textarea>
       </div>
       <div lang="ar">
-        <textarea 
+        <label>{{i18n.event.Comment}}</label>
+        <textarea
           id="comments_ar"
           name="comments_ar"
           class="{{entityType}}-field w-100p">{{model.comments_ar}}</textarea>
@@ -49,9 +51,9 @@
   <div class="span-70p">
     <span class="">
       <span class="bulletin_event-cscore value"></span>
-      <input type="hidden" name="confidence_score" 
+      <input type="hidden" name="confidence_score"
         class="{{entityType}}-field"
-        value="{{model.confidence_score}}" 
+        value="{{model.confidence_score}}"
       >
     </span>
     <!-- Reliability score slider -->
@@ -59,7 +61,7 @@
     <div class="score-editor">
       <div class="rail">
         <div class="slider">
-        </div>  
+        </div>
       <!-- <div class="cursor">&nbsp;</div> -->
         <div class="axis">
           <div class="start">
