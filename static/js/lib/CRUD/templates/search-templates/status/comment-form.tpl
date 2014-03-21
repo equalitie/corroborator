@@ -1,8 +1,8 @@
 <!-- Comment status field  dropdown should match others -->
 <div id="{{entityType}}-status-block" class="add">
   <label>{{i18n.comment.Status}}</label><br/>
-  <select name="status" 
-          id="{{entityType}}_status" 
+  <select name="status"
+          id="{{entityType}}_status"
           class="comment-field">
     <option value="">{{i18n.comment.Select_Status}}</option>
     {{#each statuses}}
@@ -23,13 +23,14 @@
   <div class="i18n with-en with-ar">
       <div lang="en">
       <label>{{i18n.comment.Comment}}</label>
-        <textarea 
+        <textarea
           id="comments_en"
           name="comments_en"
           class="comment-field w-100p">{{model.comments_en}}</textarea>
       </div>
       <div lang="ar">
-        <textarea 
+        <label>{{i18n.comment.Comment}}</label>
+        <textarea
           id="comments_ar"
           name="comments_ar"
           class="comment-field w-100p">{{model.comments_ar}}</textarea>
@@ -44,7 +45,7 @@
 </div>
 
 
-<input type="hidden" name="assigned_user" value="{{userResource}}" 
+<input type="hidden" name="assigned_user" value="{{userResource}}"
        class="comment-field">
 <button class="do-addComment">
   <span class="T">{{i18n.Save}}</span>
