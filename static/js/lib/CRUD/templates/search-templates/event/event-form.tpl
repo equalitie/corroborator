@@ -3,14 +3,12 @@
     <div class="i18n with-en with-ar">
       <label>{{i18n.event.Description}}</label>
       <div lang="en">
-        <input type="text" name="event_name_en"
-          class="w-100p {{entityType}}-field bulletin_event-description"
-          value="{{model.event_name_en}}">
+        <textarea name="event_name_en"
+          class="w-100p {{entityType}}-field bulletin_event-description">{{model.event_name_en}}</textarea>
       </div>
       <div lang="ar">
-        <input type="text" name="event_name_ar"
-          class="w-100p {{entityType}}-field bulletin_event-description"
-          value="{{model.event_name_ar}}">
+        <textarea name="event_name_ar"
+          class="w-100p {{entityType}}-field bulletin_event-description">{{model.event_name_ar}}</textarea>
       </div>
       <span class="toggle">
         <span lang="en">EN</span><span lang="ar">AR</span>
