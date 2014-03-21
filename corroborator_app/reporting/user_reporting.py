@@ -46,12 +46,13 @@ class UserReportingApi(object):
         ).values('logout', 'total_seconds')
         result_data = []
         time_data = []
-        for key, values in groupby(items, key=lambda item: item['logout']):
+        for key, values in groupby(items, key=lambda item: item['logout'].date()):
 
-            timestamp = time.mktime(key.date().timetuple())*1e3
+            timestamp = time.mktime(key.timetuple())*1e3
             val = 0
             for value in values:
-                val += int(value['total_seconds']/60)
+                val += value['total_seconds']
+            val = int(val / 60)    
             time_data.append({
                 'x': timestamp,
                 'y': val
