@@ -121,6 +121,12 @@ class ActorResource(ModelResource, APIMixin):
             status_update.id,
             user
         )
+        if "condition" not in bundle.data:
+            bundle.data['condition'] = None
+        if "POB" not in bundle.data:
+            bundle.data['POB'] = None
+        if "current_location" not in bundle.data:
+            bundle.data['current_location'] = None
         try:
             bundle.data['actor_comments'].append(comment_uri)
         except KeyError:
