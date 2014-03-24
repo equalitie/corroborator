@@ -203,9 +203,9 @@
 
           <!-- Occupation -->
           <div class="field is-occupation">
-            <label>{{i18n.actor.Occupation}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
+                    <label>{{i18n.actor.Occupation}}</label><br />
                     <input type="text"
                         class="actor-field with-select w-30p"
                         value="{{model.occupation_en}}"
@@ -213,6 +213,7 @@
                         id="actor_occupation_en">
                 </div>
                 <div lang="ar">
+                    <label>{{i18n.actor.Occupation}}</label><br />
                     <input type="text"
                         class="actor-field with-select w-30p"
                         value="{{model.occupation_ar}}"
@@ -229,8 +230,7 @@
           <div class="field is-position">
             <span class="i18n with-en with-ar">
                 <div lang="en">
-                  <label>{{i18n.actor.Position_rank}}</label>
-                    <br />
+                  <label>{{i18n.actor.Position_rank}}</label><br />
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.position_en}}"
@@ -239,8 +239,7 @@
 
                 </div>
                 <div lang="ar">
-                    <label>{{i18n.actor.Position_rank}}</label>
-                    <br />
+                    <label>{{i18n.actor.Position_rank}}</label><br />
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.position_ar}}"
@@ -255,9 +254,9 @@
 
           <!-- Ethnicity -->
           <div class="field is-ethnicity">
-            <label>{{i18n.actor.Ethnicity}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
+                    <label>{{i18n.actor.Ethnicity}}</label><br />
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.ethnicity_en}}"
@@ -265,6 +264,7 @@
                         id="actor_ethnicity_en" >
                 </div>
                 <div lang="ar">
+                    <label>{{i18n.actor.Ethnicity}}</label><br />
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.ethnicity_ar}}"
@@ -279,9 +279,9 @@
 
           <!-- Nationality -->
           <div class="field is-nationality">
-            <label>{{i18n.actor.Nationality}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
+                    <label>{{i18n.actor.Nationality}}</label><br />
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.nationality_en}}"
@@ -289,6 +289,7 @@
                         id="actor_nationality_en">
                 </div>
                 <div lang="ar">
+                    <label>{{i18n.actor.Nationality}}</label><br />
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.nationality_ar}}"
@@ -303,9 +304,9 @@
 
           <!-- Religion -->
           <div class="field is-religion">
-            <label>{{i18n.actor.Religion}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
+                    <label>{{i18n.actor.Religion}}</label><br />
                     <input type="text"
                     class="with-select actor-field w-30p"
                     value="{{model.religion_en}}"
@@ -313,6 +314,7 @@
                     id="actor_religion_en" >
                 </div>
                 <div lang="ar">
+                    <label>{{i18n.actor.Religion}}</label><br />
                     <input type="text"
                     class="with-select actor-field w-30p"
                     value="{{model.religion_ar}}"
@@ -327,9 +329,9 @@
 
           <!-- Spoken Dialects -->
           <div class="field is-dialect">
-            <label>{{i18n.actor.Spoken_dialects}}</label>
             <span class="i18n with-en with-ar">
                 <div lang="en">
+                    <label>{{i18n.actor.Spoken_dialects}}</label><br />
                     <input type="text"
                     class="with-select actor-field w-30p"
                     name="spoken_dialect_en"
@@ -337,6 +339,7 @@
                     id="actor_spoken_dialect_en" >
                 </div>
                 <div lang="ar">
+                    <label>{{i18n.actor.Spoken_dialects}}</label><br />
                     <input type="text"
                     class="with-select actor-field w-30p"
                     name="spoken_dialect_ar"
@@ -351,7 +354,7 @@
 
           <!-- Actor Field -->
           <div id="actor-actor-list-block" class="field is-actors">
-            <label>{{i18n.actor.Actors}}</label>
+            <label>{{i18n.actor.Actors}}</label><br />
             <div id="actor-actor-search-block" class="search">
               <input type="text" class="with-clear">
               <button class="do-clear">
