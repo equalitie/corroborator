@@ -228,8 +228,8 @@
           <!-- Position -->
           <div class="field is-position">
             <span class="i18n with-en with-ar">
+                <label>{{i18n.actor.Position_rank}}</label>
                 <div lang="en">
-                  <label>{{i18n.actor.Position_rank}}</label>
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.position_en}}"
@@ -238,7 +238,6 @@
 
                 </div>
                 <div lang="ar">
-                    <label>{{i18n.actor.Position_rank}}</label>
                     <input type="text"
                         class="with-select actor-field w-30p"
                         value="{{model.position_ar}}"
