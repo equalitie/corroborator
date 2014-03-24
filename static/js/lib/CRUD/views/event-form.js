@@ -3,12 +3,12 @@
 // ### Description
 // Display a form to add events to the database and expose and input field
 // with added events to be saved to the records it is related to
-// Composed of three views EventContainerView holds EventFormView and 
+// Composed of three views EventContainerView holds EventFormView and
 // EventDisplayView
 define (
   [
     'jquery', 'backbone', 'underscore',
-    'lib/CRUD/views/form-mixins',   
+    'lib/CRUD/views/form-mixins',
     'lib/CRUD/data/EventCollection',
     'lib/elements/select-option',
     'lib/CRUD/templates/search-templates/event/event-container.tpl',
@@ -119,7 +119,7 @@ define (
         return this;
       }
     });
-    
+
     // ### EventFormView
     // Display the event form
     EventFormView = Backbone.View.extend({
@@ -135,6 +135,7 @@ define (
       sliderFields: {
         confidence_score: { // reliability score ( event )
           sliderDiv : '#bulletin-event-block .score-editor .slider, #incident-event-block .score-editor .slider',
+          display   : '.bulletin_event-cscore',
           formField : 'confidence_score',
           startPoint: 0,
           endPoint  : 100,
@@ -170,7 +171,7 @@ define (
         this.collection.on('edit', this.populateForm, this);
         this.collection.on('destroy', this.checkCurrentModelMatches, this);
       },
-      
+
       // handle click on add event
       addEventRequested: function(evt) {
         evt.preventDefault();
@@ -204,7 +205,7 @@ define (
                 .val(model.get('comments_ar'));
         this.enableWidgets();
       },
-      // check if we are editing the model that is being deleted  
+      // check if we are editing the model that is being deleted
       // empty the form if it is
       checkCurrentModelMatches: function(model) {
         if (_.isEqual(model, this.model)) {
@@ -248,9 +249,9 @@ define (
     // extend the form view with our mixins
     _.extend(EventFormView.prototype, WidgetMixin);
     _.extend(EventFormView.prototype, Formatter);
-    
+
     // ### EventsDisplayView
-    // 
+    //
     EventsDisplayView = Backbone.View.extend({
       childViews: [],
       initialize: function(options) {
@@ -312,7 +313,7 @@ define (
         evt.preventDefault();
         this.collection.trigger('edit', this.model);
       },
-      // remove comment clicked, delete the model and destroy 
+      // remove comment clicked, delete the model and destroy
       // this view
       removeEvent: function(evt) {
         evt.preventDefault();

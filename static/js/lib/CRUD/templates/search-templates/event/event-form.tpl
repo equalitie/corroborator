@@ -45,7 +45,7 @@
 
   <div class="clearer">&nbsp;</div>
   <div class="span-70p">
-    <span class="">
+    <span class="score">
       <span class="bulletin_event-cscore value"></span>
       <input type="hidden" name="confidence_score"
         class="{{entityType}}-field"
