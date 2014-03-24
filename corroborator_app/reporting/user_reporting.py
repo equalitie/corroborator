@@ -48,25 +48,27 @@ class UserReportingApi(object):
         time_data = []
         for key, values in groupby(items, key=lambda item: item['logout'].date()):
 
-            timestamp = time.mktime(key.timetuple())*1e3
+            timestamp = str(key)
             val = 0
             for value in values:
                 val += value['total_seconds']
             val = int(val / 60)    
             time_data.append({
-                'x': timestamp,
-                'y': val
+                'label': timestamp,
+                'value': val,
+                'yAxisLable': user.username
             })
-
+        """
         result_data.append({
             'values': time_data,
             'label': user.username
         })
-
-        if result_data == []:
+        """
+        result_data.append( time_data )
+        if time_data == []:
             return '{"error": "No data elements found."}'
 
-        return self.trend_format_json(result_data, graph_title)
+        return self.trend_format_json(time_data, graph_title)
 
     def user_average_updates_per_hour(self):
         """

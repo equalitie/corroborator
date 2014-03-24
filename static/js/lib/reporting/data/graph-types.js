@@ -194,7 +194,7 @@ define(
       },
       {
         key: 'user_login_per_day',
-        type: 'trend',
+        type: 'bar',
         title: i18n.title.user_login_per_day,
         filter_label: i18n.filters.user_login_per_day,
         user_required: true,
