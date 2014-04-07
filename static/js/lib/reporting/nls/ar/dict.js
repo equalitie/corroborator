@@ -45,7 +45,7 @@ define({
     'crimes': 'الجرائم',
     'type': 'نوع',
     'bulletins_in_time': 'المواد بحسب الزمان',
-    'bulletins_by': 'بحسب التصنيف',
+    'bulletins_by': 'المواد بحسب',
     'incidents_by': 'بحسب الملفات',
     'users_by': 'بحسب المستخدمين',
     'actors_by': 'بحسب الأشخاص',
