@@ -48,6 +48,7 @@ define({
     'CivilianNoncivilian': 'مدني\\غير مدني',
     'Civilian': 'مدني',
     'Noncivilian': 'غير مدني',
+    'Police': 'شرطة',
     'Position_rank': 'المنصب أو الرتبة',
     'Spoken_dialects': 'اللهجات المحكية',
     'Select_a_status_for_this_actor': 'اختر حالة الشخص',

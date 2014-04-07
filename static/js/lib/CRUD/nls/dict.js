@@ -48,6 +48,7 @@ define({
       'CivilianNoncivilian': 'Civilian/Non-civilian',
       'Civilian': 'Civilian',
       'Noncivilian': 'Non-civilian',
+      'Police': 'Police',
       'Position_rank': 'Position/rank',
       'Spoken_dialects': 'Spoken dialects',
       'Select_a_status_for_this_actor': 'Select a status for this actor',

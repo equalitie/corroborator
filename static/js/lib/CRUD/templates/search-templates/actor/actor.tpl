@@ -176,6 +176,9 @@
                   <li class="option">
                     <span data-val="Non-civilian" class="text T">{{i18n.actor.Noncivilian}}</span>
                   </li>
+                  <li class="option">
+                    <span data-val="Police" class="text T">{{i18n.actor.Police}}</span>
+                  </li>
                 </ul>
               </div>
             </div>

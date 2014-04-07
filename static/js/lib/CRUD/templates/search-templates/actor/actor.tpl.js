@@ -190,6 +190,8 @@ function program23(depth0,data) {
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Civilian)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span data-val=\"Non-civilian\" class=\"text T\">"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Noncivilian)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</span>\n                  </li>\n                  <li class=\"option\">\n                    <span data-val=\"Police\" class=\"text T\">"
+    + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Police)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</span>\n                  </li>\n                </ul>\n              </div>\n            </div>\n          </div>\n\n          <!-- Date of birth -->\n          <div class=\"field clear-after is-birthdate field hide-multiple\">\n            <label>"
     + escapeExpression(((stack1 = ((stack1 = ((stack1 = depth0.i18n),stack1 == null || stack1 === false ? stack1 : stack1.actor)),stack1 == null || stack1 === false ? stack1 : stack1.Date_Of_Birth)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</label>\n            <input type=\"text\" name=\"DOB\" value=\"";
