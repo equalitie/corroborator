@@ -157,7 +157,7 @@ function program30(depth0,data) {
 function program32(depth0,data) {
   
   
-  return "\n    <div class=\"is-comments group\">\n    </div>\n    ";
+  return " -->\n    <div class=\"is-comments group\">\n    </div>\n    ";
   }
 
   buffer += "<div class=\"Bulletin in-view\">\n  <div class=\"header\">\n    <span class=\"id\">\n      ID <span class=\"value out\">"
@@ -182,7 +182,7 @@ function program32(depth0,data) {
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n      <div class=\"date-location\">\n        <span class=\"date\">";
   options = {hash:{},data:data};
-  buffer += escapeExpression(((stack1 = helpers.dateFormat || depth0.dateFormat),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_created), options) : helperMissing.call(depth0, "dateFormat", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_created), options)))
+  buffer += escapeExpression(((stack1 = helpers.dateFormatTZ || depth0.dateFormatTZ),stack1 ? stack1.call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_created), options) : helperMissing.call(depth0, "dateFormatTZ", ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_created), options)))
     + "</span>\n        ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.locations), {hash:{},inverse:self.noop,fn:self.program(13, program13, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
@@ -210,7 +210,7 @@ function program32(depth0,data) {
   buffer += "\n    ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.ref_bulletins), {hash:{},inverse:self.noop,fn:self.program(30, program30, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "\n    ";
+  buffer += "\n    <!-- ";
   stack2 = helpers['if'].call(depth0, ((stack1 = depth0.model),stack1 == null || stack1 === false ? stack1 : stack1.bulletin_imported_comments), {hash:{},inverse:self.noop,fn:self.program(32, program32, data),data:data});
   if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  </div>\n</div>\n";

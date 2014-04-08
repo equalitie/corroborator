@@ -26,7 +26,7 @@
     </div>
     <div class="L3">
       <div class="date-location">
-        <span class="date">{{dateFormat model.bulletin_created}}</span>
+        <span class="date">{{dateFormatTZ model.bulletin_created}}</span>
         {{#if model.bulletin_locations}}
           {{i18n.bulletins.in}} 
           <span class="location">

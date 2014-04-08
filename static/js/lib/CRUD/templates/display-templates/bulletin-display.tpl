@@ -32,7 +32,7 @@
       </div>
       {{/if}}
       <div class="date-location">
-        <span class="date">{{dateFormat model.bulletin_created}}</span>
+        <span class="date">{{dateFormatTZ model.bulletin_created}}</span>
         {{#if model.locations}}
          {{i18n.bulletin.in}} <span class="location">{{commaSeparatedList list=model.locations}}</span>
         {{/if}}
