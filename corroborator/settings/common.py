@@ -5,7 +5,7 @@ import djcelery
 djcelery.setup_loader()
 DEBUG = True
 
-SOLR_URL = 'http://localhost/solr/collection1/select'
+SOLR_URL = 'http://demohack.corroborator.org/solr/collection1/select'
 SOLR_PROXY_URL = '/corroborator/solrproxy/'
 #Solr update refresh window in minutes
 SOLR_REFRESH_WINDOW = 100
@@ -26,9 +26,9 @@ MEDIA_URL = S3_URL + '/'
 MEDIA_READ_URL = S3_URL_READ + '/'
 S3_PROXY_URL = '/corroborator/aws/'
 
-CORROBORATOR_LOGIN_TIMEOUT = 30
+CORROBORATOR_LOGIN_TIMEOUT = 60 * 60 * 4
 #SESSION_COOKIE_AGE = 10
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 TEMPLATE_DEBUG = DEBUG
 
