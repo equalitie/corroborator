@@ -18,7 +18,7 @@
   </div>
   <div class="L3">
     <div class="date-location">
-      <span class="date">{{dateFormat model.incident_created}}</span> in <span class="location">Damas, Syriah</span>
+      <span class="date">{{dateFormatTZ model.incident_created}}</span> in <span class="location">Damas, Syriah</span>
     </div>
   </div>
   {{#if model.result }}
