@@ -155,7 +155,17 @@ define (
       return formattedContext;
     });
 
-    Handlebars.registerHelper('dateTimeFormat', function(context, block) {
+    Handlebars.registerHelper('dateFormatTZ', function(context, block) {
+      var formattedContext = context;
+      moment.lang(Bootstrap.locale);
+      if (moment && formattedContext !== undefined) {
+        var f = block.hash.format || "MMM Do, YYYY";
+        formattedContext =  moment(context).utc().local().format(f);
+      }
+      return formattedContext;
+    });
+
+   Handlebars.registerHelper('dateTimeFormat', function(context, block) {
       var formattedContext = context;
       if (moment && formattedContext) {
         var f = block.hash.format || "YYYY-MM-DD HH:mm:ss";
