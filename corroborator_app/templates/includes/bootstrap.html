@@ -47,6 +47,9 @@
         });
     {% endfor %}
     {% for pds in predefined_search_set %}
+      {% if "[{" not in pds.actor_filters %} 
+               // skipped {{pds.search_title}}
+      {% else %}
         predefined_list.push({
             search_title:     "{{pds.search_title}}",
             search_string:    '{{pds.search_string}}',
@@ -63,6 +66,7 @@
             search_request:   "predefined_search",
             type:             "predefined_search"
         });
+      {% endif %}
     {% endfor %}
     {%for sex in sexes_set %}
       sexes.push({ 
